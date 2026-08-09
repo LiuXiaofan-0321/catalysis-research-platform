@@ -1,0 +1,28 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    env_file:
+      - .env
+    environment:
+      PORT: 3001
+      DATABASE_URL: file:/app/storage/dev.db
+      FRONTEND_ORIGIN: http://localhost:5173
+      IMPORT_DATASETS_ON_START: ${IMPORT_DATASETS_ON_START:-true}
+    volumes:
+      - catalysis_db:/app/storage
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+    restart: unless-stopped
+
+volumes:
+  catalysis_db:

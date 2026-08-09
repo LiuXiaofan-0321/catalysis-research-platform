@@ -1,0 +1,35 @@
+{
+  "name": "catalysis-research-platform-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "db:push": "dotenv -e ../.env -- prisma db push",
+    "bootstrap": "ts-node src/scripts/bootstrap.ts",
+    "import:dataset": "ts-node src/scripts/importDataset.ts",
+    "package:dataset": "ts-node src/scripts/packageDataset.ts",
+    "check": "ts-node src/scripts/checkGraph.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "adm-zip": "^0.5.16",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.7",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.19.7",
+    "dotenv-cli": "^10.0.0",
+    "nodemon": "^3.1.14",
+    "prisma": "^5.22.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

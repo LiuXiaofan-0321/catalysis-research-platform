@@ -1,0 +1,17 @@
+{
+  "name": "catalysis-research-platform",
+  "private": true,
+  "scripts": {
+    "install:all": "npm --prefix backend install && npm --prefix frontend install",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "setup": "npm run install:all && npm --prefix backend run db:push && npm run bootstrap && npm run import:photocatalysis && npm run import:thermal",
+    "bootstrap": "npm --prefix backend run bootstrap",
+    "import:photocatalysis": "npm --prefix backend run import:dataset -- --input ../data/photocatalysis-stage1.zip --system photocatalysis",
+    "import:thermal": "npm --prefix backend run import:dataset -- --input ../data/thermal-catalysis-stage1.zip --system thermal_catalysis"
+  },
+  "engines": {
+    "node": ">=20.19 <23"
+  }
+}
