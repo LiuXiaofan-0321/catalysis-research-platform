@@ -457,17 +457,21 @@ Reviewer Agent。
 - extracted text SHA；
 - token usage；
 - dataset corpus fingerprint；
-- Git repository。
+- Git repository；
+- frozen `K247-photocatalysis-v1` snapshot ID、hash、paper list、artifact hashes
+  和 graph statistics；
+- `run_manifest.v1` schema、immutable run directory、artifact SHA256、
+  `FINALIZED.json` 和 run verification CLI；
+- exact Git commit/tree/branch/dirty state；
+- model、prompt、KG、retrieval、dataset、split、downstream ML、metrics、
+  errors、runtime 和 manual intervention provenance。
 
 当前缺少：
 
 - dataset registry；
 - imported manifest registry；
-- KG snapshot ID 和 hash；
 - prompt file hash；
 - experiment config hash；
-- complete run manifest；
-- immutable run directory；
 - model revision；
 - environment lock；
 - dependency lock for research；
@@ -509,11 +513,17 @@ Reviewer Agent。
 
 生产 backend 和 frontend 当前没有单元测试、集成测试或端到端测试。
 
-新建 research 层当前有 3 个基础测试，仅验证：
+新建 research 层当前有 19 个测试，覆盖：
 
 - research 目录契约；
 - 缺失目录会失败；
-- `doctor` 输出机器可读 JSON。
+- `doctor` 输出机器可读 JSON；
+- K247 snapshot hash、paper/node/edge identity 和篡改检测；
+- completed/failed/running run lifecycle；
+- run 终态不可变、dirty Git 拒绝和非法 run ID 拒绝；
+- scientific artifact、manifest 和 finalization hash 校验；
+- 缺失输出、重复写入、未登记文件和创建失败清理；
+- Run Manifest CLI create/verify。
 
 尚未测试：
 
@@ -522,7 +532,7 @@ Reviewer Agent。
 - KG node/edge mapping；
 - retrieval determinism；
 - model structured output；
-- experiment reproducibility；
+- full pipeline replay；
 - descriptor execution；
 - leakage protection。
 
@@ -530,9 +540,6 @@ Reviewer Agent。
 
 必须新增：
 
-- frozen experiment protocol；
-- complete run provenance；
-- rebuildable KG snapshots；
 - model provider abstraction；
 - fixed prompt families；
 - descriptor schema、generation、execution 和 failure ledger；

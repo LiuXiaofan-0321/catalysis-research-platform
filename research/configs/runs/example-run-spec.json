@@ -1,0 +1,44 @@
+{
+  "condition_id": "M1-K247-evidence-seed17",
+  "dataset": {
+    "dataset_id": "public-dataset-not-yet-activated",
+    "dataset_hash": "replace-before-outcome-bearing-run",
+    "version": "example"
+  },
+  "downstream_model": {
+    "library": "scikit-learn",
+    "model": "Ridge",
+    "version": "replace-before-outcome-bearing-run"
+  },
+  "experiment_id": "example-model-knowledge-run",
+  "hyperparameters": {
+    "alpha": 1.0
+  },
+  "kg_hash": "df414e70e4b2ca6ad999e6fa69c1c26a60316b3b7c2eb9d01ee3f6df4f1246b6",
+  "kg_snapshot": "K247-photocatalysis-v1",
+  "model_name": "replace-with-registered-model",
+  "model_provider": "replace-with-provider",
+  "model_version": "replace-with-model-version",
+  "prompt_hash": "replace-with-prompt-hash",
+  "prompt_version": "descriptor-generation-v1",
+  "protocol": {
+    "protocol_id": "catalysis-model-knowledge-scaling.v1",
+    "status": "example-only"
+  },
+  "reasoning_budget": {
+    "class": "standard",
+    "provider_value": "replace-before-run"
+  },
+  "retrieval_configuration": {
+    "canonical_evidence_budget": 12000,
+    "model_visible_evidence_limit": 18
+  },
+  "retrieval_mode": "evidence_kg",
+  "seed": 17,
+  "split": {
+    "split_hash": "replace-before-outcome-bearing-run",
+    "split_id": "example-ood-v1"
+  },
+  "task_id": "example-thermocatalysis-task",
+  "temperature": 0.2
+}

@@ -1,0 +1,264 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "run-manifest.schema.json",
+  "title": "Catalysis Research Run Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "status",
+    "created_at",
+    "updated_at",
+    "git_commit",
+    "git_tree",
+    "git_branch",
+    "git_dirty",
+    "model_provider",
+    "model_name",
+    "model_version",
+    "temperature",
+    "seed",
+    "reasoning_budget",
+    "prompt_version",
+    "kg_snapshot",
+    "kg_hash",
+    "retrieval_mode",
+    "retrieved_evidence",
+    "hypothesis",
+    "descriptors",
+    "raw_model_output",
+    "structured_output",
+    "dataset",
+    "split",
+    "downstream_model",
+    "hyperparameters",
+    "metrics",
+    "errors",
+    "runtime",
+    "artifacts",
+    "manual_interventions",
+    "manifest_content_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "run_manifest.v1"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+$"
+    },
+    "status": {
+      "enum": [
+        "running",
+        "completed",
+        "failed"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "experiment_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "condition_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "task_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "protocol": {
+      "type": "object"
+    },
+    "git_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "git_tree": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "git_branch": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "git_dirty": {
+      "type": "boolean"
+    },
+    "model_provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "temperature": {
+      "type": "number"
+    },
+    "seed": {
+      "type": "integer"
+    },
+    "reasoning_budget": {},
+    "prompt_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "prompt_hash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "kg_snapshot": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kg_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "retrieval_mode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retrieval_configuration": {
+      "type": "object"
+    },
+    "retrieved_evidence": {
+      "$ref": "#/$defs/nullableArtifact"
+    },
+    "hypothesis": {
+      "$ref": "#/$defs/nullableArtifact"
+    },
+    "descriptors": {
+      "$ref": "#/$defs/nullableArtifact"
+    },
+    "raw_model_output": {
+      "$ref": "#/$defs/nullableArtifact"
+    },
+    "structured_output": {
+      "$ref": "#/$defs/nullableArtifact"
+    },
+    "dataset": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "split": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "downstream_model": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "hyperparameters": {
+      "type": "object"
+    },
+    "metrics": {
+      "type": "object"
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "timestamp",
+          "stage",
+          "type",
+          "message",
+          "traceback"
+        ]
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "started_at",
+        "finished_at",
+        "duration_seconds",
+        "host",
+        "platform",
+        "python_version",
+        "process_id",
+        "stages"
+      ]
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/artifact"
+      }
+    },
+    "manual_interventions": {
+      "type": "array"
+    },
+    "manifest_content_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "bytes",
+        "media_type"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "media_type": {
+          "enum": [
+            "application/json",
+            "text/plain"
+          ]
+        }
+      }
+    },
+    "nullableArtifact": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/artifact"
+        }
+      ]
+    }
+  }
+}

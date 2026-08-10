@@ -49,16 +49,22 @@ npm run research:doctor
 npm run research:test
 ```
 
-The `doctor` command validates the directory contract and the four required
+The `doctor` command validates the directory contract and the five required
 methodology documents, then prints a machine-readable JSON report. It does not
 access model APIs or mutate data.
 
+Run Manifest commands are available through:
+
+```bash
+python research/scripts/research.py run --help
+```
+
 ## Current Scope
 
-This first scaffold establishes the research boundary and repository-level
-experiment protocol. Run provenance, KG snapshot versioning, model providers,
-descriptors, benchmarks, and evaluation pipelines will be implemented as
-separate reviewed modules.
+The research boundary, repository-level experiment protocol, K247 knowledge
+snapshot, and immutable Run Manifest infrastructure are implemented. Model
+providers, descriptors, benchmarks, and evaluation pipelines will be added as
+separate reviewed modules and must use the Run Manifest API.
 
 The frozen protocol is maintained in `../EXPERIMENT_PROTOCOL.md`. It remains
 blocked from activation until the exact public predictive dataset, model

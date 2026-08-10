@@ -7,6 +7,17 @@ from typing import Sequence
 
 from .kg.freeze_stage1 import freeze_stage1_archive, verify_snapshot
 from .layout import REQUIRED_DIRECTORIES, inspect_layout
+from .provenance.run_manifest import (
+    OUTPUT_FIELDS,
+    RunManifestError,
+    complete_run,
+    create_run,
+    fail_run,
+    load_manifest,
+    record_artifact,
+    record_error,
+    verify_run,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -54,6 +65,85 @@ def build_parser() -> argparse.ArgumentParser:
         help="Verify all frozen snapshot artifact hashes.",
     )
     verify_parser.add_argument("--snapshot", type=Path, required=True)
+    run_parser = subparsers.add_parser(
+        "run",
+        help="Create, update, finalize, and verify immutable run manifests.",
+    )
+    run_subparsers = run_parser.add_subparsers(
+        dest="run_command",
+        required=True,
+    )
+    create_parser = run_subparsers.add_parser(
+        "create",
+        help="Create a new running manifest from a JSON run spec.",
+    )
+    create_parser.add_argument("--config", type=Path, required=True)
+    create_parser.add_argument(
+        "--runs-root",
+        type=Path,
+        default=Path("research/runs"),
+    )
+    create_parser.add_argument(
+        "--repository-root",
+        type=Path,
+        default=Path("."),
+    )
+    create_parser.add_argument("--run-id")
+    create_parser.add_argument("--allow-dirty", action="store_true")
+
+    record_parser = run_subparsers.add_parser(
+        "record",
+        help="Record one immutable run artifact.",
+    )
+    record_parser.add_argument("--run", type=Path, required=True)
+    record_parser.add_argument(
+        "--field",
+        choices=sorted(OUTPUT_FIELDS),
+        required=True,
+    )
+    record_parser.add_argument("--input", type=Path, required=True)
+    record_parser.add_argument(
+        "--format",
+        choices=("json", "text"),
+        default="json",
+    )
+
+    error_parser = run_subparsers.add_parser(
+        "error",
+        help="Append a non-final error to a running manifest.",
+    )
+    error_parser.add_argument("--run", type=Path, required=True)
+    error_parser.add_argument("--stage", required=True)
+    error_parser.add_argument("--type", default="RunError")
+    error_parser.add_argument("--message", required=True)
+
+    complete_parser = run_subparsers.add_parser(
+        "complete",
+        help="Finalize a run as completed using a metrics JSON file.",
+    )
+    complete_parser.add_argument("--run", type=Path, required=True)
+    complete_parser.add_argument("--metrics", type=Path, required=True)
+
+    fail_parser = run_subparsers.add_parser(
+        "fail",
+        help="Finalize a run as failed.",
+    )
+    fail_parser.add_argument("--run", type=Path, required=True)
+    fail_parser.add_argument("--stage", required=True)
+    fail_parser.add_argument("--type", default="RunError")
+    fail_parser.add_argument("--message", required=True)
+
+    run_verify_parser = run_subparsers.add_parser(
+        "verify",
+        help="Verify manifest, finalization, and artifact hashes.",
+    )
+    run_verify_parser.add_argument("--run", type=Path, required=True)
+
+    show_parser = run_subparsers.add_parser(
+        "show",
+        help="Print a run manifest.",
+    )
+    show_parser.add_argument("--run", type=Path, required=True)
     return parser
 
 
@@ -96,6 +186,98 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
         )
         return 0 if report["valid"] else 1
+
+    if args.command == "run":
+        try:
+            if args.run_command == "create":
+                spec = json.loads(
+                    args.config.read_text(encoding="utf-8")
+                )
+                result = create_run(
+                    runs_root=args.runs_root,
+                    spec=spec,
+                    repository_root=args.repository_root,
+                    allow_dirty=args.allow_dirty,
+                    run_id=args.run_id,
+                )
+                output = {
+                    "run_id": result["run_id"],
+                    "run_directory": result["run_directory"],
+                    "manifest_content_hash": result["manifest"][
+                        "manifest_content_hash"
+                    ],
+                }
+            elif args.run_command == "record":
+                if args.format == "json":
+                    value = json.loads(
+                        args.input.read_text(encoding="utf-8")
+                    )
+                    media_type = "application/json"
+                else:
+                    value = args.input.read_text(encoding="utf-8")
+                    media_type = "text/plain"
+                output = record_artifact(
+                    run_directory=args.run,
+                    field=args.field,
+                    value=value,
+                    media_type=media_type,
+                )
+            elif args.run_command == "error":
+                output = record_error(
+                    run_directory=args.run,
+                    stage=args.stage,
+                    error_type=args.type,
+                    message=args.message,
+                )
+            elif args.run_command == "complete":
+                output = complete_run(
+                    run_directory=args.run,
+                    metrics=json.loads(
+                        args.metrics.read_text(encoding="utf-8")
+                    ),
+                )
+            elif args.run_command == "fail":
+                output = fail_run(
+                    run_directory=args.run,
+                    stage=args.stage,
+                    error_type=args.type,
+                    message=args.message,
+                )
+            elif args.run_command == "show":
+                output = load_manifest(args.run)
+            else:
+                output = verify_run(args.run)
+                print(
+                    json.dumps(
+                        output,
+                        ensure_ascii=False,
+                        indent=2,
+                        sort_keys=True,
+                    )
+                )
+                return 0 if output["valid"] else 1
+        except (RunManifestError, OSError, json.JSONDecodeError) as error:
+            print(
+                json.dumps(
+                    {
+                        "ok": False,
+                        "error": str(error),
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 1
+        print(
+            json.dumps(
+                output,
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 0
 
     status = inspect_layout(args.root)
     print(json.dumps(status, ensure_ascii=False, indent=2, sort_keys=True))

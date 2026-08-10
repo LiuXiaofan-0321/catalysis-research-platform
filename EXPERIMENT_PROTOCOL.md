@@ -1196,7 +1196,7 @@ PNG/PDF figures
 - [ ] Prompt family/version frozen
 - [ ] Ridge grid and preprocessing frozen
 - [ ] K20/K40/K60/K80/K100 manifests built
-- [ ] Run manifest implementation verified
+- [x] Run manifest implementation verified
 - [ ] Private firewall owner and evaluator identified
 - [ ] Protocol JSON lock hash generated
 

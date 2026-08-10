@@ -52,6 +52,12 @@ research/kg_snapshots/K247-photocatalysis-v1
 npm run research:verify:k247
 ```
 
+统一 Run Manifest：
+
+```bash
+python research/scripts/research.py run --help
+```
+
 ## 研究方法文档
 
 - `CURRENT_ARCHITECTURE.md`：当前代码、数据流和真实能力；

@@ -194,15 +194,16 @@ python research/scripts/research.py protocol lock \
 
 ## 5. Module B：Run Manifest and Immutable Runs
 
-### 新增文件
+状态：`IMPLEMENTED / PIPELINE_INTEGRATION_PENDING`
+
+### 已实现文件
 
 ```text
-research/src/catalysis_research/hashing.py
-research/src/catalysis_research/provenance/git_state.py
-research/src/catalysis_research/provenance/environment.py
 research/src/catalysis_research/provenance/run_manifest.py
 research/manifests/schemas/run-manifest.schema.json
-research/tests/provenance/test_run_manifest.py
+research/manifests/README.md
+research/configs/runs/example-run-spec.json
+research/tests/test_run_manifest.py
 ```
 
 ### Run 目录
@@ -210,53 +211,86 @@ research/tests/provenance/test_run_manifest.py
 ```text
 research/runs/<run_id>/
   manifest.json
-  config.json
-  request.json
-  raw_response.json
-  parsed_response.json
+  retrieved_evidence.json
+  hypothesis.json
   descriptors.json
-  metrics.json
-  failures.jsonl
-  stdout.log
-  stderr.log
+  raw_model_output.json|txt
+  structured_output.json
+  FINALIZED.json
 ```
 
-### 核心 schema
+大体量 scientific outputs 独立保存，manifest 中记录 relative path、SHA256、
+byte count 和 media type。`FINALIZED.json` 锚定终态 manifest hash。
+
+### 核心字段
 
 ```json
 {
   "run_id": "",
   "status": "running|completed|failed",
   "created_at": "",
-  "protocol_hash": "",
   "git_commit": "",
   "git_dirty": false,
-  "environment_hash": "",
-  "config_hash": "",
-  "model": {},
-  "prompt": {},
-  "kg_snapshot": {},
-  "retrieval": {},
+  "model_provider": "",
+  "model_name": "",
+  "model_version": "",
+  "temperature": 0,
+  "seed": 0,
+  "reasoning_budget": {},
+  "prompt_version": "",
+  "kg_snapshot": "",
+  "kg_hash": "",
+  "retrieval_mode": "",
+  "retrieved_evidence": {},
+  "hypothesis": {},
+  "descriptors": {},
+  "raw_model_output": {},
+  "structured_output": {},
   "dataset": {},
   "split": {},
-  "seed": 0,
-  "descriptor_budget": 10,
-  "outputs": {},
+  "downstream_model": {},
+  "hyperparameters": {},
   "metrics": {},
   "errors": [],
-  "manual_interventions": []
+  "runtime": {},
+  "manual_interventions": [],
+  "manifest_content_hash": ""
 }
 ```
 
 ### 接口
 
 ```python
-def create_run(config: RunConfig) -> RunContext
-def append_artifact(run: RunContext, name: str, value: object) -> ArtifactRef
-def complete_run(run: RunContext, metrics: dict) -> None
-def fail_run(run: RunContext, error: BaseException) -> None
+def create_run(*, runs_root: Path, spec: dict, repository_root: Path) -> dict
+def record_artifact(*, run_directory: Path, field: str, value: object) -> dict
+def record_error(*, run_directory: Path, stage: str, error: BaseException) -> dict
+def record_runtime_stage(*, run_directory: Path, stage: str, duration_seconds: float) -> None
+def complete_run(*, run_directory: Path, metrics: dict) -> dict
+def fail_run(*, run_directory: Path, stage: str, error: BaseException) -> dict
 def verify_run(run_dir: Path) -> VerificationReport
 ```
+
+### CLI
+
+```bash
+python research/scripts/research.py run create --config <run-spec>
+python research/scripts/research.py run record --run <run-dir> --field <field> --input <file>
+python research/scripts/research.py run error --run <run-dir> --stage <stage> --message <message>
+python research/scripts/research.py run complete --run <run-dir> --metrics <metrics.json>
+python research/scripts/research.py run fail --run <run-dir> --stage <stage> --message <message>
+python research/scripts/research.py run verify --run <run-dir>
+python research/scripts/research.py run show --run <run-dir>
+```
+
+### 验收状态
+
+- [x] every required traceability field is represented；
+- [x] completed and failed runs are retained；
+- [x] finalized runs reject API mutation；
+- [x] artifact、manifest、finalization tampering is detectable；
+- [x] dirty Git worktree is rejected by default；
+- [x] CLI create/verify is covered by tests；
+- [ ] downstream modules must adopt this API before outcome-bearing runs。
 
 ### CLI
 

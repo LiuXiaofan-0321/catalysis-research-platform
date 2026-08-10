@@ -47,11 +47,11 @@ Literature
 | Model abstraction | 低 | DeepSeek 硬编码 |
 | Descriptor discovery | 缺失 | 论文主线无法成立 |
 | Downstream ML | 缺失 | 无法量化 representation utility |
-| Experiment manifest | 缺失 | 无法严格复现 |
-| KG scaling | 缺失 | `K` 尚未成为受控变量 |
+| Experiment manifest | 中 | immutable manifest、artifact hash 和 CLI 已实现，尚未接入完整实验流水线 |
+| KG scaling | 低至中 | K247 已冻结为首个真实点，nested scaling builder 尚未实现 |
 | Statistical analysis | 缺失 | 无法支持 scaling claim |
-| Private blind validation | 缺失 | 最强外部验证尚无 firewall |
-| 自动测试 | 低 | 只有 research 骨架测试 |
+| Private blind validation | 低 | firewall 协议已冻结，独立 evaluator 和执行工具尚未实现 |
+| 自动测试 | 低至中 | research layout、K247 freeze 和 Run Manifest 已覆盖 |
 
 ## 3. P0：论文主线成立前必须完成
 
@@ -82,32 +82,35 @@ Literature
 
 ### P0-2 Complete Run Provenance
 
-当前缺口：
+当前状态：
 
-`ResearchAdviceRun` 只保存部分 request、context、normalized response、model 和
-usage。
+`research/src/catalysis_research/provenance/run_manifest.py` 已实现
+`run_manifest.v1`。每个 run 独立保存 manifest、SHA256-addressed scientific
+artifacts 和 `FINALIZED.json`；completed/failed run 终态不可变，dirty Git
+默认禁止，CLI 可创建、记录、完成、失败、展示和验证 run。
 
-必须记录：
+已记录：
 
 - run ID、time、Git commit、dirty state；
-- code/config/prompt hashes；
+- Git tree/branch、prompt version/hash；
 - provider/model/revision；
 - temperature、seed、token/reasoning budget；
-- agent configuration；
 - KG snapshot ID/hash；
 - retrieval configuration 和 evidence IDs；
 - raw and parsed outputs；
-- descriptor specs 和 executable code hash；
-- dataset/split hashes；
+- hypothesis 和 descriptor artifacts；
+- dataset/split identity and hashes；
 - downstream model configuration；
 - metrics、warnings、errors、manual interventions。
 
-验收：
+当前验收：
 
-- 一个 run 目录可单独审计；
-- 同一 manifest 可重放；
-- completed run 不允许原地覆盖；
-- failed run 同样保留。
+- [x] 一个 run 目录可单独审计；
+- [x] completed run 不允许通过 API 原地覆盖；
+- [x] failed run 同样保留；
+- [x] artifact、manifest 和 finalization 篡改可检测；
+- [ ] model、retrieval、descriptor、dataset 和 evaluation modules 全部接入；
+- [ ] 实现基于 manifest 的 end-to-end replay。
 
 ### P0-3 KG Snapshot and Versioning
 
