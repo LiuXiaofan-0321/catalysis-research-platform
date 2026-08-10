@@ -220,6 +220,19 @@ Photocatalysis 作为 secondary cross-domain/transfer analysis，不进入 prima
 knowledge-scaling endpoint，除非在第一个 outcome-bearing run 前通过 protocol
 amendment 明确提升为 co-primary。
 
+当前已冻结第一个绝对知识规模锚点：
+
+```text
+K247-photocatalysis-v1
+paper count: 247
+```
+
+该 snapshot 是后续 absolute-size scaling curve 的第一个真实实验点，不允许被
+更大或更新的光催化语料覆盖。任何修正必须创建新的 snapshot version。
+
+`K20/K40/K60/K80/K100` 是 within-corpus nested fraction aliases。所有论文图表
+同时报告 exact absolute paper count 和 snapshot ID，不能只报告模糊的百分比。
+
 ### 5.2 Knowledge Coverage
 
 Coverage 是被测量的 mediator，不是根据 test outcome 优化的变量。
@@ -1192,3 +1205,4 @@ PNG/PDF figures
 | Version | Date | Change | Outcome seen before change? | Impact |
 | --- | --- | --- | --- | --- |
 | v1 | 2026-08-10 | Initial protocol freeze | No Model x KG outcome exists | Establishes rules and activation blockers |
+| v1.1 | 2026-08-10 | Registers immutable `K247-photocatalysis-v1` as the first absolute-size scaling anchor | No Model x KG outcome exists | Preserves the current 247-paper corpus as a permanent experimental point |

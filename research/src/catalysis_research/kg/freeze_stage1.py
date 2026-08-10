@@ -221,6 +221,16 @@ def _write_jsonl_gzip(path: Path, rows: Iterable[dict[str, Any]]) -> None:
                     output.write("\n")
 
 
+def _read_jsonl(path: Path) -> list[dict[str, Any]]:
+    with path.open("r", encoding="utf-8") as source:
+        return [json.loads(line) for line in source if line.strip()]
+
+
+def _read_jsonl_gzip(path: Path) -> list[dict[str, Any]]:
+    with gzip.open(path, "rt", encoding="utf-8") as source:
+        return [json.loads(line) for line in source if line.strip()]
+
+
 def _git_state(repository_root: Path) -> dict[str, Any]:
     def run(*args: str) -> str:
         return subprocess.run(
@@ -982,6 +992,83 @@ def verify_snapshot(snapshot_directory: Path) -> dict[str, Any]:
     if expected_content_hash != manifest.get("snapshot_content_hash"):
         failures.append("Snapshot content hash mismatch")
 
+    papers_path = snapshot_directory / manifest["artifacts"]["papers"]["path"]
+    paper_ids_path = (
+        snapshot_directory / manifest["artifacts"]["paper_ids"]["path"]
+    )
+    nodes_path = snapshot_directory / manifest["artifacts"]["nodes"]["path"]
+    edges_path = snapshot_directory / manifest["artifacts"]["edges"]["path"]
+
+    papers = _read_jsonl(papers_path)
+    paper_ids = [
+        line.strip()
+        for line in paper_ids_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    nodes = _read_jsonl_gzip(nodes_path)
+    edges = _read_jsonl_gzip(edges_path)
+
+    if len(papers) != manifest["paper_count"]:
+        failures.append("Paper count does not match manifest")
+    if len(paper_ids) != manifest["paper_count"]:
+        failures.append("Paper ID count does not match manifest")
+    if paper_ids != [paper["paper_id"] for paper in papers]:
+        failures.append("Paper ID list does not match papers.jsonl ordering")
+    if len(set(paper_ids)) != len(paper_ids):
+        failures.append("Duplicate paper IDs detected")
+    if len({paper["raw_pdf_sha256"] for paper in papers}) != manifest[
+        "raw_pdf_hash_count"
+    ]:
+        failures.append("Raw PDF hash count does not match manifest")
+    if len({paper["structured_json_sha256"] for paper in papers}) != manifest[
+        "structured_json_hash_count"
+    ]:
+        failures.append("Structured JSON hash count does not match manifest")
+
+    node_ids = [node["id"] for node in nodes]
+    edge_ids = [edge["id"] for edge in edges]
+    if len(nodes) != manifest["graph"]["node_count"]:
+        failures.append("Node count does not match manifest")
+    if len(edges) != manifest["graph"]["edge_count"]:
+        failures.append("Edge count does not match manifest")
+    if len(set(node_ids)) != len(node_ids):
+        failures.append("Duplicate node IDs detected")
+    if len(set(edge_ids)) != len(edge_ids):
+        failures.append("Duplicate edge IDs detected")
+
+    node_id_set = set(node_ids)
+    dangling_edges = [
+        edge["id"]
+        for edge in edges
+        if edge["from_node_id"] not in node_id_set
+        or edge["to_node_id"] not in node_id_set
+    ]
+    if dangling_edges:
+        failures.append(f"Dangling edges detected: {len(dangling_edges)}")
+
+    node_type_distribution = dict(
+        sorted(Counter(node["node_type"] for node in nodes).items())
+    )
+    relation_distribution = dict(
+        sorted(Counter(edge["edge_type"] for edge in edges).items())
+    )
+    if node_type_distribution != manifest["graph"]["node_type_distribution"]:
+        failures.append("Node type distribution does not match manifest")
+    if relation_distribution != manifest["graph"]["relation_distribution"]:
+        failures.append("Relation distribution does not match manifest")
+
+    source_archive_path = (
+        snapshot_directory.parents[2] / manifest["source_archive"]["path"]
+    )
+    source_archive_valid: bool | None = None
+    if source_archive_path.is_file():
+        source_archive_valid = (
+            sha256_file(source_archive_path)
+            == manifest["source_archive"]["sha256"]
+        )
+        if not source_archive_valid:
+            failures.append("Source archive hash mismatch")
+
     return {
         "snapshot_id": manifest.get("snapshot_id"),
         "valid": not failures,
@@ -990,4 +1077,7 @@ def verify_snapshot(snapshot_directory: Path) -> dict[str, Any]:
         "paper_count": manifest.get("paper_count"),
         "node_count": manifest.get("graph", {}).get("node_count"),
         "edge_count": manifest.get("graph", {}).get("edge_count"),
+        "relation_distribution": relation_distribution,
+        "dangling_edge_count": len(dangling_edges),
+        "source_archive_valid": source_archive_valid,
     }

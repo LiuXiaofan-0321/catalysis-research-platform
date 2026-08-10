@@ -1,0 +1,44 @@
+{
+  "description": "Frozen projection of Stage 1 catalysis artifacts using the current production graph semantics.",
+  "global_node_types": [
+    "entity",
+    "keyword"
+  ],
+  "node_types": [
+    "paper",
+    "entity",
+    "keyword",
+    "experiment",
+    "observation",
+    "claim"
+  ],
+  "ontology_version": "catalysis_evidence_graph.v1",
+  "paper_scoped_node_types": [
+    "paper",
+    "experiment",
+    "observation",
+    "claim"
+  ],
+  "provenance_fields": [
+    "source_document_id",
+    "source_record_type",
+    "source_record_id",
+    "evidence",
+    "confidence",
+    "review_status"
+  ],
+  "relation_types": [
+    "PAPER_MENTIONS_ENTITY",
+    "PAPER_HAS_KEYWORD",
+    "PAPER_REPORTS_EXPERIMENT",
+    "EXPERIMENT_USES_SAMPLE",
+    "EXPERIMENT_USES_MATERIAL",
+    "EXPERIMENT_USES_METHOD",
+    "EXPERIMENT_PRODUCES_OBSERVATION",
+    "PAPER_REPORTS_OBSERVATION",
+    "OBSERVATION_OF_SAMPLE",
+    "OBSERVATION_MEASURES_PROPERTY",
+    "OBSERVATION_MEASURED_BY",
+    "PAPER_ASSERTS_CLAIM"
+  ]
+}

@@ -40,6 +40,18 @@ npm run research:doctor
 npm run research:test
 ```
 
+当前已冻结光催化知识点：
+
+```text
+research/kg_snapshots/K247-photocatalysis-v1
+```
+
+验证冻结内容：
+
+```bash
+npm run research:verify:k247
+```
+
 ## 研究方法文档
 
 - `CURRENT_ARCHITECTURE.md`：当前代码、数据流和真实能力；

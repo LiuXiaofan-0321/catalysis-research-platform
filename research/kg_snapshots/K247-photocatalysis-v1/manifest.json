@@ -1,0 +1,141 @@
+{
+  "artifacts": {
+    "edges": {
+      "count": 23423,
+      "path": "edges.jsonl.gz",
+      "sha256": "33f9a2fd69d8f74abd34583137c21e5e56b54ac8f4dd7ee534d376aa2d1d41fa"
+    },
+    "nodes": {
+      "count": 10503,
+      "path": "nodes.jsonl.gz",
+      "sha256": "1e68d61c42f9c5a211c13c4c9b0730e1804d767fbbc92a67e133e09ad2c3ecc5"
+    },
+    "ontology": {
+      "path": "ontology.json",
+      "sha256": "b38a0f4ffa7bcad483e13c1efc0347d5dd9cf6457ede67e78a7465557d1ef166"
+    },
+    "paper_ids": {
+      "count": 247,
+      "path": "paper_ids.txt",
+      "sha256": "6f578560f198c599abc694f5593aff07f27f60bb1a10632874e1b9513b753031"
+    },
+    "papers": {
+      "count": 247,
+      "path": "papers.jsonl",
+      "sha256": "eb8173b1721dba0dbf61d5fef7a9a2c74a94174eec6f32bb9e760790d3fd4e56"
+    }
+  },
+  "domain": "photocatalysis",
+  "extraction": {
+    "evidence_validation_distribution": {
+      "exact": 9207,
+      "locally_recovered": 19,
+      "unverified": 383
+    },
+    "extraction_models": {
+      "deepseek-v4-flash": 247
+    },
+    "extraction_schema_versions": {
+      "zeolite_paper_extraction.v1": 247
+    },
+    "extraction_timestamp_max": "2026-08-06T15:03:54.389602+00:00",
+    "extraction_timestamp_min": "2026-07-31T09:44:55.348161+00:00",
+    "prompt_versions": {
+      "zeolite-paper-extraction-v1.1": 247
+    },
+    "requested_models": {
+      "deepseek-v4-flash": 247
+    }
+  },
+  "frozen_at": "2026-08-10T06:54:56.917769+00:00",
+  "generation": {
+    "allowed_systems": [
+      "both",
+      "photocatalysis"
+    ],
+    "code": {
+      "branch": "main",
+      "commit": "4e94e3506a431844c67134851bbb1d9f2ca49d36",
+      "dirty": false,
+      "tree": "d1b8245dd52f619679feb28695ed4ce8797f36e1"
+    },
+    "freezer_version": "stage1_kg_freezer.v1",
+    "overwrite_policy": "forbidden",
+    "paper_ordering": "lexicographic ZIP entry path"
+  },
+  "graph": {
+    "edge_count": 23423,
+    "node_count": 10503,
+    "node_review_status_distribution": {
+      "extracted": 9935,
+      "needs_review": 568
+    },
+    "node_type_distribution": {
+      "claim": 1491,
+      "entity": 1799,
+      "experiment": 1247,
+      "keyword": 2058,
+      "observation": 3661,
+      "paper": 247
+    },
+    "relation_distribution": {
+      "EXPERIMENT_PRODUCES_OBSERVATION": 3412,
+      "EXPERIMENT_USES_MATERIAL": 1827,
+      "EXPERIMENT_USES_METHOD": 808,
+      "EXPERIMENT_USES_SAMPLE": 1801,
+      "OBSERVATION_MEASURED_BY": 1177,
+      "OBSERVATION_MEASURES_PROPERTY": 913,
+      "OBSERVATION_OF_SAMPLE": 3490,
+      "PAPER_ASSERTS_CLAIM": 1491,
+      "PAPER_HAS_KEYWORD": 3963,
+      "PAPER_MENTIONS_ENTITY": 3045,
+      "PAPER_REPORTS_EXPERIMENT": 1247,
+      "PAPER_REPORTS_OBSERVATION": 249
+    }
+  },
+  "knowledge_level": "K247",
+  "ontology": {
+    "manifest": "ontology.json",
+    "version": "catalysis_evidence_graph.v1"
+  },
+  "paper_count": 247,
+  "raw_pdf_hash_count": 247,
+  "schema_version": "kg_snapshot.v1",
+  "snapshot_content_hash": "df414e70e4b2ca6ad999e6fa69c1c26a60316b3b7c2eb9d01ee3f6df4f1246b6",
+  "snapshot_id": "K247-photocatalysis-v1",
+  "source_archive": {
+    "bytes": 2480087,
+    "dataset_generated_at": "2026-08-09T09:58:29.780Z",
+    "dataset_manifest": {
+      "allowedSystems": [
+        "photocatalysis",
+        "both"
+      ],
+      "corpusFingerprint": "1f2b4df8e7faedeffcf1366ba3f54afe595dff0764d341d051a5743d637a2721",
+      "counts": {
+        "claims": 1491,
+        "documents": 247,
+        "entities": 3045,
+        "experiments": 1247,
+        "keywords": 3963,
+        "observations": 3661,
+        "paperTypes": {
+          "book_chapter": 1,
+          "perspective": 2,
+          "research_article": 145,
+          "review": 99
+        },
+        "systems": {
+          "both": 12,
+          "photocatalysis": 235
+        }
+      },
+      "generatedAt": "2026-08-09T09:58:29.780Z",
+      "schema": "catalysis_research_dataset.v1"
+    },
+    "path": "data/photocatalysis-stage1.zip",
+    "sha256": "492fedadfaca0056ca5233620959745485d307d90888c114214df65ec82c74d9"
+  },
+  "status": "frozen",
+  "structured_json_hash_count": 247
+}

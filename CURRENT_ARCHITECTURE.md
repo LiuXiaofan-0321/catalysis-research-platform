@@ -34,6 +34,12 @@ research/      已建立的独立科研实验层骨架
 `research/` 当前只包含目录契约、CLI 自检和基础测试。Run manifest、KG
 snapshot、model provider、descriptor 和 evaluation 尚未实现。
 
+补充状态：
+
+- 已实现 Stage 1 KG snapshot freeze/verify CLI；
+- 已生成 `K247-photocatalysis-v1`；
+- 其余 K scales、model provider、descriptor 和 evaluation 尚未实现。
+
 ## 3. 生产运行架构
 
 ### 3.1 后端
