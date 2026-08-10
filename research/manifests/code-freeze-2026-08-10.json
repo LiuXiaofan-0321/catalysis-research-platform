@@ -1,0 +1,18 @@
+{
+  "schema_version": "code_freeze.v1",
+  "freeze_id": "production-baseline-2026-08-10",
+  "frozen_at": "2026-08-10T06:47:21.9466260Z",
+  "purpose": "Baseline code state immediately before implementing the K247 photocatalysis knowledge freeze.",
+  "repository": "LiuXiaofan-0321/catalysis-research-platform",
+  "remote": "https://github.com/LiuXiaofan-0321/catalysis-research-platform.git",
+  "branch": "main",
+  "commit": "2d53508f73c0a907d55aed5d5c00f3624fe26391",
+  "tree": "58ff39dfb085b6fd1d83689b589f16dcbe2853b5",
+  "working_tree_clean": true,
+  "git_tag": "code-freeze-2026-08-10",
+  "rules": [
+    "Every outcome-bearing experiment must record its exact Git commit.",
+    "A dirty working tree must be recorded and is not allowed for confirmatory runs.",
+    "Code changes that alter scientific outputs require a new commit and rerun of all affected conditions."
+  ]
+}

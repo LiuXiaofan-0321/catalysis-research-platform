@@ -13,6 +13,10 @@ Protocol ID：`catalysis-model-knowledge-scaling.v1`
 且 M1/M2/M3 的具体模型 revision 尚未登记。在完成本文定义的 activation gate
 以前，不允许开始任何 outcome-bearing Model x Knowledge run。
 
+Private unseen thermocatalysis validation 的访问控制和盲测执行细则由
+`PRIVATE_DATA_PROTOCOL.md` 管理。两份协议发生冲突时，private data 访问采用更
+严格的规则。
+
 ## 1. Protocol Governance
 
 ### 1.1 Outcome-bearing run

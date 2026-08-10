@@ -64,3 +64,7 @@ The frozen protocol is maintained in `../EXPERIMENT_PROTOCOL.md`. It remains
 blocked from activation until the exact public predictive dataset, model
 registry, splits, prompts, KG snapshots, and downstream configuration are
 registered and locked.
+
+Private unseen thermocatalysis validation is governed by
+`../PRIVATE_DATA_PROTOCOL.md`. Research development code must not read or
+locate private data.

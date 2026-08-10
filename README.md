@@ -46,6 +46,7 @@ npm run research:test
 - `NMI_GAP_ANALYSIS.md`：按照 P0/P1/P2 排列的方法学缺口；
 - `RESEARCH_IMPLEMENTATION_PLAN.md`：模块接口、CLI、测试和验收；
 - `EXPERIMENT_PROTOCOL.md`：冻结的实验变量、endpoint、公平性规则和成功判据。
+- `PRIVATE_DATA_PROTOCOL.md`：private unseen data 的权限、防火墙、冻结和盲测规则。
 
 ## 环境要求
 
