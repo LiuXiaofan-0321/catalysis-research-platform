@@ -7,5 +7,9 @@ dist/
 *.db-wal
 *.log
 coverage/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
 .DS_Store
 data/unpacked/

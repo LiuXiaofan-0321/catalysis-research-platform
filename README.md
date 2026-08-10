@@ -27,9 +27,25 @@
 backend/       Express + Prisma + SQLite + DeepSeek
 frontend/      React + Vite
 data/          可导入的光催化、热催化结构化数据包
+research/      独立、命令行可复现的论文实验层
 scripts/       Windows/Linux 初始化脚本
 docker-compose.yml
 ```
+
+`research/` 与生产平台解耦，用于 Model × Knowledge scaling、KG
+版本化、描述符发现、下游建模、评估和统计分析。基础结构检查：
+
+```bash
+npm run research:doctor
+npm run research:test
+```
+
+## 研究方法文档
+
+- `CURRENT_ARCHITECTURE.md`：当前代码、数据流和真实能力；
+- `NMI_GAP_ANALYSIS.md`：按照 P0/P1/P2 排列的方法学缺口；
+- `RESEARCH_IMPLEMENTATION_PLAN.md`：模块接口、CLI、测试和验收；
+- `EXPERIMENT_PROTOCOL.md`：冻结的实验变量、endpoint、公平性规则和成功判据。
 
 ## 环境要求
 

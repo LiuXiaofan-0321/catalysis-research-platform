@@ -6,6 +6,8 @@
     "dev:backend": "npm --prefix backend run dev",
     "dev:frontend": "npm --prefix frontend run dev",
     "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "research:doctor": "python research/scripts/research.py doctor",
+    "research:test": "python -m unittest discover -s research/tests -p \"test_*.py\"",
     "setup": "npm run install:all && npm --prefix backend run db:push && npm run bootstrap && npm run import:photocatalysis && npm run import:thermal",
     "bootstrap": "npm --prefix backend run bootstrap",
     "import:photocatalysis": "npm --prefix backend run import:dataset -- --input ../data/photocatalysis-stage1.zip --system photocatalysis",
