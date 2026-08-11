@@ -47,6 +47,7 @@ Literature
 | Model abstraction | 低 | DeepSeek 硬编码 |
 | Descriptor discovery | 缺失 | 论文主线无法成立 |
 | Downstream ML | 缺失 | 无法量化 representation utility |
+| Public dataset and splits | 低至中 | registry、hash、IID/OOD、label firewall 和 audit 工具已实现，exact dataset 尚未选择 |
 | Experiment manifest | 中 | immutable manifest、artifact hash 和 CLI 已实现，尚未接入完整实验流水线 |
 | KG scaling | 低至中 | K247 已冻结为首个真实点，nested scaling builder 尚未实现 |
 | Statistical analysis | 缺失 | 无法支持 scaling claim |
@@ -221,20 +222,27 @@ artifacts 和 `FINALIZED.json`；completed/failed run 终态不可变，dirty Gi
 
 ### P0-7 Public Dataset and Fixed Splits
 
-当前缺口：
+当前状态：
 
-仓库中只有 literature corpora，没有用于 descriptor utility 的公开 AI-ready
-预测数据集。
+基础设施已实现：
 
-必须完成：
+- `dataset_manifest.v1` 和 `split_manifest.v1`；
+- public-only registration 和 raw file SHA256；
+- fixed seed `20260810` 的 deterministic `60/20/20` IID split；
+- pre-registered group-aware OOD folds；
+- sample、duplicate group 和 split hash；
+- descriptor generation / computation / downstream training / evaluator
+  label-access boundary；
+- structural leakage audit 和 CLI。
 
-- public dataset registry；
-- license、source、version、checksum；
-- target 和 allowed inputs；
-- train/validation/test split；
-- domain-aware OOD split；
-- leakage audit；
-- split hash。
+剩余缺口：
+
+- exact eligible public thermocatalysis dataset 尚未选择；
+- `public-registry.v1.json` 仍为空并保持 `ACTIVATION_BLOCKED`；
+- real license、source、version、checksum 尚未登记；
+- real target、allowed inputs、group rationale 尚未冻结；
+- 尚未生成真实 IID/OOD manifests；
+- semantic target-proxy 和 corpus contamination 仍需人工审计。
 
 验收：
 

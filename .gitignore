@@ -15,3 +15,5 @@ __pycache__/
 .DS_Store
 data/unpacked/
 research/runs/*
+research/datasets/raw/*
+!research/datasets/raw/.gitkeep

@@ -5,6 +5,15 @@ import json
 from pathlib import Path
 from typing import Sequence
 
+from .datasets.leakage import leakage_audit
+from .datasets.loader import generation_context
+from .datasets.registry import (
+    load_dataset_manifest,
+    register_dataset,
+    verify_dataset_manifest,
+)
+from .datasets.schema import DatasetError
+from .datasets.split import create_split, verify_split_manifest
 from .kg.freeze_stage1 import freeze_stage1_archive, verify_snapshot
 from .layout import REQUIRED_DIRECTORIES, inspect_layout
 from .provenance.run_manifest import (
@@ -144,6 +153,131 @@ def build_parser() -> argparse.ArgumentParser:
         help="Print a run manifest.",
     )
     show_parser.add_argument("--run", type=Path, required=True)
+
+    dataset_parser = subparsers.add_parser(
+        "dataset",
+        help="Register, split, audit, and verify public predictive datasets.",
+    )
+    dataset_subparsers = dataset_parser.add_subparsers(
+        dest="dataset_command",
+        required=True,
+    )
+    dataset_register_parser = dataset_subparsers.add_parser(
+        "register",
+        help="Freeze one public dataset registration manifest.",
+    )
+    dataset_register_parser.add_argument(
+        "--config",
+        type=Path,
+        required=True,
+    )
+    dataset_register_parser.add_argument(
+        "--output-root",
+        type=Path,
+        default=Path("research/manifests/datasets"),
+    )
+    dataset_register_parser.add_argument(
+        "--repository-root",
+        type=Path,
+        default=Path("."),
+    )
+    dataset_register_parser.add_argument(
+        "--allow-dirty",
+        action="store_true",
+    )
+
+    dataset_split_parser = dataset_subparsers.add_parser(
+        "split",
+        help="Create an immutable IID or OOD split manifest.",
+    )
+    dataset_split_parser.add_argument("--dataset", required=True)
+    dataset_split_parser.add_argument(
+        "--strategy",
+        choices=("iid", "ood"),
+        required=True,
+    )
+    dataset_split_parser.add_argument(
+        "--dataset-manifests-root",
+        type=Path,
+        default=Path("research/manifests/datasets"),
+    )
+    dataset_split_parser.add_argument(
+        "--output-root",
+        type=Path,
+        default=Path("research/manifests/splits"),
+    )
+    dataset_split_parser.add_argument(
+        "--repository-root",
+        type=Path,
+        default=Path("."),
+    )
+    dataset_split_parser.add_argument(
+        "--allow-dirty",
+        action="store_true",
+    )
+
+    dataset_verify_parser = dataset_subparsers.add_parser(
+        "verify",
+        help="Recompute and verify a frozen dataset manifest.",
+    )
+    dataset_verify_parser.add_argument(
+        "--manifest",
+        type=Path,
+        required=True,
+    )
+    dataset_verify_parser.add_argument(
+        "--repository-root",
+        type=Path,
+        default=Path("."),
+    )
+
+    split_verify_parser = dataset_subparsers.add_parser(
+        "verify-split",
+        help="Recompute and verify a frozen split manifest.",
+    )
+    split_verify_parser.add_argument(
+        "--split",
+        type=Path,
+        required=True,
+    )
+    split_verify_parser.add_argument(
+        "--dataset-manifest",
+        type=Path,
+        required=True,
+    )
+    split_verify_parser.add_argument(
+        "--repository-root",
+        type=Path,
+        default=Path("."),
+    )
+
+    audit_parser = dataset_subparsers.add_parser(
+        "leakage-audit",
+        help="Audit label exposure, duplicate crossing, and OOD isolation.",
+    )
+    audit_parser.add_argument("--dataset", required=True)
+    audit_parser.add_argument(
+        "--dataset-manifests-root",
+        type=Path,
+        default=Path("research/manifests/datasets"),
+    )
+    audit_parser.add_argument("--split", type=Path)
+    audit_parser.add_argument(
+        "--repository-root",
+        type=Path,
+        default=Path("."),
+    )
+
+    context_parser = dataset_subparsers.add_parser(
+        "generation-context",
+        help="Print the label-free descriptor-generation dataset context.",
+    )
+    context_parser.add_argument("--dataset", required=True)
+    context_parser.add_argument(
+        "--dataset-manifests-root",
+        type=Path,
+        default=Path("research/manifests/datasets"),
+    )
     return parser
 
 
@@ -257,6 +391,125 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
                 return 0 if output["valid"] else 1
         except (RunManifestError, OSError, json.JSONDecodeError) as error:
+            print(
+                json.dumps(
+                    {
+                        "ok": False,
+                        "error": str(error),
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 1
+        print(
+            json.dumps(
+                output,
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 0
+
+    if args.command == "dataset":
+        try:
+            if args.dataset_command == "register":
+                result = register_dataset(
+                    config_path=args.config,
+                    output_root=args.output_root,
+                    repository_root=args.repository_root,
+                    allow_dirty=args.allow_dirty,
+                )
+                output = {
+                    "dataset_id": result["dataset_id"],
+                    "manifest_path": result["manifest_path"],
+                    "dataset_content_hash": result["manifest"][
+                        "dataset_content_hash"
+                    ],
+                    "manifest_content_hash": result["manifest"][
+                        "manifest_content_hash"
+                    ],
+                }
+            elif args.dataset_command == "split":
+                dataset_manifest_path = (
+                    args.dataset_manifests_root
+                    / f"{args.dataset}.manifest.json"
+                )
+                result = create_split(
+                    dataset_manifest_path=dataset_manifest_path,
+                    strategy=args.strategy,
+                    output_root=args.output_root,
+                    repository_root=args.repository_root,
+                    allow_dirty=args.allow_dirty,
+                )
+                output = {
+                    "split_id": result["split_id"],
+                    "split_path": result["split_path"],
+                    "split_hash": result["manifest"]["split_hash"],
+                }
+            elif args.dataset_command == "verify":
+                output = verify_dataset_manifest(
+                    args.manifest,
+                    args.repository_root,
+                )
+                print(
+                    json.dumps(
+                        output,
+                        ensure_ascii=False,
+                        indent=2,
+                        sort_keys=True,
+                    )
+                )
+                return 0 if output["valid"] else 1
+            elif args.dataset_command == "verify-split":
+                output = verify_split_manifest(
+                    split_manifest_path=args.split,
+                    dataset_manifest_path=args.dataset_manifest,
+                    repository_root=args.repository_root,
+                )
+                print(
+                    json.dumps(
+                        output,
+                        ensure_ascii=False,
+                        indent=2,
+                        sort_keys=True,
+                    )
+                )
+                return 0 if output["valid"] else 1
+            elif args.dataset_command == "leakage-audit":
+                dataset_manifest_path = (
+                    args.dataset_manifests_root
+                    / f"{args.dataset}.manifest.json"
+                )
+                output = leakage_audit(
+                    dataset_manifest_path=dataset_manifest_path,
+                    repository_root=args.repository_root,
+                    split_manifest_path=args.split,
+                )
+                print(
+                    json.dumps(
+                        output,
+                        ensure_ascii=False,
+                        indent=2,
+                        sort_keys=True,
+                    )
+                )
+                return 0 if output["valid"] else 1
+            else:
+                dataset_manifest_path = (
+                    args.dataset_manifests_root
+                    / f"{args.dataset}.manifest.json"
+                )
+                output = generation_context(
+                    load_dataset_manifest(dataset_manifest_path)
+                )
+        except (
+            DatasetError,
+            OSError,
+            json.JSONDecodeError,
+        ) as error:
             print(
                 json.dumps(
                     {

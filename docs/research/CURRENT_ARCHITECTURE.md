@@ -464,18 +464,26 @@ Reviewer Agent。
   `FINALIZED.json` 和 run verification CLI；
 - exact Git commit/tree/branch/dirty state；
 - model、prompt、KG、retrieval、dataset、split、downstream ML、metrics、
-  errors、runtime 和 manual intervention provenance。
+  errors、runtime 和 manual intervention provenance；
+- `dataset_manifest.v1` 和 `split_manifest.v1` schemas；
+- public-only dataset registration、raw file SHA256、sample ID hash、
+  deterministic IID/OOD membership 和 split hash；
+- label-access API：descriptor generation 仅获得 metadata，descriptor
+  computation 不获得 labels，downstream training 不可读取 test labels；
+- structural leakage audit：duplicate crossing、OOD group isolation、column
+  registry 和 target exposure 检查。
 
 当前缺少：
 
-- dataset registry；
+- exact public predictive dataset registration；
+- populated public dataset registry；
 - imported manifest registry；
 - prompt file hash；
 - experiment config hash；
 - model revision；
 - environment lock；
 - dependency lock for research；
-- split hash；
+- real IID/OOD split manifests and hashes；
 - descriptor code hash；
 - freeze bundle。
 
@@ -513,7 +521,7 @@ Reviewer Agent。
 
 生产 backend 和 frontend 当前没有单元测试、集成测试或端到端测试。
 
-新建 research 层当前有 19 个测试，覆盖：
+新建 research 层当前有 34 个测试，覆盖：
 
 - research 目录契约；
 - 缺失目录会失败；
@@ -523,18 +531,22 @@ Reviewer Agent。
 - run 终态不可变、dirty Git 拒绝和非法 run ID 拒绝；
 - scientific artifact、manifest 和 finalization hash 校验；
 - 缺失输出、重复写入、未登记文件和创建失败清理；
-- Run Manifest CLI create/verify。
+- Run Manifest CLI create/verify；
+- public/private dataset firewall 和 tracked config requirement；
+- dataset file hash、sample identity、missingness 和 duplicate policy；
+- deterministic IID、pre-registered OOD 和 split tampering；
+- label access restrictions、structural leakage audit 和 dataset CLI。
 
 尚未测试：
 
-- dataset import correctness；
+- a real external public dataset adapter；
 - evidence provenance；
 - KG node/edge mapping；
 - retrieval determinism；
 - model structured output；
 - full pipeline replay；
 - descriptor execution；
-- leakage protection。
+- semantic target-proxy leakage detection。
 
 ## 15. 实现 NMI 研究目标仍缺失的能力
 
@@ -543,8 +555,7 @@ Reviewer Agent。
 - model provider abstraction；
 - fixed prompt families；
 - descriptor schema、generation、execution 和 failure ledger；
-- public predictive datasets；
-- fixed IID/OOD splits；
+- exact eligible public predictive dataset selection and freeze；
 - fair downstream ML；
 - baseline and ablation conditions；
 - Model x Knowledge matrix；

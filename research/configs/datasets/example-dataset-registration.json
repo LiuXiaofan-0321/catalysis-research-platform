@@ -1,0 +1,114 @@
+{
+  "allowed_inputs": [
+    {
+      "description": "Example reaction temperature available before outcome measurement.",
+      "dtype": "number",
+      "name": "temperature_k",
+      "units": "K"
+    },
+    {
+      "description": "Example catalyst composition identifier available before outcome measurement.",
+      "dtype": "string",
+      "name": "catalyst_composition",
+      "units": null
+    }
+  ],
+  "contains_private_data": false,
+  "data_classification": "public",
+  "dataset_id": "replace-with-public-dataset-id",
+  "domain": "thermal_catalysis",
+  "duplicate_key_columns": [
+    "source_record_id"
+  ],
+  "duplicate_policy": {
+    "action": "keep_together",
+    "rationale": "Source-identical records must remain in one split partition."
+  },
+  "files": [
+    {
+      "format": "csv",
+      "path": "research/datasets/raw/replace-with-public-file.csv",
+      "role": "primary_table"
+    }
+  ],
+  "forbidden_inputs": [
+    {
+      "name": "target_value",
+      "reason": "Primary downstream label."
+    },
+    {
+      "name": "post_reaction_measurement",
+      "reason": "Measured after the predicted outcome and therefore leaky."
+    }
+  ],
+  "group_columns": [
+    {
+      "name": "catalyst_family",
+      "priority": 1,
+      "rationale": "Primary scientifically meaningful material-family OOD grouping."
+    },
+    {
+      "name": "reaction_family",
+      "priority": 2,
+      "rationale": "Secondary reaction-domain grouping."
+    }
+  ],
+  "iid_split": {
+    "ratios": {
+      "test": 0.2,
+      "train": 0.6,
+      "validation": 0.2
+    },
+    "seed": 20260810,
+    "stratify_target_quantiles": 5
+  },
+  "label_access_policy": {
+    "descriptor_computation": "allowed inputs for any partition, with labels removed",
+    "descriptor_generation": "metadata only, with no row-level labels",
+    "downstream_training": "train and validation labels only",
+    "evaluation": "test labels available only to the evaluator"
+  },
+  "license": {
+    "allows_publication": true,
+    "allows_redistribution": false,
+    "allows_research": true,
+    "name": "replace-with-license",
+    "url": "https://replace-with-license-url.example"
+  },
+  "missing_data_policy": {
+    "maximum_allowed_fraction": 0.2,
+    "strategy": "train-only median imputation with frozen missing indicators"
+  },
+  "ood_split": {
+    "folds": [
+      {
+        "fold_id": "fold-1",
+        "test_groups": [
+          "replace-with-held-out-group"
+        ],
+        "validation_groups": [
+          "replace-with-validation-group"
+        ]
+      }
+    ],
+    "group_column": "catalyst_family"
+  },
+  "sample_id_column": "sample_id",
+  "schema_version": "dataset_registration.v1",
+  "source": {
+    "accessed_at": "replace-with-access-date",
+    "citation": "replace-with-citation",
+    "name": "replace-with-public-dataset-name",
+    "url": "https://replace-with-source-url.example"
+  },
+  "status": "candidate",
+  "study_role": "primary",
+  "target": {
+    "column": "target_value",
+    "definition": "Replace with the exact scientific endpoint definition.",
+    "name": "replace-with-target-name",
+    "task_type": "regression",
+    "units": "replace-with-units"
+  },
+  "version": "v1"
+}

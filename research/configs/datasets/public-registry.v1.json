@@ -1,0 +1,12 @@
+{
+  "blocking_reasons": [
+    "No exact public thermocatalysis predictive dataset has been selected.",
+    "No dataset license, target, allowed inputs, or OOD grouping has been frozen.",
+    "No dataset or split manifest exists for an outcome-bearing run."
+  ],
+  "datasets": [],
+  "protocol_version": "catalysis-model-knowledge-scaling.v1",
+  "schema_version": "public_dataset_registry.v1",
+  "status": "ACTIVATION_BLOCKED",
+  "updated_at": "2026-08-11"
+}

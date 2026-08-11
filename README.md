@@ -58,6 +58,12 @@ npm run research:verify:k247
 python research/scripts/research.py run --help
 ```
 
+公开预测数据集登记与固定划分：
+
+```bash
+python research/scripts/research.py dataset --help
+```
+
 ## 使用与维护文档
 
 - `docs/README.md`：完整文档索引；

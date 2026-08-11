@@ -1185,6 +1185,7 @@ PNG/PDF figures
 
 在以下项目全部完成前，不允许将 protocol 状态改为 `ACTIVE`：
 
+- [x] Public dataset registry and fixed-split infrastructure verified
 - [ ] Exact public thermocatalysis dataset registered
 - [ ] Dataset SHA256 and license recorded
 - [ ] Target and allowed inputs frozen
@@ -1206,3 +1207,4 @@ PNG/PDF figures
 | --- | --- | --- | --- | --- |
 | v1 | 2026-08-10 | Initial protocol freeze | No Model x KG outcome exists | Establishes rules and activation blockers |
 | v1.1 | 2026-08-10 | Registers immutable `K247-photocatalysis-v1` as the first absolute-size scaling anchor | No Model x KG outcome exists | Preserves the current 247-paper corpus as a permanent experimental point |
+| v1.2 | 2026-08-11 | Implements public-only dataset manifests, deterministic IID/OOD splits, label-access controls, and structural leakage audit without selecting a dataset | No Model x KG outcome exists | Adds enforcement infrastructure; protocol remains `ACTIVATION_BLOCKED` |

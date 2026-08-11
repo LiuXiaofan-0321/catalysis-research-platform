@@ -82,3 +82,21 @@ python research/scripts/research.py run verify \
 
 The example config contains placeholders and must not be used unchanged for an
 outcome-bearing experiment.
+
+## Public Dataset and Split Manifests
+
+Public predictive datasets use two integrity layers:
+
+- `dataset_manifest.v1` freezes source/license metadata, raw file SHA256,
+  sample identity, target, allowed/forbidden inputs, duplicate and missingness
+  policies, OOD rationale, and label-access rules.
+- `split_manifest.v1` freezes deterministic IID membership or pre-registered
+  group-aware OOD folds and records a recomputable split hash.
+
+Registration configs and dataset manifests must be committed before the next
+freeze stage. Raw public files may remain outside Git under
+`research/datasets/raw/`, but their exact bytes are anchored by SHA256.
+
+The public registry is intentionally empty until an eligible thermocatalysis
+predictive dataset is selected. Infrastructure availability does not activate
+the experiment protocol.

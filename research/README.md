@@ -59,18 +59,25 @@ Run Manifest commands are available through:
 python research/scripts/research.py run --help
 ```
 
+Public dataset registry and fixed split commands are available through:
+
+```bash
+python research/scripts/research.py dataset --help
+```
+
 ## Current Scope
 
 The research boundary, repository-level experiment protocol, K247 knowledge
-snapshot, and immutable Run Manifest infrastructure are implemented. Model
-providers, descriptors, benchmarks, and evaluation pipelines will be added as
-separate reviewed modules and must use the Run Manifest API.
+snapshot, immutable Run Manifest, public dataset registration, deterministic
+IID/OOD splitting, label-access controls, and structural leakage audit
+infrastructure are implemented. The public registry intentionally remains empty
+until an exact eligible dataset is selected and reviewed.
 
-The frozen protocol is maintained in `../docs/research/EXPERIMENT_PROTOCOL.md`. It remains
-blocked from activation until the exact public predictive dataset, model
-registry, splits, prompts, KG snapshots, and downstream configuration are
-registered and locked.
+The frozen protocol is maintained in
+`../docs/research/EXPERIMENT_PROTOCOL.md`. It remains blocked from activation
+until the exact public predictive dataset, model registry, splits, prompts, KG
+snapshots, and downstream configuration are registered and locked.
 
 Private unseen thermocatalysis validation is governed by
-`../docs/research/PRIVATE_DATA_PROTOCOL.md`. Research development code must not read or
-locate private data.
+`../docs/research/PRIVATE_DATA_PROTOCOL.md`. Research development code must not
+read or locate private data.

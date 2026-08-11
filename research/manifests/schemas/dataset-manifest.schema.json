@@ -1,0 +1,252 @@
+{
+  "$id": "dataset-manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "allowed_inputs": {
+      "items": {
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "contains_private_data": {
+      "const": false
+    },
+    "data_classification": {
+      "const": "public"
+    },
+    "dataset_content_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "dataset_id": {
+      "pattern": "^[A-Za-z0-9._-]+$",
+      "type": "string"
+    },
+    "domain": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "duplicate_group_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "duplicate_key_columns": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "duplicate_policy": {
+      "type": "object"
+    },
+    "files": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "bytes": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "columns": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "format": {
+            "enum": [
+              "csv",
+              "tsv",
+              "jsonl"
+            ]
+          },
+          "path": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "role": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "row_count": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "format",
+          "role",
+          "row_count",
+          "columns",
+          "sha256",
+          "bytes"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "forbidden_inputs": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "git_branch": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "git_commit": {
+      "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "git_dirty": {
+      "type": "boolean"
+    },
+    "git_tree": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "group_columns": {
+      "items": {
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "group_values": {
+      "type": "object"
+    },
+    "iid_split": {
+      "type": "object"
+    },
+    "label_access_policy": {
+      "type": "object"
+    },
+    "license": {
+      "type": "object"
+    },
+    "manifest_content_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "missing_data_policy": {
+      "type": "object"
+    },
+    "missing_fractions": {
+      "type": "object"
+    },
+    "ood_split": {
+      "type": "object"
+    },
+    "registered_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "registration": {
+      "type": "object"
+    },
+    "registration_config_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "required_columns": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "row_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "sample_id_column": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "sample_id_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "dataset_manifest.v1"
+    },
+    "source": {
+      "type": "object"
+    },
+    "status": {
+      "enum": [
+        "candidate",
+        "frozen"
+      ]
+    },
+    "study_role": {
+      "enum": [
+        "primary",
+        "secondary"
+      ]
+    },
+    "target": {
+      "type": "object"
+    },
+    "version": {
+      "pattern": "^[A-Za-z0-9._-]+$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "dataset_id",
+    "version",
+    "status",
+    "study_role",
+    "domain",
+    "data_classification",
+    "contains_private_data",
+    "registered_at",
+    "git_commit",
+    "git_tree",
+    "git_branch",
+    "git_dirty",
+    "registration_config_hash",
+    "source",
+    "license",
+    "files",
+    "row_count",
+    "required_columns",
+    "sample_id_column",
+    "sample_id_hash",
+    "target",
+    "allowed_inputs",
+    "forbidden_inputs",
+    "group_columns",
+    "group_values",
+    "duplicate_key_columns",
+    "duplicate_group_count",
+    "missing_data_policy",
+    "missing_fractions",
+    "duplicate_policy",
+    "label_access_policy",
+    "iid_split",
+    "ood_split",
+    "dataset_content_hash",
+    "registration",
+    "manifest_content_hash"
+  ],
+  "title": "Catalysis Public Dataset Manifest",
+  "type": "object"
+}

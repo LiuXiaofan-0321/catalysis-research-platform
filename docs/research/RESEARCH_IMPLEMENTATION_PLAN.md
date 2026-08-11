@@ -778,7 +778,9 @@ unsupported_hypothesis
 
 ## 14. Module K：Public Dataset Registry and Splits
 
-### 新增文件
+状态：`INFRASTRUCTURE_IMPLEMENTED / EXACT_DATASET_SELECTION_PENDING`
+
+### 已实现文件
 
 ```text
 research/src/catalysis_research/datasets/registry.py
@@ -787,9 +789,15 @@ research/src/catalysis_research/datasets/loader.py
 research/src/catalysis_research/datasets/split.py
 research/src/catalysis_research/datasets/leakage.py
 research/configs/datasets/public-registry.v1.json
+research/configs/datasets/example-dataset-registration.json
 research/manifests/schemas/dataset-manifest.schema.json
-research/tests/datasets/
+research/manifests/schemas/split-manifest.schema.json
+research/tests/test_public_datasets.py
 ```
+
+`public-registry.v1.json` 当前有意保持空 registry 和
+`ACTIVATION_BLOCKED`，不把 literature corpus 或 synthetic fixture 冒充为
+public predictive dataset。
 
 ### Dataset registry 必填字段
 
@@ -817,15 +825,23 @@ python research/scripts/research.py dataset register --config <dataset-config>
 python research/scripts/research.py dataset split --dataset <id> --strategy iid
 python research/scripts/research.py dataset split --dataset <id> --strategy ood
 python research/scripts/research.py dataset leakage-audit --dataset <id>
+python research/scripts/research.py dataset verify --manifest <dataset-manifest>
+python research/scripts/research.py dataset verify-split \
+  --dataset-manifest <dataset-manifest> \
+  --split <split-manifest>
+python research/scripts/research.py dataset generation-context --dataset <id>
 ```
 
-### 验收
+### 验收状态
 
-- exact public dataset 在 descriptor generation 前冻结；
-- split membership 和 hash 可复算；
-- train-only preprocessing；
-- test labels 不可由 generation pipeline 读取；
-- OOD grouping 有 domain rationale。
+- [ ] exact public dataset 在 descriptor generation 前冻结；
+- [x] split membership 和 hash 可复算；
+- [ ] train-only preprocessing 将在 downstream module 中实现；
+- [x] test labels 不可由 generation/training API 读取；
+- [x] OOD grouping 必须有 frozen domain rationale；
+- [x] private classification 被 public registry 拒绝；
+- [x] duplicate records 不跨 split；
+- [ ] semantic leakage 和 literature contamination 需 dataset review sign-off。
 
 ## 15. Module L：Baselines and Downstream ML
 
