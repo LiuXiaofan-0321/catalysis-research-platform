@@ -1231,7 +1231,7 @@ PNG/PDF figures
 - [ ] Canonical tokenizer frozen
 - [ ] Prompt family/version frozen
 - [ ] Ridge grid and preprocessing frozen
-- [ ] K20/K40/K60/K80/K100 manifests built
+- [x] K20/K40/K60/K80/K100 manifests built
 - [x] Run manifest implementation verified
 - [ ] Private firewall owner and evaluator identified
 - [ ] Protocol JSON lock hash generated

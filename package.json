@@ -9,6 +9,8 @@
     "research:doctor": "python research/scripts/research.py doctor",
     "research:test": "python -m unittest discover -s research/tests -p \"test_*.py\"",
     "research:verify:k247": "python research/scripts/research.py kg verify --snapshot research/kg_snapshots/K247-photocatalysis-v1",
+    "research:verify:thermal-corpus": "python research/scripts/research.py corpus verify --corpus research/corpora/thermal-catalysis-stage1-v1",
+    "research:verify:thermal-nested": "python research/scripts/research.py kg verify-nested --manifest research/manifests/kg/thermal-catalysis-nested-v1.json --repository-root .",
     "setup": "npm run install:all && npm --prefix backend run db:push && npm run bootstrap && npm run import:photocatalysis && npm run import:thermal",
     "bootstrap": "npm --prefix backend run bootstrap",
     "import:photocatalysis": "npm --prefix backend run import:dataset -- --input ../data/photocatalysis-stage1.zip --system photocatalysis",

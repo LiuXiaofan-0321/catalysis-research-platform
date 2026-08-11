@@ -1,6 +1,6 @@
 # Current Architecture
 
-状态日期：2026-08-10
+状态日期：2026-08-11
 
 本文档描述当前仓库已经实现的行为，不把计划中的 research 能力写成现有能力。
 
@@ -31,14 +31,20 @@ scripts/       生产平台初始化脚本
 research/      已建立的独立科研实验层骨架
 ```
 
-`research/` 当前只包含目录契约、CLI 自检和基础测试。Run manifest、KG
-snapshot、model provider、descriptor 和 evaluation 尚未实现。
+`research/` 当前已经包含目录契约、统一 Run Manifest、public dataset/split
+registry 与 firewall、Stage 1 corpus freeze、immutable KG snapshot 和 nested
+knowledge scaling 基础设施。Model provider、descriptor、downstream ML 和
+evaluation 尚未实现。
 
-补充状态：
+当前冻结状态：
 
-- 已实现 Stage 1 KG snapshot freeze/verify CLI；
-- 已生成 `K247-photocatalysis-v1`；
-- 其余 K scales、model provider、descriptor 和 evaluation 尚未实现。
+- `K247-photocatalysis-v1` 继续作为独立、不可覆盖的 absolute-size anchor；
+- `thermal-catalysis-stage1-v1` 冻结 512 篇热催化论文 inventory；
+- `K20/K40/K60/K80/K100-thermal-catalysis-v1` 按同一个 selection order
+  的 exact prefixes 冻结为 `102/205/307/410/512` 篇；
+- nested manifest 和每级 snapshot 已通过 source/archive/config/artifact
+  hash、strict nesting 和 dangling-edge verification；
+- coverage 仍为 `not_measured`，因为 exact public predictive dataset 尚未冻结。
 
 ## 3. 生产运行架构
 

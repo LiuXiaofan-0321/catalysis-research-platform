@@ -1,6 +1,6 @@
 # NMI Gap Analysis
 
-状态日期：2026-08-10
+状态日期：2026-08-11
 
 ## 1. 目标
 
@@ -49,10 +49,10 @@ Literature
 | Downstream ML | 缺失 | 无法量化 representation utility |
 | Public dataset and splits | 低至中 | registry、hash、IID/OOD、label firewall 和 audit 工具已实现，exact dataset 尚未选择 |
 | Experiment manifest | 中 | immutable manifest、artifact hash 和 CLI 已实现，尚未接入完整实验流水线 |
-| KG scaling | 低至中 | K247 已冻结为首个真实点，nested scaling builder 尚未实现 |
+| KG scaling | 中 | K247 独立保留；512 篇 thermal corpus 和五级 exact nested snapshots 已冻结，coverage/structure controls 尚未实现 |
 | Statistical analysis | 缺失 | 无法支持 scaling claim |
 | Private blind validation | 低 | firewall 协议已冻结，独立 evaluator 和执行工具尚未实现 |
-| 自动测试 | 低至中 | research layout、K247 freeze 和 Run Manifest 已覆盖 |
+| 自动测试 | 中 | 39 项 research tests 覆盖 layout、K247、Run Manifest、dataset firewall/splits、corpus 和 nested KG |
 
 ## 3. P0：论文主线成立前必须完成
 

@@ -40,16 +40,24 @@ npm run research:doctor
 npm run research:test
 ```
 
-当前已冻结光催化知识点：
+当前已冻结的知识输入包括：
 
 ```text
 research/kg_snapshots/K247-photocatalysis-v1
+research/corpora/thermal-catalysis-stage1-v1
+research/kg_snapshots/K20-thermal-catalysis-v1
+research/kg_snapshots/K40-thermal-catalysis-v1
+research/kg_snapshots/K60-thermal-catalysis-v1
+research/kg_snapshots/K80-thermal-catalysis-v1
+research/kg_snapshots/K100-thermal-catalysis-v1
 ```
 
 验证冻结内容：
 
 ```bash
 npm run research:verify:k247
+npm run research:verify:thermal-corpus
+npm run research:verify:thermal-nested
 ```
 
 统一 Run Manifest：
