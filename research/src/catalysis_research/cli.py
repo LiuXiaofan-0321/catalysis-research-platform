@@ -5,6 +5,11 @@ import json
 from pathlib import Path
 from typing import Sequence
 
+from .corpora.stage1 import (
+    CorpusError,
+    freeze_stage1_corpus,
+    verify_stage1_corpus,
+)
 from .datasets.leakage import leakage_audit
 from .datasets.loader import generation_context
 from .datasets.registry import (
@@ -15,6 +20,12 @@ from .datasets.registry import (
 from .datasets.schema import DatasetError
 from .datasets.split import create_split, verify_split_manifest
 from .kg.freeze_stage1 import freeze_stage1_archive, verify_snapshot
+from .kg.nested import (
+    NestedSnapshotError,
+    build_nested_snapshots,
+    verify_nested_snapshots,
+)
+from .kg.selection import SelectionError
 from .layout import REQUIRED_DIRECTORIES, inspect_layout
 from .provenance.run_manifest import (
     OUTPUT_FIELDS,
@@ -74,6 +85,71 @@ def build_parser() -> argparse.ArgumentParser:
         help="Verify all frozen snapshot artifact hashes.",
     )
     verify_parser.add_argument("--snapshot", type=Path, required=True)
+    nested_build_parser = kg_subparsers.add_parser(
+        "build-nested",
+        help="Build immutable nested Stage 1 KG snapshots from a frozen corpus.",
+    )
+    nested_build_parser.add_argument("--config", type=Path, required=True)
+    nested_build_parser.add_argument(
+        "--repository-root",
+        type=Path,
+        default=Path("."),
+    )
+    nested_build_parser.add_argument("--allow-dirty", action="store_true")
+    nested_verify_parser = kg_subparsers.add_parser(
+        "verify-nested",
+        help="Verify strict nesting and all nested snapshot artifacts.",
+    )
+    nested_verify_parser.add_argument("--manifest", type=Path, required=True)
+    nested_verify_parser.add_argument(
+        "--repository-root",
+        type=Path,
+        default=Path("."),
+    )
+
+    corpus_parser = subparsers.add_parser(
+        "corpus",
+        help="Freeze and verify immutable public literature corpora.",
+    )
+    corpus_subparsers = corpus_parser.add_subparsers(
+        dest="corpus_command",
+        required=True,
+    )
+    corpus_freeze_parser = corpus_subparsers.add_parser(
+        "freeze-stage1",
+        help="Freeze a committed Stage 1 archive inventory.",
+    )
+    corpus_freeze_parser.add_argument("--input", type=Path, required=True)
+    corpus_freeze_parser.add_argument("--output", type=Path, required=True)
+    corpus_freeze_parser.add_argument("--corpus-id", required=True)
+    corpus_freeze_parser.add_argument("--domain", required=True)
+    corpus_freeze_parser.add_argument(
+        "--expected-papers",
+        type=int,
+        required=True,
+    )
+    corpus_freeze_parser.add_argument("--expected-sha256")
+    corpus_freeze_parser.add_argument(
+        "--allowed-system",
+        action="append",
+        required=True,
+        dest="allowed_systems",
+    )
+    corpus_freeze_parser.add_argument(
+        "--repository-root",
+        type=Path,
+        default=Path("."),
+    )
+    corpus_freeze_parser.add_argument("--allow-dirty", action="store_true")
+    corpus_verify_parser = corpus_subparsers.add_parser(
+        "verify",
+        help="Verify a frozen corpus and its source archive.",
+    )
+    corpus_verify_parser.add_argument(
+        "--corpus",
+        type=Path,
+        required=True,
+    )
     run_parser = subparsers.add_parser(
         "run",
         help="Create, update, finalize, and verify immutable run manifests.",
@@ -289,37 +365,125 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
 
     if args.command == "kg":
-        if args.kg_command == "freeze-stage1":
-            repository_root = Path(__file__).resolve().parents[3]
-            manifest = freeze_stage1_archive(
-                archive_path=args.input,
-                output_directory=args.output,
-                snapshot_id=args.snapshot_id,
-                knowledge_level=args.knowledge_level,
-                domain=args.domain,
-                expected_papers=args.expected_papers,
-                allowed_systems=set(args.allowed_systems),
-                repository_root=repository_root,
-            )
+        try:
+            if args.kg_command == "freeze-stage1":
+                repository_root = Path(__file__).resolve().parents[3]
+                output = freeze_stage1_archive(
+                    archive_path=args.input,
+                    output_directory=args.output,
+                    snapshot_id=args.snapshot_id,
+                    knowledge_level=args.knowledge_level,
+                    domain=args.domain,
+                    expected_papers=args.expected_papers,
+                    allowed_systems=set(args.allowed_systems),
+                    repository_root=repository_root,
+                )
+            elif args.kg_command == "build-nested":
+                output = build_nested_snapshots(
+                    config_path=args.config,
+                    repository_root=args.repository_root,
+                    allow_dirty=args.allow_dirty,
+                )
+            elif args.kg_command == "verify-nested":
+                output = verify_nested_snapshots(
+                    manifest_path=args.manifest,
+                    repository_root=args.repository_root,
+                )
+                print(
+                    json.dumps(
+                        output,
+                        ensure_ascii=False,
+                        indent=2,
+                        sort_keys=True,
+                    )
+                )
+                return 0 if output["valid"] else 1
+            else:
+                output = verify_snapshot(args.snapshot)
+                print(
+                    json.dumps(
+                        output,
+                        ensure_ascii=False,
+                        indent=2,
+                        sort_keys=True,
+                    )
+                )
+                return 0 if output["valid"] else 1
+        except (
+            NestedSnapshotError,
+            SelectionError,
+            OSError,
+            ValueError,
+            json.JSONDecodeError,
+        ) as error:
             print(
                 json.dumps(
-                    manifest,
+                    {"ok": False, "error": str(error)},
                     ensure_ascii=False,
                     indent=2,
                     sort_keys=True,
                 )
             )
-            return 0
-        report = verify_snapshot(args.snapshot)
+            return 1
         print(
             json.dumps(
-                report,
+                output,
                 ensure_ascii=False,
                 indent=2,
                 sort_keys=True,
             )
         )
-        return 0 if report["valid"] else 1
+        return 0
+
+    if args.command == "corpus":
+        try:
+            if args.corpus_command == "freeze-stage1":
+                output = freeze_stage1_corpus(
+                    archive_path=args.input,
+                    output_directory=args.output,
+                    corpus_id=args.corpus_id,
+                    domain=args.domain,
+                    expected_papers=args.expected_papers,
+                    allowed_systems=set(args.allowed_systems),
+                    repository_root=args.repository_root,
+                    expected_archive_sha256=args.expected_sha256,
+                    allow_dirty=args.allow_dirty,
+                )
+            else:
+                output = verify_stage1_corpus(args.corpus)
+                print(
+                    json.dumps(
+                        output,
+                        ensure_ascii=False,
+                        indent=2,
+                        sort_keys=True,
+                    )
+                )
+                return 0 if output["valid"] else 1
+        except (
+            CorpusError,
+            OSError,
+            ValueError,
+            json.JSONDecodeError,
+        ) as error:
+            print(
+                json.dumps(
+                    {"ok": False, "error": str(error)},
+                    ensure_ascii=False,
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 1
+        print(
+            json.dumps(
+                output,
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 0
 
     if args.command == "run":
         try:

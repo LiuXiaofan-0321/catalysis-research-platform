@@ -371,17 +371,29 @@ python research/scripts/research.py corpus verify \
 
 ## 7. Module D：KG Snapshot Versioning
 
+当前已实现的 foundation：
+
+- `stage1_corpus.v1` immutable corpus inventory；
+- `nested_kg_selection.v1` deterministic proportional stratification；
+- `nested_kg_manifest.v1` 和 strict-prefix verification；
+- 每个 K level 直接从选定的 Stage 1 source JSON records 重建；
+- corpus、selection order、snapshot、config 和 source archive hash audit；
+- coverage 在 public predictive dataset 冻结前固定为 `not_measured`。
+
+尚未实现 task-level coverage 和 knowledge structure controls。
+
 ### 新增文件
 
 ```text
 research/src/catalysis_research/kg/schema.py
 research/src/catalysis_research/kg/selection.py
-research/src/catalysis_research/kg/builder.py
-research/src/catalysis_research/kg/snapshot.py
+research/src/catalysis_research/kg/nested.py
+research/src/catalysis_research/kg/freeze_stage1.py
 research/src/catalysis_research/kg/coverage.py
-research/manifests/schemas/kg-snapshot.schema.json
+research/manifests/schemas/nested-kg-manifest.schema.json
+research/manifests/schemas/corpus-manifest.schema.json
 research/configs/kg/thermal-nested-v1.json
-research/tests/kg/
+research/tests/test_nested_kg.py
 ```
 
 ### Snapshot 目录
@@ -389,11 +401,11 @@ research/tests/kg/
 ```text
 research/kg_snapshots/<snapshot_id>/
   manifest.json
+  paper_ids.txt
   papers.jsonl
-  nodes.jsonl
-  edges.jsonl
-  coverage.json
-  build.log
+  nodes.jsonl.gz
+  edges.jsonl.gz
+  ontology.json
 ```
 
 ### Snapshot manifest
@@ -429,12 +441,22 @@ def measure_coverage(snapshot: KGSnapshot, benchmark: Benchmark) -> CoverageRepo
 ### CLI
 
 ```bash
-python research/scripts/research.py kg build \
-  --corpus thermal-stage1 \
-  --config research/configs/kg/thermal-nested-v1.json
+python research/scripts/research.py corpus freeze-stage1 \
+  --input data/thermal-catalysis-stage1.zip \
+  --output research/corpora/thermal-catalysis-stage1-v1 \
+  --corpus-id thermal-catalysis-stage1-v1 \
+  --domain thermal_catalysis \
+  --expected-papers 512 \
+  --expected-sha256 f0161fb2ee27a643831fb57392d304a1f6c139175b16ffd446c3f0d8921b5af5 \
+  --allowed-system thermal_catalysis
+
+python research/scripts/research.py kg build-nested \
+  --config research/configs/kg/thermal-nested-v1.json \
+  --repository-root .
 
 python research/scripts/research.py kg verify-nested \
-  --snapshots K20 K40 K60 K80 K100
+  --manifest research/manifests/kg/thermal-catalysis-nested-v1.json \
+  --repository-root .
 
 python research/scripts/research.py kg coverage \
   --snapshot K60 \

@@ -100,3 +100,15 @@ freeze stage. Raw public files may remain outside Git under
 The public registry is intentionally empty until an eligible thermocatalysis
 predictive dataset is selected. Infrastructure availability does not activate
 the experiment protocol.
+
+## Corpus and Nested KG Manifests
+
+`stage1_corpus.v1` freezes a committed literature archive as an exact paper
+inventory with PDF hashes, structured JSON hashes, extraction metadata,
+distributions, and Git provenance.
+
+`nested_kg_manifest.v1` records one deterministic full paper order and the
+strict K20/K40/K60/K80/K100 prefixes derived from it. Each level references its
+immutable snapshot content hash. Selection is forbidden from reading
+downstream labels or model/descriptor outcomes; task coverage remains
+`not_measured` until an eligible public predictive dataset is frozen.

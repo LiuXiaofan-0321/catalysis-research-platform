@@ -521,7 +521,7 @@ Reviewer Agent。
 
 生产 backend 和 frontend 当前没有单元测试、集成测试或端到端测试。
 
-新建 research 层当前有 34 个测试，覆盖：
+新建 research 层当前有 39 个测试，覆盖：
 
 - research 目录契约；
 - 缺失目录会失败；
@@ -536,6 +536,11 @@ Reviewer Agent。
 - dataset file hash、sample identity、missingness 和 duplicate policy；
 - deterministic IID、pre-registered OOD 和 split tampering；
 - label access restrictions、structural leakage audit 和 dataset CLI。
+- Stage 1 corpus inventory freeze/verify、四类 identity 去重和篡改检测；
+- deterministic proportional stratification、固定完整 paper order 和 exact
+  nested prefixes；
+- nested KG 的独立重建、无 dangling edge、snapshot/selection/config hash
+  校验和 CLI。
 
 尚未测试：
 

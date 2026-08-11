@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "corpus-manifest.schema.json",
+  "additionalProperties": true,
+  "properties": {
+    "corpus_content_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "corpus_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "generation": {
+      "properties": {
+        "downstream_label_access": {
+          "const": "forbidden"
+        },
+        "overwrite_policy": {
+          "const": "forbidden"
+        }
+      },
+      "required": [
+        "code",
+        "downstream_label_access",
+        "freezer_version",
+        "overwrite_policy"
+      ],
+      "type": "object"
+    },
+    "paper_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": "stage1_corpus.v1"
+    },
+    "status": {
+      "const": "frozen"
+    }
+  },
+  "required": [
+    "schema_version",
+    "corpus_id",
+    "status",
+    "corpus_content_hash",
+    "source_archive",
+    "paper_count",
+    "artifacts",
+    "generation"
+  ],
+  "title": "Frozen Stage 1 Corpus Manifest",
+  "type": "object"
+}

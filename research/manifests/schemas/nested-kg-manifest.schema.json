@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nested-kg-manifest.schema.json",
+  "additionalProperties": true,
+  "properties": {
+    "coverage": {
+      "properties": {
+        "status": {
+          "const": "not_measured"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "type": "object"
+    },
+    "levels": {
+      "items": {
+        "required": [
+          "knowledge_level",
+          "paper_count",
+          "snapshot_id",
+          "snapshot_content_hash",
+          "paper_id_prefix_hash"
+        ],
+        "type": "object"
+      },
+      "minItems": 2,
+      "type": "array"
+    },
+    "nested_content_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "nested_kg_manifest.v1"
+    },
+    "selection": {
+      "properties": {
+        "downstream_label_access": {
+          "const": "forbidden"
+        },
+        "nesting_rule": {
+          "const": "exact prefixes of one frozen full order"
+        }
+      },
+      "required": [
+        "selection_id",
+        "algorithm_version",
+        "seed",
+        "nesting_rule",
+        "downstream_label_access"
+      ],
+      "type": "object"
+    },
+    "status": {
+      "const": "frozen"
+    }
+  },
+  "required": [
+    "schema_version",
+    "nested_snapshot_id",
+    "status",
+    "nested_content_hash",
+    "source_archive",
+    "corpus",
+    "selection",
+    "selection_order",
+    "levels",
+    "coverage",
+    "generation"
+  ],
+  "title": "Nested Knowledge Graph Manifest",
+  "type": "object"
+}

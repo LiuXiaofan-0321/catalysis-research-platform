@@ -13,6 +13,7 @@ import zipfile
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
+from pathlib import PurePosixPath
 from typing import Any, Iterable
 
 
@@ -248,6 +249,72 @@ def _git_state(repository_root: Path) -> dict[str, Any]:
         "branch": run("branch", "--show-current"),
         "dirty": bool(status),
     }
+
+
+def source_topic_for(source_path: Any) -> str:
+    parts = PurePosixPath(str(source_path or "").replace("\\", "/")).parts
+    for index, part in enumerate(parts[:-1]):
+        if part.lower() == "reaction" and index + 1 < len(parts):
+            return parts[index + 1]
+    return "unknown"
+
+
+def paper_distributions(
+    papers: Iterable[dict[str, Any]],
+) -> dict[str, dict[str, int]]:
+    paper_rows = list(papers)
+    year_distribution = Counter(
+        str(paper.get("year") or "unknown")
+        for paper in paper_rows
+    )
+    paper_type_distribution = Counter(
+        str(paper.get("paper_type") or "unknown")
+        for paper in paper_rows
+    )
+    source_topic_distribution = Counter(
+        source_topic_for(paper.get("source_path"))
+        for paper in paper_rows
+    )
+    reaction_category_distribution = Counter(
+        str(category)
+        for paper in paper_rows
+        for category in (paper.get("reaction_categories") or ["unknown"])
+    )
+    return {
+        "year": dict(sorted(year_distribution.items())),
+        "paper_type": dict(sorted(paper_type_distribution.items())),
+        "source_topic": dict(sorted(source_topic_distribution.items())),
+        "reaction_category": dict(
+            sorted(reaction_category_distribution.items())
+        ),
+    }
+
+
+def _snapshot_hash_identity(
+    *,
+    snapshot_id: str,
+    knowledge_level: str,
+    source_archive_sha256: str,
+    artifact_files: dict[str, Any],
+    ontology_version: str,
+    corpus: dict[str, Any] | None = None,
+    selection: dict[str, Any] | None = None,
+    coverage: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    identity: dict[str, Any] = {
+        "snapshot_id": snapshot_id,
+        "knowledge_level": knowledge_level,
+        "source_archive_sha256": source_archive_sha256,
+        "artifact_files": artifact_files,
+        "ontology_version": ontology_version,
+    }
+    if corpus is not None:
+        identity["corpus"] = corpus
+    if selection is not None:
+        identity["selection"] = selection
+    if coverage is not None:
+        identity["coverage"] = coverage
+    return identity
 
 
 def _increment(counter: Counter[str], value: Any) -> None:
@@ -749,6 +816,11 @@ def freeze_stage1_archive(
     repository_root: Path,
     ontology_version: str = DEFAULT_ONTOLOGY_VERSION,
     frozen_at: str | None = None,
+    selected_entries: set[str] | None = None,
+    git_state: dict[str, Any] | None = None,
+    corpus: dict[str, Any] | None = None,
+    selection: dict[str, Any] | None = None,
+    coverage: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     archive_path = archive_path.resolve()
     output_directory = output_directory.resolve()
@@ -759,12 +831,12 @@ def freeze_stage1_archive(
             f"{output_directory}"
         )
 
-    git_state = _git_state(repository_root)
+    resolved_git_state = git_state or _git_state(repository_root)
     freeze_timestamp = frozen_at or datetime.now(timezone.utc).isoformat()
     archive_sha256 = sha256_file(archive_path)
 
     with zipfile.ZipFile(archive_path) as archive:
-        entries = sorted(
+        all_entries = sorted(
             (
                 entry
                 for entry in archive.infolist()
@@ -773,6 +845,21 @@ def freeze_stage1_archive(
             ),
             key=lambda entry: entry.filename,
         )
+        if selected_entries is None:
+            entries = all_entries
+        else:
+            available_names = {entry.filename for entry in all_entries}
+            missing_entries = sorted(selected_entries - available_names)
+            if missing_entries:
+                raise ValueError(
+                    "Selected archive entries are missing: "
+                    + ", ".join(missing_entries)
+                )
+            entries = [
+                entry
+                for entry in all_entries
+                if entry.filename in selected_entries
+            ]
         artifacts: list[tuple[str, bytes, dict[str, Any]]] = []
         for entry in entries:
             raw_json = archive.read(entry)
@@ -892,13 +979,16 @@ def freeze_stage1_archive(
             },
         }
         snapshot_content_hash = canonical_hash(
-            {
-                "snapshot_id": snapshot_id,
-                "knowledge_level": knowledge_level,
-                "source_archive_sha256": archive_sha256,
-                "artifact_files": artifact_files,
-                "ontology_version": ontology_version,
-            }
+            _snapshot_hash_identity(
+                snapshot_id=snapshot_id,
+                knowledge_level=knowledge_level,
+                source_archive_sha256=archive_sha256,
+                artifact_files=artifact_files,
+                ontology_version=ontology_version,
+                corpus=corpus,
+                selection=selection,
+                coverage=coverage,
+            )
         )
         try:
             source_path = str(archive_path.relative_to(repository_root))
@@ -940,6 +1030,7 @@ def freeze_stage1_archive(
                     sorted(review_status_distribution.items())
                 ),
             },
+            "paper_distributions": paper_distributions(papers),
             "extraction": extraction_metadata,
             "ontology": {
                 "version": ontology_version,
@@ -948,12 +1039,19 @@ def freeze_stage1_archive(
             "artifacts": artifact_files,
             "generation": {
                 "freezer_version": FREEZER_VERSION,
-                "code": git_state,
+                "code": resolved_git_state,
                 "allowed_systems": sorted(allowed_systems),
                 "paper_ordering": "lexicographic ZIP entry path",
                 "overwrite_policy": "forbidden",
+                "selected_entry_count": len(entries),
             },
         }
+        if corpus is not None:
+            manifest["corpus"] = corpus
+        if selection is not None:
+            manifest["selection"] = selection
+        if coverage is not None:
+            manifest["coverage"] = coverage
         _write_json(temporary_root / "manifest.json", manifest)
         temporary_root.replace(output_directory)
         return manifest
@@ -981,13 +1079,16 @@ def verify_snapshot(snapshot_directory: Path) -> dict[str, Any]:
             )
 
     expected_content_hash = canonical_hash(
-        {
-            "snapshot_id": manifest["snapshot_id"],
-            "knowledge_level": manifest["knowledge_level"],
-            "source_archive_sha256": manifest["source_archive"]["sha256"],
-            "artifact_files": manifest["artifacts"],
-            "ontology_version": manifest["ontology"]["version"],
-        }
+        _snapshot_hash_identity(
+            snapshot_id=manifest["snapshot_id"],
+            knowledge_level=manifest["knowledge_level"],
+            source_archive_sha256=manifest["source_archive"]["sha256"],
+            artifact_files=manifest["artifacts"],
+            ontology_version=manifest["ontology"]["version"],
+            corpus=manifest.get("corpus"),
+            selection=manifest.get("selection"),
+            coverage=manifest.get("coverage"),
+        )
     )
     if expected_content_hash != manifest.get("snapshot_content_hash"):
         failures.append("Snapshot content hash mismatch")
@@ -1056,10 +1157,20 @@ def verify_snapshot(snapshot_directory: Path) -> dict[str, Any]:
         failures.append("Node type distribution does not match manifest")
     if relation_distribution != manifest["graph"]["relation_distribution"]:
         failures.append("Relation distribution does not match manifest")
+    if manifest.get("paper_distributions") is not None and (
+        paper_distributions(papers) != manifest["paper_distributions"]
+    ):
+        failures.append("Paper distributions do not match manifest")
 
-    source_archive_path = (
-        snapshot_directory.parents[2] / manifest["source_archive"]["path"]
+    repository_root = next(
+        (
+            parent
+            for parent in (snapshot_directory, *snapshot_directory.parents)
+            if (parent / ".git").exists()
+        ),
+        snapshot_directory.parents[2],
     )
+    source_archive_path = repository_root / manifest["source_archive"]["path"]
     source_archive_valid: bool | None = None
     if source_archive_path.is_file():
         source_archive_valid = (

@@ -65,13 +65,24 @@ Public dataset registry and fixed split commands are available through:
 python research/scripts/research.py dataset --help
 ```
 
+Frozen literature corpus and nested KG commands are available through:
+
+```bash
+python research/scripts/research.py corpus --help
+python research/scripts/research.py kg build-nested --help
+python research/scripts/research.py kg verify-nested --help
+```
+
 ## Current Scope
 
 The research boundary, repository-level experiment protocol, K247 knowledge
 snapshot, immutable Run Manifest, public dataset registration, deterministic
 IID/OOD splitting, label-access controls, and structural leakage audit
-infrastructure are implemented. The public registry intentionally remains empty
-until an exact eligible dataset is selected and reviewed.
+infrastructure are implemented. The thermal nested KG builder freezes one
+label-independent, stratified full paper order and constructs K20/K40/K60/K80/
+K100 as exact prefixes. Each selected graph is rebuilt from its own Stage 1
+source records. The public registry intentionally remains empty until an exact
+eligible dataset is selected and reviewed.
 
 The frozen protocol is maintained in
 `../docs/research/EXPERIMENT_PROTOCOL.md`. It remains blocked from activation

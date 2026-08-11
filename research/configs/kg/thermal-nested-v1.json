@@ -1,0 +1,110 @@
+{
+  "allowed_systems": [
+    "thermal_catalysis"
+  ],
+  "corpus_content_hash": "f145566c39b2edf861cf45e46c7099d5256b354603fe4542cc6257e66ddebaff",
+  "corpus_directory": "research/corpora/thermal-catalysis-stage1-v1",
+  "corpus_id": "thermal-catalysis-stage1-v1",
+  "domain": "thermal_catalysis",
+  "nested_manifest": "research/manifests/kg/thermal-catalysis-nested-v1.json",
+  "nested_snapshot_id": "thermal-catalysis-nested-v1",
+  "ontology_version": "catalysis_evidence_graph.v1",
+  "schema_version": "nested_kg_build_config.v1",
+  "selection": {
+    "algorithm_version": "proportional_stratified_hash_order.v1",
+    "downstream_label_access": "forbidden",
+    "levels": [
+      {
+        "knowledge_level": "K20",
+        "paper_count": 102,
+        "paper_fraction": 0.2,
+        "snapshot_id": "K20-thermal-catalysis-v1"
+      },
+      {
+        "knowledge_level": "K40",
+        "paper_count": 205,
+        "paper_fraction": 0.4,
+        "snapshot_id": "K40-thermal-catalysis-v1"
+      },
+      {
+        "knowledge_level": "K60",
+        "paper_count": 307,
+        "paper_fraction": 0.6,
+        "snapshot_id": "K60-thermal-catalysis-v1"
+      },
+      {
+        "knowledge_level": "K80",
+        "paper_count": 410,
+        "paper_fraction": 0.8,
+        "snapshot_id": "K80-thermal-catalysis-v1"
+      },
+      {
+        "knowledge_level": "K100",
+        "paper_count": 512,
+        "paper_fraction": 1.0,
+        "snapshot_id": "K100-thermal-catalysis-v1"
+      }
+    ],
+    "paper_type_fallback": "other",
+    "paper_type_groups": {
+      "other": [
+        "book_chapter",
+        "communication",
+        "conference",
+        "other",
+        "unknown"
+      ],
+      "research_article": [
+        "research_article"
+      ],
+      "review_perspective": [
+        "review",
+        "perspective"
+      ]
+    },
+    "seed": 20260810,
+    "selection_id": "thermal-catalysis-stage1-selection-v1",
+    "selection_schema_version": "nested_kg_selection.v1",
+    "topic_source_rule": "first directory after Reaction in source_path",
+    "year_bins": [
+      {
+        "id": "unknown",
+        "unknown": true
+      },
+      {
+        "id": "pre-1980",
+        "maximum": 1979,
+        "minimum": null
+      },
+      {
+        "id": "1980-1989",
+        "maximum": 1989,
+        "minimum": 1980
+      },
+      {
+        "id": "1990-1999",
+        "maximum": 1999,
+        "minimum": 1990
+      },
+      {
+        "id": "2000-2009",
+        "maximum": 2009,
+        "minimum": 2000
+      },
+      {
+        "id": "2010-2014",
+        "maximum": 2014,
+        "minimum": 2010
+      },
+      {
+        "id": "2015-present",
+        "maximum": null,
+        "minimum": 2015
+      }
+    ]
+  },
+  "selection_order_artifact": "research/manifests/kg/thermal-catalysis-nested-v1.order.jsonl",
+  "snapshots_root": "research/kg_snapshots",
+  "source_archive": "data/thermal-catalysis-stage1.zip",
+  "source_archive_sha256": "f0161fb2ee27a643831fb57392d304a1f6c139175b16ffd446c3f0d8921b5af5"
+}

@@ -115,28 +115,31 @@ artifacts 和 `FINALIZED.json`；completed/failed run 终态不可变，dirty Gi
 
 ### P0-3 KG Snapshot and Versioning
 
-当前缺口：
+当前状态：
 
 - 生产 Workspace 的当前数据库状态不是 snapshot；
 - import 不读取 dataset manifest；
-- 没有 K20 至 K100；
+- 已实现 immutable Stage 1 corpus inventory freezer；
+- 已实现 `proportional_stratified_hash_order.v1` 和单一完整顺序的 exact
+  nested prefix builder；
+- 已实现 K20 至 K100 snapshot、selection order、corpus 和 nested manifest
+  的 hash/strict-nesting verification；
+- thermal v1 固定 seed、年份桶、topic source rule、paper type groups 和
+  `102/205/307/410/512` absolute counts 已在 protocol/config 中预注册；
 - 没有 structure ablation；
 - 没有 relevant evidence coverage。
 
-必须完成：
+仍必须完成：
 
-- deterministic snapshot builder；
-- nested paper sets；
-- snapshot manifest；
-- node/edge/relation/topic/year distributions；
 - task-level evidence coverage；
 - real、raw、entity、evidence、shuffled 等结构模式；
-- exact rebuild command。
+- exact public predictive dataset freeze 后绑定 task coverage。
 
 验收：
 
 - 同一输入和配置生成相同 snapshot hash；
 - K20 是 K40 的严格子集，依次嵌套；
+- selected snapshot 只从对应 source JSON records 重建，不从 K100 过滤；
 - shuffled control 保持节点、文本和 token budget 可比；
 - snapshot 不依赖手工复制数据库。
 

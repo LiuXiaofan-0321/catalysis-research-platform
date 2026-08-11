@@ -213,6 +213,41 @@ Nested paper selection 必须：
 - 不根据 descriptor performance 调整 paper order；
 - 保存 paper list 和 hash。
 
+Thermal Stage 1 nested selection v1 在任何 outcome-bearing run 前进一步冻结为：
+
+```text
+corpus: thermal-catalysis-stage1-v1
+paper count: 512
+selection seed: 20260810
+absolute counts: K20=102, K40=205, K60=307, K80=410, K100=512
+topic source: first directory after Reaction in source_path
+year bins:
+  unknown
+  pre-1980
+  1980-1989
+  1990-1999
+  2000-2009
+  2010-2014
+  2015-present
+paper type groups:
+  research_article
+  review_perspective = review + perspective
+  other = book_chapter + communication + conference + other + unknown
+```
+
+选择算法固定为 `proportional_stratified_hash_order.v1`：
+
+1. 以 `topic source x year bin x paper type group` 定义 stratum；
+2. 在每个 stratum 内，以固定 seed、paper ID、archive entry、PDF hash 和
+   structured JSON hash 生成 deterministic hash order；
+3. 以 stratum 内 fractional rank 进行 proportional interleaving；
+4. `K20/K40/K60/K80/K100` 分别取同一个完整顺序的前
+   `102/205/307/410/512` 篇。
+
+禁止以 coverage、descriptor、model、validation/test metric 或 private outcome
+重新排序。Coverage 在 exact public predictive dataset 冻结前记录为
+`not_measured`，不能作为 selection input。
+
 Primary domain 为 `thermal_catalysis`，因为最终 external validation 是 private
 thermocatalysis。
 
@@ -1208,3 +1243,4 @@ PNG/PDF figures
 | v1 | 2026-08-10 | Initial protocol freeze | No Model x KG outcome exists | Establishes rules and activation blockers |
 | v1.1 | 2026-08-10 | Registers immutable `K247-photocatalysis-v1` as the first absolute-size scaling anchor | No Model x KG outcome exists | Preserves the current 247-paper corpus as a permanent experimental point |
 | v1.2 | 2026-08-11 | Implements public-only dataset manifests, deterministic IID/OOD splits, label-access controls, and structural leakage audit without selecting a dataset | No Model x KG outcome exists | Adds enforcement infrastructure; protocol remains `ACTIVATION_BLOCKED` |
+| v1.3 | 2026-08-11 | Freezes the 512-paper thermal corpus identity, exact K20/K40/K60/K80/K100 counts, strata, seed, and proportional deterministic selection algorithm before snapshot construction | No Model x KG outcome exists | Prevents post-outcome corpus ordering changes; coverage remains `not_measured` and protocol remains `ACTIVATION_BLOCKED` |
