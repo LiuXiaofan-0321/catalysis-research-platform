@@ -1,0 +1,148 @@
+{
+  "artifacts": {
+    "paper_ids": {
+      "count": 512,
+      "path": "paper_ids.txt",
+      "sha256": "6e71c4536335ab11b1023ab9136aaf2974db3741dad7fa491046153be3066e37"
+    },
+    "papers": {
+      "count": 512,
+      "path": "papers.jsonl",
+      "sha256": "b91b84f8bd2cc049a28a684f4727bda9bbb00b471f42ed078032c5c30b5a4f4e"
+    }
+  },
+  "corpus_content_hash": "f145566c39b2edf861cf45e46c7099d5256b354603fe4542cc6257e66ddebaff",
+  "corpus_id": "thermal-catalysis-stage1-v1",
+  "distributions": {
+    "paper_type": {
+      "book_chapter": 4,
+      "communication": 4,
+      "conference": 15,
+      "other": 7,
+      "perspective": 1,
+      "research_article": 466,
+      "review": 15
+    },
+    "source_topic": {
+      "Alkylation": 215,
+      "Skeletal_isomerization": 110,
+      "Toluene_disproportionation": 187
+    },
+    "year": {
+      "1966": 1,
+      "1970": 1,
+      "1972": 2,
+      "1973": 1,
+      "1974": 2,
+      "1975": 1,
+      "1976": 1,
+      "1978": 2,
+      "1979": 4,
+      "1980": 5,
+      "1981": 8,
+      "1982": 5,
+      "1983": 6,
+      "1984": 3,
+      "1985": 3,
+      "1986": 9,
+      "1987": 10,
+      "1988": 5,
+      "1989": 11,
+      "1990": 7,
+      "1991": 4,
+      "1992": 5,
+      "1993": 13,
+      "1994": 10,
+      "1995": 14,
+      "1996": 12,
+      "1997": 19,
+      "1998": 20,
+      "1999": 21,
+      "2000": 21,
+      "2001": 14,
+      "2002": 17,
+      "2003": 15,
+      "2004": 13,
+      "2005": 17,
+      "2006": 14,
+      "2007": 18,
+      "2008": 21,
+      "2009": 18,
+      "2010": 12,
+      "2011": 10,
+      "2012": 10,
+      "2013": 15,
+      "2014": 15,
+      "2015": 9,
+      "2016": 9,
+      "2017": 9,
+      "2018": 12,
+      "2019": 18,
+      "2020": 6,
+      "2021": 7,
+      "unknown": 7
+    }
+  },
+  "domain": "thermal_catalysis",
+  "frozen_at": "2026-08-11T12:15:36.016384+00:00",
+  "generation": {
+    "allowed_systems": [
+      "thermal_catalysis"
+    ],
+    "code": {
+      "branch": "main",
+      "commit": "b6584a0bf1e2cb1224aa414f57cbc5923301030d",
+      "dirty": false,
+      "tree": "49b0683df0b987069282e1982591e6833815e894"
+    },
+    "deduplication_identity": [
+      "paper_id",
+      "doi",
+      "raw_pdf_sha256",
+      "normalized_title_year"
+    ],
+    "downstream_label_access": "forbidden",
+    "freezer_version": "stage1_corpus_freezer.v1",
+    "overwrite_policy": "forbidden",
+    "paper_ordering": "lexicographic ZIP entry path"
+  },
+  "paper_count": 512,
+  "paper_id_hash": "c83d2a5f802e41a604b13f40d7c0f8ecbc76a05e1883022b3eedd758a26a115c",
+  "raw_pdf_hash_count": 512,
+  "schema_version": "stage1_corpus.v1",
+  "source_archive": {
+    "bytes": 4500955,
+    "dataset_manifest": {
+      "allowedSystems": [
+        "thermal_catalysis"
+      ],
+      "corpusFingerprint": "7d653a9ff110d3edd287d22f3a46cec2ef256ee1bd33abc7c257bae3e2f4a875",
+      "counts": {
+        "claims": 3034,
+        "documents": 512,
+        "entities": 6077,
+        "experiments": 2103,
+        "keywords": 8024,
+        "observations": 8733,
+        "paperTypes": {
+          "book_chapter": 4,
+          "communication": 4,
+          "conference": 15,
+          "other": 7,
+          "perspective": 1,
+          "research_article": 466,
+          "review": 15
+        },
+        "systems": {
+          "thermal_catalysis": 512
+        }
+      },
+      "generatedAt": "2026-08-09T09:57:33.977Z",
+      "schema": "catalysis_research_dataset.v1"
+    },
+    "path": "data/thermal-catalysis-stage1.zip",
+    "sha256": "f0161fb2ee27a643831fb57392d304a1f6c139175b16ffd446c3f0d8921b5af5"
+  },
+  "status": "frozen",
+  "structured_json_hash_count": 512
+}
