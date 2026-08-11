@@ -1,0 +1,155 @@
+{
+  "corpus": {
+    "corpus_content_hash": "f145566c39b2edf861cf45e46c7099d5256b354603fe4542cc6257e66ddebaff",
+    "corpus_id": "thermal-catalysis-stage1-v1",
+    "manifest": "research/corpora/thermal-catalysis-stage1-v1/manifest.json"
+  },
+  "coverage": {
+    "reason": "No eligible public predictive dataset has been frozen",
+    "status": "not_measured"
+  },
+  "domain": "thermal_catalysis",
+  "frozen_at": "2026-08-11T12:16:28.758285+00:00",
+  "generation": {
+    "builder_version": "nested_stage1_builder.v1",
+    "code": {
+      "branch": "main",
+      "commit": "c5d104703ff28d00096ec173f5120815334aa6c1",
+      "dirty": false,
+      "tree": "89fac9763e4eb5140b12ecb77fea970e472eb439"
+    },
+    "config": "research/configs/kg/thermal-nested-v1.json",
+    "config_sha256": "629ed755774096311acddac8cb9d86aeb8c38bde02324d32e33a22892c6833d3",
+    "overwrite_policy": "forbidden",
+    "private_data_access": "forbidden"
+  },
+  "levels": [
+    {
+      "archive_entry_prefix_hash": "df712c79c5597703e5db0f5f50ca381c39a4d70cf7ffa40c7720bdd4f1752d1f",
+      "knowledge_level": "K20",
+      "paper_count": 102,
+      "paper_fraction": 0.2,
+      "paper_id_prefix_hash": "fd23dbfed852d2ef62976c26dba40081fd21cb8f6c45dd9665d708fb3a918e5c",
+      "snapshot_content_hash": "91d52e4a58f6d0f4f203c8b71aa0d4147715404175caeacd0755587a1f4d96b3",
+      "snapshot_id": "K20-thermal-catalysis-v1",
+      "snapshot_path": "research/kg_snapshots/K20-thermal-catalysis-v1"
+    },
+    {
+      "archive_entry_prefix_hash": "5ae8f0e45481b04f33d0663416282bc97340420debe845a9184be590e225a455",
+      "knowledge_level": "K40",
+      "paper_count": 205,
+      "paper_fraction": 0.4,
+      "paper_id_prefix_hash": "d3e54a939f48a780b49b1aa50027cc34eedcba09153cc18f695aa17f41b4450b",
+      "snapshot_content_hash": "42d9ea4f01cd324218dff4e6fcb0034915821238aa3b676078c8319485d070ac",
+      "snapshot_id": "K40-thermal-catalysis-v1",
+      "snapshot_path": "research/kg_snapshots/K40-thermal-catalysis-v1"
+    },
+    {
+      "archive_entry_prefix_hash": "02219b98654e7fa992877c640d9f8c47250ef9ac66299ab0eeccbddec977c9e0",
+      "knowledge_level": "K60",
+      "paper_count": 307,
+      "paper_fraction": 0.6,
+      "paper_id_prefix_hash": "7f3de5c4ac2742c020450b101141bfbd2d525d42964546deb6594a013c64d4d5",
+      "snapshot_content_hash": "b2166a57e48408be50e31677b2aac9617da2d52518d5fab1be2cc459a652ac4a",
+      "snapshot_id": "K60-thermal-catalysis-v1",
+      "snapshot_path": "research/kg_snapshots/K60-thermal-catalysis-v1"
+    },
+    {
+      "archive_entry_prefix_hash": "a570fffd3823df12f7e6ff87ea5666644c88b07c14b2a66b4ef626e6d7bf5374",
+      "knowledge_level": "K80",
+      "paper_count": 410,
+      "paper_fraction": 0.8,
+      "paper_id_prefix_hash": "ceda0af34a9cab44663d5c272693ec9d1993bd163af14bc22654e30238966264",
+      "snapshot_content_hash": "bc19f4314e2b27f7098c4df493fe71ff1a7f4eb49161ac839ea4baedcff2929f",
+      "snapshot_id": "K80-thermal-catalysis-v1",
+      "snapshot_path": "research/kg_snapshots/K80-thermal-catalysis-v1"
+    },
+    {
+      "archive_entry_prefix_hash": "5b602309719cb5430c520c4d9d3a06e8362dd33c61661de63923a6a3b9d9a57e",
+      "knowledge_level": "K100",
+      "paper_count": 512,
+      "paper_fraction": 1.0,
+      "paper_id_prefix_hash": "ecfb9bc90cbf5af69cd827ad4ead4c028e1cd071a5a5064a80a8819494bbb525",
+      "snapshot_content_hash": "ba36112bba626b6bc66c86488a662897091ee0e55e4ddd30de6c0f4cf4d36853",
+      "snapshot_id": "K100-thermal-catalysis-v1",
+      "snapshot_path": "research/kg_snapshots/K100-thermal-catalysis-v1"
+    }
+  ],
+  "nested_content_hash": "60aadd8673f19b71f23577bf2f81ed5cd7f1eae9346ea7c67f883a5542363227",
+  "nested_snapshot_id": "thermal-catalysis-nested-v1",
+  "schema_version": "nested_kg_manifest.v1",
+  "selection": {
+    "algorithm_version": "proportional_stratified_hash_order.v1",
+    "downstream_label_access": "forbidden",
+    "nesting_rule": "exact prefixes of one frozen full order",
+    "paper_type_fallback": "other",
+    "paper_type_groups": {
+      "other": [
+        "book_chapter",
+        "communication",
+        "conference",
+        "other",
+        "unknown"
+      ],
+      "research_article": [
+        "research_article"
+      ],
+      "review_perspective": [
+        "review",
+        "perspective"
+      ]
+    },
+    "performance_based_reordering": "forbidden",
+    "seed": 20260810,
+    "selection_id": "thermal-catalysis-stage1-selection-v1",
+    "selection_schema_version": "nested_kg_selection.v1",
+    "topic_source_rule": "first directory after Reaction in source_path",
+    "year_bins": [
+      {
+        "id": "unknown",
+        "unknown": true
+      },
+      {
+        "id": "pre-1980",
+        "maximum": 1979,
+        "minimum": null
+      },
+      {
+        "id": "1980-1989",
+        "maximum": 1989,
+        "minimum": 1980
+      },
+      {
+        "id": "1990-1999",
+        "maximum": 1999,
+        "minimum": 1990
+      },
+      {
+        "id": "2000-2009",
+        "maximum": 2009,
+        "minimum": 2000
+      },
+      {
+        "id": "2010-2014",
+        "maximum": 2014,
+        "minimum": 2010
+      },
+      {
+        "id": "2015-present",
+        "maximum": null,
+        "minimum": 2015
+      }
+    ]
+  },
+  "selection_order": {
+    "count": 512,
+    "path": "research/manifests/kg/thermal-catalysis-nested-v1.order.jsonl",
+    "selection_order_hash": "104c8c417997d8657c3c41a2c32948c773dcadbfe72dcd28a918e7ff649df99c",
+    "sha256": "785ad311a6802c1343791cdc5b8a81ad50c89d72237eff65cd07f9c897eb7ac5"
+  },
+  "source_archive": {
+    "path": "data/thermal-catalysis-stage1.zip",
+    "sha256": "f0161fb2ee27a643831fb57392d304a1f6c139175b16ffd446c3f0d8921b5af5"
+  },
+  "status": "frozen"
+}

@@ -1,0 +1,293 @@
+{
+  "artifacts": {
+    "edges": {
+      "count": 10321,
+      "path": "edges.jsonl.gz",
+      "sha256": "6fd191bf5752fcc3b778700fb75089e441b14d5516312f639c7c9e6c0d3b71c9"
+    },
+    "nodes": {
+      "count": 4576,
+      "path": "nodes.jsonl.gz",
+      "sha256": "662634e3c1efc52c5314ce5135cfc9f5ce8c7a6a2a281beafe22d721ca2d6184"
+    },
+    "ontology": {
+      "path": "ontology.json",
+      "sha256": "b38a0f4ffa7bcad483e13c1efc0347d5dd9cf6457ede67e78a7465557d1ef166"
+    },
+    "paper_ids": {
+      "count": 102,
+      "path": "paper_ids.txt",
+      "sha256": "73d4362aee8eb158df887fa1e832371b292c4574c841df09e565c6cd9f823a4f"
+    },
+    "papers": {
+      "count": 102,
+      "path": "papers.jsonl",
+      "sha256": "5071aade09cff237d2170aed7224e5692065e9bc9dd01a960e6c287274b6b03b"
+    }
+  },
+  "corpus": {
+    "corpus_content_hash": "f145566c39b2edf861cf45e46c7099d5256b354603fe4542cc6257e66ddebaff",
+    "corpus_id": "thermal-catalysis-stage1-v1",
+    "manifest": "research/corpora/thermal-catalysis-stage1-v1/manifest.json"
+  },
+  "coverage": {
+    "reason": "No eligible public predictive dataset has been frozen",
+    "status": "not_measured"
+  },
+  "domain": "thermal_catalysis",
+  "extraction": {
+    "evidence_validation_distribution": {
+      "exact": 3060,
+      "locally_recovered": 640,
+      "unverified": 379
+    },
+    "extraction_models": {
+      "deepseek-v4-flash": 102
+    },
+    "extraction_schema_versions": {
+      "zeolite_paper_extraction.v1": 102
+    },
+    "extraction_timestamp_max": "2026-08-07T18:21:41.028287+00:00",
+    "extraction_timestamp_min": "2026-08-07T16:55:17.064431+00:00",
+    "prompt_versions": {
+      "zeolite-paper-extraction-v1.1": 102
+    },
+    "requested_models": {
+      "deepseek-v4-flash": 102
+    }
+  },
+  "frozen_at": "2026-08-11T12:16:28.758285+00:00",
+  "generation": {
+    "allowed_systems": [
+      "thermal_catalysis"
+    ],
+    "code": {
+      "branch": "main",
+      "commit": "c5d104703ff28d00096ec173f5120815334aa6c1",
+      "dirty": false,
+      "tree": "89fac9763e4eb5140b12ecb77fea970e472eb439"
+    },
+    "freezer_version": "stage1_kg_freezer.v1",
+    "overwrite_policy": "forbidden",
+    "paper_ordering": "lexicographic ZIP entry path",
+    "selected_entry_count": 102
+  },
+  "graph": {
+    "edge_count": 10321,
+    "node_count": 4576,
+    "node_review_status_distribution": {
+      "extracted": 4026,
+      "needs_review": 550
+    },
+    "node_type_distribution": {
+      "claim": 604,
+      "entity": 730,
+      "experiment": 425,
+      "keyword": 928,
+      "observation": 1787,
+      "paper": 102
+    },
+    "relation_distribution": {
+      "EXPERIMENT_PRODUCES_OBSERVATION": 1702,
+      "EXPERIMENT_USES_MATERIAL": 750,
+      "EXPERIMENT_USES_METHOD": 245,
+      "EXPERIMENT_USES_SAMPLE": 877,
+      "OBSERVATION_MEASURED_BY": 609,
+      "OBSERVATION_MEASURES_PROPERTY": 460,
+      "OBSERVATION_OF_SAMPLE": 1781,
+      "PAPER_ASSERTS_CLAIM": 604,
+      "PAPER_HAS_KEYWORD": 1581,
+      "PAPER_MENTIONS_ENTITY": 1202,
+      "PAPER_REPORTS_EXPERIMENT": 425,
+      "PAPER_REPORTS_OBSERVATION": 85
+    }
+  },
+  "knowledge_level": "K20",
+  "ontology": {
+    "manifest": "ontology.json",
+    "version": "catalysis_evidence_graph.v1"
+  },
+  "paper_count": 102,
+  "paper_distributions": {
+    "paper_type": {
+      "book_chapter": 2,
+      "communication": 1,
+      "conference": 4,
+      "other": 1,
+      "research_article": 92,
+      "review": 2
+    },
+    "reaction_category": {
+      "1,2,4-三甲苯歧化": 1,
+      "1-丁烯骨架异构化": 6,
+      "Friedel-Crafts烷基化": 3,
+      "O-烷基化": 1,
+      "丁烯骨架异构化": 2,
+      "三甲苯异构化": 1,
+      "乙苯歧化": 3,
+      "乙苯烷基化": 1,
+      "乙苯生产": 1,
+      "二甲苯异构化": 2,
+      "加氢": 2,
+      "加氢裂化": 1,
+      "对二甲苯烷基化": 1,
+      "异构化": 5,
+      "正丁烯异构化": 1,
+      "正丁烯骨架异构化": 4,
+      "正庚烷裂化": 1,
+      "正构烷烃择形裂化": 1,
+      "歧化": 2,
+      "氢解": 1,
+      "烯烃烷基化噻吩硫": 1,
+      "烯烃聚合": 1,
+      "烯烃骨架异构化": 1,
+      "烷基化": 12,
+      "烷基化反应": 5,
+      "烷基芳烃异构化": 1,
+      "烷基芳烃歧化": 1,
+      "烷基芳烃烷基转移": 1,
+      "烷基转移": 1,
+      "烷烃异构化": 1,
+      "烷烃裂化": 1,
+      "甲苯C3烷基化": 1,
+      "甲苯与1,2,4-三甲苯烷基转移": 1,
+      "甲苯与乙烯烷基化": 1,
+      "甲苯与甲醇烷基化": 2,
+      "甲苯侧链烷基化": 1,
+      "甲苯异丙基化": 1,
+      "甲苯歧化": 37,
+      "甲苯烷基化": 6,
+      "甲苯甲基化": 3,
+      "甲苯甲醇烷基化": 2,
+      "甲苯选择性歧化": 1,
+      "甲醇制芳烃": 1,
+      "甲醇氨化": 1,
+      "甲醇转化": 1,
+      "线性丁烯骨架异构化": 1,
+      "芳构化": 1,
+      "芳烃亲电烷基化": 1,
+      "芳烃异构化": 1,
+      "芳烃烷基化": 2,
+      "芳烃甲基化": 1,
+      "苯与甲醇烷基化": 1,
+      "苯烷基化": 6,
+      "苯甲醇与芳烃的苄基化反应": 1,
+      "裂化": 1,
+      "邻二甲苯异构化": 1,
+      "间二甲苯异构化": 2,
+      "间二甲苯歧化": 1,
+      "骨架异构化": 6,
+      "齐聚": 1,
+      "齐聚/裂化": 1
+    },
+    "source_topic": {
+      "Alkylation": 42,
+      "Skeletal_isomerization": 21,
+      "Toluene_disproportionation": 39
+    },
+    "year": {
+      "1972": 1,
+      "1974": 1,
+      "1976": 1,
+      "1980": 2,
+      "1981": 1,
+      "1983": 2,
+      "1984": 2,
+      "1985": 1,
+      "1986": 2,
+      "1987": 1,
+      "1988": 1,
+      "1989": 1,
+      "1990": 2,
+      "1991": 1,
+      "1992": 1,
+      "1993": 2,
+      "1994": 4,
+      "1995": 4,
+      "1996": 3,
+      "1997": 2,
+      "1998": 4,
+      "1999": 3,
+      "2000": 2,
+      "2001": 4,
+      "2002": 5,
+      "2003": 2,
+      "2004": 3,
+      "2005": 3,
+      "2006": 2,
+      "2007": 5,
+      "2008": 3,
+      "2009": 3,
+      "2010": 6,
+      "2011": 1,
+      "2012": 2,
+      "2013": 2,
+      "2014": 1,
+      "2015": 1,
+      "2016": 1,
+      "2017": 2,
+      "2018": 3,
+      "2019": 4,
+      "2020": 1,
+      "2021": 2,
+      "unknown": 2
+    }
+  },
+  "raw_pdf_hash_count": 102,
+  "schema_version": "kg_snapshot.v1",
+  "selection": {
+    "algorithm_version": "proportional_stratified_hash_order.v1",
+    "archive_entry_prefix_hash": "df712c79c5597703e5db0f5f50ca381c39a4d70cf7ffa40c7720bdd4f1752d1f",
+    "downstream_label_access": "forbidden",
+    "full_order_hash": "104c8c417997d8657c3c41a2c32948c773dcadbfe72dcd28a918e7ff649df99c",
+    "paper_id_prefix_hash": "fd23dbfed852d2ef62976c26dba40081fd21cb8f6c45dd9665d708fb3a918e5c",
+    "performance_based_reordering": "forbidden",
+    "prefix_count": 102,
+    "seed": 20260810,
+    "selection_id": "thermal-catalysis-stage1-selection-v1",
+    "selection_schema_version": "nested_kg_selection.v1",
+    "stratification_fields": [
+      "source_topic",
+      "year_bin",
+      "paper_type_group"
+    ]
+  },
+  "snapshot_content_hash": "91d52e4a58f6d0f4f203c8b71aa0d4147715404175caeacd0755587a1f4d96b3",
+  "snapshot_id": "K20-thermal-catalysis-v1",
+  "source_archive": {
+    "bytes": 4500955,
+    "dataset_generated_at": "2026-08-09T09:57:33.977Z",
+    "dataset_manifest": {
+      "allowedSystems": [
+        "thermal_catalysis"
+      ],
+      "corpusFingerprint": "7d653a9ff110d3edd287d22f3a46cec2ef256ee1bd33abc7c257bae3e2f4a875",
+      "counts": {
+        "claims": 3034,
+        "documents": 512,
+        "entities": 6077,
+        "experiments": 2103,
+        "keywords": 8024,
+        "observations": 8733,
+        "paperTypes": {
+          "book_chapter": 4,
+          "communication": 4,
+          "conference": 15,
+          "other": 7,
+          "perspective": 1,
+          "research_article": 466,
+          "review": 15
+        },
+        "systems": {
+          "thermal_catalysis": 512
+        }
+      },
+      "generatedAt": "2026-08-09T09:57:33.977Z",
+      "schema": "catalysis_research_dataset.v1"
+    },
+    "path": "data/thermal-catalysis-stage1.zip",
+    "sha256": "f0161fb2ee27a643831fb57392d304a1f6c139175b16ffd446c3f0d8921b5af5"
+  },
+  "status": "frozen",
+  "structured_json_hash_count": 102
+}
