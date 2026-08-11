@@ -3,14 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon --exec ts-node src/index.ts",
+    "dev": "nodemon --exec \"ts-node --files\" src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "db:push": "dotenv -e ../.env -- prisma db push",
-    "bootstrap": "ts-node src/scripts/bootstrap.ts",
-    "import:dataset": "ts-node src/scripts/importDataset.ts",
-    "package:dataset": "ts-node src/scripts/packageDataset.ts",
-    "check": "ts-node src/scripts/checkGraph.ts"
+    "bootstrap": "ts-node --files src/scripts/bootstrap.ts",
+    "import:dataset": "ts-node --files src/scripts/importDataset.ts",
+    "package:dataset": "ts-node --files src/scripts/packageDataset.ts",
+    "check": "ts-node --files src/scripts/checkGraph.ts"
+  },
+  "ts-node": {
+    "files": true
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

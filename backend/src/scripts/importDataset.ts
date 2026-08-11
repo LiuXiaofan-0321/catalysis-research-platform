@@ -3,6 +3,7 @@ import fs from 'fs/promises';
 import os from 'os';
 import path from 'path';
 import AdmZip from 'adm-zip';
+import { platformForSystem } from '../config/catalysisPlatforms';
 import prisma, { configureDatabase } from '../config/db';
 import { ensureResearchSchema } from '../config/ensureResearchSchema';
 import { researchGraphService } from '../services/researchGraphService';
@@ -37,9 +38,10 @@ const main = async () => {
   }
   const user = await prisma.user.findUnique({ where: { username } });
   if (!user) throw new Error(`用户不存在：${username}，请先运行 bootstrap`);
-  const workspace = await prisma.workspace.findFirst({
-    where: { userId: user.id, catalysisSystem: system }
-  });
+  const platform = platformForSystem(String(system));
+  const workspace = platform
+    ? await prisma.workspace.findUnique({ where: { id: platform.id } })
+    : null;
   if (!workspace) throw new Error(`未找到 ${system} Workspace`);
 
   const resolved = path.resolve(input);

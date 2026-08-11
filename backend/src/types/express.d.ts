@@ -6,6 +6,13 @@ declare global {
         username: string;
         email: string;
       };
+      workspace?: {
+        id: string;
+        userId: string;
+        name: string;
+        catalysisSystem: string;
+        corpusWorkspaceId: string | null;
+      };
     }
   }
 }

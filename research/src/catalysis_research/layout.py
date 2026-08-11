@@ -24,11 +24,11 @@ REQUIRED_DIRECTORIES = (
 )
 
 REQUIRED_DOCUMENTS = (
-    "CURRENT_ARCHITECTURE.md",
-    "NMI_GAP_ANALYSIS.md",
-    "RESEARCH_IMPLEMENTATION_PLAN.md",
-    "EXPERIMENT_PROTOCOL.md",
-    "PRIVATE_DATA_PROTOCOL.md",
+    "docs/research/CURRENT_ARCHITECTURE.md",
+    "docs/research/NMI_GAP_ANALYSIS.md",
+    "docs/research/RESEARCH_IMPLEMENTATION_PLAN.md",
+    "docs/research/EXPERIMENT_PROTOCOL.md",
+    "docs/research/PRIVATE_DATA_PROTOCOL.md",
 )
 
 

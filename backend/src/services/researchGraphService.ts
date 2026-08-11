@@ -568,10 +568,17 @@ export class ResearchGraphService {
     };
   }
 
-  async buildEvidenceContext(input: { workspaceId: string; query: string; experimentId?: string | null; limit?: number }) {
+  async buildEvidenceContext(input: {
+    workspaceId: string;
+    corpusWorkspaceId?: string;
+    query: string;
+    experimentId?: string | null;
+    limit?: number;
+  }) {
     const experiment = input.experimentId ? await this.getExperiment(input.workspaceId, input.experimentId) : null;
+    const corpusWorkspaceId = input.corpusWorkspaceId || input.workspaceId;
     const tokens = queryTokens(`${input.query} ${experiment ? stringify(experiment) : ''}`);
-    const params: unknown[] = [input.workspaceId];
+    const params: unknown[] = [corpusWorkspaceId];
     const where = ['"workspaceId"=?', `"nodeType" IN ('claim','observation','experiment','entity','keyword')`];
     if (tokens.length) {
       where.push(`(${tokens.map(() => '(LOWER("label") LIKE ? OR LOWER("dataJson") LIKE ?)').join(' OR ')})`);
@@ -589,7 +596,7 @@ export class ResearchGraphService {
         `SELECT * FROM "ResearchGraphNode" WHERE "workspaceId"=?
          AND "nodeType" IN ('claim','observation','experiment')
          ORDER BY "confidence" DESC,"updatedAt" DESC LIMIT ?`,
-        input.workspaceId, limit
+        corpusWorkspaceId, limit
       );
     } else {
       rows = rows.map((row) => {
@@ -604,7 +611,7 @@ export class ResearchGraphService {
       ? await prisma.$queryRawUnsafe<Array<any>>(
           `SELECT * FROM "ResearchCorpusDocument" WHERE "workspaceId"=?
            AND "id" IN (${documentIds.map(() => '?').join(',')})`,
-          input.workspaceId, ...documentIds
+          corpusWorkspaceId, ...documentIds
         )
       : [];
     const previousAdvice = experiment

@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-Variable.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("./assets/fonts/Archivo-Variable.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  font-family: "Segoe UI", "SF Pro Text", Inter, system-ui, sans-serif;
+  color: #202124;
+  background: #fbfbfa;
+  --app-bg: #fbfbfa;
+  --app-surface: rgba(255, 255, 255, 0.94);
+  --app-border: #deded9;
+  --app-text: #202124;
+  --app-muted: #777b80;
+  --app-accent: #1683ff;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}

@@ -58,13 +58,20 @@ npm run research:verify:k247
 python research/scripts/research.py run --help
 ```
 
+## 使用与维护文档
+
+- `docs/README.md`：完整文档索引；
+- `docs/user/USER_GUIDE.md`：第一次使用平台的图文指南；
+- `docs/user/USER_GUIDE.pdf`：便于分发的 PDF 版本；
+- `docs/deployment/ALIYUN.md`：阿里云 ECS 部署和升级说明。
+
 ## 研究方法文档
 
-- `CURRENT_ARCHITECTURE.md`：当前代码、数据流和真实能力；
-- `NMI_GAP_ANALYSIS.md`：按照 P0/P1/P2 排列的方法学缺口；
-- `RESEARCH_IMPLEMENTATION_PLAN.md`：模块接口、CLI、测试和验收；
-- `EXPERIMENT_PROTOCOL.md`：冻结的实验变量、endpoint、公平性规则和成功判据。
-- `PRIVATE_DATA_PROTOCOL.md`：private unseen data 的权限、防火墙、冻结和盲测规则。
+- `docs/research/CURRENT_ARCHITECTURE.md`：当前代码、数据流和真实能力；
+- `docs/research/NMI_GAP_ANALYSIS.md`：按照 P0/P1/P2 排列的方法学缺口；
+- `docs/research/RESEARCH_IMPLEMENTATION_PLAN.md`：模块接口、CLI、测试和验收；
+- `docs/research/EXPERIMENT_PROTOCOL.md`：冻结的实验变量、endpoint、公平性规则和成功判据；
+- `docs/research/PRIVATE_DATA_PROTOCOL.md`：private unseen data 的权限、防火墙、冻结和盲测规则。
 
 ## 环境要求
 

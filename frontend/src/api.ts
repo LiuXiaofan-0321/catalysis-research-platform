@@ -91,10 +91,10 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ identifier, password })
     }),
-  register: (username: string, email: string, password: string) =>
+  register: (username: string, email: string, password: string, profile: RegistrationProfile) =>
     request<{ user: User }>('/auth/register', {
       method: 'POST',
-      body: JSON.stringify({ username, email, password })
+      body: JSON.stringify({ username, email, password, profile })
     }),
   logout: () => request('/auth/logout', { method: 'POST' }),
   workspaces: () => request<{ workspaces: Workspace[] }>('/workspaces'),
@@ -128,12 +128,18 @@ export const api = {
     model: string;
     evidenceNodeCount: number;
     paperCount: number;
+    profileLearning: {
+      updated: boolean;
+      learned: Array<{ category: string; value: string; confidence: number }>;
+      total: number;
+    };
+    profileFollowUpQuestions: ProfileFollowUpQuestion[];
   }>(`/research/workspaces/${id}/advice`, {
     method: 'POST',
     body: JSON.stringify(input)
   }),
   plan: (workspaceId: string, runId: string, directionIndex: number) =>
-    request<{ direction: Direction }>(
+    request<{ direction: Direction; safetyNotes: string[]; dataGaps: string[] }>(
       `/research/workspaces/${workspaceId}/advice/${runId}/experiment-plan`,
       { method: 'POST', body: JSON.stringify({ directionIndex }) }
     ),
@@ -142,18 +148,90 @@ export const api = {
     request<{ profile: ResearcherProfile }>('/profile', {
       method: 'PUT',
       body: JSON.stringify(profile)
+    }),
+  profileQuestions: () =>
+    request<{
+      questions: ProfileQuestion[];
+      progress: { answered: number; total: number; completed: boolean };
+    }>('/profile/questions'),
+  answerProfileQuestion: (questionId: string, answer: string | string[]) =>
+    request<{ profile: ResearcherProfile }>(`/profile/questions/${questionId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ answer })
+    }),
+  completeProfileInterview: () =>
+    request<{ profile: ResearcherProfile }>('/profile/questions/complete', { method: 'POST' }),
+  learnProfile: (category: string, value: string, evidence: string) =>
+    request<{ learning: { updated: boolean; total: number } }>('/profile/learn', {
+      method: 'POST',
+      body: JSON.stringify({ category, value, evidence })
     })
 };
 
 export type ResearcherProfile = {
   institution: string;
   role: string;
+  primaryCatalysis: 'photocatalysis' | 'thermal_catalysis' | 'both' | 'undecided';
+  molecularSievePreference: 'central' | 'when_helpful' | 'minimal';
+  heterojunctionPreference: 'prefer' | 'evidence_based' | 'avoid_overuse';
+  riskTolerance: 'conservative' | 'balanced' | 'exploratory';
   researchInterests: string[];
   catalystSystems: string[];
   techniques: string[];
   currentGoals: string[];
+  researchPriorities: string[];
+  availableResources: string[];
+  avoidances: string[];
   experimentalConstraints: Record<string, unknown>;
   preferredOutputStyle: string;
+  openResearchContext: string;
   notes: string;
+  learnedPreferences: LearnedPreference[];
+  interviewAnswers: Record<string, { answer: unknown; answeredAt: string }>;
+  interactionCount?: number;
+  lastLearnedAt?: string | null;
+  onboardingCompletedAt?: string | null;
   updatedAt?: string;
 };
+
+export type ProfileQuestion = {
+  id: string;
+  title: string;
+  prompt: string;
+  hint?: string;
+  type: 'text' | 'single' | 'multiple';
+  options?: Array<{ value: string; label: string; description?: string }>;
+  answer: string | string[];
+  answered: boolean;
+};
+
+export type ProfileFollowUpQuestion = {
+  category: string;
+  question: string;
+  reason: string;
+};
+
+export type LearnedPreference = {
+  id: string;
+  category: string;
+  value: string;
+  evidence: string;
+  confidence: number;
+  occurrences: number;
+  firstSeenAt: string;
+  lastSeenAt: string;
+  source: 'conversation';
+};
+
+export type RegistrationProfile = Pick<
+  ResearcherProfile,
+  | 'role'
+  | 'primaryCatalysis'
+  | 'molecularSievePreference'
+  | 'heterojunctionPreference'
+  | 'researchPriorities'
+  | 'availableResources'
+  | 'avoidances'
+  | 'preferredOutputStyle'
+  | 'openResearchContext'
+>;

@@ -10,13 +10,13 @@ router.use('/workspaces/:workspaceId', requireWorkspaceAccess);
 const message = (error: unknown) => error instanceof Error ? error.message : String(error);
 
 router.get('/workspaces/:workspaceId/stats', async (req, res) => {
-  res.json(await researchGraphService.getStats(String(req.params.workspaceId)));
+  res.json(await researchGraphService.getStats(req.workspace?.corpusWorkspaceId || String(req.params.workspaceId)));
 });
 
 router.get('/workspaces/:workspaceId/graph', async (req, res) => {
   const nodeTypes = String(req.query.nodeTypes || '').split(',').map((item) => item.trim()).filter(Boolean);
   res.json(await researchGraphService.getGraph({
-    workspaceId: String(req.params.workspaceId),
+    workspaceId: req.workspace?.corpusWorkspaceId || String(req.params.workspaceId),
     search: typeof req.query.search === 'string' ? req.query.search : undefined,
     nodeTypes: nodeTypes.length ? nodeTypes : undefined,
     limit: Number(req.query.limit || 320)

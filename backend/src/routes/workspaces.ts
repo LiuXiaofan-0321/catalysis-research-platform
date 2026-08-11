@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { platformForSystem } from '../config/catalysisPlatforms';
 import prisma from '../config/db';
 import { requireAuth, requireWorkspaceAccess } from '../middleware/auth';
 
@@ -24,6 +25,7 @@ router.post('/', async (req, res) => {
       name,
       catalysisSystem,
       description: String(req.body?.description || '').trim(),
+      corpusWorkspaceId: platformForSystem(catalysisSystem)?.id || null,
       userId: req.authUser!.id
     }
   });

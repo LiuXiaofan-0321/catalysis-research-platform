@@ -1,8 +1,10 @@
 import { Router } from 'express';
+import { CATALYSIS_PLATFORMS, userWorkspaceData } from '../config/catalysisPlatforms';
 import { env } from '../config/env';
 import prisma from '../config/db';
 import { requireAuth } from '../middleware/auth';
 import { hashPassword, verifyPassword } from '../utils/hash';
+import { profileCreateData } from '../services/researcherProfileService';
 import { sessionService } from '../services/sessionService';
 
 const router = Router();
@@ -29,10 +31,24 @@ router.post('/register', async (req, res) => {
   }
   const exists = await prisma.user.findFirst({ where: { OR: [{ username }, { email }] } });
   if (exists) return res.status(409).json({ error: '用户名或邮箱已存在' });
+  const onboarding = req.body?.profile && typeof req.body.profile === 'object' ? req.body.profile : {};
   const user = await prisma.user.create({
-    data: { username, email, password: hashPassword(password), displayName: username }
+    data: {
+      username,
+      email,
+      password: hashPassword(password),
+      displayName: username,
+      researcherProfile: {
+        create: (() => {
+          const { userId: _userId, ...profile } = profileCreateData('', onboarding, false);
+          return profile;
+        })()
+      },
+      workspaces: {
+        create: CATALYSIS_PLATFORMS.map((platform) => userWorkspaceData(platform.catalysisSystem))
+      }
+    }
   });
-  await prisma.researcherProfile.create({ data: { userId: user.id } });
   const session = await sessionService.create(user.id);
   res.cookie(sessionService.cookieName, session.cookieValue, { ...cookieOptions, expires: session.expiresAt });
   return res.status(201).json({ user: publicUser(user) });

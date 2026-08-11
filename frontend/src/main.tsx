@@ -2,11 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './styles.css';
+import './original-theme.css';
 import { AuthProvider, useAuth } from './state/auth';
 import LoginPage from './pages/LoginPage';
 import WorkspacePage from './pages/WorkspacePage';
 import ResearchLabPage from './pages/ResearchLabPage';
 import ProfilePage from './pages/ProfilePage';
+import ProfileInterviewPage from './pages/ProfileInterviewPage';
 
 function Protected({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -21,6 +23,7 @@ function App() {
       <Route path="/workspaces" element={<Protected><WorkspacePage /></Protected>} />
       <Route path="/workspaces/:id/research-lab" element={<Protected><ResearchLabPage /></Protected>} />
       <Route path="/profile" element={<Protected><ProfilePage /></Protected>} />
+      <Route path="/profile/interview" element={<Protected><ProfileInterviewPage /></Protected>} />
       <Route path="*" element={<Navigate to="/workspaces" replace />} />
     </Routes>
   );

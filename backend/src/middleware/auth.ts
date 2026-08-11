@@ -20,5 +20,6 @@ export const requireWorkspaceAccess = async (req: Request, res: Response, next: 
     where: { id: workspaceId, userId: req.authUser.id }
   });
   if (!workspace) return res.status(404).json({ error: 'Workspace 不存在或无权访问' });
+  req.workspace = workspace;
   next();
 };

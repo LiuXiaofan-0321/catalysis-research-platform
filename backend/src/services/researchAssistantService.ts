@@ -1,6 +1,11 @@
 import prisma from '../config/db';
 import { deepseekClient } from './deepseekClient';
 import { ResearchAdvicePayload, researchGraphService } from './researchGraphService';
+import {
+  getResearcherProfileContext,
+  mergeConversationLearning,
+  ProfileLearningCandidate
+} from './researcherProfileService';
 
 type AdviceInput = {
   workspaceId: string;
@@ -22,26 +27,6 @@ const strings = (value: unknown, max = 12) =>
   Array.isArray(value)
     ? Array.from(new Set(value.map((item) => clip(item, 500)).filter(Boolean))).slice(0, max)
     : [];
-
-const parse = <T>(value: string | null | undefined, fallback: T): T => {
-  try { return value ? JSON.parse(value) as T : fallback; } catch { return fallback; }
-};
-
-const profileContext = async (userId: string) => {
-  const row = await prisma.researcherProfile.findUnique({ where: { userId } });
-  if (!row) return null;
-  return {
-    institution: row.institution,
-    role: row.role,
-    researchInterests: parse(row.researchInterestsJson, []),
-    catalystSystems: parse(row.catalystSystemsJson, []),
-    techniques: parse(row.techniquesJson, []),
-    currentGoals: parse(row.currentGoalsJson, []),
-    experimentalConstraints: parse(row.experimentalConstraintsJson, {}),
-    preferredOutputStyle: row.preferredOutputStyle,
-    notes: row.notes
-  };
-};
 
 const compactEvidence = (node: any, alias: string) => ({
   id: alias,
@@ -179,7 +164,38 @@ const responseSchema = {
   }],
   contradictions: ['证据冲突'],
   dataGaps: ['仍缺少的数据'],
-  safetyNotes: ['安全注意事项']
+  safetyNotes: ['安全注意事项'],
+  profileUpdates: [{
+    category: 'research_interest|catalyst_system|technique|goal|constraint|output_style|avoidance|resource',
+    value: '用户在本轮输入中明确表达、值得跨对话保留的长期偏好或条件',
+    confidence: 0.9
+  }],
+  profileFollowUpQuestions: [{
+    category: 'research_interest|catalyst_system|technique|goal|constraint|output_style|avoidance|resource',
+    question: '为了让下一轮建议更贴合研究者条件，需要用户补充回答的问题',
+    reason: '这个答案将如何改善方向排序或实验可行性判断'
+  }]
+};
+
+const normalizeProfileFollowUps = (value: unknown) => {
+  const categories = new Set([
+    'research_interest',
+    'catalyst_system',
+    'technique',
+    'goal',
+    'constraint',
+    'output_style',
+    'avoidance',
+    'resource'
+  ]);
+  return (Array.isArray(value) ? value : [])
+    .map((item: any) => ({
+      category: clip(item?.category, 40),
+      question: clip(item?.question, 360),
+      reason: clip(item?.reason, 480)
+    }))
+    .filter((item) => categories.has(item.category) && item.question)
+    .slice(0, 2);
 };
 
 export class ResearchAssistantService {
@@ -190,12 +206,14 @@ export class ResearchAssistantService {
     const workspace = await prisma.workspace.findFirstOrThrow({
       where: { id: input.workspaceId, userId: input.userId }
     });
-    const profile = await profileContext(input.userId);
+    const corpusWorkspaceId = workspace.corpusWorkspaceId || workspace.id;
+    const profile = await getResearcherProfileContext(input.userId);
     const systemTerms = workspace.catalysisSystem === 'thermal_catalysis'
       ? 'thermal catalysis zeolite molecular sieve acid site metal site reaction pathway selectivity coke stability'
       : 'photocatalysis visible light charge separation active species heterojunction zeolite adsorption confinement stability';
     const evidenceContext = await researchGraphService.buildEvidenceContext({
       workspaceId: input.workspaceId,
+      corpusWorkspaceId,
       experimentId: input.experimentId,
       query: `${goal} ${input.question || ''} ${systemTerms} ${JSON.stringify(input.constraints || {})}`,
       limit: 30
@@ -214,6 +232,10 @@ export class ResearchAssistantService {
       mode: evidenceContext.currentExperiment ? 'experiment_feedback' : 'initial_direction',
       goal,
       question: clip(input.question, 1400) || null,
+      profileLearningSource: {
+        goal,
+        question: clip(input.question, 1400) || null
+      },
       focus: input.focus || 'performance',
       constraints: input.constraints || {},
       researcherProfile: profile,
@@ -251,6 +273,11 @@ export class ResearchAssistantService {
           '相关性不等于因果性；低质量、needs_review、综述证据应降低权重。',
           '输出候选方向必须可证伪，并给出最小判别实验、对照、测量指标和停止条件。',
           '研究者画像只用于调整可行性、设备条件和表达方式，不得覆盖论文事实。',
+          '必须遵守 input.researcherProfile 中的明确禁区、资源条件和输出偏好；若与证据冲突，需指出冲突。',
+          'profileUpdates 只允许依据 input.profileLearningSource，记录用户明确说出的、可跨对话复用的长期偏好。',
+          '不得从论文内容、实验结果、工作空间类型、AI 建议或一次性的课题主题中推断用户画像；不确定时返回空数组。',
+          'profileFollowUpQuestions 可返回 0–2 个简短问题，只追问会实质影响方案排序、实验可行性或输出方式的画像缺口。',
+          '不得询问 input.researcherProfile 已经明确回答过的内容，也不要把论文知识问题伪装成用户画像问题。',
           '如果已有实验结果与旧建议冲突，应明确保留、修正或停止旧假设。',
           '涉及高温、高压、易燃气体、强氧化剂、毒性或环境风险时给出安全提示。',
           '使用简体中文，只返回符合 schema 的 JSON。'
@@ -259,6 +286,14 @@ export class ResearchAssistantService {
         input: context
       });
       const advice = normalizeAdvice(result.data, aliasToNode, directionCount);
+      const profileFollowUpQuestions = normalizeProfileFollowUps(result.data?.profileFollowUpQuestions);
+      const learning = await mergeConversationLearning(
+        input.userId,
+        Array.isArray(result.data?.profileUpdates)
+          ? result.data.profileUpdates as ProfileLearningCandidate[]
+          : [],
+        [goal, input.question || ''].filter(Boolean).join('\n')
+      );
       await researchGraphService.completeAdviceRun(runId, advice, result);
       return {
         runId,
@@ -267,6 +302,8 @@ export class ResearchAssistantService {
         model: result.model,
         evidenceNodeCount: evidenceNodes.length,
         paperCount: evidenceContext.documents.length,
+        profileLearning: learning,
+        profileFollowUpQuestions,
         advice
       };
     } catch (error) {
@@ -296,7 +333,7 @@ export class ResearchAssistantService {
       input: {
         catalysisSystem: workspace.catalysisSystem,
         direction,
-        researcherProfile: await profileContext(input.userId)
+        researcherProfile: await getResearcherProfileContext(input.userId)
       },
       maxTokens: 20000
     });

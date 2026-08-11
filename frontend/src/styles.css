@@ -34,8 +34,13 @@ pre { white-space: pre-wrap; word-break: break-word; }
 .brand-features span { display: inline-flex; align-items: center; gap: 8px; padding: 10px 13px; border: 1px solid rgba(255,255,255,.13); border-radius: 999px; color: #d9e7e4; font-size: 13px; background: rgba(255,255,255,.05); }
 .login-panel { display: grid; place-items: center; padding: 48px; background: #f7f8f6; }
 .login-card { width: min(420px, 100%); padding: 38px; border: 1px solid #dfe5e2; border-radius: 24px; background: white; box-shadow: 0 24px 80px rgba(18, 43, 36, .12); }
+.login-card.onboarding-card { width: min(620px, 100%); }
+.login-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.login-heading > svg { flex: 0 0 auto; color: #14715d; }
 .login-card h2 { margin-bottom: 8px; font-size: 30px; letter-spacing: -.03em; }
 .form-stack { display: grid; gap: 16px; margin-top: 28px; }
+.registration-actions { display: flex; justify-content: flex-end; gap: 10px; }
+.registration-actions .primary-button { flex: 1; }
 label { display: grid; gap: 7px; color: #36424c; font-size: 13px; font-weight: 700; }
 input, textarea, select { width: 100%; border: 1px solid #d6deda; border-radius: 10px; outline: none; color: #19242d; background: #fbfcfb; transition: border .2s, box-shadow .2s; }
 input, select { height: 42px; padding: 0 12px; }
@@ -83,12 +88,34 @@ input:focus, textarea:focus, select:focus { border-color: #239172; box-shadow: 0
 .workspace-stats span { color: #718078; font-size: 12px; }
 .workspace-stats strong { display: block; margin-bottom: 3px; color: #26332f; font-size: 19px; }
 
-.profile-intro { display: flex; gap: 18px; padding: 24px; margin-bottom: 22px; border: 1px solid #d8e2de; border-radius: 17px; color: #1a5e4d; background: #edf8f3; }
+.profile-intro { display: flex; align-items: center; gap: 18px; padding: 24px; margin-bottom: 22px; border: 1px solid #d8e2de; border-radius: 17px; color: #1a5e4d; background: #edf8f3; }
 .profile-intro h2 { margin-bottom: 5px; font-size: 18px; }
 .profile-intro .muted { margin-bottom: 0; }
+.profile-intro > div:nth-child(2) { flex: 1; }
+.profile-completion { flex: 0 0 auto; min-width: 110px; padding-left: 22px; border-left: 1px solid #c8dfd6; text-align: right; }
+.profile-completion strong { display: block; color: #12614f; font-size: 27px; }
+.profile-completion span { color: #62746d; font-size: 11px; }
+.profile-section { margin-top: 24px; padding-top: 24px; border-top: 1px solid #dce2df; }
+.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 14px; }
+.section-heading h2 { margin-bottom: 0; font-size: 21px; }
+.section-heading > p { max-width: 480px; margin-bottom: 0; color: #718078; font-size: 12px; line-height: 1.6; text-align: right; }
 .profile-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; padding: 28px; border: 1px solid #dce2df; border-radius: 20px; background: white; }
 .profile-grid .wide { grid-column: 1 / -1; }
 .code-area { min-height: 150px; font-family: "Cascadia Code", Consolas, monospace; font-size: 12px; }
+.field-label { display: block; margin-bottom: 9px; color: #36424c; font-size: 13px; font-weight: 700; }
+.check-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+.check-option { display: flex; align-items: center; gap: 9px; min-height: 42px; padding: 9px 11px; border: 1px solid #dce2df; border-radius: 8px; color: #43514b; background: #f8faf9; }
+.check-option input { width: 16px; height: 16px; padding: 0; accent-color: #14715d; }
+.learned-list { display: grid; gap: 10px; }
+.learned-item { display: grid; grid-template-columns: auto 1fr auto; align-items: start; gap: 13px; padding: 16px; border: 1px solid #dce2df; border-radius: 10px; background: white; }
+.learned-icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 8px; color: #14715d; background: #eaf6f1; }
+.learned-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.learned-meta span { padding: 3px 6px; border-radius: 5px; color: #52605a; background: #edf1ef; font-size: 10px; font-weight: 800; }
+.learned-item strong { color: #23302b; font-size: 14px; }
+.learned-item p { margin: 6px 0 0; color: #718078; font-size: 11px; line-height: 1.55; }
+.icon-button.danger { color: #a51d2d; }
+.icon-button.danger:hover { border-color: #fecaca; background: #fff3f4; }
+.compact-empty { min-height: 140px; border: 1px dashed #cfd9d4; border-radius: 10px; background: rgba(255,255,255,.55); }
 
 .lab-page { min-height: 100vh; padding: 22px 28px 60px; background: #f4f6f5; }
 .lab-topbar { margin-bottom: 18px; }
@@ -131,10 +158,14 @@ blockquote small { display: block; margin-top: 6px; color: #7c8882; }
 .request-panel h2 { margin-bottom: 8px; }
 .request-panel label { margin-top: 16px; }
 .request-panel textarea { min-height: 175px; }
+.request-panel textarea.compact-textarea { min-height: 112px; }
 .request-panel .primary-button { width: 100%; margin-top: 18px; }
 .template-row { display: flex; gap: 7px; margin: 18px 0 4px; }
 .template-row button { flex: 1; padding: 7px; border: 1px solid #d8e0dc; border-radius: 8px; color: #466158; background: #f5f8f7; font-size: 11px; }
 .advice-results { display: grid; gap: 16px; min-width: 0; }
+.profile-learning-notice { display: flex; align-items: center; gap: 9px; }
+.profile-learning-notice span { flex: 1; }
+.profile-learning-notice a { color: #12614f; font-weight: 800; white-space: nowrap; }
 .answer-card { color: #214a40; background: linear-gradient(120deg, #eef9f5, #f7fbfa); line-height: 1.8; }
 .answer-card p:last-child { margin-bottom: 0; }
 .direction-card { padding: 24px; }
@@ -189,8 +220,13 @@ blockquote small { display: block; margin-top: 6px; color: #7c8882; }
   .app-page, .lab-page { padding: 18px 14px 50px; }
   .topbar, .lab-topbar, .hero-card, .panel-head { align-items: flex-start; flex-direction: column; }
   .topbar-actions { width: 100%; justify-content: flex-end; }
-  .workspace-grid, .profile-grid, .two-column-detail, .system-design, .evidence-boundaries, .experiment-snapshot { grid-template-columns: 1fr; }
+  .workspace-grid, .profile-grid, .two-column-detail, .system-design, .evidence-boundaries, .experiment-snapshot, .check-grid { grid-template-columns: 1fr; }
   .profile-grid .wide { grid-column: auto; }
+  .profile-intro, .section-heading { align-items: flex-start; flex-direction: column; }
+  .profile-completion { width: 100%; padding: 14px 0 0; border-left: 0; border-top: 1px solid #c8dfd6; text-align: left; }
+  .section-heading > p { text-align: left; }
+  .learned-item { grid-template-columns: auto 1fr; }
+  .learned-item > .icon-button { grid-column: 2; justify-self: end; }
   .lab-summary { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .lab-tabs { overflow-x: auto; }
   .lab-tabs button { white-space: nowrap; }

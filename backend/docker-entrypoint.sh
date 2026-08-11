@@ -1,8 +1,13 @@
 #!/bin/sh
 set -eu
 
-npx prisma db push --skip-generate
-npm run bootstrap
+if [ "${SYNC_SCHEMA_ON_START:-true}" = "true" ]; then
+  npx prisma db push --skip-generate
+fi
+
+if [ "${BOOTSTRAP_ON_START:-true}" = "true" ]; then
+  npm run bootstrap
+fi
 
 MARKER="/app/storage/.catalysis-datasets-v1"
 if [ "${IMPORT_DATASETS_ON_START:-true}" = "true" ] && [ ! -f "$MARKER" ]; then

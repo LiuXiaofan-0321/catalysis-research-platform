@@ -9,7 +9,8 @@ const main = async () => {
   const workspaces = await prisma.workspace.findMany({ orderBy: { catalysisSystem: 'asc' } });
   const results = [];
   for (const workspace of workspaces) {
-    const stats = await researchGraphService.getStats(workspace.id);
+    const corpusWorkspaceId = workspace.corpusWorkspaceId || workspace.id;
+    const stats = await researchGraphService.getStats(corpusWorkspaceId);
     const checks = await prisma.$queryRawUnsafe<Array<{ checkName: string; count: number }>>(
       `SELECT 'dangling_from' AS checkName, COUNT(*) AS count
        FROM "ResearchGraphEdge" e LEFT JOIN "ResearchGraphNode" n ON n."id"=e."fromNodeId"
@@ -21,9 +22,14 @@ const main = async () => {
        UNION ALL
        SELECT 'self_loops', COUNT(*) FROM "ResearchGraphEdge"
        WHERE "workspaceId"=? AND "fromNodeId"="toNodeId"`,
-      workspace.id, workspace.id, workspace.id
+      corpusWorkspaceId, corpusWorkspaceId, corpusWorkspaceId
     );
-    results.push({ workspace, stats, checks: checks.map((item) => ({ ...item, count: Number(item.count) })) });
+    results.push({
+      workspace,
+      corpusWorkspaceId,
+      stats,
+      checks: checks.map((item) => ({ ...item, count: Number(item.count) }))
+    });
   }
   const quickCheck = await prisma.$queryRawUnsafe<Array<{ quick_check: string }>>('PRAGMA quick_check');
   console.log(JSON.stringify({ ok: true, quickCheck, results }, null, 2));

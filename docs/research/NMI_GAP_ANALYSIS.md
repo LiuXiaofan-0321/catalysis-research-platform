@@ -67,7 +67,7 @@ Literature
 
 必须完成：
 
-- `EXPERIMENT_PROTOCOL.md`；
+- `docs/research/EXPERIMENT_PROTOCOL.md`；
 - protocol version 和 amendment log；
 - primary/secondary endpoints；
 - fixed matrix、seeds、budgets、splits 和 statistics；

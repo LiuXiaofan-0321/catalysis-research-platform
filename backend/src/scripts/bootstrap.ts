@@ -1,4 +1,5 @@
 import '../config/env';
+import { CATALYSIS_PLATFORMS } from '../config/catalysisPlatforms';
 import prisma, { configureDatabase } from '../config/db';
 import { ensureResearchSchema } from '../config/ensureResearchSchema';
 import { hashPassword } from '../utils/hash';
@@ -28,26 +29,28 @@ const main = async () => {
     update: {},
     create: {
       userId: user.id,
+      primaryCatalysis: 'both',
       researchInterestsJson: JSON.stringify(['分子筛催化', '催化机理', '实验闭环']),
-      catalystSystemsJson: JSON.stringify(['photocatalysis', 'thermal_catalysis'])
+      catalystSystemsJson: JSON.stringify(['photocatalysis', 'thermal_catalysis']),
+      onboardingCompletedAt: new Date()
     }
   });
-  for (const workspace of [
-    {
-      name: '光催化科研实验平台',
-      catalysisSystem: 'photocatalysis',
-      description: '光催化论文证据检索、候选研究方向与实验反馈闭环'
-    },
-    {
-      name: '热催化科研实验平台',
-      catalysisSystem: 'thermal_catalysis',
-      description: '分子筛热催化论文证据检索、候选研究方向与实验反馈闭环'
-    }
-  ]) {
-    const exists = await prisma.workspace.findFirst({
-      where: { userId: user.id, catalysisSystem: workspace.catalysisSystem }
+  for (const workspace of CATALYSIS_PLATFORMS) {
+    await prisma.workspace.upsert({
+      where: { id: workspace.id },
+      update: {
+        name: workspace.name,
+        description: workspace.description,
+        catalysisSystem: workspace.catalysisSystem,
+        corpusWorkspaceId: workspace.id,
+        userId: user.id
+      },
+      create: {
+        ...workspace,
+        corpusWorkspaceId: workspace.id,
+        userId: user.id
+      }
     });
-    if (!exists) await prisma.workspace.create({ data: { ...workspace, userId: user.id } });
   }
   console.log(JSON.stringify({
     ok: true,

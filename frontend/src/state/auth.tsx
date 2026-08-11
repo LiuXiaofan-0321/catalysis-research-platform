@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { api, User } from '../api';
+import { api, RegistrationProfile, User } from '../api';
 
 type AuthContextValue = {
   user: User | null;
   loading: boolean;
   login: (identifier: string, password: string) => Promise<void>;
-  register: (username: string, email: string, password: string) => Promise<void>;
+  register: (username: string, email: string, password: string, profile: RegistrationProfile) => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -21,7 +21,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     user,
     loading,
     login: async (identifier, password) => setUser((await api.login(identifier, password)).user),
-    register: async (username, email, password) => setUser((await api.register(username, email, password)).user),
+    register: async (username, email, password, profile) =>
+      setUser((await api.register(username, email, password, profile)).user),
     logout: async () => {
       await api.logout();
       setUser(null);
