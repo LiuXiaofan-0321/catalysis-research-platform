@@ -1,6 +1,6 @@
 # NMI Gap Analysis
 
-状态日期：2026-08-11
+状态日期：2026-08-25
 
 ## 1. 目标
 
@@ -8,8 +8,8 @@
 实验基础设施：
 
 ```text
-How do model capability and structured scientific knowledge jointly scale
-AI-driven scientific reasoning and descriptor discovery?
+How do model capability, scientific knowledge scope, and domain diversity
+jointly scale evidence-grounded hypothesis and descriptor discovery?
 ```
 
 研究对象为：
@@ -49,22 +49,48 @@ Literature
 | Downstream ML | 缺失 | 无法量化 representation utility |
 | Public dataset and splits | 低至中 | registry、hash、IID/OOD、label firewall 和 audit 工具已实现，exact dataset 尚未选择 |
 | Experiment manifest | 中 | immutable manifest、artifact hash 和 CLI 已实现，尚未接入完整实验流水线 |
-| KG scaling | 中 | K247 独立保留；512 篇 thermal corpus 和五级 exact nested snapshots 已冻结，coverage/structure controls 尚未实现 |
+| KG scaling | 中 | K247 和 512 篇 thermal nested snapshots 已冻结为基础设施；约 5000-6000 篇候选分子筛论文尚未 inventory/dedup/freeze，Small KG 尚未构建 |
 | Statistical analysis | 缺失 | 无法支持 scaling claim |
 | Private blind validation | 低 | firewall 协议已冻结，独立 evaluator 和执行工具尚未实现 |
 | 自动测试 | 中 | 39 项 research tests 覆盖 layout、K247、Run Manifest、dataset firewall/splits、corpus 和 nested KG |
 
 ## 3. P0：论文主线成立前必须完成
 
+### P0-0 Small KG Corpus and End-to-end MVP
+
+当前第一优先级不是立即扩建 Medium/Large KG，而是把已经下载的约 5000-6000 篇
+分子筛论文转化为可审计 Small KG，并在一个公开 benchmark 上跑通一次完整闭环。
+
+必须完成：
+
+- raw file inventory、source/license、SHA256 和 parsing status；
+- DOI/title/year/file-hash deduplication 和 inclusion/exclusion report；
+- exact paper list、corpus manifest 和 immutable source identity；
+- evidence-rich extraction coverage 和 failure report；
+- Small KG snapshot、ontology、relation distribution 和 dangling-edge audit；
+- benchmark paper/direct-answer leakage audit；
+- baseline reproduction；
+- LLM-only、raw RAG、Small evidence KG 和 shuffled KG 的 matched-budget MVP；
+- 至少一个 hypothesis -> executable descriptor -> validation -> feedback run。
+
+验收：
+
+- 不再使用 `5000-6000` 估计值，所有报告引用 exact manifest count/hash；
+- locked test 在 descriptor 和 selection rule 冻结前不可见；
+- supported、rejected、revised 和 execution failure 全部保留；
+- 一个 run 可由 manifest 审计 evidence、descriptor code、dataset、ML config 和结果；
+- MVP 只支持 pipeline readiness，不提前声称 Small/Medium/Large scaling。
+
 ### P0-1 Frozen Experiment Protocol
 
 当前缺口：
 
-- `Q`、`M`、`K` 没有操作性定义；
-- 没有 primary endpoint；
-- 没有预先定义 knowledge scaling 成立判据；
-- 没有 tuning/freeze 边界；
-- 没有 pilot go/no-go 规则。
+- v1 已冻结 within-corpus quantity 变量和 endpoint，但不覆盖新的
+  Local/Domain-expanded/Cross-domain scope；
+- M1/M2/M3 的 exact model/revision 尚未登记；
+- Small/Medium/Large、quantity-matched diversity controls 和 coverage 尚未操作化；
+- MVP benchmark 未选择，因此 v2 primary endpoint 尚未绑定到 exact dataset；
+- scope/diversity scaling 和 Small KG MVP 的 go/no-go 判据尚未冻结。
 
 必须完成：
 
@@ -281,11 +307,14 @@ artifacts 和 `FINALIZED.json`；completed/failed run 终态不可变，dirty Gi
 
 当前缺口：
 
-没有二维实验矩阵和 pilot 判据。
+旧 3 models x 3 nested-size matrix 尚未执行；新 Small/Medium/Large scope 也尚未
+完成 v2 protocol。应先完成 P0-0 Small KG 单 benchmark MVP，再决定是否进入二维
+scaling pilot。
 
 必须完成：
 
-- 3 models x 3 KG scales pilot；
+- MVP：一个冻结模型 x LLM-only/raw RAG/Small KG/shuffled KG；
+- scale-up：3 models x Small/Medium/Large scope；
 - LLM-only、Raw RAG、Evidence KG、Shuffled KG；
 - fixed prompts、descriptor budget、splits 和 seeds；
 - pilot report；
@@ -321,10 +350,12 @@ artifacts 和 `FINALIZED.json`；completed/failed run 终态不可变，dirty Gi
 
 ## 4. P1：强烈建议完成
 
-### P1-1 Full 3 x 5 Scaling Study
+### P1-1 Full Scope and Quantity Scaling Study
 
 - M1/M2/M3；
-- K20/K40/K60/K80/K100；
+- primary scope：Small/Medium/Large；
+- matched-quantity Local/Mixed/Cross-domain controls；
+- secondary within-corpus quantity：K20/K40/K60/K80/K100；
 - multiple seeds；
 - task-balanced analysis；
 - effect sizes 和 confidence intervals。
@@ -529,11 +560,12 @@ Performance ~ Model
 
 在正式 Model x KG run 前必须解决：
 
-1. 精确选择 public predictive dataset；
-2. 确认 target、allowed raw inputs 和 OOD grouping；
-3. 确认 M1/M2/M3 的具体模型和 revision；
-4. 确认推理成本预算；
-5. 确认私有数据的组织权限和独立 evaluator；
-6. 完成 protocol freeze。
+1. 冻结候选 5000-6000 篇分子筛论文的 exact inventory、dedup 和许可记录；
+2. 构建并验证 `Small-KG-zeolite-v1`；
+3. 精确选择一个 MVP public predictive dataset；
+4. 确认 target、allowed raw inputs、locked test 和 OOD grouping；
+5. 冻结 MVP 模型、prompt、retrieval 和计算预算；
+6. 完成 benchmark literature/direct-answer leakage audit；
+7. 在查看 outcome 前冻结 v2 scope/diversity protocol。
 
 这些阻塞项不能在结果出来后再补写。

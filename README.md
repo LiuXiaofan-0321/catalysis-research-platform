@@ -40,6 +40,20 @@ npm run research:doctor
 npm run research:test
 ```
 
+当前科学主线是 Evidence-grounded Scientific Hypothesis Discovery Loop：
+
+```text
+已有研究 -> KG 证据链 -> 科学假设 -> 可计算描述符
+         -> ML 数据验证 -> 结果反馈 -> 下一轮假设
+```
+
+下一阶段先对已经下载的约 5000-6000 篇分子筛论文建立只读 inventory、去重规则和
+immutable Small KG，并在一个合格的公开 benchmark 上跑通最小闭环。实际纳入
+论文数必须以冻结 manifest 为准。Medium/Large KG 将分别扩展到 MOF/COF/吸附
+邻近领域和催化、表面科学等跨领域知识，用于区分 knowledge quantity 与 domain
+diversity 的贡献。完整定义见
+`docs/research/SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md`。
+
 当前已冻结的知识输入包括：
 
 ```text
@@ -81,6 +95,7 @@ python research/scripts/research.py dataset --help
 
 ## 研究方法文档
 
+- `docs/research/SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md`：当前科学问题、KG scope 和 Small KG MVP；
 - `docs/research/CURRENT_ARCHITECTURE.md`：当前代码、数据流和真实能力；
 - `docs/research/NMI_GAP_ANALYSIS.md`：按照 P0/P1/P2 排列的方法学缺口；
 - `docs/research/RESEARCH_IMPLEMENTATION_PLAN.md`：模块接口、CLI、测试和验收；

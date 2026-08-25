@@ -1,6 +1,6 @@
 # Research Implementation Plan
 
-状态日期：2026-08-10
+状态日期：2026-08-25
 
 本文档定义目标架构、模块接口、建议文件、CLI、测试和验收标准。它描述依赖关系，
 不强制实施顺序。具体执行顺序由项目负责人逐步确认。
@@ -17,6 +17,39 @@
 8. 不为架构美观重写已工作的导入和 UI；
 9. 每个模块独立测试和验收；
 10. 协议变更必须留下 amendment。
+
+## 1.1 当前执行顺序：Small KG First
+
+当前 immediate milestone 是先使用已经下载的约 5000-6000 篇分子筛论文构建
+Small KG，并在一个合格 public benchmark 上跑通最小科学发现闭环：
+
+```text
+candidate papers
+  -> inventory and dedup freeze
+  -> evidence extraction
+  -> immutable Small KG
+  -> benchmark baseline reproduction
+  -> evidence -> hypothesis -> descriptor
+  -> fixed ML validation
+  -> feedback and next hypothesis artifact
+```
+
+`5000-6000` 是估计值。Phase 0 完成后，所有 config、manifest 和论文文字必须使用
+exact count 和 hashes。在 Small KG MVP 通过前，不进行 Medium/Large KG 的批量构建。
+
+Phase 0 依次交付：
+
+1. `zeolite-candidate-corpus-v1` inventory 和 dedup report；
+2. frozen Stage 1 corpus manifest 和 extraction failure ledger；
+3. `Small-KG-zeolite-v1` snapshot、ontology 和 verification report；
+4. Zeolite Atlas 与 SorbMetaML feasibility report，选择或拒绝一个 MVP benchmark；
+5. 原 benchmark descriptor/model baseline reproduction；
+6. LLM-only、raw RAG、Small KG、shuffled KG matched-budget runs；
+7. 一轮 hypothesis/descriptor/validation/feedback report。
+
+Medium KG 后续增加 MOF/COF/adsorption 邻域，Large KG 再增加 catalysis、surface
+science、coordination、strain、thermodynamics 和 transport。正式 scale-up 必须同时
+加入 quantity-matched diversity controls，避免把 domain diversity 与更多 token 混淆。
 
 ## 2. 已建立的 Research Layout
 
@@ -1127,6 +1160,8 @@ Private firewall policy可以提前设计，但 private evaluation 必须在方�
 
 ### Gate 1：Reproducible Inputs
 
+- candidate zeolite corpus inventory and dedup report；
+- exact Small KG corpus/snapshot hashes；
 - corpus registry；
 - dataset registry；
 - split hashes；
@@ -1148,14 +1183,17 @@ Private firewall policy可以提前设计，但 private evaluation 必须在方�
 
 ### Gate 4：Pilot
 
-- 3 x 3 matrix；
+- 一个 benchmark 的完整 Small KG discovery loop；
+- LLM-only、raw RAG、Small evidence KG、shuffled KG matched controls；
 - pre-registered go/no-go；
 - real pilot report；
 - no hidden manual repair。
 
 ### Gate 5：Full Study
 
-- 3 x 5 matrix；
+- M1/M2/M3 x Small/Medium/Large scope matrix；
+- quantity-matched Local/Mixed/Cross-domain controls；
+- secondary K20/K40/K60/K80/K100 quantity ablation；
 - structure ablation；
 - OOD/data efficiency；
 - statistical analysis；

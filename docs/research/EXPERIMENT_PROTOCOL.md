@@ -4,7 +4,7 @@ Protocol ID：`catalysis-model-knowledge-scaling.v1`
 
 规则冻结日期：2026-08-10
 
-状态：`RULES_FROZEN / ACTIVATION_BLOCKED`
+状态：`V1 RULES_FROZEN / V2 SCOPE AMENDMENT REQUIRED / ACTIVATION_BLOCKED`
 
 `RULES_FROZEN` 表示本文中的研究问题、变量定义、endpoint、预算、公平性规则、
 统计判据和 firewall 已冻结。
@@ -12,6 +12,14 @@ Protocol ID：`catalysis-model-knowledge-scaling.v1`
 `ACTIVATION_BLOCKED` 表示仓库尚未包含可用于下游预测的 public AI-ready dataset，
 且 M1/M2/M3 的具体模型 revision 尚未登记。在完成本文定义的 activation gate
 以前，不允许开始任何 outcome-bearing Model x Knowledge run。
+
+2026-08-25 项目进一步明确：primary scientific question 将从单一 corpus 内的
+paper-fraction scaling，扩展为 Local / Domain-expanded / Cross-domain 的 knowledge
+scope and diversity scaling。新方向由
+`docs/research/SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md` 定义。现有 v1 的
+K20/K40/K60/K80/K100 规则继续有效地约束旧 snapshot 和 within-corpus quantity
+ablation，但在 v2 protocol 冻结前，不得直接用它们代表新的 Small/Medium/Large
+主变量或启动新方向的 outcome-bearing run。
 
 Private unseen thermocatalysis validation 的访问控制和盲测执行细则由
 `docs/research/PRIVATE_DATA_PROTOCOL.md` 管理。两份协议发生冲突时，private data 访问采用更
@@ -87,6 +95,31 @@ Q = f(M, K)
 - stronger model 一定在所有 K 下更好；
 - larger KG 一定单调提升表现；
 - interaction 一定为正。
+
+### 2.1 v2 scope amendment requirement
+
+下一版 protocol 必须在任何新 outcome-bearing run 前操作化定义：
+
+```text
+K = (quantity, domain diversity, task coverage, structure, provenance)
+```
+
+并冻结：
+
+- `Small`：约 5000-6000 篇候选分子筛论文经 inventory/dedup 后的 exact corpus；
+- `Medium`：Small 加 MOF/COF/adsorption 等邻近领域；
+- `Large`：Medium 加 catalysis/surface science/coordination/strain/transport 等
+  跨领域知识；
+- quantity-matched diversity controls；
+- No-KG、LLM-only、raw RAG、evidence KG 和 shuffled KG baselines；
+- benchmark literature leakage 和 direct-answer leakage controls；
+- hypothesis hit rate、descriptor gain、OOD gain、evidence quality 和
+  cross-domain transfer endpoints。
+
+`5000-6000` 是 source corpus 估计值，必须以冻结 inventory manifest 的 exact
+count 取代。Small KG MVP 先跑通一个 public benchmark 的完整
+Evidence -> Hypothesis -> Descriptor -> Validation -> Feedback 闭环；它是 pipeline
+go/no-go，不足以单独支持 knowledge-diversity scaling claim。
 
 ## 3. Pre-registered Hypotheses
 
@@ -1232,6 +1265,9 @@ PNG/PDF figures
 - [ ] Prompt family/version frozen
 - [ ] Ridge grid and preprocessing frozen
 - [x] K20/K40/K60/K80/K100 manifests built
+- [ ] Candidate 5000-6000 zeolite-paper inventory and dedup manifest frozen
+- [ ] `Small-KG-zeolite-v1` snapshot and evidence audit frozen
+- [ ] v2 Local/Domain-expanded/Cross-domain protocol and matched controls frozen
 - [x] Run manifest implementation verified
 - [ ] Private firewall owner and evaluator identified
 - [ ] Protocol JSON lock hash generated
@@ -1244,3 +1280,4 @@ PNG/PDF figures
 | v1.1 | 2026-08-10 | Registers immutable `K247-photocatalysis-v1` as the first absolute-size scaling anchor | No Model x KG outcome exists | Preserves the current 247-paper corpus as a permanent experimental point |
 | v1.2 | 2026-08-11 | Implements public-only dataset manifests, deterministic IID/OOD splits, label-access controls, and structural leakage audit without selecting a dataset | No Model x KG outcome exists | Adds enforcement infrastructure; protocol remains `ACTIVATION_BLOCKED` |
 | v1.3 | 2026-08-11 | Freezes the 512-paper thermal corpus identity, exact K20/K40/K60/K80/K100 counts, strata, seed, and proportional deterministic selection algorithm before snapshot construction | No Model x KG outcome exists | Prevents post-outcome corpus ordering changes; coverage remains `not_measured` and protocol remains `ACTIVATION_BLOCKED` |
+| v1.4 | 2026-08-25 | Records the new Local/Domain-expanded/Cross-domain scientific scope and makes a frozen Small KG from the candidate 5000-6000 zeolite papers the next pipeline milestone | No Model x KG outcome exists | Preserves v1 snapshots as quantity infrastructure, blocks new outcome-bearing runs until a v2 scope/diversity protocol and exact Small corpus manifest are frozen |

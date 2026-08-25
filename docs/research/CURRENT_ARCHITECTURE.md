@@ -1,6 +1,6 @@
 # Current Architecture
 
-状态日期：2026-08-11
+状态日期：2026-08-25
 
 本文档描述当前仓库已经实现的行为，不把计划中的 research 能力写成现有能力。
 
@@ -45,6 +45,40 @@ evaluation 尚未实现。
 - nested manifest 和每级 snapshot 已通过 source/archive/config/artifact
   hash、strict nesting 和 dangling-edge verification；
 - coverage 仍为 `not_measured`，因为 exact public predictive dataset 尚未冻结。
+
+### 2.1 当前研究方向与尚未实现的 Small KG
+
+2026-08-25 确认的科学主线是 Evidence-grounded Scientific Hypothesis Discovery
+Loop：
+
+```text
+已有 ML 研究
+  -> KG evidence chain
+  -> scientific hypothesis
+  -> executable descriptor
+  -> fixed downstream ML validation
+  -> supported / rejected / revised
+  -> next hypothesis
+```
+
+下一阶段拟使用已经下载、但尚未进入本仓库版本化 research artifacts 的约
+`5000-6000` 篇分子筛论文构建 Small KG。当前代码和 manifests **尚未证明**：
+
+- 精确论文数；
+- DOI/标题/版本去重后的唯一 paper count；
+- source/license 和文件完整性；
+- 可结构化抽取比例；
+- evidence validation coverage；
+- Small KG 的 node/edge/snapshot hash。
+
+因此这批论文当前只能称为 candidate source corpus。必须先生成只读 inventory，
+再冻结 inclusion/exclusion、deduplication、extraction 和 KG build config，随后才可
+声明 `Small-KG-zeolite-v1`。
+
+现有 247/512 篇语料和 K20-K100 snapshots 继续作为已验证的 corpus/KG
+versioning infrastructure、absolute-size anchor 和 within-corpus quantity
+ablation，不代表新的 Small/Medium/Large knowledge-scope 实验已经完成。新的
+scope 定义见 `SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md`。
 
 ## 3. 生产运行架构
 
@@ -563,6 +597,8 @@ Reviewer Agent。
 
 必须新增：
 
+- 5000-6000 篇候选分子筛语料的 inventory、deduplication 和 freeze pipeline；
+- Small KG evidence extraction、snapshot verification 和 benchmark leakage audit；
 - model provider abstraction；
 - fixed prompt families；
 - descriptor schema、generation、execution 和 failure ledger；
