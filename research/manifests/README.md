@@ -112,3 +112,14 @@ strict K20/K40/K60/K80/K100 prefixes derived from it. Each level references its
 immutable snapshot content hash. Selection is forbidden from reading
 downstream labels or model/descriptor outcomes; task coverage remains
 `not_measured` until an eligible public predictive dataset is frozen.
+
+The pending zeolite Small KG requires a new corpus manifest and snapshot
+manifest; it must not modify the frozen thermal v1 manifests. Scope-oriented
+manifests must additionally make the following auditable:
+
+- scope level and included scientific domains;
+- exact per-domain paper counts and corpus hashes;
+- parent/superset relationship where one scope contains another;
+- task-level evidence coverage and retrieval budget;
+- benchmark-paper and direct-answer leakage flags;
+- quantity-matched and shuffled-control identities.

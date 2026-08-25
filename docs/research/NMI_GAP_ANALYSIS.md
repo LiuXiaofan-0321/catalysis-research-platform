@@ -44,15 +44,15 @@ Literature
 | Retrieval | 低至中 | 可用于产品，不足以支持严格 ablation |
 | Hypothesis generation | 中 | 有结构，但未形成正式科学对象 |
 | Experiment planning | 中 | 产品可用，provenance 不完整 |
-| Model abstraction | 低 | DeepSeek 硬编码 |
-| Descriptor discovery | 缺失 | 论文主线无法成立 |
-| Downstream ML | 缺失 | 无法量化 representation utility |
-| Public dataset and splits | 低至中 | registry、hash、IID/OOD、label firewall 和 audit 工具已实现，exact dataset 尚未选择 |
+| Model abstraction | 低 | research 层有探索性 DeepSeek client，但无 provider-neutral interface/model registry |
+| Descriptor discovery | 低 | TheMeCat 固定公式目录可执行，但无 evidence-linked DescriptorSpecification 或 hypothesis loop |
+| Downstream ML | 低 | TheMeCat 探索 runner 有 train-only preprocessing/Ridge OOD evaluation，尚未形成通用冻结流水线 |
+| Public dataset and splits | 低至中 | registry、hash、IID/OOD、label firewall 和 audit 工具已实现；TheMeCat 仅有探索 adapter，exact primary dataset 尚未冻结 |
 | Experiment manifest | 中 | immutable manifest、artifact hash 和 CLI 已实现，尚未接入完整实验流水线 |
 | KG scaling | 中 | K247 和 512 篇 thermal nested snapshots 已冻结为基础设施；约 5000-6000 篇候选分子筛论文尚未 inventory/dedup/freeze，Small KG 尚未构建 |
 | Statistical analysis | 缺失 | 无法支持 scaling claim |
 | Private blind validation | 低 | firewall 协议已冻结，独立 evaluator 和执行工具尚未实现 |
-| 自动测试 | 中 | 39 项 research tests 覆盖 layout、K247、Run Manifest、dataset firewall/splits、corpus 和 nested KG |
+| 自动测试 | 中 | 43 项 research tests 覆盖 layout、K247、Run Manifest、dataset firewall/splits、corpus、nested KG 和 TheMeCat 探索组件 |
 
 ## 3. P0：论文主线成立前必须完成
 
@@ -171,9 +171,10 @@ artifacts 和 `FINALIZED.json`；completed/failed run 终态不可变，dirty Gi
 
 ### P0-4 Model Provider Abstraction
 
-当前缺口：
+当前状态与缺口：
 
-- DeepSeek provider 和 API shape 写死；
+- `research/src/catalysis_research/models/deepseek.py` 已提供最小 JSON client；
+- provider interface 和 API shape 仍写死为 DeepSeek；
 - `AI_RESEARCH_PROVIDER` 未生效；
 - 缺少 model revision、seed、reasoning budget、prompt hash。
 
@@ -195,9 +196,10 @@ artifacts 和 `FINALIZED.json`；completed/failed run 终态不可变，dirty Gi
 
 ### P0-5 DescriptorSpecification
 
-当前缺口：
+当前状态与缺口：
 
-没有 descriptor 代码或 schema。
+TheMeCat 探索 runner 有 30 个预实现公式和严格的 30-to-10 selection 校验，但没有
+通用 descriptor schema，也没有 hypothesis/evidence/falsification provenance。
 
 必须完成：
 
@@ -225,9 +227,10 @@ artifacts 和 `FINALIZED.json`；completed/failed run 终态不可变，dirty Gi
 
 ### P0-6 Executable Descriptor Pipeline
 
-当前缺口：
+当前状态与缺口：
 
-无法把模型建议转成 dataset column。
+TheMeCat 探索 runner 可以执行固定 catalog 公式并生成数值矩阵，但仍无法把任意
+evidence-linked DescriptorSpecification 安全编译为通用 dataset column。
 
 必须完成：
 

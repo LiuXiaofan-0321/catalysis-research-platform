@@ -29,6 +29,7 @@ REQUIRED_DOCUMENTS = (
     "docs/research/RESEARCH_IMPLEMENTATION_PLAN.md",
     "docs/research/EXPERIMENT_PROTOCOL.md",
     "docs/research/PRIVATE_DATA_PROTOCOL.md",
+    "docs/research/SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md",
 )
 
 

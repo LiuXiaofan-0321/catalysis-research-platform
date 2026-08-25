@@ -24,6 +24,10 @@ class ResearchLayoutTests(unittest.TestCase):
         status = inspect_layout(RESEARCH_ROOT)
 
         self.assertTrue(status["valid"])
+        self.assertIn(
+            "docs/research/SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md",
+            REQUIRED_DOCUMENTS,
+        )
         self.assertEqual(set(status["directories"]), set(REQUIRED_DIRECTORIES))
         self.assertEqual(set(status["documents"]), set(REQUIRED_DOCUMENTS))
         self.assertTrue(all(item["is_file"] for item in status["documents"].values()))

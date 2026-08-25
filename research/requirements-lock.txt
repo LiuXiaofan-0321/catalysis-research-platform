@@ -1,0 +1,13 @@
+# Python 3.12.10 environment used for the 2026-08-22 exploratory pilot.
+colorama==0.4.6
+iniconfig==2.3.0
+joblib==1.5.3
+narwhals==2.25.0
+numpy==2.5.2
+packaging==26.3
+pluggy==1.6.0
+Pygments==2.21.0
+pytest==9.1.1
+scikit-learn==1.9.0
+scipy==1.18.1
+threadpoolctl==3.6.0

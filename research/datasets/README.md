@@ -46,3 +46,22 @@ The structural audit cannot establish that a scientifically plausible input is
 free of semantic target leakage. Dataset review must separately assess target
 proxies, benchmark contamination, publication overlap, and whether the OOD
 definition was chosen without model outcome feedback.
+
+## Small-KG Benchmark Role
+
+The first benchmark for the zeolite Small-KG discovery loop is not yet frozen.
+Eligibility requires an existing scientific conclusion and descriptor/model
+baseline that can be reproduced, raw inputs from which new descriptors can be
+computed, and a locked test or meaningful OOD split. Each registered benchmark
+must also record:
+
+- `benchmark-paper-present`: whether its source study is present in a KG;
+- `direct-answer-present`: whether the evaluated hypothesis or descriptor is
+  directly stated in retrieved literature;
+- the original descriptor set, model, split, metric, and conclusion identity;
+- the separation between exploration/validation outcomes and the locked test.
+
+TheMeCat support in `catalysis_research.datasets.themecat` is currently an
+exploratory adapter. It is not a frozen primary benchmark and the existing
+zeolite-focused KG has not demonstrated adequate coverage for its CO2-to-
+methanol task.

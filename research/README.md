@@ -1,8 +1,9 @@
 # Research Experiment Layer
 
-`research/` is the command-line experiment layer for the Model x Knowledge
-scaling study. It is intentionally separated from the production web
-application in `backend/` and `frontend/`.
+`research/` is the command-line experiment layer for the evidence-grounded
+scientific hypothesis discovery and Model x Knowledge scaling study. It is
+intentionally separated from the production web application in `backend/` and
+`frontend/`.
 
 The production platform remains responsible for interactive literature
 exploration, evidence inspection, research advice, and experiment feedback.
@@ -20,6 +21,8 @@ artifacts, evaluation, and statistical analysis.
 5. Failed runs and negative results must be retained.
 6. Scientific facts, cross-paper synthesis, model inference, hypotheses, and
    user observations must remain distinguishable.
+7. Knowledge quantity and knowledge scope/diversity are separate experimental
+   variables and must not share an ambiguous `K` label.
 
 ## Layout
 
@@ -49,7 +52,7 @@ npm run research:doctor
 npm run research:test
 ```
 
-The `doctor` command validates the directory contract and the five required
+The `doctor` command validates the directory contract and the six required
 methodology documents, then prints a machine-readable JSON report. It does not
 access model APIs or mutate data.
 
@@ -73,6 +76,61 @@ python research/scripts/research.py kg build-nested --help
 python research/scripts/research.py kg verify-nested --help
 ```
 
+### Local Python environment
+
+Python 3.11 or newer is required. The current Windows workstation uses Python
+3.12.10 and a repository-local virtual environment:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r research\requirements-lock.txt
+.\.venv\Scripts\python.exe -m pip install -e research --no-deps
+```
+
+The TheMeCat + DeepSeek runner is an exploratory pipeline check. It is not an
+activated or confirmatory protocol run:
+
+```powershell
+$env:DEEPSEEK_API_KEY = "<local-secret>"
+.\.venv\Scripts\python.exe research\scripts\run_themecat_pilot.py
+Remove-Item Env:DEEPSEEK_API_KEY
+```
+
+The raw `TheMeCat_v1.csv` file must be placed in `research/datasets/raw/` and
+is intentionally ignored by Git. The result is retained under
+`research/runs/themecat-deepseek-exploratory-v1/`, which is also ignored by
+Git. Neither location may contain private data.
+
+This runner is a `K-none` formula-selection and execution check. It does not
+retrieve from any frozen KG, does not implement the evidence-chain hypothesis
+loop, and must not be used as evidence for Small-KG utility.
+
+## Immediate Milestone: Small KG
+
+The current scientific direction is defined in
+`../docs/research/SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md`. The next milestone
+is to turn the already downloaded candidate collection of approximately
+5,000-6,000 zeolite papers into an auditable local/domain-specific Small KG,
+then run one complete public-benchmark loop:
+
+```text
+candidate files
+  -> read-only inventory and deduplication
+  -> frozen Small corpus
+  -> evidence-grounded Small KG
+  -> evidence retrieval
+  -> falsifiable hypothesis
+  -> executable descriptor
+  -> fixed downstream validation
+  -> supported / rejected / revised feedback
+```
+
+The approximate paper count is planning metadata only. Before any
+outcome-bearing Small-KG run, the exact unique count, file hashes, licenses,
+inclusion/exclusion decisions, extraction failures, paper IDs, graph hashes,
+ontology, and benchmark leakage audit must be frozen. No private data may be
+discovered or included during inventory.
+
 ## Current Scope
 
 The research boundary, repository-level experiment protocol, K247 knowledge
@@ -83,6 +141,12 @@ label-independent, stratified full paper order and constructs K20/K40/K60/K80/
 K100 as exact prefixes. Each selected graph is rebuilt from its own Stage 1
 source records. The public registry intentionally remains empty until an exact
 eligible dataset is selected and reviewed.
+
+The 247/512-paper snapshots remain immutable infrastructure and secondary
+within-corpus quantity ablations. They do not constitute the pending Small KG
+and must not be relabeled or overwritten. Local/Domain-expanded/Cross-domain
+scope experiments require new corpus and snapshot IDs plus matched quantity
+and structure controls.
 
 The frozen protocol is maintained in
 `../docs/research/EXPERIMENT_PROTOCOL.md`. It remains blocked from activation

@@ -34,3 +34,20 @@ The thermal family is anchored by
 `research/corpora/thermal-catalysis-stage1-v1` and the frozen selection order in
 `research/manifests/kg/thermal-catalysis-nested-v1.order.jsonl`. Coverage is
 `not_measured` until an eligible public predictive dataset is frozen.
+
+## Experimental Axes
+
+The registered K20-K100 thermal snapshots vary paper quantity within one
+512-paper corpus. The next research phase introduces a different variable:
+knowledge scope and domain diversity.
+
+| Scope level | Intended content | Current status |
+| --- | --- | --- |
+| Small / Local | Exact frozen subset of the candidate zeolite collection | Pending inventory, deduplication, extraction, and freeze |
+| Medium / Domain-expanded | Small plus adjacent porous-material and task-relevant domains | Not started |
+| Large / Cross-domain | Medium plus broader transferable chemistry and mechanism evidence | Not started |
+
+These scope levels must receive new explicit snapshot IDs. `Small`, `Medium`,
+and `Large` must never be aliases for the existing K20, K60, or K100 snapshots.
+Comparisons across scope must record exact paper count, domain distribution,
+retrieved evidence budget, task coverage, and quantity-matched controls.

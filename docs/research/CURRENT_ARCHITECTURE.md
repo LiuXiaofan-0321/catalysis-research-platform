@@ -33,8 +33,9 @@ research/      已建立的独立科研实验层骨架
 
 `research/` 当前已经包含目录契约、统一 Run Manifest、public dataset/split
 registry 与 firewall、Stage 1 corpus freeze、immutable KG snapshot 和 nested
-knowledge scaling 基础设施。Model provider、descriptor、downstream ML 和
-evaluation 尚未实现。
+knowledge scaling 基础设施。另有一个限定于 TheMeCat 的探索性 DeepSeek provider、
+固定 descriptor catalog 和 Ridge OOD runner；它不是通用 provider、正式
+DescriptorSpecification 或 evidence-grounded discovery loop。
 
 当前冻结状态：
 
@@ -512,6 +513,13 @@ Reviewer Agent。
   computation 不获得 labels，downstream training 不可读取 test labels；
 - structural leakage audit：duplicate crossing、OOD group isolation、column
   registry 和 target exposure 检查。
+- Python 3.12 research dependency lock；
+- TheMeCat public CSV 的探索性 deterministic adapter、STY target filtering、
+  material-family OOD folds 和 leaky outcome exclusion；
+- DeepSeek JSON/non-thinking client，以及仅允许从 30 个预实现公式中选择 10 个
+  descriptor 的探索性 runner；
+- train-only median imputation、missing indicators、scaling、Ridge validation
+  alpha selection 和 OOD RMSE/MAE/R2 计算。
 
 当前缺少：
 
@@ -522,9 +530,8 @@ Reviewer Agent。
 - experiment config hash；
 - model revision；
 - environment lock；
-- dependency lock for research；
 - real IID/OOD split manifests and hashes；
-- descriptor code hash；
+- general DescriptorSpecification/code hash；
 - freeze bundle。
 
 ## 12. 当前可复用模块
@@ -561,7 +568,7 @@ Reviewer Agent。
 
 生产 backend 和 frontend 当前没有单元测试、集成测试或端到端测试。
 
-新建 research 层当前有 39 个测试，覆盖：
+新建 research 层当前有 43 个测试，覆盖：
 
 - research 目录契约；
 - 缺失目录会失败；
@@ -581,16 +588,18 @@ Reviewer Agent。
   nested prefixes；
 - nested KG 的独立重建、无 dangling edge、snapshot/selection/config hash
   校验和 CLI。
+- TheMeCat 空行/缺失 target 过滤、稳定 sample ID、材料族映射、30 个候选预算和
+  DeepSeek selection schema enforcement。
 
 尚未测试：
 
-- a real external public dataset adapter；
+- a frozen external public dataset manifest and split；
 - evidence provenance；
 - KG node/edge mapping；
 - retrieval determinism；
-- model structured output；
+- provider-level mocked/network structured output；
 - full pipeline replay；
-- descriptor execution；
+- general evidence-linked descriptor execution；
 - semantic target-proxy leakage detection。
 
 ## 15. 实现 NMI 研究目标仍缺失的能力
