@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 PIPELINE_ROOT = Path(__file__).resolve().parents[1]
@@ -28,7 +29,12 @@ from catalysis_literature.inventory import build_inventory, load_inventory
 from catalysis_literature.ledger import PipelineLedger
 from catalysis_literature.manifest import verify_manifest
 from catalysis_literature.models import PageRecord
-from catalysis_literature.pipeline import execute_run, run_directory_for
+from catalysis_literature.pipeline import (
+    build_preflight_report,
+    execute_run,
+    run_directory_for,
+)
+from catalysis_literature.parsing import parse_pdf as real_parse_pdf
 from catalysis_literature.retrieval import PortableRetriever
 
 
@@ -146,6 +152,7 @@ class LiteraturePipelineTests(unittest.TestCase):
                     backend="portable",
                     embedding_model="hash-embedding-v1",
                     vector_dimensions=64,
+                    allow_hash_embedding_fallback=True,
                 ),
             )
             manifest = asyncio.run(
@@ -203,6 +210,118 @@ class LiteraturePipelineTests(unittest.TestCase):
         self.assertEqual(model_calls_after, model_calls_before)
         self.assertEqual(resumed["status"], "completed")
         self.assertEqual(export_manifest["counts"]["documents"], 1)
+
+    def test_partial_run_is_not_finalized_and_resume_retries_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "papers"
+            workspace = root / "workspace"
+            source.mkdir()
+            write_text_pdf(
+                source / "good.pdf",
+                "Abstract catalyst conversion. Results selectivity reached 80 percent.",
+            )
+            write_text_pdf(
+                source / "bad.pdf",
+                "Abstract catalyst stability. Results activity remained stable.",
+            )
+            config = PipelineConfig(
+                source=source,
+                workspace=workspace,
+                parser=ParserConfig(engine="pypdf", docling_fallback=False),
+                chunking=ChunkingConfig(
+                    target_tokens=120,
+                    overlap_tokens=10,
+                    min_tokens=5,
+                ),
+                extraction=ExtractionConfig(
+                    provider="mock",
+                    workers=2,
+                    requests_per_minute=10000,
+                ),
+                index=IndexConfig(enabled=False),
+            )
+
+            def fail_one_pdf(**kwargs: object):
+                paper = kwargs["paper"]
+                if Path(str(paper["source_path"])).name == "bad.pdf":
+                    raise RuntimeError("intentional parse failure")
+                return real_parse_pdf(**kwargs)
+
+            with patch(
+                "catalysis_literature.pipeline.parse_pdf",
+                side_effect=fail_one_pdf,
+            ):
+                partial = asyncio.run(
+                    execute_run(config=config, run_id="partial-resume-run")
+                )
+            run_directory = run_directory_for(workspace, "partial-resume-run")
+            partial_finalized_exists = (run_directory / "FINALIZED.json").exists()
+            first_journal = [
+                json.loads(line)
+                for line in (run_directory / "paper-results.journal.jsonl")
+                .read_text(encoding="utf-8")
+                .splitlines()
+                if line
+            ]
+            resumed = asyncio.run(
+                execute_run(
+                    config=config,
+                    run_id="partial-resume-run",
+                    resume=True,
+                )
+            )
+            final_results = [
+                json.loads(line)
+                for line in (run_directory / "paper-results.jsonl")
+                .read_text(encoding="utf-8")
+                .splitlines()
+                if line
+            ]
+            final_journal = [
+                json.loads(line)
+                for line in (run_directory / "paper-results.journal.jsonl")
+                .read_text(encoding="utf-8")
+                .splitlines()
+                if line
+            ]
+            completed_finalized_exists = (run_directory / "FINALIZED.json").exists()
+
+        self.assertEqual(partial["status"], "partial")
+        self.assertFalse(partial_finalized_exists)
+        self.assertEqual(len(first_journal), 2)
+        self.assertEqual(
+            sum(row["status"] == "completed" for row in first_journal),
+            1,
+        )
+        self.assertEqual(resumed["status"], "completed")
+        self.assertEqual(len(final_results), 2)
+        self.assertTrue(all(row["status"] == "completed" for row in final_results))
+        self.assertEqual(len(final_journal), 3)
+        self.assertTrue(completed_finalized_exists)
+
+    def test_preflight_estimates_two_model_calls_per_paper(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "papers"
+            source.mkdir()
+            write_text_pdf(source / "one.pdf", "Abstract one catalytic paper.")
+            write_text_pdf(source / "two.pdf", "Abstract a different catalytic paper.")
+            config = PipelineConfig(
+                source=source,
+                workspace=root / "workspace",
+                extraction=ExtractionConfig(provider="mock"),
+                index=IndexConfig(
+                    enabled=False,
+                    embedding_revision="test-revision",
+                    allow_hash_embedding_fallback=False,
+                ),
+            )
+            report = build_preflight_report(config=config)
+
+        self.assertEqual(report["selection"]["paper_count"], 2)
+        self.assertEqual(report["estimated_work"]["model_calls"], 4)
+        self.assertTrue(report["ready"])
 
 
 if __name__ == "__main__":

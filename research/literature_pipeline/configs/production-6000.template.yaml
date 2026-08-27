@@ -1,15 +1,15 @@
 schema_version: literature_pipeline_config.v1
-source: C:/path/to/public/papers
-workspace: ../workspace
-collection_hint: thermal_catalysis
+source: C:/replace/with/explicit/public-paper-directory-or-manifest.jsonl
+workspace: ../workspace-production
+collection_hint: zeolite_thermocatalysis_public_literature
 
 parser:
   engine: auto
   docling_fallback: true
-  min_document_characters: 200
-  max_empty_page_ratio: 0.6
-  max_replacement_ratio: 0.02
-  fail_on_low_quality: false
+  min_document_characters: 500
+  max_empty_page_ratio: 0.4
+  max_replacement_ratio: 0.01
+  fail_on_low_quality: true
 
 chunking:
   target_tokens: 500
@@ -36,10 +36,10 @@ index:
   enabled: true
   backend: auto
   embedding_model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
-  embedding_revision: default
+  # Frozen from Hugging Face model metadata on 2026-08-28.
+  embedding_revision: e8f8c211226b894fcb81acc59f3b34ba3efd5f42
   embedding_batch_size: 64
   vector_dimensions: 384
-  # Keep false for scientific runs. Hash embeddings are test-only.
   allow_hash_embedding_fallback: false
   top_k_dense: 40
   top_k_lexical: 40

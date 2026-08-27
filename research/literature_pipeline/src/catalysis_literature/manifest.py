@@ -150,8 +150,8 @@ def register_artifact(
 
 
 def finalize_manifest(run_directory: Path, *, status: str) -> dict[str, Any]:
-    if status not in {"completed", "failed"}:
-        raise ValueError("Final status must be completed or failed")
+    if status not in {"completed", "failed", "partial"}:
+        raise ValueError("Final status must be completed, failed, or partial")
     manifest = load_manifest(run_directory)
     if (run_directory / "FINALIZED.json").exists():
         return manifest
@@ -209,5 +209,6 @@ def verify_manifest(run_directory: Path) -> dict[str, Any]:
         "status": manifest.get("status"),
         "valid": not failures,
         "failures": failures,
+        "finalized": finalized.is_file(),
         "manifest_content_hash": manifest.get("manifest_content_hash"),
     }

@@ -45,7 +45,16 @@ source manifest. API credentials remain environment variables:
 ```powershell
 $env:DEEPSEEK_API_KEY = "<key>"
 litpipe doctor
-litpipe run --config .\configs\my-run.yaml
+litpipe preflight --config .\configs\my-run.yaml
+litpipe run --config .\configs\my-run.yaml --limit 20 --run-id smoke-mock-001
+```
+
+For a DeepSeek smoke test, use 20-50 papers and audit extraction quality before
+freezing the production config. A run selecting more than 100 papers requires
+an explicit confirmation after preflight:
+
+```powershell
+litpipe run --config .\configs\production.yaml --run-id zeolite-6000-v1 --confirm-large-run
 ```
 
 The command prints the generated `run_id`. Resume and query with:
@@ -57,7 +66,28 @@ litpipe export-stage1 --run-id <run_id> --workspace <workspace> --output <new-ou
 litpipe verify --run-id <run_id> --workspace <workspace>
 ```
 
-`provider: mock` and `backend: portable` are available for offline tests.
+The inventory is frozen inside the run and reused on resume. Use
+`--refresh-inventory` only when intentionally changing the source corpus.
+Per-paper outcomes are appended to `paper-results.journal.jsonl`, so an
+interrupted process resumes only missing or failed papers. A run is finalized
+and indexed automatically only when every selected paper succeeds. To stop
+retrying known failures, explicitly seal the partial run before indexing:
+
+```powershell
+litpipe finalize-partial --run-id <run_id> --workspace <workspace>
+litpipe build-index --run-id <run_id> --workspace <workspace>
+```
+
+Partial finalization is an exception path and remains labelled `partial`; it
+never appears as a complete corpus.
+
+For production, set `parser.fail_on_low_quality: true`. PDFs that still fail
+the text-quality gate after optional Docling fallback then remain retryable
+failures instead of entering the RAG index as apparently successful papers.
+
+`provider: mock`, `hash-embedding-v1`, and `backend: portable` are available
+for offline tests. Production configs must pin a real embedding revision and
+keep `allow_hash_embedding_fallback: false`.
 Production manifests always record the actual parser, embedding backend,
 model, prompt hashes, source hashes, token use, cache hits, errors, and Git
 commit.

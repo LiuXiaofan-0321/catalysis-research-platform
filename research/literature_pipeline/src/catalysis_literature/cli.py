@@ -17,8 +17,10 @@ from .inventory import build_inventory
 from .ledger import PipelineLedger
 from .manifest import verify_manifest
 from .pipeline import (
+    build_preflight_report,
     build_index_for_run,
     execute_run,
+    finalize_partial_run,
     load_run_config,
     run_directory_for,
 )
@@ -44,13 +46,29 @@ def build_parser() -> argparse.ArgumentParser:
     inventory.add_argument("--source", type=Path, required=True)
     inventory.add_argument("--workspace", type=Path, default=DEFAULT_WORKSPACE)
 
+    preflight = subparsers.add_parser("preflight")
+    preflight.add_argument("--config", type=Path, required=True)
+    preflight.add_argument("--limit", type=int)
+    preflight.add_argument("--refresh-inventory", action="store_true")
+
     run = subparsers.add_parser("run")
     run.add_argument("--config", type=Path, required=True)
     run.add_argument("--run-id")
+    run.add_argument("--limit", type=int)
+    run.add_argument("--refresh-inventory", action="store_true")
+    run.add_argument("--confirm-large-run", action="store_true")
 
     resume = subparsers.add_parser("resume")
     resume.add_argument("--run-id", required=True)
     resume.add_argument("--workspace", type=Path, default=DEFAULT_WORKSPACE)
+    resume.add_argument("--refresh-inventory", action="store_true")
+    resume.add_argument("--confirm-large-run", action="store_true")
+
+    finalize_partial = subparsers.add_parser("finalize-partial")
+    finalize_partial.add_argument("--run-id", required=True)
+    finalize_partial.add_argument(
+        "--workspace", type=Path, default=DEFAULT_WORKSPACE
+    )
 
     index = subparsers.add_parser("build-index")
     index.add_argument("--run-id", required=True)
@@ -115,16 +133,28 @@ def main(argv: Sequence[str] | None = None) -> int:
             output = doctor()
         elif args.command == "inventory":
             ledger = PipelineLedger(args.workspace / "ledger.sqlite")
-            output = build_inventory(
-                source=args.source,
-                output_path=args.workspace / "inventory.jsonl",
-                ledger=ledger,
+            try:
+                output = build_inventory(
+                    source=args.source,
+                    output_path=args.workspace / "inventory.jsonl",
+                    ledger=ledger,
+                )
+            finally:
+                ledger.close()
+        elif args.command == "preflight":
+            output = build_preflight_report(
+                config=load_config(args.config),
+                limit=args.limit,
+                refresh_inventory=args.refresh_inventory,
             )
         elif args.command == "run":
             output = asyncio.run(
                 execute_run(
                     config=load_config(args.config),
                     run_id=args.run_id,
+                    limit=args.limit,
+                    refresh_inventory=args.refresh_inventory,
+                    confirm_large_run=args.confirm_large_run,
                 )
             )
         elif args.command == "resume":
@@ -134,7 +164,14 @@ def main(argv: Sequence[str] | None = None) -> int:
                     config=config,
                     run_id=args.run_id,
                     resume=True,
+                    refresh_inventory=args.refresh_inventory,
+                    confirm_large_run=args.confirm_large_run,
                 )
+            )
+        elif args.command == "finalize-partial":
+            output = finalize_partial_run(
+                workspace=args.workspace,
+                run_id=args.run_id,
             )
         elif args.command == "build-index":
             output = build_index_for_run(

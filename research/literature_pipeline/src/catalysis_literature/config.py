@@ -19,6 +19,7 @@ class ParserConfig(StrictModel):
     min_document_characters: int = 200
     max_empty_page_ratio: float = 0.6
     max_replacement_ratio: float = 0.02
+    fail_on_low_quality: bool = False
 
 
 class ChunkingConfig(StrictModel):
@@ -59,12 +60,25 @@ class IndexConfig(StrictModel):
     embedding_revision: str = "default"
     embedding_batch_size: int = 64
     vector_dimensions: int = 384
-    allow_hash_embedding_fallback: bool = True
+    allow_hash_embedding_fallback: bool = False
     top_k_dense: int = 40
     top_k_lexical: int = 40
     top_k_final: int = 12
     max_records_per_paper: int = 2
     context_token_budget: int = 6000
+
+
+class ExecutionConfig(StrictModel):
+    large_run_threshold: int = 100
+    result_progress_interval: int = 25
+
+    @model_validator(mode="after")
+    def validate_execution(self) -> "ExecutionConfig":
+        if self.large_run_threshold < 1:
+            raise ValueError("large_run_threshold must be at least 1")
+        if self.result_progress_interval < 1:
+            raise ValueError("result_progress_interval must be at least 1")
+        return self
 
 
 class PipelineConfig(StrictModel):
@@ -76,6 +90,7 @@ class PipelineConfig(StrictModel):
     chunking: ChunkingConfig = Field(default_factory=ChunkingConfig)
     extraction: ExtractionConfig = Field(default_factory=ExtractionConfig)
     index: IndexConfig = Field(default_factory=IndexConfig)
+    execution: ExecutionConfig = Field(default_factory=ExecutionConfig)
 
     def resolved(self, base: Path) -> "PipelineConfig":
         payload = self.model_dump()

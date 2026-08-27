@@ -46,6 +46,22 @@ Existing frozen corpora and KG snapshots are never rewritten. Re-extracting
 the same papers with this pipeline produces a new extraction version and must
 later be frozen under a new corpus and snapshot ID.
 
+For the 5000-6000 paper zeolite corpus, the production sequence is fixed as:
+
+1. Freeze and inspect the SHA-256 inventory.
+2. Run the complete mock path on 20 papers.
+3. Run DeepSeek extraction on 20-50 papers and manually audit evidence,
+   schema validity, parser quality, and token use.
+4. Pin the prompt, model, parser, and embedding revisions.
+5. Review preflight counts and explicitly confirm the full run.
+6. Resume failed papers until complete, or explicitly finalize a documented
+   partial corpus; only then build the RAG index and freeze its manifest.
+
+The executor uses a bounded worker queue and an append-only per-paper result
+journal. Resume reuses the frozen inventory and skips completed papers. A
+mixed success/failure attempt stays unfinalized, and hash embeddings cannot be
+selected silently in a production configuration.
+
 ## Data Boundary
 
 The program accepts only paths supplied explicitly by the operator. It does

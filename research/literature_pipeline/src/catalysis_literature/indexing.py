@@ -50,6 +50,14 @@ class EmbeddingProvider:
         self.dimensions = config.vector_dimensions
         self.backend = "hash"
         self._model: Any = None
+        if config.embedding_model == "hash-embedding-v1":
+            if not config.allow_hash_embedding_fallback:
+                raise RuntimeError(
+                    "hash-embedding-v1 is test-only; explicitly enable "
+                    "allow_hash_embedding_fallback for offline tests"
+                )
+            self.actual_revision = "builtin"
+            return
         try:
             from sentence_transformers import SentenceTransformer
 
@@ -61,7 +69,12 @@ class EmbeddingProvider:
                     else config.embedding_revision
                 ),
             )
-            dimensions = self._model.get_sentence_embedding_dimension()
+            dimension_reader = getattr(
+                self._model,
+                "get_embedding_dimension",
+                None,
+            ) or getattr(self._model, "get_sentence_embedding_dimension", None)
+            dimensions = dimension_reader() if dimension_reader else None
             if dimensions:
                 self.dimensions = int(dimensions)
             self.backend = "sentence-transformers"
