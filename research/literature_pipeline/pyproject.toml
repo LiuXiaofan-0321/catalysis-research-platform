@@ -1,0 +1,38 @@
+[project]
+name = "catalysis-literature-pipeline"
+version = "0.1.0"
+description = "Scalable, reproducible catalysis literature extraction and KG-aware RAG"
+requires-python = ">=3.11"
+dependencies = [
+  "httpx>=0.27",
+  "numpy>=1.26",
+  "pydantic>=2.8",
+  "PyMuPDF>=1.24",
+  "pypdf>=5.0",
+  "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+index = [
+  "lancedb>=0.16",
+  "pyarrow>=17",
+  "sentence-transformers>=3.0",
+]
+docling = ["docling>=2.0"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+litpipe = "catalysis_literature.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -8,6 +8,8 @@
     "build": "npm --prefix backend run build && npm --prefix frontend run build",
     "research:doctor": "python research/scripts/research.py doctor",
     "research:test": "python -m unittest discover -s research/tests -p \"test_*.py\"",
+    "literature:doctor": "python research/literature_pipeline/scripts/litpipe.py doctor",
+    "literature:test": "python -m unittest discover -s research/literature_pipeline/tests -p \"test_*.py\"",
     "research:verify:k247": "python research/scripts/research.py kg verify --snapshot research/kg_snapshots/K247-photocatalysis-v1",
     "research:verify:thermal-corpus": "python research/scripts/research.py corpus verify --corpus research/corpora/thermal-catalysis-stage1-v1",
     "research:verify:thermal-nested": "python research/scripts/research.py kg verify-nested --manifest research/manifests/kg/thermal-catalysis-nested-v1.json --repository-root .",

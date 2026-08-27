@@ -105,6 +105,20 @@ This runner is a `K-none` formula-selection and execution check. It does not
 retrieve from any frozen KG, does not implement the evidence-chain hypothesis
 loop, and must not be used as evidence for Small-KG utility.
 
+Large-scale PDF extraction and KG-aware retrieval live in the independent
+`literature_pipeline/` package. It uses content-addressed parsing and model
+call caches, produces Stage-1-compatible artifacts, and builds versioned
+portable or LanceDB indexes:
+
+```bash
+npm run literature:doctor
+npm run literature:test
+python research/literature_pipeline/scripts/litpipe.py run --config <config.yaml>
+```
+
+See `literature_pipeline/README.md` and
+`../docs/research/LITERATURE_PIPELINE_UPGRADE.md`.
+
 ## Immediate Milestone: Small KG
 
 The current scientific direction is defined in

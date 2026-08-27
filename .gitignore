@@ -18,3 +18,12 @@ data/unpacked/
 research/runs/*
 research/datasets/raw/*
 !research/datasets/raw/.gitkeep
+research/literature_pipeline/workspace/
+research/literature_pipeline/.venv/
+research/literature_pipeline/**/*.sqlite
+research/literature_pipeline/**/*.sqlite-shm
+research/literature_pipeline/**/*.sqlite-wal
+research/literature_pipeline/**/lancedb/
+research/literature_pipeline/**/model_calls/
+research/literature_pipeline/**/cache/
+research/literature_pipeline/**/extractions/
