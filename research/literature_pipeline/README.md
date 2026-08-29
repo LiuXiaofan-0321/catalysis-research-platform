@@ -127,3 +127,21 @@ disabled: the job builds the evidence RAG only and makes no DeepSeek calls.
 After the index is frozen, submit `jobs/acs-50-rag-retrieval-audit.sbatch` to
 check SI retrieval with questions containing evidence that appears in the SI
 rather than generic phrases such as "supporting information".
+
+## Full-Corpus Shards
+
+`scripts/build_full_corpus_manifests.py` scans the corpus read-only, excludes
+all directories ending in `_spectra` or `_null`, deduplicates DOI-level paper
+bundles, prefers existing Markdown over PDF, and writes 200-paper shard
+manifests plus shard configs. Submit `jobs/full-rag-prepare.sbatch` first, then
+run the generated shard count as a bounded GPU array:
+
+```bash
+sbatch --array=1-SHARD_COUNT%6 jobs/full-rag-array.sbatch
+```
+
+Each shard has an independent resumable run and portable index. After the
+array completes, `jobs/full-rag-merge.sbatch` combines the indexes and reuses
+their existing vectors; it does not call the embedding model again. The same
+`litpipe merge-indexes` command can later combine the frozen global index with
+new disjoint shards.

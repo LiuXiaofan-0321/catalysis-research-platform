@@ -26,7 +26,7 @@ from catalysis_literature.config import (
 )
 from catalysis_literature.exporter import export_stage1
 from catalysis_literature.hashing import content_hash, sha256_file
-from catalysis_literature.indexing import verify_index
+from catalysis_literature.indexing import merge_indexes, verify_index
 from catalysis_literature.inventory import build_inventory, load_inventory
 from catalysis_literature.ledger import PipelineLedger
 from catalysis_literature.manifest import git_state, verify_manifest
@@ -39,6 +39,7 @@ from catalysis_literature.pipeline import (
 from catalysis_literature.parsing import parse_pdf as real_parse_pdf
 from catalysis_literature.retrieval import PortableRetriever
 from build_acs_md_manifest import build_records
+from build_full_corpus_manifests import discover_records
 
 
 def write_text_pdf(path: Path, text: str) -> None:
@@ -249,6 +250,91 @@ class LiteraturePipelineTests(unittest.TestCase):
         self.assertEqual(summary["si_document_count"], 2)
         self.assertEqual(summary["papers_with_original_pdf"], 1)
         self.assertEqual({record["document_type"] for record in records}, {"main", "si"})
+
+    def test_full_corpus_discovery_excludes_subsets_and_prefers_markdown(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            article_name = "10.1021_test.001"
+            article = root / "ACS" / "file" / "batch_001" / article_name / article_name
+            (article / "main-output").mkdir(parents=True)
+            main = article / "main-output" / f"{article_name}.md"
+            main.write_text("# Main\n\nZeolite catalysis article.", encoding="utf-8")
+            (article / f"{article_name}.pdf").write_bytes(b"%PDF-1.4\n%%EOF")
+            si = article / "si-output" / "supporting"
+            si.mkdir(parents=True)
+            (si / "supporting.md").write_text("# SI\n\nDetails.", encoding="utf-8")
+            duplicate = (
+                root
+                / "ACS"
+                / "file"
+                / "batch_001_spectra"
+                / article_name
+                / article_name
+            )
+            duplicate.mkdir(parents=True)
+            (duplicate / f"{article_name}.pdf").write_bytes(b"duplicate")
+
+            records, summary = discover_records(root)
+
+        self.assertEqual(summary["paper_count"], 1)
+        self.assertEqual(summary["document_count"], 2)
+        self.assertIn("batch_001_spectra", summary["excluded_directories"])
+        main_rows = [row for row in records if row["document_type"] == "main"]
+        self.assertEqual(main_rows[0]["path"], str(main.resolve()))
+
+    def test_merge_indexes_reuses_vectors_from_disjoint_shards(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            workspace = root / "workspace"
+            indexes: list[Path] = []
+            for number, marker in ((1, "mordenite"), (2, "chabazite")):
+                source = root / f"source-{number}.md"
+                source.write_text(
+                    f"# Results\n\n{marker} zeolite catalytic performance " * 8,
+                    encoding="utf-8",
+                )
+                config = PipelineConfig(
+                    source=source,
+                    workspace=workspace,
+                    parser=ParserConfig(
+                        min_document_characters=20,
+                        docling_fallback=False,
+                    ),
+                    chunking=ChunkingConfig(
+                        target_tokens=100,
+                        overlap_tokens=10,
+                        min_tokens=5,
+                    ),
+                    extraction=ExtractionConfig(enabled=False),
+                    index=IndexConfig(
+                        backend="portable",
+                        embedding_model="hash-embedding-v1",
+                        vector_dimensions=64,
+                        allow_hash_embedding_fallback=True,
+                    ),
+                )
+                run_id = f"shard-{number}"
+                asyncio.run(execute_run(config=config, run_id=run_id))
+                indexes.append(workspace / "indexes" / f"{run_id}-index")
+
+            output = workspace / "indexes" / "merged"
+            manifest = merge_indexes(
+                index_directories=indexes,
+                index_directory=output,
+                index_id="merged",
+                repository_root=PIPELINE_ROOT.parents[1],
+            )
+            retrieved = PortableRetriever(output).retrieve(
+                query="chabazite",
+                top_k=2,
+                include_unverified=True,
+            )
+            verification = verify_index(output)
+
+        self.assertEqual(manifest["counts"]["papers"], 2)
+        self.assertEqual(manifest["counts"]["documents"], 2)
+        self.assertTrue(verification["valid"])
+        self.assertEqual(retrieved["selected_count"], 2)
 
     def test_chunking_is_deterministic_and_excludes_references(self) -> None:
         pages = [

@@ -12,7 +12,7 @@ from typing import Sequence
 from .benchmark import baseline_summary
 from .config import PipelineConfig, load_config
 from .exporter import export_stage1
-from .indexing import verify_index
+from .indexing import merge_indexes, verify_index
 from .inventory import build_inventory
 from .ledger import PipelineLedger
 from .manifest import verify_manifest
@@ -74,6 +74,11 @@ def build_parser() -> argparse.ArgumentParser:
     index.add_argument("--run-id", required=True)
     index.add_argument("--index-id")
     index.add_argument("--workspace", type=Path, default=DEFAULT_WORKSPACE)
+
+    merge = subparsers.add_parser("merge-indexes")
+    merge.add_argument("--index", type=Path, action="append", required=True)
+    merge.add_argument("--output", type=Path, required=True)
+    merge.add_argument("--index-id", required=True)
 
     retrieve = subparsers.add_parser("retrieve")
     retrieve.add_argument("--index", type=Path, required=True)
@@ -185,6 +190,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                 top_k=args.top_k,
                 context_token_budget=args.context_token_budget,
                 include_unverified=args.include_unverified,
+            )
+        elif args.command == "merge-indexes":
+            output = merge_indexes(
+                index_directories=args.index,
+                index_directory=args.output,
+                index_id=args.index_id,
+                repository_root=Path(__file__).resolve().parents[4],
             )
         elif args.command == "export-stage1":
             output = export_stage1(

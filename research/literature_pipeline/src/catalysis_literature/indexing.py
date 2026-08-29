@@ -116,6 +116,15 @@ def _write_jsonl(path: Path, rows: Iterable[dict[str, Any]]) -> None:
             handle.write("\n")
 
 
+def _load_jsonl(path: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            if line.strip():
+                rows.append(json.loads(line))
+    return rows
+
+
 def _load_results(run_directory: Path) -> list[dict[str, Any]]:
     path = run_directory / "paper-results.jsonl"
     if not path.is_file():
@@ -567,3 +576,169 @@ def verify_index(index_directory: Path) -> dict[str, Any]:
         "logical_content_hash": manifest.get("logical_content_hash"),
         "counts": manifest.get("counts"),
     }
+
+
+def merge_indexes(
+    *,
+    index_directories: list[Path],
+    index_directory: Path,
+    index_id: str,
+    repository_root: Path,
+) -> dict[str, Any]:
+    if len(index_directories) < 2:
+        raise ValueError("At least two source indexes are required")
+    resolved_sources = [path.resolve() for path in index_directories]
+    target = index_directory.resolve()
+    if target.exists():
+        raise FileExistsError(f"Index directory already exists: {target}")
+
+    manifests: list[dict[str, Any]] = []
+    for source in resolved_sources:
+        report = verify_index(source)
+        if not report["valid"]:
+            raise RuntimeError(
+                f"Invalid source index {source}: " + "; ".join(report["failures"])
+            )
+        manifests.append(
+            json.loads((source / "manifest.json").read_text(encoding="utf-8"))
+        )
+    embedding = manifests[0]["embedding"]
+    retrieval = manifests[0]["retrieval"]
+    for source, manifest in zip(resolved_sources[1:], manifests[1:], strict=True):
+        if manifest["embedding"] != embedding:
+            raise ValueError(f"Embedding settings differ in source index: {source}")
+        if manifest["retrieval"] != retrieval:
+            raise ValueError(f"Retrieval settings differ in source index: {source}")
+
+    papers: dict[str, dict[str, Any]] = {}
+    documents: dict[str, dict[str, Any]] = {}
+    chunk_pairs: list[tuple[dict[str, Any], np.ndarray]] = []
+    evidence_pairs: list[tuple[dict[str, Any], np.ndarray]] = []
+    record_ids: set[str] = set()
+
+    def add_unique(
+        destination: dict[str, dict[str, Any]],
+        key: str,
+        row: dict[str, Any],
+        source: Path,
+    ) -> None:
+        identifier = str(row[key])
+        existing = destination.get(identifier)
+        if existing is not None and existing != row:
+            raise ValueError(f"Conflicting {key} {identifier} in {source}")
+        destination[identifier] = row
+
+    for source in resolved_sources:
+        for row in _load_jsonl(source / "papers.jsonl"):
+            add_unique(papers, "paper_id", row, source)
+        for row in _load_jsonl(source / "documents.jsonl"):
+            add_unique(documents, "document_id", row, source)
+        for row_name, vector_name, destination in (
+            ("chunks.jsonl", "chunk_vectors.npy", chunk_pairs),
+            ("evidence_records.jsonl", "evidence_vectors.npy", evidence_pairs),
+        ):
+            rows = _load_jsonl(source / row_name)
+            vectors = np.load(source / vector_name, mmap_mode="r")
+            if len(rows) != len(vectors):
+                raise ValueError(f"Row/vector count mismatch in {source / row_name}")
+            for row, vector in zip(rows, vectors, strict=True):
+                record_id = str(row["record_id"])
+                if record_id in record_ids:
+                    raise ValueError(f"Duplicate record_id across indexes: {record_id}")
+                record_ids.add(record_id)
+                destination.append((row, np.asarray(vector, dtype=np.float32)))
+
+    chunk_pairs.sort(key=lambda item: item[0]["record_id"])
+    evidence_pairs.sort(key=lambda item: item[0]["record_id"])
+    paper_rows = sorted(papers.values(), key=lambda row: row["paper_id"])
+    document_rows = sorted(documents.values(), key=lambda row: row["document_id"])
+    chunk_rows = [row for row, _ in chunk_pairs]
+    evidence_rows = [row for row, _ in evidence_pairs]
+    dimensions = int(embedding["dimensions"])
+
+    def vectors(pairs: list[tuple[dict[str, Any], np.ndarray]]) -> np.ndarray:
+        if not pairs:
+            return np.empty((0, dimensions), dtype=np.float32)
+        return np.stack([vector for _, vector in pairs]).astype(np.float32, copy=False)
+
+    temporary = target.with_name(f".{target.name}.tmp")
+    if temporary.exists():
+        shutil.rmtree(temporary)
+    temporary.mkdir(parents=True)
+    try:
+        _write_jsonl(temporary / "papers.jsonl", paper_rows)
+        _write_jsonl(temporary / "documents.jsonl", document_rows)
+        _write_jsonl(temporary / "chunks.jsonl", chunk_rows)
+        _write_jsonl(temporary / "evidence_records.jsonl", evidence_rows)
+        np.save(temporary / "chunk_vectors.npy", vectors(chunk_pairs))
+        np.save(temporary / "evidence_vectors.npy", vectors(evidence_pairs))
+        artifacts: dict[str, dict[str, Any]] = {}
+        for name in (
+            "papers.jsonl",
+            "documents.jsonl",
+            "chunks.jsonl",
+            "evidence_records.jsonl",
+            "chunk_vectors.npy",
+            "evidence_vectors.npy",
+        ):
+            path = temporary / name
+            artifacts[name] = {
+                "path": name,
+                "sha256": sha256_file(path),
+                "bytes": path.stat().st_size,
+            }
+        source_rows = [
+            {
+                "index_id": manifest["index_id"],
+                "logical_content_hash": manifest["logical_content_hash"],
+                "path": str(source),
+            }
+            for source, manifest in zip(resolved_sources, manifests, strict=True)
+        ]
+        manifest = {
+            "schema_version": INDEX_SCHEMA_VERSION,
+            "index_id": index_id,
+            "created_at": utc_now(),
+            "run_id": None,
+            "backend": "portable",
+            "logical_content_hash": content_hash(
+                {
+                    "source_indexes": source_rows,
+                    "embedding": embedding,
+                    "counts": {
+                        "papers": len(paper_rows),
+                        "documents": len(document_rows),
+                        "chunks": len(chunk_rows),
+                        "evidence_records": len(evidence_rows),
+                    },
+                }
+            ),
+            "git": git_state(repository_root),
+            "embedding": embedding,
+            "counts": {
+                "papers": len(paper_rows),
+                "documents": len(document_rows),
+                "main_documents": sum(
+                    row.get("document_type") == "main" for row in document_rows
+                ),
+                "si_documents": sum(
+                    row.get("document_type") == "si" for row in document_rows
+                ),
+                "chunks": len(chunk_rows),
+                "evidence_records": len(evidence_rows),
+            },
+            "retrieval": retrieval,
+            "source_indexes": source_rows,
+            "artifacts": artifacts,
+            "warnings": [],
+            "manifest_content_hash": "",
+        }
+        manifest["manifest_content_hash"] = content_hash(
+            {**manifest, "manifest_content_hash": ""}
+        )
+        atomic_write_json(temporary / "manifest.json", manifest)
+        temporary.replace(target)
+        return manifest
+    except BaseException:
+        shutil.rmtree(temporary, ignore_errors=True)
+        raise
