@@ -192,10 +192,10 @@ async def execute_run(
         raise ValueError("limit must be at least 1")
     workspace = config.workspace.resolve()
     workspace.mkdir(parents=True, exist_ok=True)
-    ledger = PipelineLedger(workspace / "ledger.sqlite")
     resolved_run_id = run_id or generate_run_id(config.config_hash)
     run_directory = run_directory_for(workspace, resolved_run_id)
     provider = None
+    ledger: PipelineLedger | None = None
     try:
         if run_directory.exists():
             if not resume:
@@ -212,6 +212,9 @@ async def execute_run(
             )
             atomic_write_json(run_directory / "config.json", _config_payload(config))
 
+        # A ledger per run avoids SQLite WAL corruption on shared filesystems when
+        # independent Slurm array tasks write concurrently.
+        ledger = PipelineLedger(run_directory / "ledger.sqlite")
         ledger.register_run(
             run_id=resolved_run_id,
             status="running",
@@ -550,7 +553,8 @@ async def execute_run(
         close = getattr(provider, "close", None)
         if close is not None:
             await close()
-        ledger.close()
+        if ledger is not None:
+            ledger.close()
 
 
 def load_run_config(workspace: Path, run_id: str) -> PipelineConfig:

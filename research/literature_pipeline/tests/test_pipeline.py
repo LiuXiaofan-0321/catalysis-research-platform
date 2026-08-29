@@ -315,7 +315,12 @@ class LiteraturePipelineTests(unittest.TestCase):
                 )
                 run_id = f"shard-{number}"
                 asyncio.run(execute_run(config=config, run_id=run_id))
+                self.assertTrue(
+                    (workspace / "runs" / run_id / "ledger.sqlite").is_file()
+                )
                 indexes.append(workspace / "indexes" / f"{run_id}-index")
+
+            self.assertFalse((workspace / "ledger.sqlite").exists())
 
             output = workspace / "indexes" / "merged"
             manifest = merge_indexes(
@@ -425,7 +430,7 @@ class LiteraturePipelineTests(unittest.TestCase):
                 top_k=3,
                 include_unverified=True,
             )
-            connection = sqlite3.connect(workspace / "ledger.sqlite")
+            connection = sqlite3.connect(run_directory / "ledger.sqlite")
             try:
                 model_calls_before = connection.execute(
                     "SELECT COUNT(*) FROM model_calls"
@@ -439,7 +444,7 @@ class LiteraturePipelineTests(unittest.TestCase):
                     resume=True,
                 )
             )
-            connection = sqlite3.connect(workspace / "ledger.sqlite")
+            connection = sqlite3.connect(run_directory / "ledger.sqlite")
             try:
                 model_calls_after = connection.execute(
                     "SELECT COUNT(*) FROM model_calls"
