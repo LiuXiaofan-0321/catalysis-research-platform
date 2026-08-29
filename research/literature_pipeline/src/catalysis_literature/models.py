@@ -7,8 +7,8 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 EXTRACTION_SCHEMA_VERSION = "catalysis_paper_extraction.v2"
 RUN_SCHEMA_VERSION = "literature_run.v1"
-INDEX_SCHEMA_VERSION = "rag_index.v1"
-PARSED_DOCUMENT_SCHEMA_VERSION = "parsed_document.v1"
+INDEX_SCHEMA_VERSION = "rag_index.v2"
+PARSED_DOCUMENT_SCHEMA_VERSION = "parsed_document.v2"
 
 
 class StrictModel(BaseModel):
@@ -119,7 +119,11 @@ class ChunkRecord(StrictModel):
 class ParsedDocument(StrictModel):
     schema_version: str = PARSED_DOCUMENT_SCHEMA_VERSION
     paper_id: str
+    document_id: str
+    document_type: Literal["paper", "main", "si"] = "paper"
     source_path: str
+    source_media_type: str
+    source_metadata: dict[str, Any] = Field(default_factory=dict)
     source_pdf_sha256: str
     parser_name: str
     parser_version: str

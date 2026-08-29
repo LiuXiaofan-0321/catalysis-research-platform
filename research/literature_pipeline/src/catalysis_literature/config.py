@@ -14,7 +14,7 @@ class StrictModel(BaseModel):
 
 
 class ParserConfig(StrictModel):
-    engine: Literal["auto", "pymupdf", "pypdf"] = "auto"
+    engine: Literal["auto", "pymupdf", "pypdf", "markdown"] = "auto"
     docling_fallback: bool = True
     min_document_characters: int = 200
     max_empty_page_ratio: float = 0.6

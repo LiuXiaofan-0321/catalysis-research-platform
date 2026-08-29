@@ -7,12 +7,14 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 
 PIPELINE_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_ROOT = PIPELINE_ROOT / "src"
 sys.path.insert(0, str(SOURCE_ROOT))
+sys.path.insert(0, str(PIPELINE_ROOT / "scripts"))
 
 from catalysis_literature.chunking import build_chunks
 from catalysis_literature.config import (
@@ -27,7 +29,7 @@ from catalysis_literature.hashing import content_hash, sha256_file
 from catalysis_literature.indexing import verify_index
 from catalysis_literature.inventory import build_inventory, load_inventory
 from catalysis_literature.ledger import PipelineLedger
-from catalysis_literature.manifest import verify_manifest
+from catalysis_literature.manifest import git_state, verify_manifest
 from catalysis_literature.models import PageRecord
 from catalysis_literature.pipeline import (
     build_preflight_report,
@@ -36,6 +38,7 @@ from catalysis_literature.pipeline import (
 )
 from catalysis_literature.parsing import parse_pdf as real_parse_pdf
 from catalysis_literature.retrieval import PortableRetriever
+from build_acs_md_manifest import build_records
 
 
 def write_text_pdf(path: Path, text: str) -> None:
@@ -75,6 +78,32 @@ def write_text_pdf(path: Path, text: str) -> None:
 
 
 class LiteraturePipelineTests(unittest.TestCase):
+    @patch("catalysis_literature.manifest.subprocess.run")
+    def test_git_state_uses_old_git_compatible_branch_lookup(self, run_mock) -> None:
+        outputs = {
+            ("status", "--porcelain"): " M tracked.txt\n",
+            ("rev-parse", "--abbrev-ref", "HEAD"): "master\n",
+            ("rev-parse", "HEAD"): "commit-id\n",
+            ("rev-parse", "HEAD^{tree}"): "tree-id\n",
+        }
+
+        def fake_run(command: list[str], **_: object) -> SimpleNamespace:
+            return SimpleNamespace(stdout=outputs[tuple(command[1:])])
+
+        run_mock.side_effect = fake_run
+        self.assertEqual(
+            git_state(Path("repository")),
+            {
+                "commit": "commit-id",
+                "tree": "tree-id",
+                "branch": "master",
+                "dirty": True,
+            },
+        )
+        commands = [tuple(call.args[0][1:]) for call in run_mock.call_args_list]
+        self.assertIn(("rev-parse", "--abbrev-ref", "HEAD"), commands)
+        self.assertNotIn(("branch", "--show-current"), commands)
+
     def test_content_hash_is_order_stable(self) -> None:
         self.assertEqual(content_hash({"a": 1, "b": 2}), content_hash({"b": 2, "a": 1}))
 
@@ -96,7 +125,130 @@ class LiteraturePipelineTests(unittest.TestCase):
             ledger.close()
 
         self.assertEqual(manifest["paper_count"], 1)
+        self.assertEqual(manifest["document_count"], 1)
         self.assertEqual(len(records[0]["duplicate_paths"]), 1)
+
+    def test_markdown_main_and_si_share_one_rag_paper(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            main = root / "main.md"
+            si = root / "si.md"
+            main.write_text(
+                "# Abstract\n\nZSM-5 catalyzes methanol conversion.\n\n"
+                "# Results\n\nThe main article reports high hydrocarbon selectivity.",
+                encoding="utf-8",
+            )
+            si.write_text(
+                "# Experimental\n\nThe catalyst was tested at 400 C and atmospheric pressure.\n\n"
+                "# Supporting Information\n\nDetailed synthesis conditions are reported here.",
+                encoding="utf-8",
+            )
+            manifest = root / "source.jsonl"
+            records = [
+                {
+                    "path": str(main),
+                    "paper_id": "doi:10.0000/test",
+                    "document_id": "doc:main",
+                    "document_type": "main",
+                    "doi": "10.0000/test",
+                },
+                {
+                    "path": str(si),
+                    "paper_id": "doi:10.0000/test",
+                    "document_id": "doc:si",
+                    "document_type": "si",
+                    "doi": "10.0000/test",
+                },
+            ]
+            manifest.write_text(
+                "".join(json.dumps(row) + "\n" for row in records),
+                encoding="utf-8",
+            )
+            workspace = root / "workspace"
+            config = PipelineConfig(
+                source=manifest,
+                workspace=workspace,
+                parser=ParserConfig(
+                    engine="auto",
+                    docling_fallback=False,
+                    min_document_characters=20,
+                    fail_on_low_quality=True,
+                ),
+                chunking=ChunkingConfig(
+                    target_tokens=100,
+                    overlap_tokens=10,
+                    min_tokens=5,
+                ),
+                extraction=ExtractionConfig(enabled=False),
+                index=IndexConfig(
+                    backend="portable",
+                    embedding_model="hash-embedding-v1",
+                    vector_dimensions=64,
+                    allow_hash_embedding_fallback=True,
+                ),
+            )
+            run = asyncio.run(execute_run(config=config, run_id="markdown-rag"))
+            index_directory = workspace / "indexes" / "markdown-rag-index"
+            index_manifest = json.loads(
+                (index_directory / "manifest.json").read_text(encoding="utf-8")
+            )
+            document_rows = [
+                json.loads(line)
+                for line in (index_directory / "documents.jsonl")
+                .read_text(encoding="utf-8")
+                .splitlines()
+                if line
+            ]
+            chunk_rows = [
+                json.loads(line)
+                for line in (index_directory / "chunks.jsonl")
+                .read_text(encoding="utf-8")
+                .splitlines()
+                if line
+            ]
+            retrieval = PortableRetriever(index_directory).retrieve(
+                query="400 C atmospheric pressure",
+                top_k=2,
+                include_unverified=True,
+            )
+
+        self.assertEqual(run["status"], "completed")
+        self.assertEqual(index_manifest["counts"]["papers"], 1)
+        self.assertEqual(index_manifest["counts"]["documents"], 2)
+        self.assertEqual(index_manifest["counts"]["main_documents"], 1)
+        self.assertEqual(index_manifest["counts"]["si_documents"], 1)
+        self.assertEqual({row["document_type"] for row in document_rows}, {"main", "si"})
+        self.assertEqual({row["paper_id"] for row in chunk_rows}, {"doi:10.0000/test"})
+        self.assertTrue(
+            any(row["document_type"] == "si" for row in retrieval["retrieved_evidence"])
+        )
+
+    def test_acs_manifest_selection_is_stable_and_includes_si(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            batch = Path(temporary) / "batch_001"
+            for article_name, si_count in (("10.1021_z-last", 0), ("10.1021_a-first", 2)):
+                inner = batch / article_name / article_name
+                (inner / "main-output").mkdir(parents=True)
+                (inner / "main-output" / f"{article_name}.md").write_text(
+                    "# Abstract\n\nCatalysis paper.",
+                    encoding="utf-8",
+                )
+                (inner / f"{article_name}.pdf").write_bytes(b"%PDF-1.4\n%%EOF")
+                for index in range(si_count):
+                    si_dir = inner / "si-output" / f"si-{index + 1}"
+                    si_dir.mkdir(parents=True)
+                    (si_dir / f"si-{index + 1}.md").write_text(
+                        "# Experimental\n\nSupporting details.",
+                        encoding="utf-8",
+                    )
+            records, summary = build_records(batch, limit=1)
+
+        self.assertEqual(summary["paper_count"], 1)
+        self.assertEqual(summary["paper_ids"], ["doi:10.1021/a-first"])
+        self.assertEqual(summary["main_document_count"], 1)
+        self.assertEqual(summary["si_document_count"], 2)
+        self.assertEqual(summary["papers_with_original_pdf"], 1)
+        self.assertEqual({record["document_type"] for record in records}, {"main", "si"})
 
     def test_chunking_is_deterministic_and_excludes_references(self) -> None:
         pages = [
@@ -118,6 +270,19 @@ class LiteraturePipelineTests(unittest.TestCase):
             [item.chunk_id for item in second],
         )
         self.assertNotIn("should not be indexed", " ".join(item.text for item in first))
+
+    def test_chunking_splits_a_single_long_markdown_paragraph(self) -> None:
+        pages = [
+            PageRecord(
+                page_index=1,
+                text="# Results\n\n" + " ".join(f"value-{index}" for index in range(350)),
+            )
+        ]
+        config = ChunkingConfig(target_tokens=100, overlap_tokens=10, min_tokens=5)
+        chunks = build_chunks(paper_id="doc:long", pages=pages, config=config)
+
+        self.assertGreater(len(chunks), 1)
+        self.assertLessEqual(max(item.token_count for item in chunks), 100)
 
     def test_mock_pipeline_resume_index_retrieve_and_export(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

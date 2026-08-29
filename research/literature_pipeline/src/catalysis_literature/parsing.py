@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.metadata
 import json
+import re
 import time
 from pathlib import Path
 from typing import Any
@@ -67,6 +68,13 @@ def _extract_with_pypdf(path: Path) -> tuple[list[PageRecord], str, str]:
     return pages, "pypdf", _module_version("pypdf")
 
 
+def _extract_with_markdown(path: Path) -> tuple[list[PageRecord], str, str]:
+    text = path.read_text(encoding="utf-8", errors="replace").replace("\x00", "")
+    text = re.sub(r"!\[([^\]]*)\]\([^\n)]+\)", r"\1", text)
+    text = re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
+    return [PageRecord(page_index=1, text=text.strip(), blocks=[])], "markdown", "1"
+
+
 def _quality(pages: list[PageRecord], config: ParserConfig) -> dict[str, Any]:
     text = "\n".join(page.text for page in pages)
     characters = len(text)
@@ -107,15 +115,21 @@ def _extract_with_docling(path: Path, expected_pages: int) -> tuple[list[PageRec
 def parse_cache_key(
     *,
     source_pdf_sha256: str,
+    paper_id: str,
+    document_id: str,
+    document_type: str,
     parser: ParserConfig,
     chunking: ChunkingConfig,
 ) -> str:
     return content_hash(
         {
             "source_pdf_sha256": source_pdf_sha256,
+            "paper_id": paper_id,
+            "document_id": document_id,
+            "document_type": document_type,
             "parser": parser.model_dump(mode="json"),
             "chunking": chunking.model_dump(mode="json"),
-            "pipeline_parser_version": "literature-parser.v1",
+            "pipeline_parser_version": "literature-parser.v2",
         }
     )
 
@@ -128,9 +142,16 @@ def parse_pdf(
     cache_root: Path,
 ) -> tuple[ParsedDocument, dict[str, Any]]:
     source_path = Path(str(paper["source_path"])).resolve()
-    source_sha256 = str(paper.get("source_pdf_sha256") or sha256_file(source_path))
+    source_sha256 = str(
+        paper.get("source_document_sha256")
+        or paper.get("source_pdf_sha256")
+        or sha256_file(source_path)
+    )
     cache_key = parse_cache_key(
         source_pdf_sha256=source_sha256,
+        paper_id=str(paper["paper_id"]),
+        document_id=str(paper.get("document_id") or paper["paper_id"]),
+        document_type=str(paper.get("document_type") or "paper"),
         parser=parser_config,
         chunking=chunking_config,
     )
@@ -148,7 +169,15 @@ def parse_pdf(
         }
 
     started = time.perf_counter()
-    if parser_config.engine in {"auto", "pymupdf"}:
+    if source_path.suffix.lower() == ".md":
+        if parser_config.engine not in {"auto", "markdown"}:
+            raise ValueError(
+                f"Parser engine {parser_config.engine} cannot read Markdown"
+            )
+        pages, parser_name, parser_version = _extract_with_markdown(source_path)
+    elif parser_config.engine == "markdown":
+        raise ValueError("Markdown parser requires a .md source")
+    elif parser_config.engine in {"auto", "pymupdf"}:
         try:
             pages, parser_name, parser_version = _extract_with_pymupdf(source_path)
         except Exception:
@@ -160,7 +189,11 @@ def parse_pdf(
     if not pages:
         raise RuntimeError(f"PDF has no pages: {source_path}")
     quality = _quality(pages, parser_config)
-    if quality["low_quality"] and parser_config.docling_fallback:
+    if (
+        source_path.suffix.lower() == ".pdf"
+        and quality["low_quality"]
+        and parser_config.docling_fallback
+    ):
         try:
             docling_pages, docling_name, docling_version = _extract_with_docling(
                 source_path,
@@ -185,13 +218,20 @@ def parse_pdf(
         f"<<<PDF_PAGE_{page.page_index:03d}>>>\n{page.text}" for page in pages
     )
     chunks = build_chunks(
-        paper_id=str(paper["paper_id"]),
+        paper_id=str(paper.get("document_id") or paper["paper_id"]),
         pages=pages,
         config=chunking_config,
     )
     parsed = ParsedDocument(
         paper_id=str(paper["paper_id"]),
+        document_id=str(paper.get("document_id") or paper["paper_id"]),
+        document_type=str(paper.get("document_type") or "paper"),
         source_path=str(source_path),
+        source_media_type=str(
+            paper.get("source_media_type")
+            or ("text/markdown" if source_path.suffix.lower() == ".md" else "application/pdf")
+        ),
+        source_metadata=dict(paper.get("source_metadata") or {}),
         source_pdf_sha256=source_sha256,
         parser_name=parser_name,
         parser_version=parser_version,

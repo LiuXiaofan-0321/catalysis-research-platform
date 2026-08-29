@@ -208,6 +208,8 @@ class PortableRetriever:
         context = "\n\n".join(
             (
                 f"[{row['record_id']} | paper={row['paper_id']} | "
+                f"document={row.get('document_id')} | "
+                f"document_type={row.get('document_type')} | "
                 f"pages={row.get('page_start')}-{row.get('page_end')} | "
                 f"kind={row['kind']}]\n{row['text']}"
             )
@@ -227,6 +229,9 @@ class PortableRetriever:
                 {
                     "record_id": row["record_id"],
                     "paper_id": row["paper_id"],
+                    "document_id": row.get("document_id"),
+                    "document_type": row.get("document_type"),
+                    "source_path": row.get("source_path"),
                     "kind": row["kind"],
                     "page_start": row.get("page_start"),
                     "page_end": row.get("page_end"),

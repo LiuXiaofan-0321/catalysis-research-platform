@@ -36,6 +36,10 @@ def _config_payload(config: PipelineConfig) -> dict[str, Any]:
     return config.model_dump(mode="json")
 
 
+def _document_id(record: dict[str, Any]) -> str:
+    return str(record.get("document_id") or record["paper_id"])
+
+
 def _result_stats(results: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "parse": {
@@ -70,7 +74,7 @@ def _load_result_rows(path: Path) -> dict[str, dict[str, Any]]:
             value = json.loads(line)
             if not isinstance(value, dict) or not value.get("paper_id"):
                 raise ValueError(f"Invalid result row at {path}:{line_number}")
-            rows[str(value["paper_id"])] = value
+            rows[_document_id(value)] = value
     return rows
 
 
@@ -133,7 +137,8 @@ def build_preflight_report(
     finally:
         ledger.close()
     selected = records[:limit] if limit is not None else records
-    paper_count = len(selected)
+    document_count = len(selected)
+    paper_count = len({str(record["paper_id"]) for record in selected})
     calls_per_paper = 2 if config.extraction.enabled else 0
     max_tokens_per_paper = (
         config.extraction.max_context_tokens_core
@@ -145,7 +150,7 @@ def build_preflight_report(
     )
     warnings: list[str] = []
     if inventory.get("missing_count"):
-        warnings.append("The source manifest contains missing PDF paths")
+        warnings.append("The source manifest contains missing document paths")
     if config.index.enabled and config.index.embedding_revision == "default":
         warnings.append("Pin an embedding model revision before a production run")
     if config.index.enabled and config.index.allow_hash_embedding_fallback:
@@ -157,18 +162,19 @@ def build_preflight_report(
         "inventory": inventory,
         "selection": {
             "paper_count": paper_count,
+            "document_count": document_count,
             "limit": limit,
-            "full_inventory": limit is None or paper_count == len(records),
+            "full_inventory": limit is None or document_count == len(records),
         },
         "estimated_work": {
-            "model_calls": paper_count * calls_per_paper,
-            "maximum_configured_tokens": paper_count * max_tokens_per_paper,
+            "model_calls": document_count * calls_per_paper,
+            "maximum_configured_tokens": document_count * max_tokens_per_paper,
             "cost": None,
             "cost_note": "Not estimated because provider pricing is not part of the frozen config.",
         },
-        "large_run_confirmation_required": paper_count
+        "large_run_confirmation_required": document_count
         > config.execution.large_run_threshold,
-        "ready": bool(paper_count) and not inventory.get("missing_count") and not warnings,
+        "ready": bool(document_count) and not inventory.get("missing_count") and not warnings,
         "warnings": warnings,
     }
 
@@ -234,9 +240,13 @@ async def execute_run(
 
         existing_manifest = load_manifest(run_directory)
         prior_selection = existing_manifest.get("selection") if resume else None
-        if isinstance(prior_selection, dict) and prior_selection.get("paper_ids"):
-            selected_ids = set(prior_selection["paper_ids"])
-            records = [row for row in records if row["paper_id"] in selected_ids]
+        if isinstance(prior_selection, dict) and (
+            prior_selection.get("document_ids") or prior_selection.get("paper_ids")
+        ):
+            selected_ids = set(
+                prior_selection.get("document_ids") or prior_selection["paper_ids"]
+            )
+            records = [row for row in records if _document_id(row) in selected_ids]
             if len(records) != len(selected_ids):
                 raise RuntimeError(
                     "The refreshed inventory is missing papers from the frozen selection"
@@ -245,18 +255,20 @@ async def execute_run(
             records = records[:limit]
         if len(records) > config.execution.large_run_threshold and not confirm_large_run:
             raise RuntimeError(
-                f"Run {resolved_run_id} selects {len(records)} papers; rerun with "
+                f"Run {resolved_run_id} selects {len(records)} documents; rerun with "
                 "--confirm-large-run after reviewing `litpipe preflight`."
             )
 
         def record_inventory(manifest: dict[str, Any]) -> None:
             manifest["inventory"] = inventory_manifest
             manifest["selection"] = {
-                "paper_count": len(records),
+                "paper_count": len({str(row["paper_id"]) for row in records}),
+                "document_count": len(records),
                 "limit": prior_selection.get("limit")
                 if isinstance(prior_selection, dict)
                 else limit,
-                "paper_ids": [row["paper_id"] for row in records],
+                "paper_ids": sorted({str(row["paper_id"]) for row in records}),
+                "document_ids": [_document_id(row) for row in records],
             }
             manifest["status"] = "running"
 
@@ -277,8 +289,14 @@ async def execute_run(
         async def process(record: dict[str, Any]) -> dict[str, Any]:
             result: dict[str, Any] = {
                 "paper_id": record["paper_id"],
+                "document_id": _document_id(record),
+                "document_type": record.get("document_type") or "paper",
                 "source_path": record["source_path"],
                 "source_pdf_sha256": record["source_pdf_sha256"],
+                "source_document_sha256": record.get("source_document_sha256")
+                or record["source_pdf_sha256"],
+                "source_media_type": record.get("source_media_type"),
+                "source_metadata": record.get("source_metadata") or {},
                 "status": "failed",
                 "parse_status": "failed",
                 "extract_status": "disabled"
@@ -313,7 +331,7 @@ async def execute_run(
                     }
                 )
                 ledger.record_stage(
-                    paper_id=record["paper_id"],
+                    paper_id=_document_id(record),
                     stage="parse",
                     cache_key=parse_info["cache_key"],
                     status=result["parse_status"],
@@ -339,7 +357,7 @@ async def execute_run(
                     }
                 )
                 ledger.record_stage(
-                    paper_id=record["paper_id"],
+                    paper_id=_document_id(record),
                     stage="extract",
                     cache_key=extract_info["cache_key"],
                     status=result["extract_status"],
@@ -358,7 +376,7 @@ async def execute_run(
                 )
                 stage = "parse" if result["parse_status"] == "failed" else "extract"
                 ledger.record_stage(
-                    paper_id=record["paper_id"],
+                    paper_id=_document_id(record),
                     stage=stage,
                     cache_key="failed",
                     status="failed",
@@ -370,7 +388,7 @@ async def execute_run(
         pending = [
             record
             for record in records
-            if (latest.get(record["paper_id"]) or {}).get("status") != "completed"
+            if (latest.get(_document_id(record)) or {}).get("status") != "completed"
         ]
         journal_path = run_directory / "paper-results.journal.jsonl"
         progress_path = run_directory / "progress.json"
@@ -392,7 +410,7 @@ async def execute_run(
                         return
                     result = await process(record)
                     async with result_lock:
-                        latest[result["paper_id"]] = result
+                        latest[_document_id(result)] = result
                         with journal_path.open(
                             "a", encoding="utf-8", newline="\n"
                         ) as handle:
@@ -406,9 +424,9 @@ async def execute_run(
                             or processed_this_attempt == len(pending)
                         ):
                             selected_results = [
-                                latest[row["paper_id"]]
+                                latest[_document_id(row)]
                                 for row in records
-                                if row["paper_id"] in latest
+                                if _document_id(row) in latest
                             ]
                             atomic_write_json(
                                 progress_path,
@@ -427,9 +445,9 @@ async def execute_run(
         await asyncio.gather(*workers)
 
         results = [
-            latest[row["paper_id"]]
+            latest[_document_id(row)]
             for row in records
-            if row["paper_id"] in latest
+            if _document_id(row) in latest
         ]
         results.sort(key=lambda row: row["source_pdf_sha256"])
         results_path = run_directory / "paper-results.jsonl"
@@ -460,6 +478,7 @@ async def execute_run(
         errors = [
             {
                 "paper_id": row["paper_id"],
+                "document_id": _document_id(row),
                 "type": row.get("error_type"),
                 "message": row.get("error"),
             }

@@ -98,3 +98,32 @@ The workspace contains PDFs only by reference. Parsed text, model responses,
 extractions, indexes, SQLite ledgers, and manifests are generated below the
 configured workspace and are excluded from Git. Only code, prompts, schemas,
 configuration examples, tests, and documentation belong in the repository.
+
+## Main Text and Supporting Information Markdown
+
+For corpora that already contain parsed Markdown, use a JSONL source manifest
+with one row per document. Main text and supporting information share a
+canonical `paper_id` but have distinct `document_id` values:
+
+```json
+{"path":"/data/paper/main.md","paper_id":"doi:10.1021/example","document_id":"document:main","document_type":"main","doi":"10.1021/example"}
+{"path":"/data/paper/si.md","paper_id":"doi:10.1021/example","document_id":"document:si-1","document_type":"si","doi":"10.1021/example"}
+```
+
+The RAG index counts papers and documents separately and keeps `document_type`,
+source path, and parent paper identity on every chunk. To freeze the
+deterministic first 50 ACS papers from `batch_001`, including all available SI
+Markdown:
+
+```bash
+python scripts/build_acs_md_manifest.py \
+  --batch-directory /public/home/xiaohe/zwan/zya/paper_all/ACS/file/batch_001 \
+  --output /public/home/xiaohe/lxf/catalysis-rag/manifests/acs-50-main-si.jsonl \
+  --limit 50
+```
+
+Run this pilot with `configs/acs-50-rag.template.yaml`. Its extraction stage is
+disabled: the job builds the evidence RAG only and makes no DeepSeek calls.
+After the index is frozen, submit `jobs/acs-50-rag-retrieval-audit.sbatch` to
+check SI retrieval with questions containing evidence that appears in the SI
+rather than generic phrases such as "supporting information".

@@ -31,10 +31,11 @@ def git_state(repository_root: Path) -> dict[str, Any]:
         return result.stdout.strip()
 
     status = run("status", "--porcelain")
+    branch = run("rev-parse", "--abbrev-ref", "HEAD")
     return {
         "commit": run("rev-parse", "HEAD"),
         "tree": run("rev-parse", "HEAD^{tree}"),
-        "branch": run("branch", "--show-current") or None,
+        "branch": None if branch == "HEAD" else branch,
         "dirty": bool(status),
     }
 

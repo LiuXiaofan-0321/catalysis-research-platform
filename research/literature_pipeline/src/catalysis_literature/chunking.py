@@ -21,6 +21,7 @@ HEADING_PATTERN = re.compile(
     re.IGNORECASE,
 )
 REFERENCE_HEADINGS = {"reference", "references", "bibliography"}
+MARKDOWN_HEADING_PATTERN = re.compile(r"^#{1,6}\s+(.+?)\s*#*$")
 
 
 def tokens(text: str) -> list[str]:
@@ -84,6 +85,11 @@ def iter_units(
                 if line.strip()
             ]
         for paragraph in paragraphs:
+            markdown_heading = MARKDOWN_HEADING_PATTERN.fullmatch(paragraph[:240])
+            if markdown_heading:
+                section = normalized_section(markdown_heading.group(1))
+                in_references = section in REFERENCE_HEADINGS
+                continue
             heading = HEADING_PATTERN.fullmatch(paragraph[:160])
             if heading:
                 section = normalized_section(heading.group(1))
@@ -103,6 +109,20 @@ def _tail_for_overlap(text: str, overlap_tokens: int) -> str:
         return text
     tail = parts[-overlap_tokens:]
     return " ".join(tail)
+
+
+def _split_long_unit(unit: TextUnit, maximum_tokens: int) -> Iterable[TextUnit]:
+    matches = list(TOKEN_PATTERN.finditer(unit.text))
+    if len(matches) <= maximum_tokens:
+        yield unit
+        return
+    for start in range(0, len(matches), maximum_tokens):
+        window = matches[start : start + maximum_tokens]
+        yield TextUnit(
+            page_index=unit.page_index,
+            section=unit.section,
+            text=unit.text[window[0].start() : window[-1].end()].strip(),
+        )
 
 
 def build_chunks(
@@ -171,20 +191,25 @@ def build_chunks(
         )
         buffer_tokens = token_count(overlap) if overlap else 0
 
-    for unit in iter_units(
+    units = iter_units(
         pages,
         exclude_references=config.exclude_references,
-    ):
-        count = token_count(unit.text)
-        section_changed = bool(
-            buffer
-            and unit.section
-            and buffer[0].section
-            and unit.section != buffer[0].section
-        )
-        if buffer and (section_changed or buffer_tokens + count > config.target_tokens):
-            flush()
-        buffer.append(unit)
-        buffer_tokens += count
+    )
+    maximum_unit_tokens = max(1, config.target_tokens - config.overlap_tokens)
+    for original_unit in units:
+        for unit in _split_long_unit(original_unit, maximum_unit_tokens):
+            count = token_count(unit.text)
+            section_changed = bool(
+                buffer
+                and unit.section
+                and buffer[0].section
+                and unit.section != buffer[0].section
+            )
+            if buffer and (
+                section_changed or buffer_tokens + count > config.target_tokens
+            ):
+                flush()
+            buffer.append(unit)
+            buffer_tokens += count
     flush()
     return chunks

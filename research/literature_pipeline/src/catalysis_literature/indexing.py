@@ -259,8 +259,10 @@ def _logical_rows(run_directory: Path) -> tuple[
     list[dict[str, Any]],
     list[dict[str, Any]],
     list[dict[str, Any]],
+    list[dict[str, Any]],
 ]:
-    papers: list[dict[str, Any]] = []
+    papers_by_id: dict[str, dict[str, Any]] = {}
+    documents: list[dict[str, Any]] = []
     chunks: list[dict[str, Any]] = []
     evidence: list[dict[str, Any]] = []
     for result in _load_results(run_directory):
@@ -276,44 +278,68 @@ def _logical_rows(run_directory: Path) -> tuple[
             extraction = json.loads(
                 Path(extraction_path).read_text(encoding="utf-8")
             )["extraction"]
-        paper_data = (
-            extraction["paper"]
-            if extraction is not None
-            else {
-                "id": parsed.paper_id,
-                "title": Path(parsed.source_path).stem,
-                "source_pdf_sha256": parsed.source_pdf_sha256,
-                "source_path": parsed.source_path,
-                "page_count": parsed.page_count,
-            }
+        metadata = parsed.source_metadata
+        paper_data = extraction["paper"] if extraction is not None else {}
+        resolved_paper_id = str(paper_data.get("id") or parsed.paper_id)
+        title = str(
+            paper_data.get("title")
+            or metadata.get("title")
+            or Path(parsed.source_path).stem
         )
-        papers.append(
-            {
-                "paper_id": str(paper_data["id"]),
-                "source_paper_id": parsed.paper_id,
-                "title": str(paper_data.get("title") or ""),
-                "doi": paper_data.get("doi"),
-                "year": paper_data.get("year"),
-                "journal": paper_data.get("journal"),
+        paper = papers_by_id.get(resolved_paper_id)
+        if paper is None:
+            paper = {
+                "paper_id": resolved_paper_id,
+                "title": title,
+                "doi": paper_data.get("doi") or metadata.get("doi"),
+                "year": paper_data.get("year") or metadata.get("year"),
+                "journal": paper_data.get("journal") or metadata.get("journal"),
                 "paper_type": paper_data.get("paper_type"),
                 "catalysis_system": paper_data.get("catalysis_system") or "unclear",
                 "reaction_categories_json": canonical_json(
                     paper_data.get("reaction_categories") or []
                 ),
-                "source_pdf_sha256": parsed.source_pdf_sha256,
-                "source_path": parsed.source_path,
+                "main_source_path": None,
+                "document_count": 0,
+                "main_document_count": 0,
+                "si_document_count": 0,
                 "quality_json": canonical_json(
                     (extraction or {}).get("quality") or parsed.quality
                 ),
             }
+            papers_by_id[resolved_paper_id] = paper
+        if parsed.document_type == "main":
+            paper["title"] = title
+            paper["main_source_path"] = parsed.source_path
+            paper["quality_json"] = canonical_json(parsed.quality)
+        paper["document_count"] += 1
+        if parsed.document_type == "main":
+            paper["main_document_count"] += 1
+        elif parsed.document_type == "si":
+            paper["si_document_count"] += 1
+        documents.append(
+            {
+                "document_id": parsed.document_id,
+                "paper_id": resolved_paper_id,
+                "document_type": parsed.document_type,
+                "source_path": parsed.source_path,
+                "source_media_type": parsed.source_media_type,
+                "source_document_sha256": parsed.source_pdf_sha256,
+                "page_count": parsed.page_count,
+                "extracted_characters": parsed.extracted_characters,
+                "chunk_count": len(parsed.chunks),
+                "quality_json": canonical_json(parsed.quality),
+                "metadata_json": canonical_json(metadata),
+            }
         )
-        resolved_paper_id = str(paper_data["id"])
         for chunk in parsed.chunks:
             text = chunk.text
             chunks.append(
                 {
                     "record_id": chunk.chunk_id,
                     "paper_id": resolved_paper_id,
+                    "document_id": parsed.document_id,
+                    "document_type": parsed.document_type,
                     "kind": "chunk",
                     "source_record_id": chunk.chunk_id,
                     "text": text,
@@ -324,12 +350,15 @@ def _logical_rows(run_directory: Path) -> tuple[
                     "review_status": "extracted",
                     "evidence_validation": "exact",
                     "source": "text",
-                    "source_id": None,
+                    "source_id": parsed.document_id,
+                    "source_path": parsed.source_path,
                     "quote": None,
                     "metadata_json": canonical_json(
                         {
                             "token_count": chunk.token_count,
                             "source_text_sha256": chunk.source_text_sha256,
+                            "document_id": parsed.document_id,
+                            "document_type": parsed.document_type,
                         }
                     ),
                     "neighbor_ids_json": "[]",
@@ -337,16 +366,18 @@ def _logical_rows(run_directory: Path) -> tuple[
             )
         if extraction is not None:
             evidence.extend(_evidence_rows(extraction))
-    papers.sort(key=lambda row: row["paper_id"])
+    papers = sorted(papers_by_id.values(), key=lambda row: row["paper_id"])
+    documents.sort(key=lambda row: row["document_id"])
     chunks.sort(key=lambda row: row["record_id"])
     evidence.sort(key=lambda row: row["record_id"])
-    return papers, chunks, evidence
+    return papers, documents, chunks, evidence
 
 
 def _build_lancedb(
     index_directory: Path,
     *,
     papers: list[dict[str, Any]],
+    documents: list[dict[str, Any]],
     chunks: list[dict[str, Any]],
     evidence: list[dict[str, Any]],
     chunk_vectors: np.ndarray,
@@ -357,6 +388,7 @@ def _build_lancedb(
     warnings: list[str] = []
     database = lancedb.connect(index_directory / "lancedb")
     database.create_table("papers", data=papers, mode="overwrite")
+    database.create_table("documents", data=documents, mode="overwrite")
     for name, rows, vectors in (
         ("chunks", chunks, chunk_vectors),
         ("evidence_records", evidence, evidence_vectors),
@@ -401,11 +433,12 @@ def build_index(
         shutil.rmtree(temporary)
     temporary.mkdir(parents=True)
     try:
-        papers, chunks, evidence = _logical_rows(run_directory)
+        papers, documents, chunks, evidence = _logical_rows(run_directory)
         embedder = EmbeddingProvider(config)
         chunk_vectors = embedder.encode([row["text"] for row in chunks])
         evidence_vectors = embedder.encode([row["text"] for row in evidence])
         _write_jsonl(temporary / "papers.jsonl", papers)
+        _write_jsonl(temporary / "documents.jsonl", documents)
         _write_jsonl(temporary / "chunks.jsonl", chunks)
         _write_jsonl(temporary / "evidence_records.jsonl", evidence)
         np.save(temporary / "chunk_vectors.npy", chunk_vectors)
@@ -418,6 +451,7 @@ def build_index(
                 backend, warnings = _build_lancedb(
                     temporary,
                     papers=papers,
+                    documents=documents,
                     chunks=chunks,
                     evidence=evidence,
                     chunk_vectors=chunk_vectors,
@@ -435,6 +469,7 @@ def build_index(
         logical_hash = content_hash(
             {
                 "papers": papers,
+                "documents": documents,
                 "chunks": chunks,
                 "evidence": evidence,
                 "embedding_model": embedder.actual_model,
@@ -445,6 +480,7 @@ def build_index(
         artifacts = {}
         for name in (
             "papers.jsonl",
+            "documents.jsonl",
             "chunks.jsonl",
             "evidence_records.jsonl",
             "chunk_vectors.npy",
@@ -474,6 +510,13 @@ def build_index(
             },
             "counts": {
                 "papers": len(papers),
+                "documents": len(documents),
+                "main_documents": sum(
+                    row["document_type"] == "main" for row in documents
+                ),
+                "si_documents": sum(
+                    row["document_type"] == "si" for row in documents
+                ),
                 "chunks": len(chunks),
                 "evidence_records": len(evidence),
             },
