@@ -14,8 +14,13 @@ from .config import ExtractionConfig
 from .hashing import atomic_write_json, content_hash, sha256_file, sha256_text
 from .ledger import PipelineLedger
 from .models import (
+    ClaimRecord,
+    EntityRecord,
     EXTRACTION_SCHEMA_VERSION,
     EvidenceRecord,
+    ExperimentRecord,
+    KeywordRecord,
+    ObservationRecord,
     PaperArtifactV2,
     ParsedDocument,
 )
@@ -104,6 +109,91 @@ def _normalize_evidence_shapes(extraction: dict[str, Any]) -> None:
         container["evidence"] = normalized
         if coerced:
             container["needs_visual_review"] = True
+
+
+def _normalize_boundary_shapes(extraction: dict[str, Any]) -> None:
+    normalizations: list[str] = []
+    record_models = {
+        "entities": EntityRecord,
+        "experiments": ExperimentRecord,
+        "observations": ObservationRecord,
+        "claims": ClaimRecord,
+    }
+    keyword_records = (extraction.get("keywords") or {}).get("extracted") or []
+    groups: list[tuple[str, list[Any], type[Any]]] = [
+        (name, extraction.get(name) or [], model)
+        for name, model in record_models.items()
+    ]
+    groups.append(("keywords", keyword_records, KeywordRecord))
+    for group_name, records, model in groups:
+        allowed = set(model.model_fields)
+        for item in records:
+            if not isinstance(item, dict):
+                continue
+            extras = sorted(set(item) - allowed)
+            if extras:
+                for key in extras:
+                    item.pop(key, None)
+                item["needs_visual_review"] = True
+                normalizations.append(
+                    f"{group_name}:{item.get('id', 'unknown')} removed fields {','.join(extras)}"
+                )
+            if group_name == "observations":
+                numeric_value = item.get("numeric_value")
+                if isinstance(numeric_value, str):
+                    try:
+                        float(numeric_value)
+                    except ValueError:
+                        item["numeric_value"] = None
+                        if not item.get("text_value"):
+                            item["text_value"] = numeric_value
+                        if not item.get("raw_value"):
+                            item["raw_value"] = numeric_value
+                        item["needs_visual_review"] = True
+                        normalizations.append(
+                            f"observations:{item.get('id', 'unknown')} moved non-scalar numeric_value"
+                        )
+
+    evidence_allowed = set(EvidenceRecord.model_fields)
+    source_aliases = {
+        "figure_caption": "caption",
+        "table_caption": "caption",
+        "supporting information": "supporting_information",
+        "supporting-information": "supporting_information",
+        "si": "supporting_information",
+    }
+    valid_sources = {
+        "text",
+        "table",
+        "figure",
+        "caption",
+        "supporting_information",
+    }
+    for container in _evidence_containers(extraction):
+        for entry in container.get("evidence") or []:
+            if not isinstance(entry, dict):
+                continue
+            extras = sorted(set(entry) - evidence_allowed)
+            for key in extras:
+                entry.pop(key, None)
+            source = str(entry.get("source") or "text").strip().casefold()
+            normalized_source = source_aliases.get(source, source)
+            if normalized_source not in valid_sources:
+                normalized_source = "text"
+            if extras or normalized_source != source:
+                container["needs_visual_review"] = True
+                identifier = container.get("id", "summary_finding")
+                details = []
+                if extras:
+                    details.append(f"removed evidence fields {','.join(extras)}")
+                if normalized_source != source:
+                    details.append(f"mapped evidence source {source} to {normalized_source}")
+                normalizations.append(f"evidence:{identifier} {'; '.join(details)}")
+            entry["source"] = normalized_source
+
+    if normalizations:
+        quality = extraction.setdefault("quality", {})
+        quality["boundary_normalizations"] = normalizations
 
 
 def annotate_evidence(extraction: dict[str, Any], parsed: ParsedDocument) -> None:
@@ -484,6 +574,7 @@ class ExtractionRunner:
         }
         _normalize_references(extraction)
         _normalize_evidence_shapes(extraction)
+        _normalize_boundary_shapes(extraction)
         annotate_evidence(extraction, parsed)
         try:
             validated = PaperArtifactV2.model_validate(extraction)

@@ -28,6 +28,7 @@ from catalysis_literature.config import (
 )
 from catalysis_literature.exporter import export_stage1
 from catalysis_literature.extractor import (
+    _normalize_boundary_shapes,
     _normalize_evidence_shapes,
     annotate_evidence,
 )
@@ -87,6 +88,51 @@ def write_text_pdf(path: Path, text: str) -> None:
 
 
 class LiteraturePipelineTests(unittest.TestCase):
+    def test_boundary_normalization_preserves_nonstandard_model_values(self) -> None:
+        extraction = {
+            "keywords": {"extracted": []},
+            "entities": [],
+            "experiments": [],
+            "observations": [
+                {
+                    "id": "observation:o001",
+                    "metric_name": "yield range",
+                    "numeric_value": "38 to 12",
+                    "evidence": [],
+                    "needs_visual_review": False,
+                }
+            ],
+            "claims": [
+                {
+                    "id": "claim:c001",
+                    "statement": "Reported result.",
+                    "claim_type_note": None,
+                    "evidence": [
+                        {
+                            "pdf_page_index": 1,
+                            "source": "figure_caption",
+                            "quote": "Reported result in Figure 2.",
+                        }
+                    ],
+                    "needs_visual_review": False,
+                }
+            ],
+            "summary": {"main_findings": []},
+            "quality": {},
+        }
+
+        _normalize_boundary_shapes(extraction)
+
+        observation = extraction["observations"][0]
+        claim = extraction["claims"][0]
+        self.assertIsNone(observation["numeric_value"])
+        self.assertEqual(observation["text_value"], "38 to 12")
+        self.assertTrue(observation["needs_visual_review"])
+        self.assertNotIn("claim_type_note", claim)
+        self.assertEqual(claim["evidence"][0]["source"], "caption")
+        self.assertTrue(claim["needs_visual_review"])
+        self.assertEqual(len(extraction["quality"]["boundary_normalizations"]), 3)
+
     def test_extraction_campaign_is_incremental_and_sharded_by_paper(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
