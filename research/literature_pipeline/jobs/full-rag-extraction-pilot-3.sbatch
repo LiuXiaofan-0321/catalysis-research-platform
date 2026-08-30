@@ -17,11 +17,17 @@ unset PYTHONHOME PYTHONPATH
 BASE=/public/home/xiaohe/lxf/catalysis-rag
 REPO="$BASE/code/catalysis-research-platform"
 VENV="$BASE/envs/py312-rag"
-CONFIG="$REPO/research/literature_pipeline/configs/full-rag-extraction-pilot-3.template.yaml"
+CONFIG_TEMPLATE="$REPO/research/literature_pipeline/configs/full-rag-extraction-pilot-3.template.yaml"
 WORKSPACE="$BASE/workspace-extraction"
-RUN_ID=full-rag-extraction-pilot-3-glm53flash-v1
+RUN_ID=full-rag-extraction-pilot-3-glm53flash-proxy-v1
+CONFIG="$BASE/configs/$RUN_ID.yaml"
 
 : "${ZHIPU_API_KEY:?Export ZHIPU_API_KEY before submitting this job}"
+: "${ZHIPU_PROXY_BASE_URL:?Export the login02 proxy API base URL before submitting}"
+
+mkdir -p "$BASE/configs"
+sed "s|^  base_url: .*$|  base_url: ${ZHIPU_PROXY_BASE_URL%/}|" \
+  "$CONFIG_TEMPLATE" > "$CONFIG"
 
 "$VENV/bin/litpipe" preflight --config "$CONFIG"
 if [[ -d "$WORKSPACE/runs/$RUN_ID" ]]; then
