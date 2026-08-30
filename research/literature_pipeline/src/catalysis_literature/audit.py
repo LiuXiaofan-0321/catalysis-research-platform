@@ -52,6 +52,18 @@ def evaluate_trace(question: dict[str, Any], trace: dict[str, Any]) -> dict[str,
         ),
         None,
     )
+    target_document_rank = next(
+        (
+            rank
+            for rank, row in enumerate(evidence, start=1)
+            if row.get("paper_id") in expected_paper_ids
+            and (
+                not expected_document_types
+                or row.get("document_type") in expected_document_types
+            )
+        ),
+        None,
+    )
     context = str(trace.get("context") or "").casefold()
     term_groups = question.get("expected_term_groups") or []
     matched_groups = [
@@ -62,18 +74,21 @@ def evaluate_trace(question: dict[str, Any], trace: dict[str, Any]) -> dict[str,
     minimum_groups = int(question.get("minimum_term_groups") or len(term_groups))
 
     checks: list[bool] = []
-    if expected_document_types:
+    if expected_document_types and not expected_paper_ids:
         checks.append(document_type_rank is not None and document_type_rank <= max_rank)
     if expected_paper_ids:
-        checks.append(target_paper_rank is not None and target_paper_rank <= max_rank)
+        checks.append(
+            target_document_rank is not None and target_document_rank <= max_rank
+        )
     if term_groups:
         checks.append(matched_group_count >= minimum_groups)
     return {
         "automatic_pass": all(checks) if checks else False,
-        "manual_review_required": not bool(expected_paper_ids),
+        "manual_review_required": True,
         "max_rank": max_rank,
         "document_type_hit_rank": document_type_rank,
         "target_paper_hit_rank": target_paper_rank,
+        "target_document_hit_rank": target_document_rank,
         "matched_term_groups": matched_groups,
         "matched_term_group_count": matched_group_count,
         "minimum_term_groups": minimum_groups,

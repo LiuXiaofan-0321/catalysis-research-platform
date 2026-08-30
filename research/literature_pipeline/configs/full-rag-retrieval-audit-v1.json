@@ -8,6 +8,7 @@
       "query": "time-dependent Cu(I) fraction O2-assisted oxidation XAS rate equation Cu zeolite",
       "intent": "Retrieve a quantitative kinetic statement and its SI evidence.",
       "expected_document_types": ["si"],
+      "expected_paper_ids": ["doi:10.1021/acs.accounts.0c00328"],
       "expected_term_groups": [
         ["cu(i)", "cu i"],
         ["xas", "x-ray absorption"],
@@ -18,15 +19,16 @@
     },
     {
       "id": "nmr-bronsted-table",
-      "question": "According to Table S1, how do probe-assisted NMR methods compare for locating and quantifying Bronsted acid sites and assessing acid strength in zeolites?",
-      "query": "Table S1 probe-assisted NMR Bronsted acid site location concentration strength zeolite",
-      "intent": "Retrieve a table-centered characterization comparison, preferably from SI.",
-      "expected_document_types": ["si"],
+      "question": "How does probe-assisted NMR locate and quantify Bronsted acid sites in H-MOR zeolite, and what site distribution is reported?",
+      "query": "probe-assisted NMR H-MOR Bronsted acid site spatial location quantitative concentration distribution",
+      "intent": "Retrieve a quantitative acidity-characterization result from the main article.",
+      "expected_document_types": ["main"],
+      "expected_paper_ids": ["doi:10.1021/acs.accounts.1c00069"],
       "expected_term_groups": [
-        ["table s1"],
         ["nmr"],
         ["bronsted", "brønsted"],
-        ["acid strength", "acidity"]
+        ["h-mor"],
+        ["39.7%", "52.3%", "8.0%"]
       ],
       "minimum_term_groups": 3,
       "max_rank": 5
@@ -35,8 +37,9 @@
       "id": "afx-recrystallization",
       "question": "What experimental steps are used to downsize AFX zeolite crystals by post-milling recrystallization?",
       "query": "AFX zeolite downsizing post-milling recrystallization experimental procedure",
-      "intent": "Retrieve a synthesis procedure whose detailed conditions are in SI.",
+      "intent": "Retrieve the target AFX synthesis study rather than a generic recrystallization paper.",
       "expected_document_types": ["si"],
+      "expected_paper_ids": ["doi:10.1021/acs.cgd.6b00365"],
       "expected_term_groups": [
         ["afx"],
         ["post-milling", "milling"],

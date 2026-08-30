@@ -4,6 +4,7 @@ from catalysis_literature.audit import evaluate_trace
 def test_evaluate_trace_checks_si_rank_and_term_groups() -> None:
     question = {
         "expected_document_types": ["si"],
+        "expected_paper_ids": ["doi:test"],
         "expected_term_groups": [["afx"], ["milling"], ["recrystallization"]],
         "minimum_term_groups": 2,
         "max_rank": 3,
@@ -20,4 +21,5 @@ def test_evaluate_trace_checks_si_rank_and_term_groups() -> None:
     assert result["automatic_pass"] is True
     assert result["manual_review_required"] is True
     assert result["document_type_hit_rank"] == 1
+    assert result["target_document_hit_rank"] == 1
     assert result["matched_term_group_count"] == 3
