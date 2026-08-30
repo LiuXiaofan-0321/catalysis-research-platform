@@ -156,8 +156,8 @@ def build_core_prompt(
             "reaction_categories": ["string"],
         },
         "abstract_analysis": {
-            "chinese_translation": "string|null",
-            "key_points": ["string"],
+            "chinese_translation": None,
+            "key_points": ["at most 3 concise strings"],
         },
         "summary": {
             "one_sentence": "string",
@@ -197,8 +197,40 @@ def build_core_prompt(
                 }
             ],
         },
-        "entities": [],
-        "claims": [],
+        "entities": [
+            {
+                "id": "entity:e001",
+                "type": (
+                    "zeolite_framework|catalyst_sample|active_site|metal_species|"
+                    "reactant|product|synthesis_reagent|characterization_method|"
+                    "property|other"
+                ),
+                "canonical_name": "string",
+                "zh_name": "string|null",
+                "aliases": [],
+                "identifiers": {
+                    "framework_code": "string|null",
+                    "sample_label": "string|null",
+                },
+                "attributes": {
+                    "composition": "reported string|null",
+                    "si_al_ratio": "reported number|string|null",
+                    "metal_loading": "reported number|string|null",
+                },
+                "evidence": [],
+                "needs_visual_review": False,
+            }
+        ],
+        "claims": [
+            {
+                "id": "claim:c001",
+                "claim_type": "reported_result|correlation|mechanism|hypothesis",
+                "statement": "string",
+                "evidence_basis": "experiment|characterization|calculation|author_interpretation|unclear",
+                "evidence": [],
+                "needs_visual_review": False,
+            }
+        ],
         "visual_review_items": [],
         "quality": {
             "overall_confidence": "high|medium|low",
@@ -247,7 +279,14 @@ def build_data_prompt(
                 "sample_entity_ids": [],
                 "material_entity_ids": [],
                 "method_entity_ids": [],
-                "conditions": [],
+                "conditions": [
+                    {
+                        "name": "temperature|pressure|time|feed_composition|flow_rate|WHSV|GHSV|other",
+                        "value": "number|string|null",
+                        "unit": "string|null",
+                        "raw_value": "string|null",
+                    }
+                ],
                 "evidence": [],
                 "needs_visual_review": False,
             }
@@ -264,9 +303,18 @@ def build_data_prompt(
                 "text_value": "string|null",
                 "unit": "string|null",
                 "raw_value": "string|null",
+                "basis": "carbon|molar|mass|area|other|null",
+                "normalization": "per_mass|per_site|per_area|none|other|null",
                 "uncertainty": "number|string|null",
                 "comparison_operator": "string",
-                "conditions": [],
+                "conditions": [
+                    {
+                        "name": "temperature|pressure|time|feed_composition|flow_rate|WHSV|GHSV|other",
+                        "value": "number|string|null",
+                        "unit": "string|null",
+                        "raw_value": "string|null",
+                    }
+                ],
                 "evidence": [],
                 "needs_visual_review": False,
             }

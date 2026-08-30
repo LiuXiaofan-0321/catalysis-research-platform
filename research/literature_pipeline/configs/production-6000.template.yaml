@@ -30,7 +30,7 @@ extraction:
   max_context_tokens_data: 7000
   workers: 4
   requests_per_minute: 60
-  prompt_version: catalysis-paper-extraction-v2.0
+  prompt_version: catalysis-paper-extraction-v2.1
 
 index:
   enabled: true

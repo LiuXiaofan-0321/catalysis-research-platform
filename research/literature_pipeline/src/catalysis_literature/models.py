@@ -5,7 +5,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
-EXTRACTION_SCHEMA_VERSION = "catalysis_paper_extraction.v2"
+EXTRACTION_SCHEMA_VERSION = "catalysis_paper_extraction.v2.1"
 RUN_SCHEMA_VERSION = "literature_run.v1"
 INDEX_SCHEMA_VERSION = "rag_index.v2"
 PARSED_DOCUMENT_SCHEMA_VERSION = "parsed_document.v2"
@@ -17,6 +17,8 @@ class StrictModel(BaseModel):
 
 class EvidenceRecord(StrictModel):
     pdf_page_index: int = Field(ge=1)
+    document_id: str | None = None
+    document_type: Literal["paper", "main", "si"] | None = None
     section: str | None = None
     source: Literal["text", "table", "figure", "caption", "supporting_information"] = "text"
     source_id: str | None = None
@@ -74,6 +76,8 @@ class ObservationRecord(StrictModel):
     text_value: str | None = None
     unit: str | None = None
     raw_value: str | None = None
+    basis: str | None = None
+    normalization: str | None = None
     uncertainty: float | str | None = None
     comparison_operator: str = "not_applicable"
     conditions: list[dict[str, Any]] = Field(default_factory=list)

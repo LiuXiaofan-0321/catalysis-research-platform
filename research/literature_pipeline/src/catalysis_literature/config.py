@@ -50,7 +50,7 @@ class ExtractionConfig(StrictModel):
     max_context_tokens_data: int = 7000
     workers: int = 4
     requests_per_minute: int = 60
-    prompt_version: str = "catalysis-paper-extraction-v2.0"
+    prompt_version: str = "catalysis-paper-extraction-v2.1"
 
 
 class IndexConfig(StrictModel):

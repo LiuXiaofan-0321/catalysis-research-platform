@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 from typing import Sequence
 
+from .audit import run_retrieval_audit
 from .benchmark import baseline_summary
 from .config import PipelineConfig, load_config
 from .exporter import export_stage1
@@ -86,6 +87,12 @@ def build_parser() -> argparse.ArgumentParser:
     retrieve.add_argument("--top-k", type=int)
     retrieve.add_argument("--context-token-budget", type=int)
     retrieve.add_argument("--include-unverified", action="store_true")
+
+    retrieval_audit = subparsers.add_parser("audit-retrieval")
+    retrieval_audit.add_argument("--index", type=Path, required=True)
+    retrieval_audit.add_argument("--questions", type=Path, required=True)
+    retrieval_audit.add_argument("--top-k", type=int)
+    retrieval_audit.add_argument("--context-token-budget", type=int)
 
     export = subparsers.add_parser("export-stage1")
     export.add_argument("--run-id", required=True)
@@ -190,6 +197,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                 top_k=args.top_k,
                 context_token_budget=args.context_token_budget,
                 include_unverified=args.include_unverified,
+            )
+        elif args.command == "audit-retrieval":
+            output = run_retrieval_audit(
+                index_directory=args.index,
+                questions_path=args.questions,
+                top_k=args.top_k,
+                context_token_budget=args.context_token_budget,
             )
         elif args.command == "merge-indexes":
             output = merge_indexes(

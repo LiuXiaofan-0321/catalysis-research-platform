@@ -1,0 +1,49 @@
+{
+  "schema_version": "retrieval_audit_questions.v1",
+  "description": "Three-question smoke audit for the frozen full zeolite RAG index.",
+  "questions": [
+    {
+      "id": "cu-xas-kinetics",
+      "question": "How is the time-dependent Cu(I) fraction measured by XAS used in the rate analysis of O2-assisted oxidation over Cu-zeolites?",
+      "query": "time-dependent Cu(I) fraction O2-assisted oxidation XAS rate equation Cu zeolite",
+      "intent": "Retrieve a quantitative kinetic statement and its SI evidence.",
+      "expected_document_types": ["si"],
+      "expected_term_groups": [
+        ["cu(i)", "cu i"],
+        ["xas", "x-ray absorption"],
+        ["rate equation", "reaction rate"]
+      ],
+      "minimum_term_groups": 2,
+      "max_rank": 5
+    },
+    {
+      "id": "nmr-bronsted-table",
+      "question": "According to Table S1, how do probe-assisted NMR methods compare for locating and quantifying Bronsted acid sites and assessing acid strength in zeolites?",
+      "query": "Table S1 probe-assisted NMR Bronsted acid site location concentration strength zeolite",
+      "intent": "Retrieve a table-centered characterization comparison, preferably from SI.",
+      "expected_document_types": ["si"],
+      "expected_term_groups": [
+        ["table s1"],
+        ["nmr"],
+        ["bronsted", "brønsted"],
+        ["acid strength", "acidity"]
+      ],
+      "minimum_term_groups": 3,
+      "max_rank": 5
+    },
+    {
+      "id": "afx-recrystallization",
+      "question": "What experimental steps are used to downsize AFX zeolite crystals by post-milling recrystallization?",
+      "query": "AFX zeolite downsizing post-milling recrystallization experimental procedure",
+      "intent": "Retrieve a synthesis procedure whose detailed conditions are in SI.",
+      "expected_document_types": ["si"],
+      "expected_term_groups": [
+        ["afx"],
+        ["post-milling", "milling"],
+        ["recrystallization", "recrystallized"]
+      ],
+      "minimum_term_groups": 2,
+      "max_rank": 5
+    }
+  ]
+}

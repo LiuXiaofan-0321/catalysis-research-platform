@@ -66,6 +66,41 @@ litpipe export-stage1 --run-id <run_id> --workspace <workspace> --output <new-ou
 litpipe verify --run-id <run_id> --workspace <workspace>
 ```
 
+Run the frozen three-question full-index audit with one index/model load:
+
+```powershell
+litpipe audit-retrieval `
+  --index <workspace>\indexes\full-rag-v1-index `
+  --questions .\configs\full-rag-retrieval-audit-v1.json `
+  --top-k 8 `
+  --context-token-budget 4000
+```
+
+The audit makes no LLM API calls. It records the index hash, retrieval traces,
+expected SI rank checks, term-group coverage, and a manual-review flag.
+
+For the first full-corpus extraction check, use
+`configs/full-rag-extraction-pilot-3.template.yaml`. It limits extraction to
+3,000/4,200 input-context tokens and 1,800/2,400 output tokens for the core/data
+stages. Compared with the former 30,000-token configured maximum per document,
+the pilot ceiling is 11,400 tokens. The prompt omits abstract translation,
+caps record counts, preserves numeric basis/normalization, and injects main/SI
+document provenance in code rather than asking the model to repeat it.
+
+Build the manifest from the three audited paper IDs, keeping each main text and
+at most one targeted SI document:
+
+```bash
+python scripts/build_extraction_pilot_manifest.py \
+  --index /public/home/xiaohe/lxf/catalysis-rag/workspace-full/indexes/full-rag-v1-index \
+  --paper-id '<paper-1>' --paper-id '<paper-2>' --paper-id '<paper-3>' \
+  --output /public/home/xiaohe/lxf/catalysis-rag/manifests/full-rag-extraction-pilot-3.jsonl
+```
+
+Do not submit `jobs/full-rag-extraction-pilot-3.sbatch` until the manifest and
+preflight report are reviewed and `DEEPSEEK_API_KEY` is supplied through the
+job environment. Never store the key in a tracked file.
+
 The inventory is frozen inside the run and reused on resume. Use
 `--refresh-inventory` only when intentionally changing the source corpus.
 Per-paper outcomes are appended to `paper-results.journal.jsonl`, so an

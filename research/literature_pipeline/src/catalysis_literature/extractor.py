@@ -13,7 +13,12 @@ from pydantic import ValidationError
 from .config import ExtractionConfig
 from .hashing import atomic_write_json, content_hash, sha256_file, sha256_text
 from .ledger import PipelineLedger
-from .models import EvidenceRecord, PaperArtifactV2, ParsedDocument
+from .models import (
+    EXTRACTION_SCHEMA_VERSION,
+    EvidenceRecord,
+    PaperArtifactV2,
+    ParsedDocument,
+)
 from .prompts import (
     build_core_prompt,
     build_data_prompt,
@@ -82,6 +87,8 @@ def annotate_evidence(extraction: dict[str, Any], parsed: ParsedDocument) -> Non
             evidence = []
             container["evidence"] = evidence
         for entry in evidence:
+            entry["document_id"] = parsed.document_id
+            entry["document_type"] = parsed.document_type
             record = EvidenceRecord.model_validate(entry)
             page_text = pages.get(record.pdf_page_index, "")
             quote, validation = _recover_quote(record.quote, page_text)
@@ -165,6 +172,8 @@ def _program_paper_metadata(
             "catalysis_system": paper.get("catalysis_system") or "unclear",
             "reaction_categories": paper.get("reaction_categories") or [],
             "source_path": parsed.source_path,
+            "source_document_id": parsed.document_id,
+            "source_document_type": parsed.document_type,
             "source_pdf_sha256": parsed.source_pdf_sha256,
             "page_count": parsed.page_count,
         }
@@ -379,7 +388,7 @@ class ExtractionRunner:
             "data": data_result.usage,
         }
         extraction: dict[str, Any] = {
-            "schema_version": "catalysis_paper_extraction.v2",
+            "schema_version": EXTRACTION_SCHEMA_VERSION,
             "paper": _program_paper_metadata(parsed, core_result.data),
             "abstract": local_abstract,
             "summary": core_result.data.get("summary") or {
@@ -445,6 +454,8 @@ class ExtractionRunner:
         artifact = {
             "source": {
                 "paper_id": parsed.paper_id,
+                "document_id": parsed.document_id,
+                "document_type": parsed.document_type,
                 "path": parsed.source_path,
                 "source_pdf_sha256": parsed.source_pdf_sha256,
                 "page_count": parsed.page_count,
