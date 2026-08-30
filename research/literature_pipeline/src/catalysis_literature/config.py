@@ -39,7 +39,7 @@ class ChunkingConfig(StrictModel):
 
 class ExtractionConfig(StrictModel):
     enabled: bool = True
-    provider: Literal["deepseek", "mock"] = "deepseek"
+    provider: Literal["deepseek", "zhipu", "mock"] = "deepseek"
     model: str = "deepseek-v4-flash"
     base_url: str = "https://api.deepseek.com"
     temperature: float = 0.0

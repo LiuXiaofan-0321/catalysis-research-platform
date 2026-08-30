@@ -10,6 +10,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
+import httpx
+
 
 PIPELINE_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_ROOT = PIPELINE_ROOT / "src"
@@ -37,6 +39,7 @@ from catalysis_literature.pipeline import (
     run_directory_for,
 )
 from catalysis_literature.parsing import parse_pdf as real_parse_pdf
+from catalysis_literature.providers import ZhipuProvider, provider_for
 from catalysis_literature.retrieval import PortableRetriever
 from build_acs_md_manifest import build_records
 from build_full_corpus_manifests import discover_records
@@ -79,6 +82,61 @@ def write_text_pdf(path: Path, text: str) -> None:
 
 
 class LiteraturePipelineTests(unittest.TestCase):
+    @patch.dict("os.environ", {"ZHIPU_API_KEY": "test-key"})
+    def test_zhipu_provider_uses_official_json_contract(self) -> None:
+        provider = provider_for(
+            ExtractionConfig(
+                provider="zhipu",
+                model="glm-5.3-flash",
+                base_url="https://open.bigmodel.cn/api/paas/v4",
+                temperature=1.0,
+                requests_per_minute=10000,
+            )
+        )
+        captured: dict[str, object] = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            captured["url"] = str(request.url)
+            captured["authorization"] = request.headers.get("Authorization")
+            captured["payload"] = json.loads(request.content)
+            return httpx.Response(
+                200,
+                json={
+                    "model": "glm-5.3-flash",
+                    "choices": [{"message": {"content": '{"ok": true}'}}],
+                    "usage": {"total_tokens": 12},
+                },
+            )
+
+        async def exercise_provider() -> object:
+            self.assertIsInstance(provider, ZhipuProvider)
+            await provider._client.aclose()
+            provider._client = httpx.AsyncClient(
+                base_url="https://open.bigmodel.cn/api/paas/v4",
+                transport=httpx.MockTransport(handler),
+            )
+            try:
+                return await provider.generate_json(
+                    prompt="Return one JSON object.",
+                    stage="core",
+                    max_tokens=1800,
+                )
+            finally:
+                await provider.close()
+
+        result = asyncio.run(exercise_provider())
+        payload = captured["payload"]
+        self.assertEqual(
+            captured["url"],
+            "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        )
+        self.assertEqual(captured["authorization"], "Bearer test-key")
+        self.assertEqual(payload["model"], "glm-5.3-flash")
+        self.assertEqual(payload["response_format"], {"type": "json_object"})
+        self.assertEqual(payload["thinking"]["type"], "enabled")
+        self.assertEqual(payload["reasoning_effort"], "max")
+        self.assertEqual(result.data, {"ok": True})
+
     @patch("catalysis_literature.manifest.subprocess.run")
     def test_git_state_uses_old_git_compatible_branch_lookup(self, run_mock) -> None:
         outputs = {

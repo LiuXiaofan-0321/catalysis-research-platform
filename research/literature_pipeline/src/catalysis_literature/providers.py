@@ -134,6 +134,89 @@ class DeepSeekProvider:
         raise last_error or RuntimeError(f"{stage} model call failed")
 
 
+class ZhipuProvider:
+    name = "zhipu"
+
+    def __init__(self, config: ExtractionConfig):
+        self.config = config
+        self.api_key = os.getenv("ZHIPU_API_KEY")
+        if not self.api_key:
+            raise RuntimeError("ZHIPU_API_KEY is not set")
+        self.rate_limiter = RateLimiter(config.requests_per_minute)
+        self._client = httpx.AsyncClient(
+            base_url=config.base_url.rstrip("/"),
+            timeout=httpx.Timeout(300.0),
+        )
+
+    async def close(self) -> None:
+        await self._client.aclose()
+
+    async def generate_json(
+        self,
+        *,
+        prompt: str,
+        stage: str,
+        max_tokens: int,
+    ) -> ProviderResult:
+        last_error: Exception | None = None
+        for attempt in range(1, 5):
+            await self.rate_limiter.wait()
+            try:
+                response = await self._client.post(
+                    "/chat/completions",
+                    headers={"Authorization": f"Bearer {self.api_key}"},
+                    json={
+                        "model": self.config.model,
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": (
+                                    "You extract scientific evidence and return valid JSON only."
+                                ),
+                            },
+                            {"role": "user", "content": prompt},
+                        ],
+                        "response_format": {"type": "json_object"},
+                        "temperature": self.config.temperature,
+                        "top_p": 0.95,
+                        "thinking": {
+                            "type": "enabled",
+                            "clear_thinking": True,
+                        },
+                        "reasoning_effort": "max",
+                        "max_tokens": max_tokens,
+                        "stream": False,
+                    },
+                )
+                if response.status_code in {408, 409, 425, 429, 500, 502, 503, 504}:
+                    retry_after = response.headers.get("Retry-After")
+                    delay = float(retry_after) if retry_after else min(30.0, 2**attempt)
+                    await asyncio.sleep(delay)
+                    continue
+                response.raise_for_status()
+                raw = response.json()
+                content = raw["choices"][0]["message"]["content"]
+                return ProviderResult(
+                    data=_parse_json_object(content),
+                    raw=raw,
+                    provider=self.name,
+                    model=str(raw.get("model") or self.config.model),
+                    usage=raw.get("usage") or {},
+                )
+            except (
+                httpx.HTTPError,
+                KeyError,
+                IndexError,
+                TypeError,
+                json.JSONDecodeError,
+                RuntimeError,
+            ) as error:
+                last_error = error
+                if attempt < 4:
+                    await asyncio.sleep(min(30.0, 2**attempt))
+        raise last_error or RuntimeError(f"{stage} model call failed")
+
+
 class MockProvider:
     name = "mock"
 
@@ -260,4 +343,6 @@ class MockProvider:
 def provider_for(config: ExtractionConfig) -> ModelProvider:
     if config.provider == "mock":
         return MockProvider(config)
+    if config.provider == "zhipu":
+        return ZhipuProvider(config)
     return DeepSeekProvider(config)

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Submit only after the three-paper manifest is frozen and DEEPSEEK_API_KEY is exported.
+# Submit only after the three-paper manifest is frozen and ZHIPU_API_KEY is exported.
 #SBATCH --job-name=rag-extract-3
 #SBATCH --partition=cpu_192G
 #SBATCH --nodes=1
@@ -19,9 +19,9 @@ REPO="$BASE/code/catalysis-research-platform"
 VENV="$BASE/envs/py312-rag"
 CONFIG="$REPO/research/literature_pipeline/configs/full-rag-extraction-pilot-3.template.yaml"
 WORKSPACE="$BASE/workspace-extraction"
-RUN_ID=full-rag-extraction-pilot-3-v1
+RUN_ID=full-rag-extraction-pilot-3-glm53flash-v1
 
-: "${DEEPSEEK_API_KEY:?Export DEEPSEEK_API_KEY before submitting this job}"
+: "${ZHIPU_API_KEY:?Export ZHIPU_API_KEY before submitting this job}"
 
 "$VENV/bin/litpipe" preflight --config "$CONFIG"
 if [[ -d "$WORKSPACE/runs/$RUN_ID" ]]; then

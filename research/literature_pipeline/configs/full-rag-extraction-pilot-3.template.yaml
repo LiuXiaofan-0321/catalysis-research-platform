@@ -19,10 +19,10 @@ chunking:
 
 extraction:
   enabled: true
-  provider: deepseek
-  model: deepseek-v4-flash
-  base_url: https://api.deepseek.com
-  temperature: 0.0
+  provider: zhipu
+  model: glm-5.3-flash
+  base_url: https://open.bigmodel.cn/api/paas/v4
+  temperature: 1.0
   seed: 20260830
   max_tokens_core: 1800
   max_tokens_data: 2400

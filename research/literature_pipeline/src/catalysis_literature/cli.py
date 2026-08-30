@@ -130,7 +130,10 @@ def doctor() -> dict[str, object]:
         "python": sys.version,
         "modules": modules,
         "required_ready": all(modules[name] for name in required),
-        "deepseek_configured": bool(os.getenv("DEEPSEEK_API_KEY")),
+        "model_credentials": {
+            "deepseek": bool(os.getenv("DEEPSEEK_API_KEY")),
+            "zhipu": bool(os.getenv("ZHIPU_API_KEY")),
+        },
         "notes": [
             "PyMuPDF is the preferred parser; pypdf is the fallback.",
             "Docling, LanceDB, and sentence-transformers are optional extras.",
