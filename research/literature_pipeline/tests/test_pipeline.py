@@ -260,7 +260,7 @@ class LiteraturePipelineTests(unittest.TestCase):
             main = article / "main-output" / f"{article_name}.md"
             main.write_text("# Main\n\nZeolite catalysis article.", encoding="utf-8")
             (article / f"{article_name}.pdf").write_bytes(b"%PDF-1.4\n%%EOF")
-            si = article / "si-output" / "supporting"
+            si = article / "si-output" / f"{article_name}_supporting"
             si.mkdir(parents=True)
             (si / "supporting.md").write_text("# SI\n\nDetails.", encoding="utf-8")
             duplicate = (

@@ -46,6 +46,15 @@ def _article_root(path: Path, corpus_root: Path) -> tuple[Path, str, str | None]
             break
         identity = _paper_identity(parent.name)
         if identity is not None:
+            ancestors = []
+            for ancestor in parent.parents:
+                if ancestor == corpus_root:
+                    break
+                ancestors.append(ancestor.name.casefold())
+            # ACS SI folders often repeat the DOI with a `_supporting` suffix.
+            # They are documents of the enclosing article, not article roots.
+            if "si-output" in ancestors:
+                continue
             return parent, identity[0], identity[1]
     return None
 
