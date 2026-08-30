@@ -183,7 +183,7 @@ class ZhipuProvider:
                             "type": "enabled",
                             "clear_thinking": True,
                         },
-                        "reasoning_effort": "max",
+                        "reasoning_effort": self.config.reasoning_effort,
                         "max_tokens": max_tokens,
                         "stream": False,
                     },

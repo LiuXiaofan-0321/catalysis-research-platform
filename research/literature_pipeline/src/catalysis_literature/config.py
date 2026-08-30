@@ -43,6 +43,7 @@ class ExtractionConfig(StrictModel):
     model: str = "deepseek-v4-flash"
     base_url: str = "https://api.deepseek.com"
     temperature: float = 0.0
+    reasoning_effort: Literal["low", "high", "max"] = "max"
     seed: int = 20260827
     max_tokens_core: int = 8000
     max_tokens_data: int = 8000

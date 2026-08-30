@@ -90,6 +90,7 @@ class LiteraturePipelineTests(unittest.TestCase):
                 model="glm-5.3-flash",
                 base_url="https://open.bigmodel.cn/api/paas/v4",
                 temperature=1.0,
+                reasoning_effort="low",
                 requests_per_minute=10000,
             )
         )
@@ -134,7 +135,7 @@ class LiteraturePipelineTests(unittest.TestCase):
         self.assertEqual(payload["model"], "glm-5.3-flash")
         self.assertEqual(payload["response_format"], {"type": "json_object"})
         self.assertEqual(payload["thinking"]["type"], "enabled")
-        self.assertEqual(payload["reasoning_effort"], "max")
+        self.assertEqual(payload["reasoning_effort"], "low")
         self.assertEqual(result.data, {"ok": True})
 
     @patch("catalysis_literature.manifest.subprocess.run")
