@@ -19,7 +19,7 @@ REPO="$BASE/code/catalysis-research-platform"
 VENV="$BASE/envs/py312-rag"
 CONFIG_TEMPLATE="$REPO/research/literature_pipeline/configs/full-rag-extraction-pilot-3.template.yaml"
 WORKSPACE="$BASE/workspace-extraction"
-RUN_ID=full-rag-extraction-pilot-3-glm53flash-proxy-v1
+RUN_ID=full-rag-extraction-pilot-3-glm53flash-proxy-v2
 CONFIG="$BASE/configs/$RUN_ID.yaml"
 
 : "${ZHIPU_API_KEY:?Export ZHIPU_API_KEY before submitting this job}"
