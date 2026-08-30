@@ -67,6 +67,16 @@ DATA_TERMS = {
 }
 
 
+def _evidence_example() -> dict[str, Any]:
+    return {
+        "pdf_page_index": 1,
+        "section": "string|null",
+        "source": "text|table|figure|caption|supporting_information",
+        "source_id": "string|null",
+        "quote": "short exact quote",
+    }
+
+
 def _score_chunk(
     chunk: ChunkRecord,
     *,
@@ -192,7 +202,7 @@ def build_core_prompt(
                     "importance": "core|supporting",
                     "definition_in_context": "string|null",
                     "source_scope": "string|null",
-                    "evidence": [],
+                    "evidence": [_evidence_example()],
                     "needs_visual_review": False,
                 }
             ],
@@ -217,7 +227,7 @@ def build_core_prompt(
                     "si_al_ratio": "reported number|string|null",
                     "metal_loading": "reported number|string|null",
                 },
-                "evidence": [],
+                "evidence": [_evidence_example()],
                 "needs_visual_review": False,
             }
         ],
@@ -227,7 +237,7 @@ def build_core_prompt(
                 "claim_type": "reported_result|correlation|mechanism|hypothesis",
                 "statement": "string",
                 "evidence_basis": "experiment|characterization|calculation|author_interpretation|unclear",
-                "evidence": [],
+                "evidence": [_evidence_example()],
                 "needs_visual_review": False,
             }
         ],
@@ -287,7 +297,7 @@ def build_data_prompt(
                         "raw_value": "string|null",
                     }
                 ],
-                "evidence": [],
+                "evidence": [_evidence_example()],
                 "needs_visual_review": False,
             }
         ],
@@ -315,7 +325,7 @@ def build_data_prompt(
                         "raw_value": "string|null",
                     }
                 ],
-                "evidence": [],
+                "evidence": [_evidence_example()],
                 "needs_visual_review": False,
             }
         ],

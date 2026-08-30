@@ -27,12 +27,16 @@ from catalysis_literature.config import (
     PipelineConfig,
 )
 from catalysis_literature.exporter import export_stage1
+from catalysis_literature.extractor import (
+    _normalize_evidence_shapes,
+    annotate_evidence,
+)
 from catalysis_literature.hashing import content_hash, sha256_file
 from catalysis_literature.indexing import merge_indexes, verify_index
 from catalysis_literature.inventory import build_inventory, load_inventory
 from catalysis_literature.ledger import PipelineLedger
 from catalysis_literature.manifest import git_state, verify_manifest
-from catalysis_literature.models import PageRecord
+from catalysis_literature.models import PageRecord, ParsedDocument
 from catalysis_literature.pipeline import (
     build_preflight_report,
     execute_run,
@@ -82,6 +86,48 @@ def write_text_pdf(path: Path, text: str) -> None:
 
 
 class LiteraturePipelineTests(unittest.TestCase):
+    def test_string_evidence_is_normalized_and_marked_for_review(self) -> None:
+        extraction = {
+            "experiments": [
+                {
+                    "evidence": ["The catalyst reached 80 percent conversion."],
+                    "needs_visual_review": False,
+                }
+            ]
+        }
+        parsed = ParsedDocument(
+            paper_id="doi:10.0000/test",
+            document_id="document:test",
+            document_type="main",
+            source_path="paper.md",
+            source_media_type="text/markdown",
+            source_pdf_sha256="a" * 64,
+            parser_name="markdown",
+            parser_version="test",
+            parser_config_hash="b" * 64,
+            page_count=1,
+            extracted_characters=52,
+            extracted_text_sha256="c" * 64,
+            quality={},
+            pages=[
+                PageRecord(
+                    page_index=1,
+                    text="Results: The catalyst reached 80 percent conversion.",
+                )
+            ],
+            chunks=[],
+        )
+
+        _normalize_evidence_shapes(extraction)
+        annotate_evidence(extraction, parsed)
+
+        experiment = extraction["experiments"][0]
+        evidence = experiment["evidence"][0]
+        self.assertEqual(evidence["document_id"], "document:test")
+        self.assertEqual(evidence["evidence_validation"], "exact")
+        self.assertTrue(experiment["needs_visual_review"])
+        self.assertEqual(experiment["review_status"], "needs_review")
+
     @patch.dict("os.environ", {"ZHIPU_API_KEY": "test-key"})
     def test_zhipu_provider_uses_official_json_contract(self) -> None:
         provider = provider_for(

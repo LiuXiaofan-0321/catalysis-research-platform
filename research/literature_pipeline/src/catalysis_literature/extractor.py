@@ -76,6 +76,36 @@ def _evidence_containers(extraction: dict[str, Any]) -> Iterable[dict[str, Any]]
                 yield item
 
 
+def _normalize_evidence_shapes(extraction: dict[str, Any]) -> None:
+    for container in _evidence_containers(extraction):
+        evidence = container.get("evidence")
+        if not isinstance(evidence, list):
+            container["evidence"] = []
+            container["needs_visual_review"] = True
+            continue
+        normalized: list[dict[str, Any]] = []
+        coerced = False
+        for entry in evidence:
+            if isinstance(entry, dict):
+                normalized.append(entry)
+            elif isinstance(entry, str) and entry.strip():
+                normalized.append(
+                    {
+                        "pdf_page_index": 1,
+                        "section": None,
+                        "source": "text",
+                        "source_id": None,
+                        "quote": entry.strip(),
+                    }
+                )
+                coerced = True
+            else:
+                coerced = True
+        container["evidence"] = normalized
+        if coerced:
+            container["needs_visual_review"] = True
+
+
 def annotate_evidence(extraction: dict[str, Any], parsed: ParsedDocument) -> None:
     counts = {"exact": 0, "locally_recovered": 0, "unverified": 0}
     needs_review = 0
@@ -250,7 +280,9 @@ class ExtractionRunner:
                 "provider": self.config.provider,
                 "model": self.config.model,
                 "temperature": self.config.temperature,
+                "reasoning_effort": self.config.reasoning_effort,
                 "seed": self.config.seed,
+                "max_tokens": max_tokens,
                 "prompt_version": self.config.prompt_version,
                 "prompt_hash": prompt_hash,
                 "input_hash": input_hash,
@@ -311,12 +343,17 @@ class ExtractionRunner:
                 "provider": self.config.provider,
                 "model": self.config.model,
                 "temperature": self.config.temperature,
+                "reasoning_effort": self.config.reasoning_effort,
                 "seed": self.config.seed,
                 "prompt_version": self.config.prompt_version,
                 "prompt_hashes": self.prompt_hash,
                 "context_budgets": [
                     self.config.max_context_tokens_core,
                     self.config.max_context_tokens_data,
+                ],
+                "output_budgets": [
+                    self.config.max_tokens_core,
+                    self.config.max_tokens_data,
                 ],
             }
         )
@@ -446,6 +483,7 @@ class ExtractionRunner:
             },
         }
         _normalize_references(extraction)
+        _normalize_evidence_shapes(extraction)
         annotate_evidence(extraction, parsed)
         try:
             validated = PaperArtifactV2.model_validate(extraction)
