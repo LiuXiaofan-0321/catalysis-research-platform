@@ -46,6 +46,7 @@ from catalysis_literature.parsing import parse_pdf as real_parse_pdf
 from catalysis_literature.providers import ZhipuProvider, provider_for
 from catalysis_literature.retrieval import PortableRetriever
 from build_acs_md_manifest import build_records
+from build_extraction_campaign import build_campaign
 from build_full_corpus_manifests import discover_records
 
 
@@ -86,6 +87,73 @@ def write_text_pdf(path: Path, text: str) -> None:
 
 
 class LiteraturePipelineTests(unittest.TestCase):
+    def test_extraction_campaign_is_incremental_and_sharded_by_paper(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            index = root / "index"
+            index.mkdir()
+            (index / "manifest.json").write_text(
+                '{"index_id":"test"}\n', encoding="utf-8"
+            )
+            documents = []
+            for number in range(1, 7):
+                paper_id = f"doi:10.0000/p{number}"
+                for document_type in ("main", "si"):
+                    documents.append(
+                        {
+                            "document_id": f"document:p{number}-{document_type}",
+                            "paper_id": paper_id,
+                            "document_type": document_type,
+                            "source_path": str(root / f"p{number}-{document_type}.md"),
+                            "source_document_sha256": f"{number:064x}",
+                            "metadata_json": json.dumps({"doi": f"10.0000/p{number}"}),
+                        }
+                    )
+            (index / "documents.jsonl").write_text(
+                "".join(json.dumps(row) + "\n" for row in reversed(documents)),
+                encoding="utf-8",
+            )
+            excluded = root / "previous.json"
+            excluded.write_text(
+                json.dumps({"paper_ids": ["doi:10.0000/p1"]}), encoding="utf-8"
+            )
+            template = root / "template.yaml"
+            template.write_text(
+                "schema_version: literature_pipeline_config.v1\n"
+                "source: placeholder\n"
+                "workspace: placeholder\n",
+                encoding="utf-8",
+            )
+
+            summary = build_campaign(
+                index_directory=index,
+                output_directory=root / "campaign",
+                campaign_id="batch-0002",
+                paper_count=4,
+                shard_size=3,
+                excluded_summaries=[excluded],
+                config_template=template,
+                workspace=root / "workspace",
+            )
+            master = [
+                json.loads(line)
+                for line in (root / "campaign" / "master.jsonl")
+                .read_text(encoding="utf-8")
+                .splitlines()
+            ]
+
+        self.assertEqual(summary["paper_ids"], [
+            "doi:10.0000/p2",
+            "doi:10.0000/p3",
+            "doi:10.0000/p4",
+            "doi:10.0000/p5",
+        ])
+        self.assertEqual(summary["paper_count"], 4)
+        self.assertEqual(summary["document_count"], 8)
+        self.assertEqual(summary["shard_count"], 2)
+        self.assertEqual([shard["paper_count"] for shard in summary["shards"]], [3, 1])
+        self.assertEqual(len({row["paper_id"] for row in master}), 4)
+
     def test_string_evidence_is_normalized_and_marked_for_review(self) -> None:
         extraction = {
             "experiments": [

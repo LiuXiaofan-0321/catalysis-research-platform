@@ -1,0 +1,52 @@
+schema_version: literature_pipeline_config.v1
+source: /replace/with/generated/shard.jsonl
+workspace: /public/home/xiaohe/lxf/catalysis-rag/workspace-extraction-production
+collection_hint: zeolite_full_corpus_glm53_extraction
+
+parser:
+  engine: auto
+  docling_fallback: false
+  min_document_characters: 200
+  max_empty_page_ratio: 0.6
+  max_replacement_ratio: 0.02
+  fail_on_low_quality: false
+
+chunking:
+  target_tokens: 500
+  overlap_tokens: 60
+  min_tokens: 80
+  exclude_references: true
+
+extraction:
+  enabled: true
+  provider: zhipu
+  model: glm-5.3-flash
+  base_url: https://open.bigmodel.cn/api/paas/v4
+  temperature: 1.0
+  reasoning_effort: low
+  seed: 20260830
+  max_tokens_core: 6000
+  max_tokens_data: 8000
+  max_context_tokens_core: 3000
+  max_context_tokens_data: 4200
+  workers: 4
+  requests_per_minute: 20
+  prompt_version: catalysis-paper-extraction-v2.2
+
+index:
+  enabled: false
+  backend: portable
+  embedding_model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+  embedding_revision: e8f8c211226b894fcb81acc59f3b34ba3efd5f42
+  embedding_batch_size: 64
+  vector_dimensions: 384
+  allow_hash_embedding_fallback: false
+  top_k_dense: 40
+  top_k_lexical: 40
+  top_k_final: 12
+  max_records_per_paper: 2
+  context_token_budget: 6000
+
+execution:
+  large_run_threshold: 20
+  result_progress_interval: 10
