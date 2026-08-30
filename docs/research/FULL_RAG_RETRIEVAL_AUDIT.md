@@ -33,6 +33,16 @@ The discovery rule is fixed and covered by a regression test. The frozen v1
 index remains unchanged for provenance. A corrected manifest and SI supplement
 index should be created as a new version rather than overwriting v1.
 
+Candidate-manifest job `3550331` completed without API calls. The corrected
+selection keeps the same 6,693 papers and 6,693 main documents while increasing
+SI coverage from 2,239 to 4,209 documents (+1,970). SI-only orphan documents
+drop from 1,976 to 3. The candidate contains 10,902 paths and has selection hash
+`0f631b11300ed71ea1d2f7ba18d5f2f93731f31c127a4b8072c3a8d6e3d35616`.
+
+Because the main-document set is unchanged, the efficient correction is to
+index only the 1,970 newly recovered SI documents and merge that supplement
+with v1 under a new v2 index ID. The v1 artifacts should remain immutable.
+
 ## Three-Paper Extraction Pilot
 
 The pilot deliberately covers three different extraction behaviors:
