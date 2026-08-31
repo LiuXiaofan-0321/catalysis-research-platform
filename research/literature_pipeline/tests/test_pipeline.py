@@ -300,6 +300,16 @@ class LiteraturePipelineTests(unittest.TestCase):
                             "metadata_json": json.dumps({"doi": f"10.0000/p{number}"}),
                         }
                     )
+            documents.append(
+                {
+                    "document_id": "document:orphan-si",
+                    "paper_id": "doi:10.0000/orphan",
+                    "document_type": "si",
+                    "source_path": str(root / "orphan-si.md"),
+                    "source_document_sha256": "f" * 64,
+                    "metadata_json": "{}",
+                }
+            )
             (index / "documents.jsonl").write_text(
                 "".join(json.dumps(row) + "\n" for row in reversed(documents)),
                 encoding="utf-8",
@@ -340,6 +350,10 @@ class LiteraturePipelineTests(unittest.TestCase):
             "doi:10.0000/p5",
         ])
         self.assertEqual(summary["paper_count"], 4)
+        self.assertEqual(summary["skipped_without_main_count"], 1)
+        self.assertEqual(
+            summary["skipped_paper_ids_without_main"], ["doi:10.0000/orphan"]
+        )
         self.assertEqual(summary["document_count"], 8)
         self.assertEqual(summary["shard_count"], 2)
         self.assertEqual([shard["paper_count"] for shard in summary["shards"]], [3, 1])

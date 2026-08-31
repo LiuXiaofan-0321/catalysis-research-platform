@@ -90,7 +90,15 @@ def build_campaign(
         rows_by_paper[str(row["paper_id"])].append(row)
     excluded = _excluded_papers(excluded_summaries)
     available = sorted(set(rows_by_paper) - excluded)
-    selected_papers = available[:paper_count]
+    skipped_without_main = [
+        paper_id
+        for paper_id in available
+        if not any(
+            row.get("document_type") == "main" for row in rows_by_paper[paper_id]
+        )
+    ]
+    eligible = sorted(set(available) - set(skipped_without_main))
+    selected_papers = eligible[:paper_count]
     if not selected_papers:
         raise ValueError("No unprocessed papers remain in the source index")
 
@@ -103,8 +111,6 @@ def build_campaign(
                 str(row.get("document_id")),
             ),
         )
-        if not any(row.get("document_type") == "main" for row in rows):
-            raise ValueError(f"Selected paper has no main document: {paper_id}")
         records_by_paper[paper_id] = [_manifest_record(row) for row in rows]
 
     output_directory.mkdir(parents=True, exist_ok=False)
@@ -162,6 +168,8 @@ def build_campaign(
         "paper_ids": selected_papers,
         "excluded_paper_count": len(excluded),
         "excluded_summary_paths": [str(path.resolve()) for path in excluded_summaries],
+        "skipped_without_main_count": len(skipped_without_main),
+        "skipped_paper_ids_without_main": skipped_without_main,
         "document_count": len(all_records),
         "main_document_count": sum(
             row["document_type"] == "main" for row in all_records
