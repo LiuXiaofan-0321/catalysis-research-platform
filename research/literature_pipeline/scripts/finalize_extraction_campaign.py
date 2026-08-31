@@ -45,35 +45,45 @@ def finalize_campaign(
         if not verification["valid"]:
             raise ValueError(f"Invalid shard run {run_id}: {verification['failures']}")
         rows = _load_jsonl(run_directory / "paper-results.jsonl")
-        completed = {
-            str(row["document_id"]): row
-            for row in rows
-            if row.get("status") == "completed"
-        }
-        if set(completed) != shard_expected_ids:
-            missing = sorted(shard_expected_ids - set(completed))
-            extra = sorted(set(completed) - shard_expected_ids)
-            raise ValueError(f"Shard {run_id} result mismatch; missing={missing[:3]} extra={extra[:3]}")
-        results_by_document.update(completed)
+        shard_results: dict[str, dict[str, Any]] = {}
+        for row in rows:
+            document_id = str(row["document_id"])
+            if document_id in shard_results:
+                raise ValueError(f"Duplicate result for {document_id} in {run_id}")
+            shard_results[document_id] = row
+        extra = sorted(set(shard_results) - shard_expected_ids)
+        if extra:
+            raise ValueError(f"Shard {run_id} has unexpected results: {extra[:3]}")
+        results_by_document.update(shard_results)
+        completed_count = sum(
+            row.get("status") == "completed" for row in shard_results.values()
+        )
         shard_reports.append(
             {
                 "shard_id": shard_id,
                 "run_id": run_id,
-                "document_count": len(completed),
+                "expected": len(shard_expected_ids),
+                "completed": completed_count,
+                "failed": len(shard_results) - completed_count,
+                "missing": len(shard_expected_ids - set(shard_results)),
                 "valid": True,
             }
         )
 
-    if set(results_by_document) != expected_document_ids:
-        raise ValueError("Campaign result set does not match selection")
     output_directory.mkdir(parents=True, exist_ok=True)
     results = [results_by_document[key] for key in sorted(results_by_document)]
-    results_path = output_directory / "paper-results.jsonl"
-    results_path.write_text(
-        "".join(canonical_json(row) + "\n" for row in results),
-        encoding="utf-8",
-        newline="\n",
-    )
+    completed_results = [row for row in results if row.get("status") == "completed"]
+    failed_results = [row for row in results if row.get("status") != "completed"]
+    for name, rows in (
+        ("paper-results.jsonl", results),
+        ("completed-results.jsonl", completed_results),
+        ("failed-results.jsonl", failed_results),
+    ):
+        (output_directory / name).write_text(
+            "".join(canonical_json(row) + "\n" for row in rows),
+            encoding="utf-8",
+            newline="\n",
+        )
     usage = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
     for row in results:
         for key in usage:
@@ -84,9 +94,15 @@ def finalize_campaign(
         "finalized_at": utc_now(),
         "selection_hash": selection["selection_hash"],
         "paper_count": selection["paper_count"],
-        "document_count": len(results),
-        "main_document_count": sum(row.get("document_type") == "main" for row in results),
-        "si_document_count": sum(row.get("document_type") == "si" for row in results),
+        "document_count": len(expected_document_ids),
+        "main_document_count": selection.get("main_document_count"),
+        "si_document_count": selection.get("si_document_count"),
+        "expected": len(expected_document_ids),
+        "completed": len(completed_results),
+        "failed": len(failed_results),
+        "missing": len(expected_document_ids - set(results_by_document)),
+        "success_rate": len(completed_results) / max(1, len(expected_document_ids)),
+        "complete": len(completed_results) == len(expected_document_ids),
         "usage": usage,
         "result_content_hash": content_hash(results),
         "shards": shard_reports,
@@ -94,7 +110,15 @@ def finalize_campaign(
     atomic_write_json(output_directory / "campaign-summary.json", report)
     atomic_write_json(
         output_directory / "FINALIZED.json",
-        {"campaign_id": campaign_id, "valid": True, "document_count": len(results)},
+        {
+            "campaign_id": campaign_id,
+            "valid": True,
+            "complete": report["complete"],
+            "expected": report["expected"],
+            "completed": report["completed"],
+            "failed": report["failed"],
+            "missing": report["missing"],
+        },
     )
     return report
 

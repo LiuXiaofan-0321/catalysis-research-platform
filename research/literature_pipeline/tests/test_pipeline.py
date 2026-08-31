@@ -49,6 +49,7 @@ from catalysis_literature.retrieval import PortableRetriever
 from build_acs_md_manifest import build_records
 from build_extraction_campaign import build_campaign
 from build_full_corpus_manifests import discover_records
+import finalize_extraction_campaign as campaign_finalizer
 
 
 def write_text_pdf(path: Path, text: str) -> None:
@@ -131,7 +132,151 @@ class LiteraturePipelineTests(unittest.TestCase):
         self.assertNotIn("claim_type_note", claim)
         self.assertEqual(claim["evidence"][0]["source"], "caption")
         self.assertTrue(claim["needs_visual_review"])
-        self.assertEqual(len(extraction["quality"]["boundary_normalizations"]), 3)
+        self.assertEqual(len(extraction["quality"]["boundary_normalizations"]), 4)
+
+    def test_boundary_normalization_contains_unrecoverable_records(self) -> None:
+        extraction = {
+            "paper": {"page_count": 3},
+            "keywords": {"extracted": []},
+            "entities": [
+                {
+                    "id": "entity:e001",
+                    "aliases": "HZSM-5",
+                    "identifiers": "IZA:MFI",
+                    "attributes": ["acidic"],
+                    "evidence": [],
+                },
+                {"id": "entity:e002", "evidence": []},
+            ],
+            "experiments": [
+                {
+                    "id": "experiment:x001",
+                    "sample_entity_ids": "entity:e001",
+                    "conditions": {"temperature": 673},
+                    "evidence": [],
+                }
+            ],
+            "observations": [
+                {
+                    "id": "observation:o001",
+                    "metric_name": "conversion",
+                    "text_value": "high",
+                    "comparison_operator": None,
+                    "conditions": "at steady state",
+                    "evidence": [],
+                },
+                {
+                    "id": "observation:o002",
+                    "metric_name": "yield",
+                    "evidence": [],
+                },
+            ],
+            "claims": [
+                {
+                    "id": "claim:c001",
+                    "statement": "HZSM-5 was active.",
+                    "evidence": [
+                        {"pdf_page_index": "page 2", "quote": "HZSM-5 was active."},
+                        {"pdf_page_index": "unknown", "quote": "Bad page."},
+                        {"pdf_page_index": 1},
+                    ],
+                },
+                {"id": "claim:c002", "evidence": []},
+            ],
+            "summary": {"main_findings": []},
+            "quality": {},
+        }
+
+        _normalize_evidence_shapes(extraction)
+        _normalize_boundary_shapes(extraction)
+
+        self.assertEqual(len(extraction["entities"]), 1)
+        entity = extraction["entities"][0]
+        self.assertEqual(entity["canonical_name"], "HZSM-5")
+        self.assertEqual(entity["aliases"], ["HZSM-5"])
+        self.assertEqual(entity["identifiers"]["unparsed_value"], "IZA:MFI")
+        self.assertEqual(extraction["experiments"][0]["sample_entity_ids"], ["entity:e001"])
+        self.assertEqual(len(extraction["experiments"][0]["conditions"]), 1)
+        self.assertEqual(len(extraction["observations"]), 1)
+        self.assertEqual(
+            extraction["observations"][0]["comparison_operator"], "not_applicable"
+        )
+        self.assertEqual(len(extraction["claims"]), 1)
+        self.assertEqual(extraction["claims"][0]["evidence"][0]["pdf_page_index"], 2)
+        self.assertEqual(len(extraction["claims"][0]["evidence"]), 1)
+        self.assertGreaterEqual(
+            len(extraction["quality"]["boundary_normalizations"]), 10
+        )
+
+    def test_campaign_finalizer_reports_partial_results(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            shard_manifest = root / "shard.jsonl"
+            shard_manifest.write_text(
+                '{"document_id":"document:1"}\n'
+                '{"document_id":"document:2"}\n'
+                '{"document_id":"document:3"}\n',
+                encoding="utf-8",
+            )
+            summary = root / "summary.json"
+            summary.write_text(
+                json.dumps(
+                    {
+                        "campaign_id": "campaign-1",
+                        "selection_hash": "selection-hash",
+                        "paper_count": 2,
+                        "shards": [
+                            {"shard_id": "shard-0001", "manifest_path": str(shard_manifest)}
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            run = root / "workspace" / "runs" / "campaign-1-shard-0001"
+            run.mkdir(parents=True)
+            (run / "paper-results.jsonl").write_text(
+                json.dumps(
+                    {
+                        "document_id": "document:1",
+                        "status": "completed",
+                        "usage": {"total_tokens": 10},
+                    }
+                )
+                + "\n"
+                + json.dumps(
+                    {
+                        "document_id": "document:2",
+                        "status": "failed",
+                        "usage": {"total_tokens": 5},
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            output = root / "output"
+
+            with patch.object(
+                campaign_finalizer,
+                "verify_manifest",
+                return_value={"valid": True, "failures": []},
+            ):
+                report = campaign_finalizer.finalize_campaign(
+                    summary_path=summary,
+                    workspace=root / "workspace",
+                    output_directory=output,
+                )
+
+            self.assertEqual(report["expected"], 3)
+            self.assertEqual(report["completed"], 1)
+            self.assertEqual(report["failed"], 1)
+            self.assertEqual(report["missing"], 1)
+            self.assertFalse(report["complete"])
+            self.assertEqual(report["usage"]["total_tokens"], 15)
+            self.assertTrue((output / "completed-results.jsonl").is_file())
+            self.assertTrue((output / "failed-results.jsonl").is_file())
+            finalized = json.loads((output / "FINALIZED.json").read_text(encoding="utf-8"))
+            self.assertTrue(finalized["valid"])
+            self.assertFalse(finalized["complete"])
 
     def test_extraction_campaign_is_incremental_and_sharded_by_paper(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

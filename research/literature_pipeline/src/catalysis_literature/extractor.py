@@ -113,6 +113,147 @@ def _normalize_evidence_shapes(extraction: dict[str, Any]) -> None:
 
 def _normalize_boundary_shapes(extraction: dict[str, Any]) -> None:
     normalizations: list[str] = []
+    quality = extraction.get("quality")
+    if not isinstance(quality, dict):
+        quality = {}
+        extraction["quality"] = quality
+
+    def mark(group: str, item: dict[str, Any], detail: str) -> None:
+        item["needs_visual_review"] = True
+        normalizations.append(f"{group}:{item.get('id', 'unknown')} {detail}")
+
+    def normalize_conditions(group: str, item: dict[str, Any]) -> None:
+        conditions = item.get("conditions")
+        if conditions is None:
+            item["conditions"] = []
+        elif isinstance(conditions, dict):
+            item["conditions"] = [conditions]
+            mark(group, item, "wrapped conditions object in list")
+        elif isinstance(conditions, str):
+            value = conditions.strip()
+            item["conditions"] = (
+                [{"name": "other", "value": value, "raw_value": value}]
+                if value
+                else []
+            )
+            mark(group, item, "preserved text conditions as an unparsed condition")
+        elif isinstance(conditions, list):
+            normalized_conditions: list[dict[str, Any]] = []
+            for condition in conditions:
+                if isinstance(condition, dict):
+                    normalized_conditions.append(condition)
+                elif isinstance(condition, str) and condition.strip():
+                    normalized_conditions.append(
+                        {
+                            "name": "other",
+                            "value": condition.strip(),
+                            "raw_value": condition.strip(),
+                        }
+                    )
+                    mark(group, item, "preserved text item in conditions")
+                else:
+                    mark(group, item, "discarded invalid item in conditions")
+            item["conditions"] = normalized_conditions
+        else:
+            item["conditions"] = []
+            mark(group, item, "discarded invalid conditions")
+
+    summary = extraction.get("summary")
+    if not isinstance(summary, dict):
+        summary = {}
+        extraction["summary"] = summary
+        normalizations.append("summary:collection replaced invalid object")
+    if not isinstance(summary.get("main_findings"), list):
+        summary["main_findings"] = []
+        normalizations.append("summary:main_findings replaced invalid collection")
+
+    keywords = extraction.get("keywords")
+    if not isinstance(keywords, dict):
+        keywords = {}
+        extraction["keywords"] = keywords
+        normalizations.append("keywords:collection replaced invalid object")
+    if not isinstance(keywords.get("extracted"), list):
+        keywords["extracted"] = []
+        normalizations.append("keywords:extracted replaced invalid collection")
+
+    entities = extraction.get("entities")
+    if not isinstance(entities, list):
+        entities = []
+        extraction["entities"] = entities
+        normalizations.append("entities:collection replaced invalid collection")
+    for item in entities:
+        if not isinstance(item, dict):
+            continue
+        aliases = item.get("aliases")
+        if aliases is None:
+            item["aliases"] = []
+        elif isinstance(aliases, str):
+            item["aliases"] = [aliases] if aliases.strip() else []
+            mark("entities", item, "wrapped alias string in list")
+        elif isinstance(aliases, list):
+            item["aliases"] = [
+                str(value) for value in aliases if value is not None and str(value).strip()
+            ]
+        elif not isinstance(aliases, list):
+            item["aliases"] = [str(aliases)]
+            mark("entities", item, "preserved non-list aliases as text")
+        for key in ("identifiers", "attributes"):
+            value = item.get(key)
+            if value is None:
+                item[key] = {}
+            elif not isinstance(value, dict):
+                item[key] = {"unparsed_value": value}
+                mark("entities", item, f"preserved non-object {key}")
+        if not str(item.get("canonical_name") or "").strip():
+            fallback = str(item.get("zh_name") or "").strip()
+            if not fallback:
+                fallback = next(
+                    (str(value).strip() for value in item["aliases"] if str(value).strip()),
+                    "",
+                )
+            if fallback:
+                item["canonical_name"] = fallback
+                mark("entities", item, "recovered canonical_name from an existing name")
+
+    experiments = extraction.get("experiments")
+    if not isinstance(experiments, list):
+        experiments = []
+        extraction["experiments"] = experiments
+        normalizations.append("experiments:collection replaced invalid collection")
+    for item in experiments:
+        if not isinstance(item, dict):
+            continue
+        for key in ("sample_entity_ids", "material_entity_ids", "method_entity_ids"):
+            value = item.get(key)
+            if value is None:
+                item[key] = []
+            elif isinstance(value, str):
+                item[key] = [value] if value.strip() else []
+                mark("experiments", item, f"wrapped {key} string in list")
+            elif not isinstance(value, list):
+                item[key] = [str(value)]
+                mark("experiments", item, f"preserved non-list {key} as text")
+        normalize_conditions("experiments", item)
+
+    observations = extraction.get("observations")
+    if not isinstance(observations, list):
+        observations = []
+        extraction["observations"] = observations
+        normalizations.append("observations:collection replaced invalid collection")
+    for item in observations:
+        if not isinstance(item, dict):
+            continue
+        comparison = item.get("comparison_operator")
+        if not isinstance(comparison, str) or not comparison.strip():
+            item["comparison_operator"] = "not_applicable"
+            mark("observations", item, "defaulted invalid comparison_operator")
+        normalize_conditions("observations", item)
+
+    claims = extraction.get("claims")
+    if not isinstance(claims, list):
+        extraction["claims"] = []
+        normalizations.append("claims:collection replaced invalid collection")
+
     record_models = {
         "entities": EntityRecord,
         "experiments": ExperimentRecord,
@@ -127,7 +268,7 @@ def _normalize_boundary_shapes(extraction: dict[str, Any]) -> None:
     groups.append(("keywords", keyword_records, KeywordRecord))
     for group_name, records, model in groups:
         allowed = set(model.model_fields)
-        for item in records:
+        for item in list(records):
             if not isinstance(item, dict):
                 continue
             extras = sorted(set(item) - allowed)
@@ -169,9 +310,12 @@ def _normalize_boundary_shapes(extraction: dict[str, Any]) -> None:
         "caption",
         "supporting_information",
     }
+    page_count = int((extraction.get("paper") or {}).get("page_count") or 0)
     for container in _evidence_containers(extraction):
+        cleaned_evidence: list[dict[str, Any]] = []
         for entry in container.get("evidence") or []:
             if not isinstance(entry, dict):
+                mark("evidence", container, "discarded non-object evidence")
                 continue
             extras = sorted(set(entry) - evidence_allowed)
             for key in extras:
@@ -181,19 +325,72 @@ def _normalize_boundary_shapes(extraction: dict[str, Any]) -> None:
             if normalized_source not in valid_sources:
                 normalized_source = "text"
             if extras or normalized_source != source:
-                container["needs_visual_review"] = True
-                identifier = container.get("id", "summary_finding")
                 details = []
                 if extras:
                     details.append(f"removed evidence fields {','.join(extras)}")
                 if normalized_source != source:
                     details.append(f"mapped evidence source {source} to {normalized_source}")
-                normalizations.append(f"evidence:{identifier} {'; '.join(details)}")
+                mark("evidence", container, "; ".join(details))
             entry["source"] = normalized_source
 
+            quote = entry.get("quote")
+            if quote is None or not str(quote).strip():
+                mark("evidence", container, "discarded evidence without quote")
+                continue
+            if not isinstance(quote, str):
+                if isinstance(quote, (int, float, bool)):
+                    entry["quote"] = str(quote)
+                    mark("evidence", container, "converted scalar quote to text")
+                else:
+                    mark("evidence", container, "discarded evidence with non-scalar quote")
+                    continue
+
+            page = entry.get("pdf_page_index")
+            if isinstance(page, str):
+                match = re.search(r"\d+", page)
+                page = int(match.group()) if match else None
+            elif isinstance(page, float) and page.is_integer():
+                page = int(page)
+            if not isinstance(page, int) or isinstance(page, bool) or page < 1:
+                mark("evidence", container, "discarded evidence with invalid page index")
+                continue
+            if page_count and page > page_count:
+                mark("evidence", container, "discarded evidence beyond PDF page count")
+                continue
+            entry["pdf_page_index"] = page
+            cleaned_evidence.append(entry)
+        container["evidence"] = cleaned_evidence
+
+    # Keep a local schema deviation from invalidating the whole document.
+    for group_name, records, model in groups:
+        valid_records: list[dict[str, Any]] = []
+        for item in records:
+            if not isinstance(item, dict):
+                normalizations.append(f"{group_name}:unknown discarded non-object record")
+                continue
+            try:
+                model.model_validate(item)
+            except ValidationError as error:
+                identifier = item.get("id", "unknown")
+                normalizations.append(
+                    f"{group_name}:{identifier} discarded invalid record ({error.errors()[0]['type']})"
+                )
+                continue
+            valid_records.append(item)
+        if group_name == "keywords":
+            keywords = extraction.get("keywords")
+            if not isinstance(keywords, dict):
+                keywords = {}
+                extraction["keywords"] = keywords
+            keywords["extracted"] = valid_records
+        else:
+            extraction[group_name] = valid_records
+
     if normalizations:
-        quality = extraction.setdefault("quality", {})
-        quality["boundary_normalizations"] = normalizations
+        existing = quality.get("boundary_normalizations")
+        quality["boundary_normalizations"] = (
+            list(existing) if isinstance(existing, list) else []
+        ) + normalizations
 
 
 def annotate_evidence(extraction: dict[str, Any], parsed: ParsedDocument) -> None:
@@ -572,9 +769,9 @@ class ExtractionRunner:
                 "usage": usage,
             },
         }
-        _normalize_references(extraction)
-        _normalize_evidence_shapes(extraction)
         _normalize_boundary_shapes(extraction)
+        _normalize_evidence_shapes(extraction)
+        _normalize_references(extraction)
         annotate_evidence(extraction, parsed)
         try:
             validated = PaperArtifactV2.model_validate(extraction)
