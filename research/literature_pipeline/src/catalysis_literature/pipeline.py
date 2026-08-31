@@ -120,7 +120,9 @@ def build_preflight_report(
     workspace = config.workspace.resolve()
     preflight_directory = workspace / "preflight" / config.config_hash
     inventory_path = preflight_directory / "inventory.jsonl"
-    ledger = PipelineLedger(workspace / "ledger.sqlite")
+    # Concurrent campaign shards have independent inventories. Keeping their
+    # preflight ledgers separate avoids unnecessary SQLite write contention.
+    ledger = PipelineLedger(preflight_directory / "ledger.sqlite")
     try:
         if inventory_path.is_file() and not refresh_inventory:
             inventory, records = _load_frozen_inventory(

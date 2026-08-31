@@ -50,10 +50,12 @@ class PipelineLedger:
         try:
             yield connection
         except BaseException:
-            connection.execute("ROLLBACK")
+            if connection.in_transaction:
+                connection.execute("ROLLBACK")
             raise
         else:
-            connection.execute("COMMIT")
+            if connection.in_transaction:
+                connection.execute("COMMIT")
 
     def _initialize(self) -> None:
         connection = self._connection()
