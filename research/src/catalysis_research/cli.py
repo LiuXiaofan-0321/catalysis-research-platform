@@ -376,6 +376,7 @@ def build_parser() -> argparse.ArgumentParser:
     normalization_build_parser.add_argument("--corpus", type=Path, required=True)
     normalization_build_parser.add_argument("--output", type=Path, required=True)
     normalization_build_parser.add_argument("--config", type=Path, required=True)
+    normalization_build_parser.add_argument("--code-commit")
     normalization_verify_parser = normalization_subparsers.add_parser(
         "verify",
         help="Verify overlay artifacts and frozen input identities.",
@@ -522,6 +523,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     corpus_directory=args.corpus,
                     output_directory=args.output,
                     config_path=args.config,
+                    code_commit=args.code_commit,
                 )
             else:
                 output = verify_normalization_overlay(

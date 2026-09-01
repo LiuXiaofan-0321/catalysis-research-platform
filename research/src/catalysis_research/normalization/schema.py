@@ -34,4 +34,5 @@ def overlay_hash_identity(manifest: dict[str, Any]) -> dict[str, Any]:
         "source_corpus": manifest["source_corpus"],
         "artifacts": manifest["artifacts"],
         "record_counts": manifest["record_counts"],
+        "config_sha256": manifest["generation"]["config_sha256"],
     }

@@ -134,7 +134,7 @@ def _metadata_repairs(corpus: Path, config: dict[str, Any], rule_version: str) -
     return repairs, unresolved
 
 
-def build_normalization_overlay(*, snapshot_directory: Path, corpus_directory: Path, output_directory: Path, config_path: Path) -> dict[str, Any]:
+def build_normalization_overlay(*, snapshot_directory: Path, corpus_directory: Path, output_directory: Path, config_path: Path, code_commit: str | None = None) -> dict[str, Any]:
     snapshot = snapshot_directory.resolve()
     corpus = corpus_directory.resolve()
     output = output_directory.resolve()
@@ -260,7 +260,13 @@ def build_normalization_overlay(*, snapshot_directory: Path, corpus_directory: P
             "source_corpus": {"corpus_id": corpus_manifest["corpus_id"], "document_content_hash": corpus_manifest["document_content_hash"], "paper_content_hash": corpus_manifest["paper_content_hash"], "manifest_sha256": _sha256(corpus / "manifest.json")},
             "record_counts": quality["record_counts"],
             "artifacts": artifacts,
-            "generation": {"overwrite_policy": "forbidden", "gzip_mtime": 0, "ordering": "mapping_id"},
+            "generation": {
+                "overwrite_policy": "forbidden",
+                "gzip_mtime": 0,
+                "ordering": "mapping_id",
+                "config_sha256": _sha256(config_path),
+                "code_commit": code_commit,
+            },
         }
         manifest["overlay_content_hash"] = canonical_hash(overlay_hash_identity(manifest))
         _write_json(temporary / "manifest.json", manifest)

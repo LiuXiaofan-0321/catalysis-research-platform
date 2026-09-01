@@ -209,6 +209,7 @@ class ScientificNormalizationTests(unittest.TestCase):
 
             self.assertEqual(manifest["overlay_content_hash"], second_manifest["overlay_content_hash"])
             self.assertEqual(manifest["artifacts"], second_manifest["artifacts"])
+            self.assertEqual(manifest["generation"]["config_sha256"], _hash(CONFIG))
             with patch("catalysis_research.normalization.verifier.verify_snapshot", return_value={"valid": True, "failures": []}):
                 self.assertTrue(verify_normalization_overlay(first, snapshot, corpus)["valid"])
             self.assertEqual(source_hashes, {_hash(snapshot / "nodes.jsonl.gz"), _hash(corpus / "manifest.json")})
