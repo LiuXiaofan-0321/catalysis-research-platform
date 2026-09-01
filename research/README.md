@@ -89,6 +89,28 @@ same candidate, item, token, per-paper, tokenizer, and formatter budgets for
 `none`, `rag`, and `small_kg_rag`. The shuffled mode is reserved and rejected
 until a corruption manifest is frozen.
 
+The experiment-facing interface exposes `agent`, `rag_agent`, and
+`small_kg_rag_agent`. It reads the historical `full-rag-v1-index` without
+rewriting it, excludes `doi:10.1126/science.ads7290` and its 19 chunks before
+ranking, verifies the retained 6,691-paper / 8,927-document / 365,643-chunk
+scope, and applies the frozen scientific-normalization overlay to retrieval
+queries and KG evidence. Any source identity, hash, or count drift fails
+closed.
+
+```bash
+python research/scripts/research.py retrieve \
+  --config research/configs/retrieval/small-kg-hybrid-v1.json \
+  --rag-index /path/to/full-rag-v1-index \
+  --snapshot /path/to/Small-KG-zeolite-v1 \
+  --overlay /path/to/scientific-normalization-Small-KG-zeolite-v1.1 \
+  --mode rag_agent \
+  --query "MTO conversion over MFI"
+```
+
+Changing only `--mode` produces matched-budget evidence bundles for the three
+conditions. This command performs retrieval only; it does not call an LLM or
+run the hypothesis/descriptor loop.
+
 ### Local Python environment
 
 Python 3.11 or newer is required. The current Windows workstation uses Python

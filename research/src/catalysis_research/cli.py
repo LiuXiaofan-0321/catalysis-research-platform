@@ -44,6 +44,12 @@ from .provenance.run_manifest import (
     record_error,
     verify_run,
 )
+from .retrieval import (
+    EXPERIMENT_KNOWLEDGE_MODES,
+    EvidenceContractError,
+    KnowledgeModeRetriever,
+    RetrievalBudget,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -384,6 +390,22 @@ def build_parser() -> argparse.ArgumentParser:
     normalization_verify_parser.add_argument("--overlay", type=Path, required=True)
     normalization_verify_parser.add_argument("--snapshot", type=Path, required=True)
     normalization_verify_parser.add_argument("--corpus", type=Path, required=True)
+
+    retrieval_parser = subparsers.add_parser(
+        "retrieve",
+        help="Build one matched-budget evidence bundle for an Agent condition.",
+    )
+    retrieval_parser.add_argument("--config", type=Path, required=True)
+    retrieval_parser.add_argument("--rag-index", type=Path, required=True)
+    retrieval_parser.add_argument("--snapshot", type=Path, required=True)
+    retrieval_parser.add_argument("--overlay", type=Path, required=True)
+    retrieval_parser.add_argument(
+        "--mode",
+        choices=EXPERIMENT_KNOWLEDGE_MODES,
+        required=True,
+    )
+    retrieval_parser.add_argument("--query", required=True)
+    retrieval_parser.add_argument("--output", type=Path)
     return parser
 
 
@@ -566,6 +588,48 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
         )
         return 0
+
+    if args.command == "retrieve":
+        try:
+            config = json.loads(args.config.read_text(encoding="utf-8"))
+            service = KnowledgeModeRetriever.from_directories(
+                config_path=args.config,
+                rag_index_directory=args.rag_index,
+                kg_snapshot_directory=args.snapshot,
+                normalization_overlay_directory=args.overlay,
+            )
+            output = service.retrieve(
+                query=args.query,
+                experiment_mode=args.mode,
+                budget=RetrievalBudget(**config["budget"]),
+            )
+            rendered = json.dumps(
+                output,
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+            if args.output:
+                args.output.parent.mkdir(parents=True, exist_ok=True)
+                args.output.write_text(rendered + "\n", encoding="utf-8")
+            print(rendered)
+            return 0
+        except (
+            EvidenceContractError,
+            OSError,
+            RuntimeError,
+            ValueError,
+            json.JSONDecodeError,
+        ) as error:
+            print(
+                json.dumps(
+                    {"ok": False, "error": str(error)},
+                    ensure_ascii=False,
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 1
 
     if args.command == "run":
         try:

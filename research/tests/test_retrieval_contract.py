@@ -12,6 +12,7 @@ sys.path.insert(0, str(REPOSITORY_ROOT / "research" / "src"))
 from catalysis_research.retrieval import (  # noqa: E402
     EvidenceContractError,
     FrozenKgRetriever,
+    KnowledgeModeRetriever,
     RetrievalBudget,
     build_evidence_bundle,
 )
@@ -120,6 +121,84 @@ class RetrievalContractTests(unittest.TestCase):
         self.assertTrue(all(row["paper_id"] == "paper:1" for row in rows))
         self.assertTrue(any(len(row["kg_path_ids"]) >= 2 for row in rows))
         self.assertTrue(any(row["kg_edge_ids"] for row in rows))
+
+    def test_agent_modes_use_only_their_allowed_sources_with_one_budget(self) -> None:
+        class FakeRag:
+            def __init__(self) -> None:
+                self.queries: list[str] = []
+
+            def retrieve_candidates(self, *, query: str, limit: int) -> list[dict[str, object]]:
+                self.queries.append(query)
+                return [_candidate("rag:mode", score=3.0)][:limit]
+
+        class FakeKg:
+            def __init__(self) -> None:
+                self.queries: list[str] = []
+
+            def retrieve(self, *, query: str, candidate_limit: int, max_hops: int) -> list[dict[str, object]]:
+                self.queries.append(query)
+                candidate = _candidate(
+                    "kg:mode",
+                    paper_id="paper:kg",
+                    document_id="document:kg",
+                    score=4.0,
+                )
+                candidate.update({
+                    "kg_node_ids": ["node:mto"],
+                    "kg_edge_ids": ["edge:mto"],
+                    "kg_path_ids": ["node:mto"],
+                })
+                return [candidate][:candidate_limit]
+
+        class FakeOverlay:
+            identity = {"overlay_id": "overlay:v1", "overlay_content_hash": "hash", "rule_version": "v1"}
+
+            def expand_query(self, query: str) -> dict[str, object]:
+                return {
+                    **self.identity,
+                    "original_query": query,
+                    "expanded_query": query + " methanol-to-olefins",
+                    "added_terms": ["methanol-to-olefins"],
+                    "matched_mappings": [],
+                }
+
+            def mappings_for_nodes(self, node_ids: list[str]) -> list[dict[str, object]]:
+                return [{
+                    "mapping_id": "norm:mto",
+                    "category": "reaction",
+                    "raw_value": "MTO",
+                    "canonical_value": "methanol-to-olefins",
+                    "rule_id": "reaction_alias",
+                    "confidence": 1.0,
+                }] if node_ids else []
+
+        rag = FakeRag()
+        kg = FakeKg()
+        service = KnowledgeModeRetriever(
+            rag_retriever=rag,
+            kg_retriever=kg,  # type: ignore[arg-type]
+            normalization_overlay=FakeOverlay(),  # type: ignore[arg-type]
+            source_identities={"rag": {}, "small_kg": {}, "normalization": {}},
+        )
+        budget = RetrievalBudget(candidate_limit=4, item_limit=3, context_token_budget=300)
+
+        agent = service.retrieve(query="MTO conversion", experiment_mode="agent", budget=budget)
+        raw = service.retrieve(query="MTO conversion", experiment_mode="rag_agent", budget=budget)
+        hybrid = service.retrieve(query="MTO conversion", experiment_mode="small_kg_rag_agent", budget=budget)
+
+        self.assertEqual(agent["knowledge_mode"], "none")
+        self.assertEqual(agent["items"], [])
+        self.assertEqual(raw["knowledge_mode"], "rag")
+        self.assertEqual(hybrid["knowledge_mode"], "small_kg_rag")
+        self.assertEqual(agent["budget"], raw["budget"])
+        self.assertEqual(raw["budget"], hybrid["budget"])
+        self.assertEqual(rag.queries, [
+            "MTO conversion methanol-to-olefins",
+            "MTO conversion methanol-to-olefins",
+        ])
+        self.assertEqual(kg.queries, ["MTO conversion methanol-to-olefins"])
+        kg_item = next(item for item in hybrid["items"] if item["paper_id"] == "paper:kg")
+        self.assertEqual(kg_item["normalization_mappings"][0]["mapping_id"], "norm:mto")
 
 
 if __name__ == "__main__":

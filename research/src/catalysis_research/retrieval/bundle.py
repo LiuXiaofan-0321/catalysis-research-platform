@@ -59,6 +59,11 @@ def _normalize_candidate(record: dict[str, Any], channel: str) -> dict[str, Any]
     node_ids = sorted({str(value) for value in record.get("kg_node_ids") or []})
     edge_ids = sorted({str(value) for value in record.get("kg_edge_ids") or []})
     path_ids = [str(value) for value in record.get("kg_path_ids") or []]
+    normalization_mappings = {
+        str(item["mapping_id"]): item
+        for item in record.get("normalization_mappings") or []
+        if item.get("mapping_id")
+    }
     return {
         "record_id": str(_required(record, "record_id")),
         "paper_id": str(_required(record, "paper_id")),
@@ -71,6 +76,9 @@ def _normalize_candidate(record: dict[str, Any], channel: str) -> dict[str, Any]
         "kg_node_ids": node_ids,
         "kg_edge_ids": edge_ids,
         "kg_path_ids": path_ids,
+        "normalization_mappings": [
+            normalization_mappings[key] for key in sorted(normalization_mappings)
+        ],
         "retrieval_channels": [channel],
         "source_score": float(record.get("score", 0.0)),
         "evidence_validation": record.get("evidence_validation") or "unknown",
@@ -98,6 +106,16 @@ def _rank_channel(records: Iterable[dict[str, Any]], channel: str) -> list[dict[
         )
         if len(row["kg_path_ids"]) > len(current["kg_path_ids"]):
             current["kg_path_ids"] = row["kg_path_ids"]
+        mappings = {
+            item["mapping_id"]: item
+            for item in [
+                *current["normalization_mappings"],
+                *row["normalization_mappings"],
+            ]
+        }
+        current["normalization_mappings"] = [
+            mappings[key] for key in sorted(mappings)
+        ]
     return list(unique.values())
 
 
@@ -123,6 +141,16 @@ def _fuse(channels: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
                 )
                 if len(row["kg_path_ids"]) > len(current["kg_path_ids"]):
                     current["kg_path_ids"] = row["kg_path_ids"]
+                mappings = {
+                    item["mapping_id"]: item
+                    for item in [
+                        *current["normalization_mappings"],
+                        *row["normalization_mappings"],
+                    ]
+                }
+                current["normalization_mappings"] = [
+                    mappings[key] for key in sorted(mappings)
+                ]
     for key, row in fused.items():
         row["score"] = rrf_scores[key]
     return sorted(fused.values(), key=lambda row: (-row["score"], row["record_id"]))
@@ -130,11 +158,15 @@ def _fuse(channels: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
 
 def _format_item(index: int, row: dict[str, Any]) -> str:
     path = ">".join(row["kg_path_ids"]) or "none"
+    canonical = ",".join(
+        str(item.get("canonical_value"))
+        for item in row["normalization_mappings"]
+    ) or "none"
     return (
         f"[{index} | paper={row['paper_id']} | document={row['document_id']} | "
         f"type={row['document_type']} | page={row['page']} | "
         f"record={row['source_record']['type']}:{row['source_record']['id']} | "
-        f"path={path}]\n{row['quote']}"
+        f"path={path} | canonical={canonical}]\n{row['quote']}"
     )
 
 
@@ -145,6 +177,8 @@ def build_evidence_bundle(
     budget: RetrievalBudget,
     rag_candidates: Iterable[dict[str, Any]] = (),
     kg_candidates: Iterable[dict[str, Any]] = (),
+    experiment_mode: str | None = None,
+    retrieval_metadata: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     if mode not in KNOWLEDGE_MODES:
         raise EvidenceContractError(f"Unsupported knowledge mode: {mode}")
@@ -185,6 +219,7 @@ def build_evidence_bundle(
         "schema_version": EVIDENCE_BUNDLE_SCHEMA_VERSION,
         "query": query,
         "knowledge_mode": mode,
+        "experiment_mode": experiment_mode,
         "budget": {
             "candidate_limit": budget.candidate_limit,
             "item_limit": budget.item_limit,
@@ -198,6 +233,7 @@ def build_evidence_bundle(
         "items": selected,
         "context": context,
         "context_hash": canonical_hash(context),
+        "retrieval_metadata": retrieval_metadata or {},
     }
     bundle["bundle_hash"] = canonical_hash({**bundle, "bundle_hash": ""})
     return bundle

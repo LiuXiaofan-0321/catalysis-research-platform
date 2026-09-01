@@ -185,16 +185,19 @@ deterministic hash、unresolved queue 和合成测试已完成。6691-paper 全�
 
 ### 7.2 KG+RAG 混合检索
 
-2026-09-02 本地实现状态：common EvidenceBundle、matched budgets、严格 provenance
-校验和 frozen KG 0-2 hop retriever 已完成并通过合成测试；全量 raw RAG index 与
-10-20 问题 smoke test 尚未完成，因此这里仍不包含任何模型或检索效果结论。
+2026-09-02 实现状态：common EvidenceBundle、matched budgets、严格 provenance、
+frozen KG 0-2 hop retriever、科学规范化 overlay 接入，以及统一的 `agent` /
+`rag_agent` / `small_kg_rag_agent` 接口均已完成并通过离线测试。Raw RAG 以只读方式
+复用历史 `full-rag-v1-index`，在排序前排除唯一多余论文及其 19 chunks，并校验过滤后
+恰为 6691 papers / 8927 documents / 365643 chunks，不重建或改写原索引。10-20 问题
+smoke test 尚未完成，因此这里仍不包含任何模型或检索效果结论。
 
 构建同一接口下的可切换 knowledge modes：
 
 ```text
-LLM-only / no external knowledge
-Raw RAG
-Evidence KG + RAG
+Agent / no external knowledge
+RAG + Agent
+Small KG + RAG + Agent
 Token-matched shuffled KG
 ```
 

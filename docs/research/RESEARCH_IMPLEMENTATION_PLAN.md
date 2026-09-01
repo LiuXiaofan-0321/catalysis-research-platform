@@ -207,9 +207,11 @@ flow、WHSV/GHSV、performance metric/unit、year、paper type 和 SI display ti
 验收：相同输入产生相同 overlay hash；Small KG v1 文件 hash 不变；所有映射可回溯；
 禁止跨量纲转换；高频映射和高风险修复完成分层人工复核。
 
-实现状态（2026-09-02）：builder、verifier、CLI、v1.1 JSON 规则和合成测试已完成。
-实现会验证两个冻结输入、禁止覆盖、使用 deterministic gzip，并生成稳定 artifact/hash。
-全量 overlay 尚未在集群物化，高频映射与高风险修复的人工复核仍是激活门槛。
+实现状态（2026-09-02）：builder、verifier、CLI、v1.1 JSON 规则和合成测试已完成；
+全量 frozen overlay 已在集群物化。检索层只加载 `review_status=normalized` 且达到
+confidence 门槛的 mappings：concept mappings 用于 query expansion；命中 KG node 时
+附带对应的 concept/value/metadata mappings。加载时校验 overlay identity/hash。
+高频映射与高风险修复的人工签核仍是 outcome-bearing run 的激活门槛。
 
 ## 3.2 Immediate Module：KG+RAG Common Retrieval Contract
 
@@ -219,16 +221,18 @@ flow、WHSV/GHSV、performance metric/unit、year、paper type 和 SI display ti
 `document_type`、page、quote、quote hash、source record、KG node/edge/path IDs、
 score、validation/review status 和 token count。
 
-Raw RAG 必须从 frozen 6691-paper / 8927-document manifest 重建精确对齐的新 index，
-不能直接复用 paper/document identity 不一致的旧 full-RAG index。各模式共享 tokenizer、
-候选预算、model-visible item 数、token budget 和 bundle formatter。检索 smoke test
-先使用 10-20 个冻结问题，不调用生成模型。
+Raw RAG 复用历史 `full-rag-v1-index` 的现有文档与向量，不重建 index。只读加载时在
+排序前排除唯一多余论文 `doi:10.1126/science.ads7290`、对应 1 个文档和 19 个 chunks，
+并 fail-closed 校验过滤后恰为 6691 papers / 8927 documents / 365643 chunks。各模式共享
+tokenizer、候选预算、model-visible item 数、token budget 和 bundle formatter。检索
+smoke test 先使用 10-20 个冻结问题，不调用生成模型。
 
 实现状态（2026-09-02）：公共 bundle contract、严格 provenance 校验、RRF 去重融合、
-matched candidate/item/token/per-paper budgets 和 frozen KG 0-2 hop retriever 已完成。
-`small_kg_rag_shuffled` 在 corruption manifest 冻结前会显式拒绝运行。旧 RAG trace
-已补充 quote、page、source record 和 token count；与 frozen corpus 精确对齐的新 raw
-RAG index、10-20 问题集和 smoke test 尚未完成。
+matched candidate/item/token/per-paper budgets、frozen KG 0-2 hop retriever，以及统一的
+`agent` / `rag_agent` / `small_kg_rag_agent` 接口已完成。历史 RAG 的只读过滤 view、
+frozen source hash/count 校验和 normalization overlay 接入也已完成；
+`small_kg_rag_shuffled` 在 corruption manifest 冻结前会显式拒绝运行。10-20 问题集和
+retrieval smoke test 尚未完成。
 
 ## 4. Module A：Protocol Registry
 

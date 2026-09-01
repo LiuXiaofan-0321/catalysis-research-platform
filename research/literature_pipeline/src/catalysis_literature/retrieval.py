@@ -4,7 +4,7 @@ import json
 import time
 from collections import Counter, defaultdict
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 import numpy as np
 
@@ -45,7 +45,17 @@ def _quality_multiplier(row: dict[str, Any]) -> float:
 
 
 class PortableRetriever:
-    def __init__(self, index_directory: Path):
+    def __init__(
+        self,
+        index_directory: Path,
+        *,
+        excluded_paper_ids: Iterable[str] = (),
+        expected_excluded_documents: int | None = None,
+        expected_excluded_records: int | None = None,
+        expected_retained_papers: int | None = None,
+        expected_retained_documents: int | None = None,
+        expected_retained_chunks: int | None = None,
+    ):
         self.index_directory = index_directory.resolve()
         report = verify_index(self.index_directory)
         if not report["valid"]:
@@ -53,14 +63,12 @@ class PortableRetriever:
         self.manifest = json.loads(
             (self.index_directory / "manifest.json").read_text(encoding="utf-8")
         )
-        self.chunk_rows = _load_jsonl(self.index_directory / "chunks.jsonl")
-        self.evidence_rows = _load_jsonl(
+        paper_rows = _load_jsonl(self.index_directory / "papers.jsonl")
+        document_rows = _load_jsonl(self.index_directory / "documents.jsonl")
+        all_chunk_rows = _load_jsonl(self.index_directory / "chunks.jsonl")
+        all_evidence_rows = _load_jsonl(
             self.index_directory / "evidence_records.jsonl"
         )
-        self.rows = self.chunk_rows + self.evidence_rows
-        self.row_index_by_id = {
-            row["record_id"]: index for index, row in enumerate(self.rows)
-        }
         chunk_vectors = np.load(
             self.index_directory / "chunk_vectors.npy",
             mmap_mode="r",
@@ -69,10 +77,88 @@ class PortableRetriever:
             self.index_directory / "evidence_vectors.npy",
             mmap_mode="r",
         )
-        self.vectors = np.concatenate(
+        all_rows = all_chunk_rows + all_evidence_rows
+        all_vectors = np.concatenate(
             [np.asarray(chunk_vectors), np.asarray(evidence_vectors)],
             axis=0,
         )
+        if len(all_rows) != len(all_vectors):
+            raise RuntimeError("Index row/vector count mismatch")
+
+        excluded = frozenset(str(value) for value in excluded_paper_ids)
+        indexed_paper_ids = {str(row["paper_id"]) for row in paper_rows}
+        missing = sorted(excluded - indexed_paper_ids)
+        if missing:
+            raise RuntimeError(
+                "Excluded paper IDs are absent from the index: " + ", ".join(missing)
+            )
+        excluded_documents = [
+            row for row in document_rows if str(row["paper_id"]) in excluded
+        ]
+        retained_indexes = [
+            index
+            for index, row in enumerate(all_rows)
+            if str(row["paper_id"]) not in excluded
+        ]
+        excluded_record_count = len(all_rows) - len(retained_indexes)
+        if (
+            expected_excluded_documents is not None
+            and len(excluded_documents) != expected_excluded_documents
+        ):
+            raise RuntimeError(
+                "Excluded document count mismatch: "
+                f"{len(excluded_documents)} != {expected_excluded_documents}"
+            )
+        if (
+            expected_excluded_records is not None
+            and excluded_record_count != expected_excluded_records
+        ):
+            raise RuntimeError(
+                "Excluded record count mismatch: "
+                f"{excluded_record_count} != {expected_excluded_records}"
+            )
+
+        self.chunk_rows = [
+            row
+            for row in all_chunk_rows
+            if str(row["paper_id"]) not in excluded
+        ]
+        self.evidence_rows = [
+            row
+            for row in all_evidence_rows
+            if str(row["paper_id"]) not in excluded
+        ]
+        self.rows = self.chunk_rows + self.evidence_rows
+        self.vectors = all_vectors[retained_indexes]
+        self.row_index_by_id = {
+            row["record_id"]: index for index, row in enumerate(self.rows)
+        }
+        self.filter_summary = {
+            "excluded_paper_ids": sorted(excluded),
+            "excluded_document_ids": sorted(
+                str(row["document_id"]) for row in excluded_documents
+            ),
+            "excluded_documents": len(excluded_documents),
+            "excluded_records": excluded_record_count,
+            "retained_papers": len(indexed_paper_ids - excluded),
+            "retained_documents": len(document_rows) - len(excluded_documents),
+            "retained_chunks": len(self.chunk_rows),
+            "retained_evidence_records": len(self.evidence_rows),
+            "retained_records": len(self.rows),
+            "base_index_id": self.manifest["index_id"],
+            "base_index_hash": self.manifest["logical_content_hash"],
+        }
+        retained_expectations = {
+            "papers": (expected_retained_papers, "retained_papers"),
+            "documents": (expected_retained_documents, "retained_documents"),
+            "chunks": (expected_retained_chunks, "retained_chunks"),
+        }
+        for label, (expected, summary_key) in retained_expectations.items():
+            actual = self.filter_summary[summary_key]
+            if expected is not None and actual != expected:
+                raise RuntimeError(
+                    f"Retained {label} count mismatch: {actual} != {expected}"
+                )
         embedding = self.manifest["embedding"]
         self.embedder = EmbeddingProvider(
             IndexConfig(
@@ -91,23 +177,15 @@ class PortableRetriever:
                     "The embedding model used to build this index is unavailable"
                 )
 
-    def retrieve(
+    def _rank_candidates(
         self,
         *,
         query: str,
-        top_k: int | None = None,
-        context_token_budget: int | None = None,
-        include_unverified: bool = False,
-    ) -> dict[str, Any]:
-        started = time.perf_counter()
+        include_unverified: bool,
+    ) -> tuple[list[dict[str, Any]], np.ndarray, int, int]:
         settings = self.manifest["retrieval"]
         dense_k = int(settings["top_k_dense"])
         lexical_k = int(settings["top_k_lexical"])
-        final_k = int(top_k or settings["top_k_final"])
-        max_per_paper = int(settings["max_records_per_paper"])
-        token_budget = int(
-            context_token_budget or settings["context_token_budget"]
-        )
         query_vector = self.embedder.encode([query])[0]
         dense_scores = self.vectors @ query_vector
         dense_ranking = (
@@ -148,6 +226,42 @@ class PortableRetriever:
                 }
             )
         candidates.sort(key=lambda row: (-row["score"], row["record_id"]))
+        return candidates, dense_scores, len(dense_ranking), len(lexical_ranking)
+
+    def retrieve_candidates(
+        self,
+        *,
+        query: str,
+        limit: int,
+        include_unverified: bool = False,
+    ) -> list[dict[str, Any]]:
+        if limit < 1:
+            raise ValueError("limit must be at least 1")
+        candidates, _, _, _ = self._rank_candidates(
+            query=query,
+            include_unverified=include_unverified,
+        )
+        return candidates[:limit]
+
+    def retrieve(
+        self,
+        *,
+        query: str,
+        top_k: int | None = None,
+        context_token_budget: int | None = None,
+        include_unverified: bool = False,
+    ) -> dict[str, Any]:
+        started = time.perf_counter()
+        settings = self.manifest["retrieval"]
+        final_k = int(top_k or settings["top_k_final"])
+        max_per_paper = int(settings["max_records_per_paper"])
+        token_budget = int(
+            context_token_budget or settings["context_token_budget"]
+        )
+        candidates, dense_scores, dense_count, lexical_count = self._rank_candidates(
+            query=query,
+            include_unverified=include_unverified,
+        )
 
         related_by_paper: dict[str, list[dict[str, Any]]] = defaultdict(list)
         for row in candidates:
@@ -221,8 +335,9 @@ class PortableRetriever:
             "index_id": self.manifest["index_id"],
             "index_hash": self.manifest["logical_content_hash"],
             "retrieval_mode": "dense+lexical+rrf+quality+paper-expansion",
-            "dense_candidates": len(dense_ranking),
-            "lexical_candidates": len(lexical_ranking),
+            "dense_candidates": dense_count,
+            "lexical_candidates": lexical_count,
+            "corpus_filter": self.filter_summary,
             "selected_count": len(selected),
             "selected_token_count": used_tokens,
             "retrieved_evidence": [

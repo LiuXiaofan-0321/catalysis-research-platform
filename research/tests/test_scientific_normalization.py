@@ -15,6 +15,7 @@ REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPOSITORY_ROOT / "research" / "src"))
 from catalysis_research.normalization import (  # noqa: E402
     NormalizationError,
+    ScientificNormalizationOverlay,
     build_normalization_overlay,
     summarize_unresolved,
     verify_normalization_overlay,
@@ -214,6 +215,28 @@ class ScientificNormalizationTests(unittest.TestCase):
             with patch("catalysis_research.normalization.verifier.verify_snapshot", return_value={"valid": True, "failures": []}):
                 self.assertTrue(verify_normalization_overlay(first, snapshot, corpus)["valid"])
             self.assertEqual(source_hashes, {_hash(snapshot / "nodes.jsonl.gz"), _hash(corpus / "manifest.json")})
+
+            overlay = ScientificNormalizationOverlay(first)
+            expansion = overlay.expand_query("MTO conversion over MFI")
+            self.assertIn("methanol-to-olefins", expansion["added_terms"])
+            self.assertIn(
+                "reaction",
+                {row["category"] for row in expansion["matched_mappings"]},
+            )
+            self.assertTrue(
+                overlay.mappings_for_nodes(["node:reaction"])
+            )
+            temperature_mapping = overlay.mappings_for_nodes(
+                ["node:temperature"]
+            )[0]
+            self.assertEqual(
+                temperature_mapping["mapping_artifact"],
+                "value_mappings",
+            )
+            self.assertEqual(
+                temperature_mapping["canonical_value"]["value"],
+                673.15,
+            )
 
             concepts = _read_gzip_jsonl(first / "concept_mappings.jsonl.gz")
             framework = next(row for row in concepts if row["category"] == "framework")
