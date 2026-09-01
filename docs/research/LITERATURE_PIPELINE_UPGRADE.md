@@ -46,16 +46,25 @@ Existing frozen corpora and KG snapshots are never rewritten. Re-extracting
 the same papers with this pipeline produces a new extraction version and must
 later be frozen under a new corpus and snapshot ID.
 
-For the 5000-6000 paper zeolite corpus, the production sequence is fixed as:
+The zeolite extraction campaign has now completed and is frozen as
+`zeolite-structured-corpus-v1`: 6,691 papers and 8,927 main/SI documents.
+The three extraction batches, cross-campaign document deduplication, main/SI
+aggregation, schema/hash verification, and 24-paper stratified review are
+complete. `Small-KG-zeolite-v1` is also frozen; historical pilot and campaign
+records remain unchanged.
 
-1. Freeze and inspect the SHA-256 inventory.
-2. Run the complete mock path on 20 papers.
-3. Run DeepSeek extraction on 20-50 papers and manually audit evidence,
-   schema validity, parser quality, and token use.
-4. Pin the prompt, model, parser, and embedding revisions.
-5. Review preflight counts and explicitly confirm the full run.
-6. Resume failed papers until complete, or explicitly finalize a documented
-   partial corpus; only then build the RAG index and freeze its manifest.
+The current production sequence is now:
+
+1. Complete raw-source license and DOI/title/year semantic-dedup sign-off.
+2. Build scientific normalization overlay v1.1 without modifying the frozen
+   corpus or Small KG v1.
+3. Rebuild a raw RAG index from the exact 6,691-paper / 8,927-document frozen
+   manifest rather than reusing the older identity-mismatched full-RAG index.
+4. Expose raw RAG and KG+RAG through one evidence-bundle contract.
+5. Run a frozen 10-20-question retrieval smoke test without generation-model
+   calls.
+6. Freeze one eligible benchmark and its benchmark-native `D0` baseline before
+   any outcome-bearing descriptor run.
 
 The executor uses a bounded worker queue and an append-only per-paper result
 journal. Resume reuses the frozen inventory and skips completed papers. A

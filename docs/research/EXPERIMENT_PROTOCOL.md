@@ -4,7 +4,7 @@ Protocol ID：`catalysis-model-knowledge-scaling.v1`
 
 规则冻结日期：2026-08-10
 
-状态：`V1 RULES_FROZEN / V2 SCOPE AMENDMENT REQUIRED / ACTIVATION_BLOCKED`
+状态：`V1.6 RULES_FROZEN / V2 SCOPE AMENDMENT REQUIRED / ACTIVATION_BLOCKED`
 
 `RULES_FROZEN` 表示本文中的研究问题、变量定义、endpoint、预算、公平性规则、
 统计判据和 firewall 已冻结。
@@ -20,6 +20,12 @@ scope and diversity scaling。新方向由
 K20/K40/K60/K80/K100 规则继续有效地约束旧 snapshot 和 within-corpus quantity
 ablation，但在 v2 protocol 冻结前，不得直接用它们代表新的 Small/Medium/Large
 主变量或启动新方向的 outcome-bearing run。
+
+2026-09-01 进一步冻结 benchmark validation 原则：每个 benchmark 的主分析必须
+复现原论文模型与评价框架，在相同 preprocessing、split、hyperparameter budget
+和 metric 下比较原 descriptor `D0` 与 `D0 + X`。统一 Ridge 不再作为主分析，
+仅作为跨 benchmark 的 secondary representation diagnostic。该修订发生在任何
+Model x Knowledge outcome 产生之前。
 
 Private unseen thermocatalysis validation 的访问控制和盲测执行细则由
 `docs/research/PRIVATE_DATA_PROTOCOL.md` 管理。两份协议发生冲突时，private data 访问采用更
@@ -123,14 +129,16 @@ benchmark 的完整 Evidence -> Hypothesis -> Descriptor -> Validation -> Feedba
 
 ## 3. Pre-registered Hypotheses
 
-### H-K：Knowledge Quantity Effect
+### H-K：Knowledge Scope and Diversity Effect
 
-在 evidence-grounded KG 结构固定时，增加 nested knowledge scale 会提高
-primary endpoint。
+在 quantity、retrieval 和 inference budget 可比时，知识从 Small/Local 扩展到
+Medium/Domain-expanded 和 Large/Cross-domain 会改变并可能提高 primary endpoint。
 
 ```text
-dQ/dK > 0
+Q(Large) - Q(Small) != 0
 ```
+
+方向不预设为必然正向；within-corpus paper quantity 是 secondary effect。
 
 ### H-M：Model Capability Effect
 
@@ -213,15 +221,28 @@ provider 停止服务或模型 revision 无法继续访问时：
 
 ## 5. Definition of K
 
-`K` 不等同于 KG 节点数量。K 至少由三个维度描述：
+`K` 不等同于 KG 节点数量。K 至少由五个维度描述：
 
 ```text
-K = (size, coverage, structure)
+K = (quantity, domain diversity, task coverage, structure, provenance)
 ```
 
-### 5.1 Primary K variable：Knowledge Size
+### 5.1 Primary K variable：Knowledge Scope and Diversity
 
-主 scaling matrix 固定使用 evidence-grounded KG，设置：
+| Scope | Frozen operational meaning |
+| --- | --- |
+| `Small` | 当前 6691 篇 zeolite local corpus 和 `Small-KG-zeolite-v1` |
+| `Medium` | Small 加 MOF、COF、adsorption、confinement、diffusion 等邻近领域 |
+| `Large` | Medium 加广义 catalysis、surface science、coordination、strain、thermodynamics、kinetics、transport |
+
+Medium/Large 的 exact inventory、hash 和 inclusion rules 尚未冻结，因此当前不得
+运行 scope outcome。正式 v2 必须增加 quantity-matched Local/Mixed/Cross-domain
+controls，分离 domain diversity 与更多 papers/tokens 的作用。
+
+### 5.2 Secondary K variable：Legacy Within-corpus Quantity
+
+以下 K20-K100 规则继续约束已冻结的 512-paper thermal infrastructure，但不再是
+当前 NMI 主 scaling variable：
 
 | Level | Paper fraction |
 | --- | ---: |
@@ -281,8 +302,9 @@ paper type groups:
 重新排序。Coverage 在 exact public predictive dataset 冻结前记录为
 `not_measured`，不能作为 selection input。
 
-Primary domain 为 `thermal_catalysis`，因为最终 external validation 是 private
-thermocatalysis。
+该 legacy quantity corpus 的 domain 为 `thermal_catalysis`。它服务于辅助
+within-corpus quantity analysis，不决定当前 public benchmark 或 Small/Medium/Large
+scope 的 domain。
 
 Photocatalysis 作为 secondary cross-domain/transfer analysis，不进入 primary
 knowledge-scaling endpoint，除非在第一个 outcome-bearing run 前通过 protocol
@@ -295,13 +317,13 @@ K247-photocatalysis-v1
 paper count: 247
 ```
 
-该 snapshot 是后续 absolute-size scaling curve 的第一个真实实验点，不允许被
+该 snapshot 是后续 absolute-size infrastructure 的冻结锚点，不允许被
 更大或更新的光催化语料覆盖。任何修正必须创建新的 snapshot version。
 
 `K20/K40/K60/K80/K100` 是 within-corpus nested fraction aliases。所有论文图表
 同时报告 exact absolute paper count 和 snapshot ID，不能只报告模糊的百分比。
 
-### 5.2 Knowledge Coverage
+### 5.3 Knowledge Coverage
 
 Coverage 是被测量的 mediator，不是根据 test outcome 优化的变量。
 
@@ -315,7 +337,7 @@ Coverage 是被测量的 mediator，不是根据 test outcome 优化的变量。
 
 禁止仅用总论文数作为 coverage 的替代指标。
 
-### 5.3 Knowledge Structure
+### 5.4 Knowledge Structure
 
 Structure ablation 至少包含：
 
@@ -329,10 +351,9 @@ Structure ablation 至少包含：
 | `K-shuffled` | Token-matched shuffled KG |
 | `K-oracle` | Oracle evidence, secondary diagnostic only |
 
-Primary 3 x 5 matrix固定使用 `K-evidence` 的五个 size levels。
-
-Structure ablation 默认在 `K100` 运行；pilot 可同时在 `K60` 做一次
-sensitivity check。
+当前 Small MVP 使用 `K-none`、`K-rag` 和 `K-evidence`；`K-shuffled` 在任何
+structure claim 前必须加入。K20-K100 structure ablation 只属于 legacy secondary
+quantity analysis。
 
 ## 6. Definition of Q
 
@@ -340,33 +361,46 @@ Q 是分层指标集合，但 confirmatory claim 只使用预注册 primary endp
 
 ### 6.1 Primary Endpoint
 
-Primary endpoint 为 public thermocatalysis OOD test 上，固定 Ridge pipeline
-使用 condition descriptor set 相对于 conventional human descriptor baseline
-的 normalized RMSE improvement：
+每个 benchmark 的 primary endpoint 是其原论文 primary metric 上，
+benchmark-native pipeline 使用 `D0 + X` 相对于原 descriptor baseline `D0` 的
+paired normalized improvement。模型、preprocessing、split、tuning budget 和
+metric implementation 在两组之间保持一致。
+
+对于 lower-is-better error metric：
 
 ```text
 Q_primary =
-  (RMSE_human,OOD - RMSE_condition,OOD)
-  / RMSE_human,OOD
+  (Error_D0,locked - Error_D0+X,locked)
+  / Error_D0,locked
+```
+
+对于 higher-is-better score：
+
+```text
+Q_primary =
+  (Score_D0+X,locked - Score_D0,locked)
+  / abs(Score_D0,locked)
 ```
 
 解释：
 
-- `Q_primary > 0`：condition 优于 human descriptor baseline；
-- `Q_primary = 0`：与 human baseline 相同；
+- `Q_primary > 0`：`D0 + X` 优于原论文 `D0` baseline；
+- `Q_primary = 0`：与原论文 `D0` baseline 相同；
 - `Q_primary < 0`：condition 更差；
 - higher is better。
 
-每个 task、split 和 seed 使用配对 human baseline。跨 task 聚合时每个 task
+每个 task、split 和 seed 使用配对 `D0` baseline。跨 task 聚合时每个 task
 权重相同，不按样本量加权。
 
-Primary endpoint 选择 OOD 而不是 random split，是为了让主结论集中于科学
-representation 的迁移，而不是随机插值。
+Primary endpoint 使用 benchmark-native locked test。若原论文或冻结 benchmark
+支持科学合理 OOD split，则 OOD 是优先 primary view；否则不得为追求 OOD 标签而
+偏离原 benchmark，IID/其他 native test 与 OOD secondary view 必须事先登记。
 
 ### 6.2 Secondary Endpoints
 
 Prediction：
 
+- benchmark-native primary metric；
 - OOD MAE；
 - OOD R2；
 - OOD Spearman；
@@ -387,6 +421,12 @@ Descriptor：
 - redundancy rate；
 - utility contribution；
 - novelty x utility quadrant。
+
+Common-model diagnostic：
+
+- 统一 Ridge 上的 paired `D0` vs `D0 + X` delta；
+- descriptor-only 与 `D0 + X` 两种 feature views；
+- 该诊断不得替代 benchmark-native primary conclusion。
 
 Scientific reasoning：
 
@@ -422,7 +462,7 @@ Private validation：
 
 - 从 secondary metrics 中挑一个显著结果代替 primary；
 - 只报告最好模型、最好 K 或最好 seed；
-- 在 test outcome 后改变 human baseline；
+- 在 test outcome 后改变 `D0` baseline 或 benchmark-native model；
 - 删除 negative Q；
 - 把 descriptor validity 当作 predictive utility；
 - 把 temporal benchmark 当作 contamination-resistant proof。
@@ -468,13 +508,13 @@ research/manifests/splits/<dataset_id>-ood-v1.json
 Full confirmatory study 至少需要 3 个 eligible primary tasks。Task 可以是不同
 公开数据集，也可以是同一公开数据集中预注册的不同 target/reaction-family
 任务，但必须在 descriptor generation 前定义。少于 3 个 tasks 时可以运行
-pilot 或 case study，但不能满足本文 17.1 中的跨 task knowledge-scaling 判据。
+pilot 或 case study，但不能满足本文 17.2 中的跨 task knowledge-scope scaling 判据。
 
 ### 7.3 Dataset eligibility
 
 Primary public dataset 必须：
 
-- 属于 thermocatalysis；
+- 属于已注册的 zeolite、porous materials、adsorption 或 catalysis scientific scope；
 - 有机器可读 target；
 - 有 descriptor computation 所需原始输入；
 - 样本身份可稳定定义；
@@ -544,7 +584,7 @@ Descriptor generation 模型不能看到：
 - private labels；
 - test performance；
 - row-level target values；
-- human baseline test metrics。
+- `D0` baseline test metrics。
 
 Training labels只能由 downstream training/selection code 访问。
 
@@ -600,66 +640,52 @@ Deterministic ranking 在 outcome-bearing run 前冻结。允许的 ranking sign
 这样可以保持 10 个 nominal slots，并让 descriptor generation/execution failure
 自然降低 condition utility。
 
-### 9.4 Human descriptors
+### 9.4 Benchmark D0 descriptors
 
-Human descriptor baseline 必须：
+原论文 `D0` descriptor baseline 必须：
 
 - 在 Model x KG outcome 前冻结；
-- 最多 10 个；
-- 每个有公式、单位和 input mapping；
+- 完整复现原论文使用的 descriptor set，不受 AI descriptor 10-slot budget 限制；
+- 每个有定义、单位、input mapping，以及可验证的 code/artifact identity；
 - 不使用 test/private outcome 选择；
 - 由 domain experts 审核并保留版本。
 
 ## 10. Model x Knowledge Matrices
 
-### 10.1 Full primary matrix
+### 10.1 Current Small KG MVP
+
+当前先使用一个冻结的 foundation model 和 Single-Agent，比较：
 
 ```text
-Models:    M1, M2, M3
-Knowledge: K20, K40, K60, K80, K100
-Seeds:     17, 29, 43, 71, 101
-Structure: Evidence KG
-```
-
-即每个 task 至少：
-
-```text
-3 models x 5 K levels x 5 seeds = 75 descriptor-generation conditions
-```
-
-### 10.2 Pilot matrix
-
-```text
-Models:    M1, M2, M3
-Knowledge: K20, K60, K100
+Knowledge: LLM-only, Raw RAG, Small KG + RAG
 Seeds:     17, 43, 101
+Benchmark: one frozen eligible public benchmark
+Downstream: benchmark-native D0 vs D0 + X
 ```
 
-Pilot 同时加入：
+Multi-Agent 暂缓。Shuffled KG 在形成任何 knowledge-structure claim 前必须加入，
+但不阻塞前三条件的 pipeline smoke/pilot。
 
-- LLM-only；
-- Raw RAG；
-- Evidence KG；
-- Shuffled KG。
+### 10.2 Scope expansion matrix
 
-Pilot 用于 pipeline go/no-go，不用于最终 confirmatory publication claim。
-
-### 10.3 Structure matrix
-
-默认：
+Small MVP 通过后，v2 protocol 必须在 outcome 前冻结：
 
 ```text
-M1, M2, M3
-x
-K-none, K-rag, K-entity, K-experiment, K-evidence, K-shuffled
-x
-K100
-x
-seeds 17, 29, 43, 71, 101
+Knowledge scope: Small, Medium, Large
+Models:          registered M1, M2, M3 or a justified frozen subset
+Seeds:           17, 29, 43, 71, 101
+Controls:        quantity-matched Local/Mixed/Cross-domain and shuffled KG
 ```
 
-Oracle evidence 只用于区分 retrieval failure 和 reasoning failure，不作为现实
-system performance baseline。
+Small/Medium/Large 表示 domain scope，不表示 500/2000/6691 papers。Multi-Agent
+是否进入 scope matrix 必须单独预注册角色、调用次数和总 token budget。
+
+### 10.3 Legacy within-corpus quantity matrix
+
+`K20/K40/K60/K80/K100` 仅保留为 512-paper thermal corpus 的 secondary
+within-corpus quantity infrastructure，不是当前 Small/Medium/Large 主变量。Oracle
+evidence 只用于区分 retrieval failure 和 reasoning failure，不作为现实 system
+performance baseline。
 
 ## 11. Prompt and Inference Budget
 
@@ -733,30 +759,32 @@ Raw RAG、Evidence KG 和 Shuffled KG 的 model-visible evidence token 数差异
 
 ### 12.1 Primary model
 
-Primary downstream model 固定为 Ridge regression。
-
-理由不是假设 Ridge 最优，而是使用稳定、低自由度模型测量 descriptor
-representation utility。
+Primary downstream model 是每个 benchmark 原论文的模型或严格登记的等价复现。
+其模型 family、software revision、preprocessing、split、hyperparameter search
+space、selection metric 和计算预算必须在 outcome-bearing run 前冻结。`D0` 与
+`D0 + X` 只能改变新增 descriptor，不得改变其他训练条件。
 
 ### 12.2 Primary feature analysis
 
-Primary analysis 使用：
+Primary incremental analysis 使用：
 
 ```text
-10 condition-specific descriptor slots only
-```
-
-这直接比较 descriptor representation。
-
-Secondary incremental analysis 使用：
-
-```text
-fixed raw/core covariates
+D0 benchmark descriptors
 +
-10 condition-specific descriptor slots
+condition-specific descriptor slots X
 ```
 
-所有 conditions 使用相同 core covariates。
+并与同一 benchmark-native pipeline 的 `D0` 配对比较。这直接检验新 descriptor
+能否改变原研究的预测或科学结论。
+
+Secondary descriptor-only analysis 使用：
+
+```text
+condition-specific descriptor slots X only
+```
+
+用于诊断 X 的独立信息，但不替代 primary incremental result。所有 knowledge
+conditions 使用相同 D0、slot 数和 null-feature failure policy。
 
 ### 12.3 Preprocessing
 
@@ -765,32 +793,28 @@ fixed raw/core covariates
 - numeric median imputation；
 - frozen missing indicator policy；
 - categorical one-hot encoding；
-- standardization for Ridge/GPR；
+- benchmark-native scaling/encoding policy；
 - no target-derived preprocessing；
 - no test distribution fitting。
 
 ### 12.4 Hyperparameter tuning
 
-Ridge alpha grid 在 outcome-bearing run 前冻结。所有 conditions：
+Benchmark-native hyperparameter space 和 tuning budget 在 outcome-bearing run
+前冻结。所有 conditions：
 
 - 使用同一 grid；
 - 使用同一 validation split；
 - 使用同一 trial 数；
 - 使用同一 selection metric；
-- 不在 test 上选择 alpha。
+- 不在 test 上选择 hyperparameters。
 
-### 12.5 Secondary models
+### 12.5 Common-model diagnostic
 
-预注册 secondary candidates：
-
-- Random Forest；
-- XGBoost；
-- Gaussian Process Regression。
-
-是否启用必须在 public dataset registry 冻结后、查看 Model x KG outcome 前，
-根据样本量和计算可行性决定。
-
-Secondary models 不替代 primary Ridge conclusion。
+统一 Ridge 是预注册的 secondary representation diagnostic。它使用相同的
+train-only preprocessing、alpha grid、split、seeds 和 metric implementation，
+比较 `D0` 与 `D0 + X`，用于判断 descriptor utility 是否依赖 benchmark 原模型。
+它不替代 benchmark-native primary conclusion。其他 secondary model 只有在
+public dataset registry 冻结后、查看 outcome 前预注册才可启用。
 
 ## 13. Seeds and Repetition
 
@@ -895,7 +919,7 @@ Shuffled KG 必须保留：
 - 修复代码 bug；
 - 调整 schema validator；
 - 选择 prompt wording；
-- 选择 Ridge alpha grid；
+- 选择 benchmark-native hyperparameter space 和统一 Ridge diagnostic alpha grid；
 - 选择 retrieval implementation；
 - 选择 descriptor ranking rule；
 - 确定 model registry；
@@ -941,13 +965,17 @@ Shuffled KG 必须保留：
 
 ### 16.1 Primary model
 
-Primary confirmatory model：
+Small KG MVP 只在一个 benchmark 上验证闭环，不用于宣称 scope scaling。其主分析
+对每个 generation seed 计算 benchmark-native paired `Q_primary(D0 + X vs D0)`，
+报告所有 seeds、失败数、effect estimate 和 bootstrap confidence interval。
+
+完整 v2 scope study 的 confirmatory model 为：
 
 ```text
 Q_primary
   ~ Model
-  + K_fraction
-  + Model:K_fraction
+  + KnowledgeScope
+  + Model:KnowledgeScope
   + task random intercept
   + seed blocking/repeated effect
 ```
@@ -955,10 +983,11 @@ Q_primary
 其中：
 
 - Model 作为 categorical fixed effect；
-- `K_fraction` 为 0.2、0.4、0.6、0.8、1.0；
+- `KnowledgeScope` 为 Small、Medium、Large categorical/ordered effect；
+- quantity-matched Local/Mixed/Cross-domain controls 单独估计 diversity effect；
 - task 权重相同；
 - seed 作为重复 block；
-- 报告 model main effect、knowledge slope 和 interaction。
+- 报告 model、scope、diversity、structure 和 interaction effects。
 
 同时使用 hierarchical bootstrap 对 task 和 seed 进行 10,000 次 resampling，
 生成 primary effects 的 95% confidence intervals。
@@ -988,31 +1017,44 @@ hypotheses，并使用 Holm correction。
 
 ## 17. Pre-registered Claim Criteria
 
-### 17.1 何时认为 Knowledge Quantity Scaling 成立
+### 17.1 何时认为一个 KG-derived descriptor 得到支持
 
 必须同时满足：
 
-1. Primary mixed model 中 `K_fraction` 的 average marginal effect 为正，且
-   95% confidence interval 下界大于 0；
-2. 聚合 `Q_primary(K100) - Q_primary(K20) >= 0.03`，且该差值的 95%
-   confidence interval 下界大于 0；
-3. 三个 model tiers 中至少两个的 within-model K slope 为正；
-4. 至少三分之二 eligible public tasks 的 `K100 - K20` 方向为正；
+1. benchmark-native `D0` baseline 在预注册 tolerance 内复现；
+2. descriptor 有冻结的 hypothesis、evidence、formula、allowed inputs 和 code hash；
+3. paired `D0 + X` 相对 `D0` 达到 benchmark manifest 中预注册的 minimum
+   meaningful effect；
+4. confidence interval 和 seed consistency 满足该 benchmark 的冻结判据；
+5. 没有 critical protocol violation、target leakage 或隐藏人工修复。
+
+未达到效应判据的 hypothesis 必须标记为 `rejected` 或 `inconclusive`，不得删除。
+单 benchmark MVP 只能支持该 task 上的 descriptor 结论，不能支持普遍 KG scaling。
+
+### 17.2 何时认为 Knowledge Scope Scaling 成立
+
+完整 v2 study 必须同时满足：
+
+1. `KnowledgeScope` average marginal effect 为正且 95% confidence interval 下界大于 0；
+2. Large 相对 Small 达到 v2 protocol 预注册的 minimum meaningful effect；
+3. 至少两个 model tiers 和至少三分之二 eligible tasks 方向一致；
+4. quantity-matched controls 显示结果不能仅由更多 papers/tokens 解释；
 5. 没有 critical protocol violation 或 unresolved leakage。
 
 如果只满足部分条件，措辞只能是：
 
 ```text
-suggestive or task-dependent knowledge-scale trend
+suggestive or task-dependent knowledge-scope trend
 ```
 
-不能声称 knowledge scaling 已成立。
+不能声称 knowledge-scope scaling 已成立。K20-K100 结果只允许表述为 secondary
+within-corpus quantity effect。
 
-### 17.2 何时认为 Structured Knowledge Scaling 成立
+### 17.3 何时认为 Structured Knowledge Effect 成立
 
-除满足 17.1 外，还必须满足：
+必须满足：
 
-1. 在 token-matched `K100` 对照中：
+1. 在同一 frozen scope 的 token-matched 对照中：
 
 ```text
 Q_primary(Evidence KG) - Q_primary(Shuffled KG) >= 0.02
@@ -1027,23 +1069,20 @@ Q_primary(Evidence KG) - Q_primary(Shuffled KG) >= 0.02
 如果 Evidence KG 不优于 Shuffled KG，只能声称“more accessible information”
 或“coverage effect”，不能声称 scientific structure matters。
 
-### 17.3 何时认为 Model Scaling 成立
+### 17.4 何时认为 Model Scaling 或 Model x Knowledge Interaction 成立
 
-必须同时满足：
+Model scaling 必须同时满足：
 
 1. M3 对 M1 的 average marginal difference 在 primary endpoint 上为正；
 2. 95% confidence interval 下界大于 0；
-3. M3 优势在至少三个 K levels 上方向一致；
+3. M3 优势在至少两个 knowledge scopes 上方向一致；
 4. 模型之间 prompt、input/output budget 和 descriptor budget 匹配。
 
-### 17.4 何时认为 Model x Knowledge Interaction 成立
+Interaction 必须满足：
 
-必须满足：
-
-1. Primary model 的 `Model:K_fraction` interaction 通过 corrected threshold；
+1. Primary model 的 `Model:KnowledgeScope` interaction 通过 corrected threshold；
 2. interaction effect 的 95% confidence interval 不跨 0；
-3. interaction 对应的 K20 到 K100 slope difference 至少为 `0.02`
-   normalized Q；
+3. interaction 达到 v2 protocol 冻结的 minimum meaningful effect；
 4. interaction 不是单一 task 或单一 seed 驱动。
 
 正 interaction 可支持 stronger model extracts disproportionately more value。
@@ -1077,18 +1116,19 @@ AI discovered completely new physical laws.
 
 ### 18.1 GO
 
-Pilot 扩展到 full 3 x 5 study 需要同时满足：
+Small KG MVP 认为 pipeline ready 需要同时满足：
 
 1. 至少 90% planned runs 完成；
 2. 无 critical protocol violation；
 3. 至少 80% descriptor slots 可执行，或 failure policy 可稳定处理；
-4. 聚合 `K100 - K20` primary validation trend 为正；
-5. 三个 models 中至少两个呈 positive K trend；
-6. Evidence KG 不系统性低于 Shuffled KG；
-7. primary pipeline 对重复运行稳定；
-8. 没有明显 label leakage。
+4. benchmark-native `D0` baseline 在冻结 tolerance 内复现；
+5. evidence bundle provenance 完整且 retrieval audit 通过；
+6. primary pipeline 对重复运行稳定；
+7. 没有明显 label leakage；
+8. supported、rejected、inconclusive 和 execution failure 全部保留。
 
-Pilot 不要求统计显著。
+Pilot 不要求 KG 优于 RAG 或 LLM-only，也不要求统计显著。负结果本身不是 pipeline
+failure；只有证据表明结果来自数据、retrieval、execution 或 protocol 缺陷时才 redesign。
 
 ### 18.2 REVISE BEFORE SCALE-UP
 
@@ -1096,7 +1136,7 @@ Pilot 不要求统计显著。
 
 - completion 在 70% 至 90%；
 - executable descriptor slots 在 50% 至 80%；
-- K trend 正负不稳定；
+- `D0` baseline 复现接近但未达到 tolerance；
 - Raw RAG 与 Evidence KG 无法区分；
 - shuffled control 偶尔优于 real KG；
 - 不同 task 方向强烈冲突；
@@ -1122,14 +1162,15 @@ data leakage
 - critical leakage；
 - completed runs 低于 70%；
 - executable descriptor slots 低于 50%；
-- 三个 models 均出现 non-positive K trend；
-- 聚合 `K100 - K20 <= -0.03`；
-- Evidence KG 明显且稳定地差于 Shuffled KG；
+- benchmark-native `D0` baseline 无法复现；
+- 数据缺少计算新 descriptor 所需的 allowed raw inputs；
 - 结果主要由隐藏人工修复产生；
-- primary dataset 不支持科学合理 OOD evaluation。
+- primary dataset 无法形成可信的 locked test 或科学合理 evaluation。
 
 Stop 不代表项目失败，而是说明当前 task、retrieval、descriptor 或 evaluation
-设计不足以测试主问题。禁止在这种情况下盲目增加论文数量或模型数量。
+设计不足以测试主问题。真实、稳定的 non-positive KG outcome 必须作为 negative
+scientific result 保留，不能作为删除条件。禁止在 pipeline 无效时盲目增加论文数量
+或模型数量。
 
 ## 19. Private Data Firewall
 
@@ -1254,16 +1295,17 @@ PNG/PDF figures
 在以下项目全部完成前，不允许将 protocol 状态改为 `ACTIVE`：
 
 - [x] Public dataset registry and fixed-split infrastructure verified
-- [ ] Exact public thermocatalysis dataset registered
+- [ ] Exact eligible public benchmark registered
 - [ ] Dataset SHA256 and license recorded
 - [ ] Target and allowed inputs frozen
 - [ ] IID split manifest frozen
 - [ ] OOD grouping and split manifest frozen
-- [ ] Human 10-descriptor baseline frozen
+- [ ] Benchmark-native D0 descriptors and baseline frozen
 - [ ] M1/M2/M3 identities and revisions frozen
 - [ ] Canonical tokenizer frozen
 - [ ] Prompt family/version frozen
-- [ ] Ridge grid and preprocessing frozen
+- [ ] Benchmark-native model reproduction, preprocessing and tuning budget frozen
+- [ ] Common Ridge diagnostic grid and preprocessing frozen
 - [x] K20/K40/K60/K80/K100 manifests built
 - [x] Exact 6691-paper / 8927-document structured corpus and cross-campaign document dedup frozen
 - [ ] Raw-source license and DOI/title/year semantic-dedup sign-off completed
@@ -1283,3 +1325,4 @@ PNG/PDF figures
 | v1.3 | 2026-08-11 | Freezes the 512-paper thermal corpus identity, exact K20/K40/K60/K80/K100 counts, strata, seed, and proportional deterministic selection algorithm before snapshot construction | No Model x KG outcome exists | Prevents post-outcome corpus ordering changes; coverage remains `not_measured` and protocol remains `ACTIVATION_BLOCKED` |
 | v1.4 | 2026-08-25 | Records the new Local/Domain-expanded/Cross-domain scientific scope and makes a frozen Small KG from the candidate 5000-6000 zeolite papers the next pipeline milestone | No Model x KG outcome exists | Preserves v1 snapshots as quantity infrastructure, blocks new outcome-bearing runs until a v2 scope/diversity protocol and exact Small corpus manifest are frozen |
 | v1.5 | 2026-09-01 | Records the frozen 6691-paper / 8927-document Small corpus and `Small-KG-zeolite-v1`, including strict provenance verification and remaining data-governance limitations | No Model x Knowledge outcome exists | Closes the Small KG construction gate but keeps benchmark, retrieval, normalization, leakage and protocol activation gates blocked |
+| v1.6 | 2026-09-01 | Makes benchmark-native `D0` vs `D0 + X` the primary downstream comparison and moves common Ridge to a secondary diagnostic | No Model x Knowledge outcome exists | Aligns empirical validation with the hypothesis-discovery loop while preserving a common low-complexity cross-benchmark check |

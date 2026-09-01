@@ -76,6 +76,19 @@ python research/scripts/research.py kg build-nested --help
 python research/scripts/research.py kg verify-nested --help
 ```
 
+Scientific normalization overlays are built and verified without modifying the
+frozen KG or corpus:
+
+```bash
+python research/scripts/research.py normalization build --help
+python research/scripts/research.py normalization verify --help
+```
+
+The common retrieval API is in `catalysis_research.retrieval`. It exposes the
+same candidate, item, token, per-paper, tokenizer, and formatter budgets for
+`none`, `rag`, and `small_kg_rag`. The shuffled mode is reserved and rejected
+until a corruption manifest is frozen.
+
 ### Local Python environment
 
 Python 3.11 or newer is required. The current Windows workstation uses Python
@@ -135,9 +148,14 @@ zeolite-structured-corpus-v1
   -> matched KG/RAG retrieval
   -> falsifiable hypothesis
   -> executable descriptor
-  -> fixed downstream validation
+  -> benchmark-native D0 vs D0 + X validation
   -> supported / rejected / revised feedback
 ```
+
+For each benchmark, the primary empirical comparison reproduces the original
+paper's model and evaluation framework and changes only the added descriptor
+set. A common Ridge `D0` versus `D0 + X` run is retained only as a secondary
+cross-benchmark representation diagnostic.
 
 The corpus and graph identities, hashes, evidence audit, and lightweight QA
 sample are frozen. Before any outcome-bearing Small-KG run, raw-source license
@@ -165,7 +183,9 @@ quantity and structure controls.
 The frozen protocol is maintained in
 `../docs/research/EXPERIMENT_PROTOCOL.md`. It remains blocked from activation
 until the exact public predictive dataset, model registry, splits, prompts, KG
-snapshots, and downstream configuration are registered and locked.
+snapshots, benchmark-native baseline, and downstream configuration are
+registered and locked. The current small ablation is LLM-only, raw RAG, and
+Small KG + RAG with a single Agent; Multi-Agent is deferred.
 
 Private unseen thermocatalysis validation is governed by
 `../docs/research/PRIVATE_DATA_PROTOCOL.md`. Research development code must not

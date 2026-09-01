@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import zipfile
 from pathlib import Path
 from typing import Sequence
 
@@ -27,6 +28,11 @@ from .kg.nested import (
 )
 from .kg.selection import SelectionError
 from .layout import REQUIRED_DIRECTORIES, inspect_layout
+from .normalization import (
+    NormalizationError,
+    build_normalization_overlay,
+    verify_normalization_overlay,
+)
 from .provenance.run_manifest import (
     OUTPUT_FIELDS,
     RunManifestError,
@@ -354,6 +360,29 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path("research/manifests/datasets"),
     )
+    normalization_parser = subparsers.add_parser(
+        "normalization",
+        help="Build and verify immutable scientific normalization overlays.",
+    )
+    normalization_subparsers = normalization_parser.add_subparsers(
+        dest="normalization_command",
+        required=True,
+    )
+    normalization_build_parser = normalization_subparsers.add_parser(
+        "build",
+        help="Build a normalization overlay without modifying frozen inputs.",
+    )
+    normalization_build_parser.add_argument("--snapshot", type=Path, required=True)
+    normalization_build_parser.add_argument("--corpus", type=Path, required=True)
+    normalization_build_parser.add_argument("--output", type=Path, required=True)
+    normalization_build_parser.add_argument("--config", type=Path, required=True)
+    normalization_verify_parser = normalization_subparsers.add_parser(
+        "verify",
+        help="Verify overlay artifacts and frozen input identities.",
+    )
+    normalization_verify_parser.add_argument("--overlay", type=Path, required=True)
+    normalization_verify_parser.add_argument("--snapshot", type=Path, required=True)
+    normalization_verify_parser.add_argument("--corpus", type=Path, required=True)
     return parser
 
 
@@ -465,6 +494,57 @@ def main(argv: Sequence[str] | None = None) -> int:
             OSError,
             ValueError,
             json.JSONDecodeError,
+        ) as error:
+            print(
+                json.dumps(
+                    {"ok": False, "error": str(error)},
+                    ensure_ascii=False,
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 1
+        print(
+            json.dumps(
+                output,
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 0
+
+    if args.command == "normalization":
+        try:
+            if args.normalization_command == "build":
+                output = build_normalization_overlay(
+                    snapshot_directory=args.snapshot,
+                    corpus_directory=args.corpus,
+                    output_directory=args.output,
+                    config_path=args.config,
+                )
+            else:
+                output = verify_normalization_overlay(
+                    overlay_directory=args.overlay,
+                    snapshot_directory=args.snapshot,
+                    corpus_directory=args.corpus,
+                )
+                print(
+                    json.dumps(
+                        output,
+                        ensure_ascii=False,
+                        indent=2,
+                        sort_keys=True,
+                    )
+                )
+                return 0 if output["valid"] else 1
+        except (
+            NormalizationError,
+            OSError,
+            ValueError,
+            KeyError,
+            json.JSONDecodeError,
+            zipfile.BadZipFile,
         ) as error:
             print(
                 json.dumps(

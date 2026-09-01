@@ -1,8 +1,8 @@
 # Research Implementation Plan
 
-状态日期：2026-09-01
+状态日期：2026-09-02
 
-当前里程碑：`SMALL_KG_V1_FROZEN / RETRIEVAL_AND_BENCHMARK_PENDING`
+当前里程碑：`NORMALIZATION_AND_RETRIEVAL_CONTRACT_IMPLEMENTED / FULL_ARTIFACTS_AND_BENCHMARK_PENDING`
 
 本文档定义目标架构、模块接口、建议文件、CLI、测试和验收标准。它描述依赖关系，
 不强制实施顺序。具体执行顺序由项目负责人逐步确认。
@@ -33,7 +33,7 @@ zeolite-structured-corpus-v1
   -> matched KG/RAG retrieval
   -> benchmark baseline reproduction
   -> evidence -> hypothesis -> descriptor
-  -> fixed ML validation
+  -> benchmark-native D0 vs D0 + X validation
   -> feedback and next hypothesis artifact
 ```
 
@@ -46,11 +46,15 @@ Phase 0 交付状态：
 1. 已完成：`zeolite-structured-corpus-v1`、跨批 document dedup 和 main/SI 聚合；
 2. 已完成：frozen structured corpus manifest、三批统计和 24 篇分层复核样本；
 3. 已完成：`Small-KG-zeolite-v1` snapshot、ontology 和 strict evidence verification；
-4. 待完成：raw-source license 和 DOI/title/year semantic-dedup sign-off；
-5. 待完成：Zeolite Atlas 与 SorbMetaML feasibility review，选择或拒绝 MVP benchmark；
-6. 待完成：原 benchmark descriptor/model baseline reproduction；
-7. 待完成：LLM-only、raw RAG、Small KG、shuffled KG matched-budget runs；
-8. 待完成：一轮 hypothesis/descriptor/validation/feedback report。
+4. 已完成：scientific normalization overlay v1.1 builder/verifier、规则配置和离线测试；
+5. 已完成：`none`、`rag`、`small_kg_rag` common evidence-bundle contract 和 0-2 hop KG retriever；
+6. 待完成：在集群物化并人工复核 6691-paper normalization overlay；
+7. 待完成：从 frozen 8927-document corpus 重建 identity-aligned raw RAG index；
+8. 待完成：raw-source license 和 DOI/title/year semantic-dedup sign-off；
+9. 待完成：Zeolite Atlas 与 SorbMetaML feasibility review，选择或拒绝 MVP benchmark；
+10. 待完成：原 benchmark descriptor/model baseline reproduction；
+11. 待完成：10-20 个冻结问题 smoke test 及 LLM-only/raw RAG/Small KG + RAG matched-budget runs；
+12. 待完成：一轮 hypothesis/descriptor/validation/feedback report。
 
 Medium KG 后续增加 MOF/COF/adsorption 邻域，Large KG 再增加 catalysis、surface
 science、coordination、strain、thermodynamics 和 transport。正式 scale-up 必须同时
@@ -113,6 +117,19 @@ research/src/catalysis_research/
     corruption.py
     coverage.py
     retrieval.py
+  normalization/
+    schema.py
+    rules.py
+    units.py
+    builder.py
+    verifier.py
+  retrieval/
+    schema.py
+    rag.py
+    kg.py
+    hybrid.py
+    budget.py
+    audit.py
   models/
     base.py
     registry.py
@@ -174,6 +191,44 @@ research/src/catalysis_research/
 ```
 
 并非所有文件都必须一次建立。只有对应模块开始实施时才创建。
+
+## 3.1 Immediate Module：Scientific Normalization Overlay v1.1
+
+`Small-KG-zeolite-v1` 保持不可变。规范化以 overlay 形式同时绑定 frozen corpus hash
+和 snapshot hash，输出 concept mappings、value/unit mappings、metadata repairs、
+unresolved queue、quality summary 和独立 manifest。每条记录必须保留 raw value、
+canonical value、rule ID/version、source node/record、paper/document identity、
+evidence references、confidence 和 review status。
+
+第一版覆盖 framework、catalyst sample、reaction、temperature、pressure、time、
+flow、WHSV/GHSV、performance metric/unit、year、paper type 和 SI display title。
+信息不足或 basis 不明确的值必须进入 unresolved，不得猜测式合并或换算。
+
+验收：相同输入产生相同 overlay hash；Small KG v1 文件 hash 不变；所有映射可回溯；
+禁止跨量纲转换；高频映射和高风险修复完成分层人工复核。
+
+实现状态（2026-09-02）：builder、verifier、CLI、v1.1 JSON 规则和合成测试已完成。
+实现会验证两个冻结输入、禁止覆盖、使用 deterministic gzip，并生成稳定 artifact/hash。
+全量 overlay 尚未在集群物化，高频映射与高风险修复的人工复核仍是激活门槛。
+
+## 3.2 Immediate Module：KG+RAG Common Retrieval Contract
+
+统一 knowledge modes 为 `none`、`rag`、`small_kg_rag`，并预留
+`small_kg_rag_shuffled`。当前小规模消融只运行前三种，Multi-Agent 暂缓。
+统一 `EvidenceBundle` 中每个 item 必须包含 `paper_id`、`document_id`、
+`document_type`、page、quote、quote hash、source record、KG node/edge/path IDs、
+score、validation/review status 和 token count。
+
+Raw RAG 必须从 frozen 6691-paper / 8927-document manifest 重建精确对齐的新 index，
+不能直接复用 paper/document identity 不一致的旧 full-RAG index。各模式共享 tokenizer、
+候选预算、model-visible item 数、token budget 和 bundle formatter。检索 smoke test
+先使用 10-20 个冻结问题，不调用生成模型。
+
+实现状态（2026-09-02）：公共 bundle contract、严格 provenance 校验、RRF 去重融合、
+matched candidate/item/token/per-paper budgets 和 frozen KG 0-2 hop retriever 已完成。
+`small_kg_rag_shuffled` 在 corruption manifest 冻结前会显式拒绝运行。旧 RAG trace
+已补充 quote、page、source record 和 token count；与 frozen corpus 精确对齐的新 raw
+RAG index、10-20 问题集和 smoke test 尚未完成。
 
 ## 4. Module A：Protocol Registry
 
@@ -910,8 +965,8 @@ python research/scripts/research.py dataset generation-context --dataset <id>
 ```text
 research/src/catalysis_research/baselines/
 research/src/catalysis_research/downstream/
-research/configs/downstream/primary-ridge-v1.json
-research/configs/downstream/secondary-models-v1.json
+research/configs/downstream/benchmark-native/<benchmark-id>.json
+research/configs/downstream/common-ridge-diagnostic-v1.json
 research/tests/downstream/
 ```
 
@@ -930,22 +985,26 @@ oracle_evidence
 
 ### Primary ML
 
-Ridge regression，使用固定：
+复现每个 benchmark 原论文模型，并使用固定：
 
+- model family 和 software revision；
 - preprocessing；
 - hyperparameter grid；
 - validation policy；
 - descriptor count；
 - seeds；
-- evaluation metrics。
+- benchmark 原 primary metric。
+
+主比较为同一 pipeline 下的 `D0` 与 `D0 + X`。除新增 descriptor 外，模型、split、
+tuning budget 和 metric implementation 必须完全一致。
 
 ### Secondary ML
 
-- Random Forest；
-- XGBoost；
-- Gaussian Process Regression。
+- 统一 Ridge `D0` vs `D0 + X` representation diagnostic；
+- optional Random Forest、XGBoost 或 Gaussian Process Regression。
 
-是否启用由 dataset size 和 protocol 决定，在结果前冻结。
+统一 Ridge 只作跨 benchmark 辅助诊断。其他模型是否启用由 dataset size 和 protocol
+决定，并在结果前冻结。
 
 ### 接口
 
@@ -957,7 +1016,8 @@ def evaluate_locked(pipeline: TunedPipeline, test: TestView) -> PredictionMetric
 
 ### 验收
 
-- condition 共享同一 pipeline；
+- 同一 benchmark 内所有 knowledge conditions 共享同一 benchmark-native pipeline；
+- `D0` 与 `D0 + X` 只有新增 descriptor 不同；
 - test 一次性评估；
 - tuning trial 数一致；
 - feature count 一致；
@@ -1165,8 +1225,8 @@ Private firewall policy可以提前设计，但 private evaluation 必须在方�
 
 ### Gate 1：Reproducible Inputs
 
-- candidate zeolite corpus inventory and dedup report；
-- exact Small KG corpus/snapshot hashes；
+- exact 6691-paper / 8927-document Small corpus and snapshot hashes；
+- raw-source license 与 DOI/title/year semantic-dedup sign-off；
 - corpus registry；
 - dataset registry；
 - split hashes；
@@ -1183,7 +1243,8 @@ Private firewall policy可以提前设计，但 private evaluation 必须在方�
 
 - descriptor execution；
 - failure ledger；
-- fixed baseline pipeline；
+- benchmark-native `D0` baseline reproduction；
+- frozen `D0` vs `D0 + X` pipeline and common Ridge diagnostic；
 - leakage tests。
 
 ### Gate 4：Pilot

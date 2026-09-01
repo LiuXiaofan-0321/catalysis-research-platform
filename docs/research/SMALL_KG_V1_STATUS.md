@@ -171,6 +171,10 @@ Snapshot content hash：
 
 ### 7.1 科学规范化映射层 v1.1
 
+2026-09-02 本地实现状态：immutable overlay builder/verifier、CLI、v1.1 规则配置、
+deterministic hash、unresolved queue 和合成测试已完成。6691-paper 全量 artifact
+尚未在集群物化，高频映射与高风险 metadata repair 也尚未人工签核。
+
 保持 Small KG v1 不变，另建可追溯 mapping overlay：
 
 - zeolite framework、catalyst sample、reaction 和 metric 的 canonical mapping；
@@ -180,6 +184,10 @@ Snapshot content hash：
 - 异常年份、碎片化 paper type 和 SI title 污染进入单独质量修复层。
 
 ### 7.2 KG+RAG 混合检索
+
+2026-09-02 本地实现状态：common EvidenceBundle、matched budgets、严格 provenance
+校验和 frozen KG 0-2 hop retriever 已完成并通过合成测试；全量 raw RAG index 与
+10-20 问题 smoke test 尚未完成，因此这里仍不包含任何模型或检索效果结论。
 
 构建同一接口下的可切换 knowledge modes：
 
@@ -204,22 +212,32 @@ Evidence KG 和 Shuffled KG 必须匹配 model-visible token/retrieval budget。
 - IID/OOD split 与 locked test；
 - benchmark-paper 和 direct-answer leakage audit。
 
-评价以 benchmark 原始 primary metric 和冻结 protocol 为准。当前 protocol 的主
-endpoint 是 OOD test 上相对 human descriptor baseline 的 normalized RMSE
-improvement。答案正确率、检索召回、幻觉率、token、费用和延迟只作为系统诊断，
-不能替代真实 hypothesis/descriptor validation。
+截至 2026-09-01 的初步 feasibility 判断：
+
+- Zeolite Atlas 的 Materials Cloud v1 记录为 CC BY 4.0，包含 1k/10k DEEM 的
+  SOAP、angle、distance、ring descriptor 及 energy/volume 相关数据，优先进入
+  baseline review；仍需确认 archive 是否包含计算新 descriptor 所需的非泄漏原始结构。
+- SorbMetaML 提供 IZA、PCOD、MOF、HCP 等材料的 hydrogen adsorption state points
+  和 few-shot subsets，适合后续 adsorption/OOD task；仓库许可状态和材料名称到
+  原始结构的映射必须先完成，不能直接激活。
+
+评价以 benchmark 原始模型、原始 primary metric 和冻结 protocol 为准。主分析在
+同一个 benchmark-native pipeline 中比较原 descriptor `D0` 与 `D0 + X`；统一
+Ridge 仅作为跨 benchmark 的 secondary representation diagnostic。答案正确率、
+检索召回、幻觉率、token、费用和延迟只作为系统诊断，不能替代真实
+hypothesis/descriptor validation。
 
 ### 7.4 第一组系统对比
 
-在同一模型、prompt、预算、split 和 downstream pipeline 下比较：
+当前小规模消融在同一底座模型、prompt、预算、split 和 benchmark-native
+downstream pipeline 下比较：
 
 1. 单独 LLM Agent；
 2. RAG；
-3. Small KG + RAG + Single-Agent；
-4. Small KG + RAG + Multi-Agent。
+3. Small KG + RAG + Single-Agent。
 
-正式结构性结论还必须加入 token-matched shuffled KG。Multi-Agent 第一版只设置
-Planner、Retriever、Critic 和 Synthesizer，并固定最大调用次数和 token budget。
+Multi-Agent 暂不进入当前消融。正式结构性结论后续仍必须加入 token-matched
+shuffled KG；进入 Multi-Agent 阶段时再冻结角色、最大调用次数和总 token budget。
 
 ### 7.5 Knowledge-scope 对比
 

@@ -1,6 +1,6 @@
 # Current Architecture
 
-状态日期：2026-08-25
+状态日期：2026-09-02
 
 本文档描述当前仓库已经实现的行为，不把计划中的 research 能力写成现有能力。
 
@@ -33,12 +33,15 @@ research/      已建立的独立科研实验层骨架
 
 `research/` 当前已经包含目录契约、统一 Run Manifest、public dataset/split
 registry 与 firewall、Stage 1 corpus freeze、immutable KG snapshot 和 nested
-knowledge scaling 基础设施。另有一个限定于 TheMeCat 的探索性 DeepSeek provider、
+knowledge scaling 基础设施、scientific normalization overlay builder/verifier 和
+matched-budget evidence-bundle retrieval contract。另有一个限定于 TheMeCat 的探索性 DeepSeek provider、
 固定 descriptor catalog 和 Ridge OOD runner；它不是通用 provider、正式
 DescriptorSpecification 或 evidence-grounded discovery loop。
 
 当前冻结状态：
 
+- `zeolite-structured-corpus-v1` 冻结 6691 papers / 8927 main/SI documents；
+- `Small-KG-zeolite-v1` 冻结 312461 nodes / 701204 grounded edges；
 - `K247-photocatalysis-v1` 继续作为独立、不可覆盖的 absolute-size anchor；
 - `thermal-catalysis-stage1-v1` 冻结 512 篇热催化论文 inventory；
 - `K20/K40/K60/K80/K100-thermal-catalysis-v1` 按同一个 selection order
@@ -47,9 +50,9 @@ DescriptorSpecification 或 evidence-grounded discovery loop。
   hash、strict nesting 和 dangling-edge verification；
 - coverage 仍为 `not_measured`，因为 exact public predictive dataset 尚未冻结。
 
-### 2.1 当前研究方向与尚未实现的 Small KG
+### 2.1 当前研究方向与已冻结的 Small KG
 
-2026-08-25 确认的科学主线是 Evidence-grounded Scientific Hypothesis Discovery
+2026-09-01 更新后的科学主线是 Evidence-grounded Scientific Hypothesis Discovery
 Loop：
 
 ```text
@@ -57,28 +60,26 @@ Loop：
   -> KG evidence chain
   -> scientific hypothesis
   -> executable descriptor
-  -> fixed downstream ML validation
+  -> benchmark-native D0 vs D0 + X validation
   -> supported / rejected / revised
   -> next hypothesis
 ```
 
-下一阶段拟使用已经下载、但尚未进入本仓库版本化 research artifacts 的约
-`5000-6000` 篇分子筛论文构建 Small KG。当前代码和 manifests **尚未证明**：
+`zeolite-structured-corpus-v1` 和 `Small-KG-zeolite-v1` 已在集群外部 artifact
+目录冻结。当前精确状态为 6691 papers、8927 documents（6691 main、2236 SI）、
+312461 nodes 和 701204 edges。snapshot content hash 为
+`07925455449dfe13cc78b9b958dd71d5e4d77aee2ad54fcd8a312ce4f1bf9f43`。
+严格证据模式要求每条保留边具有 paper、document、page 和 quote，最终无 dangling
+或 ungrounded edge。
 
-- 精确论文数；
-- DOI/标题/版本去重后的唯一 paper count；
-- source/license 和文件完整性；
-- 可结构化抽取比例；
-- evidence validation coverage；
-- Small KG 的 node/edge/snapshot hash。
-
-因此这批论文当前只能称为 candidate source corpus。必须先生成只读 inventory，
-再冻结 inclusion/exclusion、deduplication、extraction 和 KG build config，随后才可
-声明 `Small-KG-zeolite-v1`。
+仍未完成的是 raw-source license 与 DOI/title/year semantic-dedup sign-off、全量
+规范化 overlay v1.1 的集群物化与人工复核、与冻结 corpus 精确对齐的 raw RAG index、benchmark
+leakage audit 和 public benchmark baseline reproduction。这些限制不改变 Small KG
+已经冻结的事实，但会继续阻止 outcome-bearing run。
 
 现有 247/512 篇语料和 K20-K100 snapshots 继续作为已验证的 corpus/KG
 versioning infrastructure、absolute-size anchor 和 within-corpus quantity
-ablation，不代表新的 Small/Medium/Large knowledge-scope 实验已经完成。新的
+ablation，不代表 Small/Medium/Large knowledge-scope 对比已经完成。新的
 scope 定义见 `SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md`。
 
 ## 3. 生产运行架构
@@ -166,6 +167,10 @@ json/*.json
 
 两个数据包中所有 entity、experiment、observation 和 claim 记录均包含
 evidence 数组，但 evidence 的质量状态不同。
+
+此外，research 层在服务器外部 artifact 目录保存冻结的 6691-paper Small corpus、
+聚合 Stage-1 archive 和 Small KG snapshot。它们不导入或覆盖上述 production
+Workspace 数据包，身份和 hash 见 `SMALL_KG_V1_STATUS.md`。
 
 Evidence validation 包括：
 
@@ -568,7 +573,7 @@ Reviewer Agent。
 
 生产 backend 和 frontend 当前没有单元测试、集成测试或端到端测试。
 
-新建 research 层当前有 43 个测试，覆盖：
+research 层当前有 70 个离线测试，覆盖：
 
 - research 目录契约；
 - 缺失目录会失败；
@@ -590,13 +595,20 @@ Reviewer Agent。
   校验和 CLI。
 - TheMeCat 空行/缺失 target 过滤、稳定 sample ID、材料族映射、30 个候选预算和
   DeepSeek selection schema enforcement。
+- 三批 structured corpus freeze、main/SI 聚合和跨 campaign document dedup；
+- Small KG strict evidence provenance、reaction/condition/metric 节点、snapshot hash、
+  dangling/ungrounded edge verification；
+- retrieval audit 的 target paper/document-type 和 term-group checks。
+- scientific normalization v1.1 的 immutable overlay、deterministic artifact hash、
+  conservative unit conversion、unresolved queue、input binding 和 tamper verification；
+- `none`/`rag`/`small_kg_rag` common EvidenceBundle、严格 paper/document/page/quote
+  provenance、RRF 去重、matched budgets 和 frozen KG 0-2 hop retrieval。
 
 尚未测试：
 
 - a frozen external public dataset manifest and split；
-- evidence provenance；
-- KG node/edge mapping；
-- retrieval determinism；
+- 6691-paper scientific normalization overlay 的全量物化与分层人工复核；
+- identity-aligned raw RAG index 和 10-20 question retrieval smoke test；
 - provider-level mocked/network structured output；
 - full pipeline replay；
 - general evidence-linked descriptor execution；
@@ -606,13 +618,15 @@ Reviewer Agent。
 
 必须新增：
 
-- 5000-6000 篇候选分子筛语料的 inventory、deduplication 和 freeze pipeline；
-- Small KG evidence extraction、snapshot verification 和 benchmark leakage audit；
+- raw-source license 与 DOI/title/year semantic-dedup sign-off；
+- scientific normalization overlay v1.1 的全量物化与人工复核；
+- 与 6691-paper / 8927-document corpus 精确对齐的 raw RAG index 和 retrieval smoke test；
+- benchmark leakage audit；
 - model provider abstraction；
 - fixed prompt families；
 - descriptor schema、generation、execution 和 failure ledger；
 - exact eligible public predictive dataset selection and freeze；
-- fair downstream ML；
+- benchmark-native `D0` vs `D0 + X` validation 和 common Ridge diagnostic；
 - baseline and ablation conditions；
 - Model x Knowledge matrix；
 - statistical inference；

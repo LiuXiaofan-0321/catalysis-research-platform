@@ -1,0 +1,37 @@
+{
+  "overlay_id": "scientific-normalization-Small-KG-zeolite-v1.1",
+  "rule_version": "scientific-normalization.v1.1",
+  "framework_aliases": {
+    "MFI": ["mfi framework", "ZSM-5 framework"],
+    "BEA": ["beta framework", "zeolite beta framework"],
+    "FAU": ["faujasite framework"]
+  },
+  "reaction_aliases": {
+    "methanol-to-olefins": ["MTO", "methanol to olefins", "甲醇制烯烃"],
+    "methanol-to-hydrocarbons": ["MTH", "methanol to hydrocarbons", "甲醇制烃"],
+    "methanol-to-gasoline": ["MTG", "methanol to gasoline", "甲醇制汽油"],
+    "catalytic-cracking": ["FCC", "fluid catalytic cracking", "催化裂化"]
+  },
+  "metric_aliases": {
+    "conversion": ["conversion rate", "转化率"],
+    "selectivity": ["选择性"],
+    "yield": ["product yield", "收率"],
+    "space-time-yield": ["STY", "space time yield"],
+    "turnover-frequency": ["TOF", "turnover frequency"]
+  },
+  "paper_type_aliases": {
+    "research_article": ["article", "research article", "original article", "full paper"],
+    "review": ["review article", "perspective", "minireview"],
+    "communication": ["letter", "rapid communication"]
+  },
+  "metadata": {
+    "valid_year_range": [1900, 2026],
+    "si_title_pollution_patterns": [
+      "supplementary information",
+      "supporting information",
+      "table of contents",
+      "^figure\\s+\\d+",
+      "^table\\s+\\d+"
+    ]
+  }
+}

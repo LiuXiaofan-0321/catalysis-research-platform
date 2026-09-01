@@ -1,6 +1,6 @@
 # NMI Gap Analysis
 
-状态日期：2026-08-25
+状态日期：2026-09-02
 
 ## 1. 目标
 
@@ -38,44 +38,52 @@ Literature
 
 | 能力 | 当前成熟度 | 判断 |
 | --- | --- | --- |
-| 结构化论文语料 | 中高 | 可复用，是当前最强资产 |
-| Evidence provenance | 中 | 字段较完整，但缺少独立 registry 和评估 |
-| KG import | 中 | 可用，但未版本化为实验自变量 |
-| Retrieval | 低至中 | 可用于产品，不足以支持严格 ablation |
+| 结构化论文语料 | 高 | 6691-paper / 8927-document Small corpus 已冻结并通过 schema/hash 验证 |
+| Evidence provenance | 中高 | Small KG 保留 paper/document/page/quote 且严格证据边覆盖率为 100%，检索级评估待完成 |
+| KG snapshot | 中高 | `Small-KG-zeolite-v1` 已冻结并验证；规范化 overlay 实现已完成，全量物化/复核、task coverage 和结构消融待完成 |
+| Retrieval | 中 | common EvidenceBundle、matched budgets 和 0-2 hop KG retriever 已实现；identity-aligned raw RAG index 与 smoke test 待完成 |
 | Hypothesis generation | 中 | 有结构，但未形成正式科学对象 |
 | Experiment planning | 中 | 产品可用，provenance 不完整 |
 | Model abstraction | 低 | research 层有探索性 DeepSeek client，但无 provider-neutral interface/model registry |
 | Descriptor discovery | 低 | TheMeCat 固定公式目录可执行，但无 evidence-linked DescriptorSpecification 或 hypothesis loop |
-| Downstream ML | 低 | TheMeCat 探索 runner 有 train-only preprocessing/Ridge OOD evaluation，尚未形成通用冻结流水线 |
+| Downstream ML | 低 | TheMeCat 探索 runner 可用，但尚未形成 benchmark-native `D0` vs `D0 + X` 主流水线和统一 Ridge 辅助诊断 |
 | Public dataset and splits | 低至中 | registry、hash、IID/OOD、label firewall 和 audit 工具已实现；TheMeCat 仅有探索 adapter，exact primary dataset 尚未冻结 |
 | Experiment manifest | 中 | immutable manifest、artifact hash 和 CLI 已实现，尚未接入完整实验流水线 |
-| KG scaling | 中 | K247 和 512 篇 thermal nested snapshots 已冻结为基础设施；约 5000-6000 篇候选分子筛论文尚未 inventory/dedup/freeze，Small KG 尚未构建 |
+| KG scaling | 中高 | 6691-paper Small/Local KG 已冻结；Medium/Large scope、quantity-matched controls 和 outcome-bearing runs 尚未完成 |
 | Statistical analysis | 缺失 | 无法支持 scaling claim |
 | Private blind validation | 低 | firewall 协议已冻结，独立 evaluator 和执行工具尚未实现 |
-| 自动测试 | 中 | 43 项 research tests 覆盖 layout、K247、Run Manifest、dataset firewall/splits、corpus、nested KG 和 TheMeCat 探索组件 |
+| 自动测试 | 中高 | 70 项离线测试通过，新增覆盖 normalization overlay、单位边界、输入不可变、tamper detection、common bundle、预算公平性和 KG 多跳 provenance |
 
 ## 3. P0：论文主线成立前必须完成
 
 ### P0-0 Small KG Corpus and End-to-end MVP
 
-当前第一优先级不是立即扩建 Medium/Large KG，而是把已经下载的约 5000-6000 篇
-分子筛论文转化为可审计 Small KG，并在一个公开 benchmark 上跑通一次完整闭环。
+Small KG 构建已经完成。当前第一优先级不是立即扩建 Medium/Large KG，而是在冻结的
+6691 篇分子筛论文上增加 scientific normalization overlay、统一 KG+RAG 检索，
+并在一个公开 benchmark 上跑通一次完整闭环。
 
-必须完成：
+已完成：
 
-- raw file inventory、source/license、SHA256 和 parsing status；
-- DOI/title/year/file-hash deduplication 和 inclusion/exclusion report；
-- exact paper list、corpus manifest 和 immutable source identity；
-- evidence-rich extraction coverage 和 failure report；
-- Small KG snapshot、ontology、relation distribution 和 dangling-edge audit；
+- exact 6691-paper / 8927-document structured corpus freeze；
+- main/SI aggregation、cross-campaign document dedup 和 artifact hash verification；
+- Small KG snapshot、ontology、strict evidence audit 和 dangling-edge audit。
+- scientific normalization v1.1 builder/verifier、规则配置和 deterministic overlay contract；
+- `none`/`rag`/`small_kg_rag` common EvidenceBundle 和 matched-budget contract。
+
+仍必须完成：
+
+- raw-source license 和 DOI/title/year semantic-dedup sign-off；
+- scientific normalization overlay v1.1 的全量物化、质量统计和分层人工复核；
+- identity-aligned raw RAG index 和 10-20 question smoke test；
 - benchmark paper/direct-answer leakage audit；
-- baseline reproduction；
-- LLM-only、raw RAG、Small evidence KG 和 shuffled KG 的 matched-budget MVP；
+- benchmark-native `D0` baseline reproduction；
+- LLM-only、raw RAG 和 Small KG + RAG single-agent 的 matched-budget MVP；
+- shuffled KG 在形成 knowledge-structure claim 前补充；
 - 至少一个 hypothesis -> executable descriptor -> validation -> feedback run。
 
 验收：
 
-- 不再使用 `5000-6000` 估计值，所有报告引用 exact manifest count/hash；
+- 所有报告引用 exact 6691-paper / 8927-document count 和冻结 hash；
 - locked test 在 descriptor 和 selection rule 冻结前不可见；
 - supported、rejected、revised 和 execution failure 全部保留；
 - 一个 run 可由 manifest 审计 evidence、descriptor code、dataset、ML config 和结果；
@@ -145,6 +153,8 @@ artifacts 和 `FINALIZED.json`；completed/failed run 终态不可变，dirty Gi
 
 - 生产 Workspace 的当前数据库状态不是 snapshot；
 - import 不读取 dataset manifest；
+- `Small-KG-zeolite-v1` 已由 6691 篇论文构建并冻结；
+- Small KG 含 312461 个节点、701204 条边，严格证据边覆盖率 100%，无 dangling/ungrounded edge；
 - 已实现 immutable Stage 1 corpus inventory freezer；
 - 已实现 `proportional_stratified_hash_order.v1` 和单一完整顺序的 exact
   nested prefix builder；
@@ -269,7 +279,7 @@ evidence-linked DescriptorSpecification 安全编译为通用 dataset column。
 
 剩余缺口：
 
-- exact eligible public thermocatalysis dataset 尚未选择；
+- exact eligible public benchmark 尚未选择；当前候选为 Zeolite Atlas 和 SorbMetaML；
 - `public-registry.v1.json` 仍为空并保持 `ACTIVATION_BLOCKED`；
 - real license、source、version、checksum 尚未登记；
 - real target、allowed inputs、group rationale 尚未冻结；
@@ -286,8 +296,8 @@ evidence-linked DescriptorSpecification 安全编译为通用 dataset column。
 
 当前缺口：
 
-没有 conventional、LLM-only、RAG、KG、shuffled 或 oracle baseline，也没有
-统一 ML pipeline。
+没有完整的 conventional、LLM-only、RAG、KG、shuffled 或 oracle baseline，
+也没有 benchmark-native `D0` vs `D0 + X` 流水线。
 
 必须完成：
 
@@ -295,8 +305,8 @@ evidence-linked DescriptorSpecification 安全编译为通用 dataset column。
 - identical preprocessing；
 - identical split and seeds；
 - identical hyperparameter search budget；
-- primary Ridge pipeline；
-- secondary nonlinear models；
+- primary benchmark-native `D0` vs `D0 + X` pipeline；
+- secondary common Ridge representation diagnostic；
 - failure-safe fixed feature slots。
 
 验收：
@@ -316,7 +326,9 @@ scaling pilot。
 
 必须完成：
 
-- MVP：一个冻结模型 x LLM-only/raw RAG/Small KG/shuffled KG；
+- 当前 MVP：一个冻结模型 x LLM-only/raw RAG/Small KG + RAG single-agent；
+- shuffled KG 在形成 structure claim 前加入；
+- Multi-Agent 暂缓，进入该阶段前单独冻结角色和总调用预算；
 - scale-up：3 models x Small/Medium/Large scope；
 - LLM-only、Raw RAG、Evidence KG、Shuffled KG；
 - fixed prompts、descriptor budget、splits 和 seeds；
@@ -563,12 +575,13 @@ Performance ~ Model
 
 在正式 Model x KG run 前必须解决：
 
-1. 冻结候选 5000-6000 篇分子筛论文的 exact inventory、dedup 和许可记录；
-2. 构建并验证 `Small-KG-zeolite-v1`；
-3. 精确选择一个 MVP public predictive dataset；
-4. 确认 target、allowed raw inputs、locked test 和 OOD grouping；
-5. 冻结 MVP 模型、prompt、retrieval 和计算预算；
-6. 完成 benchmark literature/direct-answer leakage audit；
-7. 在查看 outcome 前冻结 v2 scope/diversity protocol。
+1. 完成 raw-source license 和 DOI/title/year semantic-dedup sign-off；
+2. 构建并验证 scientific normalization overlay v1.1；
+3. 构建与 6691-paper / 8927-document corpus 精确对齐的 KG+RAG 检索接口；
+4. 精确选择一个 MVP public predictive dataset；
+5. 复现 benchmark-native `D0` 模型、target、metric、allowed inputs 和 split；
+6. 冻结 `D0` vs `D0 + X` pipeline、统一 Ridge diagnostic、prompt 和计算预算；
+7. 完成 benchmark literature/direct-answer leakage audit；
+8. 在查看 outcome 前冻结 v2 scope/diversity protocol。
 
 这些阻塞项不能在结果出来后再补写。

@@ -37,7 +37,7 @@ Existing ML study
   -> KG evidence retrieval and evidence chains
   -> Evidence-grounded scientific hypothesis
   -> Computable and falsifiable descriptor
-  -> Same downstream ML and frozen split
+  -> Same benchmark-native ML pipeline and frozen split
   -> Supported / rejected / revised
   -> Feedback to the next hypothesis
 ```
@@ -150,17 +150,19 @@ Benchmark 是 hypothesis 的实验台和裁判，不向 LLM 暴露 locked-test l
 2. target、单位和 sample identity 明确；
 3. 原始 descriptor set 和 scientific conclusion 可复现；
 4. 有足够结构/组成输入计算新 descriptor；
-5. 原论文或统一 baseline 可复现；
+5. 原论文 descriptor、模型、preprocessing、split 和 primary metric 可复现；
 6. 能构造 train/validation/locked-test；
 7. 最好支持 scientifically meaningful OOD split；
 8. 能审计 benchmark paper 和答案是否已存在于 KG。
 
 当前候选：
 
-- **Zeolite Atlas**：优先评估其结构、原 descriptor、energy/volume target 和
-  baseline 是否足以支持 structure-property hypothesis；
-- **SorbMetaML**：优先评估结构映射、统一 descriptor 计算和 IZA/PCOD/MOF OOD
-  条件；如果无法形成完整 hypothesis-descriptor loop，则不强行采用。
+- **Zeolite Atlas**：Materials Cloud v1 为 CC BY 4.0，优先评估其原始结构可用性、
+  SOAP/angle/distance/ring descriptors、energy/volume target 和原模型复现；若缺少
+  计算新 descriptor 所需的非泄漏结构输入，则不得激活；
+- **SorbMetaML**：优先评估 repository license、材料结构映射、hydrogen adsorption
+  state points、few-shot setup 和 IZA/PCOD/MOF/HCP OOD 条件；如果无法形成完整
+  hypothesis-descriptor loop，则不强行采用。
 
 候选名称不是预注册结论。完成数据可用性、许可、结构映射、baseline reproduction
 和 leakage audit 后，才能激活其中一个 benchmark。
@@ -181,10 +183,15 @@ Benchmark 是 hypothesis 的实验台和裁判，不向 LLM 暴露 locked-test l
 
 - 同一个 LLM、prompt family 和 inference budget；
 - 同一个 hypothesis/descriptor proposal budget；
-- 同一个 downstream ML、preprocessing 和 hyperparameter budget；
+- 同一个 benchmark-native downstream ML、preprocessing 和 hyperparameter budget；
 - 同一个 train/validation/locked-test split；
 - 同一组 random seeds；
 - test labels 在 descriptor 冻结前不可见。
+
+主分析必须复现每个 benchmark 原论文的模型与评价框架，并在完全相同的 pipeline 中
+比较 `D0` 与 `D0 + X`。这直接检验 KG 提出的 descriptor 是否 strengthen、revise
+或 challenge 原研究结论。统一 Ridge 只作为跨 benchmark 的 secondary
+representation diagnostic，不能替代 benchmark-native 主分析。
 
 ### 6.3 单轮闭环
 
@@ -227,7 +234,8 @@ MVP 通过只证明 pipeline readiness。Small/Medium/Large scaling claim 需要
 
 ### Empirical utility
 
-- paired delta RMSE/MAE/R2 或 benchmark 原指标；
+- benchmark 原 primary metric 上的 paired `D0` vs `D0 + X` delta；
+- 统一 Ridge diagnostic 上的 paired delta，作为 secondary analysis；
 - OOD gain；
 - multiple-seed confidence interval；
 - feature-importance change 和 proxy relationship；
