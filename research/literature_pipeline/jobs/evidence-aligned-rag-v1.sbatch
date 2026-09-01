@@ -21,6 +21,11 @@ OUTPUT="$BASE/indexes/zeolite-evidence-aligned-raw-rag-v1"
 CONFIG="$REPO/research/configs/retrieval/evidence-aligned-rag-v1.json"
 CODE_COMMIT="${CODE_COMMIT:?Submit with --export=ALL,CODE_COMMIT=<git-commit>}"
 
+export HF_HOME="$BASE/cache/huggingface"
+export SENTENCE_TRANSFORMERS_HOME="$BASE/cache/huggingface"
+export HF_HUB_OFFLINE=1
+export TRANSFORMERS_OFFLINE=1
+
 mkdir -p "$BASE/logs" "$BASE/indexes"
 if [[ -e "$OUTPUT" ]]; then
   echo "Refusing to overwrite existing index: $OUTPUT" >&2
