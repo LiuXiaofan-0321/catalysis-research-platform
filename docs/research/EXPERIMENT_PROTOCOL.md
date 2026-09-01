@@ -106,7 +106,7 @@ K = (quantity, domain diversity, task coverage, structure, provenance)
 
 并冻结：
 
-- `Small`：约 5000-6000 篇候选分子筛论文经 inventory/dedup 后的 exact corpus；
+- `Small`：当前冻结的 6691 篇分子筛论文（8927 个 main/SI 结构化文档）；
 - `Medium`：Small 加 MOF/COF/adsorption 等邻近领域；
 - `Large`：Medium 加 catalysis/surface science/coordination/strain/transport 等
   跨领域知识；
@@ -116,10 +116,10 @@ K = (quantity, domain diversity, task coverage, structure, provenance)
 - hypothesis hit rate、descriptor gain、OOD gain、evidence quality 和
   cross-domain transfer endpoints。
 
-`5000-6000` 是 source corpus 估计值，必须以冻结 inventory manifest 的 exact
-count 取代。Small KG MVP 先跑通一个 public benchmark 的完整
-Evidence -> Hypothesis -> Descriptor -> Validation -> Feedback 闭环；它是 pipeline
-go/no-go，不足以单独支持 knowledge-diversity scaling claim。
+当前 Small corpus 的 exact count 和 hashes 已冻结；raw-source license 与
+DOI/title/year semantic-dedup 仍需签字确认。Small KG MVP 先跑通一个 public
+benchmark 的完整 Evidence -> Hypothesis -> Descriptor -> Validation -> Feedback
+闭环；它是 pipeline go/no-go，不足以单独支持 knowledge-diversity scaling claim。
 
 ## 3. Pre-registered Hypotheses
 
@@ -1265,8 +1265,9 @@ PNG/PDF figures
 - [ ] Prompt family/version frozen
 - [ ] Ridge grid and preprocessing frozen
 - [x] K20/K40/K60/K80/K100 manifests built
-- [ ] Candidate 5000-6000 zeolite-paper inventory and dedup manifest frozen
-- [ ] `Small-KG-zeolite-v1` snapshot and evidence audit frozen
+- [x] Exact 6691-paper / 8927-document structured corpus and cross-campaign document dedup frozen
+- [ ] Raw-source license and DOI/title/year semantic-dedup sign-off completed
+- [x] `Small-KG-zeolite-v1` snapshot and strict evidence audit frozen
 - [ ] v2 Local/Domain-expanded/Cross-domain protocol and matched controls frozen
 - [x] Run manifest implementation verified
 - [ ] Private firewall owner and evaluator identified
@@ -1281,3 +1282,4 @@ PNG/PDF figures
 | v1.2 | 2026-08-11 | Implements public-only dataset manifests, deterministic IID/OOD splits, label-access controls, and structural leakage audit without selecting a dataset | No Model x KG outcome exists | Adds enforcement infrastructure; protocol remains `ACTIVATION_BLOCKED` |
 | v1.3 | 2026-08-11 | Freezes the 512-paper thermal corpus identity, exact K20/K40/K60/K80/K100 counts, strata, seed, and proportional deterministic selection algorithm before snapshot construction | No Model x KG outcome exists | Prevents post-outcome corpus ordering changes; coverage remains `not_measured` and protocol remains `ACTIVATION_BLOCKED` |
 | v1.4 | 2026-08-25 | Records the new Local/Domain-expanded/Cross-domain scientific scope and makes a frozen Small KG from the candidate 5000-6000 zeolite papers the next pipeline milestone | No Model x KG outcome exists | Preserves v1 snapshots as quantity infrastructure, blocks new outcome-bearing runs until a v2 scope/diversity protocol and exact Small corpus manifest are frozen |
+| v1.5 | 2026-09-01 | Records the frozen 6691-paper / 8927-document Small corpus and `Small-KG-zeolite-v1`, including strict provenance verification and remaining data-governance limitations | No Model x Knowledge outcome exists | Closes the Small KG construction gate but keeps benchmark, retrieval, normalization, leakage and protocol activation gates blocked |

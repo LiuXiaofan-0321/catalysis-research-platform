@@ -1,12 +1,12 @@
 # Evidence-grounded Scientific Hypothesis Discovery Loop
 
-状态日期：2026-08-25
+状态日期：2026-09-01
 
-状态：`RESEARCH_DIRECTION_DEFINED / SMALL_KG_PILOT_PENDING`
+状态：`SMALL_KG_V1_FROZEN / RETRIEVAL_AND_BENCHMARK_PENDING`
 
-本文定义项目当前的科学主线。它不是现有能力清单，也不表示约 5000-6000 篇
-分子筛论文已经完成清洗、抽取或 KG 冻结。实际论文数、许可、重复项和可处理状态
-必须以随后生成的 corpus inventory manifest 为准。
+本文定义项目当前的科学主线。Small KG 第一版的精确冻结结果、hash、质量统计、
+已知限制和下一阶段目标见 `SMALL_KG_V1_STATUS.md`。当前冻结结果不等于 raw-source
+license/semantic-dedup sign-off，也不表示任何 Model x Knowledge outcome 已产生。
 
 ## 1. 核心科学问题
 
@@ -60,26 +60,31 @@ KG+LLM 不直接替代 property predictor，也不允许随机枚举数学组合
 
 ### 3.1 Small KG - Local / domain-specific
 
-Small KG 仅包含分子筛/zeolite 目标材料体系知识。第一阶段使用已经下载的约
-5000-6000 篇相关论文作为候选 source corpus。
+Small KG 仅包含分子筛/zeolite 目标材料体系知识。当前冻结实例包含 6691 篇论文、
+8927 个结构化文档，其中 main 6691 个、SI 2236 个。全部 6691 篇共同构成
+`Small-KG-zeolite-v1`，不再用 500/2000/6691 表示 Small/Medium/Large。
 
 它回答：
 
 > 当 AI 只掌握目标体系内部知识时，能否完成 Evidence -> Hypothesis ->
 > Descriptor -> Validation 的最小闭环？
 
-在正式使用前必须完成：
+已经冻结的工程与数据成果：
 
-1. 创建原始文件只读 inventory；
-2. 记录来源、许可、文件 hash 和可解析状态；
-3. 按 DOI、标题、年份、文件 hash 和版本关系去重；
-4. 区分 research article、review、perspective 和无效记录；
-5. 冻结纳入/排除规则与最终 paper list；
-6. 运行结构化抽取、证据校验和 KG 构建；
-7. 生成 immutable corpus/KG manifest；
-8. 建立 benchmark literature leakage audit。
+1. 三批结构化抽取结果按 `document_id` 去重，并按 `paper_id` 聚合 main/SI；
+2. 结构化 schema、artifact hash、三批统计和 24 篇分层复核样本已验证；
+3. 6691-paper / 8927-document corpus manifest 已冻结；
+4. evidence-grounded `Small-KG-zeolite-v1` snapshot 已构建并通过严格证据审计。
 
-`5000-6000` 只是当前规模估计，不得作为论文中的最终精确计数。
+以下治理项仍需在 outcome-bearing benchmark 前完成或签字确认：
+
+1. 完成原始文件来源、许可和只读 inventory 审计；
+2. 完成 DOI/title/year/version 级 semantic duplicate sign-off；
+3. 冻结 research article、review、perspective 和无效记录的纳入/排除规则；
+4. 建立 benchmark literature leakage 和 direct-answer leakage audit。
+
+论文、图表和 config 应使用 6691 papers / 8927 documents 及对应冻结 hash，不再使用
+`5000-6000` 估计值描述当前 Small KG。
 
 ### 3.2 Medium KG - Domain-expanded
 
@@ -267,9 +272,9 @@ Temporal evaluation 只能作为辅助证据，因为基础模型可能在预训
 当前立即目标是：
 
 ```text
-Downloaded zeolite papers
-  -> Frozen Small corpus inventory
-  -> Evidence-grounded Small KG
+Frozen Small corpus and Small-KG-zeolite-v1
+  -> Scientific normalization overlay v1.1
+  -> KG/RAG common retrieval contract
   -> One eligible benchmark
   -> One complete hypothesis-descriptor-validation-feedback loop
 ```

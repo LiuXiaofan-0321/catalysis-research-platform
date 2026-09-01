@@ -1,6 +1,8 @@
 # Research Implementation Plan
 
-状态日期：2026-08-25
+状态日期：2026-09-01
+
+当前里程碑：`SMALL_KG_V1_FROZEN / RETRIEVAL_AND_BENCHMARK_PENDING`
 
 本文档定义目标架构、模块接口、建议文件、CLI、测试和验收标准。它描述依赖关系，
 不强制实施顺序。具体执行顺序由项目负责人逐步确认。
@@ -20,32 +22,35 @@
 
 ## 1.1 当前执行顺序：Small KG First
 
-当前 immediate milestone 是先使用已经下载的约 5000-6000 篇分子筛论文构建
-Small KG，并在一个合格 public benchmark 上跑通最小科学发现闭环：
+Small KG 第一版已经由 6691 篇分子筛论文和 8927 个 main/SI 文档构建并冻结。当前
+immediate milestone 是增加可追溯科学规范化层和 KG+RAG 检索接口，并在一个合格
+public benchmark 上跑通最小科学发现闭环：
 
 ```text
-candidate papers
-  -> inventory and dedup freeze
-  -> evidence extraction
-  -> immutable Small KG
+zeolite-structured-corpus-v1
+  -> Small-KG-zeolite-v1
+  -> scientific normalization overlay v1.1
+  -> matched KG/RAG retrieval
   -> benchmark baseline reproduction
   -> evidence -> hypothesis -> descriptor
   -> fixed ML validation
   -> feedback and next hypothesis artifact
 ```
 
-`5000-6000` 是估计值。Phase 0 完成后，所有 config、manifest 和论文文字必须使用
-exact count 和 hashes。在 Small KG MVP 通过前，不进行 Medium/Large KG 的批量构建。
+所有后续 config、manifest 和论文文字必须使用 exact count 和 hashes。完整结果、
+质量限制与下一阶段目标见 `SMALL_KG_V1_STATUS.md`。在 Small KG MVP 通过前，不进行
+Medium/Large KG 的批量构建。
 
-Phase 0 依次交付：
+Phase 0 交付状态：
 
-1. `zeolite-candidate-corpus-v1` inventory 和 dedup report；
-2. frozen Stage 1 corpus manifest 和 extraction failure ledger；
-3. `Small-KG-zeolite-v1` snapshot、ontology 和 verification report；
-4. Zeolite Atlas 与 SorbMetaML feasibility report，选择或拒绝一个 MVP benchmark；
-5. 原 benchmark descriptor/model baseline reproduction；
-6. LLM-only、raw RAG、Small KG、shuffled KG matched-budget runs；
-7. 一轮 hypothesis/descriptor/validation/feedback report。
+1. 已完成：`zeolite-structured-corpus-v1`、跨批 document dedup 和 main/SI 聚合；
+2. 已完成：frozen structured corpus manifest、三批统计和 24 篇分层复核样本；
+3. 已完成：`Small-KG-zeolite-v1` snapshot、ontology 和 strict evidence verification；
+4. 待完成：raw-source license 和 DOI/title/year semantic-dedup sign-off；
+5. 待完成：Zeolite Atlas 与 SorbMetaML feasibility review，选择或拒绝 MVP benchmark；
+6. 待完成：原 benchmark descriptor/model baseline reproduction；
+7. 待完成：LLM-only、raw RAG、Small KG、shuffled KG matched-budget runs；
+8. 待完成：一轮 hypothesis/descriptor/validation/feedback report。
 
 Medium KG 后续增加 MOF/COF/adsorption 邻域，Large KG 再增加 catalysis、surface
 science、coordination、strain、thermodynamics 和 transport。正式 scale-up 必须同时

@@ -122,28 +122,28 @@ See `literature_pipeline/README.md` and
 ## Immediate Milestone: Small KG
 
 The current scientific direction is defined in
-`../docs/research/SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md`. The next milestone
-is to turn the already downloaded candidate collection of approximately
-5,000-6,000 zeolite papers into an auditable local/domain-specific Small KG,
-then run one complete public-benchmark loop:
+`../docs/research/SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md`. The exact frozen
+results, limitations, and next goals are summarized in
+`../docs/research/SMALL_KG_V1_STATUS.md`. The first Small/Local KG now contains
+6,691 zeolite papers represented by 8,927 main/SI structured documents. The
+next milestone is to run one complete public-benchmark loop:
 
 ```text
-candidate files
-  -> read-only inventory and deduplication
-  -> frozen Small corpus
-  -> evidence-grounded Small KG
-  -> evidence retrieval
+zeolite-structured-corpus-v1
+  -> Small-KG-zeolite-v1
+  -> scientific normalization overlay v1.1
+  -> matched KG/RAG retrieval
   -> falsifiable hypothesis
   -> executable descriptor
   -> fixed downstream validation
   -> supported / rejected / revised feedback
 ```
 
-The approximate paper count is planning metadata only. Before any
-outcome-bearing Small-KG run, the exact unique count, file hashes, licenses,
-inclusion/exclusion decisions, extraction failures, paper IDs, graph hashes,
-ontology, and benchmark leakage audit must be frozen. No private data may be
-discovered or included during inventory.
+The corpus and graph identities, hashes, evidence audit, and lightweight QA
+sample are frozen. Before any outcome-bearing Small-KG run, raw-source license
+review, DOI/title/year semantic-dedup sign-off, benchmark leakage audit,
+normalization, and benchmark activation gates must still be completed. No
+private data may be included.
 
 ## Current Scope
 
@@ -157,10 +157,10 @@ source records. The public registry intentionally remains empty until an exact
 eligible dataset is selected and reviewed.
 
 The 247/512-paper snapshots remain immutable infrastructure and secondary
-within-corpus quantity ablations. They do not constitute the pending Small KG
-and must not be relabeled or overwritten. Local/Domain-expanded/Cross-domain
-scope experiments require new corpus and snapshot IDs plus matched quantity
-and structure controls.
+within-corpus quantity ablations. They do not constitute the frozen 6,691-paper
+Small KG and must not be relabeled or overwritten. Local/Domain-expanded/
+Cross-domain scope experiments require new corpus and snapshot IDs plus matched
+quantity and structure controls.
 
 The frozen protocol is maintained in
 `../docs/research/EXPERIMENT_PROTOCOL.md`. It remains blocked from activation
