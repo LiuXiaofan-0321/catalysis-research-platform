@@ -31,6 +31,7 @@ export SENTENCE_TRANSFORMERS_HOME="$BASE/cache/huggingface"
 export HF_HUB_DISABLE_TELEMETRY=1
 export TRANSFORMERS_OFFLINE=1
 export TOKENIZERS_PARALLELISM=false
+export PYTHONPATH="$CODE_ROOT/research/src:$CODE_ROOT/research/literature_pipeline/src"
 
 "$VENV/bin/python" "$CODE_ROOT/research/scripts/research.py" audit-retrieval \
   --config "$CONFIG" \
