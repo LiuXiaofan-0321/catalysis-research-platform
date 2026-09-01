@@ -3,7 +3,7 @@
   "retrieval_id": "Small-KG-zeolite-hybrid-v1",
   "rag": {
     "base_index_id": "full-rag-v1-index",
-    "base_index_hash": "7da20ce475e04c185fdc27e271d417883c81525ca3cd527b67b74f477670bbcf16",
+    "base_index_hash": "7da20ce475e04c185fdc27e271d417883c81525ca3cd527b67b7477670bbcf16",
     "excluded_paper_ids": [
       "doi:10.1126/science.ads7290"
     ],
@@ -19,7 +19,7 @@
   },
   "normalization": {
     "overlay_id": "scientific-normalization-Small-KG-zeolite-v1.1",
-    "overlay_content_hash": "509b9deca237506fc0e8577cf713cae40e0d32d960c98115a71dff2cc98ebe433",
+    "overlay_content_hash": "509b9deca237506fc0e8577cf713cae40e0d32d960c98115a71df2cc98ebe433",
     "minimum_confidence": 0.9
   },
   "budget": {

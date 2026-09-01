@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 import unittest
 from collections import defaultdict
@@ -42,6 +43,29 @@ def _candidate(
 
 
 class RetrievalContractTests(unittest.TestCase):
+    def test_frozen_retrieval_hashes_are_sha256_values(self) -> None:
+        config = json.loads(
+            (
+                REPOSITORY_ROOT
+                / "research"
+                / "configs"
+                / "retrieval"
+                / "small-kg-hybrid-v1.json"
+            ).read_text(encoding="utf-8")
+        )
+        hashes = (
+            config["rag"]["base_index_hash"],
+            config["small_kg"]["snapshot_hash"],
+            config["normalization"]["overlay_content_hash"],
+        )
+        self.assertTrue(
+            all(
+                len(value) == 64
+                and all(character in "0123456789abcdef" for character in value)
+                for value in hashes
+            )
+        )
+
     def test_modes_share_budget_and_hybrid_deduplicates_provenance(self) -> None:
         budget = RetrievalBudget(
             candidate_limit=4,

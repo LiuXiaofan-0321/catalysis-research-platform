@@ -3,7 +3,7 @@
 ## Frozen Index
 
 - Index: `full-rag-v1-index`
-- Logical hash: `7da20ce475e04c185fdc27e271d417883c81525ca3cd527b67b74f477670bbcf16`
+- Logical hash: `7da20ce475e04c185fdc27e271d417883c81525ca3cd527b67b7477670bbcf16`
 - Contents: 6,692 papers, 8,928 unique documents, and 365,662 chunks
 - Retrieval audit job: `3550308`, completed with exit code `0:0`
 - DeepSeek calls: zero
