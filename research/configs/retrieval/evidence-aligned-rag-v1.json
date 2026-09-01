@@ -1,0 +1,21 @@
+{
+  "index_id": "zeolite-evidence-aligned-raw-rag-v1",
+  "chunking": {
+    "target_tokens": 500,
+    "overlap_tokens": 60
+  },
+  "embedding": {
+    "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+    "batch_size": 96,
+    "dimensions": 384,
+    "allow_hash_fallback": false
+  },
+  "retrieval": {
+    "top_k_dense": 40,
+    "top_k_lexical": 40,
+    "top_k_final": 12,
+    "max_records_per_paper": 2,
+    "context_token_budget": 6000
+  }
+}
