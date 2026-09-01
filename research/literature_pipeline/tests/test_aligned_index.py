@@ -66,6 +66,7 @@ def test_builds_identity_aligned_grounded_paragraph_index() -> None:
             + " The catalyst remained stable.\n\nAn unrelated paragraph.\n",
             encoding="utf-8",
         )
+        main.write_bytes(main.read_bytes() + b"\nDamaged source byte: \xe2\n")
         si = root / "si.md"
         si.write_text("# Supporting information\n\nNo anchored result here.\n", encoding="utf-8")
         documents = [
@@ -138,7 +139,19 @@ def test_builds_identity_aligned_grounded_paragraph_index() -> None:
         assert manifest["counts"]["anchored_documents"] == 1
         assert manifest["counts"]["chunks"] == 1
         assert manifest["counts"]["source_hash_mismatches"] == 0
+        assert manifest["counts"]["source_decode_fallback_documents"] == 1
+        assert manifest["counts"]["source_decode_replacement_characters"] == 1
         assert verify_index(index)["valid"] is True
+
+        indexed_documents = [
+            json.loads(line)
+            for line in (index / "documents.jsonl").read_text(encoding="utf-8").splitlines()
+        ]
+        main_document = next(
+            row for row in indexed_documents if row["document_id"] == "document:main"
+        )
+        assert main_document["source_decode_status"] == "utf8_with_replacement"
+        assert main_document["source_decode_replacement_count"] == 1
 
         trace = PortableRetriever(index).retrieve(query="methanol conversion 673 K")
         assert trace["retrieved_evidence"][0]["paper_id"] == "paper:test"

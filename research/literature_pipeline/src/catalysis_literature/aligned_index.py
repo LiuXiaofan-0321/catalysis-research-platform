@@ -44,6 +44,15 @@ def _normalized(value: str) -> str:
     return SPACE_RE.sub(" ", value).strip().casefold()
 
 
+def _decode_source_markdown(path: Path) -> tuple[str, str, int]:
+    raw = path.read_bytes()
+    try:
+        return raw.decode("utf-8"), "strict_utf8", 0
+    except UnicodeDecodeError:
+        decoded = raw.decode("utf-8", errors="replace")
+        return decoded, "utf8_with_replacement", decoded.count("\ufffd")
+
+
 def _paragraphs(markdown: str) -> list[dict[str, str | None]]:
     section: str | None = None
     rows: list[dict[str, str | None]] = []
@@ -132,6 +141,8 @@ def build_evidence_aligned_index(
     matched_evidence = 0
     total_evidence = 0
     source_hash_mismatches = 0
+    source_decode_fallback_documents = 0
+    source_decode_replacement_characters = 0
     page_conflicts = 0
     anchored_document_ids: set[str] = set()
     zip_path = corpus / "structured-documents.zip"
@@ -158,7 +169,13 @@ def build_evidence_aligned_index(
                     "journal": paper.get("journal"),
                     "paper_type": paper.get("paper_type"),
                 }
-            paragraphs = _paragraphs(source_path.read_text(encoding="utf-8"))
+            source_markdown, decode_status, replacement_count = _decode_source_markdown(
+                source_path
+            )
+            if replacement_count:
+                source_decode_fallback_documents += 1
+                source_decode_replacement_characters += replacement_count
+            paragraphs = _paragraphs(source_markdown)
             normalized_paragraphs = [_normalized(str(row["text"])) for row in paragraphs]
             anchors: dict[int, dict[int, list[dict[str, Any]]]] = defaultdict(
                 lambda: defaultdict(list)
@@ -241,6 +258,8 @@ def build_evidence_aligned_index(
                 {
                     **document,
                     "source_document_sha256_verified": actual_source_hash,
+                    "source_decode_status": decode_status,
+                    "source_decode_replacement_count": replacement_count,
                     "aligned_chunk_count": document_chunk_count,
                     "evidence_record_count": len(document_evidence),
                 }
@@ -325,6 +344,8 @@ def build_evidence_aligned_index(
                 "matched_evidence_records": matched_evidence,
                 "page_conflicts": page_conflicts,
                 "source_hash_mismatches": source_hash_mismatches,
+                "source_decode_fallback_documents": source_decode_fallback_documents,
+                "source_decode_replacement_characters": source_decode_replacement_characters,
             },
             "retrieval": {
                 "top_k_dense": index_config.top_k_dense,
@@ -344,6 +365,7 @@ def build_evidence_aligned_index(
             "warnings": [
                 "This is an evidence-aligned raw-paragraph index, not a lossless full-text index.",
                 "Paragraph inclusion depends on frozen structured-extraction evidence anchors.",
+                "Malformed UTF-8 source bytes are decoded with replacement and counted per document.",
             ],
             "manifest_content_hash": "",
         }
