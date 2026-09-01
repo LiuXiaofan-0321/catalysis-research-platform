@@ -16,6 +16,7 @@ sys.path.insert(0, str(REPOSITORY_ROOT / "research" / "src"))
 from catalysis_research.normalization import (  # noqa: E402
     NormalizationError,
     build_normalization_overlay,
+    summarize_unresolved,
     verify_normalization_overlay,
 )
 from catalysis_research.normalization.units import (  # noqa: E402
@@ -237,6 +238,25 @@ class ScientificNormalizationTests(unittest.TestCase):
             repairs = _read_gzip_jsonl(first / "metadata_repairs.jsonl.gz")
             self.assertTrue(any(row["field"] == "paper_type" and row["canonical_value"] == "research_article" for row in repairs))
             self.assertTrue(any(row["field"] == "display_title" and row["canonical_value"] == "MFI catalysis study" for row in repairs))
+
+            review_manifest = summarize_unresolved(
+                overlay_directory=first,
+                output_directory=root / "review",
+                top_n=5,
+                sample_per_reason=2,
+            )
+            review_summary = json.loads(
+                (root / "review" / "unresolved-review-summary.json").read_text()
+            )
+            self.assertEqual(
+                review_summary["unresolved_record_count"],
+                manifest["record_counts"]["unresolved"],
+            )
+            self.assertEqual(review_summary["scientific_review_status"], "required")
+            self.assertEqual(
+                review_manifest["source_overlay_content_hash"],
+                manifest["overlay_content_hash"],
+            )
 
             with self.assertRaises(NormalizationError):
                 with patch("catalysis_research.normalization.builder.verify_snapshot", return_value={"valid": True, "failures": []}):
