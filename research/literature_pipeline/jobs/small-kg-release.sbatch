@@ -36,11 +36,6 @@ if [[ ! -f "$CORPUS/manifest.json" ]]; then
     --review-sample-size 24
 fi
 
-arguments=()
-if [[ -f "$STAGE1" ]]; then
-  arguments+=(--reuse-stage1-archive)
-fi
-
 if [[ ! -f "$SNAPSHOT/manifest.json" ]]; then
   "$VENV/bin/python" \
     "$REPO/research/literature_pipeline/scripts/build_small_kg_from_corpus.py" \
@@ -51,7 +46,7 @@ if [[ ! -f "$SNAPSHOT/manifest.json" ]]; then
     --expected-documents 8927 \
     --expected-papers 6691 \
     --code-commit "$CODE_COMMIT" \
-    "${arguments[@]}"
+    --reuse-stage1-archive
 fi
 
 "$VENV/bin/python" -c \
