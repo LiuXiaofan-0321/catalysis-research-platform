@@ -1,0 +1,131 @@
+{
+  "schema_version": "knowledge_retrieval_audit_questions.v1",
+  "audit_id": "zeolite-retrieval-audit-v1",
+  "frozen_at": "2026-09-02",
+  "description": "Frozen retrieval-only audit for the filtered historical RAG view and Small-KG hybrid retrieval. No generation model is used.",
+  "acceptance_thresholds": {
+    "minimum_evidence_question_recall": 0.8,
+    "minimum_hybrid_multihop_success_rate": 0.7,
+    "maximum_hybrid_to_rag_token_ratio": 1.1
+  },
+  "questions": [
+    {
+      "id": "cu-xas-kinetics",
+      "question": "How is the time-dependent Cu(I) fraction measured by XAS used in the rate analysis of O2-assisted oxidation over Cu-zeolites?",
+      "query": "time-dependent Cu(I) fraction O2-assisted oxidation XAS rate equation Cu zeolite",
+      "category": "single_paper_numeric",
+      "expected_behavior": "evidence",
+      "expected_paper_ids": ["doi:10.1021/acs.accounts.0c00328"],
+      "expected_term_groups": [["cu(i)", "cu i"], ["xas", "x-ray absorption"], ["rate equation", "reaction rate"]],
+      "minimum_term_groups": 2,
+      "max_rank": 5
+    },
+    {
+      "id": "nmr-bronsted-table",
+      "question": "How does probe-assisted NMR locate and quantify Bronsted acid sites in H-MOR zeolite, and what site distribution is reported?",
+      "query": "probe-assisted NMR H-MOR Bronsted acid site spatial location quantitative concentration distribution",
+      "category": "single_paper_numeric",
+      "expected_behavior": "evidence",
+      "expected_paper_ids": ["doi:10.1021/acs.accounts.1c00069"],
+      "expected_term_groups": [["nmr"], ["bronsted", "brønsted"], ["h-mor"], ["39.7%", "52.3%", "8.0%"]],
+      "minimum_term_groups": 3,
+      "max_rank": 5
+    },
+    {
+      "id": "afx-recrystallization",
+      "question": "What experimental steps are used to downsize AFX zeolite crystals by post-milling recrystallization?",
+      "query": "AFX zeolite downsizing post-milling recrystallization experimental procedure",
+      "category": "single_paper_procedure",
+      "expected_behavior": "evidence",
+      "expected_paper_ids": ["doi:10.1021/acs.cgd.6b00365"],
+      "expected_term_groups": [["afx"], ["post-milling", "milling"], ["recrystallization", "recrystallized"]],
+      "minimum_term_groups": 2,
+      "max_rank": 5
+    },
+    {
+      "id": "mto-alias-normalization",
+      "question": "Which zeolite frameworks and acidity features are reported for methanol-to-olefins catalysis?",
+      "query": "MTO methanol to olefins zeolite framework acidity",
+      "category": "normalization",
+      "expected_behavior": "evidence",
+      "expected_term_groups": [["mto", "methanol-to-olefins"], ["zeolite"], ["acid", "acidity"]],
+      "minimum_term_groups": 3
+    },
+    {
+      "id": "mfi-bronsted-performance",
+      "question": "How do Bronsted acid sites in H-ZSM-5 or MFI affect MTO conversion and selectivity?",
+      "query": "H-ZSM-5 MFI Bronsted acid sites MTO conversion selectivity",
+      "category": "condition_performance",
+      "expected_behavior": "evidence",
+      "expected_term_groups": [["h-zsm-5", "mfi"], ["bronsted", "brønsted"], ["conversion"], ["selectivity"]],
+      "minimum_term_groups": 3
+    },
+    {
+      "id": "whsv-temperature-mto",
+      "question": "What relationships are reported among WHSV, temperature, product selectivity and catalyst lifetime in MTO?",
+      "query": "MTO WHSV temperature product selectivity catalyst lifetime",
+      "category": "condition_performance",
+      "expected_behavior": "evidence",
+      "expected_term_groups": [["whsv"], ["temperature"], ["selectivity"], ["lifetime", "deactivation"]],
+      "minimum_term_groups": 3
+    },
+    {
+      "id": "diffusion-coke-crystal-size",
+      "question": "Across zeolite studies, how are crystal size and diffusion connected to coke formation and catalyst deactivation?",
+      "query": "zeolite crystal size diffusion coke formation catalyst deactivation",
+      "category": "cross_paper",
+      "expected_behavior": "evidence",
+      "expected_term_groups": [["crystal size"], ["diffusion"], ["coke"], ["deactivation"]],
+      "minimum_term_groups": 3,
+      "requires_kg_multihop": true
+    },
+    {
+      "id": "si-al-acidity-lifetime",
+      "question": "What evidence links Si/Al ratio, acid-site density and MTO catalyst lifetime or deactivation?",
+      "query": "Si Al ratio acid site density MTO catalyst lifetime deactivation",
+      "category": "multi_hop",
+      "expected_behavior": "evidence",
+      "expected_term_groups": [["si/al", "si al"], ["acid site"], ["lifetime", "deactivation"], ["mto", "methanol"]],
+      "minimum_term_groups": 3,
+      "requires_kg_multihop": true
+    },
+    {
+      "id": "cu-cha-oxidation-state-scr",
+      "question": "How is the Cu oxidation state in Cu-CHA connected to O2 activation and NH3-SCR activity?",
+      "query": "Cu CHA oxidation state O2 activation NH3 SCR activity",
+      "category": "multi_hop",
+      "expected_behavior": "evidence",
+      "expected_term_groups": [["cu-cha", "cu cha", "ssz-13"], ["oxidation state", "cu(i)", "cu(ii)"], ["o2", "oxygen"], ["nh3-scr", "scr"]],
+      "minimum_term_groups": 3,
+      "requires_kg_multihop": true
+    },
+    {
+      "id": "water-cu-cha-conflict",
+      "question": "Do studies report consistent or conflicting effects of water on Cu-CHA hydrothermal stability and NH3-SCR performance?",
+      "query": "water effect Cu CHA hydrothermal stability NH3 SCR performance",
+      "category": "conflicting_evidence",
+      "expected_behavior": "evidence",
+      "expected_term_groups": [["water", "h2o"], ["cu-cha", "ssz-13"], ["hydrothermal"], ["scr"]],
+      "minimum_term_groups": 3,
+      "requires_kg_multihop": true
+    },
+    {
+      "id": "unsupported-nuclear-fusion",
+      "question": "What quantitative evidence shows room-temperature nuclear fusion catalyzed by MFI zeolites?",
+      "query": "room temperature nuclear fusion catalyzed by MFI zeolite quantitative evidence",
+      "category": "insufficient_evidence",
+      "expected_behavior": "insufficient",
+      "expected_term_groups": []
+    },
+    {
+      "id": "hierarchical-porosity-descriptor",
+      "question": "What evidence chain could support a computable descriptor linking hierarchical porosity, diffusion limitation, coke formation and MTO lifetime?",
+      "query": "hierarchical porosity diffusion limitation coke formation MTO catalyst lifetime descriptor",
+      "category": "hypothesis_support",
+      "expected_behavior": "evidence",
+      "expected_term_groups": [["hierarchical", "mesopore"], ["diffusion"], ["coke"], ["lifetime", "deactivation"]],
+      "minimum_term_groups": 3,
+      "requires_kg_multihop": true
+    }
+  ]
+}

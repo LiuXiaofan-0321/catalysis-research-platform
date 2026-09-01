@@ -93,6 +93,33 @@ class RetrievalContractTests(unittest.TestCase):
         with self.assertRaisesRegex(EvidenceContractError, "document_id"):
             build_evidence_bundle(query="test", mode="rag", budget=RetrievalBudget(), rag_candidates=[candidate])
 
+    def test_markdown_page_is_not_claimed_as_a_pdf_page(self) -> None:
+        candidate = _candidate("rag:markdown")
+        candidate.pop("page")
+        candidate.update(
+            {
+                "page_start": 1,
+                "source_path": "/source/article.md",
+                "section": "Experimental methods",
+            }
+        )
+        bundle = build_evidence_bundle(
+            query="test",
+            mode="rag",
+            budget=RetrievalBudget(),
+            rag_candidates=[candidate],
+        )
+        item = bundle["items"][0]
+        self.assertIsNone(item["page"])
+        self.assertEqual(
+            item["provenance_locator"],
+            {
+                "kind": "markdown_section",
+                "section": "Experimental methods",
+            },
+        )
+        self.assertIn("locator=markdown_section:Experimental methods", bundle["context"])
+
     def test_kg_retriever_returns_grounded_multihop_paths(self) -> None:
         evidence = [{
             "document_id": "document:1",

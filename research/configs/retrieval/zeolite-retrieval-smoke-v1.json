@@ -1,0 +1,46 @@
+{
+  "schema_version": "knowledge_retrieval_audit_questions.v1",
+  "audit_id": "zeolite-retrieval-smoke-v1",
+  "frozen_at": "2026-09-02",
+  "description": "Three-question runtime smoke test. Relevance is reported but is not the runtime acceptance gate.",
+  "acceptance_thresholds": {
+    "minimum_evidence_question_recall": 0.0,
+    "minimum_hybrid_multihop_success_rate": 0.0,
+    "maximum_hybrid_to_rag_token_ratio": 1.1
+  },
+  "questions": [
+    {
+      "id": "cu-xas-kinetics",
+      "question": "How is the time-dependent Cu(I) fraction measured by XAS used in the rate analysis of O2-assisted oxidation over Cu-zeolites?",
+      "query": "time-dependent Cu(I) fraction O2-assisted oxidation XAS rate equation Cu zeolite",
+      "category": "single_paper_numeric",
+      "expected_behavior": "evidence",
+      "expected_paper_ids": ["doi:10.1021/acs.accounts.0c00328"],
+      "expected_term_groups": [["cu(i)", "cu i"], ["xas", "x-ray absorption"], ["rate equation", "reaction rate"]],
+      "minimum_term_groups": 2,
+      "max_rank": 5
+    },
+    {
+      "id": "nmr-bronsted-table",
+      "question": "How does probe-assisted NMR locate and quantify Bronsted acid sites in H-MOR zeolite, and what site distribution is reported?",
+      "query": "probe-assisted NMR H-MOR Bronsted acid site spatial location quantitative concentration distribution",
+      "category": "single_paper_numeric",
+      "expected_behavior": "evidence",
+      "expected_paper_ids": ["doi:10.1021/acs.accounts.1c00069"],
+      "expected_term_groups": [["nmr"], ["bronsted", "brønsted"], ["h-mor"], ["39.7%", "52.3%", "8.0%"]],
+      "minimum_term_groups": 3,
+      "max_rank": 5
+    },
+    {
+      "id": "afx-recrystallization",
+      "question": "What experimental steps are used to downsize AFX zeolite crystals by post-milling recrystallization?",
+      "query": "AFX zeolite downsizing post-milling recrystallization experimental procedure",
+      "category": "single_paper_procedure",
+      "expected_behavior": "evidence",
+      "expected_paper_ids": ["doi:10.1021/acs.cgd.6b00365"],
+      "expected_term_groups": [["afx"], ["post-milling", "milling"], ["recrystallization", "recrystallized"]],
+      "minimum_term_groups": 2,
+      "max_rank": 5
+    }
+  ]
+}

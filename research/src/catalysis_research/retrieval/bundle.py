@@ -4,6 +4,7 @@ import hashlib
 import json
 import re
 from collections import Counter, defaultdict
+from pathlib import Path
 from typing import Any, Iterable
 
 from ..normalization.schema import canonical_hash
@@ -35,21 +36,52 @@ def _required(record: dict[str, Any], field: str) -> Any:
     return value
 
 
+def _provenance_locator(record: dict[str, Any]) -> dict[str, Any]:
+    locator = record.get("provenance_locator")
+    if locator:
+        kind = str(locator.get("kind") or "")
+        if kind == "pdf_page":
+            page = locator.get("page")
+            if not isinstance(page, int) or isinstance(page, bool) or page < 1:
+                raise EvidenceContractError("pdf_page locator requires page >= 1")
+            return {"kind": kind, "page": page}
+        if kind in {"markdown_section", "markdown_document"}:
+            return {
+                "kind": kind,
+                "section": locator.get("section"),
+            }
+        raise EvidenceContractError(f"Unsupported provenance locator: {kind!r}")
+
+    source_path = str(record.get("source_path") or "")
+    if Path(source_path).suffix.casefold() in {".md", ".markdown"}:
+        section = record.get("section")
+        return {
+            "kind": "markdown_section" if section else "markdown_document",
+            "section": section,
+        }
+    page = record.get("page")
+    if page is None:
+        page = record.get("pdf_page_index")
+    if page is None:
+        page = record.get("page_start")
+    if not isinstance(page, int) or isinstance(page, bool) or page < 1:
+        raise EvidenceContractError(
+            f"Retrieval candidate {record.get('record_id')!r} lacks a valid locator"
+        )
+    return {"kind": "pdf_page", "page": page}
+
+
+def _locator_key(locator: dict[str, Any]) -> str:
+    return canonical_hash(locator)
+
+
 def _normalize_candidate(record: dict[str, Any], channel: str) -> dict[str, Any]:
     quote = str(record.get("quote") or record.get("text") or "").strip()
     if not quote:
         raise EvidenceContractError(
             f"Retrieval candidate {record.get('record_id')!r} lacks quote/text"
         )
-    page = record.get("page")
-    if page is None:
-        page = record.get("pdf_page_index")
-    if page is None:
-        page = record.get("page_start")
-    if page is None:
-        raise EvidenceContractError(
-            f"Retrieval candidate {record.get('record_id')!r} lacks page"
-        )
+    locator = _provenance_locator(record)
     source_record = record.get("source_record") or {
         "type": record.get("source_record_type") or record.get("kind") or channel,
         "id": record.get("source_record_id") or record.get("record_id"),
@@ -69,7 +101,8 @@ def _normalize_candidate(record: dict[str, Any], channel: str) -> dict[str, Any]
         "paper_id": str(_required(record, "paper_id")),
         "document_id": str(_required(record, "document_id")),
         "document_type": str(_required(record, "document_type")),
-        "page": int(page),
+        "page": locator.get("page"),
+        "provenance_locator": locator,
         "quote": quote,
         "quote_hash": _quote_hash(quote),
         "source_record": source_record,
@@ -91,9 +124,14 @@ def _rank_channel(records: Iterable[dict[str, Any]], channel: str) -> list[dict[
         [_normalize_candidate(record, channel) for record in records],
         key=lambda row: (-row["source_score"], row["record_id"]),
     )
-    unique: dict[tuple[str, str, int, str], dict[str, Any]] = {}
+    unique: dict[tuple[str, str, str, str], dict[str, Any]] = {}
     for row in ranked:
-        key = (row["paper_id"], row["document_id"], row["page"], row["quote_hash"])
+        key = (
+            row["paper_id"],
+            row["document_id"],
+            _locator_key(row["provenance_locator"]),
+            row["quote_hash"],
+        )
         if key not in unique:
             unique[key] = row
             continue
@@ -120,11 +158,16 @@ def _rank_channel(records: Iterable[dict[str, Any]], channel: str) -> list[dict[
 
 
 def _fuse(channels: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
-    fused: dict[tuple[str, str, int, str], dict[str, Any]] = {}
-    rrf_scores: defaultdict[tuple[str, str, int, str], float] = defaultdict(float)
+    fused: dict[tuple[str, str, str, str], dict[str, Any]] = {}
+    rrf_scores: defaultdict[tuple[str, str, str, str], float] = defaultdict(float)
     for channel, rows in channels.items():
         for rank, row in enumerate(rows, start=1):
-            key = (row["paper_id"], row["document_id"], row["page"], row["quote_hash"])
+            key = (
+                row["paper_id"],
+                row["document_id"],
+                _locator_key(row["provenance_locator"]),
+                row["quote_hash"],
+            )
             rrf_scores[key] += 1.0 / (60 + rank)
             if key not in fused:
                 fused[key] = row
@@ -158,13 +201,20 @@ def _fuse(channels: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
 
 def _format_item(index: int, row: dict[str, Any]) -> str:
     path = ">".join(row["kg_path_ids"]) or "none"
+    locator = row["provenance_locator"]
+    if locator["kind"] == "pdf_page":
+        rendered_locator = f"pdf_page:{locator['page']}"
+    else:
+        rendered_locator = (
+            f"{locator['kind']}:{locator.get('section') or 'unspecified'}"
+        )
     canonical = ",".join(
         str(item.get("canonical_value"))
         for item in row["normalization_mappings"]
     ) or "none"
     return (
         f"[{index} | paper={row['paper_id']} | document={row['document_id']} | "
-        f"type={row['document_type']} | page={row['page']} | "
+        f"type={row['document_type']} | locator={rendered_locator} | "
         f"record={row['source_record']['type']}:{row['source_record']['id']} | "
         f"path={path} | canonical={canonical}]\n{row['quote']}"
     )

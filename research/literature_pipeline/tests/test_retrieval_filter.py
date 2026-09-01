@@ -53,6 +53,8 @@ def _prepare_index(root: Path) -> Path:
             "document_type": "main",
             "kind": "chunk",
             "source_record_id": "chunk:allowed",
+            "source_path": "/source/allowed.md",
+            "section": "Catalytic performance",
             "text": "MTO conversion over MFI zeolite.",
             "fts_text": "mto conversion over mfi zeolite",
             "page_start": 1,
@@ -68,6 +70,8 @@ def _prepare_index(root: Path) -> Path:
             "document_type": "si",
             "kind": "chunk",
             "source_record_id": "chunk:excluded",
+            "source_path": "/source/excluded.pdf",
+            "section": None,
             "text": "exclusive-search-marker",
             "fts_text": "exclusive-search-marker",
             "page_start": 1,
@@ -174,6 +178,21 @@ class RetrievalFilterTests(unittest.TestCase):
         self.assertEqual(retriever.filter_summary["retained_evidence_records"], 0)
         self.assertEqual(retriever.filter_summary["excluded_records"], 1)
         self.assertEqual(before, after)
+
+        trace = retriever.retrieve(query="MTO conversion", top_k=1)
+        evidence = trace["retrieved_evidence"][0]
+        self.assertIsNone(evidence["page"])
+        self.assertEqual(
+            evidence["provenance_locator"],
+            {
+                "kind": "markdown_section",
+                "section": "Catalytic performance",
+            },
+        )
+        self.assertIn(
+            "locator=markdown_section:Catalytic performance",
+            trace["context"],
+        )
 
     def test_exclusion_count_mismatch_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

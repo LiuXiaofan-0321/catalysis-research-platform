@@ -49,6 +49,7 @@ from .retrieval import (
     EvidenceContractError,
     KnowledgeModeRetriever,
     RetrievalBudget,
+    run_knowledge_retrieval_audit,
 )
 
 
@@ -406,6 +407,17 @@ def build_parser() -> argparse.ArgumentParser:
     )
     retrieval_parser.add_argument("--query", required=True)
     retrieval_parser.add_argument("--output", type=Path)
+
+    retrieval_audit_parser = subparsers.add_parser(
+        "audit-retrieval",
+        help="Audit matched-budget RAG and Small-KG+RAG evidence bundles.",
+    )
+    retrieval_audit_parser.add_argument("--config", type=Path, required=True)
+    retrieval_audit_parser.add_argument("--questions", type=Path, required=True)
+    retrieval_audit_parser.add_argument("--rag-index", type=Path, required=True)
+    retrieval_audit_parser.add_argument("--snapshot", type=Path, required=True)
+    retrieval_audit_parser.add_argument("--overlay", type=Path, required=True)
+    retrieval_audit_parser.add_argument("--output", type=Path, required=True)
     return parser
 
 
@@ -614,6 +626,47 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.output.write_text(rendered + "\n", encoding="utf-8")
             print(rendered)
             return 0
+        except (
+            EvidenceContractError,
+            OSError,
+            RuntimeError,
+            ValueError,
+            json.JSONDecodeError,
+        ) as error:
+            print(
+                json.dumps(
+                    {"ok": False, "error": str(error)},
+                    ensure_ascii=False,
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 1
+
+    if args.command == "audit-retrieval":
+        try:
+            config = json.loads(args.config.read_text(encoding="utf-8"))
+            service = KnowledgeModeRetriever.from_directories(
+                config_path=args.config,
+                rag_index_directory=args.rag_index,
+                kg_snapshot_directory=args.snapshot,
+                normalization_overlay_directory=args.overlay,
+            )
+            output = run_knowledge_retrieval_audit(
+                service=service,
+                questions_path=args.questions,
+                budget=RetrievalBudget(**config["budget"]),
+            )
+            rendered = json.dumps(
+                output,
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(rendered + "\n", encoding="utf-8")
+            print(rendered)
+            return 0 if output["automatic_gate_passed"] else 2
         except (
             EvidenceContractError,
             OSError,

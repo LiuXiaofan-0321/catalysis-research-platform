@@ -44,6 +44,27 @@ def _quality_multiplier(row: dict[str, Any]) -> float:
     return multiplier
 
 
+def _provenance_locator(row: dict[str, Any]) -> dict[str, Any]:
+    source_path = str(row.get("source_path") or "")
+    if Path(source_path).suffix.casefold() in {".md", ".markdown"}:
+        section = row.get("section")
+        return {
+            "kind": "markdown_section" if section else "markdown_document",
+            "section": section,
+        }
+    page = row.get("page_start")
+    if not isinstance(page, int) or isinstance(page, bool) or page < 1:
+        return {"kind": "unknown", "page": None}
+    return {"kind": "pdf_page", "page": page}
+
+
+def _render_locator(row: dict[str, Any]) -> str:
+    locator = _provenance_locator(row)
+    if locator["kind"] == "pdf_page":
+        return f"pdf_page:{locator['page']}"
+    return f"{locator['kind']}:{locator.get('section') or 'unspecified'}"
+
+
 class PortableRetriever:
     def __init__(
         self,
@@ -324,7 +345,7 @@ class PortableRetriever:
                 f"[{row['record_id']} | paper={row['paper_id']} | "
                 f"document={row.get('document_id')} | "
                 f"document_type={row.get('document_type')} | "
-                f"pages={row.get('page_start')}-{row.get('page_end')} | "
+                f"locator={_render_locator(row)} | "
                 f"kind={row['kind']}]\n{row['text']}"
             )
             for row in selected
@@ -352,9 +373,18 @@ class PortableRetriever:
                         "type": row["kind"],
                         "id": row.get("source_record_id") or row["record_id"],
                     },
-                    "page": row.get("page_start"),
-                    "page_start": row.get("page_start"),
-                    "page_end": row.get("page_end"),
+                    "page": _provenance_locator(row).get("page"),
+                    "page_start": (
+                        row.get("page_start")
+                        if _provenance_locator(row)["kind"] == "pdf_page"
+                        else None
+                    ),
+                    "page_end": (
+                        row.get("page_end")
+                        if _provenance_locator(row)["kind"] == "pdf_page"
+                        else None
+                    ),
+                    "provenance_locator": _provenance_locator(row),
                     "quote": row["text"],
                     "token_count": token_count(row["text"]),
                     "score": row["score"],
