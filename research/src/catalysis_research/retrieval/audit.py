@@ -103,9 +103,19 @@ def evaluate_bundle(
         "automatic_pass": automatic_pass,
         "manual_review_required": True,
         "target_paper_hit_rank": target_rank,
+        "target_paper_pass": (
+            target_rank is not None and target_rank <= maximum_rank
+            if expected_papers
+            else None
+        ),
         "matched_term_groups": matched_groups,
         "matched_term_group_count": sum(bool(group) for group in matched_groups),
         "minimum_term_groups": minimum_groups,
+        "term_group_pass": (
+            sum(bool(group) for group in matched_groups) >= minimum_groups
+            if term_groups
+            else None
+        ),
         "requires_kg_multihop": requires_multihop,
         "kg_multihop_found": multihop_found,
         "excluded_paper_leaks": leaked,
@@ -164,11 +174,39 @@ def run_knowledge_retrieval_audit(
             bool(row["evaluation"]["automatic_pass"])
             for row in evidence_results
         )
+        target_results = [
+            row
+            for row in evidence_results
+            if row["evaluation"]["target_paper_pass"] is not None
+        ]
+        term_results = [
+            row
+            for row in evidence_results
+            if row["evaluation"]["term_group_pass"] is not None
+        ]
         mode_reports[mode] = {
             "question_count": len(results),
             "scored_evidence_question_count": len(evidence_results),
             "automatic_passed": passed,
-            "evidence_question_recall": passed / len(evidence_results),
+            "question_pass_rate": passed / len(evidence_results),
+            "strict_target_recall": (
+                sum(
+                    bool(row["evaluation"]["target_paper_pass"])
+                    for row in target_results
+                )
+                / len(target_results)
+                if target_results
+                else None
+            ),
+            "term_group_pass_rate": (
+                sum(
+                    bool(row["evaluation"]["term_group_pass"])
+                    for row in term_results
+                )
+                / len(term_results)
+                if term_results
+                else None
+            ),
             "multihop_success_rate": (
                 sum(
                     bool(row["evaluation"]["kg_multihop_found"])
@@ -201,10 +239,18 @@ def run_knowledge_retrieval_audit(
         else None
     )
     checks = {
-        f"{mode}.evidence_question_recall": report["evidence_question_recall"]
-        >= float(thresholds["minimum_evidence_question_recall"])
+        f"{mode}.question_pass_rate": report["question_pass_rate"]
+        >= float(thresholds["minimum_question_pass_rate"])
         for mode, report in mode_reports.items()
     }
+    checks.update(
+        {
+            f"{mode}.strict_target_recall": report["strict_target_recall"]
+            >= float(thresholds["minimum_strict_target_recall"])
+            for mode, report in mode_reports.items()
+            if report["strict_target_recall"] is not None
+        }
+    )
     checks.update(
         {
             f"{mode}.provenance_completeness": report[

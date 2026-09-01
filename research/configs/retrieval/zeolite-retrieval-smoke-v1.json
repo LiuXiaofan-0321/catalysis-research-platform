@@ -4,7 +4,8 @@
   "frozen_at": "2026-09-02",
   "description": "Three-question runtime smoke test. Relevance is reported but is not the runtime acceptance gate.",
   "acceptance_thresholds": {
-    "minimum_evidence_question_recall": 0.0,
+    "minimum_question_pass_rate": 0.0,
+    "minimum_strict_target_recall": 0.0,
     "minimum_hybrid_multihop_success_rate": 0.0,
     "maximum_hybrid_to_rag_token_ratio": 1.1
   },

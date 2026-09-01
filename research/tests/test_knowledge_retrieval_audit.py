@@ -49,7 +49,8 @@ class KnowledgeRetrievalAuditTests(unittest.TestCase):
         payload = {
             "schema_version": "knowledge_retrieval_audit_questions.v1",
             "acceptance_thresholds": {
-                "minimum_evidence_question_recall": 1.0,
+                "minimum_question_pass_rate": 1.0,
+                "minimum_strict_target_recall": 1.0,
                 "minimum_hybrid_multihop_success_rate": 1.0,
                 "maximum_hybrid_to_rag_token_ratio": 1.0,
             },

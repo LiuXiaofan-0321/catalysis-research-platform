@@ -12,7 +12,15 @@ from .schema import canonical_json
 from .verifier import verify_normalization_overlay
 
 
-_IGNORED_CANONICAL_FIELDS = {"identity_level", "treatments"}
+_IGNORED_CANONICAL_FIELDS = {
+    "cation_form",
+    "identity_level",
+    "loading",
+    "metal",
+    "parent_framework",
+    "si_al_ratio",
+    "treatments",
+}
 
 
 def _jsonl_gzip(path: Path) -> Iterable[dict[str, Any]]:

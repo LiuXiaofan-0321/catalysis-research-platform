@@ -226,6 +226,13 @@ class ScientificNormalizationTests(unittest.TestCase):
             self.assertTrue(
                 overlay.mappings_for_nodes(["node:reaction"])
             )
+            generic_metal = overlay.expand_query("Cu zeolite oxidation")
+            self.assertFalse(
+                any(
+                    row["category"] == "catalyst_sample"
+                    for row in generic_metal["matched_mappings"]
+                )
+            )
             temperature_mapping = overlay.mappings_for_nodes(
                 ["node:temperature"]
             )[0]

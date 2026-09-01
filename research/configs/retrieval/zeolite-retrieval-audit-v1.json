@@ -4,7 +4,8 @@
   "frozen_at": "2026-09-02",
   "description": "Frozen retrieval-only audit for the filtered historical RAG view and Small-KG hybrid retrieval. No generation model is used.",
   "acceptance_thresholds": {
-    "minimum_evidence_question_recall": 0.8,
+    "minimum_question_pass_rate": 0.8,
+    "minimum_strict_target_recall": 0.8,
     "minimum_hybrid_multihop_success_rate": 0.7,
     "maximum_hybrid_to_rag_token_ratio": 1.1
   },
