@@ -67,8 +67,8 @@ def test_builds_identity_aligned_grounded_paragraph_index() -> None:
             encoding="utf-8",
         )
         main.write_bytes(main.read_bytes() + b"\nDamaged source byte: \xe2\n")
-        si = root / "si.md"
-        si.write_text("# Supporting information\n\nNo anchored result here.\n", encoding="utf-8")
+        si = root / "si.pdf"
+        si.write_bytes(b"%PDF-1.7\n\xe2\x00binary fixture\n")
         documents = [
             {
                 "document_id": "document:main",
@@ -141,6 +141,7 @@ def test_builds_identity_aligned_grounded_paragraph_index() -> None:
         assert manifest["counts"]["source_hash_mismatches"] == 0
         assert manifest["counts"]["source_decode_fallback_documents"] == 1
         assert manifest["counts"]["source_decode_replacement_characters"] == 1
+        assert manifest["counts"]["non_markdown_source_documents"] == 1
         assert verify_index(index)["valid"] is True
 
         indexed_documents = [
@@ -152,6 +153,12 @@ def test_builds_identity_aligned_grounded_paragraph_index() -> None:
         )
         assert main_document["source_decode_status"] == "utf8_with_replacement"
         assert main_document["source_decode_replacement_count"] == 1
+        si_document = next(
+            row for row in indexed_documents if row["document_id"] == "document:si"
+        )
+        assert si_document["source_decode_status"] == "not_applicable"
+        assert si_document["source_decode_replacement_count"] == 0
+        assert si_document["alignment_exclusion_reason"] == "non_markdown_source"
 
         trace = PortableRetriever(index).retrieve(query="methanol conversion 673 K")
         assert trace["retrieved_evidence"][0]["paper_id"] == "paper:test"

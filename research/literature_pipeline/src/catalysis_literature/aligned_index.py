@@ -143,6 +143,7 @@ def build_evidence_aligned_index(
     source_hash_mismatches = 0
     source_decode_fallback_documents = 0
     source_decode_replacement_characters = 0
+    non_markdown_source_documents = 0
     page_conflicts = 0
     anchored_document_ids: set[str] = set()
     zip_path = corpus / "structured-documents.zip"
@@ -169,6 +170,22 @@ def build_evidence_aligned_index(
                     "journal": paper.get("journal"),
                     "paper_type": paper.get("paper_type"),
                 }
+            document_evidence = list(_evidence(extraction))
+            total_evidence += len(document_evidence)
+            if source_path.suffix.casefold() not in {".md", ".markdown"}:
+                non_markdown_source_documents += 1
+                document_rows.append(
+                    {
+                        **document,
+                        "source_document_sha256_verified": actual_source_hash,
+                        "source_decode_status": "not_applicable",
+                        "source_decode_replacement_count": 0,
+                        "alignment_exclusion_reason": "non_markdown_source",
+                        "aligned_chunk_count": 0,
+                        "evidence_record_count": len(document_evidence),
+                    }
+                )
+                continue
             source_markdown, decode_status, replacement_count = _decode_source_markdown(
                 source_path
             )
@@ -180,8 +197,6 @@ def build_evidence_aligned_index(
             anchors: dict[int, dict[int, list[dict[str, Any]]]] = defaultdict(
                 lambda: defaultdict(list)
             )
-            document_evidence = list(_evidence(extraction))
-            total_evidence += len(document_evidence)
             for evidence in document_evidence:
                 quote = _normalized(str(evidence.get("quote") or ""))
                 page = evidence.get("pdf_page_index")
@@ -260,6 +275,7 @@ def build_evidence_aligned_index(
                     "source_document_sha256_verified": actual_source_hash,
                     "source_decode_status": decode_status,
                     "source_decode_replacement_count": replacement_count,
+                    "alignment_exclusion_reason": None,
                     "aligned_chunk_count": document_chunk_count,
                     "evidence_record_count": len(document_evidence),
                 }
@@ -346,6 +362,7 @@ def build_evidence_aligned_index(
                 "source_hash_mismatches": source_hash_mismatches,
                 "source_decode_fallback_documents": source_decode_fallback_documents,
                 "source_decode_replacement_characters": source_decode_replacement_characters,
+                "non_markdown_source_documents": non_markdown_source_documents,
             },
             "retrieval": {
                 "top_k_dense": index_config.top_k_dense,
@@ -366,6 +383,7 @@ def build_evidence_aligned_index(
                 "This is an evidence-aligned raw-paragraph index, not a lossless full-text index.",
                 "Paragraph inclusion depends on frozen structured-extraction evidence anchors.",
                 "Malformed UTF-8 source bytes are decoded with replacement and counted per document.",
+                "Non-Markdown source documents are hash-verified but excluded from paragraph alignment.",
             ],
             "manifest_content_hash": "",
         }
