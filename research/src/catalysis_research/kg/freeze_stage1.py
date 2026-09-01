@@ -45,6 +45,13 @@ RELATION_TYPES = (
     "PAPER_ASSERTS_CLAIM",
 )
 
+SCIENCE_NODE_TYPES = ("reaction", "condition", "metric")
+SCIENCE_RELATION_TYPES = (
+    "PAPER_STUDIES_REACTION",
+    "EXPERIMENT_HAS_CONDITION",
+    "OBSERVATION_MEASURES_METRIC",
+)
+
 
 def canonical_json(value: Any) -> str:
     return json.dumps(
@@ -105,6 +112,17 @@ def evidence_for(record: dict[str, Any] | None) -> list[dict[str, Any]]:
     if not isinstance(evidence, list):
         return []
     return [item for item in evidence if isinstance(item, dict)]
+
+
+def grounded_evidence_for(record: dict[str, Any] | None) -> list[dict[str, Any]]:
+    return [
+        item
+        for item in evidence_for(record)
+        if compact_text(item.get("document_id"), 400)
+        and isinstance(item.get("pdf_page_index"), int)
+        and int(item["pdf_page_index"]) >= 1
+        and compact_text(item.get("quote"), 2000)
+    ]
 
 
 def confidence_for(record: dict[str, Any] | None) -> float:
@@ -420,6 +438,7 @@ def _insert_edge(
 def _build_graph(
     artifacts: list[tuple[str, bytes, dict[str, Any]]],
     allowed_systems: set[str],
+    normalize_science_concepts: bool = False,
 ) -> tuple[
     list[dict[str, Any]],
     dict[str, dict[str, Any]],
@@ -438,6 +457,7 @@ def _build_graph(
     requested_models: Counter[str] = Counter()
     evidence_validations: Counter[str] = Counter()
     extraction_timestamps: list[str] = []
+    paper_ids_by_document_id: dict[str, str] = {}
 
     for entry_name, raw_json, artifact in artifacts:
         extraction = artifact.get("extraction") or {}
@@ -518,6 +538,7 @@ def _build_graph(
         )
 
         document_id = document_id_for(document_key)
+        paper_ids_by_document_id[document_id] = paper_id
         paper_node_id = _upsert_node(
             nodes,
             node_key=f"paper:{stable_hash(document_key)[:28]}",
@@ -681,6 +702,50 @@ def _build_graph(
                             review_status=review_status_for(experiment),
                         )
 
+            if normalize_science_concepts:
+                for condition in experiment.get("conditions") or []:
+                    if not isinstance(condition, dict):
+                        continue
+                    name = compact_text(condition.get("name") or "other", 120)
+                    raw_value = compact_text(
+                        condition.get("raw_value") or condition.get("value"), 300
+                    )
+                    unit = compact_text(condition.get("unit"), 80)
+                    condition_key = global_node_key(
+                        "condition",
+                        name,
+                        [name, condition.get("value"), unit],
+                        raw_value,
+                    )
+                    condition_node_id = _upsert_node(
+                        nodes,
+                        node_key=condition_key,
+                        node_type="condition",
+                        label=" ".join(part for part in (name, raw_value, unit) if part),
+                        canonical_name=name,
+                        data={
+                            "name": name,
+                            "value": condition.get("value"),
+                            "unit": unit or None,
+                            "raw_value": raw_value or None,
+                        },
+                        evidence=evidence_for(experiment),
+                        confidence=confidence_for(experiment),
+                        review_status=review_status_for(experiment),
+                    )
+                    _insert_edge(
+                        edges,
+                        edge_type="EXPERIMENT_HAS_CONDITION",
+                        from_node_id=node_id,
+                        to_node_id=condition_node_id,
+                        source_document_id=document_id,
+                        source_record_type="experiment",
+                        source_record_id=experiment_local_id,
+                        evidence=evidence_for(experiment),
+                        confidence=confidence_for(experiment),
+                        review_status=review_status_for(experiment),
+                    )
+
         for observation in extraction.get("observations") or []:
             if not observation.get("id"):
                 continue
@@ -727,6 +792,34 @@ def _build_graph(
                 confidence=confidence_for(observation),
                 review_status=review_status_for(observation),
             )
+            if normalize_science_concepts:
+                metric_name = compact_text(observation.get("metric_name"), 240)
+                if metric_name:
+                    metric_node_id = _upsert_node(
+                        nodes,
+                        node_key=global_node_key(
+                            "metric", "performance", metric_name, metric_name
+                        ),
+                        node_type="metric",
+                        label=metric_name,
+                        canonical_name=metric_name,
+                        data={"metric_name": metric_name},
+                        evidence=evidence_for(observation),
+                        confidence=confidence_for(observation),
+                        review_status=review_status_for(observation),
+                    )
+                    _insert_edge(
+                        edges,
+                        edge_type="OBSERVATION_MEASURES_METRIC",
+                        from_node_id=node_id,
+                        to_node_id=metric_node_id,
+                        source_document_id=document_id,
+                        source_record_type="observation",
+                        source_record_id=observation_local_id,
+                        evidence=evidence_for(observation),
+                        confidence=confidence_for(observation),
+                        review_status=review_status_for(observation),
+                    )
             for field_name, edge_type in (
                 ("sample_entity_id", "OBSERVATION_OF_SAMPLE"),
                 ("property_entity_id", "OBSERVATION_MEASURES_PROPERTY"),
@@ -786,6 +879,62 @@ def _build_graph(
                 review_status=review_status_for(claim),
             )
 
+        if normalize_science_concepts:
+            records = [
+                record
+                for group_name in ("entities", "experiments", "observations", "claims")
+                for record in extraction.get(group_name) or []
+                if isinstance(record, dict)
+            ]
+            for reaction in paper.get("reaction_categories") or []:
+                reaction_name = compact_text(reaction, 300)
+                if not reaction_name:
+                    continue
+                reaction_key = normalize_key(reaction_name)
+                matching_evidence = [
+                    item
+                    for record in records
+                    for item in evidence_for(record)
+                    if reaction_key and reaction_key in normalize_key(item.get("quote"))
+                ]
+                if not matching_evidence:
+                    continue
+                reaction_node_id = _upsert_node(
+                    nodes,
+                    node_key=global_node_key(
+                        "reaction", "reaction", reaction_name, reaction_name
+                    ),
+                    node_type="reaction",
+                    label=reaction_name,
+                    canonical_name=reaction_name,
+                    data={"reaction_name": reaction_name},
+                    evidence=matching_evidence,
+                    confidence=0.85,
+                )
+                _insert_edge(
+                    edges,
+                    edge_type="PAPER_STUDIES_REACTION",
+                    from_node_id=paper_node_id,
+                    to_node_id=reaction_node_id,
+                    source_document_id=document_id,
+                    source_record_type="paper",
+                    source_record_id=paper_id,
+                    evidence=matching_evidence,
+                    confidence=0.85,
+                )
+
+    for edge in edges.values():
+        edge["source_paper_id"] = paper_ids_by_document_id.get(
+            edge["source_document_id"]
+        )
+        edge["source_document_ids"] = sorted(
+            {
+                str(item["document_id"])
+                for item in evidence_for(edge)
+                if item.get("document_id")
+            }
+        )
+
     metadata = {
         "extraction_schema_versions": dict(sorted(extraction_versions.items())),
         "prompt_versions": dict(sorted(prompt_versions.items())),
@@ -802,6 +951,33 @@ def _build_graph(
         ),
     }
     return papers, nodes, edges, metadata
+
+
+def _retain_grounded_graph(
+    nodes: dict[str, dict[str, Any]],
+    edges: dict[str, dict[str, Any]],
+) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]], int]:
+    grounded_edges: dict[str, dict[str, Any]] = {}
+    for edge_key, edge in edges.items():
+        grounded = grounded_evidence_for(edge)
+        if not grounded:
+            continue
+        edge["evidence"] = grounded
+        edge["source_document_ids"] = sorted(
+            {str(item["document_id"]) for item in grounded}
+        )
+        grounded_edges[edge_key] = edge
+    referenced_node_ids = {
+        node_id
+        for edge in grounded_edges.values()
+        for node_id in (edge["from_node_id"], edge["to_node_id"])
+    }
+    retained_nodes = {
+        key: node
+        for key, node in nodes.items()
+        if node["node_type"] == "paper" or node["id"] in referenced_node_ids
+    }
+    return retained_nodes, grounded_edges, len(edges) - len(grounded_edges)
 
 
 def freeze_stage1_archive(
@@ -821,6 +997,8 @@ def freeze_stage1_archive(
     corpus: dict[str, Any] | None = None,
     selection: dict[str, Any] | None = None,
     coverage: dict[str, Any] | None = None,
+    strict_grounded_edges: bool = False,
+    normalize_science_concepts: bool = False,
 ) -> dict[str, Any]:
     archive_path = archive_path.resolve()
     output_directory = output_directory.resolve()
@@ -877,7 +1055,13 @@ def freeze_stage1_archive(
     papers, nodes, edges, extraction_metadata = _build_graph(
         artifacts,
         allowed_systems,
+        normalize_science_concepts=normalize_science_concepts,
     )
+    dropped_ungrounded_edge_count = 0
+    if strict_grounded_edges:
+        nodes, edges, dropped_ungrounded_edge_count = _retain_grounded_graph(
+            nodes, edges
+        )
     if len(papers) != expected_papers:
         raise ValueError(
             f"Expected {expected_papers} papers, found {len(papers)}"
@@ -896,6 +1080,7 @@ def freeze_stage1_archive(
     review_status_distribution = Counter(
         node["review_status"] for node in nodes.values()
     )
+    grounded_edge_count = sum(bool(grounded_evidence_for(edge)) for edge in edges.values())
 
     ontology = {
         "ontology_version": ontology_version,
@@ -903,9 +1088,15 @@ def freeze_stage1_archive(
             "Frozen projection of Stage 1 catalysis artifacts using the "
             "current production graph semantics."
         ),
-        "node_types": list(NODE_TYPES),
-        "relation_types": list(RELATION_TYPES),
-        "global_node_types": ["entity", "keyword"],
+        "node_types": list(NODE_TYPES) + (
+            list(SCIENCE_NODE_TYPES) if normalize_science_concepts else []
+        ),
+        "relation_types": list(RELATION_TYPES) + (
+            list(SCIENCE_RELATION_TYPES) if normalize_science_concepts else []
+        ),
+        "global_node_types": ["entity", "keyword"] + (
+            list(SCIENCE_NODE_TYPES) if normalize_science_concepts else []
+        ),
         "paper_scoped_node_types": [
             "paper",
             "experiment",
@@ -914,6 +1105,8 @@ def freeze_stage1_archive(
         ],
         "provenance_fields": [
             "source_document_id",
+            "source_document_ids",
+            "source_paper_id",
             "source_record_type",
             "source_record_id",
             "evidence",
@@ -1020,6 +1213,9 @@ def freeze_stage1_archive(
             "graph": {
                 "node_count": len(nodes),
                 "edge_count": len(edges),
+                "grounded_edge_count": grounded_edge_count,
+                "grounded_edge_rate": grounded_edge_count / max(1, len(edges)),
+                "dropped_ungrounded_edge_count": dropped_ungrounded_edge_count,
                 "node_type_distribution": dict(
                     sorted(node_type_distribution.items())
                 ),
@@ -1044,6 +1240,8 @@ def freeze_stage1_archive(
                 "paper_ordering": "lexicographic ZIP entry path",
                 "overwrite_policy": "forbidden",
                 "selected_entry_count": len(entries),
+                "strict_grounded_edges": strict_grounded_edges,
+                "normalize_science_concepts": normalize_science_concepts,
             },
         }
         if corpus is not None:
@@ -1147,6 +1345,17 @@ def verify_snapshot(snapshot_directory: Path) -> dict[str, Any]:
     if dangling_edges:
         failures.append(f"Dangling edges detected: {len(dangling_edges)}")
 
+    ungrounded_edges = [
+        edge["id"] for edge in edges if not grounded_evidence_for(edge)
+    ]
+    if manifest.get("generation", {}).get("strict_grounded_edges") and ungrounded_edges:
+        failures.append(f"Ungrounded edges detected: {len(ungrounded_edges)}")
+    if manifest.get("graph", {}).get("grounded_edge_count") is not None and (
+        len(edges) - len(ungrounded_edges)
+        != manifest["graph"]["grounded_edge_count"]
+    ):
+        failures.append("Grounded edge count does not match manifest")
+
     node_type_distribution = dict(
         sorted(Counter(node["node_type"] for node in nodes).items())
     )
@@ -1190,5 +1399,6 @@ def verify_snapshot(snapshot_directory: Path) -> dict[str, Any]:
         "edge_count": manifest.get("graph", {}).get("edge_count"),
         "relation_distribution": relation_distribution,
         "dangling_edge_count": len(dangling_edges),
+        "ungrounded_edge_count": len(ungrounded_edges),
         "source_archive_valid": source_archive_valid,
     }
