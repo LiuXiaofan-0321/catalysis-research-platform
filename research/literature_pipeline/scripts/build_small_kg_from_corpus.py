@@ -328,7 +328,7 @@ def main() -> int:
         knowledge_level="Small/Local",
         domain="zeolite_catalysis",
         expected_papers=args.expected_papers,
-        allowed_systems={"thermal_catalysis", "photocatalysis", "both", "unclear"},
+        allowed_systems=set(),
         repository_root=args.repository_root,
         ontology_version=ONTOLOGY_VERSION,
         corpus=archive_manifest,

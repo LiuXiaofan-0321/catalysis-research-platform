@@ -6,6 +6,7 @@ import json
 import sys
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 
 
@@ -256,6 +257,38 @@ class CorpusAndSmallKgTests(unittest.TestCase):
                     output_directory=root / "corpus",
                     corpus_id="test-corpus-v1",
                 )
+
+    def test_small_kg_accepts_preselected_corpus_with_missing_system(self) -> None:
+        artifact = _artifact("document:main", "main")
+        artifact["extraction"]["paper"]["catalysis_system"] = ""
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            archive_path = root / "dataset.zip"
+            with zipfile.ZipFile(archive_path, "w") as archive:
+                archive.writestr("dataset-manifest.json", json.dumps({}))
+                archive.writestr("json/test.json", json.dumps(artifact))
+            result = freeze_stage1_archive(
+                archive_path=archive_path,
+                output_directory=root / "snapshot",
+                snapshot_id="Small-KG-test-missing-system",
+                knowledge_level="Small/Local",
+                domain="zeolite_catalysis",
+                expected_papers=1,
+                allowed_systems=set(),
+                repository_root=REPOSITORY_ROOT,
+                frozen_at="2026-09-01T00:00:00+00:00",
+                git_state={
+                    "commit": "test",
+                    "tree": "test",
+                    "branch": "test",
+                    "dirty": False,
+                },
+            )
+            self.assertEqual(result["paper_count"], 1)
+            self.assertEqual(
+                result["paper_distributions"]["reaction_category"],
+                {"Methanol conversion": 1},
+            )
 
 
 if __name__ == "__main__":

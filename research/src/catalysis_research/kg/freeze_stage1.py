@@ -466,8 +466,8 @@ def _build_graph(
         catalysis_system = compact_text(
             paper.get("catalysis_system"),
             80,
-        ).lower()
-        if catalysis_system not in allowed_systems:
+        ).lower() or "unclear"
+        if allowed_systems and catalysis_system not in allowed_systems:
             continue
 
         document_key = document_key_for(paper, source)
