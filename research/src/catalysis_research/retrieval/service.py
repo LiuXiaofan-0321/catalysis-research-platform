@@ -33,11 +33,13 @@ class KnowledgeModeRetriever:
         kg_retriever: FrozenKgRetriever,
         normalization_overlay: ScientificNormalizationOverlay,
         source_identities: dict[str, Any],
+        excluded_paper_ids: frozenset[str] = frozenset(),
     ):
         self.rag_retriever = rag_retriever
         self.kg_retriever = kg_retriever
         self.normalization_overlay = normalization_overlay
         self.source_identities = source_identities
+        self.excluded_paper_ids = excluded_paper_ids
 
     @classmethod
     def from_directories(
@@ -57,9 +59,10 @@ class KnowledgeModeRetriever:
 
         config = json.loads(config_path.read_text(encoding="utf-8"))
         rag_config = config["rag"]
+        excluded_paper_ids = frozenset(rag_config["excluded_paper_ids"])
         rag = PortableRetriever(
             rag_index_directory,
-            excluded_paper_ids=rag_config["excluded_paper_ids"],
+            excluded_paper_ids=excluded_paper_ids,
             expected_excluded_documents=int(
                 rag_config["expected_excluded_documents"]
             ),
@@ -109,7 +112,9 @@ class KnowledgeModeRetriever:
                     "snapshot_hash": kg.manifest["snapshot_content_hash"],
                 },
                 "normalization": overlay.identity,
+                "benchmark_exclusion": config.get("benchmark_exclusion"),
             },
+            excluded_paper_ids=excluded_paper_ids,
         )
 
     def retrieve(
@@ -151,6 +156,7 @@ class KnowledgeModeRetriever:
                 query=retrieval_query,
                 candidate_limit=budget.candidate_limit,
                 max_hops=2,
+                excluded_paper_ids=self.excluded_paper_ids,
             )
             for candidate in kg_candidates:
                 candidate["normalization_mappings"] = (

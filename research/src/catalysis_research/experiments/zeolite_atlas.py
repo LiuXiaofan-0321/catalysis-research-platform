@@ -154,6 +154,7 @@ def run_zeolite_atlas_loop(
     max_tokens: int = 4500,
     thinking: str = "enabled",
     reasoning_effort: str = "low",
+    replicate_id: int | None = None,
     modes: Iterable[str] = EXPERIMENT_KNOWLEDGE_MODES,
     selected_descriptor_count: int = 3,
     client: GlmClient | None = None,
@@ -197,6 +198,7 @@ def run_zeolite_atlas_loop(
     finished = datetime.now(timezone.utc)
     result = {
         "schema_version": RUN_SCHEMA_VERSION, "run_classification": "EXPLORATORY_NOT_CONFIRMATORY", "protocol_status": "ACTIVATION_BLOCKED",
+        "replicate_id": replicate_id,
         "started_at": started.isoformat(), "finished_at": finished.isoformat(), "duration_seconds": (finished - started).total_seconds(), "task": task, "query": query,
         "warnings": ["This is the first Materials Cloud Zeolite Atlas adapter run; original-paper native model/unit reproduction remains to be signed off.", "No row-level labels or locked-test outcomes were exposed to GLM descriptor generation.", "The RAG/Small-KG source is evidence for hypothesis generation; D0/D0+X metrics are exploratory and do not establish a general KG claim."],
         "dataset": {**dataset.metadata, "archive_sha256": "d704adbccbfee6d5736abf0a5d68d5893c85bbab43483c37a5be525587d7b4e4"},

@@ -70,12 +70,16 @@ class FrozenKgRetriever:
         query: str,
         candidate_limit: int = 30,
         max_hops: int = 2,
+        excluded_paper_ids: Iterable[str] = (),
     ) -> list[dict[str, Any]]:
         if not 0 <= max_hops <= 2:
             raise EvidenceContractError("max_hops must be between 0 and 2")
         query_terms = _terms(query)
+        excluded = frozenset(str(value) for value in excluded_paper_ids)
         seeds: list[tuple[float, str]] = []
         for node_id, node in self.nodes.items():
+            if str(node.get("source_paper_id") or "") in excluded:
+                continue
             overlap = query_terms & _terms(self._node_text(node))
             if overlap:
                 score = sum(1.0 + len(term) ** 0.5 for term in overlap)
@@ -111,6 +115,8 @@ class FrozenKgRetriever:
                                 ),
                                 None,
                             )
+                        if str(paper_id or "") in excluded:
+                            continue
                         if not all((quote, document_id, page is not None, paper_id)):
                             continue
                         candidate = {
@@ -147,7 +153,11 @@ class FrozenKgRetriever:
                 if depth >= max_hops:
                     continue
                 for edge in sorted(self.adjacency[node_id], key=lambda item: item["id"]):
+                    if str(edge.get("source_paper_id") or "") in excluded:
+                        continue
                     neighbor = edge["to_node_id"] if edge["from_node_id"] == node_id else edge["from_node_id"]
+                    if str(self.nodes[neighbor].get("source_paper_id") or "") in excluded:
+                        continue
                     if neighbor not in visited:
                         visited.add(neighbor)
                         queue.append((neighbor, [*path_nodes, node_id], [*path_edges, edge["id"]], depth + 1))

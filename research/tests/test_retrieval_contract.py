@@ -173,6 +173,14 @@ class RetrievalContractTests(unittest.TestCase):
         self.assertTrue(any(len(row["kg_path_ids"]) >= 2 for row in rows))
         self.assertTrue(any(row["kg_edge_ids"] for row in rows))
 
+        excluded = retriever.retrieve(
+            query="MTO conversion",
+            candidate_limit=30,
+            max_hops=2,
+            excluded_paper_ids={"paper:1"},
+        )
+        self.assertEqual(excluded, [])
+
     def test_agent_modes_use_only_their_allowed_sources_with_one_budget(self) -> None:
         class FakeRag:
             def __init__(self) -> None:
@@ -186,7 +194,15 @@ class RetrievalContractTests(unittest.TestCase):
             def __init__(self) -> None:
                 self.queries: list[str] = []
 
-            def retrieve(self, *, query: str, candidate_limit: int, max_hops: int) -> list[dict[str, object]]:
+            def retrieve(
+                self,
+                *,
+                query: str,
+                candidate_limit: int,
+                max_hops: int,
+                excluded_paper_ids: object = (),
+            ) -> list[dict[str, object]]:
+                del excluded_paper_ids
                 self.queries.append(query)
                 candidate = _candidate(
                     "kg:mode",

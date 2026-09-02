@@ -1,0 +1,41 @@
+{
+  "schema_version": "knowledge_mode_retrieval.v1",
+  "retrieval_id": "Small-KG-zeolite-atlas-benchmark-v1",
+  "rag": {
+    "base_index_id": "full-rag-v1-index",
+    "base_index_hash": "7da20ce475e04c185fdc27e271d417883c81525ca3cd527b67b7477670bbcf16",
+    "excluded_paper_ids": [
+      "doi:10.1063/1.5119751",
+      "doi:10.1126/science.ads7290"
+    ],
+    "expected_excluded_documents": 2,
+    "expected_excluded_records": 52,
+    "expected_retained_papers": 6690,
+    "expected_retained_documents": 8926,
+    "expected_retained_chunks": 365610
+  },
+  "small_kg": {
+    "snapshot_id": "Small-KG-zeolite-v1",
+    "snapshot_hash": "07925455449dfe13cc78b9b958dd71d5e4d77aee2ad54fcd8a312ce4f1bf9f43"
+  },
+  "normalization": {
+    "overlay_id": "scientific-normalization-Small-KG-zeolite-v1.1",
+    "overlay_content_hash": "509b9deca237506fc0e8577cf713cae40e0d32d960c98115a71df2cc98ebe433",
+    "minimum_confidence": 0.9
+  },
+  "benchmark_exclusion": {
+    "benchmark_id": "materialscloud-2019.0079-v1",
+    "frozen_at": "2026-09-02",
+    "excluded_paper_ids": [
+      "doi:10.1063/1.5119751"
+    ],
+    "reason": "Original benchmark paper reports the descriptor-to-target comparison."
+  },
+  "budget": {
+    "candidate_limit": 30,
+    "item_limit": 10,
+    "context_token_budget": 4000,
+    "max_items_per_paper": 3,
+    "tokenizer_id": "unicode_lexical_v1"
+  }
+}
