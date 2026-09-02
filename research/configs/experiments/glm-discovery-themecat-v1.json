@@ -1,6 +1,7 @@
 {
   "schema_version": "glm_scientific_discovery_themecat_config.v1",
   "experiment_id": "glm-discovery-themecat-v1",
+  "status": "DEPRECATED_NOT_A_BENCHMARK",
   "model": "glm-5.3-flash",
   "temperature": 0.2,
   "max_tokens": 4500,

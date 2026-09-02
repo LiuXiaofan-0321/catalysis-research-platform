@@ -18,7 +18,7 @@ from catalysis_research.retrieval import KnowledgeModeRetriever, RetrievalBudget
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run exploratory GLM evidence-to-descriptor loop.")
+    parser = argparse.ArgumentParser(description="Run the deprecated historical TheMeCat GLM pilot.")
     parser.add_argument("--config", type=Path, required=True, help="knowledge-mode retrieval config")
     parser.add_argument("--rag-index", type=Path, required=True)
     parser.add_argument("--snapshot", type=Path, required=True)

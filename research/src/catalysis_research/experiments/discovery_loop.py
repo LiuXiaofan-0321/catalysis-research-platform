@@ -75,6 +75,11 @@ def build_discovery_prompt(
     evidence_context: str,
     catalog: dict[str, Descriptor],
     selected_descriptor_count: int = DEFAULT_SELECTED_DESCRIPTOR_COUNT,
+    benchmark_name: str = "TheMeCat v1",
+    benchmark_target: str = TARGET_COLUMN,
+    benchmark_role: str = "secondary mechanism-transfer sanity check; not the final NMI benchmark",
+    allowed_inputs: list[str] | None = None,
+    baseline_descriptor_ids: tuple[str, ...] = D0_DESCRIPTOR_IDS,
 ) -> tuple[str, str]:
     system = (
         "You are an evidence-grounded scientific hypothesis agent. Return one "
@@ -90,12 +95,12 @@ def build_discovery_prompt(
         "retrieval_query": query,
         "knowledge_mode": knowledge_mode,
         "benchmark": {
-            "name": "TheMeCat v1",
-            "target": TARGET_COLUMN,
-            "role": "secondary mechanism-transfer sanity check; not the final NMI benchmark",
+            "name": benchmark_name,
+            "target": benchmark_target,
+            "role": benchmark_role,
             "label_visibility": "no row-level labels or test outcomes",
         },
-        "allowed_inputs": [
+        "allowed_inputs": allowed_inputs or [
             "active_comp_1",
             "active_1_percent",
             "support_comp_1",
@@ -105,7 +110,7 @@ def build_discovery_prompt(
             "GHSV_nlph_gcat",
             "catalyst_load_g",
         ],
-        "baseline_descriptor_ids_D0": list(D0_DESCRIPTOR_IDS),
+        "baseline_descriptor_ids_D0": list(baseline_descriptor_ids),
         "descriptor_catalog": catalog_records,
         "descriptor_selection": {
             "candidate_budget": selected_descriptor_count,
@@ -171,6 +176,7 @@ def validate_discovery_output(
     selected_descriptor_count: int = DEFAULT_SELECTED_DESCRIPTOR_COUNT,
     allowed_evidence_ids: set[str] | None = None,
     require_empty_evidence: bool = False,
+    baseline_descriptor_ids: tuple[str, ...] = D0_DESCRIPTOR_IDS,
 ) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValueError("Discovery output must be an object")
@@ -205,7 +211,7 @@ def validate_discovery_output(
         descriptor_id = candidate.get("descriptor_id")
         if not isinstance(descriptor_id, str) or descriptor_id not in catalog:
             raise ValueError("Descriptor candidate is not in the frozen catalog")
-        if descriptor_id in D0_DESCRIPTOR_IDS:
+        if descriptor_id in baseline_descriptor_ids:
             raise ValueError("A D0 descriptor cannot be selected as new X")
         candidate_ids.append(descriptor_id)
         for field in ("rationale", "expected_direction", "falsification_criteria"):

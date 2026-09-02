@@ -138,22 +138,26 @@ Git. Neither location may contain private data.
 
 ### GLM evidence-to-descriptor pilot
 
-After retrieval acceptance, the exploratory GLM runner compares the three
-matched knowledge conditions (`agent`, `rag_agent`, `small_kg_rag_agent`) with
-one prompt, one inference budget and one descriptor budget. It keeps the
-evidence chain, falsifiable hypothesis and descriptor provenance, then runs a
-paired TheMeCat diagnostic with fixed six-variable `D0` and three catalog-only
-`D0+X` descriptors:
+The active first benchmark is Materials Cloud **Zeolite Atlas v1**
+(`10.24435/materialscloud:2019.0079/v1`, CC BY 4.0). Its 1k view contains
+structure-level aggregates of the source Angles, Distances, King ring and
+SOAP-KPCA descriptors with the source energy/volume contributions. The
+exploratory GLM runner compares the three matched knowledge conditions
+(`agent`, `rag_agent`, `small_kg_rag_agent`) with one prompt, one inference
+budget and one descriptor budget. It preserves the evidence chain, falsifiable
+hypothesis and descriptor provenance, then evaluates fixed classical `D0`
+against catalog-only `D0+X` descriptors:
 
 ```powershell
 $env:ZHIPU_API_KEY = "<local-secret>"
 $env:ZHIPU_PROXY_BASE_URL = "<existing-GLM-compatible-endpoint>"
-\.venv\Scripts\python.exe research\scripts\run_glm_discovery.py `
+\.venv\Scripts\python.exe research\scripts\run_glm_zeolite_atlas.py `
   --config research\configs\retrieval\small-kg-hybrid-v1.json `
   --rag-index <full-rag-v1-index> `
   --snapshot <Small-KG-zeolite-v1> `
   --overlay <scientific-normalization-Small-KG-zeolite-v1.1> `
-  --output research\runs\glm-discovery-themecat-v1\result.json `
+  --dataset-root <extracted-materialscloud-2019.0079-v1> `
+  --output research\runs\glm-discovery-zeolite-atlas-v1\result.json `
   --task "<frozen task text>" `
   --query "<frozen retrieval query>"
 Remove-Item Env:ZHIPU_API_KEY
@@ -161,13 +165,10 @@ Remove-Item Env:ZHIPU_PROXY_BASE_URL
 ```
 
 The default model is `glm-5.3-flash`. The run is explicitly
-`EXPLORATORY_NOT_CONFIRMATORY`: TheMeCat is not the final NMI benchmark, the
-zeolite Small KG is an adjacent mechanism source, and the locked-test outcome
-must not be used to revise the generated descriptors.
-
-This runner is a `K-none` formula-selection and execution check. It does not
-retrieve from any frozen KG, does not implement the evidence-chain hypothesis
-loop, and must not be used as evidence for Small-KG utility.
+`EXPLORATORY_NOT_CONFIRMATORY`: source units and native-model reproduction must
+still be signed off, and locked-test outcomes must not be used to revise the
+generated descriptors. The old TheMeCat adapter remains in the repository only
+for historical reproducibility and is not an active benchmark.
 
 Large-scale PDF extraction and KG-aware retrieval live in the independent
 `literature_pipeline/` package. It uses content-addressed parsing and model

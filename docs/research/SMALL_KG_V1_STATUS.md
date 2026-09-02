@@ -215,14 +215,22 @@ Evidence KG 和 Shuffled KG 必须匹配 model-visible token/retrieval budget。
 - IID/OOD split 与 locked test；
 - benchmark-paper 和 direct-answer leakage audit。
 
-截至 2026-09-01 的初步 feasibility 判断：
+截至 2026-09-02 的 benchmark feasibility 判断：
 
 - Zeolite Atlas 的 Materials Cloud v1 记录为 CC BY 4.0，包含 1k/10k DEEM 的
   SOAP、angle、distance、ring descriptor 及 energy/volume 相关数据，优先进入
   baseline review；仍需确认 archive 是否包含计算新 descriptor 所需的非泄漏原始结构。
 - SorbMetaML 提供 IZA、PCOD、MOF、HCP 等材料的 hydrogen adsorption state points
-  和 few-shot subsets，适合后续 adsorption/OOD task；仓库许可状态和材料名称到
-  原始结构的映射必须先完成，不能直接激活。
+  和 few-shot subsets，但仓库当前没有明确 license，暂不激活。
+
+当前第一轮 benchmark 选择 **Materials Cloud Zeolite Atlas v1**
+（`10.24435/materialscloud:2019.0079/v1`，CC BY 4.0）。用户工作区已下载并校验
+归档（SHA-256 `d704adbccbfee6d5736abf0a5d68d5893c85bbab43483c37a5be525587d7b4e4`），
+解压 1k 子集得到 1000 个结构、52686 个 Si 原子；Angles/Distances 为 4 维，King
+ring 为 20 维，SOAP-KPCA 为 100 维，energy/volume 为逐原子贡献。适配器通过
+`ids_natoms_1k.dat` 做结构级聚合，固定结构 ID modulo-5 split，并将原始 classical
+descriptor 作为 `D0`，GLM 仅能从可计算 catalog 中选择新增 `X`。源单位、原论文
+native model 和 split 复现仍待签字，因此当前结果仍标记为 exploratory。
 
 评价以 benchmark 原始模型、原始 primary metric 和冻结 protocol 为准。主分析在
 同一个 benchmark-native pipeline 中比较原 descriptor `D0` 与 `D0 + X`；统一
