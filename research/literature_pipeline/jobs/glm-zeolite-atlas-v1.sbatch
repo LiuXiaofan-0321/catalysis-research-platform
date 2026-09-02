@@ -16,6 +16,10 @@ unset PYTHONHOME PYTHONPATH
 
 BASE=/public/home/xiaohe/lxf/catalysis-rag
 CODE=/public/home/xiaohe/lxf/catalysis-rag/code/releases/knowledge-retrieval-dcaa99e-r2
+export HF_HOME="$BASE/cache/huggingface"
+export HF_HUB_CACHE="$HF_HOME"
+export HF_HUB_OFFLINE=1
+export TRANSFORMERS_OFFLINE=1
 export PYTHONPATH="$CODE/research/src:$CODE/research/literature_pipeline/src"
 mkdir -p "$BASE/runs" "$BASE/logs"
 

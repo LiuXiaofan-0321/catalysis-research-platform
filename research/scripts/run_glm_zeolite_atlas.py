@@ -26,12 +26,13 @@ def main() -> int:
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--temperature", type=float, default=0.2)
     parser.add_argument("--max-tokens", type=int, default=4500)
-    parser.add_argument("--thinking", choices=("disabled", "enabled"), default="disabled")
+    parser.add_argument("--thinking", choices=("disabled", "enabled"), default="enabled")
+    parser.add_argument("--reasoning-effort", choices=("low", "high", "max"), default="low")
     parser.add_argument("--mode", action="append", dest="modes")
     args = parser.parse_args()
     config = json.loads(args.config.read_text(encoding="utf-8"))
     service = KnowledgeModeRetriever.from_directories(config_path=args.config, rag_index_directory=args.rag_index, kg_snapshot_directory=args.snapshot, normalization_overlay_directory=args.overlay)
-    result = run_zeolite_atlas_loop(service=service, dataset_root=args.dataset_root, output_path=args.output, task=args.task, query=args.query, budget=RetrievalBudget(**config["budget"]), model=args.model, temperature=args.temperature, max_tokens=args.max_tokens, thinking=args.thinking, modes=args.modes or ("agent", "rag_agent", "small_kg_rag_agent"))
+    result = run_zeolite_atlas_loop(service=service, dataset_root=args.dataset_root, output_path=args.output, task=args.task, query=args.query, budget=RetrievalBudget(**config["budget"]), model=args.model, temperature=args.temperature, max_tokens=args.max_tokens, thinking=args.thinking, reasoning_effort=args.reasoning_effort, modes=args.modes or ("agent", "rag_agent", "small_kg_rag_agent"))
     print(json.dumps({"output": str(args.output.resolve()), "run_classification": result["run_classification"], "modes": {mode: row.get("status") for mode, row in result["modes"].items()}}, ensure_ascii=False, indent=2))
     return 0 if all(row.get("status") == "completed" for row in result["modes"].values()) else 2
 

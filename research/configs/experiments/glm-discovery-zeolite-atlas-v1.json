@@ -4,7 +4,8 @@
   "model": "glm-5.3-flash",
   "temperature": 0.2,
   "max_tokens": 4500,
-  "thinking": "disabled",
+  "thinking": "enabled",
+  "reasoning_effort": "low",
   "selected_descriptor_count": 3,
   "task": "Using only the retrieved zeolite evidence, propose one falsifiable hypothesis about a computable structural descriptor that could improve prediction of framework energy or volume in the Materials Cloud Zeolite Atlas. Keep reported evidence separate from the hypothesis, use only the supplied descriptor catalog, and state what result would falsify it.",
   "query": "zeolite framework topology ring distribution local environment heterogeneity SOAP energy volume descriptor"

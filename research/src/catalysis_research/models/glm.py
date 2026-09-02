@@ -82,6 +82,7 @@ class GlmClient:
         temperature: float = 0.2,
         max_tokens: int = 4000,
         thinking: str = "disabled",
+        reasoning_effort: str | None = None,
     ) -> GlmResponse:
         payload: dict[str, Any] = {
             "model": model,
@@ -94,9 +95,17 @@ class GlmClient:
             "max_tokens": max_tokens,
             "stream": False,
         }
+        if thinking not in {"enabled", "disabled"}:
+            raise GlmError("thinking must be enabled or disabled")
+        if reasoning_effort not in {None, "low", "high", "max"}:
+            raise GlmError("reasoning_effort must be low, high, or max")
         if thinking == "enabled":
             payload["thinking"] = {"type": "enabled", "clear_thinking": True}
+            if reasoning_effort is not None:
+                payload["reasoning_effort"] = reasoning_effort
         else:
+            if reasoning_effort is not None:
+                raise GlmError("reasoning_effort requires thinking=enabled")
             payload["thinking"] = {"type": "disabled"}
 
         data = json.dumps(payload, ensure_ascii=False).encode("utf-8")

@@ -152,7 +152,8 @@ def run_zeolite_atlas_loop(
     model: str = DEFAULT_MODEL,
     temperature: float = 0.2,
     max_tokens: int = 4500,
-    thinking: str = "disabled",
+    thinking: str = "enabled",
+    reasoning_effort: str = "low",
     modes: Iterable[str] = EXPERIMENT_KNOWLEDGE_MODES,
     selected_descriptor_count: int = 3,
     client: GlmClient | None = None,
@@ -178,7 +179,7 @@ def run_zeolite_atlas_loop(
                 benchmark_target="structure-level energy and volume", benchmark_role="primary zeolite structure descriptor benchmark candidate",
                 allowed_inputs=allowed_inputs, baseline_descriptor_ids=D0_DESCRIPTOR_IDS,
             )
-            response: GlmResponse = api_client.chat_json(model=model, system=system_mode, user=user, temperature=temperature, max_tokens=max_tokens, thinking=thinking)
+            response: GlmResponse = api_client.chat_json(model=model, system=system_mode, user=user, temperature=temperature, max_tokens=max_tokens, thinking=thinking, reasoning_effort=reasoning_effort)
             generation = validate_discovery_output(response.structured, catalog, selected_descriptor_count=selected_descriptor_count,
                 allowed_evidence_ids={f"E{index:02d}" for index in range(1, len(bundle.get("items") or []) + 1)},
                 require_empty_evidence=mode == "agent", baseline_descriptor_ids=D0_DESCRIPTOR_IDS)
@@ -187,7 +188,7 @@ def run_zeolite_atlas_loop(
             mode_results[mode] = {
                 "status": "completed", "bundle": bundle,
                 "prompt": {"system_sha256": _canonical_hash(system_mode), "user_sha256": _canonical_hash(user), "row_level_data_included": False, "row_level_labels_included": False},
-                "model": {"provider": response.provider, "model": response.model, "requested_model": model, "usage": response.usage, "response_id": response.raw.get("id"), "temperature": temperature, "max_tokens": max_tokens, "thinking": thinking},
+                "model": {"provider": response.provider, "model": response.model, "requested_model": model, "usage": response.usage, "response_id": response.raw.get("id"), "temperature": temperature, "max_tokens": max_tokens, "thinking": thinking, "reasoning_effort": reasoning_effort},
                 "generation": generation,
                 "downstream": {"model": "sklearn.linear_model.Ridge", "alpha_grid": list(ALPHA_GRID), "D0_descriptor_ids": list(D0_DESCRIPTOR_IDS), "D0_plus_X_descriptor_ids": list(generation["selected_descriptor_ids"]), "D0": d0, "D0_plus_X": d1},
             }
