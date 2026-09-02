@@ -1,0 +1,12 @@
+{
+  "schema_version": "glm_scientific_discovery_themecat_config.v1",
+  "experiment_id": "glm-discovery-themecat-v1",
+  "model": "glm-5.3-flash",
+  "temperature": 0.2,
+  "max_tokens": 4500,
+  "thinking": "disabled",
+  "selected_descriptor_count": 3,
+  "task": "Using the retrieved zeolite evidence only as an adjacent-mechanism source, propose one falsifiable hypothesis about a computable process descriptor that could improve prediction of methanol space-time yield in TheMeCat. Keep the hypothesis and descriptor formula separate from reported evidence.",
+  "query": "zeolite diffusion residence time acid site exposure catalyst deactivation methanol yield descriptor",
+  "knowledge_config": "research/configs/retrieval/small-kg-hybrid-v1.json"
+}

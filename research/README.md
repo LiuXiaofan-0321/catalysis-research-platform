@@ -136,6 +136,35 @@ is intentionally ignored by Git. The result is retained under
 `research/runs/themecat-deepseek-exploratory-v1/`, which is also ignored by
 Git. Neither location may contain private data.
 
+### GLM evidence-to-descriptor pilot
+
+After retrieval acceptance, the exploratory GLM runner compares the three
+matched knowledge conditions (`agent`, `rag_agent`, `small_kg_rag_agent`) with
+one prompt, one inference budget and one descriptor budget. It keeps the
+evidence chain, falsifiable hypothesis and descriptor provenance, then runs a
+paired TheMeCat diagnostic with fixed six-variable `D0` and three catalog-only
+`D0+X` descriptors:
+
+```powershell
+$env:ZHIPU_API_KEY = "<local-secret>"
+$env:ZHIPU_PROXY_BASE_URL = "<existing-GLM-compatible-endpoint>"
+\.venv\Scripts\python.exe research\scripts\run_glm_discovery.py `
+  --config research\configs\retrieval\small-kg-hybrid-v1.json `
+  --rag-index <full-rag-v1-index> `
+  --snapshot <Small-KG-zeolite-v1> `
+  --overlay <scientific-normalization-Small-KG-zeolite-v1.1> `
+  --output research\runs\glm-discovery-themecat-v1\result.json `
+  --task "<frozen task text>" `
+  --query "<frozen retrieval query>"
+Remove-Item Env:ZHIPU_API_KEY
+Remove-Item Env:ZHIPU_PROXY_BASE_URL
+```
+
+The default model is `glm-5.3-flash`. The run is explicitly
+`EXPLORATORY_NOT_CONFIRMATORY`: TheMeCat is not the final NMI benchmark, the
+zeolite Small KG is an adjacent mechanism source, and the locked-test outcome
+must not be used to revise the generated descriptors.
+
 This runner is a `K-none` formula-selection and execution check. It does not
 retrieve from any frozen KG, does not implement the evidence-chain hypothesis
 loop, and must not be used as evidence for Small-KG utility.
