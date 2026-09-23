@@ -181,6 +181,65 @@ npm run literature:test
 python research/literature_pipeline/scripts/litpipe.py run --config <config.yaml>
 ```
 
+### AdsZeo open-nomination benchmark (v5)
+
+The second active benchmark is **AdsZeo v1** (`10.5281/zenodo.21445386`,
+CC BY 4.0): 4,775 aluminium-substituted sodium zeolite structures x 191
+topologies x 13 methane pressures from RASPA GCMC simulations. The adapter
+is leakage-aware (the `positions` and `cycle_stats` tables are never read)
+and the split is topology-level 80/10/10, so generalization is measured on
+unseen framework topologies.
+
+The experiment line iterated through four pre-registered protocols, each
+diagnosing the previous one (see `../docs/research/ADSZEO_BENCHMARK_V1_REPORT.md`
+and `../docs/research/ADSZEO_V2_GEOMETRY_REPORT.md`):
+
+1. **v1** — the 9/3 frozen 25-descriptor catalog: all three knowledge modes
+   statistically indistinguishable; the catalog is collinear with D0.
+2. **v2** — geometry-extended 42-descriptor catalog (ring-size distribution,
+   coordination sequences, bond geometry, Al second shell; precomputed by
+   `scripts/adszeo_geometry_features.py`) + 3-round validation-only feedback.
+3. **v3** — blinded catalog (rationales removed for every mode) at n=40:
+   agent/rag/kg remain statistically indistinguishable (all pairwise
+   Mann-Whitney p>0.17) — a powered negative control for menu-selection
+   tasks.
+4. **v5** — open-ended nomination (`src/catalysis_research/experiments/adszeo_nomination.py`):
+   no candidate catalog; the model nominates DSL formulas over the allowed
+   inputs. A whitelisted AST executor rejects unsafe, non-computable,
+   degenerate, or redundant proposals with recorded failure codes
+   (`unsafe_expression`, `unsupported_input`, `zero_variance`,
+   `redundant`, ...), making executability rate, failure taxonomy, novelty
+   and provenance first-class outcome measures beside topology macro-MAE.
+
+```bash
+python research/scripts/run_glm_adszeo_v2.py \
+  --config research/configs/retrieval/small-kg-hybrid-adszeo-v2.json \
+  --rag-index <full-rag-v1-index> \
+  --snapshot <Small-KG-zeolite-v1> \
+  --overlay <scientific-normalization-Small-KG-zeolite-v1.1> \
+  --database <AdsZeo_data.duckdb> \
+  --geometry-csv <geometry-features-v1.csv> \
+  --output <run.json> \
+  --open-nomination
+```
+
+Diagnostics live in `scripts/adszeo_oracle_diagnostic.py` (noise floor +
+catalog oracle ceiling), `scripts/adszeo_final_stats.py` (bootstrap CIs +
+Mann-Whitney tests), and `scripts/adszeo_model_scale_analysis.py`
+(model-scale ablation). Slurm jobs are under
+`literature_pipeline/jobs/adszeo-v*.sbatch`.
+
+Large-scale PDF extraction and KG-aware retrieval live in the independent
+`literature_pipeline/` package. It uses content-addressed parsing and model
+call caches, produces Stage-1-compatible artifacts, and builds versioned
+portable or LanceDB indexes:
+
+```bash
+npm run literature:doctor
+npm run literature:test
+python research/literature_pipeline/scripts/litpipe.py run --config <config.yaml>
+```
+
 See `literature_pipeline/README.md` and
 `../docs/research/LITERATURE_PIPELINE_UPGRADE.md`.
 
