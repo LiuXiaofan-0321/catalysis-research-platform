@@ -50,3 +50,69 @@ Jev 接收这些结构化结果，并只输出一个门控建议：
 - 最终保留集合和测试结果由固定验证规则决定，Jev 只能调度下一步。
 
 正式实验需要保留 Jev 请求/响应哈希、模型和版本、延迟、token 成本、检索前后预算、失败处置、验证可用性及所有候选的 hindsight validation 标签，以便计算 precision、recall 和 false-rejection。
+
+## Reproducible round-count experiment
+
+The harness treats the number of hypothesis rounds as an explicit experimental
+factor. `research/scripts/run_round_experiment.py` replays one fixed candidate
+artifact at several prefix lengths, so one-shot, three-round, and five-round
+protocols share the same generated stream and retrieval context:
+
+```text
+python research/scripts/run_round_experiment.py \
+  --input rounds.json \
+  --rounds 1,3,5 \
+  --judge rule \
+  --output round-experiment.json
+```
+
+Use `--rounds one-shot` for a single round or any comma-separated positive
+prefix lengths supported by the input. A requested prefix longer than the input
+is rejected. `--judge jev` uses the configured `JEV_ENDPOINT` and
+`JEV_API_KEY`; the default rule judge is deterministic and suitable for an
+offline cost/control baseline.
+
+Each protocol contains the complete harness replay plus a metrics artifact.
+The metrics include per-round candidate and decision counts, measured and
+positive validation gains, accepted positive gains after Jev routing,
+cumulative discovery curves, trapezoidal discovery-curve AUCs,
+feedback-use rate, revision-success rate, duplicate-avoidance rate, failure
+code counts, and the counts of `retrieve_more`, `compute_validate`, `revise`,
+`defer`, and `abandon`. If a candidate carries an explicit boolean `useful`
+(or `oracle.useful`) label, the artifact also reports useful-candidate recall
+and false-rejection rate. The first round is excluded from the feedback-use
+denominator because no previous feedback exists. Gains are read from the
+post-compute validation role (or an explicit replay validation field); locked
+test/OOD outcomes are never needed for these metrics.
+
+The result is schema `scientific_harness_round_experiment.v1`. Prefix replay is
+an ablation of feedback availability, not a claim that a model would generate
+the exact same proposals after a different number of rounds. A confirmatory
+study should regenerate each condition under a frozen token/retrieval budget
+and report paired validation/OOD outcomes separately.
+
+## AdsZeo v5 Jev gate
+
+The v5 runner keeps the published protocol unchanged by default. Add
+`--jev rule` to run the deterministic Jev baseline or `--jev http` to use a
+pinned service configured with `JEV_ENDPOINT` and `JEV_API_KEY`:
+
+```text
+python research/scripts/run_glm_adszeo_v2.py ... --open-nomination --jev rule
+```
+
+For each proposal, the harness maps the v5 evidence chain to provenance IDs,
+checks novelty and feasibility, and records a pre-validation recommendation.
+Only `compute_validate` candidates enter the validation MAE calculation when a
+Jev judge is explicitly enabled. `retrieve_more` is recorded with its query so
+the retrieval scheduler can consume it in a later budgeted implementation;
+the current v5 adapter does not silently spend another retrieval budget.
+The default `--jev off` path records an offline audit while preserving the
+published v5 selection behavior. All Jev requests strip test labels, target
+values, and test metrics before they reach a judge.
+
+Hot-topic tracking is a separate retrieval-priority artifact. The reproducible
+entry point is `research/scripts/run_topic_scout.py`; it freezes a corpus hash
+and cutoff date and marks every signal `hotness_is_retrieval_priority_only`.
+Hotness can prioritize follow-up searches but cannot establish evidence for a
+hypothesis or replace locked validation.

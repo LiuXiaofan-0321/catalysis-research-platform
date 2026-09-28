@@ -46,6 +46,14 @@ class JevDecision:
             raise ValueError("retrieve_more requires retrieval_query")
         if self.recommendation == "revise" and self.failure_disposition not in {"revise", "none"}:
             raise ValueError("revise recommendation has incompatible failure_disposition")
+        if self.novelty_verdict == "duplicate" and self.recommendation != "abandon":
+            raise ValueError("duplicate candidates must be abandoned")
+        if self.evidence_verdict == "contradicts" and self.recommendation == "compute_validate":
+            raise ValueError("contradicting evidence cannot be sent directly to compute")
+        if self.recommendation == "retrieve_more" and self.evidence_verdict not in {"insufficient", "not_applicable"}:
+            raise ValueError("retrieve_more requires insufficient or unavailable evidence")
+        if self.recommendation == "abandon" and self.failure_disposition not in {"abandon", "none"}:
+            raise ValueError("abandon recommendation has incompatible failure_disposition")
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

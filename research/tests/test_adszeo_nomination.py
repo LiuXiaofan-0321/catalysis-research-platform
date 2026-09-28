@@ -13,6 +13,7 @@ RESEARCH_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RESEARCH_ROOT / "src"))
 
 from catalysis_research.experiments import adszeo_nomination as nomination  # noqa: E402
+from catalysis_research.harness.types import JevDecision  # noqa: E402
 from catalysis_research.models.glm import GlmResponse  # noqa: E402
 from catalysis_research.retrieval import RetrievalBudget  # noqa: E402
 
@@ -48,8 +49,27 @@ class _FakeClient:
         )
 
 
+class _DeferJev:
+    """Jev fixture that records requests and blocks pre-compute validation."""
+
+    def __init__(self):
+        self.requests = []
+
+    def judge(self, request):
+        self.requests.append(request)
+        return JevDecision(
+            evidence_verdict="insufficient",
+            evidence_confidence=0.0,
+            novelty_verdict="novel",
+            novelty_confidence=0.6,
+            recommendation="defer",
+            rationale="fixture blocks computation until more evidence is available",
+            failure_disposition="defer",
+        )
+
+
 class NominationLoopTests(unittest.TestCase):
-    def _run(self, formulas_by_round, scores, *, score_only=False):
+    def _run(self, formulas_by_round, scores, *, score_only=False, jev_judge=None):
         rows = [
             {"structure_id": f"s{i}", "framework_code": f"T{i % 5}",
              "split": ("train" if i < 12 else "validation" if i < 18 else "test"),
@@ -93,6 +113,7 @@ class NominationLoopTests(unittest.TestCase):
                     geometry_csv=geometry, output_path=output, task="task", query="query",
                     budget=RetrievalBudget(candidate_limit=3, item_limit=1, context_token_budget=100),
                     modes=("agent",), client=client, score_only=score_only,
+                    jev_judge=jev_judge,
                 )
             self.assertEqual(json.loads(output.read_text(encoding="utf-8"))["schema_version"], result["schema_version"])
         return result, client.prompts, evaluation_calls
@@ -130,6 +151,10 @@ class NominationLoopTests(unittest.TestCase):
         self.assertEqual([record["retained_this_round"] for record in mode["rounds"]], [None] * 3)
         self.assertEqual(mode["topology_macro_mae_relative_improvement"], 0.0)
         self.assertEqual([item[0] for item in evaluations], [nomination.D0_DESCRIPTOR_IDS] * 2)
+        self.assertTrue({
+            item["jev_recommendation"]
+            for item in mode["rounds"][0]["execution_feedback"]
+        } <= {"revise", "abandon"})
 
     def test_executable_but_unhelpful_round_does_not_force_an_addition(self):
         formulas = [
@@ -178,6 +203,28 @@ class NominationLoopTests(unittest.TestCase):
         self.assertEqual(mode["topology_macro_mae_relative_improvement"], 0.0)
         self.assertEqual(len(evaluations), 1)
         self.assertFalse(evaluations[0][1])
+
+    def test_explicit_jev_gate_blocks_validation_and_strips_locked_test_fields(self):
+        formulas = [[("a", "x+y"), ("b", "x*y"), ("c", "x/(y+1)")]] * 3
+        scores = {"nom_r1_a": 9.0, "nom_r1_b": 8.0, "nom_r1_c": 9.5,
+                  "nom_r2_a": 9.0, "nom_r2_b": 8.0, "nom_r2_c": 9.5,
+                  "nom_r3_a": 9.0, "nom_r3_b": 8.0, "nom_r3_c": 9.5}
+        jev = _DeferJev()
+        result, _, evaluations = self._run(formulas, scores, jev_judge=jev)
+        mode = result["modes"]["agent"]
+        self.assertTrue(result["harness"]["enabled"])
+        self.assertEqual(mode["harness"]["precompute_gate"], "enabled")
+        # Baseline selection may use validation, but no proposal reaches the
+        # candidate _validation_mae call after Jev returns defer.
+        self.assertEqual(len(evaluations), 2)
+        self.assertTrue(all("test" not in request["candidate"] for request in jev.requests))
+        self.assertTrue(all("test_labels" not in request["run_context"] for request in jev.requests))
+        self.assertEqual(mode["final_executed_descriptor_ids"], [])
+        self.assertEqual(len(mode["harness"]["postcompute_rounds"]), 3)
+        self.assertTrue(all(
+            item.get("validation_skip_reason") == "jev_defer"
+            for item in mode["rounds"][0]["execution_feedback"]
+        ))
 
 
 if __name__ == "__main__":

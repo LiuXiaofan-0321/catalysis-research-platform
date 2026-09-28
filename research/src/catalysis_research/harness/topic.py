@@ -131,11 +131,23 @@ class JevTopicScout:
         result = raw.get("result", raw) if isinstance(raw, dict) else raw
         if not isinstance(result, dict) or result.get("schema_version") != TOPIC_SCOUT_SCHEMA_VERSION:
             raise RuntimeError("Jev topic response has an unexpected schema_version")
-        for signal in result.get("signals", []):
+        signals = result.get("signals", [])
+        if not isinstance(signals, list):
+            raise RuntimeError("Jev topic response signals must be a list")
+        for signal in signals:
+            if not isinstance(signal, dict) or not signal.get("topic_id"):
+                raise RuntimeError("Jev topic response contains an invalid signal")
             if any(source_id not in known_source_ids for source_id in signal.get("source_ids", [])):
                 raise RuntimeError("Jev topic response cited an unknown source_id")
             if _parse_day(signal.get("as_of")) and _parse_day(signal["as_of"]) > cutoff_day:
                 raise RuntimeError("Jev topic response used a future as_of date")
+            for score_name in ("recency_score", "momentum_score"):
+                score = signal.get(score_name)
+                if not isinstance(score, (int, float)) or not 0.0 <= float(score) <= 1.0:
+                    raise RuntimeError(f"Jev topic response has invalid {score_name}")
+        queries = result.get("search_queries", [])
+        if not isinstance(queries, list) or not all(isinstance(query, str) and query.strip() for query in queries):
+            raise RuntimeError("Jev topic response search_queries must be non-empty strings")
         result["corpus_hash"] = corpus_hash
         result["cutoff"] = cutoff_day.isoformat()
         result["hotness_is_retrieval_priority_only"] = True

@@ -10,6 +10,13 @@ from .jev import HttpJevClient, RuleBasedJev, build_jev_request, validate_jev_de
 from .roles import DEFAULT_ROLES
 from .topic import JevTopicScout, RuleBasedTopicScout
 from .types import HarnessRun, JevDecision, RoundInput
+from .rounds import (
+    DEFAULT_ROUND_COUNTS,
+    ROUND_EXPERIMENT_SCHEMA_VERSION,
+    compute_round_metrics,
+    parse_round_counts,
+    run_round_prefix_experiment,
+)
 
 __all__ = [
     "DEFAULT_ROLES",
@@ -22,5 +29,10 @@ __all__ = [
     "RuleBasedJev",
     "RuleBasedTopicScout",
     "build_jev_request",
+    "DEFAULT_ROUND_COUNTS",
+    "ROUND_EXPERIMENT_SCHEMA_VERSION",
+    "compute_round_metrics",
+    "parse_round_counts",
+    "run_round_prefix_experiment",
     "validate_jev_decision",
 ]

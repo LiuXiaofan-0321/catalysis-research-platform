@@ -7,7 +7,7 @@ RESEARCH_ROOT = __import__("pathlib").Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RESEARCH_ROOT / "src"))
 
 from catalysis_research.harness import HarnessController, RuleBasedJev, RuleBasedTopicScout  # noqa: E402
-from catalysis_research.harness.jev import JevError, build_jev_request  # noqa: E402
+from catalysis_research.harness.jev import JevError, build_jev_request, validate_jev_decision  # noqa: E402
 from catalysis_research.harness.types import RoundInput  # noqa: E402
 
 
@@ -34,7 +34,7 @@ class HarnessTests(unittest.TestCase):
                     round_id=1,
                     candidates=[
                         _candidate("c1", evidence=[]),
-                        _candidate("c2"),
+                        _candidate("c2", formula="x*y"),
                     ],
                     context={"allowed_evidence_ids": ["E01"]},
                 ),
@@ -95,6 +95,37 @@ class HarnessTests(unittest.TestCase):
         self.assertEqual(result["cutoff"], "2026-01-01")
         self.assertEqual([item["topic_id"] for item in result["signals"]], ["t1"])
         self.assertTrue(result["hotness_is_retrieval_priority_only"])
+
+    def test_same_round_duplicate_is_abandoned(self) -> None:
+        controller = HarnessController(judge=RuleBasedJev())
+        result = controller.run(
+            run_id="same-round",
+            rounds=[RoundInput(round_id=1, candidates=[_candidate("c1"), _candidate("c2")])],
+        )
+        records = result.rounds[0]["records"]
+        self.assertEqual(records[0]["jev"]["recommendation"], "compute_validate")
+        self.assertEqual(records[1]["jev"]["recommendation"], "abandon")
+        self.assertEqual(records[1]["jev"]["duplicate_candidate_ids"], ["c1"])
+
+    def test_decision_contract_rejects_unsafe_routing(self) -> None:
+        with self.assertRaises(JevError):
+            validate_jev_decision({
+                "evidence_verdict": "contradicts",
+                "evidence_confidence": 1.0,
+                "novelty_verdict": "novel",
+                "novelty_confidence": 1.0,
+                "recommendation": "compute_validate",
+                "rationale": "unsafe",
+            })
+        with self.assertRaises(JevError):
+            validate_jev_decision({
+                "evidence_verdict": "supports",
+                "evidence_confidence": 1.0,
+                "novelty_verdict": "duplicate",
+                "novelty_confidence": 1.0,
+                "recommendation": "revise",
+                "rationale": "unsafe",
+            })
 
 
 if __name__ == "__main__":

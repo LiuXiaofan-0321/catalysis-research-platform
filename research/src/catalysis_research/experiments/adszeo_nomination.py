@@ -54,6 +54,9 @@ from catalysis_research.experiments.adszeo_v2 import (
     load_geometry,
 )
 from catalysis_research.models.glm import GlmClient, GlmResponse
+from catalysis_research.harness import HarnessController, RuleBasedJev
+from catalysis_research.harness.jev import JevJudge
+from catalysis_research.harness.types import RoundInput
 from catalysis_research.retrieval import (
     EXPERIMENT_KNOWLEDGE_MODES,
     KnowledgeModeRetriever,
@@ -391,6 +394,7 @@ def run_adszeo_nomination_loop(
     score_only: bool = False,
     database_sha256: str | None = None,
     client: GlmClient | None = None,
+    jev_judge: JevJudge | None = None,
 ) -> dict[str, Any]:
     if rounds != NOMINATION_ROUNDS or proposal_count != PROPOSALS_PER_ROUND:
         raise ValueError("AdsZeo v5 requires exactly three rounds and three proposals per round")
@@ -422,6 +426,15 @@ def run_adszeo_nomination_loop(
         allowed_inputs=allowed_inputs, proposal_count=proposal_count,
     )
     api_client = client or GlmClient()
+    # Jev is a pre-compute gate.  The deterministic rule judge is the offline
+    # baseline; callers can inject a pinned HTTP/model judge for a replayable
+    # comparison without changing the nomination protocol.
+    # Keep historical v5 result generation byte-for-byte compatible unless a
+    # caller explicitly opts into Jev gating.  We still emit an offline Jev
+    # audit in the default path, which makes the prospective gate measurable
+    # without silently changing a frozen benchmark.
+    jev_enabled = jev_judge is not None
+    harness_judge = jev_judge or RuleBasedJev()
     mode_results: dict[str, Any] = {}
     final_catalogs: dict[str, dict[str, Any]] = {}
     for mode in modes:
@@ -430,6 +443,9 @@ def run_adszeo_nomination_loop(
             evidence_context = _label_evidence_context(bundle)
             history: list[dict[str, Any]] = []
             round_records: list[dict[str, Any]] = []
+            harness_rounds: list[dict[str, Any]] = []
+            harness_postcompute_rounds: list[dict[str, Any]] = []
+            harness_prior_candidates: list[dict[str, Any]] = []
             executed: dict[str, dict[str, Any]] = {}
             retained: list[str] = []
             current_validation_mae = d0_validation_mae
@@ -495,7 +511,9 @@ def run_adszeo_nomination_loop(
                 for proposal in generation["descriptor_candidates"]:
                     name = proposal["name"]
                     exec_id = f"nom_r{round_index}_{name}"
-                    entry: dict[str, Any] = {"name": name, "formula": proposal["formula"]}
+                    entry: dict[str, Any] = {
+                        "name": name, "formula": proposal["formula"], "candidate_id": exec_id,
+                    }
                     try:
                         fn, _used = compile_formula(proposal["formula"], set(allowed_inputs))
                         values = np.asarray(fn(env), dtype=float).copy()
@@ -542,14 +560,107 @@ def run_adszeo_nomination_loop(
                         "name": name,
                     }
                     round_executed[exec_id] = values
-                    entry.update({"status": "executed", "exec_id": exec_id, "retained": False})
+                    entry.update({"status": "executed", "exec_id": exec_id, "candidate_id": exec_id, "retained": False})
                     proposals_feedback.append(entry)
 
+                # Run the auditable Jev gate after guarded DSL execution has
+                # established feasibility, but before any validation metric is
+                # computed.  The generated evidence chain is shared by the
+                # proposals and mapped to the harness' provenance contract;
+                # only retrieved IDs are allowed through.
+                evidence_for_harness = []
+                for item in generation.get("evidence_chain") or []:
+                    if not isinstance(item, dict):
+                        continue
+                    evidence_id = item.get("evidence_id")
+                    claim = str(item.get("claim") or "").strip()
+                    if not evidence_id or not claim:
+                        continue
+                    evidence_for_harness.append({
+                        "evidence_id": str(evidence_id),
+                        "role": str(item.get("role") or "context"),
+                        "claim": claim,
+                        "quote": claim,
+                    })
+                harness_candidates: list[dict[str, Any]] = []
+                proposal_by_name = {
+                    item["name"]: item for item in generation["descriptor_candidates"]
+                }
+                for entry in proposals_feedback:
+                    proposal = proposal_by_name.get(entry["name"], {})
+                    harness_candidates.append({
+                        "candidate_id": entry.get("candidate_id") or f"nom_r{round_index}_{entry['name']}",
+                        "hypothesis_id": f"adszeo-v5-r{round_index}",
+                        "statement": generation["hypothesis"],
+                        "formula": entry["formula"],
+                        "evidence": evidence_for_harness,
+                        # Agent mode is intentionally evidence-free by design;
+                        # Jev should still judge executability and novelty.
+                        "evidence_optional": mode == "agent",
+                        # Jev's retrieval contract caps query length; keep the
+                        # provenance-bearing prefix while bounding model text.
+                        "retrieval_query": f"{query}: {generation['hypothesis']} ({entry['formula']})"[:1200],
+                        "falsification_criteria": proposal.get("falsification_criteria", "unspecified"),
+                        "execution": {
+                            "status": "ready" if entry.get("status") == "executed" else "failed",
+                            "failure_code": entry.get("failure_code"),
+                        },
+                        "validation": {},
+                    })
+                harness_prior_before_round = list(harness_prior_candidates)
+                harness_round = HarnessController(judge=harness_judge).run_round(
+                    RoundInput(
+                        round_id=round_index,
+                        candidates=harness_candidates,
+                        context={
+                            "allowed_evidence_ids": [
+                                f"E{index:02d}" for index in range(1, len(bundle.get("items") or []) + 1)
+                            ],
+                            "stage": "precompute",
+                            "outcome_split": "validation",
+                            "locked_test_policy": "final_only",
+                            "knowledge_mode": mode,
+                        },
+                    ),
+                    harness_prior_before_round,
+                    {
+                        "allowed_evidence_ids": [
+                            f"E{index:02d}" for index in range(1, len(bundle.get("items") or []) + 1)
+                        ],
+                        "stage": "precompute",
+                        "outcome_split": "validation",
+                        "locked_test_policy": "final_only",
+                        "knowledge_mode": mode,
+                    },
+                )
+                harness_rounds.append(harness_round)
+                harness_prior_candidates.extend(harness_candidates)
+                harness_by_id = {
+                    record["candidate_id"]: record for record in harness_round["records"]
+                }
+                for entry in proposals_feedback:
+                    harness_record = harness_by_id[entry.get("candidate_id") or f"nom_r{round_index}_{entry['name']}"]
+                    entry["jev_recommendation"] = harness_record["jev"]["recommendation"]
+                    entry["jev_decision_sha256"] = harness_record["decision_sha256"]
+
                 selected_this_round = None
-                if round_executed:
-                    catalog_now = {**d0_catalog, **{key: item["descriptor"] for key, item in executed.items()}}
+                compute_ids = {
+                    record["candidate_id"]
+                    for record in harness_round["records"]
+                    if record["jev"]["recommendation"] == "compute_validate"
+                }
+                if not jev_enabled:
+                    compute_ids = {
+                        entry["candidate_id"] for entry in proposals_feedback
+                        if entry.get("status") == "executed"
+                    }
                     for entry in proposals_feedback:
                         if entry.get("status") == "executed":
+                            entry["jev_gate_bypassed"] = True
+                if compute_ids:
+                    catalog_now = {**d0_catalog, **{key: item["descriptor"] for key, item in executed.items()}}
+                    for entry in proposals_feedback:
+                        if entry.get("status") == "executed" and entry.get("candidate_id") in compute_ids:
                             candidate_mae = _validation_mae(
                                 dataset.rows, (*D0_DESCRIPTOR_IDS, *retained, entry["exec_id"]),
                                 catalog_now, parameters,
@@ -560,6 +671,7 @@ def run_adszeo_nomination_loop(
                     beneficial = [
                         entry for entry in proposals_feedback
                         if entry.get("status") == "executed"
+                        and entry.get("candidate_id") in compute_ids
                         and entry["validation_topology_macro_mae_mol_kg"] < validation_before - 1e-12
                     ]
                     if beneficial:
@@ -568,6 +680,57 @@ def run_adszeo_nomination_loop(
                         best["retained"] = True
                         retained.append(selected_this_round)
                         current_validation_mae = best["validation_topology_macro_mae_mol_kg"]
+
+                # Re-run the role audit after validation so the immutable
+                # record explains what happened to every proposal.  This is
+                # observational: the pre-compute Jev route above remains the
+                # only gate, and a post-compute recommendation never triggers
+                # another metric evaluation.
+                for entry in proposals_feedback:
+                    if entry.get("status") == "executed" and entry.get("candidate_id") not in compute_ids:
+                        route = entry.get("jev_recommendation") or "not_routed"
+                        entry["validation_skipped"] = True
+                        entry["validation_skip_reason"] = f"jev_{route}"
+                    elif entry.get("status") == "failed":
+                        entry["validation_skipped"] = True
+                        entry["validation_skip_reason"] = f"execution_{entry.get('failure_code', 'failed')}"
+
+                postcompute_candidates: list[dict[str, Any]] = []
+                for candidate in harness_candidates:
+                    entry = next(item for item in proposals_feedback if item["candidate_id"] == candidate["candidate_id"])
+                    post_candidate = dict(candidate)
+                    post_candidate["execution"] = dict(candidate["execution"])
+                    post_candidate["validation"] = {
+                        "split_id": "validation-v1",
+                        "repeat_count": 1,
+                    }
+                    if "marginal_validation_delta_macro_mae" in entry:
+                        post_candidate["validation"].update({
+                            "marginal_validation_delta": entry["marginal_validation_delta_macro_mae"],
+                            "marginal_gain": -entry["marginal_validation_delta_macro_mae"],
+                        })
+                    elif entry.get("validation_skip_reason"):
+                        post_candidate["validation"]["status"] = "skipped"
+                        post_candidate["validation"]["skip_reason"] = entry["validation_skip_reason"]
+                    postcompute_candidates.append(post_candidate)
+                postcompute_round = HarnessController(judge=harness_judge).run_round(
+                    RoundInput(round_id=round_index, candidates=postcompute_candidates),
+                    harness_prior_before_round,
+                    {
+                        "allowed_evidence_ids": [
+                            f"E{index:02d}" for index in range(1, len(bundle.get("items") or []) + 1)
+                        ],
+                        "stage": "postcompute",
+                        "outcome_split": "validation",
+                        "locked_test_policy": "final_only",
+                        "knowledge_mode": mode,
+                    },
+                )
+                harness_postcompute_rounds.append(postcompute_round)
+                for record in postcompute_round["records"]:
+                    entry = next(item for item in proposals_feedback if item["candidate_id"] == record["candidate_id"])
+                    entry["post_jev_recommendation"] = record["jev"]["recommendation"]
+                    entry["post_jev_decision_sha256"] = record["decision_sha256"]
                 set_delta = current_validation_mae - d0_validation_mae
                 history.append({
                     "round": round_index,
@@ -590,6 +753,12 @@ def run_adszeo_nomination_loop(
                     "validation_before_topology_macro_mae_mol_kg": validation_before,
                     "validation_after_topology_macro_mae_mol_kg": current_validation_mae,
                     "validation_set_delta_macro_mae": set_delta,
+                    "harness": {
+                        "enabled": jev_enabled,
+                        "judge": type(harness_judge).__name__,
+                        "precompute": harness_round,
+                        "postcompute": postcompute_round,
+                    },
                     "prompt": {"system_sha256": _canonical_hash(system), "user_sha256": _canonical_hash(user)},
                     "model": {"usage": usage, "response_id": response.raw.get("id")},
                 })
@@ -607,6 +776,13 @@ def run_adszeo_nomination_loop(
                 "status": "completed",
                 "bundle": bundle,
                 "rounds": round_records,
+                "harness": {
+                    "enabled": jev_enabled,
+                    "judge": type(harness_judge).__name__,
+                    "precompute_gate": "enabled" if jev_enabled else "audit_only",
+                    "rounds": harness_rounds,
+                    "postcompute_rounds": harness_postcompute_rounds,
+                },
                 "final_executed_descriptor_ids": list(retained),
                 "accepted_catalog": {
                     key: {"name": executed[key]["name"], "formula": executed[key]["descriptor"].formula}
@@ -725,6 +901,12 @@ def run_adszeo_nomination_loop(
                 "All three modes finish validation selection before any locked-test prediction is computed."
             ),
             "Executability rate, failure taxonomy, and novelty are now first-class outcome measures alongside topology macro-MAE.",
+            (
+                "Jev pre-compute routing is enabled; validation is only run for candidates receiving compute_validate."
+                if jev_enabled else
+                "Jev decisions are recorded as an offline audit only; legacy validation routing remains active unless a judge is explicitly supplied."
+            ),
+            "Harness requests are built before the final locked-test phase and strip test labels, target values, and test metrics.",
         ],
         "dataset": {
             **dataset.metadata,
@@ -733,6 +915,12 @@ def run_adszeo_nomination_loop(
             "geometry_sha256": geometry_sha256,
         },
         "retrieval": {"budget": budget.__dict__, "source_identities": service.source_identities, "evidence_strategy": "single_frozen_query"},
+        "harness": {
+            "enabled": jev_enabled,
+            "judge": type(harness_judge).__name__,
+            "precompute_gate": "enabled" if jev_enabled else "audit_only",
+            "locked_test_policy": "final_only",
+        },
         "modes": mode_results,
         "environment": {"python": sys.version, "platform": platform.platform()},
     }

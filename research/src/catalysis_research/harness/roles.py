@@ -131,7 +131,7 @@ class FeasibilityRole:
         failure_code = execution.get("failure_code")
         if status in {"executed", "ready"}:
             verdict, confidence = "feasible", 1.0
-        elif failure_code in {"unsafe_expression", "unsupported_input", "non_computable"}:
+        elif failure_code in {"unsafe_expression", "unsupported_input", "non_computable", "non_finite", "execution_error"}:
             verdict, confidence = "infeasible", 1.0
         elif failure_code in {"zero_variance", "redundant", "missingness", "missingness_exceeded"}:
             verdict, confidence = "degenerate", 1.0

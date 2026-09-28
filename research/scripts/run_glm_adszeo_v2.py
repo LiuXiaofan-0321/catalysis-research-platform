@@ -15,6 +15,7 @@ from catalysis_research.experiments.adszeo_v2 import (  # noqa: E402
     run_adszeo_v2_loop,
 )
 from catalysis_research.experiments.adszeo_nomination import run_adszeo_nomination_loop  # noqa: E402
+from catalysis_research.harness import HttpJevClient, RuleBasedJev  # noqa: E402
 from catalysis_research.retrieval import KnowledgeModeRetriever, RetrievalBudget  # noqa: E402
 
 
@@ -44,6 +45,10 @@ def main() -> int:
     parser.add_argument("--score-only", action="store_true",
                         help="For open nomination, report the adaptively selected validation score without evaluating the test split.")
     parser.add_argument("--mode", action="append", dest="modes")
+    parser.add_argument(
+        "--jev", choices=("off", "rule", "http"), default="off",
+        help="Gate v5 candidate computation with Jev; HTTP mode uses JEV_ENDPOINT/JEV_API_KEY.",
+    )
     args = parser.parse_args()
     if args.score_only and not args.open_nomination:
         parser.error("--score-only requires --open-nomination")
@@ -86,10 +91,16 @@ def main() -> int:
         database_sha256=args.database_sha256,
     )
     if args.open_nomination:
+        jev_judge = None
+        if args.jev == "rule":
+            jev_judge = RuleBasedJev()
+        elif args.jev == "http":
+            jev_judge = HttpJevClient()
         result = run_adszeo_nomination_loop(
             modes=args.modes or ("agent", "rag_agent", "small_kg_rag_agent"),
             proposal_count=experiment.get("proposal_count", experiment.get("selected_descriptor_count", 3)),
             score_only=args.score_only,
+            jev_judge=jev_judge,
             **common,
         )
     else:

@@ -49,15 +49,22 @@ class HarnessController:
         records: list[dict[str, Any]] = []
         decisions: Counter[str] = Counter()
         stage_context = {**run_context, **round_input.context}
+        # Candidates in the same round are part of the novelty reference set
+        # as soon as they have been judged.  This catches a generator that
+        # emits the same formula twice in one response, rather than waiting
+        # for the next round to discover the duplicate.
+        # Role context is model-visible input.  Keep it stripped even though
+        # the full candidate remains in the audit record returned to callers.
+        seen_candidates = [_strip_locked_test(item) for item in prior_candidates]
         for candidate in round_input.candidates:
             role_outputs = {
-                role.role_id: role.evaluate(_strip_locked_test(candidate), {**stage_context, "prior_candidates": prior_candidates})
+                role.role_id: role.evaluate(_strip_locked_test(candidate), {**stage_context, "prior_candidates": seen_candidates})
                 for role in self.roles
             }
             request = build_jev_request(
                 candidate=candidate,
                 role_outputs=role_outputs,
-                prior_candidates=prior_candidates,
+                prior_candidates=seen_candidates,
                 round_id=round_input.round_id,
                 run_context=stage_context,
             )
@@ -85,6 +92,11 @@ class HarnessController:
                 json.dumps(decision.to_dict(), ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
             ).hexdigest()
             records.append(record)
+            seen_candidates.append({
+                **_strip_locked_test(candidate),
+                "harness_decision": record["jev"],
+                "role_outputs": record["role_outputs"],
+            })
         gains = [
             float((item["role_outputs"].get("validation_planner") or {}).get("marginal_gain"))
             for item in records
