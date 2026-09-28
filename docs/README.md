@@ -13,6 +13,7 @@
 
 ## 研究与工程文档
 
+- [研究阶段成果与后续路线（2026-09-27）](research/RESEARCH_PROGRESS_AND_ROADMAP_20260927.md)
 - [Evidence-grounded 科学假设发现闭环](research/SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md)
 - [当前架构](research/CURRENT_ARCHITECTURE.md)
 - [实验协议](research/EXPERIMENT_PROTOCOL.md)

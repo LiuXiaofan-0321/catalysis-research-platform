@@ -1,5 +1,9 @@
 # AdsZeo v2：几何扩展 catalog + 3 轮迭代发现循环
 
+> **状态：作废并归档（2026-09-28）。** v2、v3、v4 都围绕预定义描述符目录进行选择、盲化或检索净化，属于闭合菜单协议，不是开放式模型假设生成。本文保留历史诊断和实现演进记录，但不再作为当前 harness、知识模式或开放假设能力的证据；当前开放式结果见 [AdsZeo v5 报告](ADSZEO_V5_NOMINATION_REPORT.md) 和 [v5 单评分集协议](ADSZEO_V5_SINGLE_SCORE_PROTOCOL.md)。
+
+> **2026-09-24 复核：v2/v3/v4 的知识模式对比受提示词预算混杂影响。** 共用的证据编号函数在文献引文含空行时，按检索条目数重复整段上下文；因此 RAG 与 KG+RAG 的实际提示词远超冻结的检索预算，下文有关三模式排序、显著性及“预算一致”的解释需等待修复后重跑。历史数值保留供追溯；D0、数据集/几何审计和无 LLM 的 oracle 结果不受此问题影响。修复见 `research/src/catalysis_research/experiments/discovery_loop.py`；修复后的 v5 结果见 [v5 报告](ADSZEO_V5_NOMINATION_REPORT.md)。
+
 状态日期：2026-09-18
 
 运行分类：`EXPLORATORY_BENCHMARK_V2 / EXPLORATORY_NOT_CONFIRMATORY`

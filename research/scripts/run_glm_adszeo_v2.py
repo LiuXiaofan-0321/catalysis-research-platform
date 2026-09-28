@@ -19,7 +19,7 @@ from catalysis_research.retrieval import KnowledgeModeRetriever, RetrievalBudget
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run the AdsZeo v2 geometry-catalog three-mode benchmark.")
+    parser = argparse.ArgumentParser(description="Run the AdsZeo geometry-catalog or v5 open-nomination benchmark.")
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--rag-index", type=Path, required=True)
     parser.add_argument("--snapshot", type=Path, required=True)
@@ -41,8 +41,12 @@ def main() -> int:
                         help="Retrieve per evidence family (topology/pore/composition) and merge under the same budgets.")
     parser.add_argument("--open-nomination", action="store_true",
                         help="Free-form descriptor nomination with the restricted DSL executor (no candidate catalog).")
+    parser.add_argument("--score-only", action="store_true",
+                        help="For open nomination, report the adaptively selected validation score without evaluating the test split.")
     parser.add_argument("--mode", action="append", dest="modes")
     args = parser.parse_args()
+    if args.score_only and not args.open_nomination:
+        parser.error("--score-only requires --open-nomination")
     if args.database_sha256 is not None:
         value = args.database_sha256.strip().lower()
         if len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
@@ -51,6 +55,12 @@ def main() -> int:
 
     config = json.loads(args.config.read_text(encoding="utf-8"))
     experiment = config["experiment"]
+    if args.open_nomination and (args.rounds or experiment.get("rounds", 3)) != 3:
+        parser.error("AdsZeo v5 requires exactly three rounds")
+    if args.open_nomination and experiment.get("proposal_count", experiment.get("selected_descriptor_count", 3)) != 3:
+        parser.error("AdsZeo v5 requires exactly three proposals per round")
+    if args.open_nomination and experiment.get("retained_descriptor_limit", 3) != 3:
+        parser.error("AdsZeo v5 retains at most three descriptors")
     service = KnowledgeModeRetriever.from_directories(
         config_path=args.config,
         rag_index_directory=args.rag_index,
@@ -78,7 +88,8 @@ def main() -> int:
     if args.open_nomination:
         result = run_adszeo_nomination_loop(
             modes=args.modes or ("agent", "rag_agent", "small_kg_rag_agent"),
-            proposal_count=experiment.get("selected_descriptor_count", 3),
+            proposal_count=experiment.get("proposal_count", experiment.get("selected_descriptor_count", 3)),
+            score_only=args.score_only,
             **common,
         )
     else:

@@ -1,5 +1,9 @@
 # AdsZeo Benchmark v1：简化审计与三模式初步对比
 
+> **状态：作废并归档（2026-09-28）。** v1 使用预定义描述符目录，属于闭合菜单选择任务，不是开放式模型假设生成。因此本文及其 v1–v4 历史比较不再作为当前 harness、知识模式或开放假设能力的证据；数值仅保留用于审计、故障定位和研究演进追溯。当前开放式结果见 [AdsZeo v5 报告](ADSZEO_V5_NOMINATION_REPORT.md) 和 [v5 单评分集协议](ADSZEO_V5_SINGLE_SCORE_PROTOCOL.md)。
+
+> **2026-09-24 复核：三模式比较存在提示词预算混杂。** 共用的证据编号函数把含有空行的检索上下文误拆为多段，随后按检索条目数重复整段上下文。RAG 与 KG+RAG 实际收到的上下文可能被放大多倍，因此下文的模式排序及“预算完全一致”说法仅是历史记录，不能作为公平的知识模式比较结论。D0、数据审计和不依赖该提示词的 oracle 计算不受此问题影响。修复见 `research/src/catalysis_research/experiments/discovery_loop.py`；修复后的 v5 结果见 [v5 报告](ADSZEO_V5_NOMINATION_REPORT.md)。
+
 状态日期：2026-09-18
 
 运行分类：`EXPLORATORY_BENCHMARK_V1 / EXPLORATORY_NOT_CONFIRMATORY`

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 import sys
 import tempfile
@@ -12,6 +13,7 @@ sys.path.insert(0, str(RESEARCH_ROOT / "src"))
 
 from catalysis_research.experiments.discovery_loop import (  # noqa: E402
     D0_DESCRIPTOR_IDS,
+    _label_evidence_context,
     build_discovery_prompt,
     run_discovery_loop,
     validate_discovery_output,
@@ -71,13 +73,28 @@ class _FakeService:
             "query": query,
             "budget": budget.__dict__,
             "items": [] if experiment_mode == "agent" else [{"paper_id": "p1"}],
-            "context": "" if experiment_mode == "agent" else "[E01 | paper=p1 | document=d1 | type=main | locator=pdf_page:1] Evidence.",
+            "context": "" if experiment_mode == "agent" else "[1 | paper=p1 | document=d1 | type=main | locator=pdf_page:1]\nEvidence.",
             "selected_token_count": 10,
             "bundle_hash": f"bundle-{experiment_mode}",
         }
 
 
 class DiscoveryLoopTests(unittest.TestCase):
+    def test_evidence_aliases_preserve_multi_paragraph_quotes_once(self) -> None:
+        context = (
+            "[1 | paper=p1 | document=d1]\nFirst paragraph.\n\nSecond paragraph.\n\n"
+            "[2 | paper=p2 | document=d2]\nOther evidence."
+        )
+        labelled = _label_evidence_context({"context": context, "items": [{}, {}]})
+        self.assertEqual(labelled.count("First paragraph."), 1)
+        self.assertEqual(labelled.count("Second paragraph."), 1)
+        self.assertEqual(labelled.count("Other evidence."), 1)
+        self.assertEqual(labelled.count("E01:"), 1)
+        self.assertEqual(labelled.count("E02:"), 1)
+        self.assertLess(len(labelled), len(context) + 20)
+        with self.assertRaisesRegex(ValueError, "boundaries"):
+            _label_evidence_context({"context": context, "items": [{}]})
+
     def test_validation_rejects_d0_as_new_descriptor(self) -> None:
         catalog = descriptor_catalog()
         value = {
@@ -114,8 +131,32 @@ class DiscoveryLoopTests(unittest.TestCase):
         self.assertEqual(json.loads(user_b)["descriptor_selection"]["selected_budget"], 3)
 
     def test_three_modes_share_budget_and_emit_paired_downstream_results(self) -> None:
-        raw = RESEARCH_ROOT / "datasets" / "raw" / "TheMeCat_v1.csv"
         with tempfile.TemporaryDirectory() as temporary:
+            raw = Path(temporary) / "synthetic-themecat.csv"
+            fieldnames = [
+                "reference", "doi_link", "active_comp_1", "active_1_percent",
+                "support_comp_1", "temperature_k", "pressure_bar",
+                "pH2_pCO2_ratio", "GHSV_nlph_gcat", "catalyst_load_g",
+                "STY_g_per_gcath",
+            ]
+            with raw.open("w", encoding="utf-8", newline="") as source:
+                writer = csv.DictWriter(source, fieldnames=fieldnames)
+                writer.writeheader()
+                for family_index, family in enumerate(("Cu", "In2O3", "Pd")):
+                    for index in range(10):
+                        writer.writerow({
+                            "reference": f"synthetic-{family}-{index}",
+                            "doi_link": f"10.1/synthetic-{family_index}-{index}",
+                            "active_comp_1": family,
+                            "active_1_percent": 10 + index,
+                            "support_comp_1": "Al2O3",
+                            "temperature_k": 470 + 5 * index + family_index,
+                            "pressure_bar": 20 + index,
+                            "pH2_pCO2_ratio": 2 + 0.1 * index,
+                            "GHSV_nlph_gcat": 1000 + 50 * index,
+                            "catalyst_load_g": 0.2 + 0.01 * index,
+                            "STY_g_per_gcath": 1 + 0.03 * index + 0.2 * family_index,
+                        })
             output = Path(temporary) / "run.json"
             client = _FakeClient(descriptor_catalog())
             result = run_discovery_loop(

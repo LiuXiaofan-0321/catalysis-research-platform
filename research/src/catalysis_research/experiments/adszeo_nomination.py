@@ -1,14 +1,17 @@
 """AdsZeo v5: open-ended descriptor nomination with a restricted DSL executor.
 
 Replaces the visible 42-item catalog with free-form nomination: the model
-proposes descriptor formulas as single expressions over the allowed pre-
+proposes three formulas in each of three rounds over the allowed pre-
 adsorption inputs. Every formula is parsed with a whitelisted AST walker
 (no imports, attributes, indexing, comparisons), executed under guarded
 numpy semantics, and quality-checked (non-finite, missingness, zero
-variance, redundancy). Rejections are recorded in the pre-registered
-failure taxonomy; executed proposals enter the same frozen D0 vs D0+X
-HistGradientBoosting validation as v1-v4 (topology-level 80/10/10 split,
-D0-tuned hyperparameters, test evaluated once after the final round).
+variance, redundancy). Rejections are recorded in the failure taxonomy.
+Executed proposals are scored for marginal validation benefit beyond D0 plus
+the retained descriptors. At most one beneficial proposal is retained per
+round, so the final model adds at most three descriptors. The default protocol
+evaluates the frozen test only for the final set. The optional single-score
+protocol reports the adaptively selected validation score and never evaluates
+the frozen test.
 
 Knowledge conditions remain budget-matched: agent receives no evidence,
 rag_agent receives the single frozen query bundle, small_kg_rag_agent the
@@ -42,14 +45,12 @@ from catalysis_research.experiments.adszeo import (
 )
 from catalysis_research.experiments.discovery_loop import (
     DEFAULT_MODEL,
-    DISCOVERY_SCHEMA_VERSION,
     _canonical_hash,
     _label_evidence_context,
 )
 from catalysis_research.experiments.themecat_pilot import Descriptor
 from catalysis_research.experiments.adszeo_v2 import (
     VALIDATION_MODE,
-    _validation_mae,
     load_geometry,
 )
 from catalysis_research.models.glm import GlmClient, GlmResponse
@@ -59,8 +60,12 @@ from catalysis_research.retrieval import (
     RetrievalBudget,
 )
 
-RUN_SCHEMA_VERSION = "glm_scientific_discovery_adszeo_v5_open_nomination.v5"
+RUN_SCHEMA_VERSION = "glm_scientific_discovery_adszeo_v5_open_nomination.v5.1"
+SCORE_ONLY_SCHEMA_VERSION = "glm_scientific_discovery_adszeo_v5_open_nomination.single_score.v1"
+PROMPT_SCHEMA_VERSION = "descriptor_nomination.v1.1"
 RANDOM_STATE = 20260902
+NOMINATION_ROUNDS = 3
+PROPOSALS_PER_ROUND = 3
 MAX_AST_DEPTH = 24
 MISSINGNESS_LIMIT = 0.5
 REDUNDANCY_LIMIT = 0.999
@@ -304,6 +309,7 @@ def build_nomination_prompt(
     evidence_context: str,
     allowed_inputs: list[str],
     proposal_count: int,
+    retained_descriptors: list[dict[str, str]] | None = None,
 ) -> tuple[str, str]:
     system = (
         "You are an evidence-grounded scientific hypothesis agent. Return one "
@@ -312,7 +318,7 @@ def build_nomination_prompt(
         "result. If evidence is absent or insufficient, say so explicitly."
     )
     payload = {
-        "schema_version": "descriptor_nomination.v1",
+        "schema_version": PROMPT_SCHEMA_VERSION,
         "run_classification": "exploratory_not_confirmatory",
         "task": task,
         "retrieval_query": query,
@@ -324,6 +330,7 @@ def build_nomination_prompt(
             "label_visibility": "no row-level labels or test outcomes",
         },
         "baseline_descriptor_ids_D0": list(D0_DESCRIPTOR_IDS),
+        "retained_descriptors": retained_descriptors or [],
         "allowed_inputs": allowed_inputs,
         "formula_contract": {
             "grammar": "one arithmetic expression over allowed_inputs; no renames of D0 inputs",
@@ -353,7 +360,9 @@ def build_nomination_prompt(
         },
         "instructions": [
             "Use only allowed_inputs inside formulas; only whitelisted functions and operators.",
-            "Return exactly the proposal budget; each formula must define a new quantity, not rename a D0 input.",
+            "Return exactly three new proposals this round; retained descriptors are carried forward automatically.",
+            "Each formula must define a new quantity, not rename D0 or a retained descriptor.",
+            "Each proposal is scored for marginal validation benefit beyond D0 plus retained descriptors.",
             "Do not use target values, outcome columns, or any row-level data.",
             "For agent mode, evidence_chain must be empty and epistemic_status should be insufficient_evidence or tentative.",
         ],
@@ -379,12 +388,15 @@ def run_adszeo_nomination_loop(
     modes: Iterable[str] = EXPERIMENT_KNOWLEDGE_MODES,
     proposal_count: int = 3,
     rounds: int = 3,
+    score_only: bool = False,
     database_sha256: str | None = None,
     client: GlmClient | None = None,
 ) -> dict[str, Any]:
+    if rounds != NOMINATION_ROUNDS or proposal_count != PROPOSALS_PER_ROUND:
+        raise ValueError("AdsZeo v5 requires exactly three rounds and three proposals per round")
     started = datetime.now(timezone.utc)
     dataset = load_adszeo(database_path)
-    geometry_columns, geometry_map = load_geometry(geometry_csv)
+    _geometry_columns, geometry_map = load_geometry(geometry_csv)
     for row in dataset.rows:
         row.update(geometry_map[row["structure_id"]])
     allowed_inputs = sorted(
@@ -394,9 +406,11 @@ def run_adszeo_nomination_loop(
     env = {key: np.array([float(row.get(key, float("nan"))) for row in dataset.rows]) for key in allowed_inputs}
     geometry_sha256 = hashlib.sha256(Path(geometry_csv).read_bytes()).hexdigest()
 
-    baseline = evaluate_adszeo(dataset, D0_DESCRIPTOR_IDS, adszeo_descriptor_catalog())
-    parameters = baseline["selected_parameters"]
-    d0_validation_mae = baseline["validation_topology_macro_mae_mol_kg"]
+    baseline_selection = evaluate_adszeo(
+        dataset, D0_DESCRIPTOR_IDS, adszeo_descriptor_catalog(), evaluate_test=False,
+    )
+    parameters = baseline_selection["selected_parameters"]
+    d0_validation_mae = baseline_selection["validation_topology_macro_mae_mol_kg"]
     d0_catalog = {key: item for key, item in adszeo_descriptor_catalog().items() if key in D0_DESCRIPTOR_IDS}
     d0_values = {
         key: np.array([float(item.compute(row)) for row in dataset.rows])
@@ -409,27 +423,36 @@ def run_adszeo_nomination_loop(
     )
     api_client = client or GlmClient()
     mode_results: dict[str, Any] = {}
+    final_catalogs: dict[str, dict[str, Any]] = {}
     for mode in modes:
         try:
             bundle = service.retrieve(query=query, experiment_mode=mode, budget=budget)
             evidence_context = _label_evidence_context(bundle)
             history: list[dict[str, Any]] = []
             round_records: list[dict[str, Any]] = []
-            accepted: dict[str, dict[str, Any]] = {}
-            final_executed: list[str] = []
+            executed: dict[str, dict[str, Any]] = {}
+            retained: list[str] = []
+            current_validation_mae = d0_validation_mae
             response: GlmResponse | None = None
             for round_index in range(1, rounds + 1):
+                retained_for_prompt = [
+                    {"descriptor_id": key, "name": executed[key]["name"],
+                     "formula": executed[key]["descriptor"].formula}
+                    for key in retained
+                ]
                 system, user = build_nomination_prompt(
                     task=task, query=query, knowledge_mode=mode, evidence_context=evidence_context,
                     allowed_inputs=allowed_inputs, proposal_count=proposal_count,
+                    retained_descriptors=retained_for_prompt,
                 )
                 if history:
                     payload = json.loads(user)
                     payload["previous_rounds"] = history
                     payload["revision_instructions"] = [
-                        "This is a revision round. You may keep or replace any previously proposed descriptor.",
-                        "Failed proposals report a failure_code; fix the formula (guard divisions, use allowed functions) or propose different quantities.",
-                        "Executed proposals report their individual validation delta; prefer keeping those with positive benefit.",
+                        "Previously retained descriptors remain in the model; do not propose them again.",
+                        "Propose three new formulas that can add information beyond the retained set.",
+                        "Failed proposals report a failure_code; revise the formula or propose a different quantity.",
+                        "Executed proposals report their marginal validation delta; smaller MAE is better.",
                         "The validation feedback comes from held-out topologies; it never includes test outcomes.",
                     ]
                     user = json.dumps(payload, ensure_ascii=False, sort_keys=True)
@@ -465,16 +488,19 @@ def run_adszeo_nomination_loop(
                     )
                     repairs.append("schema repair retry used")
 
-                # execute proposals
-                proposals_feedback = []
-                round_executed: list[str] = []
+                # Every candidate is evaluated against the same retained set.
+                validation_before = current_validation_mae
+                proposals_feedback: list[dict[str, Any]] = []
+                round_executed: dict[str, np.ndarray] = {}
                 for proposal in generation["descriptor_candidates"]:
                     name = proposal["name"]
-                    exec_id = f"nom_{name}"
+                    exec_id = f"nom_r{round_index}_{name}"
                     entry: dict[str, Any] = {"name": name, "formula": proposal["formula"]}
                     try:
                         fn, _used = compile_formula(proposal["formula"], set(allowed_inputs))
-                        values = np.asarray(fn(env), dtype=float)
+                        values = np.asarray(fn(env), dtype=float).copy()
+                        if values.shape != (len(dataset.rows),):
+                            raise DslError("non_computable", "formula must produce one value per row")
                         values[~np.isfinite(values)] = np.nan
                         nan_fraction = float(np.mean(np.isnan(values)))
                         if nan_fraction >= 1.0:
@@ -486,7 +512,8 @@ def run_adszeo_nomination_loop(
                         redundant_with = None
                         for ref_id, ref_values in (
                             list(d0_values.items())
-                            + [(f"nom_{key}", item["values"]) for key, item in accepted.items()]
+                            + [(key, executed[key]["values"]) for key in retained]
+                            + list(round_executed.items())
                         ):
                             mask = np.isfinite(values) & np.isfinite(ref_values)
                             if mask.sum() > 10 and float(np.nanstd(ref_values[mask])) > 0:
@@ -506,7 +533,7 @@ def run_adszeo_nomination_loop(
                         continue
                     for row, value in zip(dataset.rows, values):
                         row[exec_id] = float(value) if math.isfinite(float(value)) else float("nan")
-                    accepted[exec_id] = {
+                    executed[exec_id] = {
                         "values": values,
                         "descriptor": Descriptor(
                             exec_id, proposal["formula"], "derived", proposal["rationale"],
@@ -514,29 +541,43 @@ def run_adszeo_nomination_loop(
                         ),
                         "name": name,
                     }
-                    round_executed.append(exec_id)
-                    entry.update({"status": "executed", "exec_id": exec_id})
+                    round_executed[exec_id] = values
+                    entry.update({"status": "executed", "exec_id": exec_id, "retained": False})
                     proposals_feedback.append(entry)
 
+                selected_this_round = None
                 if round_executed:
-                    catalog_now = {**d0_catalog, **{key: item["descriptor"] for key, item in accepted.items()}}
+                    catalog_now = {**d0_catalog, **{key: item["descriptor"] for key, item in executed.items()}}
                     for entry in proposals_feedback:
                         if entry.get("status") == "executed":
-                            entry["validation_delta_macro_mae"] = float(
-                                _validation_mae(dataset.rows, (*D0_DESCRIPTOR_IDS, entry["exec_id"]), catalog_now, parameters)
-                                - d0_validation_mae
+                            candidate_mae = _validation_mae(
+                                dataset.rows, (*D0_DESCRIPTOR_IDS, *retained, entry["exec_id"]),
+                                catalog_now, parameters,
                             )
-                    set_delta = float(
-                        _validation_mae(dataset.rows, (*D0_DESCRIPTOR_IDS, *round_executed), catalog_now, parameters)
-                        - d0_validation_mae
-                    )
-                if round_executed:
-                    final_executed = list(round_executed)
+                            entry["validation_topology_macro_mae_mol_kg"] = candidate_mae
+                            entry["marginal_validation_delta_macro_mae"] = candidate_mae - validation_before
+                            entry["validation_delta_macro_mae"] = candidate_mae - d0_validation_mae
+                    beneficial = [
+                        entry for entry in proposals_feedback
+                        if entry.get("status") == "executed"
+                        and entry["validation_topology_macro_mae_mol_kg"] < validation_before - 1e-12
+                    ]
+                    if beneficial:
+                        best = min(beneficial, key=lambda entry: entry["validation_topology_macro_mae_mol_kg"])
+                        selected_this_round = best["exec_id"]
+                        best["retained"] = True
+                        retained.append(selected_this_round)
+                        current_validation_mae = best["validation_topology_macro_mae_mol_kg"]
+                set_delta = current_validation_mae - d0_validation_mae
                 history.append({
                     "round": round_index,
                     "hypothesis": generation["hypothesis"],
                     "proposals": generation["descriptor_candidates"],
                     "execution_feedback": proposals_feedback,
+                    "retained_descriptor_ids": list(retained),
+                    "retained_this_round": selected_this_round,
+                    "validation_before_topology_macro_mae_mol_kg": validation_before,
+                    "validation_after_topology_macro_mae_mol_kg": current_validation_mae,
                     "validation_set_delta_macro_mae": set_delta,
                 })
                 round_records.append({
@@ -544,29 +585,18 @@ def run_adszeo_nomination_loop(
                     "generation": generation,
                     "validation_repairs": repairs,
                     "execution_feedback": proposals_feedback,
+                    "retained_descriptor_ids": list(retained),
+                    "retained_this_round": selected_this_round,
+                    "validation_before_topology_macro_mae_mol_kg": validation_before,
+                    "validation_after_topology_macro_mae_mol_kg": current_validation_mae,
                     "validation_set_delta_macro_mae": set_delta,
                     "prompt": {"system_sha256": _canonical_hash(system), "user_sha256": _canonical_hash(user)},
                     "model": {"usage": usage, "response_id": response.raw.get("id")},
                 })
 
-            downstream = None
-            improvement = None
-            if final_executed:
-                catalog_final = {**d0_catalog, **{key: item["descriptor"] for key, item in accepted.items()}}
-                d1 = evaluate_adszeo(
-                    dataset, (*D0_DESCRIPTOR_IDS, *final_executed), catalog_final, fixed_parameters=parameters,
-                )
-                d0_mae = baseline["test"]["topology_macro_mae_mol_kg"]
-                d1_mae = d1["test"]["topology_macro_mae_mol_kg"]
-                improvement = (d0_mae - d1_mae) / max(d0_mae, 1e-12)
-                downstream = {
-                    "model": "sklearn.HistGradientBoostingRegressor",
-                    "target_transform": "log1p",
-                    "D0": baseline,
-                    "D0_plus_X": d1,
-                    "topology_macro_mae_relative_improvement": improvement,
-                    "final_executed_descriptor_ids": final_executed,
-                }
+            final_catalogs[mode] = {
+                **d0_catalog, **{key: item["descriptor"] for key, item in executed.items()}
+            }
             taxonomy_counts = Counter(
                 entry.get("failure_code")
                 for record in round_records
@@ -577,12 +607,15 @@ def run_adszeo_nomination_loop(
                 "status": "completed",
                 "bundle": bundle,
                 "rounds": round_records,
-                "final_executed_descriptor_ids": final_executed,
-                "accepted_catalog": {key: {"name": item["name"], "formula": item["descriptor"].formula} for key, item in accepted.items()},
+                "final_executed_descriptor_ids": list(retained),
+                "accepted_catalog": {
+                    key: {"name": executed[key]["name"], "formula": executed[key]["descriptor"].formula}
+                    for key in retained
+                },
                 "failure_taxonomy_counts": dict(taxonomy_counts),
                 "prompt": {
                     "system_sha256": _canonical_hash(prompt_system),
-                    "schema_version": DISCOVERY_SCHEMA_VERSION,
+                    "schema_version": PROMPT_SCHEMA_VERSION,
                     "row_level_data_included": False,
                     "row_level_labels_included": False,
                 },
@@ -598,28 +631,99 @@ def run_adszeo_nomination_loop(
                         "total_tokens": sum(r["model"]["usage"].get("total_tokens", 0) for r in round_records),
                     },
                 },
-                "downstream": downstream,
-                "topology_macro_mae_relative_improvement": improvement,
+                "downstream": None,
+                "topology_macro_mae_relative_improvement": None,
             }
         except Exception as error:  # noqa: BLE001
             mode_results[mode] = {"status": "failed", "error_type": type(error).__name__, "error": str(error)}
+
+    if score_only:
+        # The selected validation score is the requested adaptive search outcome.
+        # Do not inspect the frozen test split or label this as test generalization.
+        for mode in final_catalogs:
+            selected = mode_results[mode]["final_executed_descriptor_ids"]
+            final_score = mode_results[mode]["rounds"][-1]["validation_after_topology_macro_mae_mol_kg"]
+            if final_score > d0_validation_mae + 1e-12:
+                raise AssertionError("Single-score selection worsened the D0 baseline")
+            improvement = (d0_validation_mae - final_score) / max(d0_validation_mae, 1e-12)
+            mode_results[mode]["downstream"] = {
+                "outcome_split": "validation",
+                "adaptive_selection_on_outcome_split": True,
+                "test_evaluated": False,
+                "model": "sklearn.HistGradientBoostingRegressor",
+                "target_transform": "log1p",
+                "D0": baseline_selection,
+                "D0_plus_X": {
+                    "descriptor_ids": [*D0_DESCRIPTOR_IDS, *selected],
+                    "selected_parameters": parameters,
+                    "validation_topology_macro_mae_mol_kg": final_score,
+                },
+                "topology_macro_mae_relative_improvement": improvement,
+                "final_executed_descriptor_ids": selected,
+            }
+            mode_results[mode]["topology_macro_mae_relative_improvement"] = improvement
+    # In the held-out protocol, test labels are accessed only after every
+    # knowledge mode has completed its nomination and validation decisions.
+    elif final_catalogs:
+        baseline = evaluate_adszeo(dataset, D0_DESCRIPTOR_IDS, d0_catalog, fixed_parameters=parameters)
+        d0_mae = baseline["test"]["topology_macro_mae_mol_kg"]
+        for mode, catalog_final in final_catalogs.items():
+            selected = mode_results[mode]["final_executed_descriptor_ids"]
+            try:
+                d1 = (
+                    evaluate_adszeo(
+                        dataset, (*D0_DESCRIPTOR_IDS, *selected), catalog_final,
+                        fixed_parameters=parameters,
+                    )
+                    if selected else baseline
+                )
+                d1_mae = d1["test"]["topology_macro_mae_mol_kg"]
+                improvement = (d0_mae - d1_mae) / max(d0_mae, 1e-12)
+                mode_results[mode]["downstream"] = {
+                    "model": "sklearn.HistGradientBoostingRegressor",
+                    "target_transform": "log1p",
+                    "D0": baseline,
+                    "D0_plus_X": d1,
+                    "topology_macro_mae_relative_improvement": improvement,
+                    "final_executed_descriptor_ids": selected,
+                }
+                mode_results[mode]["topology_macro_mae_relative_improvement"] = improvement
+            except Exception as error:  # noqa: BLE001
+                mode_results[mode] = {
+                    **mode_results[mode], "status": "failed",
+                    "error_type": type(error).__name__, "error": str(error),
+                }
     finished = datetime.now(timezone.utc)
     result = {
-        "schema_version": RUN_SCHEMA_VERSION,
+        "schema_version": SCORE_ONLY_SCHEMA_VERSION if score_only else RUN_SCHEMA_VERSION,
         "validation_mode": VALIDATION_MODE,
+        "evaluation_protocol": "single_adaptive_score" if score_only else "heldout_test",
+        "outcome_split": "validation" if score_only else "test",
+        "test_evaluated": not score_only,
         "catalog_blinding": {"enabled": True, "note": "no catalog is shown; descriptors are freely nominated"},
-        "run_classification": "EXPLORATORY_BENCHMARK_V5",
+        "run_classification": "EXPLORATORY_ADAPTIVE_SCORE_V5" if score_only else "EXPLORATORY_BENCHMARK_V5",
         "protocol_status": "FROZEN_BEFORE_OUTCOME_RUN",
         "replicate_id": replicate_id,
         "rounds": rounds,
         "proposal_count": proposal_count,
+        "selection_rule": "three proposals per round; retain at most one positive marginal-validation winner; at most three retained",
         "started_at": started.isoformat(), "finished_at": finished.isoformat(),
         "duration_seconds": (finished - started).total_seconds(),
         "task": task, "query": query,
         "warnings": [
             "Descriptors are freely nominated as DSL expressions over pre-adsorption inputs; a whitelisted AST executor rejects unsafe, non-computable, degenerate, or redundant proposals with recorded failure codes.",
             "positions and cycle_stats remain forbidden features; geometry columns are the same frozen precomputed descriptors as v2-v4.",
-            "Iteration feedback uses validation topologies only; the test split is evaluated once after the final round.",
+            (
+                "The validation topologies are used for both iterative selection and the reported adaptive search score; "
+                "this is not an independent generalization estimate. The frozen test split is not evaluated."
+                if score_only else
+                "Iteration feedback uses validation topologies only; the test split is evaluated once after the final round."
+            ),
+            (
+                "All three modes use the same frozen validation topologies and scoring rule."
+                if score_only else
+                "All three modes finish validation selection before any locked-test prediction is computed."
+            ),
             "Executability rate, failure taxonomy, and novelty are now first-class outcome measures alongside topology macro-MAE.",
         ],
         "dataset": {

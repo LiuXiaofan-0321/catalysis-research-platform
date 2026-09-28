@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import json
 import platform
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -157,13 +158,15 @@ def _label_evidence_context(bundle: dict[str, Any]) -> str:
     items = bundle.get("items") or []
     if not context or not items:
         return "[NO_EXTERNAL_EVIDENCE]"
-    segments = context.split("\n\n")
-    if len(segments) != len(items):
-        # The bundle remains authoritative; this fallback still gives the model
-        # an explicit finite citation vocabulary without changing source text.
-        return "\n\n".join(
-            f"E{index:02d}: {context}" for index in range(1, len(items) + 1)
-        )
+    # A quote may contain blank lines, so only split at the next evidence
+    # header. Splitting on every blank line used to repeat the entire context
+    # once per item whenever a quoted paper contained multiple paragraphs.
+    segments = re.split(r"\n\n(?=\[\d+ \| paper=)", context)
+    if len(segments) != len(items) or any(
+        not segment.startswith(f"[{index} | paper=")
+        for index, segment in enumerate(segments, 1)
+    ):
+        raise ValueError("Evidence context does not match the retrieved item boundaries")
     return "\n\n".join(
         f"E{index:02d}: {segment}" for index, segment in enumerate(segments, 1)
     )

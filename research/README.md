@@ -1,5 +1,10 @@
 # Research Experiment Layer
 
+当前进展与后续计划见 [研究阶段成果与后续路线（2026-09-27）](../docs/research/RESEARCH_PROGRESS_AND_ROADMAP_20260927.md)，汇总 v5 实验结果及轮数、multi-agent、Jev 的待实施方案。
+
+Harness vNext 的可运行接口、轮数实验设计和 Jev 判定边界见
+[`../docs/research/HARNESS_VNEXT_DESIGN.md`](../docs/research/HARNESS_VNEXT_DESIGN.md)。
+
 `research/` is the command-line experiment layer for the evidence-grounded
 scientific hypothesis discovery and Model x Knowledge scaling study. It is
 intentionally separated from the production web application in `backend/` and
@@ -190,30 +195,46 @@ is leakage-aware (the `positions` and `cycle_stats` tables are never read)
 and the split is topology-level 80/10/10, so generalization is measured on
 unseen framework topologies.
 
-The experiment line iterated through four pre-registered protocols, each
-diagnosing the previous one (see `../docs/research/ADSZEO_BENCHMARK_V1_REPORT.md`
-and `../docs/research/ADSZEO_V2_GEOMETRY_REPORT.md`):
+The experiment line iterated through four protocols (see
+`../docs/research/ADSZEO_BENCHMARK_V1_REPORT.md` and
+`../docs/research/ADSZEO_V2_GEOMETRY_REPORT.md`). A 2026-09-24 audit found
+that a shared evidence-labeling helper amplified RAG/KG context whenever a
+retrieved quote contained blank lines. Historical cross-mode rankings in
+v1-v4 are therefore exploratory records, not fair knowledge-mode comparisons.
+The D0 baseline and non-LLM oracle diagnostics are unaffected:
 
-1. **v1** — the 9/3 frozen 25-descriptor catalog: all three knowledge modes
-   statistically indistinguishable; the catalog is collinear with D0.
+1. **v1** — the 9/3 frozen 25-descriptor catalog exposed strong descriptor
+   collinearity with D0.
 2. **v2** — geometry-extended 42-descriptor catalog (ring-size distribution,
    coordination sequences, bond geometry, Al second shell; precomputed by
    `scripts/adszeo_geometry_features.py`) + 3-round validation-only feedback.
-3. **v3** — blinded catalog (rationales removed for every mode) at n=40:
-   agent/rag/kg remain statistically indistinguishable (all pairwise
-   Mann-Whitney p>0.17) — a powered negative control for menu-selection
-   tasks.
-4. **v5** — open-ended nomination (`src/catalysis_research/experiments/adszeo_nomination.py`):
-   no candidate catalog; the model nominates DSL formulas over the allowed
-   inputs. A whitelisted AST executor rejects unsafe, non-computable,
-   degenerate, or redundant proposals with recorded failure codes
-   (`unsafe_expression`, `unsupported_input`, `zero_variance`,
-   `redundant`, ...), making executability rate, failure taxonomy, novelty
-   and provenance first-class outcome measures beside topology macro-MAE.
+3. **v3** — blinded catalog (rationales removed for every mode) at n=40;
+   its historical mode comparison needs a corrected replication.
+4. **v5** — cumulative open-ended nomination
+   (`src/catalysis_research/experiments/adszeo_nomination.py`): no candidate
+   catalog; the model nominates three DSL formulas in each of three rounds.
+   A whitelisted AST executor rejects unsafe, non-computable, degenerate, or
+   redundant proposals with recorded failure codes (`unsafe_expression`,
+   `unsupported_input`, `zero_variance`, `redundant`, ...). All three candidates
+   are scored for marginal validation benefit beyond `D0` plus the previously
+   retained descriptors. At most one positive-benefit candidate is retained
+   per round, giving a final budget of zero to three added descriptors.
+   If a round has no beneficial candidate, the retained set is unchanged.
+   The held-out test is evaluated only after all three knowledge modes finish
+   their validation decisions. Executability, failure taxonomy, novelty,
+   provenance, and topology macro-MAE are recorded. The corrected 10-repeat
+   GLM-5.3-Flash result is reported in
+   [`../docs/research/ADSZEO_V5_NOMINATION_REPORT.md`](../docs/research/ADSZEO_V5_NOMINATION_REPORT.md):
+   RAG improved in 8/10 repeats but all three mean effects have intervals
+   crossing zero, and KG+RAG did not consistently exceed RAG.
+   A separate [single-score search protocol](../docs/research/ADSZEO_V5_SINGLE_SCORE_PROTOCOL.md)
+   uses the former validation topologies for both selection and the reported
+   adaptive search score; invoke it with `--open-nomination --score-only`.
+   Its score is not a held-out test estimate.
 
 ```bash
 python research/scripts/run_glm_adszeo_v2.py \
-  --config research/configs/retrieval/small-kg-hybrid-adszeo-v2.json \
+  --config research/configs/retrieval/small-kg-hybrid-adszeo-v5.json \
   --rag-index <full-rag-v1-index> \
   --snapshot <Small-KG-zeolite-v1> \
   --overlay <scientific-normalization-Small-KG-zeolite-v1.1> \
@@ -228,6 +249,9 @@ catalog oracle ceiling), `scripts/adszeo_final_stats.py` (bootstrap CIs +
 Mann-Whitney tests), and `scripts/adszeo_model_scale_analysis.py`
 (model-scale ablation). Slurm jobs are under
 `literature_pipeline/jobs/adszeo-v*.sbatch`.
+For compute-node GLM access, see
+[`../docs/research/CLUSTER_EXTERNAL_API.md`](../docs/research/CLUSTER_EXTERNAL_API.md);
+the proxy port is assigned dynamically and must be checked before submission.
 
 Large-scale PDF extraction and KG-aware retrieval live in the independent
 `literature_pipeline/` package. It uses content-addressed parsing and model

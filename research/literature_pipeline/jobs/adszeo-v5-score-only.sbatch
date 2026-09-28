@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=adszeo-v5-nom
+#SBATCH --job-name=adszeo-v5-score
 #SBATCH --partition=cpu_192G
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -40,7 +40,7 @@ export TRANSFORMERS_OFFLINE=1
 export TOKENIZERS_PARALLELISM=false
 export PYTHONPATH="$CODE_ROOT/research/src:$CODE_ROOT/research/literature_pipeline/src"
 
-RUN_DIR="$BASE/runs/glm-discovery-adszeo-v5-${SLURM_ARRAY_JOB_ID}"
+RUN_DIR="$BASE/runs/glm-discovery-adszeo-v5-score-only-${SLURM_ARRAY_JOB_ID}"
 mkdir -p "$RUN_DIR" "$BASE/logs"
 OUT=$(printf '%s/replicate-%02d.json' "$RUN_DIR" "$SLURM_ARRAY_TASK_ID")
 
@@ -54,6 +54,7 @@ OUT=$(printf '%s/replicate-%02d.json' "$RUN_DIR" "$SLURM_ARRAY_TASK_ID")
   --database-sha256 "$DATABASE_SHA256" \
   --output "$OUT" \
   --replicate-id "$SLURM_ARRAY_TASK_ID" \
-  --open-nomination
+  --open-nomination \
+  --score-only
 
 echo "output=$OUT"
