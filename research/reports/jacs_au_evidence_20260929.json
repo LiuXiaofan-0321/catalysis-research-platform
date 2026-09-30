@@ -1,0 +1,14 @@
+{
+  "excluded_paper_ids": [
+    "doi:10.1126/science.ads7290"
+  ],
+  "removed_citing_records": 9,
+  "removed_kg_nodes": 1,
+  "items": {
+    "agent": 0,
+    "rag_agent": 10,
+    "small_kg_rag_agent": 10
+  },
+  "query": "zeolite adsorption entropy molecular confinement rotational translational freedom pore size molecular shape structure property descriptors",
+  "novelty_policy": "No automatic novelty claim. Known scientific relations and literature-derived formulas are tagged for review."
+}

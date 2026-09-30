@@ -1,0 +1,27 @@
+{
+  "profile": "jacs-au-kg-v4",
+  "execution_revision": "explicit-normalization-20260930c",
+  "model": "glm-5.3-flash",
+  "thinking": "enabled",
+  "temperature": 0.2,
+  "rounds": 3,
+  "proposals_per_round": 3,
+  "replicates_per_mode": 3,
+  "native_d0": "Unchanged published 14 inputs",
+  "require_live_index": true,
+  "retrieval": {
+    "context_lexical_tokens": 24000,
+    "max_items": 10,
+    "max_items_per_paper": 3
+  },
+  "repair_policy": "One pre-fit repair batch; locked hypotheses/tests; passed slots unchanged; all initial/final outputs and cost saved",
+  "source_policy": "Live full-index search restricted to reviewed source identities; new papers logged pending review",
+  "evaluation": "Fixed native ANN; scoring selection; previously viewed outer test is development diagnostic",
+  "reasoning_effort": "low",
+  "api_timeout_seconds": 600,
+  "generation": {
+    "max_tokens": 32768,
+    "max_tokens_on_truncation": 65536
+  },
+  "budget_note": "Caps are ceilings, not output targets. No padding or repeated evidence; temperature and proposal slots fixed across effort conditions."
+}

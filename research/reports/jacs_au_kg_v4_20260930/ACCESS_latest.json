@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-09-30T18:33:14.867545+08:00",
+  "remote_status_verified": false,
+  "connection_checks": [
+    {
+      "host": "59.78.189.132",
+      "port": 2323,
+      "connected": false,
+      "error": "timed out"
+    },
+    {
+      "host": "59.78.189.133",
+      "port": 2323,
+      "connected": false,
+      "error": "timed out"
+    }
+  ],
+  "last_verified_server_status": "2026-09-30T17:04:46+08:00",
+  "main_array": 3838145,
+  "note": "SSH unavailable; no new completion or failure conclusions."
+}

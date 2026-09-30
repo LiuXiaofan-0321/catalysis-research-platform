@@ -96,7 +96,7 @@ def _normalize_candidate(record: dict[str, Any], channel: str) -> dict[str, Any]
         for item in record.get("normalization_mappings") or []
         if item.get("mapping_id")
     }
-    return {
+    candidate = {
         "record_id": str(_required(record, "record_id")),
         "paper_id": str(_required(record, "paper_id")),
         "document_id": str(_required(record, "document_id")),
@@ -117,6 +117,20 @@ def _normalize_candidate(record: dict[str, Any], channel: str) -> dict[str, Any]
         "evidence_validation": record.get("evidence_validation") or "unknown",
         "review_status": record.get("review_status") or "unknown",
     }
+    if record.get("kg_paths"):
+        candidate["kg_paths"] = record["kg_paths"]
+    return candidate
+
+
+def _merge_graph_paths(current: dict[str, Any], row: dict[str, Any]) -> None:
+    if not row.get("kg_paths"):
+        return
+    paths = current.setdefault("kg_paths", [])
+    for path in row["kg_paths"]:
+        if path not in paths:
+            paths.append(path)
+    paths.sort(key=lambda p: (-len(p.get('edges', [])), tuple(n['id'] for n in p.get('nodes', []))))
+    del paths[3:]
 
 
 def _rank_channel(records: Iterable[dict[str, Any]], channel: str) -> list[dict[str, Any]]:
@@ -136,6 +150,7 @@ def _rank_channel(records: Iterable[dict[str, Any]], channel: str) -> list[dict[
             unique[key] = row
             continue
         current = unique[key]
+        _merge_graph_paths(current, row)
         current["kg_node_ids"] = sorted(
             set(current["kg_node_ids"]) | set(row["kg_node_ids"])
         )
@@ -173,6 +188,7 @@ def _fuse(channels: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
                 fused[key] = row
             else:
                 current = fused[key]
+                _merge_graph_paths(current, row)
                 current["retrieval_channels"] = sorted(
                     set(current["retrieval_channels"]) | {channel}
                 )

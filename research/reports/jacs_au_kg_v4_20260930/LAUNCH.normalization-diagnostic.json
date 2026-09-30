@@ -1,0 +1,49 @@
+{
+  "phase": "running_pending_first_scientific_round",
+  "execution_revision": "partial-updates-20260930b",
+  "submitted_at": "2026-09-30T16:32:35.486774+08:00",
+  "server": "login2 (59.78.189.133:2323)",
+  "server_release": "/public/home/xiaohe/lxf/catalysis-rag/code/releases/jacs-au-kg-v4-20260930b",
+  "server_run": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930b",
+  "model": "glm-5.3-flash",
+  "jobs": {
+    "evidence": "3838130",
+    "compute_api_probe": "3838131",
+    "main_array": "3838132",
+    "summary": "3838133"
+  },
+  "replicates_per_mode_per_effort": 3,
+  "rounds": 3,
+  "proposals_per_round": 3,
+  "trajectory_count": 18,
+  "array_concurrency": 3,
+  "array_mapping": "mode=(task//2)%3 with small_kg_rag_agent,rag_agent,agent; effort=task%2 with low,high; replicate=task//6+1",
+  "dependency_policy": "afterok evidence -> real low/high API and partial-update probes -> array; summary afterany; invalid dependencies cancelled",
+  "proxy_url": "http://10.11.100.254:5000/api/paas/v4",
+  "proxy_pid": 73507,
+  "cleanup_watcher_pid": 73527,
+  "local_tests": {
+    "jacs_au": 35,
+    "glm_client": 3
+  },
+  "initial_technical_attempt": {
+    "array": "3838114",
+    "run": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930",
+    "status": "stopped; full-response locked-field rewrites; artifacts retained"
+  },
+  "desired_ranking": "KG+RAG > RAG > Agent; observed results retained without ranking filter",
+  "evidence_preflight": {
+    "status": "passed",
+    "server_jacs_tests": 35,
+    "server_glm_tests": 3,
+    "rag_rows": 23,
+    "kg_mechanisms": 6,
+    "live_index_rows_in_scope": 6004
+  },
+  "compute_api_probe": {
+    "status": "passed",
+    "low_partial_update_contract": "passed",
+    "high_partial_update_contract": "passed"
+  },
+  "main_state_at_check": "Three trajectories running: KG low/high and RAG low; 15 pending array concurrency limit"
+}

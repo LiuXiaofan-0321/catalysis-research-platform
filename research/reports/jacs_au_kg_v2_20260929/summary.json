@@ -1,0 +1,183 @@
+{
+  "profile": "jacs-au-kg-v2",
+  "complete": true,
+  "expected_replicates_per_mode": 3,
+  "groups": {
+    "agent": {
+      "completed": 3,
+      "expected": 3,
+      "score_gain_pct": {
+        "n": 3,
+        "mean": 7.381526789389085,
+        "std": 2.328461432183529,
+        "min": 4.743008684119782,
+        "max": 9.14844564286667
+      },
+      "test_gain_pct_development_diagnostic": {
+        "n": 3,
+        "mean": 2.599916355465022,
+        "std": 5.3885393591717134,
+        "min": -3.292464456426859,
+        "max": 7.2770725903859255
+      },
+      "positive_test_count": 2,
+      "proposals": 27,
+      "scored": 21,
+      "retained": 6,
+      "rejection_reasons": {
+        "more than 5 percent nonfinite training values": 3,
+        "Exponent must be a fixed constant within [-8,8]": 3
+      },
+      "candidates_citing_kg": 0,
+      "retained_citing_kg": 0,
+      "evidence_lexical_tokens": {
+        "n": 9,
+        "mean": 0,
+        "std": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "graph_paths_per_round": {
+        "n": 9,
+        "mean": 0,
+        "std": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "tree_transfer_test_gain_pct": {
+        "native14_hgb": {
+          "n": 3,
+          "mean": -1.3619254316351823,
+          "std": 3.06885451403897,
+          "min": -4.569774777661121,
+          "max": 1.545895310180083
+        },
+        "all_raw_hgb": {
+          "n": 3,
+          "mean": 0.5360934259457478,
+          "std": 1.500272647764908,
+          "min": -0.7923877942011003,
+          "max": 2.1632313583850533
+        }
+      }
+    },
+    "rag_agent": {
+      "completed": 3,
+      "expected": 3,
+      "score_gain_pct": {
+        "n": 3,
+        "mean": 7.176299606758797,
+        "std": 0.603620895696618,
+        "min": 6.681205038258905,
+        "max": 7.848722416195846
+      },
+      "test_gain_pct_development_diagnostic": {
+        "n": 3,
+        "mean": 5.622756705310638,
+        "std": 0.7596470877594013,
+        "min": 4.8311701945193715,
+        "max": 6.345821705425122
+      },
+      "positive_test_count": 3,
+      "proposals": 27,
+      "scored": 22,
+      "retained": 6,
+      "rejection_reasons": {
+        "Unsupported formula symbol or syntax": 1,
+        "Exponent must be a fixed constant within [-8,8]": 3,
+        "Incompatible dimensions in addition, subtraction, minimum or maximum; use matching units or training references": 1
+      },
+      "candidates_citing_kg": 0,
+      "retained_citing_kg": 0,
+      "evidence_lexical_tokens": {
+        "n": 9,
+        "mean": 12891.111111111111,
+        "std": 636.6667975567055,
+        "min": 12071,
+        "max": 13651
+      },
+      "graph_paths_per_round": {
+        "n": 9,
+        "mean": 0,
+        "std": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "tree_transfer_test_gain_pct": {
+        "native14_hgb": {
+          "n": 3,
+          "mean": 0.28753288541912747,
+          "std": 1.2994837725014492,
+          "min": -1.0861521404735461,
+          "max": 1.4972522119872593
+        },
+        "all_raw_hgb": {
+          "n": 3,
+          "mean": 2.352351911651892,
+          "std": 0.7568717063954234,
+          "min": 1.4797715063732642,
+          "max": 2.831155137998764
+        }
+      }
+    },
+    "small_kg_rag_agent": {
+      "completed": 3,
+      "expected": 3,
+      "score_gain_pct": {
+        "n": 3,
+        "mean": 5.534008325923989,
+        "std": 1.0073694777344742,
+        "min": 4.513599879221665,
+        "max": 6.52781178014193
+      },
+      "test_gain_pct_development_diagnostic": {
+        "n": 3,
+        "mean": 3.003556494121239,
+        "std": 1.1371680448864807,
+        "min": 2.30958552701905,
+        "max": 4.315919823350066
+      },
+      "positive_test_count": 3,
+      "proposals": 27,
+      "scored": 25,
+      "retained": 6,
+      "rejection_reasons": {
+        "more than 5 percent nonfinite training values": 2
+      },
+      "candidates_citing_kg": 24,
+      "retained_citing_kg": 6,
+      "evidence_lexical_tokens": {
+        "n": 9,
+        "mean": 31928,
+        "std": 30.174492539229224,
+        "min": 31891,
+        "max": 31966
+      },
+      "graph_paths_per_round": {
+        "n": 9,
+        "mean": 29.666666666666668,
+        "std": 1.0,
+        "min": 29,
+        "max": 31
+      },
+      "tree_transfer_test_gain_pct": {
+        "native14_hgb": {
+          "n": 3,
+          "mean": -3.144695156740127,
+          "std": 1.51466544227135,
+          "min": -4.878213837990324,
+          "max": -2.0769479101890793
+        },
+        "all_raw_hgb": {
+          "n": 3,
+          "mean": -1.5375112798929154,
+          "std": 0.5882221290862765,
+          "min": -1.9421817988965033,
+          "max": -0.8627497283266161
+        }
+      }
+    }
+  },
+  "unfinished_or_failed": [],
+  "interpretation": "Pilot on an already inspected test split. Primary search evidence is scoring improvement; test is diagnostic. Not an independent demonstration of KG superiority."
+}

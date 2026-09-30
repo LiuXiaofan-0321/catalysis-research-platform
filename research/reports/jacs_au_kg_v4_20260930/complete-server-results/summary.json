@@ -1,0 +1,384 @@
+{
+  "profile": "jacs-au-kg-v4",
+  "complete": true,
+  "groups": {
+    "low": {
+      "agent": {
+        "completed": 3,
+        "expected": 3,
+        "score_gain_pct": {
+          "n": 3,
+          "mean": 6.641124968416375,
+          "std": 0.7757039783559893,
+          "min": 5.943964253692521,
+          "max": 7.476728801004705
+        },
+        "test_gain_pct_development_diagnostic": {
+          "n": 3,
+          "mean": 4.63328254734724,
+          "std": 3.0209019449177097,
+          "min": 2.326412048130831,
+          "max": 8.052685567178882
+        },
+        "initial_draft_passed": 14,
+        "post_review_passed": 27,
+        "final_scored": 27,
+        "proposals": 27,
+        "retained": 7,
+        "repair_batches": 0,
+        "rejection_reasons": {},
+        "retained_scientific_checks": {
+          "contradicted": 1,
+          "consistent": 5,
+          "inconclusive": 1
+        },
+        "api_tokens": {
+          "prompt_tokens": 110801,
+          "completion_tokens": 39645,
+          "reasoning_tokens": 7982,
+          "total_tokens": 150446
+        },
+        "api_calls": 19,
+        "trajectory_seconds": {
+          "n": 3,
+          "mean": 610.6112224012613,
+          "std": 35.1638362823659,
+          "min": 570.8259118199348,
+          "max": 637.5282764956355
+        },
+        "tree_transfer_test_gain_pct": {
+          "native14_hgb": {
+            "n": 3,
+            "mean": 0.34737911985855374,
+            "std": 1.2404096764563,
+            "min": -0.5869314602634972,
+            "max": 1.7547014005922046
+          },
+          "all_raw_hgb": {
+            "n": 3,
+            "mean": 0.41613993570079605,
+            "std": 1.781863155353412,
+            "min": -1.6323626655994612,
+            "max": 1.6070169359160809
+          }
+        }
+      },
+      "rag_agent": {
+        "completed": 3,
+        "expected": 3,
+        "score_gain_pct": {
+          "n": 3,
+          "mean": 6.873553484225721,
+          "std": 1.0090523107661515,
+          "min": 5.79919281211734,
+          "max": 7.801244288171146
+        },
+        "test_gain_pct_development_diagnostic": {
+          "n": 3,
+          "mean": 2.294661997806546,
+          "std": 1.3419299143597019,
+          "min": 0.9266639487901419,
+          "max": 3.6089085121700593
+        },
+        "initial_draft_passed": 16,
+        "post_review_passed": 22,
+        "final_scored": 26,
+        "proposals": 27,
+        "retained": 6,
+        "repair_batches": 3,
+        "rejection_reasons": {
+          "Formula contradicts its predeclared proxy direction": 1
+        },
+        "retained_scientific_checks": {
+          "contradicted": 2,
+          "consistent": 4
+        },
+        "api_tokens": {
+          "prompt_tokens": 169687,
+          "completion_tokens": 36704,
+          "reasoning_tokens": 7287,
+          "total_tokens": 206391
+        },
+        "api_calls": 21,
+        "trajectory_seconds": {
+          "n": 3,
+          "mean": 608.5671537518501,
+          "std": 24.124423175705466,
+          "min": 583.5489035248756,
+          "max": 631.6853862851858
+        },
+        "tree_transfer_test_gain_pct": {
+          "native14_hgb": {
+            "n": 3,
+            "mean": -1.0961104774663544,
+            "std": 0.6494949351002781,
+            "min": -1.696852205633199,
+            "max": -0.40692641562564236
+          },
+          "all_raw_hgb": {
+            "n": 3,
+            "mean": 0.6084400621456291,
+            "std": 2.0574082560569336,
+            "min": -1.7143799632407584,
+            "max": 2.2014854294371444
+          }
+        }
+      },
+      "small_kg_rag_agent": {
+        "completed": 3,
+        "expected": 3,
+        "score_gain_pct": {
+          "n": 3,
+          "mean": 4.295078871259034,
+          "std": 2.6116478360815285,
+          "min": 2.681088989005062,
+          "max": 7.308197542981311
+        },
+        "test_gain_pct_development_diagnostic": {
+          "n": 3,
+          "mean": 1.1476269878714027,
+          "std": 2.7497771542186737,
+          "min": -1.975370178394009,
+          "max": 3.2055537354817134
+        },
+        "initial_draft_passed": 20,
+        "post_review_passed": 25,
+        "final_scored": 27,
+        "proposals": 27,
+        "retained": 6,
+        "repair_batches": 2,
+        "rejection_reasons": {},
+        "retained_scientific_checks": {
+          "consistent": 4,
+          "contradicted": 2
+        },
+        "api_tokens": {
+          "prompt_tokens": 188608,
+          "completion_tokens": 39466,
+          "reasoning_tokens": 7795,
+          "total_tokens": 228074
+        },
+        "api_calls": 21,
+        "trajectory_seconds": {
+          "n": 3,
+          "mean": 578.1848958830038,
+          "std": 68.55076501712733,
+          "min": 504.5900868624449,
+          "max": 640.2223568186164
+        },
+        "tree_transfer_test_gain_pct": {
+          "native14_hgb": {
+            "n": 3,
+            "mean": -0.7119808258015519,
+            "std": 0.9672861890913098,
+            "min": -1.7660683620458348,
+            "max": 0.13493349591630935
+          },
+          "all_raw_hgb": {
+            "n": 3,
+            "mean": 1.5395383502218307,
+            "std": 1.5264919908821473,
+            "min": 0.4507845665336233,
+            "max": 3.2843898136857588
+          }
+        }
+      }
+    },
+    "high": {
+      "agent": {
+        "completed": 3,
+        "expected": 3,
+        "score_gain_pct": {
+          "n": 3,
+          "mean": 6.984218042690185,
+          "std": 2.7456610268181736,
+          "min": 3.8759142629065804,
+          "max": 9.079193548583957
+        },
+        "test_gain_pct_development_diagnostic": {
+          "n": 3,
+          "mean": 2.614659652199514,
+          "std": 1.9699761089274777,
+          "min": 0.3410260154633758,
+          "max": 3.812700927866502
+        },
+        "initial_draft_passed": 22,
+        "post_review_passed": 25,
+        "final_scored": 26,
+        "proposals": 27,
+        "retained": 6,
+        "repair_batches": 2,
+        "rejection_reasons": {
+          "Formula contradicts its predeclared proxy direction": 1
+        },
+        "retained_scientific_checks": {
+          "consistent": 4,
+          "inconclusive": 2
+        },
+        "api_tokens": {
+          "prompt_tokens": 137124,
+          "completion_tokens": 169153,
+          "reasoning_tokens": 131474,
+          "total_tokens": 306277
+        },
+        "api_calls": 22,
+        "trajectory_seconds": {
+          "n": 3,
+          "mean": 1987.3359527289867,
+          "std": 737.2007718564327,
+          "min": 1356.7685544863343,
+          "max": 2797.850451812148
+        },
+        "tree_transfer_test_gain_pct": {
+          "native14_hgb": {
+            "n": 3,
+            "mean": -0.6441393438505303,
+            "std": 1.6839234224665625,
+            "min": -2.365742873657383,
+            "max": 0.9993878245942274
+          },
+          "all_raw_hgb": {
+            "n": 3,
+            "mean": 2.8413831022561897,
+            "std": 1.2950239707384001,
+            "min": 1.3463365849794546,
+            "max": 3.6156274793419887
+          }
+        }
+      },
+      "rag_agent": {
+        "completed": 3,
+        "expected": 3,
+        "score_gain_pct": {
+          "n": 3,
+          "mean": 6.424396030472512,
+          "std": 0.5962424504471283,
+          "min": 6.006082245972465,
+          "max": 7.107119436517729
+        },
+        "test_gain_pct_development_diagnostic": {
+          "n": 3,
+          "mean": 3.3756527877281552,
+          "std": 0.507999138705118,
+          "min": 2.7940978237378604,
+          "max": 3.7328267516995868
+        },
+        "initial_draft_passed": 19,
+        "post_review_passed": 24,
+        "final_scored": 27,
+        "proposals": 27,
+        "retained": 7,
+        "repair_batches": 2,
+        "rejection_reasons": {},
+        "retained_scientific_checks": {
+          "consistent": 6,
+          "inconclusive": 1
+        },
+        "api_tokens": {
+          "prompt_tokens": 167437,
+          "completion_tokens": 114080,
+          "reasoning_tokens": 82697,
+          "total_tokens": 281517
+        },
+        "api_calls": 20,
+        "trajectory_seconds": {
+          "n": 3,
+          "mean": 889.8110416730245,
+          "std": 448.7373959100414,
+          "min": 440.8435420319438,
+          "max": 1338.3179793283343
+        },
+        "tree_transfer_test_gain_pct": {
+          "native14_hgb": {
+            "n": 3,
+            "mean": -0.8710472325464311,
+            "std": 0.7305291766384295,
+            "min": -1.6459232783711797,
+            "max": -0.19490830363396577
+          },
+          "all_raw_hgb": {
+            "n": 3,
+            "mean": -0.8288064692834887,
+            "std": 0.22572714527135154,
+            "min": -1.083324129975372,
+            "max": -0.6528823082667053
+          }
+        }
+      },
+      "small_kg_rag_agent": {
+        "completed": 3,
+        "expected": 3,
+        "score_gain_pct": {
+          "n": 3,
+          "mean": 7.159040800432183,
+          "std": 0.5862623901569918,
+          "min": 6.482882925716129,
+          "max": 7.525606339152794
+        },
+        "test_gain_pct_development_diagnostic": {
+          "n": 3,
+          "mean": 4.316676123069535,
+          "std": 2.749324149074124,
+          "min": 2.261032306395234,
+          "max": 7.439618469689099
+        },
+        "initial_draft_passed": 22,
+        "post_review_passed": 25,
+        "final_scored": 27,
+        "proposals": 27,
+        "retained": 6,
+        "repair_batches": 2,
+        "rejection_reasons": {},
+        "retained_scientific_checks": {
+          "inconclusive": 2,
+          "consistent": 3,
+          "contradicted": 1
+        },
+        "api_tokens": {
+          "prompt_tokens": 213927,
+          "completion_tokens": 136865,
+          "reasoning_tokens": 100841,
+          "total_tokens": 350792
+        },
+        "api_calls": 22,
+        "trajectory_seconds": {
+          "n": 3,
+          "mean": 1319.4030768225591,
+          "std": 92.08273238262623,
+          "min": 1223.9137085154653,
+          "max": 1407.6516497805715
+        },
+        "tree_transfer_test_gain_pct": {
+          "native14_hgb": {
+            "n": 3,
+            "mean": -0.1285374977871888,
+            "std": 2.126464167150029,
+            "min": -2.581332656718538,
+            "max": 1.1963323387627443
+          },
+          "all_raw_hgb": {
+            "n": 3,
+            "mean": 2.5414459165527523,
+            "std": 0.9945408182423893,
+            "min": 1.5753571947768108,
+            "max": 3.562185242447126
+          }
+        }
+      }
+    }
+  },
+  "unfinished_or_failed": [],
+  "rankings": {
+    "low": [
+      "rag_agent",
+      "agent",
+      "small_kg_rag_agent"
+    ],
+    "high": [
+      "small_kg_rag_agent",
+      "agent",
+      "rag_agent"
+    ]
+  },
+  "interpretation": "Development low/high comparison; same split/fit seed. Ranking is observed, not forced; no independent mechanism/generalization claim."
+}

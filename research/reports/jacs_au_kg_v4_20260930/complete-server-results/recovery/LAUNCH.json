@@ -1,0 +1,27 @@
+{
+  "submitted_at": "2026-09-30T18:50:08.287221+08:00",
+  "source_run": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c",
+  "server_release": "/public/home/xiaohe/lxf/catalysis-rag/code/releases/jacs-au-kg-v4-20260930c-json-recovery",
+  "recovery_run": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c-json-recovery",
+  "merged_run": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c-complete",
+  "jobs": {
+    "probe": "3838207",
+    "repair_array": "3838208",
+    "merge_summary": "3838209"
+  },
+  "failed_task_ids": [
+    3,
+    14,
+    16
+  ],
+  "proxy_pid": 4560,
+  "proxy_url": "http://10.11.100.254:5001/api/paas/v4",
+  "watcher_pid": 4566,
+  "policy": "Successful generation events replayed from original checkpoints; recover failures only; fixed slots/config/fit seed; originals untouched",
+  "transport_revision": "json-format-recovery-v1",
+  "tests": {
+    "glm": 4,
+    "v4": 12
+  },
+  "phase": "submitted"
+}

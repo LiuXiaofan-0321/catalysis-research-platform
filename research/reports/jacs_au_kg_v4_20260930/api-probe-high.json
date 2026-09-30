@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "model": "glm-5.3-flash",
+  "reasoning_effort_requested": "high",
+  "max_tokens_requested": 65536,
+  "client_timeout_seconds": 1800,
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 21,
+    "completion_tokens_details": {
+      "reasoning_tokens": 10
+    },
+    "prompt_tokens": 92,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 113
+  },
+  "seconds": 4.249423049390316,
+  "effort_verification": "Requested payload accepted; provider internal effort cannot be independently measured.",
+  "partial_update_contract": {
+    "status": "passed",
+    "model": "glm-5.3-flash",
+    "usage": {
+      "completion_tokens": 128,
+      "completion_tokens_details": {
+        "reasoning_tokens": 24
+      },
+      "prompt_tokens": 868,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "total_tokens": 996
+    },
+    "finish_reason": "stop"
+  }
+}

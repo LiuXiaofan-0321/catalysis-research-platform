@@ -44,3 +44,9 @@ Compute nodes do not have direct internet access. API calls must go through a pr
 The first v5 array (`3739039`) failed because it lacked `ZHIPU_PROXY_BASE_URL`; compute nodes could not resolve `open.bigmodel.cn`. A follow-up connectivity probe reached port 5000, but that port then served PubChem and returned 404 to GLM. These were connectivity failures, not scientific outcomes. The v5 Slurm script now requires `ZHIPU_PROXY_BASE_URL` at startup.
 
 The cluster manual also specifies the login02 requirement, automatic port allocation, account-level access control, and `10.11.100.254` as the only supported service address. Recheck the manual if the cluster changes its proxy policy.
+
+## JACS Au V4 low/high (2026-09-30)
+
+Use a separate `tools/api_proxy_1800s.py` copy, changing only the old upstream `timeout=300` to `timeout=1800`. Preserve the original. Start on login02 with the run directory name as `--name`, record PID and printed port, and use the same `/api/paas/v4` client path above. High's client waits 1800 seconds; low waits 600 seconds. The V4 probe tests both full configured payloads on a compute node before the array.
+
+The cleanup watcher waits for preflight, probe, array and summary to terminate. Before signaling it checks the owner, exact run name, and `api_proxy_300s.py` or `api_proxy_1800s.py` suffix. Credentials stay in process/Slurm environment, never launch records, archives or logs. See [V4 protocol](JACS_AU_KG_V4_LOW_HIGH_20260930.md).

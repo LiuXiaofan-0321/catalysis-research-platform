@@ -1,0 +1,424 @@
+{
+  "status": "completed",
+  "benchmark": "10.1021/jacsau.4c00429",
+  "model": "glm-5.3-flash",
+  "mode": "agent",
+  "replicate": 7,
+  "protocol": "3 rounds x 3 proposals; one positive scoring winner at most per round",
+  "fit_seed": 3,
+  "epochs": 4000,
+  "evidence": [],
+  "rounds": [
+    {
+      "round": 1,
+      "before_mae_R": 0.5756181684880872,
+      "usage": [
+        {
+          "completion_tokens": 756,
+          "completion_tokens_details": {
+            "reasoning_tokens": 8
+          },
+          "prompt_tokens": 697,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "total_tokens": 1453
+        }
+      ],
+      "response_model": "glm-5.3-flash",
+      "generations": [
+        {
+          "descriptor_candidates": [
+            {
+              "name": "confined_free_length_ratio",
+              "formula": "lsd_p / (lsd_p + PBF)",
+              "hypothesis": "Adsorption entropy loss (relative to gas) decreases as the ratio of pore-limiting diameter to (pore diameter + molecule span) increases, because wide, unobstructed pores allow near-gas-like translational freedom; the ratio term captures confinement strength better than either diameter alone.",
+              "rationale": "Translational entropy loss upon adsorption scales with the fraction of molecular span obstructed by pore windows; PBF encodes molecular length-scale, lsd_p the framework window, so their normalized competition proxies caging severity. Inference from known confinement mechanisms, not from supplied source evidence.",
+              "falsification_criteria": "If adding this ratio as an engineered feature to the fixed 14-input network does not reduce MAE of entropy loss/R versus the full-input baseline on held-out data, or if residuals show no monotonic trend with the ratio, the hypothesis is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "surface_curvature_entropy_driver",
+              "formula": "log(LabuteASA / (Vol ** (2.0/3.0)))",
+              "hypothesis": "Entropy loss correlates with a surface-to-volume shape factor of the adsorbate: adsorbates with high area at fixed volume (non-compact, extended shapes) lose more rotational entropy upon docking in zeolite channels, so this log shape descriptor improves prediction beyond volume alone.",
+              "rationale": "Rotational/librational entropy loss depends on how many molecular orientations fit in the pore; compact molecules (low ASA for their volume) retain more rotational freedom. The ASA/Vol^(2/3) ratio is a dimensionless compactness measure re-expressing MW-independent geometry. Inference from rotational confinement arguments.",
+              "falsification_criteria": "If the shape factor's correlation with entropy loss/R is negligible (|r| < threshold chosen on validation) after controlling for Vol, or its inclusion does not lower MAE vs baseline, the rotational-freedom mechanism is unsupported.",
+              "novelty_status": "uncertain",
+              "evidence_ids": []
+            },
+            {
+              "name": "framework_dilation_loading_factor",
+              "formula": "sqrt(ASA) * density / (AV + lsd_f)",
+              "hypothesis": "Entropy loss increases with a combined framework metric where dense frameworks with large accessible area but small accessible volume and narrow largest cavity produce stronger caging; the product sqrt(ASA)*density/(AV+lsd_f) captures the interplay of host tightness that single geometric features miss under the fixed numerical density scale.",
+              "rationale": "Configurational entropy loss grows when accessible surface is abundant but free volume and cavity diameter are small — i.e., tightly packed, high-density frameworks force adsorbates into few configurations. Source density is used on its native scale without unit assumptions. Mechanism is inferred, not established by supplied evidence.",
+              "falsification_criteria": "If this composite does not improve MAE of entropy loss/R relative to the 14-input baseline, or if ablation shows the composite performs no better than its best single component (e.g., AV alone), the proposed interplay mechanism is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            }
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "confined_free_length_ratio",
+          "formula": "lsd_p / (lsd_p + PBF)",
+          "hypothesis": "Adsorption entropy loss (relative to gas) decreases as the ratio of pore-limiting diameter to (pore diameter + molecule span) increases, because wide, unobstructed pores allow near-gas-like translational freedom; the ratio term captures confinement strength better than either diameter alone.",
+          "rationale": "Translational entropy loss upon adsorption scales with the fraction of molecular span obstructed by pore windows; PBF encodes molecular length-scale, lsd_p the framework window, so their normalized competition proxies caging severity. Inference from known confinement mechanisms, not from supplied source evidence.",
+          "falsification_criteria": "If adding this ratio as an engineered feature to the fixed 14-input network does not reduce MAE of entropy loss/R versus the full-input baseline on held-out data, or if residuals show no monotonic trend with the ratio, the hypothesis is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": true,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5588121601147251,
+            "mae_J_mol_K": 4.646222815843345,
+            "r2": 0.8912512133144944,
+            "n": 591
+          },
+          "seconds": 42.13232710957527,
+          "marginal_improvement": 0.016806008373362102
+        },
+        {
+          "name": "surface_curvature_entropy_driver",
+          "formula": "log(LabuteASA / (Vol ** (2.0/3.0)))",
+          "hypothesis": "Entropy loss correlates with a surface-to-volume shape factor of the adsorbate: adsorbates with high area at fixed volume (non-compact, extended shapes) lose more rotational entropy upon docking in zeolite channels, so this log shape descriptor improves prediction beyond volume alone.",
+          "rationale": "Rotational/librational entropy loss depends on how many molecular orientations fit in the pore; compact molecules (low ASA for their volume) retain more rotational freedom. The ASA/Vol^(2/3) ratio is a dimensionless compactness measure re-expressing MW-independent geometry. Inference from rotational confinement arguments.",
+          "falsification_criteria": "If the shape factor's correlation with entropy loss/R is negligible (|r| < threshold chosen on validation) after controlling for Vol, or its inclusion does not lower MAE vs baseline, the rotational-freedom mechanism is unsupported.",
+          "novelty_status": "uncertain",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.59449327465877,
+            "mae_J_mol_K": 4.94289210889385,
+            "r2": 0.8747796893111429,
+            "n": 591
+          },
+          "seconds": 45.853210262954235,
+          "marginal_improvement": -0.018875106170682776
+        },
+        {
+          "name": "framework_dilation_loading_factor",
+          "formula": "sqrt(ASA) * density / (AV + lsd_f)",
+          "hypothesis": "Entropy loss increases with a combined framework metric where dense frameworks with large accessible area but small accessible volume and narrow largest cavity produce stronger caging; the product sqrt(ASA)*density/(AV+lsd_f) captures the interplay of host tightness that single geometric features miss under the fixed numerical density scale.",
+          "rationale": "Configurational entropy loss grows when accessible surface is abundant but free volume and cavity diameter are small — i.e., tightly packed, high-density frameworks force adsorbates into few configurations. Source density is used on its native scale without unit assumptions. Mechanism is inferred, not established by supplied evidence.",
+          "falsification_criteria": "If this composite does not improve MAE of entropy loss/R relative to the 14-input baseline, or if ablation shows the composite performs no better than its best single component (e.g., AV alone), the proposed interplay mechanism is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5795037755698277,
+            "mae_J_mol_K": 4.818262479053997,
+            "r2": 0.8808050549542263,
+            "n": 591
+          },
+          "seconds": 46.420727610588074,
+          "marginal_improvement": -0.003885607081740461
+        }
+      ],
+      "after_mae_R": 0.5588121601147251,
+      "retained_formula": "lsd_p / (lsd_p + PBF)"
+    },
+    {
+      "round": 2,
+      "before_mae_R": 0.5588121601147251,
+      "usage": [
+        {
+          "completion_tokens": 827,
+          "completion_tokens_details": {
+            "reasoning_tokens": 16
+          },
+          "prompt_tokens": 1905,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "total_tokens": 2732
+        }
+      ],
+      "response_model": "glm-5.3-flash",
+      "generations": [
+        {
+          "descriptor_candidates": [
+            {
+              "name": "cavity_permeability_index",
+              "formula": "log(AV * lsd_f / (Vol + MW / density))",
+              "hypothesis": "Adsorption entropy loss decreases as the logarithm of accessible-volume-weighted free path (AV*lsd_f) grows relative to the adsorbate's effective occupied volume (Vol + MW/density as a molecular volume proxy on the native density scale); systems where the free path dwarfs the molecule retain near-gas entropy.",
+              "rationale": "Translational entropy loss scales with the ratio of confinement length scale to molecular size; combining accessible volume with largest free sphere diameter captures the host's capacity to permit long-range diffusion, while MW/density approximates the molecular volume the adsorbate excludes. Inference from free-volume/transition-state arguments, not from supplied evidence.",
+              "falsification_criteria": "If adding this descriptor to the fixed 14-input network fails to reduce MAE of entropy loss/R below 0.5588 on held-out data, or if the residual trend vs this log ratio is non-monotonic, the free-volume mechanism is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "anisotropic_pore_caging",
+              "formula": "sqrt(PMI3 / PMI1) * (GeDi / SPAN)",
+              "hypothesis": "Entropy loss is largest when molecular shape anisotropy (PMI3/PMI1) is high AND pore geometric diversity relative to molecular span (GeDi/SPAN) is low: elongated molecules confined in narrow, geometrically uniform channels lose the most rotational-translational entropy, and their product captures a synergistic caging effect neither factor shows alone.",
+              "rationale": "Rotational entropy loss depends on the number of distinct orientations a molecule can adopt; near-spherical molecules (PMI3/PMI1 near 1) lose little, while rods lose much — but only if the pore restricts rotation (low GeDi relative to SPAN). Mechanism inferred from rotational confinement reasoning; no supplied evidence.",
+              "falsification_criteria": "If the product term does not improve MAE vs baseline, or if an interaction analysis shows the effect of shape anisotropy is independent of GeDi/SPAN (no synergy), the anisotropic-caging hypothesis is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "interfacial_density_lock",
+              "formula": "exp(-LabuteASA * density / (ASA * AV))",
+              "hypothesis": "Entropy loss approaches zero (s_ads/s_gas near 1) as an exponential saturation function of accessible-surface mismatch decreases: when the framework's specific accessible surface (ASA) times pore volume (AV) greatly exceeds the adsorbate's Labute surface scaled by framework density, adsorbates experience weak interfacial contact and behave gas-like.",
+              "rationale": "Vibrational/librational entropy loss upon adsorption is governed by contact area between adsorbate and pore walls; a large adsorbate surface area contacting dense frameworks in small pores increases contact fraction. The exponential saturation reflects that entropy loss cannot grow indefinitely with contact area. Density used on its native numerical scale with no unit assignment. Purely inferred mechanism.",
+              "falsification_criteria": "If the descriptor shows no monotonic relationship with entropy loss/R in residuals, or its inclusion does not beat the 0.5588 MAE baseline on held-out data, the interfacial-contact saturation mechanism is falsified.",
+              "novelty_status": "uncertain",
+              "evidence_ids": []
+            }
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "cavity_permeability_index",
+          "formula": "log(AV * lsd_f / (Vol + MW / density))",
+          "hypothesis": "Adsorption entropy loss decreases as the logarithm of accessible-volume-weighted free path (AV*lsd_f) grows relative to the adsorbate's effective occupied volume (Vol + MW/density as a molecular volume proxy on the native density scale); systems where the free path dwarfs the molecule retain near-gas entropy.",
+          "rationale": "Translational entropy loss scales with the ratio of confinement length scale to molecular size; combining accessible volume with largest free sphere diameter captures the host's capacity to permit long-range diffusion, while MW/density approximates the molecular volume the adsorbate excludes. Inference from free-volume/transition-state arguments, not from supplied evidence.",
+          "falsification_criteria": "If adding this descriptor to the fixed 14-input network fails to reduce MAE of entropy loss/R below 0.5588 on held-out data, or if the residual trend vs this log ratio is non-monotonic, the free-volume mechanism is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": true,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5503544303732355,
+            "mae_J_mol_K": 4.575901338073287,
+            "r2": 0.8905488346918271,
+            "n": 591
+          },
+          "seconds": 42.31794376671314,
+          "marginal_improvement": 0.008457729741489617
+        },
+        {
+          "name": "anisotropic_pore_caging",
+          "formula": "sqrt(PMI3 / PMI1) * (GeDi / SPAN)",
+          "hypothesis": "Entropy loss is largest when molecular shape anisotropy (PMI3/PMI1) is high AND pore geometric diversity relative to molecular span (GeDi/SPAN) is low: elongated molecules confined in narrow, geometrically uniform channels lose the most rotational-translational entropy, and their product captures a synergistic caging effect neither factor shows alone.",
+          "rationale": "Rotational entropy loss depends on the number of distinct orientations a molecule can adopt; near-spherical molecules (PMI3/PMI1 near 1) lose little, while rods lose much — but only if the pore restricts rotation (low GeDi relative to SPAN). Mechanism inferred from rotational confinement reasoning; no supplied evidence.",
+          "falsification_criteria": "If the product term does not improve MAE vs baseline, or if an interaction analysis shows the effect of shape anisotropy is independent of GeDi/SPAN (no synergy), the anisotropic-caging hypothesis is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5578976259960731,
+            "mae_J_mol_K": 4.638618956100786,
+            "r2": 0.8873849467018873,
+            "n": 591
+          },
+          "seconds": 40.312118992209435,
+          "marginal_improvement": 0.000914534118652055
+        },
+        {
+          "name": "interfacial_density_lock",
+          "formula": "exp(-LabuteASA * density / (ASA * AV))",
+          "hypothesis": "Entropy loss approaches zero (s_ads/s_gas near 1) as an exponential saturation function of accessible-surface mismatch decreases: when the framework's specific accessible surface (ASA) times pore volume (AV) greatly exceeds the adsorbate's Labute surface scaled by framework density, adsorbates experience weak interfacial contact and behave gas-like.",
+          "rationale": "Vibrational/librational entropy loss upon adsorption is governed by contact area between adsorbate and pore walls; a large adsorbate surface area contacting dense frameworks in small pores increases contact fraction. The exponential saturation reflects that entropy loss cannot grow indefinitely with contact area. Density used on its native numerical scale with no unit assignment. Purely inferred mechanism.",
+          "falsification_criteria": "If the descriptor shows no monotonic relationship with entropy loss/R in residuals, or its inclusion does not beat the 0.5588 MAE baseline on held-out data, the interfacial-contact saturation mechanism is falsified.",
+          "novelty_status": "uncertain",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.561672047046947,
+            "mae_J_mol_K": 4.670001238833448,
+            "r2": 0.8901049717220346,
+            "n": 591
+          },
+          "seconds": 47.89382465183735,
+          "marginal_improvement": -0.0028598869322218334
+        }
+      ],
+      "after_mae_R": 0.5503544303732355,
+      "retained_formula": "log(AV * lsd_f / (Vol + MW / density))"
+    },
+    {
+      "round": 3,
+      "before_mae_R": 0.5503544303732355,
+      "usage": [
+        {
+          "completion_tokens": 1000,
+          "completion_tokens_details": {
+            "reasoning_tokens": 9
+          },
+          "prompt_tokens": 3193,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "total_tokens": 4193
+        }
+      ],
+      "response_model": "glm-5.3-flash",
+      "generations": [
+        {
+          "descriptor_candidates": [
+            {
+              "name": "window_cavity_squeeze",
+              "formula": "(lsd_f - PBF) / (lsd_p + SPAN)",
+              "hypothesis": "Entropy loss/R increases as the gap between the largest free sphere the framework admits (lsd_f) and the adsorbate's span-based body dimension (PBF) shrinks relative to the combined pore-window plus molecule length scale (lsd_p + SPAN); i.e., molecules that barely fit through windows lose the most translational entropy, while molecules with generous window clearance behave near-gas-like.",
+              "rationale": "Window-passing clearance governs how much translational freedom survives adsorption: if the largest free sphere only marginally exceeds the molecule's PBF, hopping between cages is bottlenecked and configurations are few. Normalizing by lsd_p + SPAN makes the descriptor a dimensionless confinement-to-molecule competition, mechanistically distinct from the retained absolute-ratio descriptors which used only lsd_p and PBF. Inference from transition-state/window-bottleneck arguments; not established by supplied evidence.",
+              "falsification_criteria": "If adding this descriptor to the fixed 14-input network does not reduce MAE of entropy loss/R below 0.5504 on held-out data, or residual analysis shows no monotonic trend of entropy loss with (lsd_f - PBF) after controlling for lsd_p and SPAN, the window-bottleneck mechanism is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "compactness_cavity_complement",
+              "formula": "log(Vol * density / MW) / maximum(sqrt(PMI3 / PMI2), 1.0)",
+              "hypothesis": "Entropy loss/R is largest for adsorbates whose native-scale packing proxy (Vol*density/MW) is high AND whose cross-sectional anisotropy (PMI3/PMI2) is low, because disk-like, densely packing molecules lie flat against pore walls and lose both rotational and vibrational entropy simultaneously; rod-like molecules (high PMI3/PMI2) threaded through channels retain more freedom, damping the packing effect.",
+              "rationale": "Vol*density/MW re-expresses the molecular packing ratio on the source density scale (dimensionless, no unit assignment), proxying how tightly the molecule fills space; dividing by a square-root anisotropy factor encodes the hypothesized moderating role of elongational shape. Mechanism inferred from wall-contact and channel-threading arguments, distinct from prior round's PMI3/PMI1 product form by using anisotropy as a moderator rather than a multiplicative driver. Not established by supplied evidence.",
+              "falsification_criteria": "If the descriptor fails to improve MAE below 0.5504 vs baseline, or if stratified residuals show the packing-ratio effect is equally strong for high and low PMI3/PMI2 groups (no moderation), the shape-moderated packing mechanism is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "exponential_free_volume_saturation",
+              "formula": "exp(-AV / (GeDi * LabuteASA))",
+              "hypothesis": "Entropy loss/R saturates exponentially: it approaches zero when the accessible volume per unit of pore-geometry-diversity times adsorbate surface (AV/(GeDi*LabuteASA)) is large, and grows steeply toward full caging when that free-volume-per-contact-area quantity becomes small. Unlike the previously rejected interfacial_density_lock (which used framework ASA and density), this form predicts a sharp threshold-like onset of caging rather than a gradual trend.",
+              "rationale": "Configurational entropy depends on the number of distinct positions and orientations; accessible volume sets the count of positions while GeDi (geometric diversity) and LabuteASA set the heterogeneity and contactiveness of the environment. An exponential saturation reflects that entropy loss per unit confinement cannot exceed the full gas entropy. Inference from free-volume/statistical-configurational arguments; no supplied evidence supports it.",
+              "falsification_criteria": "If the descriptor's inclusion does not lower MAE of entropy loss/R below 0.5504 on held-out data, or if the relationship between entropy loss and AV/(GeDi*LabuteASA) is approximately linear rather than exponentially saturating in residual analysis, the saturation mechanism is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            }
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "window_cavity_squeeze",
+          "formula": "(lsd_f - PBF) / (lsd_p + SPAN)",
+          "hypothesis": "Entropy loss/R increases as the gap between the largest free sphere the framework admits (lsd_f) and the adsorbate's span-based body dimension (PBF) shrinks relative to the combined pore-window plus molecule length scale (lsd_p + SPAN); i.e., molecules that barely fit through windows lose the most translational entropy, while molecules with generous window clearance behave near-gas-like.",
+          "rationale": "Window-passing clearance governs how much translational freedom survives adsorption: if the largest free sphere only marginally exceeds the molecule's PBF, hopping between cages is bottlenecked and configurations are few. Normalizing by lsd_p + SPAN makes the descriptor a dimensionless confinement-to-molecule competition, mechanistically distinct from the retained absolute-ratio descriptors which used only lsd_p and PBF. Inference from transition-state/window-bottleneck arguments; not established by supplied evidence.",
+          "falsification_criteria": "If adding this descriptor to the fixed 14-input network does not reduce MAE of entropy loss/R below 0.5504 on held-out data, or residual analysis shows no monotonic trend of entropy loss with (lsd_f - PBF) after controlling for lsd_p and SPAN, the window-bottleneck mechanism is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.6052630639565297,
+            "mae_J_mol_K": 5.03243711941546,
+            "r2": 0.8696584492921247,
+            "n": 591
+          },
+          "seconds": 47.27319471538067,
+          "marginal_improvement": -0.05490863358329423
+        },
+        {
+          "name": "compactness_cavity_complement",
+          "formula": "log(Vol * density / MW) / maximum(sqrt(PMI3 / PMI2), 1.0)",
+          "hypothesis": "Entropy loss/R is largest for adsorbates whose native-scale packing proxy (Vol*density/MW) is high AND whose cross-sectional anisotropy (PMI3/PMI2) is low, because disk-like, densely packing molecules lie flat against pore walls and lose both rotational and vibrational entropy simultaneously; rod-like molecules (high PMI3/PMI2) threaded through channels retain more freedom, damping the packing effect.",
+          "rationale": "Vol*density/MW re-expresses the molecular packing ratio on the source density scale (dimensionless, no unit assignment), proxying how tightly the molecule fills space; dividing by a square-root anisotropy factor encodes the hypothesized moderating role of elongational shape. Mechanism inferred from wall-contact and channel-threading arguments, distinct from prior round's PMI3/PMI1 product form by using anisotropy as a moderator rather than a multiplicative driver. Not established by supplied evidence.",
+          "falsification_criteria": "If the descriptor fails to improve MAE below 0.5504 vs baseline, or if stratified residuals show the packing-ratio effect is equally strong for high and low PMI3/PMI2 groups (no moderation), the shape-moderated packing mechanism is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.6067752726715365,
+            "mae_J_mol_K": 5.045010322247229,
+            "r2": 0.8619204838133203,
+            "n": 591
+          },
+          "seconds": 48.29540157318115,
+          "marginal_improvement": -0.05642084229830102
+        },
+        {
+          "name": "exponential_free_volume_saturation",
+          "formula": "exp(-AV / (GeDi * LabuteASA))",
+          "hypothesis": "Entropy loss/R saturates exponentially: it approaches zero when the accessible volume per unit of pore-geometry-diversity times adsorbate surface (AV/(GeDi*LabuteASA)) is large, and grows steeply toward full caging when that free-volume-per-contact-area quantity becomes small. Unlike the previously rejected interfacial_density_lock (which used framework ASA and density), this form predicts a sharp threshold-like onset of caging rather than a gradual trend.",
+          "rationale": "Configurational entropy depends on the number of distinct positions and orientations; accessible volume sets the count of positions while GeDi (geometric diversity) and LabuteASA set the heterogeneity and contactiveness of the environment. An exponential saturation reflects that entropy loss per unit confinement cannot exceed the full gas entropy. Inference from free-volume/statistical-configurational arguments; no supplied evidence supports it.",
+          "falsification_criteria": "If the descriptor's inclusion does not lower MAE of entropy loss/R below 0.5504 on held-out data, or if the relationship between entropy loss and AV/(GeDi*LabuteASA) is approximately linear rather than exponentially saturating in residual analysis, the saturation mechanism is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5943135380753781,
+            "mae_J_mol_K": 4.941397695790124,
+            "r2": 0.8754821393484171,
+            "n": 591
+          },
+          "seconds": 38.813478119671345,
+          "marginal_improvement": -0.04395910770214262
+        }
+      ],
+      "after_mae_R": 0.5503544303732355,
+      "retained_formula": null
+    }
+  ],
+  "d0_score_mae_R": 0.5756181684880872,
+  "interpretation": "Replicates vary LLM proposals on one fixed split, not independent datasets. Novelty is unverified.",
+  "retained": [
+    {
+      "name": "confined_free_length_ratio",
+      "formula": "lsd_p / (lsd_p + PBF)",
+      "hypothesis": "Adsorption entropy loss (relative to gas) decreases as the ratio of pore-limiting diameter to (pore diameter + molecule span) increases, because wide, unobstructed pores allow near-gas-like translational freedom; the ratio term captures confinement strength better than either diameter alone.",
+      "novelty_status": "new_combination"
+    },
+    {
+      "name": "cavity_permeability_index",
+      "formula": "log(AV * lsd_f / (Vol + MW / density))",
+      "hypothesis": "Adsorption entropy loss decreases as the logarithm of accessible-volume-weighted free path (AV*lsd_f) grows relative to the adsorbate's effective occupied volume (Vol + MW/density as a molecular volume proxy on the native density scale); systems where the free path dwarfs the molecule retain near-gas entropy.",
+      "novelty_status": "new_combination"
+    }
+  ],
+  "score_improvement_pct": 4.388975105009141,
+  "test": {
+    "d0": {
+      "mae_R": 0.5837445239172757,
+      "mae_J_mol_K": 4.853522022661848,
+      "r2": 0.8819804933409299,
+      "n": 738
+    },
+    "selected": {
+      "mae_R": 0.5810616862910912,
+      "mae_J_mol_K": 4.831215669508363,
+      "r2": 0.8805102577616282,
+      "n": 738
+    },
+    "all_raw_ann": {
+      "mae_R": 0.6151589536388481,
+      "mae_J_mol_K": 5.114716124252464,
+      "r2": 0.8586625368537976,
+      "n": 738
+    },
+    "native14_hgb": {
+      "mae_R": 0.4754063604118087,
+      "mae_J_mol_K": 3.9527484120762697,
+      "r2": 0.9171754010063995,
+      "n": 738
+    },
+    "all_raw_hgb": {
+      "mae_R": 0.4625921022177693,
+      "mae_J_mol_K": 3.8462047413425653,
+      "r2": 0.9246103243291537,
+      "n": 738
+    }
+  },
+  "test_improvement_pct": 0.4595910567487705,
+  "all_raw_plus_selected": {
+    "score": {
+      "mae_R": 0.5655637607155196,
+      "mae_J_mol_K": 4.702358746651352,
+      "r2": 0.8849629020460318,
+      "n": 591
+    },
+    "test": {
+      "mae_R": 0.5870831564784856,
+      "mae_J_mol_K": 4.881280958287777,
+      "r2": 0.8752940429034474,
+      "n": 738
+    },
+    "seconds": 42.388526879251
+  },
+  "seconds": 524.7875758334994
+}

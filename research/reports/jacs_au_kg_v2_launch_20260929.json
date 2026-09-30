@@ -1,0 +1,38 @@
+{
+  "phase": "completed",
+  "submitted_at": "2026-09-29T14:19:28.275274",
+  "release": "/public/home/xiaohe/lxf/catalysis-rag/code/releases/jacs-au-kg-v2-20260929b",
+  "model": "glm-5.3-flash",
+  "evidence_job_id": "3829505",
+  "pilot_job_id": "3829507",
+  "budget": {
+    "knowledge_lexical_tokens": 32000,
+    "output_max_tokens": 16000,
+    "output_recovery_max_tokens": 32000
+  },
+  "replicates_per_mode": 3,
+  "rounds": 3,
+  "proposals_per_round": 3,
+  "api_probe_job_id": "3829397",
+  "proxy_pid": "25221",
+  "proxy_url": "http://10.11.100.254:5000/api/paas/v4",
+  "audit_job_id": "3829506",
+  "summary_job_id": "3829508",
+  "cleanup_watcher_pid": "36482",
+  "prior_evidence_job": {
+    "id": "3829391",
+    "state": "cancelled_while_pending",
+    "reason": "Add document-source attribution and automatic integrity gate before any scientific trajectory"
+  },
+  "dependency_policy": "afterok; cancel on invalid dependencies",
+  "api_probe_passed": true,
+  "scientific_trajectories_completed": 9,
+  "summary_complete": true,
+  "completed_at": "2026-09-29T20:06:51+08:00",
+  "status_checked_at": "2026-09-29T20:37:03.464083",
+  "proxy_cleanup": {
+    "pid": 25221,
+    "status": "stopped",
+    "proxy_name": "jacs-au-kg-v2-20260929"
+  }
+}

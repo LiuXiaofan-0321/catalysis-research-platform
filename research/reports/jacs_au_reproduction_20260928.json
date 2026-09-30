@@ -1,0 +1,26 @@
+{
+  "checkpoint_metrics": {
+    "mae_R": 0.5671029032833961,
+    "mae_J_mol_K": 4.715155889995969,
+    "r2": 0.8887670421842769,
+    "n": 738
+  },
+  "saved_prediction_metrics": {
+    "mae_R": 0.5671028657224564,
+    "mae_J_mol_K": 4.715155577696939,
+    "r2": 0.888767047593228,
+    "n": 738
+  },
+  "prediction_max_abs_diff": 1.1920928955078125e-07,
+  "target_max_abs_diff": 2.9785863775444454e-08,
+  "paper_reported_mae_R": 0.57,
+  "notes": [
+    "Legacy scaler fits all 3690 rows; new experiments fit train only.",
+    "Native network uses sigmoid(ReLU(output)), with range [0.5,1].",
+    "Convergence error weights are training-label uncertainty, not model inputs.",
+    "Sgas is an independent molecular quantity used in target conversion; not a native input.",
+    "Author erroranalysis calls squared Pearson correlation R2; we report sklearn R2.",
+    "Density numerical values appear mass-density-like; retain native values and do not assert units before SI verification."
+  ],
+  "passed": true
+}

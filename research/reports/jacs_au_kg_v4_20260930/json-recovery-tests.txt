@@ -1,0 +1,21 @@
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.003s
+
+OK
+
+{"mode": "agent", "effort": "low", "replicate": 1, "round": 1, "score_mae_R": 1.520293554924354}
+{"mode": "agent", "effort": "low", "replicate": 1, "round": 2, "score_mae_R": 1.0135290366162348}
+{"mode": "agent", "effort": "low", "replicate": 1, "round": 3, "score_mae_R": 0.760146777462177}
+{"mode": "agent", "effort": "low", "replicate": 1, "round": 1, "score_mae_R": 1.520293554924354}
+{"mode": "agent", "effort": "low", "replicate": 1, "round": 2, "score_mae_R": 1.0135290366162348}
+{"mode": "agent", "effort": "low", "replicate": 1, "round": 3, "score_mae_R": 0.760146777462177}
+{"mode": "agent", "effort": "high", "replicate": 1, "round": 1, "score_mae_R": 1.520293554924354}
+{"mode": "agent", "effort": "high", "replicate": 1, "round": 2, "score_mae_R": 1.0135290366162348}
+{"mode": "agent", "effort": "high", "replicate": 1, "round": 3, "score_mae_R": 0.760146777462177}
+{"complete": false, "completed": {"low": {"agent": 1, "rag_agent": 0, "small_kg_rag_agent": 0}, "high": {"agent": 1, "rag_agent": 0, "small_kg_rag_agent": 0}}}
+............
+----------------------------------------------------------------------
+Ran 12 tests in 1.987s
+
+OK

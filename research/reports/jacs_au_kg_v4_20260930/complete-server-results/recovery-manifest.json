@@ -1,0 +1,128 @@
+[
+  {
+    "identity": "low/discovery/agent-replicate-1.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/agent-replicate-1.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/agent-replicate-1.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "low/discovery/agent-replicate-2.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/agent-replicate-2.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/agent-replicate-2.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "low/discovery/agent-replicate-3.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/agent-replicate-3.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c-json-recovery/low/discovery/agent-replicate-3.json",
+    "original_status": "failed",
+    "original_retained": true
+  },
+  {
+    "identity": "low/discovery/rag_agent-replicate-1.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/rag_agent-replicate-1.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/rag_agent-replicate-1.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "low/discovery/rag_agent-replicate-2.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/rag_agent-replicate-2.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/rag_agent-replicate-2.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "low/discovery/rag_agent-replicate-3.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/rag_agent-replicate-3.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c-json-recovery/low/discovery/rag_agent-replicate-3.json",
+    "original_status": "failed",
+    "original_retained": true
+  },
+  {
+    "identity": "low/discovery/small_kg_rag_agent-replicate-1.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/small_kg_rag_agent-replicate-1.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/small_kg_rag_agent-replicate-1.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "low/discovery/small_kg_rag_agent-replicate-2.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/small_kg_rag_agent-replicate-2.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/small_kg_rag_agent-replicate-2.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "low/discovery/small_kg_rag_agent-replicate-3.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/small_kg_rag_agent-replicate-3.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/low/discovery/small_kg_rag_agent-replicate-3.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "high/discovery/agent-replicate-1.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/agent-replicate-1.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/agent-replicate-1.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "high/discovery/agent-replicate-2.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/agent-replicate-2.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/agent-replicate-2.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "high/discovery/agent-replicate-3.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/agent-replicate-3.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/agent-replicate-3.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "high/discovery/rag_agent-replicate-1.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/rag_agent-replicate-1.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c-json-recovery/high/discovery/rag_agent-replicate-1.json",
+    "original_status": "failed",
+    "original_retained": true
+  },
+  {
+    "identity": "high/discovery/rag_agent-replicate-2.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/rag_agent-replicate-2.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/rag_agent-replicate-2.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "high/discovery/rag_agent-replicate-3.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/rag_agent-replicate-3.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/rag_agent-replicate-3.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "high/discovery/small_kg_rag_agent-replicate-1.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/small_kg_rag_agent-replicate-1.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/small_kg_rag_agent-replicate-1.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "high/discovery/small_kg_rag_agent-replicate-2.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/small_kg_rag_agent-replicate-2.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/small_kg_rag_agent-replicate-2.json",
+    "original_status": "completed",
+    "original_retained": true
+  },
+  {
+    "identity": "high/discovery/small_kg_rag_agent-replicate-3.json",
+    "original": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/small_kg_rag_agent-replicate-3.json",
+    "selected_record": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v4-20260930c/high/discovery/small_kg_rag_agent-replicate-3.json",
+    "original_status": "completed",
+    "original_retained": true
+  }
+]

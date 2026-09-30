@@ -1,0 +1,714 @@
+{
+  "status": "completed",
+  "benchmark": "10.1021/jacsau.4c00429",
+  "model": "glm-5.3-flash",
+  "mode": "agent",
+  "replicate": 2,
+  "protocol": "3 rounds x 3 proposals; one positive scoring winner at most per round",
+  "fit_seed": 3,
+  "epochs": 4000,
+  "evidence": [],
+  "rounds": [
+    {
+      "round": 1,
+      "before_mae_R": 0.5756181684880872,
+      "usage": [
+        {
+          "completion_tokens": 984,
+          "completion_tokens_details": {
+            "reasoning_tokens": 6
+          },
+          "prompt_tokens": 1275,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "total_tokens": 2259
+        }
+      ],
+      "response_model": "glm-5.3-flash",
+      "generations": [
+        {
+          "descriptor_candidates": [
+            {
+              "name": "confinement_to_volume_ratio",
+              "formula": "q_ASA * (Vol_ref / (Vol + Vol_ref)) / (q_lsd_p + 1)",
+              "hypothesis": "Entropy loss scales with the specific surface contacted by the adsorbate, damped by adsorbate bulkiness and by path diameter: frameworks with high accessible area, small adsorbates, and narrow diffusion paths produce larger s_ads/s_gas deviations. Replacing raw Vol with this saturating ratio improves MAE over the 14-input network baseline.",
+              "rationale": "Inference: configurational entropy loss on adsorption is governed by the fraction of translational/rotational states removed, which grows with contacted surface area per adsorbate volume and shrinks when pores are wide enough that the molecule retains free volume. The saturating term (Vol_ref/(Vol+Vol_ref)) encodes diminishing marginal restriction for bulky adsorbates; lsd_p penalizes steric hindrance along the path.",
+              "falsification_criteria": "If adding this descriptor to the network does not reduce MAE of entropy loss/R versus the full 14-input baseline on held-out pure-silica data, or if the descriptor's partial dependence is non-monotone in q_ASA across zeolites with similar lsd_p, the hypothesis is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "shape_mismatch_descriptor",
+              "formula": "log(q_PBF + 1) * (q_GeDi / (q_lsd_f + q_lsd_f**2))",
+              "hypothesis": "Entropy loss is maximized when a planar, elongated adsorbate must reorient within a small window: the product of molecular planarity (PBF) and elongation-normalized geometric span (GeDi) relative to the largest free sphere (lsd_f) predicts entropy loss better than any size-only descriptor.",
+              "rationale": "Inference: planar molecules adsorbing in micropores lose rotational degrees of freedom anisotropically; a molecule much longer (GeDi) than the largest free sphere (lsd_f) must adopt constrained coiled/threaded configurations, further reducing rotational entropy. log(q_PBF+1) is a dimensionless guard for the dimensional planarity measure.",
+              "falsification_criteria": "If the descriptor shows no significant rank correlation with entropy loss/R within subgroups of fixed lsd_f (Spearman |rho| < 0.2, p > 0.05), or if replacing PBF with random planarity noise yields equal MAE improvement, the shape-mismatch mechanism is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "pore_capacity_entropy_term",
+              "formula": "log(q_AV + 1) / (q_MW * (q_PMI3 / q_PMI1 + 1))",
+              "hypothesis": "Entropy loss decreases with accessible pore volume per framework mass but increases with the adsorbate's mass and rotational anisotropy (ratio of smallest to largest principal moment of inertia); the ratio captures how much adsorbed-phase free volume a heavy, anisotropic rotator relinquishes, and adding it reduces MAE beyond baseline.",
+              "rationale": "Inference: larger accessible volume preserves translational entropy of the adsorbed phase (lower loss), while heavier molecules have higher gas-phase entropy that is largely surrendered on adsorption; anisotropic rotators (PMI3/PMI1 small or large) lose discrete orientational states in anisotropic cages. This combines a framework capacity term with a molecular entropy-proxy term, distinct from surface-area and shape-mismatch mechanisms.",
+              "falsification_criteria": "If the residual entropy loss (after baseline prediction) correlates more strongly with ASA than with AV at fixed adsorbate identity, or if no monotone decrease of the descriptor's effect with q_AV is observed across frameworks, the pore-capacity mechanism is falsified.",
+              "novelty_status": "uncertain",
+              "evidence_ids": []
+            }
+          ],
+          "next_retrieval_queries": [
+            "adsorption entropy pure-silica zeolite molecular simulation infinite dilution surface area vs pore volume scaling",
+            "rotational entropy loss planar molecules confined micropores principal moments of inertia",
+            "framework density zeolite adsorption thermodynamics entropy correlation transferability"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "confinement_to_volume_ratio",
+          "formula": "q_ASA * (Vol_ref / (Vol + Vol_ref)) / (q_lsd_p + 1)",
+          "hypothesis": "Entropy loss scales with the specific surface contacted by the adsorbate, damped by adsorbate bulkiness and by path diameter: frameworks with high accessible area, small adsorbates, and narrow diffusion paths produce larger s_ads/s_gas deviations. Replacing raw Vol with this saturating ratio improves MAE over the 14-input network baseline.",
+          "rationale": "Inference: configurational entropy loss on adsorption is governed by the fraction of translational/rotational states removed, which grows with contacted surface area per adsorbate volume and shrinks when pores are wide enough that the molecule retains free volume. The saturating term (Vol_ref/(Vol+Vol_ref)) encodes diminishing marginal restriction for bulky adsorbates; lsd_p penalizes steric hindrance along the path.",
+          "falsification_criteria": "If adding this descriptor to the network does not reduce MAE of entropy loss/R versus the full 14-input baseline on held-out pure-silica data, or if the descriptor's partial dependence is non-monotone in q_ASA across zeolites with similar lsd_p, the hypothesis is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": true,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.540494545921325,
+            "mae_J_mol_K": 4.493921697378566,
+            "r2": 0.8949881182812419,
+            "n": 591
+          },
+          "seconds": 97.14691101759672,
+          "marginal_improvement": 0.03512362256676227
+        },
+        {
+          "name": "shape_mismatch_descriptor",
+          "formula": "log(q_PBF + 1) * (q_GeDi / (q_lsd_f + q_lsd_f**2))",
+          "hypothesis": "Entropy loss is maximized when a planar, elongated adsorbate must reorient within a small window: the product of molecular planarity (PBF) and elongation-normalized geometric span (GeDi) relative to the largest free sphere (lsd_f) predicts entropy loss better than any size-only descriptor.",
+          "rationale": "Inference: planar molecules adsorbing in micropores lose rotational degrees of freedom anisotropically; a molecule much longer (GeDi) than the largest free sphere (lsd_f) must adopt constrained coiled/threaded configurations, further reducing rotational entropy. log(q_PBF+1) is a dimensionless guard for the dimensional planarity measure.",
+          "falsification_criteria": "If the descriptor shows no significant rank correlation with entropy loss/R within subgroups of fixed lsd_f (Spearman |rho| < 0.2, p > 0.05), or if replacing PBF with random planarity noise yields equal MAE improvement, the shape-mismatch mechanism is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5611552121449642,
+            "mae_J_mol_K": 4.6657040343611555,
+            "r2": 0.8879192096568803,
+            "n": 591
+          },
+          "seconds": 69.37711387127638,
+          "marginal_improvement": 0.014462956343123001
+        },
+        {
+          "name": "pore_capacity_entropy_term",
+          "formula": "log(q_AV + 1) / (q_MW * (q_PMI3 / q_PMI1 + 1))",
+          "hypothesis": "Entropy loss decreases with accessible pore volume per framework mass but increases with the adsorbate's mass and rotational anisotropy (ratio of smallest to largest principal moment of inertia); the ratio captures how much adsorbed-phase free volume a heavy, anisotropic rotator relinquishes, and adding it reduces MAE beyond baseline.",
+          "rationale": "Inference: larger accessible volume preserves translational entropy of the adsorbed phase (lower loss), while heavier molecules have higher gas-phase entropy that is largely surrendered on adsorption; anisotropic rotators (PMI3/PMI1 small or large) lose discrete orientational states in anisotropic cages. This combines a framework capacity term with a molecular entropy-proxy term, distinct from surface-area and shape-mismatch mechanisms.",
+          "falsification_criteria": "If the residual entropy loss (after baseline prediction) correlates more strongly with ASA than with AV at fixed adsorbate identity, or if no monotone decrease of the descriptor's effect with q_AV is observed across frameworks, the pore-capacity mechanism is falsified.",
+          "novelty_status": "uncertain",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5730143599818088,
+            "mae_J_mol_K": 4.764306475733753,
+            "r2": 0.8842867092062965,
+            "n": 591
+          },
+          "seconds": 67.87015257030725,
+          "marginal_improvement": 0.0026038085062783933
+        }
+      ],
+      "completion_attempts": [
+        {
+          "max_tokens": 16000,
+          "finish_reason": "stop"
+        }
+      ],
+      "retrieval": {
+        "query": "zeolite adsorption entropy molecular confinement translational rotational freedom",
+        "items": 0,
+        "lexical_tokens": 0,
+        "graph_paths": 0
+      },
+      "full_request_lexical_tokens": 1296,
+      "next_retrieval_queries": [
+        "adsorption entropy pure-silica zeolite molecular simulation infinite dilution surface area vs pore volume scaling",
+        "rotational entropy loss planar molecules confined micropores principal moments of inertia",
+        "framework density zeolite adsorption thermodynamics entropy correlation transferability"
+      ],
+      "after_mae_R": 0.540494545921325,
+      "retained_formula": "q_ASA * (Vol_ref / (Vol + Vol_ref)) / (q_lsd_p + 1)"
+    },
+    {
+      "round": 2,
+      "before_mae_R": 0.540494545921325,
+      "usage": [
+        {
+          "completion_tokens": 1489,
+          "completion_tokens_details": {
+            "reasoning_tokens": 364
+          },
+          "prompt_tokens": 2772,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "total_tokens": 4261
+        }
+      ],
+      "response_model": "glm-5.3-flash",
+      "generations": [
+        {
+          "descriptor_candidates": [
+            {
+              "name": "size_path_stiffness",
+              "formula": "q_GeDi**2 / (q_lsd_p**2 + 1)",
+              "hypothesis": "Entropy loss is governed by the square of the geometric mismatch between adsorbate span and the largest free-sphere path: adsorbates whose largest atom-to-atom distance approaches or exceeds the path diameter are forced into a small set of configurations, so s_ads/s_gas deviations grow quadratically as q_GeDi/q_lsd_p rises. Adding this stiffness ratio to the network reduces MAE of entropy loss/R below the 0.5405 baseline.",
+              "rationale": "Inference (no retrieved evidence supplied): translational/configurational entropy loss in micropores should scale with the fraction of accessible positions removed, which grows with the ratio of molecular span to pore path cross-section; a squared form encodes the near-free behavior when the path is much wider than the molecule (mismatch ratio << 1) and rapidly increasing restriction as the ratio approaches 1. This mechanism is distinct from the retained surface-area mechanism (contact per volume) and from the rejected round-1 shape term because it isolates size-vs-path stiffness without planarity or inertia.",
+              "falsification_criteria": "If adding the descriptor does not reduce MAE of entropy loss/R versus the 14-input baseline on held-out pure-silica data, or if within strata of similar q_lsd_p the descriptor's effect on residuals is non-monotone in q_GeDi, the stiffness mechanism is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "anisotropic_rotator_quenching",
+              "formula": "exp(-q_PBF) * log(PMI3/PMI1 + 1)",
+              "hypothesis": "Entropy loss increases with the adsorbate's rotational anisotropy (PMI3/PMI1) and decreases with planarity-proportional orientational freedom: near-planar molecules (small PBF relative to its reference, exp(-q_PBF) large) that are strongly anisotropic rotators lose the most discrete orientational states when confined, so this product predicts entropy loss better than size-only terms.",
+              "rationale": "Inference: adsorption quenches rotational degrees of freedom; the number of orientational states surrendered is largest for molecules with highly disparate principal moments (needle-like or disc-like rotators), while planar geometry lets a molecule lie flat and retain in-plane rotations, partially compensating. exp of a dimensionless argument (q_PBF) and log of a dimensionless inertia ratio satisfy the unit rules; both quantities are already in the network, so this re-expresses their interaction nonlinearly.",
+              "falsification_criteria": "If the descriptor's partial effect on residual entropy loss is flat (|Spearman rho| < 0.2, p > 0.05) within groups of fixed PMI3/PMI1 across varying PBF, or if permuting PMI values within frameworks yields equal MAE improvement, the anisotropic-rotator mechanism is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "pore_surface_density_confinement",
+              "formula": "q_density * (q_ASA / (q_AV + 1))",
+              "hypothesis": "Entropy loss scales with the accessible-surface-to-accessible-volume ratio (a confinement intensity: how much pore wall a unit of pore space exposes) amplified by framework density on the source numerical scale: dense frameworks with high surface-per-volume pores force adsorbates into tighter, more correlated configurations, so this descriptor reduces MAE beyond the retained area-only term.",
+              "rationale": "Inference: the retained descriptor uses total contacted area but not how strongly that area is packed into the pore volume; surface-to-volume confinement intensity (q_ASA/q_AV) captures the characteristic confinement length scale, and framework density proxies the rigidity/packing of the wall field on the unresolved source scale (used only through q_density, no physical unit assigned). Transfer assumption: pure-silica rigid frameworks at infinite dilution behave as rigid, smooth potential fields, so probe-measured ASA/AV ratios transfer to adsorbate confinement. Note ASA and AV carry different length scales, hence reference normalization before ratioing.",
+              "falsification_criteria": "If the descriptor does not reduce MAE of entropy loss/R versus the baseline with the retained descriptor also present, or if frameworks with matched q_ASA/q_AV but different q_density show no residual difference in entropy loss (|rho| < 0.2 between q_density and residuals), the density-amplification claim is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            }
+          ],
+          "next_retrieval_queries": [
+            "adsorption entropy zeolite dependence on pore confinement length scale surface-to-volume ratio",
+            "rotational entropy loss of anisotropic molecules adsorbed in micropores principal moments of inertia",
+            "framework density correlation with adsorption enthalpy entropy in pure-silica zeolites"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "size_path_stiffness",
+          "formula": "q_GeDi**2 / (q_lsd_p**2 + 1)",
+          "hypothesis": "Entropy loss is governed by the square of the geometric mismatch between adsorbate span and the largest free-sphere path: adsorbates whose largest atom-to-atom distance approaches or exceeds the path diameter are forced into a small set of configurations, so s_ads/s_gas deviations grow quadratically as q_GeDi/q_lsd_p rises. Adding this stiffness ratio to the network reduces MAE of entropy loss/R below the 0.5405 baseline.",
+          "rationale": "Inference (no retrieved evidence supplied): translational/configurational entropy loss in micropores should scale with the fraction of accessible positions removed, which grows with the ratio of molecular span to pore path cross-section; a squared form encodes the near-free behavior when the path is much wider than the molecule (mismatch ratio << 1) and rapidly increasing restriction as the ratio approaches 1. This mechanism is distinct from the retained surface-area mechanism (contact per volume) and from the rejected round-1 shape term because it isolates size-vs-path stiffness without planarity or inertia.",
+          "falsification_criteria": "If adding the descriptor does not reduce MAE of entropy loss/R versus the 14-input baseline on held-out pure-silica data, or if within strata of similar q_lsd_p the descriptor's effect on residuals is non-monotone in q_GeDi, the stiffness mechanism is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": true,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5281116755268289,
+            "mae_J_mol_K": 4.390964784378092,
+            "r2": 0.8993465610274296,
+            "n": 591
+          },
+          "seconds": 68.3377993106842,
+          "marginal_improvement": 0.012382870394496037
+        },
+        {
+          "name": "anisotropic_rotator_quenching",
+          "formula": "exp(-q_PBF) * log(PMI3/PMI1 + 1)",
+          "hypothesis": "Entropy loss increases with the adsorbate's rotational anisotropy (PMI3/PMI1) and decreases with planarity-proportional orientational freedom: near-planar molecules (small PBF relative to its reference, exp(-q_PBF) large) that are strongly anisotropic rotators lose the most discrete orientational states when confined, so this product predicts entropy loss better than size-only terms.",
+          "rationale": "Inference: adsorption quenches rotational degrees of freedom; the number of orientational states surrendered is largest for molecules with highly disparate principal moments (needle-like or disc-like rotators), while planar geometry lets a molecule lie flat and retain in-plane rotations, partially compensating. exp of a dimensionless argument (q_PBF) and log of a dimensionless inertia ratio satisfy the unit rules; both quantities are already in the network, so this re-expresses their interaction nonlinearly.",
+          "falsification_criteria": "If the descriptor's partial effect on residual entropy loss is flat (|Spearman rho| < 0.2, p > 0.05) within groups of fixed PMI3/PMI1 across varying PBF, or if permuting PMI values within frameworks yields equal MAE improvement, the anisotropic-rotator mechanism is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5505379738817209,
+            "mae_J_mol_K": 4.577427403713393,
+            "r2": 0.8901046732981872,
+            "n": 591
+          },
+          "seconds": 64.60106545686722,
+          "marginal_improvement": -0.010043427960395923
+        },
+        {
+          "name": "pore_surface_density_confinement",
+          "formula": "q_density * (q_ASA / (q_AV + 1))",
+          "hypothesis": "Entropy loss scales with the accessible-surface-to-accessible-volume ratio (a confinement intensity: how much pore wall a unit of pore space exposes) amplified by framework density on the source numerical scale: dense frameworks with high surface-per-volume pores force adsorbates into tighter, more correlated configurations, so this descriptor reduces MAE beyond the retained area-only term.",
+          "rationale": "Inference: the retained descriptor uses total contacted area but not how strongly that area is packed into the pore volume; surface-to-volume confinement intensity (q_ASA/q_AV) captures the characteristic confinement length scale, and framework density proxies the rigidity/packing of the wall field on the unresolved source scale (used only through q_density, no physical unit assigned). Transfer assumption: pure-silica rigid frameworks at infinite dilution behave as rigid, smooth potential fields, so probe-measured ASA/AV ratios transfer to adsorbate confinement. Note ASA and AV carry different length scales, hence reference normalization before ratioing.",
+          "falsification_criteria": "If the descriptor does not reduce MAE of entropy loss/R versus the baseline with the retained descriptor also present, or if frameworks with matched q_ASA/q_AV but different q_density show no residual difference in entropy loss (|rho| < 0.2 between q_density and residuals), the density-amplification claim is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5302760711886638,
+            "mae_J_mol_K": 4.408960571199311,
+            "r2": 0.9010444187229965,
+            "n": 591
+          },
+          "seconds": 48.67531795054674,
+          "marginal_improvement": 0.010218474732661131
+        }
+      ],
+      "completion_attempts": [
+        {
+          "max_tokens": 16000,
+          "finish_reason": "stop"
+        }
+      ],
+      "retrieval": {
+        "query": "zeolite adsorption entropy molecular confinement translational rotational freedom Framework surface area accessible to a probe, per framework mass. Diameter of the largest sphere along a free-sphere path in the framework. Van der Waals volume of the adsorbate molecule. adsorption entropy pure-silica zeolite molecular simulation infinite dilution surface area vs pore volume scaling rotational entropy loss planar molecules confined micropores principal moments of inertia framework density zeolite adsorption thermodynamics entropy correlation transferability adsorbate molecular shape principal moments inertia rotational entropy pore confinement",
+        "items": 0,
+        "lexical_tokens": 0,
+        "graph_paths": 0
+      },
+      "full_request_lexical_tokens": 2442,
+      "next_retrieval_queries": [
+        "adsorption entropy zeolite dependence on pore confinement length scale surface-to-volume ratio",
+        "rotational entropy loss of anisotropic molecules adsorbed in micropores principal moments of inertia",
+        "framework density correlation with adsorption enthalpy entropy in pure-silica zeolites"
+      ],
+      "after_mae_R": 0.5281116755268289,
+      "retained_formula": "q_GeDi**2 / (q_lsd_p**2 + 1)"
+    },
+    {
+      "round": 3,
+      "before_mae_R": 0.5281116755268289,
+      "usage": [
+        {
+          "completion_tokens": 1282,
+          "completion_tokens_details": {
+            "reasoning_tokens": 11
+          },
+          "prompt_tokens": 4431,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "total_tokens": 5713
+        }
+      ],
+      "response_model": "glm-5.3-flash",
+      "generations": [
+        {
+          "descriptor_candidates": [
+            {
+              "name": "channel_tortuosity_mobility",
+              "formula": "q_SPAN * (q_lsd_f - q_lsd_p) / (q_lsd_f + 1)",
+              "hypothesis": "Entropy loss increases with the gap between the largest free sphere and the largest free-sphere path diameter, weighted by adsorbate span: frameworks where the widest local cavity (lsd_f) is much larger than the through-path (lsd_p) trap adsorbates in cage-like pockets with restricted escape, so a large-span molecule loses more translational entropy than in straight channels. Adding this cavity-versus-passage contrast to the network reduces MAE of entropy loss/R below the 0.5281 baseline.",
+              "rationale": "Inference: cage-window architectures (e.g., cages connected by narrow windows) allow local configurational richness but suppress diffusion and long-range positional sampling; the lsd_f/lsd_p difference is a dimensionless (after normalization) proxy for cage-window contrast. Weighting by q_SPAN ties the penalty to how strongly the molecule samples the whole pore network versus a single cage. This is distinct from the retained size-path stiffness term, which uses only q_lsd_p and a squared mismatch; here the difference q_lsd_f - q_lsd_p isolates the topology contrast. Inference only; no retrieved evidence supplied.",
+              "falsification_criteria": "If adding the descriptor does not reduce MAE of entropy loss/R versus the baseline with both retained descriptors present, or if within strata of fixed (q_lsd_f - q_lsd_p) the residual entropy loss shows no monotone trend with q_SPAN (|Spearman rho| < 0.2, p > 0.05), the cavity-trap mechanism is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "moment_elongation_confinement",
+              "formula": "sqrt(q_PMI2 / q_PMI1) * q_ASA / (q_lsd_f + 1)**2",
+              "hypothesis": "Entropy loss grows with the cross-sectional footprint of the adsorbate, approximated by the square root of the ratio of its intermediate to smallest principal moment of inertia (a shape-compactness measure independent of PBF), amplified by accessible surface area and suppressed in frameworks with large free spheres: flat/compact molecules spread over more wall area (higher effective contact) and lose more entropy than rod-like ones, so this descriptor reduces MAE below the 0.5281 baseline.",
+              "rationale": "Inference: sqrt(PMI2/PMI1) is a dimensionless proxy for how much of the molecule's mass lies off its longest axis, i.e., contact footprint when lying on a wall; rods contact walls along a line (low entropy loss per unit area), discs/compact molecules over an area. Multiplying by q_ASA scales with available wall, and the squared lsd_f denominator encodes that wide pores decouple the molecule from any single wall. Distinct from retained area/volume saturation and stiffness terms (different mechanism: shape-dependent contact footprint, not size mismatch or contacted-area total). Inference only; no retrieved evidence supplied.",
+              "falsification_criteria": "If the descriptor's partial effect on residuals is non-monotone in sqrt(q_PMI2/q_PMI1) at fixed q_ASA and q_lsd_f, or if permuting PMI values across adsorbates within frameworks yields equal MAE improvement, the footprint mechanism is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "mass_packing_pressure",
+              "formula": "q_MW * q_density * (q_AV / (q_AV + 1)) * (LabuteASA_ref / (LabuteASA + LabuteASA_ref))",
+              "hypothesis": "Entropy loss rises with the product of adsorbate mass and framework density, saturated by accessible pore volume and damped by molecular surface area: heavy adsorbates in dense (tightly packed, high wall-field-gradient) frameworks experience steeper van der Waals potential landscapes that restrict positional freedom, but the effect saturates once pore volume per mass is plentiful and is offset for large-surface-area molecules that retain gas-like conformational entropy. Adding this mass-density packing term reduces MAE of entropy loss/R below the 0.5281 baseline.",
+              "rationale": "Inference: heavier adsorbates have deeper adsorption wells at fixed framework chemistry (more polarizable matter interacting with the silica wall field), and framework density on the unresolved source numerical scale (used only through q_density) proxies wall-atom packing intensity; the saturating q_AV/(q_AV+1) term limits the mechanism to confinement-relevant regimes, and the LabuteASA damping term encodes that molecules with large external surface retain more internal configurational entropy. Distinct from all retained/rejected terms: prior candidates used area, span, inertia, or AV alone, never a mass-density packing product. Inference only; no retrieved evidence supplied.",
+              "falsification_criteria": "If the descriptor does not reduce MAE versus the baseline with both retained descriptors present, or if at matched q_MW and q_AV the residual entropy loss shows no monotone increase with q_density (|Spearman rho| < 0.2, p > 0.05), the mass-packing mechanism is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            }
+          ],
+          "next_retrieval_queries": [
+            "adsorption entropy loss cage versus channel zeolite window size effect",
+            "molecular shape dependence of configurational entropy in micropore adsorption",
+            "framework density correlation with adsorption enthalpy and entropy in pure-silica zeolites"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "channel_tortuosity_mobility",
+          "formula": "q_SPAN * (q_lsd_f - q_lsd_p) / (q_lsd_f + 1)",
+          "hypothesis": "Entropy loss increases with the gap between the largest free sphere and the largest free-sphere path diameter, weighted by adsorbate span: frameworks where the widest local cavity (lsd_f) is much larger than the through-path (lsd_p) trap adsorbates in cage-like pockets with restricted escape, so a large-span molecule loses more translational entropy than in straight channels. Adding this cavity-versus-passage contrast to the network reduces MAE of entropy loss/R below the 0.5281 baseline.",
+          "rationale": "Inference: cage-window architectures (e.g., cages connected by narrow windows) allow local configurational richness but suppress diffusion and long-range positional sampling; the lsd_f/lsd_p difference is a dimensionless (after normalization) proxy for cage-window contrast. Weighting by q_SPAN ties the penalty to how strongly the molecule samples the whole pore network versus a single cage. This is distinct from the retained size-path stiffness term, which uses only q_lsd_p and a squared mismatch; here the difference q_lsd_f - q_lsd_p isolates the topology contrast. Inference only; no retrieved evidence supplied.",
+          "falsification_criteria": "If adding the descriptor does not reduce MAE of entropy loss/R versus the baseline with both retained descriptors present, or if within strata of fixed (q_lsd_f - q_lsd_p) the residual entropy loss shows no monotone trend with q_SPAN (|Spearman rho| < 0.2, p > 0.05), the cavity-trap mechanism is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5814416037637178,
+            "mae_J_mol_K": 4.834374479132499,
+            "r2": 0.8813453585530268,
+            "n": 591
+          },
+          "seconds": 53.04593072086573,
+          "marginal_improvement": -0.05332992823688887
+        },
+        {
+          "name": "moment_elongation_confinement",
+          "formula": "sqrt(q_PMI2 / q_PMI1) * q_ASA / (q_lsd_f + 1)**2",
+          "hypothesis": "Entropy loss grows with the cross-sectional footprint of the adsorbate, approximated by the square root of the ratio of its intermediate to smallest principal moment of inertia (a shape-compactness measure independent of PBF), amplified by accessible surface area and suppressed in frameworks with large free spheres: flat/compact molecules spread over more wall area (higher effective contact) and lose more entropy than rod-like ones, so this descriptor reduces MAE below the 0.5281 baseline.",
+          "rationale": "Inference: sqrt(PMI2/PMI1) is a dimensionless proxy for how much of the molecule's mass lies off its longest axis, i.e., contact footprint when lying on a wall; rods contact walls along a line (low entropy loss per unit area), discs/compact molecules over an area. Multiplying by q_ASA scales with available wall, and the squared lsd_f denominator encodes that wide pores decouple the molecule from any single wall. Distinct from retained area/volume saturation and stiffness terms (different mechanism: shape-dependent contact footprint, not size mismatch or contacted-area total). Inference only; no retrieved evidence supplied.",
+          "falsification_criteria": "If the descriptor's partial effect on residuals is non-monotone in sqrt(q_PMI2/q_PMI1) at fixed q_ASA and q_lsd_f, or if permuting PMI values across adsorbates within frameworks yields equal MAE improvement, the footprint mechanism is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5768407215728719,
+            "mae_J_mol_K": 4.796120616146185,
+            "r2": 0.8818886756181131,
+            "n": 591
+          },
+          "seconds": 52.285052105784416,
+          "marginal_improvement": -0.048729046046043
+        },
+        {
+          "name": "mass_packing_pressure",
+          "formula": "q_MW * q_density * (q_AV / (q_AV + 1)) * (LabuteASA_ref / (LabuteASA + LabuteASA_ref))",
+          "hypothesis": "Entropy loss rises with the product of adsorbate mass and framework density, saturated by accessible pore volume and damped by molecular surface area: heavy adsorbates in dense (tightly packed, high wall-field-gradient) frameworks experience steeper van der Waals potential landscapes that restrict positional freedom, but the effect saturates once pore volume per mass is plentiful and is offset for large-surface-area molecules that retain gas-like conformational entropy. Adding this mass-density packing term reduces MAE of entropy loss/R below the 0.5281 baseline.",
+          "rationale": "Inference: heavier adsorbates have deeper adsorption wells at fixed framework chemistry (more polarizable matter interacting with the silica wall field), and framework density on the unresolved source numerical scale (used only through q_density) proxies wall-atom packing intensity; the saturating q_AV/(q_AV+1) term limits the mechanism to confinement-relevant regimes, and the LabuteASA damping term encodes that molecules with large external surface retain more internal configurational entropy. Distinct from all retained/rejected terms: prior candidates used area, span, inertia, or AV alone, never a mass-density packing product. Inference only; no retrieved evidence supplied.",
+          "falsification_criteria": "If the descriptor does not reduce MAE versus the baseline with both retained descriptors present, or if at matched q_MW and q_AV the residual entropy loss shows no monotone increase with q_density (|Spearman rho| < 0.2, p > 0.05), the mass-packing mechanism is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5777110343745767,
+            "mae_J_mol_K": 4.803356799402059,
+            "r2": 0.8823668978145958,
+            "n": 591
+          },
+          "seconds": 51.70947689563036,
+          "marginal_improvement": -0.0495993588477478
+        }
+      ],
+      "completion_attempts": [
+        {
+          "max_tokens": 16000,
+          "finish_reason": "stop"
+        }
+      ],
+      "retrieval": {
+        "query": "zeolite adsorption entropy molecular confinement translational rotational freedom Framework surface area accessible to a probe, per framework mass. Diameter of the largest sphere along a free-sphere path in the framework. Van der Waals volume of the adsorbate molecule. Largest distance between two molecular atoms. adsorption entropy zeolite dependence on pore confinement length scale surface-to-volume ratio rotational entropy loss of anisotropic molecules adsorbed in micropores principal moments of inertia framework density correlation with adsorption enthalpy entropy in pure-silica zeolites zeolite accessible pore volume occupiable volume molecular volume adsorption entropy",
+        "items": 0,
+        "lexical_tokens": 0,
+        "graph_paths": 0
+      },
+      "full_request_lexical_tokens": 3730,
+      "next_retrieval_queries": [
+        "adsorption entropy loss cage versus channel zeolite window size effect",
+        "molecular shape dependence of configurational entropy in micropore adsorption",
+        "framework density correlation with adsorption enthalpy and entropy in pure-silica zeolites"
+      ],
+      "after_mae_R": 0.5281116755268289,
+      "retained_formula": null
+    }
+  ],
+  "d0_score_mae_R": 0.5756181684880872,
+  "interpretation": "Replicates vary LLM proposals on one fixed split, not independent datasets. Novelty is unverified.",
+  "knowledge_profile": "jacs-au-kg-v2",
+  "graph_view": "paths",
+  "input_dictionary": {
+    "MW": {
+      "unit": "g/mol",
+      "meaning": "Molecular weight of the adsorbate.",
+      "role": "adsorbate"
+    },
+    "LabuteASA": {
+      "unit": "angstrom^2",
+      "meaning": "Labute approximate molecular surface area of the adsorbate.",
+      "role": "adsorbate"
+    },
+    "PBF": {
+      "unit": "angstrom",
+      "meaning": "Mean atom distance from the best-fit molecular plane; measures planarity.",
+      "role": "adsorbate"
+    },
+    "PMI1": {
+      "unit": "angstrom^2*amu",
+      "meaning": "First principal moment of inertia of the adsorbate.",
+      "role": "adsorbate"
+    },
+    "PMI2": {
+      "unit": "angstrom^2*amu",
+      "meaning": "Second principal moment of inertia of the adsorbate.",
+      "role": "adsorbate"
+    },
+    "PMI3": {
+      "unit": "angstrom^2*amu",
+      "meaning": "Third principal moment of inertia of the adsorbate.",
+      "role": "adsorbate"
+    },
+    "SPAN": {
+      "unit": "angstrom",
+      "meaning": "Radius enclosing all molecular atoms about the center of mass.",
+      "role": "adsorbate"
+    },
+    "GeDi": {
+      "unit": "angstrom",
+      "meaning": "Largest distance between two molecular atoms.",
+      "role": "adsorbate"
+    },
+    "Vol": {
+      "unit": "angstrom^3",
+      "meaning": "Van der Waals volume of the adsorbate molecule.",
+      "role": "adsorbate"
+    },
+    "density": {
+      "unit": "source density (native numerical scale)",
+      "meaning": "Framework density on the published numerical scale; physical unit unresolved.",
+      "role": "framework"
+    },
+    "ASA": {
+      "unit": "m^2/g",
+      "meaning": "Framework surface area accessible to a probe, per framework mass.",
+      "role": "framework"
+    },
+    "AV": {
+      "unit": "cm^3/g",
+      "meaning": "Framework volume accessible to a probe, per framework mass.",
+      "role": "framework"
+    },
+    "lsd_f": {
+      "unit": "angstrom",
+      "meaning": "Diameter of the largest free sphere in the framework.",
+      "role": "framework"
+    },
+    "lsd_p": {
+      "unit": "angstrom",
+      "meaning": "Diameter of the largest sphere along a free-sphere path in the framework.",
+      "role": "framework"
+    }
+  },
+  "training_references": {
+    "MW": 74.07316494,
+    "LabuteASA": 31.85047501,
+    "PBF": 0.230844767,
+    "PMI1": 43.29513794,
+    "PMI2": 93.79729089,
+    "PMI3": 125.4948325,
+    "SPAN": 1.860601424,
+    "GeDi": 3.302656784,
+    "Vol": 67.24,
+    "density": 1.73742,
+    "ASA": 905.715,
+    "AV": 0.0759781,
+    "lsd_f": 5.16326,
+    "lsd_p": 6.38663
+  },
+  "knowledge_bank": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v2-20260929/evidence/bank.json",
+  "evidence_by_round": [
+    {
+      "round": 1,
+      "retrieval": {
+        "query": "zeolite adsorption entropy molecular confinement translational rotational freedom",
+        "items": 0,
+        "lexical_tokens": 0,
+        "graph_paths": 0
+      },
+      "items": []
+    },
+    {
+      "round": 2,
+      "retrieval": {
+        "query": "zeolite adsorption entropy molecular confinement translational rotational freedom Framework surface area accessible to a probe, per framework mass. Diameter of the largest sphere along a free-sphere path in the framework. Van der Waals volume of the adsorbate molecule. adsorption entropy pure-silica zeolite molecular simulation infinite dilution surface area vs pore volume scaling rotational entropy loss planar molecules confined micropores principal moments of inertia framework density zeolite adsorption thermodynamics entropy correlation transferability adsorbate molecular shape principal moments inertia rotational entropy pore confinement",
+        "items": 0,
+        "lexical_tokens": 0,
+        "graph_paths": 0
+      },
+      "items": []
+    },
+    {
+      "round": 3,
+      "retrieval": {
+        "query": "zeolite adsorption entropy molecular confinement translational rotational freedom Framework surface area accessible to a probe, per framework mass. Diameter of the largest sphere along a free-sphere path in the framework. Van der Waals volume of the adsorbate molecule. Largest distance between two molecular atoms. adsorption entropy zeolite dependence on pore confinement length scale surface-to-volume ratio rotational entropy loss of anisotropic molecules adsorbed in micropores principal moments of inertia framework density correlation with adsorption enthalpy entropy in pure-silica zeolites zeolite accessible pore volume occupiable volume molecular volume adsorption entropy",
+        "items": 0,
+        "lexical_tokens": 0,
+        "graph_paths": 0
+      },
+      "items": []
+    }
+  ],
+  "test_is_development_diagnostic": true,
+  "budget_config": {
+    "retrieval": {
+      "candidates_per_source_per_bank_query": 160,
+      "candidates_per_round": 120,
+      "max_items": 32,
+      "max_items_per_paper": 4,
+      "context_lexical_tokens": 32000,
+      "kg_priority_items": 8
+    },
+    "generation": {
+      "max_tokens": 16000,
+      "max_tokens_on_truncation": 32000
+    }
+  },
+  "retained": [
+    {
+      "name": "confinement_to_volume_ratio",
+      "formula": "q_ASA * (Vol_ref / (Vol + Vol_ref)) / (q_lsd_p + 1)",
+      "hypothesis": "Entropy loss scales with the specific surface contacted by the adsorbate, damped by adsorbate bulkiness and by path diameter: frameworks with high accessible area, small adsorbates, and narrow diffusion paths produce larger s_ads/s_gas deviations. Replacing raw Vol with this saturating ratio improves MAE over the 14-input network baseline.",
+      "novelty_status": "new_combination"
+    },
+    {
+      "name": "size_path_stiffness",
+      "formula": "q_GeDi**2 / (q_lsd_p**2 + 1)",
+      "hypothesis": "Entropy loss is governed by the square of the geometric mismatch between adsorbate span and the largest free-sphere path: adsorbates whose largest atom-to-atom distance approaches or exceeds the path diameter are forced into a small set of configurations, so s_ads/s_gas deviations grow quadratically as q_GeDi/q_lsd_p rises. Adding this stiffness ratio to the network reduces MAE of entropy loss/R below the 0.5405 baseline.",
+      "novelty_status": "new_combination"
+    }
+  ],
+  "score_improvement_pct": 8.253126041180801,
+  "test": {
+    "d0": {
+      "mae_R": 0.5837445239172757,
+      "mae_J_mol_K": 4.853522022661848,
+      "r2": 0.8819804933409299,
+      "n": 738
+    },
+    "selected": {
+      "mae_R": 0.5614738476444541,
+      "mae_J_mol_K": 4.668353317310481,
+      "r2": 0.8897551914960363,
+      "n": 738
+    },
+    "all_raw_ann": {
+      "mae_R": 0.6151589536388481,
+      "mae_J_mol_K": 5.114716124252464,
+      "r2": 0.8586625368537976,
+      "n": 738
+    },
+    "native14_hgb": {
+      "mae_R": 0.4754063604118087,
+      "mae_J_mol_K": 3.9527484120762697,
+      "r2": 0.9171754010063995,
+      "n": 738
+    },
+    "all_raw_hgb": {
+      "mae_R": 0.4625921022177693,
+      "mae_J_mol_K": 3.8462047413425653,
+      "r2": 0.9246103243291537,
+      "n": 738
+    }
+  },
+  "test_improvement_pct": 3.8151409324360004,
+  "all_raw_plus_selected": {
+    "score": {
+      "mae_R": 0.5681617638524831,
+      "mae_J_mol_K": 4.723959746615479,
+      "r2": 0.8783253108799025,
+      "n": 591
+    },
+    "test": {
+      "mae_R": 0.5872933909874207,
+      "mae_J_mol_K": 4.883028945253364,
+      "r2": 0.8693375858480473,
+      "n": 738
+    },
+    "seconds": 43.644045151770115
+  },
+  "tree_transfer": {
+    "native14_hgb": {
+      "selected": {
+        "score": {
+          "mae_R": 0.47468482013714564,
+          "mae_J_mol_K": 3.9467491924350915,
+          "r2": 0.9240102584188039,
+          "n": 591
+        },
+        "test": {
+          "mae_R": 0.48045468547039605,
+          "mae_J_mol_K": 3.9947225220601803,
+          "r2": 0.9152026778443968,
+          "n": 738
+        },
+        "seconds": 0.37314523011446
+      },
+      "test_improvement_pct": -1.0618968274245086
+    },
+    "all_raw_hgb": {
+      "selected": {
+        "score": {
+          "mae_R": 0.4542788037098611,
+          "mae_J_mol_K": 3.7770841316650134,
+          "r2": 0.9294036799944225,
+          "n": 591
+        },
+        "test": {
+          "mae_R": 0.46149373873264377,
+          "mae_J_mol_K": 3.8370724392043445,
+          "r2": 0.9219726358115432,
+          "n": 738
+        },
+        "seconds": 0.3455600365996361
+      },
+      "test_improvement_pct": 0.23743671365329053
+    }
+  },
+  "seconds": 760.1167854219675
+}

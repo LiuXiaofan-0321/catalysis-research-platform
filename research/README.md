@@ -1,6 +1,22 @@
 # Research Experiment Layer
 
-当前进展与后续计划见 [研究阶段成果与后续路线（2026-09-27）](../docs/research/RESEARCH_PROGRESS_AND_ROADMAP_20260927.md)，汇总 v5 实验结果及轮数、multi-agent、Jev 的待实施方案。
+最新接续入口：[JACS Au研究调试索引](../docs/research/JACS_AU_DEBUG_HANDOFF_20260930.md)和[网页端GPT-6-Pro提示词](../docs/research/GPT6_PRO_RESEARCH_DEBUG_PROMPT_20260930.md)。用户已澄清后续需要每轮直接加入描述符；优先建议high每轮1项、3轮、各组10条新轨迹，尚未执行。下面V2/V3/V4候选择优结果保持历史记录，不与新协议混算。
+
+最新批次： [KG-v4 修复与 low/high 对照](../docs/research/JACS_AU_KG_V4_LOW_HIGH_20260930.md)，原生 14D0、3×3，两档各三组各三次生成重复，保留所有结果。
+
+当前执行主线为 NMI 科学假设发现，最新为 [JACS Au KG-v2 已完成试跑与结果分析（2026-09-29）](../docs/research/JACS_AU_KG_V2_RESULTS_20260929.md)。原生 14 项 D0、3×3 和 GLM-5.3-Flash 保持，9/9 条轨迹与树模型迁移已完成；本轮诊断测试 RAG 均值最高，KG 优势尚未确认。
+
+后续审查确认 KG-v2 漏排了原论文 PMC 正文/SI，实际提示含 benchmark SHAP 结果，本批标记为受污染的开发记录。[根因诊断与修正方案](../docs/research/JACS_AU_KG_V2_DIAGNOSIS_20260929.md) 同时记录图重复、RAG 覆盖缺失、机制适用性和假设检验问题；原始分数保留。
+
+修复版本见 [KG-v3 修复记录](../docs/research/JACS_AU_KG_V3_REPAIR_20260929.md)：独立来源拦截、相同 RAG 锚点、图去重、逐条适用性审查及训练侧科学检查已接入；最终证据池为 `reports/jacs_au_kg_v3_repair_20260929/evidence-final/`。服务器主试跑 9/9、相同事实平铺对照 3/3 和汇总均已完成；主试跑平均评分提升 Agent +6.61%、RAG +2.18%、KG+RAG +5.55%。见 [KG-v3 完成报告](../docs/research/JACS_AU_KG_V3_RESULTS_20260930.md)。
+
+[ZeoDiff 原生 D0、复现核对与 KG 改进方案（2026-09-29）](../docs/research/ZEODIFF_NMI_PLAN_20260929.md) 已归档，暂缓进入实验。
+
+本轮已完成 30 条轨迹，完整结果与后续建议见 [JACS Au 3×3 结果报告（2026-09-29）](../docs/research/JACS_AU_NMI_RESULTS_20260929.md)。
+
+各批次、指标口径与待完成对照见 [已完成研究结果台账（2026-09-29）](../docs/research/RESEARCH_RESULTS_LEDGER_20260929.md)。Jev/harness 会议分支暂缓。
+
+历史路线见 [研究阶段成果与后续路线（2026-09-27）](../docs/research/RESEARCH_PROGRESS_AND_ROADMAP_20260927.md)，汇总 v5 实验结果及轮数、multi-agent、Jev 的待实施方案。
 
 Harness vNext 的可运行接口、轮数实验设计和 Jev 判定边界见
 [`../docs/research/HARNESS_VNEXT_DESIGN.md`](../docs/research/HARNESS_VNEXT_DESIGN.md)。

@@ -1,0 +1,102 @@
+{
+  "date": "2026-09-29",
+  "profile": "jacs-au-kg-v2",
+  "phase": "completed",
+  "model": "glm-5.3-flash",
+  "native_d0_features": 14,
+  "replicates_per_mode": 3,
+  "rounds": 3,
+  "proposals_per_round": 3,
+  "local_related_tests_passed": 25,
+  "scientific_pilot_completed": true,
+  "server_deployment_completed": true,
+  "jobs_submitted": [
+    {
+      "kind": "evidence_bank",
+      "job_id": "3829505",
+      "state": "COMPLETED",
+      "reason": null
+    },
+    {
+      "kind": "source_and_path_preflight",
+      "job_id": "3829506",
+      "state": "COMPLETED",
+      "reason": null
+    },
+    {
+      "kind": "scientific_pilot_array",
+      "job_id": "3829507",
+      "tasks": 9,
+      "max_parallel": 3,
+      "state": "COMPLETED",
+      "reason": null
+    },
+    {
+      "kind": "summary",
+      "job_id": "3829508",
+      "state": "COMPLETED",
+      "reason": null
+    },
+    {
+      "kind": "compute_api_probe",
+      "job_id": "3829397",
+      "state": "COMPLETED",
+      "reason": null
+    }
+  ],
+  "connection_attempts": [
+    {
+      "host": "59.78.189.132",
+      "port": 2323,
+      "result": "SSH connection timeout"
+    },
+    {
+      "host": "59.78.189.133",
+      "port": 2323,
+      "result": "SSH connection timeout"
+    },
+    {
+      "host": "59.78.189.133",
+      "port": 2323,
+      "result": "SSH connected after campus network restored"
+    }
+  ],
+  "next_action": "Archive and inspect nine completed trajectories, real evidence and tree-transfer results; do not claim KG superiority from this pilot.",
+  "results_report": "docs/research/JACS_AU_KG_V2_RESULTS_20260929.md",
+  "server_release": "/public/home/xiaohe/lxf/catalysis-rag/code/releases/jacs-au-kg-v2-20260929b",
+  "server_run": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v2-20260929",
+  "budget": {
+    "knowledge_lexical_tokens": 32000,
+    "max_output_tokens": 16000,
+    "max_output_tokens_on_truncation": 32000,
+    "max_evidence_items": 32,
+    "whole_selected_passages_preserved": true
+  },
+  "proxy": {
+    "host": "login2",
+    "pid": 25221,
+    "url": "http://10.11.100.254:5000/api/paas/v4"
+  },
+  "compute_api_probe_passed": true,
+  "prior_jobs": [
+    {
+      "job_id": "3829391",
+      "state": "CANCELLED_WHILE_PENDING",
+      "reason": "Replace preparation release with document-source attribution and automatic integrity gate; no scientific run started"
+    }
+  ],
+  "cleanup_watcher_pid": 36482,
+  "scheduler_estimate_is_guaranteed": false,
+  "proxy_and_cleanup_watcher_verified_alive": true,
+  "estimated_compute_duration_excluding_queue": "45-90 minutes; estimates based on previous trajectories, larger retrieval budget may extend runtime",
+  "last_checked_at": "2026-09-29T16:10:49+08:00",
+  "latest_status_report": "research/reports/jacs_au_kg_v2_status_latest.json",
+  "scientific_trajectories_completed": 9,
+  "completed_at": "2026-09-29T20:06:51+08:00",
+  "proxy_cleaned_up": true,
+  "historical_scheduler_estimated_evidence_start": "2026-10-01T06:00:00+08:00",
+  "actual_evidence_start": "2026-09-29T16:59:48+08:00",
+  "actual_pilot_start": "2026-09-29T19:14:06+08:00",
+  "raw_results_directory": "research/reports/jacs_au_kg_v2_20260929",
+  "local_summary_recomputed_and_verified": true
+}

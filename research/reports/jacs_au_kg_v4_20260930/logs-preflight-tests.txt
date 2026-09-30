@@ -1,0 +1,17 @@
+{"mode": "small_kg_rag_agent", "replicate": 1, "round": 1, "score_mae_R": 1.520293554924354}
+{"mode": "small_kg_rag_agent", "replicate": 1, "round": 2, "score_mae_R": 1.0135290366162348}
+{"mode": "small_kg_rag_agent", "replicate": 1, "round": 3, "score_mae_R": 1.0135290366162348}
+{"mode": "agent", "effort": "low", "replicate": 1, "round": 1, "score_mae_R": 1.520293554924354}
+{"mode": "agent", "effort": "low", "replicate": 1, "round": 2, "score_mae_R": 1.0135290366162348}
+{"mode": "agent", "effort": "low", "replicate": 1, "round": 3, "score_mae_R": 0.760146777462177}
+{"mode": "agent", "effort": "high", "replicate": 1, "round": 1, "score_mae_R": 1.520293554924354}
+{"mode": "agent", "effort": "high", "replicate": 1, "round": 2, "score_mae_R": 1.0135290366162348}
+{"mode": "agent", "effort": "high", "replicate": 1, "round": 3, "score_mae_R": 0.760146777462177}
+{"complete": false, "completed": {"low": {"agent": 1, "rag_agent": 0, "small_kg_rag_agent": 0}, "high": {"agent": 1, "rag_agent": 0, "small_kg_rag_agent": 0}}}
+{"mode": "small_kg_rag_agent", "replicate": 1, "round": 1, "score_mae_R": 1.4983885834426223}
+{"mode": "small_kg_rag_agent", "replicate": 1, "round": 2, "score_mae_R": 0.9989257222950804}
+{"mode": "small_kg_rag_agent", "replicate": 1, "round": 3, "score_mae_R": 0.9989257222950804}
+----------------------------------------------------------------------
+Ran 37 tests in 2.879s
+
+OK

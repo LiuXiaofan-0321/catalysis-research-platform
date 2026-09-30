@@ -1,0 +1,1023 @@
+{
+  "method": "Read-only audit: native training features and completed saved trajectories; no new fitting or generation.",
+  "train_n": 2361,
+  "feature_zero_counts": {
+    "MW": {
+      "exact_zero": 0,
+      "exact_zero_pct": 0.0,
+      "abs_below_1e_12": 0,
+      "minimum": 16.03130013,
+      "zero_molecule_counts": {},
+      "zero_framework_counts": {}
+    },
+    "LabuteASA": {
+      "exact_zero": 0,
+      "exact_zero_pct": 0.0,
+      "abs_below_1e_12": 0,
+      "minimum": 7.450601137,
+      "zero_molecule_counts": {},
+      "zero_framework_counts": {}
+    },
+    "PBF": {
+      "exact_zero": 587,
+      "exact_zero_pct": 24.862346463362982,
+      "abs_below_1e_12": 587,
+      "minimum": 0.0,
+      "zero_molecule_counts": {
+        "methane": 54,
+        "acetonitrile": 40,
+        "methanethiol": 52,
+        "propene": 50,
+        "dimethyl-sulfide": 35,
+        "methanol": 48,
+        "acetaldehyde": 37,
+        "ethane": 55,
+        "ethene": 59,
+        "propane": 41,
+        "ethanol": 34,
+        "ethanethiol": 35,
+        "dimethyl-ether": 47
+      },
+      "zero_framework_counts": {}
+    },
+    "PMI1": {
+      "exact_zero": 113,
+      "exact_zero_pct": 4.786107581533249,
+      "abs_below_1e_12": 268,
+      "minimum": 0.0,
+      "zero_molecule_counts": {
+        "methane": 54,
+        "ethene": 59
+      },
+      "zero_framework_counts": {}
+    },
+    "PMI2": {
+      "exact_zero": 54,
+      "exact_zero_pct": 2.2871664548919948,
+      "abs_below_1e_12": 54,
+      "minimum": 0.0,
+      "zero_molecule_counts": {
+        "methane": 54
+      },
+      "zero_framework_counts": {}
+    },
+    "PMI3": {
+      "exact_zero": 54,
+      "exact_zero_pct": 2.2871664548919948,
+      "abs_below_1e_12": 54,
+      "minimum": 0.0,
+      "zero_molecule_counts": {
+        "methane": 54
+      },
+      "zero_framework_counts": {}
+    },
+    "SPAN": {
+      "exact_zero": 54,
+      "exact_zero_pct": 2.2871664548919948,
+      "abs_below_1e_12": 54,
+      "minimum": 0.0,
+      "zero_molecule_counts": {
+        "methane": 54
+      },
+      "zero_framework_counts": {}
+    },
+    "GeDi": {
+      "exact_zero": 54,
+      "exact_zero_pct": 2.2871664548919948,
+      "abs_below_1e_12": 54,
+      "minimum": 0.0,
+      "zero_molecule_counts": {
+        "methane": 54
+      },
+      "zero_framework_counts": {}
+    },
+    "Vol": {
+      "exact_zero": 0,
+      "exact_zero_pct": 0.0,
+      "abs_below_1e_12": 0,
+      "minimum": 20.424,
+      "zero_molecule_counts": {},
+      "zero_framework_counts": {}
+    },
+    "density": {
+      "exact_zero": 0,
+      "exact_zero_pct": 0.0,
+      "abs_below_1e_12": 0,
+      "minimum": 0.759654,
+      "zero_molecule_counts": {},
+      "zero_framework_counts": {}
+    },
+    "ASA": {
+      "exact_zero": 28,
+      "exact_zero_pct": 1.1859381617958493,
+      "abs_below_1e_12": 28,
+      "minimum": 0.0,
+      "zero_molecule_counts": {
+        "acetonitrile": 2,
+        "acetaldehyde": 2,
+        "ethane": 3,
+        "tetrahydrofuran": 1,
+        "methane": 3,
+        "dimethyl-ether": 2,
+        "ethene": 4,
+        "dimethyl-sulfide": 1,
+        "1,3-butadiene": 1,
+        "perfluoroethane": 2,
+        "propene": 2,
+        "methanethiol": 3,
+        "propane": 1,
+        "acetone": 1
+      },
+      "zero_framework_counts": {
+        "LTN": 9,
+        "UOZ": 9,
+        "ACO": 5,
+        "NON": 2,
+        "ANA": 1,
+        "SGT": 2
+      }
+    },
+    "AV": {
+      "exact_zero": 28,
+      "exact_zero_pct": 1.1859381617958493,
+      "abs_below_1e_12": 28,
+      "minimum": 0.0,
+      "zero_molecule_counts": {
+        "acetonitrile": 2,
+        "acetaldehyde": 2,
+        "ethane": 3,
+        "tetrahydrofuran": 1,
+        "methane": 3,
+        "dimethyl-ether": 2,
+        "ethene": 4,
+        "dimethyl-sulfide": 1,
+        "1,3-butadiene": 1,
+        "perfluoroethane": 2,
+        "propene": 2,
+        "methanethiol": 3,
+        "propane": 1,
+        "acetone": 1
+      },
+      "zero_framework_counts": {
+        "LTN": 9,
+        "UOZ": 9,
+        "ACO": 5,
+        "NON": 2,
+        "ANA": 1,
+        "SGT": 2
+      }
+    },
+    "lsd_f": {
+      "exact_zero": 0,
+      "exact_zero_pct": 0.0,
+      "abs_below_1e_12": 0,
+      "minimum": 0.85684,
+      "zero_molecule_counts": {},
+      "zero_framework_counts": {}
+    },
+    "lsd_p": {
+      "exact_zero": 0,
+      "exact_zero_pct": 0.0,
+      "abs_below_1e_12": 0,
+      "minimum": 3.3452,
+      "zero_molecule_counts": {},
+      "zero_framework_counts": {}
+    }
+  },
+  "modes": {
+    "agent": {
+      "trajectories": 3,
+      "proposals": 27,
+      "scored": 16,
+      "positive_scored": 6,
+      "retained": 6,
+      "reasons": {
+        "Formula unstable inside declared physical regime": 7,
+        "Formula contradicts its declared finite-difference direction": 3,
+        "redundant with an existing input on training data": 1
+      },
+      "mean_full_request_lexical_tokens": 3764.777777777778,
+      "api_calls": 10,
+      "api_token_totals": {
+        "prompt_tokens": 39641,
+        "completion_tokens": 20613,
+        "total_tokens": 60254
+      },
+      "round_mean_gain_d0_percentage_points": {
+        "1": 1.6578299463826445,
+        "2": 4.917976427696325,
+        "3": 0.03734756735689109
+      },
+      "completion_finish_reasons": {
+        "stop": 10
+      },
+      "unstable_reproduction": [
+        {
+          "replicate": 1,
+          "round": 1,
+          "name": "rot_shape_index",
+          "formula": "log(q_PMI1 * q_PMI2 * q_PMI3) / (PBF_ref * q_PBF)",
+          "regime_input": "PMI1",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 587,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 587,
+          "nonfinite_regime_pct": 24.862346463362982,
+          "native_zero_overlap": {
+            "PBF": 587,
+            "PMI1": 113,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 23,
+            "AV": 23
+          }
+        },
+        {
+          "replicate": 1,
+          "round": 1,
+          "name": "pore_fit_mismatch",
+          "formula": "lsd_p / (GeDi_ref * q_GeDi) + 0.0 * q_density",
+          "regime_input": "lsd_p",
+          "regime_quantiles": [
+            0.2,
+            0.8
+          ],
+          "global_nonfinite_before": 54,
+          "regime_n": 1449,
+          "nonfinite_regime_n": 27,
+          "nonfinite_regime_pct": 1.8633540372670807,
+          "native_zero_overlap": {
+            "PBF": 27,
+            "PMI1": 27,
+            "PMI2": 27,
+            "PMI3": 27,
+            "SPAN": 27,
+            "GeDi": 27,
+            "ASA": 2,
+            "AV": 2
+          }
+        },
+        {
+          "replicate": 2,
+          "round": 1,
+          "name": "rot_aniso_pore",
+          "formula": "log(q_PMI3 / (q_PMI1 + 1)) * (lsd_p / lsd_f)",
+          "regime_input": "lsd_p",
+          "regime_quantiles": [
+            0.5,
+            1.0
+          ],
+          "global_nonfinite_before": 54,
+          "regime_n": 1212,
+          "nonfinite_regime_n": 19,
+          "nonfinite_regime_pct": 1.5676567656765676,
+          "native_zero_overlap": {
+            "PBF": 19,
+            "PMI1": 19,
+            "PMI2": 19,
+            "PMI3": 19,
+            "SPAN": 19,
+            "GeDi": 19,
+            "ASA": 1,
+            "AV": 1
+          }
+        },
+        {
+          "replicate": 2,
+          "round": 2,
+          "name": "anisotropy_fit_cage",
+          "formula": "(q_PMI3 / q_PMI1) * (q_GeDi / q_lsd_f)",
+          "regime_input": "lsd_f",
+          "regime_quantiles": [
+            0.0,
+            0.5
+          ],
+          "global_nonfinite_before": 113,
+          "regime_n": 1197,
+          "nonfinite_regime_n": 83,
+          "nonfinite_regime_pct": 6.934001670843776,
+          "native_zero_overlap": {
+            "PBF": 83,
+            "PMI1": 83,
+            "PMI2": 43,
+            "PMI3": 43,
+            "SPAN": 43,
+            "GeDi": 43,
+            "ASA": 7,
+            "AV": 7
+          }
+        },
+        {
+          "replicate": 2,
+          "round": 3,
+          "name": "elongation_rotloss",
+          "formula": "q_GeDi / q_SPAN",
+          "regime_input": "lsd_f",
+          "regime_quantiles": [
+            0.0,
+            0.5
+          ],
+          "global_nonfinite_before": 54,
+          "regime_n": 1197,
+          "nonfinite_regime_n": 43,
+          "nonfinite_regime_pct": 3.592314118629908,
+          "native_zero_overlap": {
+            "PBF": 43,
+            "PMI1": 43,
+            "PMI2": 43,
+            "PMI3": 43,
+            "SPAN": 43,
+            "GeDi": 43,
+            "ASA": 3,
+            "AV": 3
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "planarity_anisotropy_index",
+          "formula": "q_PBF * abs(log(q_PMI2 / q_PMI1))",
+          "regime_input": "PBF",
+          "regime_quantiles": [
+            0.1,
+            0.9
+          ],
+          "global_nonfinite_before": 113,
+          "regime_n": 2137,
+          "nonfinite_regime_n": 113,
+          "nonfinite_regime_pct": 5.287786616752457,
+          "native_zero_overlap": {
+            "PBF": 113,
+            "PMI1": 113,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 7,
+            "AV": 7
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 3,
+          "name": "thin_anisotropy_index",
+          "formula": "q_PBF * sqrt(q_PMI1 / q_PMI3)",
+          "regime_input": "PBF",
+          "regime_quantiles": [
+            0.1,
+            0.9
+          ],
+          "global_nonfinite_before": 54,
+          "regime_n": 2137,
+          "nonfinite_regime_n": 54,
+          "nonfinite_regime_pct": 2.526906878802059,
+          "native_zero_overlap": {
+            "PBF": 54,
+            "PMI1": 54,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 3,
+            "AV": 3
+          }
+        }
+      ]
+    },
+    "rag_agent": {
+      "trajectories": 3,
+      "proposals": 27,
+      "scored": 11,
+      "positive_scored": 4,
+      "retained": 3,
+      "reasons": {
+        "Formula unstable inside declared physical regime": 15,
+        "Formula contradicts its declared finite-difference direction": 1
+      },
+      "mean_full_request_lexical_tokens": 16432.11111111111,
+      "api_calls": 9,
+      "api_token_totals": {
+        "prompt_tokens": 162278,
+        "completion_tokens": 20790,
+        "total_tokens": 183068
+      },
+      "round_mean_gain_d0_percentage_points": {
+        "1": 1.1769674227176439,
+        "2": 1.00182363137334,
+        "3": 0.0
+      },
+      "completion_finish_reasons": {
+        "stop": 9
+      },
+      "unstable_reproduction": [
+        {
+          "replicate": 1,
+          "round": 1,
+          "name": "vol_pore_mismatch_trans",
+          "formula": "log(q_MW) - log(q_AV)",
+          "regime_input": "AV",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 28,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 28,
+          "nonfinite_regime_pct": 1.1859381617958493,
+          "native_zero_overlap": {
+            "PBF": 23,
+            "PMI1": 7,
+            "PMI2": 3,
+            "PMI3": 3,
+            "SPAN": 3,
+            "GeDi": 3,
+            "ASA": 28,
+            "AV": 28
+          }
+        },
+        {
+          "replicate": 1,
+          "round": 1,
+          "name": "rotor_pore_bottleneck",
+          "formula": "log(q_PMI3) + log(lsd_f / lsd_p)",
+          "regime_input": "lsd_p",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 54,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 54,
+          "nonfinite_regime_pct": 2.2871664548919948,
+          "native_zero_overlap": {
+            "PBF": 54,
+            "PMI1": 54,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 3,
+            "AV": 3
+          }
+        },
+        {
+          "replicate": 1,
+          "round": 2,
+          "name": "elongation_bottleneck_rotor",
+          "formula": "log(q_GeDi) - log(lsd_f / lsd_p)",
+          "regime_input": "lsd_p",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 54,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 54,
+          "nonfinite_regime_pct": 2.2871664548919948,
+          "native_zero_overlap": {
+            "PBF": 54,
+            "PMI1": 54,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 3,
+            "AV": 3
+          }
+        },
+        {
+          "replicate": 1,
+          "round": 3,
+          "name": "mass_lever_shape_index",
+          "formula": "log(q_PMI3) - 2 * log(q_SPAN)",
+          "regime_input": "SPAN",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 54,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 54,
+          "nonfinite_regime_pct": 2.2871664548919948,
+          "native_zero_overlap": {
+            "PBF": 54,
+            "PMI1": 54,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 3,
+            "AV": 3
+          }
+        },
+        {
+          "replicate": 2,
+          "round": 1,
+          "name": "rotational_inertia_loss",
+          "formula": "log(q_PMI1 * q_PMI2 * q_PMI3)",
+          "regime_input": "lsd_p",
+          "regime_quantiles": [
+            0.0,
+            0.5
+          ],
+          "global_nonfinite_before": 113,
+          "regime_n": 1199,
+          "nonfinite_regime_n": 72,
+          "nonfinite_regime_pct": 6.005004170141785,
+          "native_zero_overlap": {
+            "PBF": 72,
+            "PMI1": 72,
+            "PMI2": 35,
+            "PMI3": 35,
+            "SPAN": 35,
+            "GeDi": 35,
+            "ASA": 4,
+            "AV": 4
+          }
+        },
+        {
+          "replicate": 2,
+          "round": 1,
+          "name": "aperture_shape_gate",
+          "formula": "log(q_lsd_p / q_GeDi)",
+          "regime_input": "lsd_f",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 54,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 54,
+          "nonfinite_regime_pct": 2.2871664548919948,
+          "native_zero_overlap": {
+            "PBF": 54,
+            "PMI1": 54,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 3,
+            "AV": 3
+          }
+        },
+        {
+          "replicate": 2,
+          "round": 2,
+          "name": "planarity_rotational_hindrance",
+          "formula": "log(1 + q_PBF * q_Vol / q_AV)",
+          "regime_input": "lsd_f",
+          "regime_quantiles": [
+            0.0,
+            0.75
+          ],
+          "global_nonfinite_before": 28,
+          "regime_n": 1817,
+          "nonfinite_regime_n": 28,
+          "nonfinite_regime_pct": 1.5410016510731976,
+          "native_zero_overlap": {
+            "PBF": 23,
+            "PMI1": 7,
+            "PMI2": 3,
+            "PMI3": 3,
+            "SPAN": 3,
+            "GeDi": 3,
+            "ASA": 28,
+            "AV": 28
+          }
+        },
+        {
+          "replicate": 2,
+          "round": 3,
+          "name": "vibrational_mass_volume_confine",
+          "formula": "log(1 + q_MW * q_Vol / (q_AV * q_lsd_f))",
+          "regime_input": "AV",
+          "regime_quantiles": [
+            0.0,
+            0.75
+          ],
+          "global_nonfinite_before": 28,
+          "regime_n": 1803,
+          "nonfinite_regime_n": 28,
+          "nonfinite_regime_pct": 1.552967276760954,
+          "native_zero_overlap": {
+            "PBF": 23,
+            "PMI1": 7,
+            "PMI2": 3,
+            "PMI3": 3,
+            "SPAN": 3,
+            "GeDi": 3,
+            "ASA": 28,
+            "AV": 28
+          }
+        },
+        {
+          "replicate": 2,
+          "round": 3,
+          "name": "pore_asymmetry_connectivity",
+          "formula": "log(1 + q_Vol * q_lsd_f / (q_lsd_p * q_AV))",
+          "regime_input": "lsd_f",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 28,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 28,
+          "nonfinite_regime_pct": 1.1859381617958493,
+          "native_zero_overlap": {
+            "PBF": 23,
+            "PMI1": 7,
+            "PMI2": 3,
+            "PMI3": 3,
+            "SPAN": 3,
+            "GeDi": 3,
+            "ASA": 28,
+            "AV": 28
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "pore_to_molecule_size_ratio",
+          "formula": "(lsd_p/lsd_f)/q_GeDi",
+          "regime_input": "lsd_p",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 54,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 54,
+          "nonfinite_regime_pct": 2.2871664548919948,
+          "native_zero_overlap": {
+            "PBF": 54,
+            "PMI1": 54,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 3,
+            "AV": 3
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "inertia_weighted_confinement",
+          "formula": "log((q_PMI1*q_PMI2*q_PMI3)**(1/3))*(lsd_f/lsd_p)",
+          "regime_input": "lsd_f",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 113,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 113,
+          "nonfinite_regime_pct": 4.786107581533249,
+          "native_zero_overlap": {
+            "PBF": 113,
+            "PMI1": 113,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 7,
+            "AV": 7
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "planarity_accessibility_coupling",
+          "formula": "q_PBF/q_AV",
+          "regime_input": "AV",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 28,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 28,
+          "nonfinite_regime_pct": 1.1859381617958493,
+          "native_zero_overlap": {
+            "PBF": 23,
+            "PMI1": 7,
+            "PMI2": 3,
+            "PMI3": 3,
+            "SPAN": 3,
+            "GeDi": 3,
+            "ASA": 28,
+            "AV": 28
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "volume_confinement_index",
+          "formula": "log(q_Vol)/q_AV",
+          "regime_input": "AV",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 28,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 28,
+          "nonfinite_regime_pct": 1.1859381617958493,
+          "native_zero_overlap": {
+            "PBF": 23,
+            "PMI1": 7,
+            "PMI2": 3,
+            "PMI3": 3,
+            "SPAN": 3,
+            "GeDi": 3,
+            "ASA": 28,
+            "AV": 28
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "rotational_inertia_poresize_scaling",
+          "formula": "log((q_PMI1*q_PMI2*q_PMI3)**(1/3))/q_lsd_f",
+          "regime_input": "lsd_f",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 113,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 113,
+          "nonfinite_regime_pct": 4.786107581533249,
+          "native_zero_overlap": {
+            "PBF": 113,
+            "PMI1": 113,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 7,
+            "AV": 7
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "surface_area_accessibility_coupling",
+          "formula": "q_LabuteASA/(q_ASA*q_lsd_p)",
+          "regime_input": "lsd_p",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 28,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 28,
+          "nonfinite_regime_pct": 1.1859381617958493,
+          "native_zero_overlap": {
+            "PBF": 23,
+            "PMI1": 7,
+            "PMI2": 3,
+            "PMI3": 3,
+            "SPAN": 3,
+            "GeDi": 3,
+            "ASA": 28,
+            "AV": 28
+          }
+        }
+      ]
+    },
+    "small_kg_rag_agent": {
+      "trajectories": 3,
+      "proposals": 27,
+      "scored": 17,
+      "positive_scored": 8,
+      "retained": 6,
+      "reasons": {
+        "Formula contradicts its declared finite-difference direction": 1,
+        "Formula unstable inside declared physical regime": 8,
+        "Unsupported formula symbol or syntax": 1
+      },
+      "mean_full_request_lexical_tokens": 20898.777777777777,
+      "api_calls": 9,
+      "api_token_totals": {
+        "prompt_tokens": 207817,
+        "completion_tokens": 17212,
+        "total_tokens": 225029
+      },
+      "round_mean_gain_d0_percentage_points": {
+        "1": 1.4290670620145374,
+        "2": 4.123844411472897,
+        "3": 0.0
+      },
+      "completion_finish_reasons": {
+        "stop": 9
+      },
+      "unstable_reproduction": [
+        {
+          "replicate": 1,
+          "round": 3,
+          "name": "asphericity_cavity_interaction",
+          "formula": "(q_PMI3 / q_PMI1) / (q_lsd_f * q_density + 1)",
+          "regime_input": "density",
+          "regime_quantiles": [
+            0.5,
+            1.0
+          ],
+          "global_nonfinite_before": 113,
+          "regime_n": 1187,
+          "nonfinite_regime_n": 65,
+          "nonfinite_regime_pct": 5.475989890480202,
+          "native_zero_overlap": {
+            "PBF": 65,
+            "PMI1": 65,
+            "PMI2": 33,
+            "PMI3": 33,
+            "SPAN": 33,
+            "GeDi": 33,
+            "ASA": 6,
+            "AV": 6
+          }
+        },
+        {
+          "replicate": 2,
+          "round": 1,
+          "name": "pore_molecule_confine_ratio",
+          "formula": "q_lsd_f / q_GeDi",
+          "regime_input": "lsd_f",
+          "regime_quantiles": [
+            0.1,
+            0.9
+          ],
+          "global_nonfinite_before": 54,
+          "regime_n": 1937,
+          "nonfinite_regime_n": 31,
+          "nonfinite_regime_pct": 1.600413009808983,
+          "native_zero_overlap": {
+            "PBF": 31,
+            "PMI1": 31,
+            "PMI2": 31,
+            "PMI3": 31,
+            "SPAN": 31,
+            "GeDi": 31
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "rotational_inertia_pore_mismatch",
+          "formula": "log( ((q_PMI1 * q_PMI2 * q_PMI3) ** (1.0/3.0)) / (q_lsd_f ** 2.0) )",
+          "regime_input": "lsd_f",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 113,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 113,
+          "nonfinite_regime_pct": 4.786107581533249,
+          "native_zero_overlap": {
+            "PBF": 113,
+            "PMI1": 113,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 7,
+            "AV": 7
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "elongation_path_steric_coupling",
+          "formula": "log( (q_GeDi / (q_PBF * q_lsd_p)) * q_density )",
+          "regime_input": "lsd_p",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 587,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 587,
+          "nonfinite_regime_pct": 24.862346463362982,
+          "native_zero_overlap": {
+            "PBF": 587,
+            "PMI1": 113,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 23,
+            "AV": 23
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "surface_area_confinement_ratio",
+          "formula": "log( (q_Vol ** (1.0/3.0)) / sqrt(q_ASA) )",
+          "regime_input": "ASA",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 28,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 28,
+          "nonfinite_regime_pct": 1.1859381617958493,
+          "native_zero_overlap": {
+            "PBF": 23,
+            "PMI1": 7,
+            "PMI2": 3,
+            "PMI3": 3,
+            "SPAN": 3,
+            "GeDi": 3,
+            "ASA": 28,
+            "AV": 28
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "shape_anisotropy_path_coupling",
+          "formula": "log( (q_PMI3 / q_PMI1) * (q_Vol ** (1.0/3.0)) / q_lsd_p )",
+          "regime_input": "lsd_p",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 113,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 113,
+          "nonfinite_regime_pct": 4.786107581533249,
+          "native_zero_overlap": {
+            "PBF": 113,
+            "PMI1": 113,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 7,
+            "AV": 7
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 3,
+          "name": "specific_free_volume_confinement",
+          "formula": "log( (q_Vol ** (1.0/3.0)) / (q_AV ** (1.0/3.0)) )",
+          "regime_input": "AV",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 28,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 28,
+          "nonfinite_regime_pct": 1.1859381617958493,
+          "native_zero_overlap": {
+            "PBF": 23,
+            "PMI1": 7,
+            "PMI2": 3,
+            "PMI3": 3,
+            "SPAN": 3,
+            "GeDi": 3,
+            "ASA": 28,
+            "AV": 28
+          }
+        },
+        {
+          "replicate": 3,
+          "round": 3,
+          "name": "anisotropy_thickness_rotation_locking",
+          "formula": "log( (q_PMI3 / q_PMI1) / (q_PBF ** 1.0) * (q_PBF / q_PBF) )",
+          "regime_input": "PBF",
+          "regime_quantiles": [
+            0.0,
+            1.0
+          ],
+          "global_nonfinite_before": 587,
+          "regime_n": 2361,
+          "nonfinite_regime_n": 587,
+          "nonfinite_regime_pct": 24.862346463362982,
+          "native_zero_overlap": {
+            "PBF": 587,
+            "PMI1": 113,
+            "PMI2": 54,
+            "PMI3": 54,
+            "SPAN": 54,
+            "GeDi": 54,
+            "ASA": 23,
+            "AV": 23
+          }
+        }
+      ]
+    }
+  }
+}

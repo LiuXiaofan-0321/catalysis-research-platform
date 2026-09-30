@@ -1,0 +1,1727 @@
+{
+  "profile": "jacs-au-kg-v3",
+  "budget_config": {
+    "retrieval": {
+      "candidates_per_source_per_bank_query": 160,
+      "candidates_per_round": 120,
+      "max_items": 32,
+      "max_items_per_paper": 32,
+      "context_lexical_tokens": 32000,
+      "max_kg_items": 12
+    },
+    "generation": {
+      "max_tokens": 16000,
+      "max_tokens_on_truncation": 32000
+    }
+  },
+  "rag": [
+    {
+      "record_id": "chunk:642357249c4fe6263f302bad",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "Entropy associated with one degree of translational and rotational movement , as well as the sum of the two modes as a fraction of the total gas-phase entropy for linear alkanes . between molecular shape and confinement in nanoporous structures described within $ \\ Delta S _ { conf } $ remains to be determined . To define $ \\Delta S_{conf} $ we begin by comparing the adsorption of alkanes in five different zeolite structures: MFI, CHA, TON, FAU, and MOR. Depicted in Figure 2A is the relationship between the entropy of an adsorbed molecule (alkanes and permanent gases) and its gas-phase entropy, where the molecular entropy on the surface never exceeds that in the gas phase. While a significant loss in entropy occurs in all five zeolites, the absolute loss in entropy is distinct for each framework. Adsorbates in TON exhibit the largest loss in entropy upon adsorption, while FAU results in the smallest entropic losses. If the molecules were to behave as immobile adsorbates on the surface, the entropy lost upon adsorption ( $ \\Delta S_{ads} $) can be approximated to be equal to three degrees of translational freedom, $ ^{3,35,36} $ which can be calculated from statistical mechanics using the Sackur–Tetrode equation $ ^{37} $ $$ S_{\\mathrm{trans}}^{0}(T)=S_{\\mathrm{Ar},298\\mathrm{K}}^{0}+R\\ln\\left[\\left(\\frac{m}{m_{\\mathrm{Ar}}}\\right)^{3/2}\\left(\\frac{T}{298}\\right)^{5/2}\\right] $$",
+      "original_quote": "Entropy associated with one degree of translational and rotational movement , as well as the sum of the two modes as a fraction of the total gas-phase entropy for linear alkanes . < / div > between molecular shape and confinement in nanoporous structures described within $ \\ Delta S _ { conf } $ remains to be determined .\n\nTo define $ \\Delta S_{conf} $ we begin by comparing the adsorption of alkanes in five different zeolite structures: MFI, CHA, TON, FAU, and MOR. Depicted in Figure 2A is the relationship between the entropy of an adsorbed molecule (alkanes and permanent gases) and its gas-phase entropy, where the molecular entropy on the surface never exceeds that in the gas phase. While a significant loss in entropy occurs in all five zeolites, the absolute loss in entropy is distinct for each framework. Adsorbates in TON exhibit the largest loss in entropy upon adsorption, while FAU results in the smallest entropic losses. If the molecules were to behave as immobile adsorbates on the surface, the entropy lost upon adsorption ( $ \\Delta S_{ads} $) can be approximated to be equal to three degrees of translational freedom, $ ^{3,35,36} $ which can be calculated from statistical mechanics using the Sackur–Tetrode equation $ ^{37} $\n\n$$ S_{\\mathrm{trans}}^{0}(T)=S_{\\mathrm{Ar},298\\mathrm{K}}^{0}+R\\ln\\left[\\left(\\frac{m}{m_{\\mathrm{Ar}}}\\right)^{3/2}\\left(\\frac{T}{298}\\right)^{5/2}\\right] $$",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 6,
+      "source_score": 0.032018442622950824,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:642357249c4fe6263f302bad",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:878e3cf9557831b0616715f9",
+      "paper_id": "doi:10.1002/cphc.201701084",
+      "document_id": "document:2599bae9c40111b40c45ccef",
+      "quote": "and rotational movements of the guest molecule relative to the zeolite host as vibrations under the rigid rotor-harmonic oscillator ( RRHO ) approximation has been shown to overestimate the entropy losses associated with the adsorption of the guest molecules from the gas phase into the zeolite pores . $ ^ { [ 59 , 84 , 85 ] } $ In their study of hydrocarbon adsorption in zeolites, De Moor et al. demonstrated that the entropy cannot be calculated correctly by treating the guest molecules as immobile adsorbates in the RRHO approximation, and that the remaining mobility of the adsorbed species at the active sites needs to be taken into account. $ ^{[85]} $ The authors suggested an alternative, mobile adsorbate calculation, which uses a so-called mobile block analysis of the Hessian (MBH) $ ^{[86,87]} $ to identify those low-frequency modes corresponding to overall global translations and rotations of the guest molecule relative to the framework. Once identified, the contributions of the modes to the partition function are replaced by the correct ones for translational or rotational motions.",
+      "original_quote": "and rotational movements of the guest molecule relative to the zeolite host as vibrations under the rigid rotor-harmonic oscillator ( RRHO ) approximation has been shown to overestimate the entropy losses associated with the adsorption of the guest molecules from the gas phase into the zeolite pores . $ ^ { [ 59 , 84 , 85 ] } $\n\nIn their study of hydrocarbon adsorption in zeolites, De Moor et al. demonstrated that the entropy cannot be calculated correctly by treating the guest molecules as immobile adsorbates in the RRHO approximation, and that the remaining mobility of the adsorbed species at the active sites needs to be taken into account. $ ^{[85]} $ The authors suggested an alternative, mobile adsorbate calculation, which uses a so-called mobile block analysis of the Hessian (MBH) $ ^{[86,87]} $ to identify those low-frequency modes corresponding to overall global translations and rotations of the guest molecule relative to the framework. Once identified, the contributions of the modes to the partition function are replaced by the correct ones for translational or rotational motions.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "3.3. thermochemical calculations"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 5,
+      "source_score": 0.01639344262295082,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:878e3cf9557831b0616715f9",
+        "paper_id": "doi:10.1002/cphc.201701084",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:65209fe749e6f7590f4dd3bc",
+      "paper_id": "doi:10.1021/acs.jpcc.0c02671",
+      "document_id": "document:679638c993b24ed3004656c6",
+      "quote": ", which should be the objective of future work . In the following appendix , we derive the entropy of adsorption in the case of infinite dilution and show how it may be related to familiar thermodynamic quantities ( cf . eq 5 ) . To begin , we define our adsorption entropy in the limit of infinite dilution via $$ \\Delta s_{\\mathrm{ads}}^{\\infty}=\\lim_{N/V\\rightarrow0}\\left[\\left(\\frac{\\partial S}{\\partial N}\\right)_{V,T,\\mathrm{ads}}-\\left(\\frac{\\partial S}{\\partial N}\\right)_{V,T,\\mathrm{gas}}\\right] $$ $$ =S_{ads}(N=1,V,T)-S_{gas}(N=1,V,T) $$ where the subscripts “ads” and “gas” labels identify the adsorbed (confined) and gas (bulk) phases, respectively. Given the constraints of a fixed number of molecules (N), volume (V), and temperature (T), it is natural to continue working in the canonical ensemble. (As in the main text, lowercase symbols identify intensive molecular or molar properties, whereas the uppercase indicates an extensive property.) For the molecules that we examine in this work (e.g., rigid molecules with no internal degrees of freedom), the canonical partition function Q may be expressed as $$ \\begin{aligned}Q(N,V,T)&=Q_{trans}(N,V,T)Q_{rot}(N,V,T)\\\\&\\quad\\times Z(N,V,T)\\end{aligned} $$ where $ Q_{trans} $ and $ Q_{rot} $ are the translational and rotational partition functions (which are unaffected by confinement) and Z is the configurational partition function. The translational and rotational partition functions are available in the usual statistical mechanics texts $ ^{44,45} $ but are ultimately unimportant for the derivation that follows. Continuing, the configurational partition function may be written as",
+      "original_quote": ", which should be the objective of future work . In the following appendix , we derive the entropy of adsorption in the case of infinite dilution and show how it may be related to familiar thermodynamic quantities ( cf . eq 5 ) . To begin , we define our adsorption entropy in the limit of infinite dilution via\n\n$$ \\Delta s_{\\mathrm{ads}}^{\\infty}=\\lim_{N/V\\rightarrow0}\\left[\\left(\\frac{\\partial S}{\\partial N}\\right)_{V,T,\\mathrm{ads}}-\\left(\\frac{\\partial S}{\\partial N}\\right)_{V,T,\\mathrm{gas}}\\right] $$\n\n$$ =S_{ads}(N=1,V,T)-S_{gas}(N=1,V,T) $$\n\nwhere the subscripts “ads” and “gas” labels identify the adsorbed (confined) and gas (bulk) phases, respectively. Given the constraints of a fixed number of molecules (N), volume (V), and temperature (T), it is natural to continue working in the canonical ensemble. (As in the main text, lowercase symbols identify intensive molecular or molar properties, whereas the uppercase indicates an extensive property.) For the molecules that we examine in this work (e.g., rigid molecules with no internal degrees of freedom), the canonical partition function Q may be expressed as\n\n$$ \\begin{aligned}Q(N,V,T)&=Q_{trans}(N,V,T)Q_{rot}(N,V,T)\\\\&\\quad\\times Z(N,V,T)\\end{aligned} $$\n\nwhere $ Q_{trans} $ and $ Q_{rot} $ are the translational and rotational partition functions (which are unaffected by confinement) and Z is the configurational partition function. The translational and rotational partition functions are available in the usual statistical mechanics texts $ ^{44,45} $ but are ultimately unimportant for the derivation that follows.\n\nContinuing, the configurational partition function may be written as",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "appendix"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "infinite_dilution"
+      ],
+      "relevance_score": 6,
+      "source_score": 0.015873015873015872,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:65209fe749e6f7590f4dd3bc",
+        "paper_id": "doi:10.1021/acs.jpcc.0c02671",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:6ff464d94650cf224fa5a594",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "\\ S } $ University of Massachusetts Amherst , 686 North Pleasant Street , 112F Goessmann Laboratory , Amherst , Massachusetts 01003 , United States ABSTRACT: Confinement of hydrocarbons in nanoscale pockets and pores provides tunable capability for controlling molecules in catalysts, sorbents, and membranes for reaction and separation applications. While computation of the enthalpic interactions of hydrocarbons in confined spaces has improved, understanding and predicting the entropy of confined molecules remains a challenge. Here we show, using a set of nine aluminosilicate zeolite frameworks with broad variation in pore and cavity structure, that the entropy of adsorption can be predicted as a linear combination of rotational and translational entropy. The extent of entropy lost upon adsorption is predicted using only a single material descriptor, the occupiable volume ( $ V_{occ} $). Predictive capability of confined molecular entropy permits an understanding of the relation with adsorption enthalpy, the ability to computationally screen microporous materials, and an understanding of the role of confinement on the kinetics of molecules in confined spaces.",
+      "original_quote": "\\ S } $ University of Massachusetts Amherst , 686 North Pleasant Street , 112F Goessmann Laboratory , Amherst , Massachusetts 01003 , United States < div style = \" text-align : center ; \" > < img src = \" imgs/img_in_image_box_302_533_649_802.jpg \" alt = \" Image \" width = \" 27 % \" / > < / div >\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_667_540_946_795.jpg\" alt=\"Image\" width=\"22%\" /></div>\n\nABSTRACT: Confinement of hydrocarbons in nanoscale pockets and pores provides tunable capability for controlling molecules in catalysts, sorbents, and membranes for reaction and separation applications. While computation of the enthalpic interactions of hydrocarbons in confined spaces has improved, understanding and predicting the entropy of confined molecules remains a challenge. Here we show, using a set of nine aluminosilicate zeolite frameworks with broad variation in pore and cavity structure, that the entropy of adsorption can be predicted as a linear combination of rotational and translational entropy. The extent of entropy lost upon adsorption is predicted using only a single material descriptor, the occupiable volume ( $ V_{occ} $). Predictive capability of confined molecular entropy permits an understanding of the relation with adsorption enthalpy, the ability to computationally screen microporous materials, and an understanding of the role of confinement on the kinetics of molecules in confined spaces.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "supporting information"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "aluminosilicate_or_protonic",
+        "cation_or_water"
+      ],
+      "relevance_score": 6,
+      "source_score": 0.015625,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:6ff464d94650cf224fa5a594",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:f5aaff5f2f3433cc6bc66236",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "{ B } T } { h } $ ) . Additionally , the pre-exponential factor for desorption in an unconfined system is weakly dependent on molecular size . Conversely in a confined system , the desorption pre-exponential factor depends on the rotational entropy ( $ S _ { rot } $ ) and thus varies with molecular size . Confinement of hydrocarbons adsorbed in nanoporous aluminosilicates significantly restricts molecular motion. Adsorbates lose one degree of translational motion (translation perpendicular to the surface), while rotational motion decreases in increasingly smaller and more confining pores. The surface entropy was described by a linear combination of the entropy lost on a flat surface plus the entropy loss resulting from confinement. By evaluating saturated hydrocarbons and permanent gases in nine different zeolite frameworks, the surface entropy of adsorbates was predicted using only a single descriptor of nanoporous materials, the occupiable volume, to determine the extent of lost rotational motion. This equation provides a simple method to predict the entropy of adsorption, where only the occupiable volume of a material and critical volume of the adsorbate need to be determined. The entropy lost to adsorption is compensated by a single exchange rate between enthalpy and entropy, regardless of the degree of confinement; this exchange rate is the same as the gas-phase analog, which relates the enthalpy of formation and gas-phase entropy of a saturated hydrocarbon. Finally, confinement influences the kinetics of desorption, where the pre-exponential factor of the desorption rate coefficient is predicted to increase orders of magnitude depending on the extent of molecular confinement. confinement ; this exchange rate is the same as the gas-phase analog , which relates the enthalpy of formation and gas-phase entropy of a saturated hydrocarbon . Finally , confinement influences the kinetics of desorption , where the pre-exponential factor of the desorption rate coefficient is predicted to increase orders of magnitude depending on the extent of molecular confinement . The Supporting Information is available free of charge on the ACS Publications website at DOI: 10.1021/acscentsci.8b00419.",
+      "original_quote": "{ B } T } { h } $ ) . Additionally , the pre-exponential factor for desorption in an unconfined system is weakly dependent on molecular size . Conversely in a confined system , the desorption pre-exponential factor depends on the rotational entropy ( $ S _ { rot } $ ) and thus varies with molecular size .\n\nConfinement of hydrocarbons adsorbed in nanoporous aluminosilicates significantly restricts molecular motion. Adsorbates lose one degree of translational motion (translation perpendicular to the surface), while rotational motion decreases in increasingly smaller and more confining pores. The surface entropy was described by a linear combination of the entropy lost on a flat surface plus the entropy loss resulting from confinement. By evaluating saturated hydrocarbons and permanent gases in nine different zeolite frameworks, the surface entropy of adsorbates was predicted using only a single descriptor of nanoporous materials, the occupiable volume, to determine the extent of lost rotational motion. This equation provides a simple method to predict the entropy of adsorption, where only the occupiable volume of a material and critical volume of the adsorbate need to be determined. The entropy lost to adsorption is compensated by a single exchange rate between enthalpy and entropy, regardless of the degree of confinement; this exchange rate is the same as the gas-phase analog, which relates the enthalpy of formation and gas-phase entropy of a saturated hydrocarbon. Finally, confinement influences the kinetics of desorption, where the pre-exponential factor of the desorption rate coefficient is predicted to increase orders of magnitude depending on the extent of molecular confinement.\n\nconfinement ; this exchange rate is the same as the gas-phase analog , which relates the enthalpy of formation and gas-phase entropy of a saturated hydrocarbon . Finally , confinement influences the kinetics of desorption , where the pre-exponential factor of the desorption rate coefficient is predicted to increase orders of magnitude depending on the extent of molecular confinement .\n\nThe Supporting Information is available free of charge on the ACS Publications website at DOI: 10.1021/acscentsci.8b00419.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "aluminosilicate_or_protonic",
+        "cation_or_water"
+      ],
+      "relevance_score": 6,
+      "source_score": 0.015384615384615385,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:f5aaff5f2f3433cc6bc66236",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:0851d060eb7c05cdb07c2bd1",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "the fraction of gas-phase entropy lost upon adsorption is a function of the framework type ( i.e . , the degree of confinement ) . Linear alkanes lose approximately 38 % of their gas-phase entropy upon adsorption in MFI , a medium pore zeolite , while experiencing a smaller loss of 20 % in the larger pore FAU framework . The loss of a fixed fraction of entropy upon adsorption is rationalized by comparing translational and rotational components of the gas-phase entropy of a molecule to that lost upon adsorption. Considering again the case of the mobile adsorbate, where one degree of translational entropy is lost upon adsorption (Figure 2C), a decrease in the fraction of gas-phase entropy lost upon adsorption with increasing carbon number of the adsorbate (e.g., C3 propane, C4 butane) is expected. A similar situation will arise in the case of the immobile adsorbate; the fraction of entropy lost is three times larger but will also decrease with carbon number. This is contrary to the experimental results of Figure 2B where the fraction of gas-phase entropy lost is relatively fixed. Alternatively, a combination of the entropy of one degree of translational and rotational freedom (eq 5) provides a relatively flat trend with carbon number (Figure 2C), consistent with experimental observations (Figure 2B). Adsorption can therefore be best described by considering entropic losses due to both translational and rotational motions, where different extents of each are lost depending on the structural framework. To evaluate this hypothesis, eq 5 can be expanded to account for adsorption in different sized cavities $$ \\Delta S_{\\mathrm{a d s},i,j}{}^{0}=F_{\\mathrm{t r a n s},j}S_{\\mathrm{t r a n s},i}{}^{0}+F_{\\mathrm{r o t},j}S_{\\mathrm{r o t},i}{}^{0} $$",
+      "original_quote": "the fraction of gas-phase entropy lost upon adsorption is a function of the framework type ( i.e . , the degree of confinement ) . Linear alkanes lose approximately 38 % of their gas-phase entropy upon adsorption in MFI , a medium pore zeolite , while experiencing a smaller loss of 20 % in the larger pore FAU framework .\n\nThe loss of a fixed fraction of entropy upon adsorption is rationalized by comparing translational and rotational components of the gas-phase entropy of a molecule to that lost upon adsorption. Considering again the case of the mobile adsorbate, where one degree of translational entropy is lost upon adsorption (Figure 2C), a decrease in the fraction of gas-phase entropy lost upon adsorption with increasing carbon number of the adsorbate (e.g., C3 propane, C4 butane) is expected. A similar situation will arise in the case of the immobile adsorbate; the fraction of entropy lost is three times larger but will also decrease with carbon number. This is contrary to the experimental results of Figure 2B where the fraction of gas-phase entropy lost is relatively fixed. Alternatively, a combination of the entropy of one degree of translational and rotational freedom (eq 5) provides a relatively flat trend with carbon number (Figure 2C), consistent with experimental observations (Figure 2B).\n\nAdsorption can therefore be best described by considering entropic losses due to both translational and rotational motions, where different extents of each are lost depending on the structural framework. To evaluate this hypothesis, eq 5 can be expanded to account for adsorption in different sized cavities\n\n$$ \\Delta S_{\\mathrm{a d s},i,j}{}^{0}=F_{\\mathrm{t r a n s},j}S_{\\mathrm{t r a n s},i}{}^{0}+F_{\\mathrm{r o t},j}S_{\\mathrm{r o t},i}{}^{0} $$",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 6,
+      "source_score": 0.015151515151515152,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:0851d060eb7c05cdb07c2bd1",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:0ab30550de42f051fb818a2c",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": ", which are commonly applied in the literature , A B Figure 3. (A) Degrees of translational (●) and rotational (♦) freedom lost upon adsorption on various zeolites of varying cavity diameter. (B) Rotational degrees of freedom lost in MFI (red ▲) and FAU (yellow ■) zeolites for varying hydrocarbon size. Error bars indicate 95% confidence intervals. describe the entropies of all adsorbates in all of the porous materials considered. The trends in adsorption entropies can be understood by considering each particular zeolite framework individually. Depicted in Figure 2B is the entropy of adsorption for linear alkanes (C3–C9) in MFI and FAU zeolites. While the absolute loss in entropy ( $ \\Delta S_{ads} $) increases linearly with carbon number, the fraction of entropy available in the gas phase lost upon adsorption appears to be a fixed value ( $ \\Delta S_{ads}/S_{gas} $) for each framework type. This is consistent with the observations of Campbell and Sellers, where the entropy lost upon adsorption for alkanes and other adsorbates on flat single crystal surfaces was found to be approximately one-third of the gas-phase entropy. $ ^6 $ In the case of a confined system, the fraction of gas-phase entropy lost upon adsorption is a function of the framework type (i.e., the degree of confinement). Linear alkanes lose approximately 38% of their gas-phase entropy upon adsorption in MFI, a medium pore zeolite, while experiencing a smaller loss of 20% in the larger pore FAU framework.",
+      "original_quote": ", which are commonly applied in the literature , < div style = \" text-align : center ; \" > A < / div > < div style = \" text-align : center ; \" > < img src = \" imgs/img_in_chart_box_248_144_640_477.jpg \" alt = \" Image \" width = \" 31 % \" / > < / div >\n\n<div style=\"text-align: center;\">B</div>\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_chart_box_656_148_1021_475.jpg\" alt=\"Image\" width=\"29%\" /></div>\n\n<div style=\"text-align: center;\">Figure 3. (A) Degrees of translational (●) and rotational (♦) freedom lost upon adsorption on various zeolites of varying cavity diameter. (B) Rotational degrees of freedom lost in MFI (red ▲) and FAU (yellow ■) zeolites for varying hydrocarbon size. Error bars indicate 95% confidence intervals.</div>\n\ndescribe the entropies of all adsorbates in all of the porous materials considered.\n\nThe trends in adsorption entropies can be understood by considering each particular zeolite framework individually. Depicted in Figure 2B is the entropy of adsorption for linear alkanes (C3–C9) in MFI and FAU zeolites. While the absolute loss in entropy ( $ \\Delta S_{ads} $) increases linearly with carbon number, the fraction of entropy available in the gas phase lost upon adsorption appears to be a fixed value ( $ \\Delta S_{ads}/S_{gas} $) for each framework type. This is consistent with the observations of Campbell and Sellers, where the entropy lost upon adsorption for alkanes and other adsorbates on flat single crystal surfaces was found to be approximately one-third of the gas-phase entropy. $ ^6 $ In the case of a confined system, the fraction of gas-phase entropy lost upon adsorption is a function of the framework type (i.e., the degree of confinement). Linear alkanes lose approximately 38% of their gas-phase entropy upon adsorption in MFI, a medium pore zeolite, while experiencing a smaller loss of 20% in the larger pore FAU framework.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 6,
+      "source_score": 0.014925373134328358,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:0ab30550de42f051fb818a2c",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:51aa804bfe1967d7ebb1d76f",
+      "paper_id": "doi:10.1021/jp060657s",
+      "document_id": "document:efa163ae1d6a7d3f748b3c99",
+      "quote": "break-word ; ' > 1.07 $ ^ { a } $ Length of the molecule . $ ^ { b } $ Radius in the central section of the supercage . $ ^ { c } $ Radius in the upper and lower pockets of the supercage . interconnect these cages. Molecular dynamics simulations showed that diffusion of 2-MeC6 in MCM-22 (between 450 and 850 K) in the sinusoidal 10-MR channels does not occur to a significant extent. $ ^{67} $ That study also stated that interstage diffusion (in the short bridges that connect the neighboring supercages) does not happen (for n-C7 and 2-MeC6) until elevated temperatures so that molecules spend most of their time inside the cage. In an NMR study of xenon adsorption in zeolite MCM-22, it was found that, particularly at low coverage, xenon atoms predominantly prefer to locate inside the supercages. $ ^{68} $ During the discussions of infrared spectrometric (IR) results, $ ^{69} $ it was declared that the supercages constitute about 70% of the micropore volume, indicating that the majority of the adsorption phenomenon is happening there. This argument was strengthened by the modeling calculations. $ ^{70} $ The authors determined the adsorption isotherm of n-C6 and 3-MeC5 at various temperatures on ITQ-1, the pure silica analogue of MCM-22, and suggested that three out of four adsorbate molecules are located in the large cages and one molecule in the sinusoidal channel system, which is in agreement with the supremacy of adsorption inside the supercages. In summary, on the basis of supporting information from literature, adsorption of linear and singly branched molecules will be considered, occurring principally inside the supercages of MCM-22. As the adsorbed molecules, whether they are linear or branched, are confined in a closed space, i.e., the supercage, their losses in translational and vibrational degrees of freedom will be comparable. Differences in rotational freedom in the supercages of MCM-22 may have a substantial impact on the adsorption equilibrium. Rotational entropy of the different species was qualitatively analyzed by comparing the radius of gyration of each molecule to the available space in the",
+      "original_quote": "break-word ; ' > 1.07 < / td > < / tr > < / table > $ ^ { a } $ Length of the molecule . $ ^ { b } $ Radius in the central section of the supercage . $ ^ { c } $ Radius in the upper and lower pockets of the supercage .\n\ninterconnect these cages. Molecular dynamics simulations showed that diffusion of 2-MeC6 in MCM-22 (between 450 and 850 K) in the sinusoidal 10-MR channels does not occur to a significant extent. $ ^{67} $ That study also stated that interstage diffusion (in the short bridges that connect the neighboring supercages) does not happen (for n-C7 and 2-MeC6) until elevated temperatures so that molecules spend most of their time inside the cage. In an NMR study of xenon adsorption in zeolite MCM-22, it was found that, particularly at low coverage, xenon atoms predominantly prefer to locate inside the supercages. $ ^{68} $ During the discussions of infrared spectrometric (IR) results, $ ^{69} $ it was declared that the supercages constitute about 70% of the micropore volume, indicating that the majority of the adsorption phenomenon is happening there. This argument was strengthened by the modeling calculations. $ ^{70} $ The authors determined the adsorption isotherm of n-C6 and 3-MeC5 at various temperatures on ITQ-1, the pure silica analogue of MCM-22, and suggested that three out of four adsorbate molecules are located in the large cages and one molecule in the sinusoidal channel system, which is in agreement with the supremacy of adsorption inside the supercages. In summary, on the basis of supporting information from literature, adsorption of linear and singly branched molecules will be considered, occurring principally inside the supercages of MCM-22.\n\nAs the adsorbed molecules, whether they are linear or branched, are confined in a closed space, i.e., the supercage, their losses in translational and vibrational degrees of freedom will be comparable. Differences in rotational freedom in the supercages of MCM-22 may have a substantial impact on the adsorption equilibrium. Rotational entropy of the different species was qualitatively analyzed by comparing the radius of gyration of each molecule to the available space in the\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_636_95_1115_472.jpg\" alt=\"Image\" width=\"39%\" /></div>",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "discussion"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "pure_silica"
+      ],
+      "relevance_score": 5,
+      "source_score": 0.014492753623188406,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:51aa804bfe1967d7ebb1d76f",
+        "paper_id": "doi:10.1021/jp060657s",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:cea920762ccdd7abd3ef7724",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "} , j } S _ { \\ mathrm { t r a n s } , i } { } ^ { 0 } + F _ { \\ mathrm { r o t } , j } S _ { \\ mathrm { r o t } , i } { } ^ { 0 } $ $ where $ F_{trans} $ and $ F_{rot} $ are the fractional losses ( $ 0 \\leq F_j \\leq 1 $) in translational and rotational entropy upon adsorption in different zeolite frameworks, corresponding to zero-to-three degrees of freedom. Here, i and j indicate the identity of the molecular adsorbate and adsorbing framework, respectively. $ F_{trans} $ and $ F_{rot} $ are fitted simultaneously to the experimentally measured entropies of adsorption for each zeolite framework, the results of which are illustrated in Figure 3A. Details of the fitting results are provided in the Supporting Information (Table S3). Across nine different zeolite frameworks with significant variation in cavity diameter, the lost degrees of translational freedom ( $ F_{trans} $) remained constant at approximately one degree of freedom (Figure 3A). Conversely the lost degrees of rotational freedom ( $ F_{rot} $) varied with zeolite framework, where $ F_{rot} $ decreased with increasing cavity diameter. This result is consistent with recent computations by Marin et al.; $ ^{14} $ they assumed the loss of rotational entropy in a medium pore zeolite such as MFI to be equal to two degrees of freedom, while only one degree of rotational freedom was lost in larger pore zeolites such as FAU or BEA. The loss in translational entropy was also limited to one degree of freedom in the different zeolite structures. This is further illustrated in Figure 3B, where despite losing similar degrees of translational freedom, alkanes adsorbed in MFI experience a 3-fold larger loss in rotational degrees of freedom than in the larger pore FAU. Similarly, for Ne, Ar, Kr, and Xe, which possess only translational entropy, one degree of translational freedom was lost upon adsorption in CHA (Supporting Information, Figure S2). One physical interpretation is that confined adsorbates continue to travel throughout the porous network (along but not through the porous surface), thus preserving two degrees of translational freedom. However, rotational motion becomes more restricted in a pore, where molecular rotation about the central atom (i.e., helicopter rotations) will become obstructed by shrinking pore walls creating a confining space.",
+      "original_quote": "} , j } S _ { \\ mathrm { t r a n s } , i } { } ^ { 0 } + F _ { \\ mathrm { r o t } , j } S _ { \\ mathrm { r o t } , i } { } ^ { 0 } $ $\n\nwhere $ F_{trans} $ and $ F_{rot} $ are the fractional losses ( $ 0 \\leq F_j \\leq 1 $) in translational and rotational entropy upon adsorption in different zeolite frameworks, corresponding to zero-to-three degrees of freedom. Here, i and j indicate the identity of the molecular adsorbate and adsorbing framework, respectively. $ F_{trans} $ and $ F_{rot} $ are fitted simultaneously to the experimentally measured entropies of adsorption for each zeolite framework, the results of which are illustrated in Figure 3A. Details of the fitting results are provided in the Supporting Information (Table S3).\n\nAcross nine different zeolite frameworks with significant variation in cavity diameter, the lost degrees of translational freedom ( $ F_{trans} $) remained constant at approximately one degree of freedom (Figure 3A). Conversely the lost degrees of rotational freedom ( $ F_{rot} $) varied with zeolite framework, where $ F_{rot} $ decreased with increasing cavity diameter. This result is consistent with recent computations by Marin et al.; $ ^{14} $ they assumed the loss of rotational entropy in a medium pore zeolite such as MFI to be equal to two degrees of freedom, while only one degree of rotational freedom was lost in larger pore zeolites such as FAU or BEA. The loss in translational entropy was also limited to one degree of freedom in the different zeolite structures. This is further illustrated in Figure 3B, where despite losing similar degrees of translational freedom, alkanes adsorbed in MFI experience a 3-fold larger loss in rotational degrees of freedom than in the larger pore FAU. Similarly, for Ne, Ar, Kr, and Xe, which possess only translational entropy, one degree of translational freedom was lost upon adsorption in CHA (Supporting Information, Figure S2). One physical interpretation is that confined adsorbates continue to travel throughout the porous network (along but not through the porous surface), thus preserving two degrees of translational freedom. However, rotational motion becomes more restricted in a pore, where molecular rotation about the central atom (i.e., helicopter rotations) will become obstructed by shrinking pore walls creating a confining space.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 6,
+      "source_score": 0.013513513513513514,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:cea920762ccdd7abd3ef7724",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:9e1ba348d1b5fdc0cc17198f",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "through Van der Waals interactions with the pore wall . $ ^ { 27 , 28 } $ While these enthalpic confinement effects are documented for multiple surface chemistries , $ ^ { 13 , 29-31 } $ adsorption included , $ ^ { 32-34 } $ a quantitative prediction of entropy lost to confinement is not yet available . We therefore propose a simple hypothesis that the entropy of adsorption of a given molecule, for any degree of confinement, can be described as a linear combination $$ \\Delta S_{\\mathrm{a d s}}=\\Delta S_{\\mathrm{s l a b}}+\\Delta S_{\\mathrm{c o n f}} $$ where $\\Delta S_{\\mathrm{slab}}$ and $\\Delta S_{\\mathrm{conf}}$ are the entropic losses associated with the adsorption of a molecule on a flat unconfined surface such as a slab and that associated with confinement, respectively. While Campbell et al. have established $\\Delta S_{\\mathrm{slab}}$, the relationship A Figure 2. (A) Comparison of adsorbate and gas-phase entropy in MFI, CHA, TON, FAU, and MOR. The gray triangle indicates the entropy region that is thermodynamically accessible; the entropy of the adsorbate cannot exceed what is available in the gas phase. (B) Entropy of adsorption of linear alkanes on MFI and FAU. Absolute values of the entropy of adsorption and those normalized by gas-phase entropy are indicated by filled and open symbols, respectively. (C) Entropy associated with one degree of translational and rotational movement, as well as the sum of the two modes as a fraction of the total gas-phase entropy for linear alkanes. between molecular shape and confinement in nanoporous structures described within $ \\Delta S_{conf} $ remains to be determined.",
+      "original_quote": "through Van der Waals interactions with the pore wall . $ ^ { 27 , 28 } $ While these enthalpic confinement effects are documented for multiple surface chemistries , $ ^ { 13 , 29-31 } $ adsorption included , $ ^ { 32-34 } $ a quantitative prediction of entropy lost to confinement is not yet available .\n\nWe therefore propose a simple hypothesis that the entropy of adsorption of a given molecule, for any degree of confinement, can be described as a linear combination\n\n$$ \\Delta S_{\\mathrm{a d s}}=\\Delta S_{\\mathrm{s l a b}}+\\Delta S_{\\mathrm{c o n f}} $$\n\nwhere $\\Delta S_{\\mathrm{slab}}$ and $\\Delta S_{\\mathrm{conf}}$ are the entropic losses associated with the adsorption of a molecule on a flat unconfined surface such as a slab and that associated with confinement, respectively. While Campbell et al. have established $\\Delta S_{\\mathrm{slab}}$, the relationship\n\n<div style=\"text-align: center;\">A</div>\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_chart_box_151_160_734_729.jpg\" alt=\"Image\" width=\"46%\" /></div>\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_chart_box_753_148_1128_429.jpg\" alt=\"Image\" width=\"29%\" /></div>\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_chart_box_754_439_1078_712.jpg\" alt=\"Image\" width=\"25%\" /></div>\n\n<div style=\"text-align: center;\">Figure 2. (A) Comparison of adsorbate and gas-phase entropy in MFI, CHA, TON, FAU, and MOR. The gray triangle indicates the entropy region that is thermodynamically accessible; the entropy of the adsorbate cannot exceed what is available in the gas phase. (B) Entropy of adsorption of linear alkanes on MFI and FAU. Absolute values of the entropy of adsorption and those normalized by gas-phase entropy are indicated by filled and open symbols, respectively. (C) Entropy associated with one degree of translational and rotational movement, as well as the sum of the two modes as a fraction of the total gas-phase entropy for linear alkanes.</div>\n\nbetween molecular shape and confinement in nanoporous structures described within $ \\Delta S_{conf} $ remains to be determined.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 6,
+      "source_score": 0.0125,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:9e1ba348d1b5fdc0cc17198f",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:3e6052070b86a20c46bda23b",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "level . $ ^ c $ Occupable volume ( $ V _ { occ } $ ) : open volume occupied by 2.8 Å $ ^ 3 $ sphere corresponding to water for a zeolite framework within a 1000 Å $ ^ 3 $ cube . $ ^ d $ Computationally measured value . $ ^ { 14 } $ tabulated data, a trend exists between the degrees of rotational freedom lost, the size of the adsorbing pore, and the measured molecular entropy of adsorption. For example, the loss in entropy upon the adsorption of propane increases with the lost degrees of rotational freedom. Also, more rotational entropy was lost in smaller pore zeolites (FER $ \\sim $ 4.3 Å) when compared to larger pore zeolites (FAU $ \\sim $ 13 Å); in this case, the average cavity diameter is a descriptor for zeolite framework and indicates the extent of confinement. These observations are physically consistent; as the zeolite pore becomes smaller, the adsorbate is more confined and loses more entropy due to its increasingly restricted motion. Broad characterization of rotational entropy of adsorption requires a physical descriptor valid across the different classes of porous materials. While the use of cavity diameter as a predictor of confinement effects is intuitive, its selection can be ambiguous; some zeolite frameworks do not possess a single cavity size. This is further exacerbated by the definition of a cavity diameter which assumes a spherical cage, despite zeolite cages not necessarily being perfectly spherical or cylindrical in nature. An alternative descriptor of size was proposed by Treacy et al., where they address this issue of geometric mismatch with the idea of an occupiable volume ( $ V_{occ} $). Defined as the number of spheres with a diameter of 2.8 Å that can be packed into zeolite framework, the occupiable volume has been calculated through computational methods for 176 different zeolite frameworks. $ ^{40} $ When the occupiable volume is smaller, the degree of confinement is greater. From Table 1, we observe that a trend exists between the loss in rotational entropy and the occupiable volume. A zeolite with a smaller occupiable volume results in a larger loss of rotational degrees of freedom for an adsorbate. This relationship is further illustrated in Figure 4, where the entropy of a molecular",
+      "original_quote": "level . $ ^ c $ Occupable volume ( $ V _ { occ } $ ) : open volume occupied by 2.8 Å $ ^ 3 $ sphere corresponding to water for a zeolite framework within a 1000 Å $ ^ 3 $ cube . $ ^ d $ Computationally measured value . $ ^ { 14 } $\n\ntabulated data, a trend exists between the degrees of rotational freedom lost, the size of the adsorbing pore, and the measured molecular entropy of adsorption. For example, the loss in entropy upon the adsorption of propane increases with the lost degrees of rotational freedom. Also, more rotational entropy was lost in smaller pore zeolites (FER $ \\sim $ 4.3 Å) when compared to larger pore zeolites (FAU $ \\sim $ 13 Å); in this case, the average cavity diameter is a descriptor for zeolite framework and indicates the extent of confinement. These observations are physically consistent; as the zeolite pore becomes smaller, the adsorbate is more confined and loses more entropy due to its increasingly restricted motion.\n\nBroad characterization of rotational entropy of adsorption requires a physical descriptor valid across the different classes of porous materials. While the use of cavity diameter as a predictor of confinement effects is intuitive, its selection can be ambiguous; some zeolite frameworks do not possess a single cavity size. This is further exacerbated by the definition of a cavity diameter which assumes a spherical cage, despite zeolite cages not necessarily being perfectly spherical or cylindrical in nature. An alternative descriptor of size was proposed by Treacy et al., where they address this issue of geometric mismatch with the idea of an occupiable volume ( $ V_{occ} $). Defined as the number of spheres with a diameter of 2.8 Å that can be packed into zeolite framework, the occupiable volume has been calculated through computational methods for 176 different zeolite frameworks. $ ^{40} $ When the occupiable volume is smaller, the degree of confinement is greater. From Table 1, we observe that a trend exists between the loss in rotational entropy and the occupiable volume. A zeolite with a smaller occupiable volume results in a larger loss of rotational degrees of freedom for an adsorbate. This relationship is further illustrated in Figure 4, where the entropy of a molecular\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_chart_box_682_136_1092_518.jpg\" alt=\"Image\" width=\"32%\" /></div>",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "cation_or_water"
+      ],
+      "relevance_score": 5,
+      "source_score": 0.012345679012345678,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:3e6052070b86a20c46bda23b",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:54534ecbe9452d622d00b5ba",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "loss of rotational degrees of freedom for an adsorbate . This relationship is further illustrated in Figure 4 , where the entropy of a molecular Figure 4. Relationship between adsorbate entropy ( $ S_{adsorbate} $) and the occupiable volume of the adsorbing zeolite framework ( $ V_{occ} $) for C3-C9 linear alkanes. adsorbate on the surface increases with increasing occupiable volume. The trend is independent of the hydrocarbon adsorbate chain length, since the loss in entropy per unit occupiable volume (i.e., the slope) is approximately constant for C3–C9 linear alkanes. By this comparison, the occupiable volume of a material qualitatively predicts the average effect of various confining adsorption sites on the entropy of adsorption and can serve as a descriptor of porous materials. To utilize occupiable volume as a quantitative descriptor of confinement in zeolites, the loss in rotational degrees of freedom must be defined as a function of occupiable volume. Analogous to eq 3 where entropy losses are treated as a linear combination of adsorption on a flat surface and confinement effects, we define losses in rotational freedom as $$ F_{\\mathrm{rot},j}=F_{\\mathrm{rot,slab}}+F_{\\mathrm{rot,conf},j} $$ $$ F_{rot,conf,j}=f(V_{occ,j}) $$",
+      "original_quote": "loss of rotational degrees of freedom for an adsorbate . This relationship is further illustrated in Figure 4 , where the entropy of a molecular < div style = \" text-align : center ; \" > < img src = \" imgs/img_in_chart_box_682_136_1092_518.jpg \" alt = \" Image \" width = \" 32 % \" / > < / div >\n\n<div style=\"text-align: center;\">Figure 4. Relationship between adsorbate entropy ( $ S_{adsorbate} $) and the occupiable volume of the adsorbing zeolite framework ( $ V_{occ} $) for C3-C9 linear alkanes.</div>\n\nadsorbate on the surface increases with increasing occupiable volume. The trend is independent of the hydrocarbon adsorbate chain length, since the loss in entropy per unit occupiable volume (i.e., the slope) is approximately constant for C3–C9 linear alkanes. By this comparison, the occupiable volume of a material qualitatively predicts the average effect of various confining adsorption sites on the entropy of adsorption and can serve as a descriptor of porous materials.\n\nTo utilize occupiable volume as a quantitative descriptor of confinement in zeolites, the loss in rotational degrees of freedom must be defined as a function of occupiable volume. Analogous to eq 3 where entropy losses are treated as a linear combination of adsorption on a flat surface and confinement effects, we define losses in rotational freedom as\n\n$$ F_{\\mathrm{rot},j}=F_{\\mathrm{rot,slab}}+F_{\\mathrm{rot,conf},j} $$\n\n$$ F_{rot,conf,j}=f(V_{occ,j}) $$",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 5,
+      "source_score": 0.012195121951219513,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:54534ecbe9452d622d00b5ba",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:fe3790f42b8b1f280ef6b62c",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "to rotate on a flat surface become hindered from rotating within a pore . Therefore , predictions of entropy such as eq 1 by Campbell and Sellers , developed on single crystal surfaces free of confinement , must be expanded to account for entropy losses due to confinement in real materials which possess a porous structure where adsorption occurs . Here we evaluate the adsorption of a broad range of hydrocarbons and permanent gases in nine well-defined zeolite frameworks of varying nanoporosity to develop a global predictive equation of adsorption entropy for molecules in confined porous spaces. The impact of confinement on translational and rotational motion is quantified, and a single structural descriptor of nanoporous materials that allows for global prediction of adsorption entropy is identified. A simple yet fundamental correlation is developed that captures the effects on confinement on translational and rotational motion, accurately matching experimentally measured adsorption entropies. We further derive an exchange correlation between the enthalpy and entropy of adsorption, based solely on gas-phase values independent of adsorption measurements. This allows for the estimation of the free energy change of adsorption a priori. Entropic losses are further related to the kinetics of desorption, where the rate of desorption scales exponentially with entropy lost due to confinement.",
+      "original_quote": "to rotate on a flat surface become hindered from rotating within a pore . Therefore , predictions of entropy such as eq 1 by Campbell and Sellers , developed on single crystal surfaces free of confinement , must be expanded to account for entropy losses due to confinement in real materials which possess a porous structure where adsorption occurs .\n\nHere we evaluate the adsorption of a broad range of hydrocarbons and permanent gases in nine well-defined zeolite frameworks of varying nanoporosity to develop a global predictive equation of adsorption entropy for molecules in confined porous spaces. The impact of confinement on translational and rotational motion is quantified, and a single structural descriptor of nanoporous materials that allows for global prediction of adsorption entropy is identified. A simple yet fundamental correlation is developed that captures the effects on confinement on translational and rotational motion, accurately matching experimentally measured adsorption entropies. We further derive an exchange correlation between the enthalpy and entropy of adsorption, based solely on gas-phase values independent of adsorption measurements. This allows for the estimation of the free energy change of adsorption a priori. Entropic losses are further related to the kinetics of desorption, where the rate of desorption scales exponentially with entropy lost due to confinement.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "introduction"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 6,
+      "source_score": 0.011904761904761904,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:fe3790f42b8b1f280ef6b62c",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:0f7e472e8082369a4c3ff7dc",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:187729bd3f4ce0685f9c99e9",
+      "quote": "3 , Table S1-E ) , filled symbols indicate entropies of adsorption normalized by the entropy associated with one degree of translational freedom . Table S2 . Translational , rotational and molecular gas phase entropy of alkanes and permanent gases . Entry Molecule $ S_{\\text{Trans}}^{0}/\\text{R} $ $ S_{\\text{Rot}}^{0}/\\text{R} $ $ S_{\\text{gas}}^{0}/\\text{R}^{a} $ 1 $ \\text{H}_2 $ 14.1 1.5 15.7 2 $ \\text{O}_2 $ 18.3 5.3 24.7 3</",
+      "original_quote": "3 , Table S1-E ) , filled symbols indicate entropies of adsorption normalized by the entropy associated with one degree of translational freedom . < / div > < div style = \" text-align : center ; \" > Table S2 . Translational , rotational and molecular gas phase entropy of alkanes and permanent gases . < / div >\n\n<table border=1 style='margin: auto; word-wrap: break-word;'><tr><td style='text-align: center; word-wrap: break-word;'>Entry</td><td style='text-align: center; word-wrap: break-word;'>Molecule</td><td style='text-align: center; word-wrap: break-word;'>$ S_{\\text{Trans}}^{0}/\\text{R} $</td><td style='text-align: center; word-wrap: break-word;'>$ S_{\\text{Rot}}^{0}/\\text{R} $</td><td style='text-align: center; word-wrap: break-word;'>$ S_{\\text{gas}}^{0}/\\text{R}^{a} $</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>1</td><td style='text-align: center; word-wrap: break-word;'>$ \\text{H}_2 $</td><td style='text-align: center; word-wrap: break-word;'>14.1</td><td style='text-align: center; word-wrap: break-word;'>1.5</td><td style='text-align: center; word-wrap: break-word;'>15.7</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>2</td><td style='text-align: center; word-wrap: break-word;'>$ \\text{O}_2 $</td><td style='text-align: center; word-wrap: break-word;'>18.3</td><td style='text-align: center; word-wrap: break-word;'>5.3</td><td style='text-align: center; word-wrap: break-word;'>24.7</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>3</",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "a universal descriptor for the entropy of adsorbed molecules in confined spaces paul j. dauenhauer $ ^{1,2} $, omar a. abdelrahman $ ^{2,3,*} $"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 4,
+      "source_score": 0.01098901098901099,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:0f7e472e8082369a4c3ff7dc",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:3390ef758c69796ed1c854f0",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "^ { 0 } + R \\ ln \\ left [ \\ left ( \\ frac { m } { m _ { \\ mathrm { Ar } } } \\ right ) ^ { 3/2 } \\ left ( \\ frac { T } { 298 } \\ right ) ^ { 5/2 } \\ right ] $ $ where $ S_{Ar,298K} $ is the entropy of Ar in the gas phase at 298 K and 1.0 bar, 154.8 J mol $ ^{-1} $ K $ ^{-1} $; $ R $ is the universal gas constant, $ m $ the molecular weight of the molecule of interest, $ m_{Ar} $ that for Argon, and $ T $ the temperature at which the entropy is calculated. Alternatively, for the case of a mobile adsorbate, the entropy of adsorption can be approximated to be equal to one degree of translational freedom ( $ S_{trans}/3 $, eq 4). $ ^{38,39} $ A loss of one degree of translational freedom overestimates the entropy of the adsorbate on the surface, while three degrees of translation result in an underestimation ( $ S_{adsorbate} $, Figure 2A). Another approximation, in addition to translational losses, is to consider the loss in rotational entropy upon adsorption. $ ^{14} $ While an adsorbed molecule may rotate freely parallel to the surface (i.e., helicopter rotations) and about its own axis, rotations perpendicular to the surface (i.e., cartwheel rotations) may become severely hindered. Combining this approximation with the case of the mobile adsorbate, which underestimates the entropy of adsorption, we define the loss in entropy due to adsorption as",
+      "original_quote": "^ { 0 } + R \\ ln \\ left [ \\ left ( \\ frac { m } { m _ { \\ mathrm { Ar } } } \\ right ) ^ { 3/2 } \\ left ( \\ frac { T } { 298 } \\ right ) ^ { 5/2 } \\ right ] $ $\n\nwhere $ S_{Ar,298K} $ is the entropy of Ar in the gas phase at 298 K and 1.0 bar, 154.8 J mol $ ^{-1} $ K $ ^{-1} $; $ R $ is the universal gas constant, $ m $ the molecular weight of the molecule of interest, $ m_{Ar} $ that for Argon, and $ T $ the temperature at which the entropy is calculated. Alternatively, for the case of a mobile adsorbate, the entropy of adsorption can be approximated to be equal to one degree of translational freedom ( $ S_{trans}/3 $, eq 4). $ ^{38,39} $ A loss of one degree of translational freedom overestimates the entropy of the adsorbate on the surface, while three degrees of translation result in an underestimation ( $ S_{adsorbate} $, Figure 2A).\n\nAnother approximation, in addition to translational losses, is to consider the loss in rotational entropy upon adsorption. $ ^{14} $ While an adsorbed molecule may rotate freely parallel to the surface (i.e., helicopter rotations) and about its own axis, rotations perpendicular to the surface (i.e., cartwheel rotations) may become severely hindered. Combining this approximation with the case of the mobile adsorbate, which underestimates the entropy of adsorption, we define the loss in entropy due to adsorption as",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "298K"
+      ],
+      "relevance_score": 4,
+      "source_score": 0.010752688172043012,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:3390ef758c69796ed1c854f0",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:82f8043ddc4a30ff24415d51",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:187729bd3f4ce0685f9c99e9",
+      "quote": "were measured using a combination of gravimetry and calorimetry ( grav/cal ) , inverse gas chromatography ( IGC ) , volumetric uptake and FT-IR . Figure S1. Adsorbate entropy for C3-C7 linear alkanes on MFI as a function of bulk Al concentration. Figure S2. Experimentally measured entropy of adsorption (open symbols) for Ne, Ar, Kr and Xe on CHA (Si/Al = 3, Table S1-E), filled symbols indicate entropies of adsorption normalized by the entropy associated with one degree of translational freedom. Table S2. Translational, rotational and molecular gas phase entropy of alkanes and permanent gases.",
+      "original_quote": "were measured using a combination of gravimetry and calorimetry ( grav/cal ) , inverse gas chromatography ( IGC ) , volumetric uptake and FT-IR . < div style = \" text-align : center ; \" > < img src = \" si-output/oc8b00419_si_001/imgs/img_in_chart_box_145_153_1064_959.jpg \" alt = \" Image \" width = \" 75 % \" / > < / div >\n\n<div style=\"text-align: center;\">Figure S1. Adsorbate entropy for C3-C7 linear alkanes on MFI as a function of bulk Al concentration.</div>\n\n<div style=\"text-align: center;\"><img src=\"si-output/oc8b00419_si_001/imgs/img_in_chart_box_153_148_1038_869.jpg\" alt=\"Image\" width=\"72%\" /></div>\n\n<div style=\"text-align: center;\">Figure S2. Experimentally measured entropy of adsorption (open symbols) for Ne, Ar, Kr and Xe on CHA (Si/Al = 3, Table S1-E), filled symbols indicate entropies of adsorption normalized by the entropy associated with one degree of translational freedom.</div>\n\n<div style=\"text-align: center;\">Table S2. Translational, rotational and molecular gas phase entropy of alkanes and permanent gases.</div>",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "a universal descriptor for the entropy of adsorbed molecules in confined spaces paul j. dauenhauer $ ^{1,2} $, omar a. abdelrahman $ ^{2,3,*} $"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 4,
+      "source_score": 0.010416666666666666,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:82f8043ddc4a30ff24415d51",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:ab0d6c7d34d2e5bf986aedd3",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "travel throughout the porous network ( along but not through the porous surface ) , thus preserving two degrees of translational freedom . However , rotational motion becomes more restricted in a pore , where molecular rotation about the central atom ( i.e . , helicopter rotations ) will become obstructed by shrinking pore walls creating a confining space . Based on the results in Figure 3A, $ F_{trans} $ was set equal to one degree of freedom. Equation 7 then becomes $$ \\Delta S_{\\mathrm{a d s},i,j}{}^{0}=S_{\\mathrm{1D,t r a n s},i}{}^{0}+F_{\\mathrm{r o t},j}S_{\\mathrm{r o t},i}{}^{0} $$ where one degree of translation freedom will be lost upon adsorption regardless of the adsorbing zeolite framework ( $ S_{ID,trans,i} $) $ ^{0} $. In contrast, the rotational freedom lost ( $ F_{rot} $) is a strong function of zeolite framework and the degree to which a molecule is confined in its adsorbed state. Fitting eq 8 to the various frameworks and adsorbates presented in Table S1, the degrees of rotational freedom lost upon adsorption in different zeolite frameworks are determined (Table 1). From the Table 1. Physical Characteristics of Zeolite Frameworks",
+      "original_quote": "travel throughout the porous network ( along but not through the porous surface ) , thus preserving two degrees of translational freedom . However , rotational motion becomes more restricted in a pore , where molecular rotation about the central atom ( i.e . , helicopter rotations ) will become obstructed by shrinking pore walls creating a confining space .\n\nBased on the results in Figure 3A, $ F_{trans} $ was set equal to one degree of freedom. Equation 7 then becomes\n\n$$ \\Delta S_{\\mathrm{a d s},i,j}{}^{0}=S_{\\mathrm{1D,t r a n s},i}{}^{0}+F_{\\mathrm{r o t},j}S_{\\mathrm{r o t},i}{}^{0} $$\n\nwhere one degree of translation freedom will be lost upon adsorption regardless of the adsorbing zeolite framework ( $ S_{ID,trans,i} $) $ ^{0} $. In contrast, the rotational freedom lost ( $ F_{rot} $) is a strong function of zeolite framework and the degree to which a molecule is confined in its adsorbed state. Fitting eq 8 to the various frameworks and adsorbates presented in Table S1, the degrees of rotational freedom lost upon adsorption in different zeolite frameworks are determined (Table 1). From the\n\n<div style=\"text-align: center;\">Table 1. Physical Characteristics of Zeolite Frameworks</div>",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 5,
+      "source_score": 0.010309278350515464,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:ab0d6c7d34d2e5bf986aedd3",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:d353c44a1a672e13327ee4a9",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "the surface ( i.e . , helicopter rotations ) and about its own axis , rotations perpendicular to the surface ( i.e . , cartwheel rotations ) may become severely hindered . Combining this approximation with the case of the mobile adsorbate , which underestimates the entropy of adsorption , we define the loss in entropy due to adsorption as $$ \\begin{aligned}&\\Delta S_{\\mathrm{ads}}^{0}=S_{\\mathrm{1D,trans}}^{0}+S_{\\mathrm{1D,rot}}^{0}\\\\ &\\\\ &S_{\\mathrm{rot}}=R\\Biggl\\{\\ln\\Biggl[\\frac{\\sqrt{\\pi I_{\\mathrm{A}}I_{\\mathrm{B}}I_{\\mathrm{C}}}}{\\sigma}\\Biggl(\\frac{8\\pi^{2}k_{\\mathrm{B}}T}{h^{2}}\\Biggr)^{3/2}\\Biggr]+\\frac{3}{2}\\Biggr\\}\\\\ \\end{aligned} $$ where $ S_{1D,trans}^{0} $ and $ S_{1D,rot}^{0} $ are the entropies associated with one degree of translational ( $ S_{trans}/3 $, eq 4) and rotational ( $ S_{rot}/3 $, eq 6) freedom. $ I_{A} $, $ I_{B} $, and $ I_{C} $ are the principle moments of inertia. $ \\sigma $ is the external symmetry number, and $ k_{B} $ and h are the Boltzmann and Planck constants, respectively. While this approximation does not perfectly capture the entropies of adsorption, it does begin to more accurately capture trends in MFI, CHA, and TON structures (Figure 2A, solid line). Restrictions in molecular motion upon adsorption therefore appear to include rotational motion as well. However, none of these models, which are commonly applied in the literature, A",
+      "original_quote": "the surface ( i.e . , helicopter rotations ) and about its own axis , rotations perpendicular to the surface ( i.e . , cartwheel rotations ) may become severely hindered . Combining this approximation with the case of the mobile adsorbate , which underestimates the entropy of adsorption , we define the loss in entropy due to adsorption as\n\n$$ \\begin{aligned}&\\Delta S_{\\mathrm{ads}}^{0}=S_{\\mathrm{1D,trans}}^{0}+S_{\\mathrm{1D,rot}}^{0}\\\\ &\\\\ &S_{\\mathrm{rot}}=R\\Biggl\\{\\ln\\Biggl[\\frac{\\sqrt{\\pi I_{\\mathrm{A}}I_{\\mathrm{B}}I_{\\mathrm{C}}}}{\\sigma}\\Biggl(\\frac{8\\pi^{2}k_{\\mathrm{B}}T}{h^{2}}\\Biggr)^{3/2}\\Biggr]+\\frac{3}{2}\\Biggr\\}\\\\ \\end{aligned} $$\n\nwhere $ S_{1D,trans}^{0} $ and $ S_{1D,rot}^{0} $ are the entropies associated with one degree of translational ( $ S_{trans}/3 $, eq 4) and rotational ( $ S_{rot}/3 $, eq 6) freedom. $ I_{A} $, $ I_{B} $, and $ I_{C} $ are the principle moments of inertia. $ \\sigma $ is the external symmetry number, and $ k_{B} $ and h are the Boltzmann and Planck constants, respectively. While this approximation does not perfectly capture the entropies of adsorption, it does begin to more accurately capture trends in MFI, CHA, and TON structures (Figure 2A, solid line). Restrictions in molecular motion upon adsorption therefore appear to include rotational motion as well. However, none of these models, which are commonly applied in the literature,\n\n<div style=\"text-align: center;\">A</div>\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_chart_box_248_144_640_477.jpg\" alt=\"Image\" width=\"31%\" /></div>",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 5,
+      "source_score": 0.01020408163265306,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:d353c44a1a672e13327ee4a9",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:162f82383a64931f7c04f55f",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "{ des } , i , j } = \\ frac { k _ { \\ mathrm { B } } T } { h } \\ mathrm { e } ^ { F _ { \\ mathrm { rot } , j } S _ { \\ mathrm { rot } , i } / R } $ $ The pre-exponential factor for desorption is therefore a function of confinement, dictated by the loss of rotational entropy ( $ F_{rot,i}S_{rot,i} $) which appears in the exponential. Details of the derivation are provided in the Supporting Information (eqs S1–S9). As the adsorbate becomes more confined and loses additional degrees of rotational freedom, $ \\nu_{des} $ increases exponentially (Figure S4). For example, propane desorbing from FAU and MFI frameworks possesses desorption pre-exponential factors of $ 10^{15} $ and $ 10^{20} $ s $ ^{-1} $, respectively. We note that these values are orders of magnitude larger than the typically applied value of $ 10^{13} $ s $ ^{-1} $ for desorption and many other surface chemistries. $ ^{43} $ Interestingly, in the case of an unconfined system ( $ F_{rot} \\sim 0 $), the desorption pre-exponential factor will be approximately the standard value of $ 10^{13} $ s $ ^{-1} $ ( $ \\nu_{des} = \\frac{k_{B}T}{h} $). Additionally, the pre-exponential factor for desorption in an unconfined system is weakly dependent on molecular size. Conversely in a confined system, the desorption pre-exponential factor depends on the rotational entropy ( $ S_{rot} $) and thus varies with molecular size.",
+      "original_quote": "{ des } , i , j } = \\ frac { k _ { \\ mathrm { B } } T } { h } \\ mathrm { e } ^ { F _ { \\ mathrm { rot } , j } S _ { \\ mathrm { rot } , i } / R } $ $\n\nThe pre-exponential factor for desorption is therefore a function of confinement, dictated by the loss of rotational entropy ( $ F_{rot,i}S_{rot,i} $) which appears in the exponential. Details of the derivation are provided in the Supporting Information (eqs S1–S9). As the adsorbate becomes more confined and loses additional degrees of rotational freedom, $ \\nu_{des} $ increases exponentially (Figure S4). For example, propane desorbing from FAU and MFI frameworks possesses desorption pre-exponential factors of $ 10^{15} $ and $ 10^{20} $ s $ ^{-1} $, respectively. We note that these values are orders of magnitude larger than the typically applied value of $ 10^{13} $ s $ ^{-1} $ for desorption and many other surface chemistries. $ ^{43} $ Interestingly, in the case of an unconfined system ( $ F_{rot} \\sim 0 $), the desorption pre-exponential factor will be approximately the standard value of $ 10^{13} $ s $ ^{-1} $ ( $ \\nu_{des} = \\frac{k_{B}T}{h} $). Additionally, the pre-exponential factor for desorption in an unconfined system is weakly dependent on molecular size. Conversely in a confined system, the desorption pre-exponential factor depends on the rotational entropy ( $ S_{rot} $) and thus varies with molecular size.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 4,
+      "source_score": 0.014084507042253521,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:162f82383a64931f7c04f55f",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:afa7727cca333d42bc294780",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "$ J \\ , mol ^ { - 1 } \\ , K ^ { - 1 } $ of entropy lost upon adsorption , 509 J mol $ ^ { - 1 } $ of enthalpy is gained ; this exchange rate is the same within error for all seven frameworks ( Figure S3 , Supporting Information ) . The origin of the exchange rate between the enthalpy and entropy of adsorbed species on aluminosilicates presented in Figure 6A has been previously attributed to van der Waals interactions. $ ^{27} $ However, a quantitative description of the exchange rate independent of adsorption measurements is unavailable. One comparison with the adsorption compensation exchange rate is the relationship between the heat of formation ( $ \\Delta H_f $) and the entropy of hydrocarbons in the gas phase ( $ S_{gas^0} $), as shown in Figure 6B. Linear alkanes, singly branched alkanes, and doubly branched alkanes exhibit a gas-phase enthalpy–entropy exchange rate of $ 505 \\pm 24 $, $ 501 \\pm 26 $, and $ 484 \\pm 59 $ K, respectively, which is same as the adsorption compensation exchange rate of Figure 6A within error. It is noted that other classes of species such as primary alcohols exhibit a higher gas-phase exchange rate of $ 540 \\pm 32 $ K. While it is possible to consider the hypothesis that the adsorption compensation exchange rate derives solely from adsorbate identity, thereby resulting in the same entropy–enthalpy exchange rate both on the surface and in the gas phase, there exists insufficient experimental adsorption data with other classes of molecules (e.g., alcohols, amines) to support this conclusion. While confinement can have a profound effect on the thermodynamics of adsorption, the kinetics of adsorption/desorption are also impacted by the size and shape of porous materials. When considering an Arrhenius description of desorption, the pre-exponential factor ( $ \\nu_{des} $) for a molecular adsorbate from a surface can be defined as $ ^{6} $",
+      "original_quote": "$ J \\ , mol ^ { - 1 } \\ , K ^ { - 1 } $ of entropy lost upon adsorption , 509 J mol $ ^ { - 1 } $ of enthalpy is gained ; this exchange rate is the same within error for all seven frameworks ( Figure S3 , Supporting Information ) .\n\nThe origin of the exchange rate between the enthalpy and entropy of adsorbed species on aluminosilicates presented in Figure 6A has been previously attributed to van der Waals interactions. $ ^{27} $ However, a quantitative description of the exchange rate independent of adsorption measurements is unavailable. One comparison with the adsorption compensation exchange rate is the relationship between the heat of formation ( $ \\Delta H_f $) and the entropy of hydrocarbons in the gas phase ( $ S_{gas^0} $), as shown in Figure 6B. Linear alkanes, singly branched alkanes, and doubly branched alkanes exhibit a gas-phase enthalpy–entropy exchange rate of $ 505 \\pm 24 $, $ 501 \\pm 26 $, and $ 484 \\pm 59 $ K, respectively, which is same as the adsorption compensation exchange rate of Figure 6A within error. It is noted that other classes of species such as primary alcohols exhibit a higher gas-phase exchange rate of $ 540 \\pm 32 $ K. While it is possible to consider the hypothesis that the adsorption compensation exchange rate derives solely from adsorbate identity, thereby resulting in the same entropy–enthalpy exchange rate both on the surface and in the gas phase, there exists insufficient experimental adsorption data with other classes of molecules (e.g., alcohols, amines) to support this conclusion.\n\nWhile confinement can have a profound effect on the thermodynamics of adsorption, the kinetics of adsorption/desorption are also impacted by the size and shape of porous materials. When considering an Arrhenius description of desorption, the pre-exponential factor ( $ \\nu_{des} $) for a molecular adsorbate from a surface can be defined as $ ^{6} $",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "aluminosilicate_or_protonic"
+      ],
+      "relevance_score": 4,
+      "source_score": 0.011904761904761904,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:afa7727cca333d42bc294780",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:540fc52a6b0d2f0d19339248",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "only a single material descriptor , the occupiable volume ( $ V _ { occ } $ ) . Predictive capability of confined molecular entropy permits an understanding of the relation with adsorption enthalpy , the ability to computationally screen microporous materials , and an understanding of the role of confinement on the kinetics of molecules in confined spaces . The adsorption of hydrocarbons into cavities and pores within nanomaterials is at the heart of profound chemical technology advancements in heterogeneous catalysis, carbon capture, chemical separations, and pollution control. The ability of molecules to move, rotate, and vibrate inside a confined space determines their ability to bond with the surface. For this reason, applications utilize an array of materials from zeolites to nanotubes and metal-organic frameworks (MOFs) with nanoporous spaces, each of which is designed to manipulate the motion of molecules. The efficacy of any adsorption-based technology is determined by the capability of the engineered pore to discriminate between molecules and control molecular behavior on the surface.",
+      "original_quote": "only a single material descriptor , the occupiable volume ( $ V _ { occ } $ ) . Predictive capability of confined molecular entropy permits an understanding of the relation with adsorption enthalpy , the ability to computationally screen microporous materials , and an understanding of the role of confinement on the kinetics of molecules in confined spaces .\n\nThe adsorption of hydrocarbons into cavities and pores within nanomaterials is at the heart of profound chemical technology advancements in heterogeneous catalysis, carbon capture, chemical separations, and pollution control. The ability of molecules to move, rotate, and vibrate inside a confined space determines their ability to bond with the surface. For this reason, applications utilize an array of materials from zeolites to nanotubes and metal-organic frameworks (MOFs) with nanoporous spaces, each of which is designed to manipulate the motion of molecules. The efficacy of any adsorption-based technology is determined by the capability of the engineered pore to discriminate between molecules and control molecular behavior on the surface.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "supporting information"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "cation_or_water"
+      ],
+      "relevance_score": 5,
+      "source_score": 0.013157894736842105,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:540fc52a6b0d2f0d19339248",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:860988c33d5392c77a81037b",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "> Reaction Coordinate Figure 1 . Entropy loss upon adsorption on surfaces and confined spaces . free energy of adsorption is defined by the corresponding enthalpy and entropy of adsorption $$ \\Delta\\boldsymbol{G}_{\\mathrm{a d s}}^{0}=\\Delta\\boldsymbol{H}_{\\mathrm{a d s}}^{0}-\\boldsymbol{T}\\Delta\\boldsymbol{S}_{\\mathrm{a d s}}^{0} $$ where a molecule typically gains energy through enthalpic contributions due to stabilizing interactions with the surface ( $ \\Delta H_{ads}^{0} $). In contrast, a molecule will lose entropy upon adsorption ( $ \\Delta S_{slab}^{0} $) due to its restricted motion on the surface relative to the gas phase. To maintain thermodynamic consistency, the loss in entropy due to adsorption cannot exceed what is available in the gas phase ( $ \\Delta S_{ads}^{0} \\leq S_{gas}^{0} $). Under conditions typical of associative adsorption, the adsorption–desorption process is reversible and nonactivated. $ ^{6} $ This leads to a transition state of adsorption (TS) positioned at a particular distance from the surface such that it loses approximately one degree of translational freedom relative to the gas phase ( $ \\Delta S_{TS}^{0} = S_{ID,trans}^{0} $). $ ^{24-26} $ As the adsorbing surface becomes curved akin to a pore, the motion of an adsorbed molecule is further restricted due to confinement, yielding an additional loss in entropy (Figure 1, $ \\Delta S_{conf} $). $ ^{22,27} $ While this leads to a less favorable entropy of adsorption, this can also lead to an additionally favorable enthalpic stabilization through Van der Waals interactions with the pore wall. $ ^{27,28} $ While these enthalpic confinement effects are documented for multiple surface chemistries, $ ^{13,29-31} $ adsorption included, $ ^{32-34} $ a quantitative prediction of entropy lost to confinement is not yet available.",
+      "original_quote": "> < div style = \" text-align : center ; \" > Reaction Coordinate < / div > < div style = \" text-align : center ; \" > Figure 1 . Entropy loss upon adsorption on surfaces and confined spaces . < / div > free energy of adsorption is defined by the corresponding enthalpy and entropy of adsorption\n\n$$ \\Delta\\boldsymbol{G}_{\\mathrm{a d s}}^{0}=\\Delta\\boldsymbol{H}_{\\mathrm{a d s}}^{0}-\\boldsymbol{T}\\Delta\\boldsymbol{S}_{\\mathrm{a d s}}^{0} $$\n\nwhere a molecule typically gains energy through enthalpic contributions due to stabilizing interactions with the surface ( $ \\Delta H_{ads}^{0} $). In contrast, a molecule will lose entropy upon adsorption ( $ \\Delta S_{slab}^{0} $) due to its restricted motion on the surface relative to the gas phase. To maintain thermodynamic consistency, the loss in entropy due to adsorption cannot exceed what is available in the gas phase ( $ \\Delta S_{ads}^{0} \\leq S_{gas}^{0} $). Under conditions typical of associative adsorption, the adsorption–desorption process is reversible and nonactivated. $ ^{6} $ This leads to a transition state of adsorption (TS) positioned at a particular distance from the surface such that it loses approximately one degree of translational freedom relative to the gas phase ( $ \\Delta S_{TS}^{0} = S_{ID,trans}^{0} $). $ ^{24-26} $\n\nAs the adsorbing surface becomes curved akin to a pore, the motion of an adsorbed molecule is further restricted due to confinement, yielding an additional loss in entropy (Figure 1, $ \\Delta S_{conf} $). $ ^{22,27} $ While this leads to a less favorable entropy of adsorption, this can also lead to an additionally favorable enthalpic stabilization through Van der Waals interactions with the pore wall. $ ^{27,28} $ While these enthalpic confinement effects are documented for multiple surface chemistries, $ ^{13,29-31} $ adsorption included, $ ^{32-34} $ a quantitative prediction of entropy lost to confinement is not yet available.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "results"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 5,
+      "source_score": 0.013157894736842105,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:860988c33d5392c77a81037b",
+        "paper_id": "pmc:pmc6161062",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    },
+    {
+      "record_id": "chunk:8ee2f667b946a68346bce30b",
+      "paper_id": "doi:10.1021/acs.jpcc.0c02671",
+      "document_id": "document:679638c993b24ed3004656c6",
+      "quote": "^ { 14 } $ and infrared operando spectroscopy , $ ^ { 17 } $ provide experimental routes in measuring the adsorption entropy . However, performing experiments for many molecule-framework combinations is impractical. Computational experiments of adsorption therefore make for an attractive alternative. Nevertheless, there remain caveats. For example, quantifying the entropy using ab initio-based methods (such as density functional theory) is computationally demanding $ ^{18-22} $ or relies on approximations. $ ^{19} $ Such approximations include (1) limiting translation to the surface area of the zeolite, $ ^{23} $ which artificially restricts the entropy to a surface term; (2) invocation of the “harmonic approximation” based on the assumption of a very strong fluid–solid interaction that renders translations and rotations unimportant; or (3) employing the hindered translator/rotor model. $ ^{24} $ On the other hand, (classical) Monte Carlo (MC) and molecular dynamics simulations have proven successful in accurately calculating the adsorption entropy, $ ^{25} $ with the primary limitation being the number of force fields available to accurately model the adsorbate–adsorbent interaction. Although these simulations are numerically cleaner compared to experiment because they involve analyzing efficiently a greater number of molecule–zeolite combinations, it remains overwhelming to apply them to the millions of hypothetical frameworks. Novel topology-based, data-driven approaches have been shown to be adequate in predicting specific features such as adsorption capacity $ ^{6} $ and selectivity. $ ^{26} $ However, there are currently no similar models for entropy.",
+      "original_quote": "^ { 14 } $ and infrared operando spectroscopy , $ ^ { 17 } $ provide experimental routes in measuring the adsorption entropy . < div style = \" text-align : center ; \" > < img src = \" imgs/img_in_image_box_1044_1369_1129_1489.jpg \" alt = \" Image \" width = \" 6 % \" / > < / div >\n\nHowever, performing experiments for many molecule-framework combinations is impractical. Computational experiments of adsorption therefore make for an attractive alternative. Nevertheless, there remain caveats. For example, quantifying the entropy using ab initio-based methods (such as density functional theory) is computationally demanding $ ^{18-22} $ or relies on approximations. $ ^{19} $ Such approximations include (1) limiting translation to the surface area of the zeolite, $ ^{23} $ which artificially restricts the entropy to a surface term; (2) invocation of the “harmonic approximation” based on the assumption of a very strong fluid–solid interaction that renders translations and rotations unimportant; or (3) employing the hindered translator/rotor model. $ ^{24} $ On the other hand, (classical) Monte Carlo (MC) and molecular dynamics simulations have proven successful in accurately calculating the adsorption entropy, $ ^{25} $ with the primary limitation being the number of force fields available to accurately model the adsorbate–adsorbent interaction. Although these simulations are numerically cleaner compared to experiment because they involve analyzing efficiently a greater number of molecule–zeolite combinations, it remains overwhelming to apply them to the millions of hypothetical frameworks. Novel topology-based, data-driven approaches have been shown to be adequate in predicting specific features such as adsorption capacity $ ^{6} $ and selectivity. $ ^{26} $ However, there are currently no similar models for entropy.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "introduction"
+      },
+      "channel": "rag",
+      "scope_tags": [
+        "cation_or_water"
+      ],
+      "relevance_score": 4,
+      "source_score": 0.0125,
+      "graph_paths": [],
+      "applicability": {
+        "record_id": "chunk:8ee2f667b946a68346bce30b",
+        "paper_id": "doi:10.1021/acs.jpcc.0c02671",
+        "decision": "conditional_use",
+        "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+        "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+        "transfer_assumptions": [
+          "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+          "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+        ],
+        "status": "conditional_use"
+      }
+    }
+  ],
+  "kg": [
+    {
+      "record_id": "kg:node:kg-node-f9e5d077b614791a33620d468e9a47cc:1",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "alkanes adsorbed in MFI experience a 3-fold larger loss in rotational degrees of freedom than in the larger pore FAU",
+      "original_quote": "alkanes adsorbed in MFI experience a 3-fold larger loss in rotational degrees of freedom than in the larger pore FAU",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1
+      },
+      "channel": "kg",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 3,
+      "source_score": 23.86736052899452,
+      "graph_paths": [
+        {
+          "nodes": [
+            {
+              "id": "mfi_fau_rotation:source",
+              "type": "physical_quantity",
+              "label": "framework confinement in MFI relative to FAU"
+            },
+            {
+              "id": "mfi_fau_rotation:target",
+              "type": "physical_quantity",
+              "label": "loss of adsorbate rotational degrees of freedom"
+            }
+          ],
+          "edges": [
+            {
+              "id": "mfi_fau_rotation",
+              "source": "mfi_fau_rotation:source",
+              "target": "mfi_fau_rotation:target",
+              "relation": "GREATER_REPORTED_LOSS",
+              "source_paper_id": "pmc:pmc6161062",
+              "review_status": "curated_conditional_association_not_causality",
+              "source_conditions": "Reported zeolite adsorption comparison; linear alkanes, MFI and FAU. Temperature, loading and framework chemistry are not fully resolved in this excerpt.",
+              "transfer_assumptions": [
+                "Transfer to pure-silica rigid frameworks at infinite dilution remains a hypothesis.",
+                "Source-specific percentages and fitted coefficients must not become universal constants.",
+                "Cavity diameter and lsd_f/lsd_p are different geometric quantities; proxy mapping must be justified."
+              ],
+              "support": [
+                {
+                  "quote": "alkanes adsorbed in MFI experience a 3-fold larger loss in rotational degrees of freedom than in the larger pore FAU",
+                  "document_id": "document:7ba8c366c10dc56ab9a75bda",
+                  "locator": {
+                    "kind": "pdf_page",
+                    "page": 1
+                  }
+                }
+              ]
+            }
+          ],
+          "interpretation": "Source-qualified association; target-regime validity unproven."
+        }
+      ],
+      "applicability": {
+        "source_conditions": "Reported zeolite adsorption comparison; linear alkanes, MFI and FAU. Temperature, loading and framework chemistry are not fully resolved in this excerpt.",
+        "transfer_assumptions": [
+          "Transfer to pure-silica rigid frameworks at infinite dilution remains a hypothesis.",
+          "Source-specific percentages and fitted coefficients must not become universal constants.",
+          "Cavity diameter and lsd_f/lsd_p are different geometric quantities; proxy mapping must be justified."
+        ],
+        "proxy_inputs": [
+          "lsd_f",
+          "lsd_p",
+          "PMI1",
+          "PMI2",
+          "PMI3"
+        ],
+        "proxy_caveat": "D0 inputs are proxies, not measurements of lost freedom. AV is per framework mass, not molecular free volume. Normalized ratios do not preserve physical threshold 1.",
+        "status": "conditional_use"
+      },
+      "mechanism_id": "mfi_fau_rotation"
+    },
+    {
+      "record_id": "kg:node:kg-node-881f6860485ff9825beb6894323a720b:0",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "Also, more rotational entropy was lost in smaller pore zeolites (FER $ \\sim $ 4.3 Å) when compared to larger pore zeolites (FAU $ \\sim $ 13 Å); in this case, the average cavity diameter is a descriptor for zeolite framework and indicates the extent of confinement.",
+      "original_quote": "Also, more rotational entropy was lost in smaller pore zeolites (FER $ \\sim $ 4.3 Å) when compared to larger pore zeolites (FAU $ \\sim $ 13 Å); in this case, the average cavity diameter is a descriptor for zeolite framework and indicates the extent of confinement.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1
+      },
+      "channel": "kg",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 4,
+      "source_score": 15.770405072652961,
+      "graph_paths": [
+        {
+          "nodes": [
+            {
+              "id": "cavity_rotation:source",
+              "type": "physical_quantity",
+              "label": "smaller cavity diameter in the reported FER/FAU comparison"
+            },
+            {
+              "id": "cavity_rotation:target",
+              "type": "physical_quantity",
+              "label": "loss of adsorbate rotational entropy"
+            }
+          ],
+          "edges": [
+            {
+              "id": "cavity_rotation",
+              "source": "cavity_rotation:source",
+              "target": "cavity_rotation:target",
+              "relation": "GREATER_REPORTED_LOSS",
+              "source_paper_id": "pmc:pmc6161062",
+              "review_status": "curated_conditional_association_not_causality",
+              "source_conditions": "Reported zeolite adsorption comparison; FER/FAU cavity comparison. Temperature, loading and framework chemistry are not fully resolved in this excerpt.",
+              "transfer_assumptions": [
+                "Transfer to pure-silica rigid frameworks at infinite dilution remains a hypothesis.",
+                "Source-specific percentages and fitted coefficients must not become universal constants.",
+                "Cavity diameter and lsd_f/lsd_p are different geometric quantities; proxy mapping must be justified."
+              ],
+              "support": [
+                {
+                  "quote": "Also, more rotational entropy was lost in smaller pore zeolites (FER $ \\sim $ 4.3 Å) when compared to larger pore zeolites (FAU $ \\sim $ 13 Å); in this case, the average cavity diameter is a descriptor for zeolite framework and indicates the extent of confinement.",
+                  "document_id": "document:7ba8c366c10dc56ab9a75bda",
+                  "locator": {
+                    "kind": "pdf_page",
+                    "page": 1
+                  }
+                }
+              ]
+            }
+          ],
+          "interpretation": "Source-qualified association; target-regime validity unproven."
+        }
+      ],
+      "applicability": {
+        "source_conditions": "Reported zeolite adsorption comparison; FER/FAU cavity comparison. Temperature, loading and framework chemistry are not fully resolved in this excerpt.",
+        "transfer_assumptions": [
+          "Transfer to pure-silica rigid frameworks at infinite dilution remains a hypothesis.",
+          "Source-specific percentages and fitted coefficients must not become universal constants.",
+          "Cavity diameter and lsd_f/lsd_p are different geometric quantities; proxy mapping must be justified."
+        ],
+        "proxy_inputs": [
+          "lsd_f",
+          "lsd_p",
+          "GeDi"
+        ],
+        "proxy_caveat": "D0 inputs are proxies, not measurements of lost freedom. AV is per framework mass, not molecular free volume. Normalized ratios do not preserve physical threshold 1.",
+        "status": "conditional_use"
+      },
+      "mechanism_id": "cavity_rotation"
+    },
+    {
+      "record_id": "kg:edge:kg-edge-1cae791bdbd219d2107e377717821edc:15",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "Adsorption can therefore be best described by considering entropic losses due to both translational and rotational motions",
+      "original_quote": "Adsorption can therefore be best described by considering entropic losses due to both translational and rotational motions",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1
+      },
+      "channel": "kg",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 4,
+      "source_score": 12.93010659580075,
+      "graph_paths": [
+        {
+          "nodes": [
+            {
+              "id": "translation_rotation:source",
+              "type": "physical_quantity",
+              "label": "adsorbate translational and rotational motions"
+            },
+            {
+              "id": "translation_rotation:target",
+              "type": "physical_quantity",
+              "label": "adsorption entropy losses"
+            }
+          ],
+          "edges": [
+            {
+              "id": "translation_rotation",
+              "source": "translation_rotation:source",
+              "target": "translation_rotation:target",
+              "relation": "REPORTED_CONTRIBUTIONS",
+              "source_paper_id": "pmc:pmc6161062",
+              "review_status": "curated_conditional_association_not_causality",
+              "source_conditions": "Reported zeolite adsorption comparison; translation and rotation of adsorbates. Temperature, loading and framework chemistry are not fully resolved in this excerpt.",
+              "transfer_assumptions": [
+                "Transfer to pure-silica rigid frameworks at infinite dilution remains a hypothesis.",
+                "Source-specific percentages and fitted coefficients must not become universal constants.",
+                "Cavity diameter and lsd_f/lsd_p are different geometric quantities; proxy mapping must be justified."
+              ],
+              "support": [
+                {
+                  "quote": "Adsorption can therefore be best described by considering entropic losses due to both translational and rotational motions",
+                  "document_id": "document:7ba8c366c10dc56ab9a75bda",
+                  "locator": {
+                    "kind": "pdf_page",
+                    "page": 1
+                  }
+                }
+              ]
+            }
+          ],
+          "interpretation": "Source-qualified association; target-regime validity unproven."
+        }
+      ],
+      "applicability": {
+        "source_conditions": "Reported zeolite adsorption comparison; translation and rotation of adsorbates. Temperature, loading and framework chemistry are not fully resolved in this excerpt.",
+        "transfer_assumptions": [
+          "Transfer to pure-silica rigid frameworks at infinite dilution remains a hypothesis.",
+          "Source-specific percentages and fitted coefficients must not become universal constants.",
+          "Cavity diameter and lsd_f/lsd_p are different geometric quantities; proxy mapping must be justified."
+        ],
+        "proxy_inputs": [
+          "AV",
+          "Vol",
+          "PMI1",
+          "PMI2",
+          "PMI3"
+        ],
+        "proxy_caveat": "D0 inputs are proxies, not measurements of lost freedom. AV is per framework mass, not molecular free volume. Normalized ratios do not preserve physical threshold 1.",
+        "status": "conditional_use"
+      },
+      "mechanism_id": "translation_rotation"
+    },
+    {
+      "record_id": "kg:node:kg-node-587bd87b40facdd05193874e66354ebc:0",
+      "paper_id": "pmc:pmc6161062",
+      "document_id": "document:7ba8c366c10dc56ab9a75bda",
+      "quote": "Linear alkanes lose approximately 38% of their gas-phase entropy upon adsorption in MFI, a medium pore zeolite, while experiencing a smaller loss of 20% in the larger pore FAU framework.",
+      "original_quote": "Linear alkanes lose approximately 38% of their gas-phase entropy upon adsorption in MFI, a medium pore zeolite, while experiencing a smaller loss of 20% in the larger pore FAU framework.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1
+      },
+      "channel": "kg",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 3,
+      "source_score": 14.453780282297561,
+      "graph_paths": [
+        {
+          "nodes": [
+            {
+              "id": "mfi_fau_entropy:source",
+              "type": "physical_quantity",
+              "label": "MFI relative to larger-pore FAU for linear alkanes"
+            },
+            {
+              "id": "mfi_fau_entropy:target",
+              "type": "physical_quantity",
+              "label": "fraction of gas-phase entropy lost on adsorption"
+            }
+          ],
+          "edges": [
+            {
+              "id": "mfi_fau_entropy",
+              "source": "mfi_fau_entropy:source",
+              "target": "mfi_fau_entropy:target",
+              "relation": "GREATER_REPORTED_LOSS",
+              "source_paper_id": "pmc:pmc6161062",
+              "review_status": "curated_conditional_association_not_causality",
+              "source_conditions": "Reported zeolite adsorption comparison; linear alkanes, MFI and FAU. Temperature, loading and framework chemistry are not fully resolved in this excerpt.",
+              "transfer_assumptions": [
+                "Transfer to pure-silica rigid frameworks at infinite dilution remains a hypothesis.",
+                "Source-specific percentages and fitted coefficients must not become universal constants.",
+                "Cavity diameter and lsd_f/lsd_p are different geometric quantities; proxy mapping must be justified."
+              ],
+              "support": [
+                {
+                  "quote": "Linear alkanes lose approximately 38% of their gas-phase entropy upon adsorption in MFI, a medium pore zeolite, while experiencing a smaller loss of 20% in the larger pore FAU framework.",
+                  "document_id": "document:7ba8c366c10dc56ab9a75bda",
+                  "locator": {
+                    "kind": "pdf_page",
+                    "page": 1
+                  }
+                }
+              ]
+            }
+          ],
+          "interpretation": "Source-qualified association; target-regime validity unproven."
+        }
+      ],
+      "applicability": {
+        "source_conditions": "Reported zeolite adsorption comparison; linear alkanes, MFI and FAU. Temperature, loading and framework chemistry are not fully resolved in this excerpt.",
+        "transfer_assumptions": [
+          "Transfer to pure-silica rigid frameworks at infinite dilution remains a hypothesis.",
+          "Source-specific percentages and fitted coefficients must not become universal constants.",
+          "Cavity diameter and lsd_f/lsd_p are different geometric quantities; proxy mapping must be justified."
+        ],
+        "proxy_inputs": [
+          "AV",
+          "lsd_f",
+          "lsd_p",
+          "Vol"
+        ],
+        "proxy_caveat": "D0 inputs are proxies, not measurements of lost freedom. AV is per framework mass, not molecular free volume. Normalized ratios do not preserve physical threshold 1.",
+        "status": "conditional_use"
+      },
+      "mechanism_id": "mfi_fau_entropy"
+    },
+    {
+      "record_id": "chunk:878e3cf9557831b0616715f9",
+      "paper_id": "doi:10.1002/cphc.201701084",
+      "document_id": "document:2599bae9c40111b40c45ccef",
+      "quote": "and rotational movements of the guest molecule relative to the zeolite host as vibrations under the rigid rotor-harmonic oscillator ( RRHO ) approximation has been shown to overestimate the entropy losses associated with the adsorption of the guest molecules from the gas phase into the zeolite pores . $ ^ { [ 59 , 84 , 85 ] } $ In their study of hydrocarbon adsorption in zeolites, De Moor et al. demonstrated that the entropy cannot be calculated correctly by treating the guest molecules as immobile adsorbates in the RRHO approximation, and that the remaining mobility of the adsorbed species at the active sites needs to be taken into account. $ ^{[85]} $ The authors suggested an alternative, mobile adsorbate calculation, which uses a so-called mobile block analysis of the Hessian (MBH) $ ^{[86,87]} $ to identify those low-frequency modes corresponding to overall global translations and rotations of the guest molecule relative to the framework. Once identified, the contributions of the modes to the partition function are replaced by the correct ones for translational or rotational motions.",
+      "original_quote": "and rotational movements of the guest molecule relative to the zeolite host as vibrations under the rigid rotor-harmonic oscillator ( RRHO ) approximation has been shown to overestimate the entropy losses associated with the adsorption of the guest molecules from the gas phase into the zeolite pores . $ ^ { [ 59 , 84 , 85 ] } $\n\nIn their study of hydrocarbon adsorption in zeolites, De Moor et al. demonstrated that the entropy cannot be calculated correctly by treating the guest molecules as immobile adsorbates in the RRHO approximation, and that the remaining mobility of the adsorbed species at the active sites needs to be taken into account. $ ^{[85]} $ The authors suggested an alternative, mobile adsorbate calculation, which uses a so-called mobile block analysis of the Hessian (MBH) $ ^{[86,87]} $ to identify those low-frequency modes corresponding to overall global translations and rotations of the guest molecule relative to the framework. Once identified, the contributions of the modes to the partition function are replaced by the correct ones for translational or rotational motions.",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "3.3. thermochemical calculations"
+      },
+      "channel": "kg",
+      "scope_tags": [
+        "conditions_not_explicit_in_excerpt"
+      ],
+      "relevance_score": 5,
+      "source_score": 0.01639344262295082,
+      "graph_paths": [
+        {
+          "nodes": [
+            {
+              "id": "rrho_mobility:source",
+              "type": "physical_quantity",
+              "label": "immobile RRHO treatment of guest molecules"
+            },
+            {
+              "id": "rrho_mobility:target",
+              "type": "physical_quantity",
+              "label": "adsorption entropy error when retained mobility is neglected"
+            }
+          ],
+          "edges": [
+            {
+              "id": "rrho_mobility",
+              "source": "rrho_mobility:source",
+              "target": "rrho_mobility:target",
+              "relation": "REPORTED_APPROXIMATION_LIMITATION",
+              "source_paper_id": "doi:10.1002/cphc.201701084",
+              "review_status": "curated_conditional_association_not_causality",
+              "source_conditions": "Review of hydrocarbon adsorption calculations at zeolite active sites; not a direct pure-silica universal law",
+              "transfer_assumptions": [
+                "Source claim is conditional and does not demonstrate the relation in this benchmark.",
+                "PMI and pore diameters are imperfect proxies for rotational freedom; preserve the distinction between cages and free-path diameters."
+              ],
+              "support": [
+                {
+                  "quote": "the entropy cannot be calculated correctly by treating the guest molecules as immobile adsorbates in the RRHO approximation, and that the remaining mobility of the adsorbed species at the active sites needs to be taken into account.",
+                  "document_id": "document:2599bae9c40111b40c45ccef",
+                  "locator": {
+                    "kind": "markdown_section",
+                    "section": "3.3. thermochemical calculations"
+                  }
+                }
+              ]
+            }
+          ],
+          "interpretation": "Source-qualified association; target-regime validity unproven."
+        }
+      ],
+      "applicability": {
+        "source_conditions": "Review of hydrocarbon adsorption calculations at zeolite active sites; not a direct pure-silica universal law",
+        "transfer_assumptions": [
+          "Source claim is conditional and does not demonstrate the relation in this benchmark.",
+          "PMI and pore diameters are imperfect proxies for rotational freedom; preserve the distinction between cages and free-path diameters."
+        ],
+        "proxy_inputs": [
+          "PMI1",
+          "PMI2",
+          "PMI3",
+          "lsd_f",
+          "lsd_p"
+        ],
+        "proxy_caveat": "This source motivates an explicitly testable hypothesis; it supplies no fitted formula coefficients.",
+        "status": "conditional_use"
+      },
+      "mechanism_id": "rrho_mobility"
+    },
+    {
+      "record_id": "chunk:51aa804bfe1967d7ebb1d76f",
+      "paper_id": "doi:10.1021/jp060657s",
+      "document_id": "document:efa163ae1d6a7d3f748b3c99",
+      "quote": "break-word ; ' > 1.07 $ ^ { a } $ Length of the molecule . $ ^ { b } $ Radius in the central section of the supercage . $ ^ { c } $ Radius in the upper and lower pockets of the supercage . interconnect these cages. Molecular dynamics simulations showed that diffusion of 2-MeC6 in MCM-22 (between 450 and 850 K) in the sinusoidal 10-MR channels does not occur to a significant extent. $ ^{67} $ That study also stated that interstage diffusion (in the short bridges that connect the neighboring supercages) does not happen (for n-C7 and 2-MeC6) until elevated temperatures so that molecules spend most of their time inside the cage. In an NMR study of xenon adsorption in zeolite MCM-22, it was found that, particularly at low coverage, xenon atoms predominantly prefer to locate inside the supercages. $ ^{68} $ During the discussions of infrared spectrometric (IR) results, $ ^{69} $ it was declared that the supercages constitute about 70% of the micropore volume, indicating that the majority of the adsorption phenomenon is happening there. This argument was strengthened by the modeling calculations. $ ^{70} $ The authors determined the adsorption isotherm of n-C6 and 3-MeC5 at various temperatures on ITQ-1, the pure silica analogue of MCM-22, and suggested that three out of four adsorbate molecules are located in the large cages and one molecule in the sinusoidal channel system, which is in agreement with the supremacy of adsorption inside the supercages. In summary, on the basis of supporting information from literature, adsorption of linear and singly branched molecules will be considered, occurring principally inside the supercages of MCM-22. As the adsorbed molecules, whether they are linear or branched, are confined in a closed space, i.e., the supercage, their losses in translational and vibrational degrees of freedom will be comparable. Differences in rotational freedom in the supercages of MCM-22 may have a substantial impact on the adsorption equilibrium. Rotational entropy of the different species was qualitatively analyzed by comparing the radius of gyration of each molecule to the available space in the",
+      "original_quote": "break-word ; ' > 1.07 < / td > < / tr > < / table > $ ^ { a } $ Length of the molecule . $ ^ { b } $ Radius in the central section of the supercage . $ ^ { c } $ Radius in the upper and lower pockets of the supercage .\n\ninterconnect these cages. Molecular dynamics simulations showed that diffusion of 2-MeC6 in MCM-22 (between 450 and 850 K) in the sinusoidal 10-MR channels does not occur to a significant extent. $ ^{67} $ That study also stated that interstage diffusion (in the short bridges that connect the neighboring supercages) does not happen (for n-C7 and 2-MeC6) until elevated temperatures so that molecules spend most of their time inside the cage. In an NMR study of xenon adsorption in zeolite MCM-22, it was found that, particularly at low coverage, xenon atoms predominantly prefer to locate inside the supercages. $ ^{68} $ During the discussions of infrared spectrometric (IR) results, $ ^{69} $ it was declared that the supercages constitute about 70% of the micropore volume, indicating that the majority of the adsorption phenomenon is happening there. This argument was strengthened by the modeling calculations. $ ^{70} $ The authors determined the adsorption isotherm of n-C6 and 3-MeC5 at various temperatures on ITQ-1, the pure silica analogue of MCM-22, and suggested that three out of four adsorbate molecules are located in the large cages and one molecule in the sinusoidal channel system, which is in agreement with the supremacy of adsorption inside the supercages. In summary, on the basis of supporting information from literature, adsorption of linear and singly branched molecules will be considered, occurring principally inside the supercages of MCM-22.\n\nAs the adsorbed molecules, whether they are linear or branched, are confined in a closed space, i.e., the supercage, their losses in translational and vibrational degrees of freedom will be comparable. Differences in rotational freedom in the supercages of MCM-22 may have a substantial impact on the adsorption equilibrium. Rotational entropy of the different species was qualitatively analyzed by comparing the radius of gyration of each molecule to the available space in the\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_636_95_1115_472.jpg\" alt=\"Image\" width=\"39%\" /></div>",
+      "quote_transform": "HTML and whitespace cleanup only; all paragraphs retained",
+      "locator": {
+        "kind": "markdown_section",
+        "section": "discussion"
+      },
+      "channel": "kg",
+      "scope_tags": [
+        "pure_silica"
+      ],
+      "relevance_score": 5,
+      "source_score": 0.014492753623188406,
+      "graph_paths": [
+        {
+          "nodes": [
+            {
+              "id": "cage_rotational_equilibrium:source",
+              "type": "physical_quantity",
+              "label": "differences in molecular rotational freedom inside MCM-22 supercages"
+            },
+            {
+              "id": "cage_rotational_equilibrium:target",
+              "type": "physical_quantity",
+              "label": "adsorption equilibrium"
+            }
+          ],
+          "edges": [
+            {
+              "id": "cage_rotational_equilibrium",
+              "source": "cage_rotational_equilibrium:source",
+              "target": "cage_rotational_equilibrium:target",
+              "relation": "SOURCE_PROPOSES_POSSIBLE_EFFECT",
+              "source_paper_id": "doi:10.1021/jp060657s",
+              "review_status": "curated_conditional_association_not_causality",
+              "source_conditions": "Linear and singly branched molecules predominantly in MCM-22 supercages; source also discusses diffusion at 450–850 K. Transfer to all frameworks and 298 K unproven",
+              "transfer_assumptions": [
+                "Source claim is conditional and does not demonstrate the relation in this benchmark.",
+                "PMI and pore diameters are imperfect proxies for rotational freedom; preserve the distinction between cages and free-path diameters."
+              ],
+              "support": [
+                {
+                  "quote": "Differences in rotational freedom in the supercages of MCM-22 may have a substantial impact on the adsorption equilibrium.",
+                  "document_id": "document:efa163ae1d6a7d3f748b3c99",
+                  "locator": {
+                    "kind": "markdown_section",
+                    "section": "discussion"
+                  }
+                }
+              ]
+            }
+          ],
+          "interpretation": "Source-qualified association; target-regime validity unproven."
+        }
+      ],
+      "applicability": {
+        "source_conditions": "Linear and singly branched molecules predominantly in MCM-22 supercages; source also discusses diffusion at 450–850 K. Transfer to all frameworks and 298 K unproven",
+        "transfer_assumptions": [
+          "Source claim is conditional and does not demonstrate the relation in this benchmark.",
+          "PMI and pore diameters are imperfect proxies for rotational freedom; preserve the distinction between cages and free-path diameters."
+        ],
+        "proxy_inputs": [
+          "PMI1",
+          "PMI2",
+          "PMI3",
+          "GeDi",
+          "lsd_f",
+          "lsd_p"
+        ],
+        "proxy_caveat": "This source motivates an explicitly testable hypothesis; it supplies no fitted formula coefficients.",
+        "status": "conditional_use"
+      },
+      "mechanism_id": "cage_rotational_equilibrium"
+    }
+  ],
+  "rejected": [
+    {
+      "channel": "rag",
+      "record_id": "chunk:b8b9250d05e1f297cbfd0fd1",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:6fdbe0d90c714b57131a555d",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:70137e579ffdfe0830d0853f",
+      "reason": "missing_target_mechanism"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:b6803b3a330aee580d04f1ab",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:4ee093d81da6b5c01358e0ca",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:857fac381c61445d2ce1a415",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:869af4527dd765744b7ebc76",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:9ccf86b591181c4efd577e29",
+      "reason": "NH3 at Cu sites requires different interaction model"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:ae7cd57a2cbbb7dc3608954a",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:748c04bb76538a760b350aa0",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:cdbfb43c28a3c70f95ba6aaa",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:0b6fce1b4115d3cc5c95c639",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:19da3216ec469dc3dd0513ca",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:2b8ddcdf065b64deb15b450b",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:ee87d41e15bd69a9e0f6946b",
+      "reason": "Activation entropy is not adsorption entropy"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:76ca7b8b99984fbb40eab7d8",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:8b8a3218b92a9531ca89664e",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:fe3a68996be5a20975894e08",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:3c0bf6cb8f9e9bd9e77ede8a",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:e8492443a3017427a37498f6",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:e6c2e1e4265190e15123d639",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:f8f171ae26a62a07e848dd95",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:09552a48e1e1648cc446fae9",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:21730041f0d7c792e2a0b8e3",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:47fe454e9986e820fa0da412",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:de9fad1322f297bfaaac6cf3",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:51a8f195afe2a488af43c428",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:4026972257ea3461741388c4",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:d8eef552eba72a99f7974a84",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:f97fe7855115ae8ce0f58527",
+      "reason": "excluded_identity"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:d0194a3e3577ffd7ea34c48c",
+      "reason": "excluded_identity"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:284bd753c3b7265971a69c86",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:8dd99e6f4fc8a3c4e46d940b",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:6dfd4c9dd250f5414a82938f",
+      "reason": "NH3 at Cu sites requires different interaction model"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:7ae3b1541d9380f3e0601841",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:01d0cb8bf43d75bbc448e004",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:4e0a09f3bacb310a3d0b505c",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:6e3b310eb7c21b4c7481c2e9",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:d02110e1acc36143bbc11c32",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:30f7edcc9b3ead69c0e65ec3",
+      "reason": "excluded_identity"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:29da9fa744d3a5295be08d80",
+      "reason": "excluded_identity"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:7e2b24b828c321ce16e42b3d",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:954f2df38fd7bc1c3252fd7b",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:e3ee147f884c3f765d75e734",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:554d8c873a29fb7fba436858",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:3785d42bc139a6fa05f91d29",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:c2e53a226386622916ad078c",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:d52b47528dc9757d7e603c4f",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:ded7b419a6242f043e1bc238",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:8844c0f3f4b5cb5f2a29f1d3",
+      "reason": "excluded_identity"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:5c864c41e1ab2dfff7446ff9",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:f4aae0c75c659c52d83efcc8",
+      "reason": "excluded_identity"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:f57034773147c7e136aeaaf4",
+      "reason": "excluded_identity"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:18de89f2a91a2afad96e693e",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:73f85a691ed6b42638672f4d",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:f2564e93b14b7e36fa00613f",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:08ab532bacb5318bbfa91ece",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:5441450b19cd646bc83d9de8",
+      "reason": "excluded_identity"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:e913417b45806153c3491b5d",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:1153aaf48b8281abd467122d",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:7b7985fcb8fa7e75ad5d21c1",
+      "reason": "excluded_identity"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:8ffcc4698d37d4f5569d53f5",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:6548d8cfcf6b0a54557fd663",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:780c5f690f3ead9c996b9e32",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:ce7c43688f0a6a2c48654157",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:dc13b3ceb7000cd22e7c0a59",
+      "reason": "Transition-state calculation rather than target adsorption equilibrium"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:e9cbd53c505a6b75d1635039",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:390fa87db9c99c6447a261b3",
+      "reason": "Transition-state confinement in protonic catalysis"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:f2455f156bfe4fa71f154cba",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:ecf3b350af8d5c09a9a10048",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:8121aac9f96e0994f59f4a79",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:50facfa2151322e584a8534e",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:a70148c12db21280238f605c",
+      "reason": "excluded_identity"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:a634b5bc74cc19185fbedb2d",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:133ec07c6c4451431e620d1a",
+      "reason": "excluded_identity"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:379bb83d7ecb9222dc8e5eed",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:0be9df7a1b1ede1dfa892c03",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "rag",
+      "record_id": "chunk:d3a799358d58da57167e96f1",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-f9e5d077b614791a33620d468e9a47cc:0",
+      "reason": "Fitted entropy-loss coefficients require outcome data; not available predictors"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:edge:kg-edge-1cae791bdbd219d2107e377717821edc:3",
+      "reason": "Caption without a qualified quantitative or directional mechanism"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-a50ddebfe65709d8e1c675796e71b372:0",
+      "reason": "Fragment lacks conditions and relation direction"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-a0b51af8d4ccd92978858567ae166435:0",
+      "reason": "Framework tetrahedral flexibility differs from adsorbate motion in rigid frameworks"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-a8ddddb19e32061fe535866cebdf90ae:0",
+      "reason": "One-third rule without recovered applicability; requires full-source review"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-f8544a1c9b34ac86fc42564fa55db7ca:0",
+      "reason": "Tethered chromophore phosphorescence is not the target adsorption equilibrium"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-07bd956a21aecc1bd3ad055d056b5997:0",
+      "reason": "H-MFI entropy table reference lacks mechanism and material transfer justification"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-28db8a3cc13fda820b64f35ed9e89639:0",
+      "reason": "Regression-fitted entropy coefficients require outcomes"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-fb5fdf8384003bfd89d065e8b3e76fd5:0",
+      "reason": "Rotational diffusivity is a kinetic observable in NaY"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-0442f01df46af805bb483a98cba6b3d0:0",
+      "reason": "Quantum hydrogen rotational spectra are outside the target regime"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-0dbbf6bc898a16c75ddf8d18a5dddf1c:0",
+      "reason": "Reaction activation thermodynamics rather than adsorption entropy"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-11cc859b3288d4e5ce708337b5ae3677:0",
+      "reason": "Partial transition-state confinement in reaction kinetics"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-1a20e9c15422e86e6b43eedfe72a08cf:0",
+      "reason": "Transition-state calculation rather than target adsorption equilibrium"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-64f97ec700d3cb8f9e981ac509ed9e8b:0",
+      "reason": "Activation entropy is not adsorption entropy"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-6b5e0b14cbd114ee6e1f171db14a09a8:0",
+      "reason": "Transition-state confinement in protonic catalysis"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-9cc316ce6631bfe17ed9d7298b64e863:0",
+      "reason": "NH3 at Cu sites requires different interaction model"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-bdf6ec854273733f46da91c20ee1bc08:0",
+      "reason": "Reaction activation thermodynamics rather than adsorption entropy"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-e41a88ab6d1c516c2c507f1692cbbcb9:0",
+      "reason": "Activation entropy is not adsorption entropy"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-ec186d5c21c395731cf25fdcc27002b9:0",
+      "reason": "Transition-state calculation rather than target adsorption equilibrium"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-b9fa9466be3a1f6e61da341016bb644d:0",
+      "reason": "Internal torsion barriers are not whole-molecule rotational entropy"
+    },
+    {
+      "channel": "kg",
+      "record_id": "kg:node:kg-node-62f62b14ac026eca235b7d48dcd6dd8b:0",
+      "reason": "Aqueous hydronium reaction association differs from target adsorption"
+    }
+  ],
+  "review_revision": "20260929-scope2",
+  "source_audit": {
+    "excluded_paper_ids": [
+      "doi:10.1021/jacsau.4c00429",
+      "doi:10.1126/science.ads7290",
+      "pmc:pmc11672123",
+      "pmid:39735916"
+    ],
+    "excluded_document_ids": [
+      "document:1887d169511f36a3f2d23905",
+      "document:9c21eb83adbf1821161a64df",
+      "document:ad183880ced31c026e20c474"
+    ],
+    "independent_identity_guard": true
+  },
+  "review_protocol": "V3 manual source applicability review; no score-dependent selection; unresolved conditions explicitly retained",
+  "retrieval_policy": "Frozen audited pool; query reranking cannot fetch new papers.",
+  "eligible_counts": {
+    "rag": 23,
+    "kg": 6
+  },
+  "paper_counts": {
+    "rag": 4,
+    "kg": 3
+  },
+  "status": "ready"
+}

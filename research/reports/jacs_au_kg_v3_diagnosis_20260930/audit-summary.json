@@ -1,0 +1,464 @@
+{
+  "scope": "Read-only retrospective of 12 completed V3 trajectories; no new API calls, model fitting, or server jobs.",
+  "input_records": "research\\reports\\jacs_au_kg_v3_repair_20260929\\server-results",
+  "groups": {
+    "main/agent": {
+      "trajectories": 3,
+      "candidates": 27,
+      "scored": 16,
+      "positive_scored": 6,
+      "retained": 6,
+      "positive_fraction_among_scored": 0.375,
+      "with_log": 7,
+      "full_train_regime": 4,
+      "calls": 10,
+      "all_finish_stop": true,
+      "response_models": [
+        "glm-5.3-flash"
+      ],
+      "mean_api_prompt_tokens_per_call": 3964.1,
+      "mean_api_completion_tokens_per_call": 2061.3,
+      "mean_api_reasoning_tokens_per_call": 344.3,
+      "median_api_reasoning_tokens_per_call": 281.5,
+      "mean_api_reasoning_tokens_per_round": 382.55555555555554,
+      "mean_positive_marginal_gain_pp_relative_d0": 3.30657697071793,
+      "round_mean_gain_pp_relative_d0": [
+        1.6578299463826445,
+        4.917976427696325,
+        0.03734756735689109
+      ],
+      "rejection_reasons": {
+        "Formula unstable inside declared physical regime": 7,
+        "Formula contradicts its declared finite-difference direction": 3,
+        "redundant with an existing input on training data": 1
+      }
+    },
+    "main/rag_agent": {
+      "trajectories": 3,
+      "candidates": 27,
+      "scored": 11,
+      "positive_scored": 4,
+      "retained": 3,
+      "positive_fraction_among_scored": 0.36363636363636365,
+      "with_log": 21,
+      "full_train_regime": 20,
+      "calls": 9,
+      "all_finish_stop": true,
+      "response_models": [
+        "glm-5.3-flash"
+      ],
+      "mean_api_prompt_tokens_per_call": 18030.88888888889,
+      "mean_api_completion_tokens_per_call": 2310,
+      "mean_api_reasoning_tokens_per_call": 325.77777777777777,
+      "median_api_reasoning_tokens_per_call": 301,
+      "mean_api_reasoning_tokens_per_round": 325.77777777777777,
+      "mean_positive_marginal_gain_pp_relative_d0": 2.3352769941826637,
+      "round_mean_gain_pp_relative_d0": [
+        1.1769674227176439,
+        1.00182363137334,
+        0.0
+      ],
+      "rejection_reasons": {
+        "Formula unstable inside declared physical regime": 15,
+        "Formula contradicts its declared finite-difference direction": 1
+      }
+    },
+    "main/small_kg_rag_agent": {
+      "trajectories": 3,
+      "candidates": 27,
+      "scored": 17,
+      "positive_scored": 8,
+      "retained": 6,
+      "positive_fraction_among_scored": 0.47058823529411764,
+      "with_log": 11,
+      "full_train_regime": 9,
+      "calls": 9,
+      "all_finish_stop": true,
+      "response_models": [
+        "glm-5.3-flash"
+      ],
+      "mean_api_prompt_tokens_per_call": 23090.777777777777,
+      "mean_api_completion_tokens_per_call": 1912.4444444444443,
+      "mean_api_reasoning_tokens_per_call": 182,
+      "median_api_reasoning_tokens_per_call": 16,
+      "mean_api_reasoning_tokens_per_round": 182,
+      "mean_positive_marginal_gain_pp_relative_d0": 2.4586185961367764,
+      "round_mean_gain_pp_relative_d0": [
+        1.4290670620145374,
+        4.123844411472897,
+        0.0
+      ],
+      "rejection_reasons": {
+        "Formula contradicts its declared finite-difference direction": 1,
+        "Formula unstable inside declared physical regime": 8,
+        "Unsupported formula symbol or syntax": 1
+      }
+    },
+    "flat/small_kg_rag_agent": {
+      "trajectories": 3,
+      "candidates": 27,
+      "scored": 13,
+      "positive_scored": 8,
+      "retained": 5,
+      "positive_fraction_among_scored": 0.6153846153846154,
+      "with_log": 12,
+      "full_train_regime": 2,
+      "calls": 9,
+      "all_finish_stop": true,
+      "response_models": [
+        "glm-5.3-flash"
+      ],
+      "mean_api_prompt_tokens_per_call": 23149.666666666668,
+      "mean_api_completion_tokens_per_call": 2305.222222222222,
+      "mean_api_reasoning_tokens_per_call": 295.22222222222223,
+      "median_api_reasoning_tokens_per_call": 379,
+      "mean_api_reasoning_tokens_per_round": 295.22222222222223,
+      "mean_positive_marginal_gain_pp_relative_d0": 2.3881694242566547,
+      "round_mean_gain_pp_relative_d0": [
+        0.7688102354604434,
+        0.7914226414347743,
+        3.811809802861654
+      ],
+      "rejection_reasons": {
+        "Formula unstable inside declared physical regime": 11,
+        "Incompatible dimensions in addition, subtraction, minimum or maximum; use matching units or training references": 1,
+        "Formula contradicts its declared finite-difference direction": 2
+      }
+    }
+  },
+  "main_summary": {
+    "agent": {
+      "completed": 3,
+      "expected": 3,
+      "score_gain_pct": {
+        "n": 3,
+        "mean": 6.61315394143586,
+        "std": 1.7694880316917183,
+        "min": 4.6222976025519085,
+        "max": 8.00664764913055
+      },
+      "test_gain_pct_development_diagnostic": {
+        "n": 3,
+        "mean": 2.7843601528291164,
+        "std": 1.3326847482524982,
+        "min": 1.250444988751338,
+        "max": 3.6579800069420876
+      },
+      "positive_test_count": 3,
+      "proposals": 27,
+      "scored": 16,
+      "retained": 6,
+      "rejection_reasons": {
+        "Formula unstable inside declared physical regime": 7,
+        "Formula contradicts its declared finite-difference direction": 3,
+        "redundant with an existing input on training data": 1
+      },
+      "candidates_citing_kg": 0,
+      "retained_citing_kg": 0,
+      "evidence_lexical_tokens": {
+        "n": 9,
+        "mean": 0,
+        "std": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "graph_paths_per_round": {
+        "n": 9,
+        "mean": 0,
+        "std": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "tree_transfer_test_gain_pct": {
+        "native14_hgb": {
+          "n": 3,
+          "mean": -1.5151987503441553,
+          "std": 2.572915325095319,
+          "min": -3.8538241835884848,
+          "max": 1.2409399121042777
+        },
+        "all_raw_hgb": {
+          "n": 3,
+          "mean": 1.2022579291476732,
+          "std": 1.5990705118343664,
+          "min": -0.4276570563613667,
+          "max": 2.7685870721712345
+        }
+      },
+      "scientific_checks": {
+        "consistent": 10,
+        "not_evaluated": 10,
+        "contradicted": 5,
+        "inconclusive": 2
+      },
+      "retained_scientific_checks": {
+        "contradicted": 2,
+        "consistent": 4
+      }
+    },
+    "rag_agent": {
+      "completed": 3,
+      "expected": 3,
+      "score_gain_pct": {
+        "n": 3,
+        "mean": 2.178791054090984,
+        "std": 2.363962204408956,
+        "min": 0.0,
+        "max": 4.692254508179942
+      },
+      "test_gain_pct_development_diagnostic": {
+        "n": 3,
+        "mean": 0.11750802469380221,
+        "std": 2.972047193621292,
+        "min": -2.7940423950355138,
+        "max": 3.1465664691169204
+      },
+      "positive_test_count": 1,
+      "proposals": 27,
+      "scored": 11,
+      "retained": 3,
+      "rejection_reasons": {
+        "Formula unstable inside declared physical regime": 15,
+        "Formula contradicts its declared finite-difference direction": 1
+      },
+      "candidates_citing_kg": 0,
+      "retained_citing_kg": 0,
+      "evidence_lexical_tokens": {
+        "n": 9,
+        "mean": 12898,
+        "std": 0.0,
+        "min": 12898,
+        "max": 12898
+      },
+      "graph_paths_per_round": {
+        "n": 9,
+        "mean": 0,
+        "std": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "tree_transfer_test_gain_pct": {
+        "native14_hgb": {
+          "n": 3,
+          "mean": -0.5598498189865958,
+          "std": 1.1678984409147783,
+          "min": -1.902277859499599,
+          "max": 0.22272840253981152
+        },
+        "all_raw_hgb": {
+          "n": 3,
+          "mean": 1.4313613897409434,
+          "std": 2.0358251524282784,
+          "min": 0.0,
+          "max": 3.7619685474043125
+        }
+      },
+      "scientific_checks": {
+        "not_evaluated": 16,
+        "consistent": 8,
+        "contradicted": 3
+      },
+      "retained_scientific_checks": {
+        "consistent": 1,
+        "contradicted": 2
+      }
+    },
+    "small_kg_rag_agent": {
+      "completed": 3,
+      "expected": 3,
+      "score_gain_pct": {
+        "n": 3,
+        "mean": 5.552911473487433,
+        "std": 0.655177459350552,
+        "min": 4.86321707181216,
+        "max": 6.1670145516321115
+      },
+      "test_gain_pct_development_diagnostic": {
+        "n": 3,
+        "mean": 2.300236474491619,
+        "std": 0.8751994467195874,
+        "min": 1.750963488832481,
+        "max": 3.3095146908552477
+      },
+      "positive_test_count": 3,
+      "proposals": 27,
+      "scored": 17,
+      "retained": 6,
+      "rejection_reasons": {
+        "Formula contradicts its declared finite-difference direction": 1,
+        "Formula unstable inside declared physical regime": 8,
+        "Unsupported formula symbol or syntax": 1
+      },
+      "candidates_citing_kg": 23,
+      "retained_citing_kg": 6,
+      "evidence_lexical_tokens": {
+        "n": 9,
+        "mean": 17224,
+        "std": 0.0,
+        "min": 17224,
+        "max": 17224
+      },
+      "graph_paths_per_round": {
+        "n": 9,
+        "mean": 6,
+        "std": 0.0,
+        "min": 6,
+        "max": 6
+      },
+      "tree_transfer_test_gain_pct": {
+        "native14_hgb": {
+          "n": 3,
+          "mean": -0.02895764066492094,
+          "std": 1.1566593235928402,
+          "min": -0.8413501537548916,
+          "max": 1.2953206352883349
+        },
+        "all_raw_hgb": {
+          "n": 3,
+          "mean": 2.201171283597602,
+          "std": 1.501993779664347,
+          "min": 0.9417880320870196,
+          "max": 3.8635539006525006
+        }
+      },
+      "scientific_checks": {
+        "not_evaluated": 10,
+        "consistent": 14,
+        "contradicted": 2,
+        "inconclusive": 1
+      },
+      "retained_scientific_checks": {
+        "consistent": 3,
+        "contradicted": 2,
+        "inconclusive": 1
+      }
+    }
+  },
+  "flat_summary": {
+    "small_kg_rag_agent": {
+      "completed": 3,
+      "expected": 3,
+      "score_gain_pct": {
+        "n": 3,
+        "mean": 5.3720426797568726,
+        "std": 3.55006838694436,
+        "min": 2.30643070638133,
+        "max": 9.261647973450676
+      },
+      "test_gain_pct_development_diagnostic": {
+        "n": 3,
+        "mean": 1.4033792446662747,
+        "std": 4.1123406405024125,
+        "min": -1.4236426524259789,
+        "max": 6.121024866398178
+      },
+      "positive_test_count": 1,
+      "proposals": 27,
+      "scored": 13,
+      "retained": 5,
+      "rejection_reasons": {
+        "Formula unstable inside declared physical regime": 11,
+        "Incompatible dimensions in addition, subtraction, minimum or maximum; use matching units or training references": 1,
+        "Formula contradicts its declared finite-difference direction": 2
+      },
+      "candidates_citing_kg": 18,
+      "retained_citing_kg": 4,
+      "evidence_lexical_tokens": {
+        "n": 9,
+        "mean": 17464,
+        "std": 0.0,
+        "min": 17464,
+        "max": 17464
+      },
+      "graph_paths_per_round": {
+        "n": 9,
+        "mean": 6,
+        "std": 0.0,
+        "min": 6,
+        "max": 6
+      },
+      "tree_transfer_test_gain_pct": {
+        "native14_hgb": {
+          "n": 3,
+          "mean": -0.6421784528293897,
+          "std": 0.2092825935240031,
+          "min": -0.8788665742281945,
+          "max": -0.4816058017715394
+        },
+        "all_raw_hgb": {
+          "n": 3,
+          "mean": 2.0470130442674033,
+          "std": 1.395986250999812,
+          "min": 0.9412028274637904,
+          "max": 3.6156274793419887
+        }
+      },
+      "scientific_checks": {
+        "not_evaluated": 14,
+        "consistent": 13
+      },
+      "retained_scientific_checks": {
+        "consistent": 5
+      }
+    }
+  },
+  "paired_fact_checks": [
+    {
+      "replicate": 1,
+      "rounds": [
+        {
+          "round": 1,
+          "same_facts": true
+        },
+        {
+          "round": 2,
+          "same_facts": true
+        },
+        {
+          "round": 3,
+          "same_facts": true
+        }
+      ]
+    },
+    {
+      "replicate": 2,
+      "rounds": [
+        {
+          "round": 1,
+          "same_facts": true
+        },
+        {
+          "round": 2,
+          "same_facts": true
+        },
+        {
+          "round": 3,
+          "same_facts": true
+        }
+      ]
+    },
+    {
+      "replicate": 3,
+      "rounds": [
+        {
+          "round": 1,
+          "same_facts": true
+        },
+        {
+          "round": 2,
+          "same_facts": true
+        },
+        {
+          "round": 3,
+          "same_facts": true
+        }
+      ]
+    }
+  ],
+  "scientific_cautions": [
+    "Generated replicate ids are not paired random seeds; do not treat independent generation draws as a controlled candidate-paired intervention.",
+    "All generation replicates use one data split and ANN fit seed 3.",
+    "All new descriptors are deterministic functions of native D0.",
+    "No mechanism is validated merely by predictive gain or evidence citation."
+  ]
+}

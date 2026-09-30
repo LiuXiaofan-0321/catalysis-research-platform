@@ -1,0 +1,1124 @@
+{
+  "status": "completed",
+  "benchmark": "10.1021/jacsau.4c00429",
+  "model": "glm-5.3-flash",
+  "mode": "agent",
+  "replicate": 2,
+  "protocol": "3 rounds x 3 proposals; one positive scoring winner at most per round",
+  "fit_seed": 3,
+  "epochs": 4000,
+  "evidence": [],
+  "rounds": [
+    {
+      "round": 1,
+      "before_mae_R": 0.5756181684880872,
+      "usage": [
+        {
+          "completion_tokens": 1692,
+          "completion_tokens_details": {
+            "reasoning_tokens": 7
+          },
+          "prompt_tokens": 1796,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "total_tokens": 3488
+        },
+        {
+          "completion_tokens": 1623,
+          "completion_tokens_details": {
+            "reasoning_tokens": 72
+          },
+          "prompt_tokens": 3396,
+          "prompt_tokens_details": {
+            "cached_tokens": 64
+          },
+          "total_tokens": 5019
+        }
+      ],
+      "response_model": "glm-5.3-flash",
+      "generations": [
+        {
+          "descriptor_candidates": [
+            {
+              "name": "conf_fit_ratio",
+              "formula": "(Vol / (AV_ref_proxy + 1e-12)) ** 0 * (Vol * density / density_ref) / (AV * density_ref / density_ref)",
+              "rationale": "Invalid: AV is specific volume per framework mass; multiplying by density requires unverified units of density. Replaced below.",
+              "falsification_criteria": "Not a candidate; superseded.",
+              "novelty_status": "uncertain",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "connectivity",
+                "proxy_assumptions": "Rejected placeholder, not evaluated.",
+                "physical_interpretation": "None.",
+                "vary_input": "Vol",
+                "descriptor_direction": "increasing",
+                "regime_input": "AV",
+                "regime_train_quantiles": [
+                  0.0,
+                  1.0
+                ],
+                "entropy_direction": "decreasing"
+              }
+            },
+            {
+              "name": "conf confinement",
+              "formula": "log10(q_Vol / (q_ASA ** 2) )",
+              "hypothesis": "Entropy loss/R grows when the adsorbate volume is large relative to a length scale derived from the framework's accessible surface area: a large Vol/ASA^2 ratio means the molecule nearly fills the channel cross-section, suppressing translational freedom. Falsifiable: within the training regime of large-pore frameworks (q_ASA high), the descriptor should correlate positively with entropy loss/R; if MAE to entropy loss/R does not improve over a monotone baseline fit, or the sign flips across the regime, the confinement mechanism is falsified for this dataset.",
+              "rationale": "Translational entropy loss upon adsorption scales with the fraction of configurational volume removed; molecules whose vdW volume approaches the pore dimension lose more translational entropy (inference from confinement theory, not source-stated).",
+              "falsification_criteria": "On training rows only, in the regime lsd_f above its 0.5 quantile, Spearman sign between descriptor and entropy loss/R must be positive and the nonlinear model MAE with this feature appended must not degrade; otherwise rejected.",
+              "novelty_status": "new_combination",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "translation",
+                "proxy_assumptions": "Pure-silica rigid frameworks at infinite dilution; ASA taken as proxy for pore-wall extent so ASA^2 is a proxy area scale, not a literal pore cross-section; source conditions may differ (finite loading, flexible framework).",
+                "physical_interpretation": "Vol is molecular vdW volume; ASA is probe-accessible framework area per mass. q-ratio unity does not imply geometric equality.",
+                "vary_input": "Vol",
+                "descriptor_direction": "increasing",
+                "regime_input": "lsd_f",
+                "regime_train_quantiles": [
+                  0.5,
+                  1.0
+                ],
+                "entropy_direction": "increasing"
+              }
+            },
+            {
+              "name": "rot_aniso_pore",
+              "formula": "log(q_PMI3 / (q_PMI1 + 1)) * (lsd_p / lsd_f)",
+              "hypothesis": "Rotational entropy loss dominates when adsorbates are strongly anisotropic (PMI3/PMI1 large) AND the pore path is tortuous (lsd_p close to lsd_f); anisotropic molecules in one-dimensional channels cannot freely reorient, so the descriptor should correlate positively with entropy loss/R in narrow-pore frameworks. Falsified if the sign is negative in that regime or if removing the path term (pure anisotropy) predicts equally well, indicating the coupling term adds nothing.",
+              "rationale": "Rotational frustration couples molecular shape anisotropy with pore dimensionality; lsd_p/lsd_f near 1 signals a non-bottlenecked (channel-like) path where reorientation is restricted along one axis (mechanistic inference, not quoted evidence).",
+              "falsification_criteria": "Training rows with lsd_p/lsd_f above its 0.5 quantile and PMI3/PMI1 above its 0.7 quantile must show positive association with entropy loss/R; the ablated model (without lsd_p/lsd_f coupling) must show higher MAE, else the coupling hypothesis is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "rotation",
+                "proxy_assumptions": "PMI ratio as shape-anisotropy proxy; lsd_p/lsd_f as path-dimensionality proxy; assumes rigid pure-silica frameworks and gas-phase molecular geometries transfer to adsorbed state.",
+                "physical_interpretation": "PMI1 and PMI3 are principal moments of inertia; their q-ratio being above/below one reflects relative anisotropy across the training median, not a physical isotropy threshold.",
+                "vary_input": "PMI3",
+                "descriptor_direction": "increasing",
+                "regime_input": "lsd_p",
+                "regime_train_quantiles": [
+                  0.5,
+                  1.0
+                ],
+                "entropy_direction": "increasing"
+              }
+            },
+            {
+              "name": "planarity_fit",
+              "formula": "q_PBF * (1 / (q_density))",
+              "hypothesis": "Planar adsorbates (small PBF) in frameworks of low framework density (spacious lattices) lose less entropy than non-planar molecules in dense frameworks because flat molecules can pack against pore walls with fewer constrained configurations; the product descriptor should correlate positively with entropy loss/R. Falsified if the association is negative within the low-density regime or if the descriptor is dominated by q_density alone (planarity term contributes no MAE reduction).",
+              "rationale": "Shape/shape-match mechanism: planarity (PBF is mean atom height above best-fit plane, so larger PBF = more 3D molecule) combined with framework density (source scale, unit-unresolved, used only via q_density) captures wall-contact configurational restriction (inference, transfer from packing arguments).",
+              "falsification_criteria": "In the training regime q_density below its 0.5 quantile, descriptor direction vs entropy loss/R must be increasing with consistent sign; a finite-difference check increasing PBF at fixed other inputs must raise the descriptor. If the planarity factor's partial contribution is within noise of zero MAE change, hypothesis falsified.",
+              "novelty_status": "uncertain",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "shape",
+                "proxy_assumptions": "PBF measures out-of-plane bulk, not minimum diameter; q_density is used because its physical unit is unresolved; assumes the published density scale is monotone with framework openness so 1/q_density proxies spaciousness.",
+                "physical_interpretation": "PBF in angstrom: near-zero = planar molecule; 1/q_density is a dimensionless openness proxy on the source scale, not a physical volume.",
+                "vary_input": "PBF",
+                "descriptor_direction": "increasing",
+                "regime_input": "density",
+                "regime_train_quantiles": [
+                  0.0,
+                  0.5
+                ],
+                "entropy_direction": "increasing"
+              }
+            }
+          ],
+          "next_retrieval_queries": [
+            "rotational entropy loss anisotropic molecules one-dimensional zeolite channels infinite dilution",
+            "framework density correlation adsorption entropy pure-silica zeolites simulation",
+            "molecular planarity effect configurational entropy loss adsorption confinement"
+          ]
+        },
+        {
+          "descriptor_candidates": [
+            {
+              "name": "conf_volume_surface",
+              "formula": "log10(q_Vol / (q_ASA ** 2))",
+              "hypothesis": "Entropy loss/R increases when adsorbate volume is large relative to a length scale derived from the framework's accessible surface area: a large Vol/ASA^2 ratio means the molecule nearly fills the channel cross-section, suppressing translational freedom. Falsifiable: within the large-pore training regime, the descriptor should correlate positively with entropy loss/R; if the association sign flips or the descriptor adds no MAE reduction over the full 14-input baseline, the confinement mechanism as expressed here is falsified for this dataset.",
+              "rationale": "Translational entropy loss on adsorption scales with the fraction of configurational volume removed; molecules whose vdW volume approaches the pore dimension lose more translational entropy. This is mechanistic inference from confinement theory, not a source-stated relation (source evidence items are empty in this round).",
+              "falsification_criteria": "On training rows only, in the regime lsd_f above its 0.5 training quantile, the sign of association between descriptor and entropy loss/R must be positive (descriptor increasing, entropy increasing) and appending the descriptor must not increase MAE relative to the full 14-input network; otherwise rejected.",
+              "novelty_status": "new_combination",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "translation",
+                "proxy_assumptions": "Pure-silica rigid frameworks at infinite dilution; ASA is treated only as a proxy for pore-wall extent so ASA^2 is a proxy area scale, not a literal pore cross-section; source conditions (possibly finite loading, flexible frameworks) are assumed transferable.",
+                "physical_interpretation": "Vol is the molecular vdW volume, not framework volume; ASA is probe-accessible framework area per framework mass. Unity of the q-ratio does not imply geometric equality of Vol and ASA^2 because the q-normalizations use independent median references.",
+                "vary_input": "Vol",
+                "descriptor_direction": "increasing",
+                "regime_input": "lsd_f",
+                "regime_train_quantiles": [
+                  0.5,
+                  1.0
+                ],
+                "entropy_direction": "increasing"
+              }
+            },
+            {
+              "name": "rot_aniso_pore",
+              "formula": "log(q_PMI3 / (q_PMI1 + 1)) * (lsd_p / lsd_f)",
+              "hypothesis": "Rotational entropy loss dominates when adsorbates are strongly anisotropic (PMI3/PMI1 large) and the diffusion path is channel-like (lsd_p close to lsd_f); anisotropic molecules in effectively one-dimensional channels cannot freely reorient, so the descriptor correlates positively with entropy loss/R in the narrow-pore regime. Falsified if the association is negative in that regime or if ablating the lsd_p/lsd_f coupling term leaves MAE unchanged.",
+              "rationale": "Rotational frustration couples molecular shape anisotropy with pore dimensionality; lsd_p/lsd_f near 1 signals a non-bottlenecked channel-like path where reorientation is restricted along one axis. This is mechanistic inference, not quoted evidence.",
+              "falsification_criteria": "Training rows with lsd_p/lsd_f above its 0.5 training quantile and PMI3/PMI1 above its 0.7 training quantile must show a positive association with entropy loss/R; the ablated model without the lsd_p/lsd_f factor must show higher MAE, otherwise the coupling hypothesis is falsified.",
+              "novelty_status": "new_combination",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "rotation",
+                "proxy_assumptions": "PMI ratio proxies shape anisotropy of the gas-phase geometry, assumed to transfer to the adsorbed state; lsd_p/lsd_f proxies path dimensionality; rigid pure-silica frameworks at infinite dilution assumed.",
+                "physical_interpretation": "PMI1 and PMI3 are principal moments of inertia in angstrom^2*amu; their q-ratio crossing one reflects relative anisotropy against the training median, not a physical isotropy threshold.",
+                "vary_input": "PMI3",
+                "descriptor_direction": "increasing",
+                "regime_input": "lsd_p",
+                "regime_train_quantiles": [
+                  0.5,
+                  1.0
+                ],
+                "entropy_direction": "increasing"
+              }
+            },
+            {
+              "name": "planarity_openness",
+              "formula": "q_PBF * (1 / q_density)",
+              "hypothesis": "Planar adsorbates (small PBF) in frameworks of low source-scale density (spacious lattices) lose less entropy than non-planar molecules in dense frameworks, because flat molecules can adopt more wall-contact configurations; the product descriptor should correlate positively with entropy loss/R in the low-density regime. Falsified if the association is negative there, or if the planarity factor's finite-difference contribution does not move the descriptor and the term adds no MAE reduction.",
+              "rationale": "Shape/shape-match mechanism: PBF is the mean atom height above the best-fit molecular plane (larger PBF = more three-dimensional molecule), combined with framework density used only through q_density because its physical unit is unresolved. This captures wall-contact configurational restriction by inference from packing arguments, not from stated evidence.",
+              "falsification_criteria": "In the training regime density below its 0.5 training quantile, the descriptor must show an increasing association with entropy loss/R with consistent sign; a finite-difference check increasing PBF at fixed other inputs must raise the descriptor. If the planarity term's partial MAE contribution is within noise of zero, the hypothesis is falsified.",
+              "novelty_status": "uncertain",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "shape",
+                "proxy_assumptions": "PBF measures out-of-plane bulk, not molecular minimum diameter; the published density scale is assumed monotone with framework openness without assigning a physical unit; transfer from possibly differing source conditions to pure-silica rigid frameworks at infinite dilution is assumed.",
+                "physical_interpretation": "PBF in angstrom: near zero indicates a planar molecule; 1/q_density is a dimensionless openness proxy on the source scale, not a physical volume, and no equality is implied at q-ratio one.",
+                "vary_input": "PBF",
+                "descriptor_direction": "increasing",
+                "regime_input": "density",
+                "regime_train_quantiles": [
+                  0.0,
+                  0.5
+                ],
+                "entropy_direction": "increasing"
+              }
+            }
+          ],
+          "next_retrieval_queries": [
+            "rotational entropy loss anisotropic adsorbates one-dimensional zeolite channels infinite dilution",
+            "framework density correlation adsorption entropy pure-silica zeolites molecular simulation",
+            "molecular planarity configurational entropy loss confinement adsorption"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "conf_volume_surface",
+          "formula": "log10(q_Vol / (q_ASA ** 2))",
+          "hypothesis": "Entropy loss/R increases when adsorbate volume is large relative to a length scale derived from the framework's accessible surface area: a large Vol/ASA^2 ratio means the molecule nearly fills the channel cross-section, suppressing translational freedom. Falsifiable: within the large-pore training regime, the descriptor should correlate positively with entropy loss/R; if the association sign flips or the descriptor adds no MAE reduction over the full 14-input baseline, the confinement mechanism as expressed here is falsified for this dataset.",
+          "rationale": "Translational entropy loss on adsorption scales with the fraction of configurational volume removed; molecules whose vdW volume approaches the pore dimension lose more translational entropy. This is mechanistic inference from confinement theory, not a source-stated relation (source evidence items are empty in this round).",
+          "falsification_criteria": "On training rows only, in the regime lsd_f above its 0.5 training quantile, the sign of association between descriptor and entropy loss/R must be positive (descriptor increasing, entropy increasing) and appending the descriptor must not increase MAE relative to the full 14-input network; otherwise rejected.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "scientific_test": {
+            "mechanism_family": "translation",
+            "proxy_assumptions": "Pure-silica rigid frameworks at infinite dilution; ASA is treated only as a proxy for pore-wall extent so ASA^2 is a proxy area scale, not a literal pore cross-section; source conditions (possibly finite loading, flexible frameworks) are assumed transferable.",
+            "physical_interpretation": "Vol is the molecular vdW volume, not framework volume; ASA is probe-accessible framework area per framework mass. Unity of the q-ratio does not imply geometric equality of Vol and ASA^2 because the q-normalizations use independent median references.",
+            "vary_input": "Vol",
+            "descriptor_direction": "increasing",
+            "regime_input": "lsd_f",
+            "regime_train_quantiles": [
+              0.5,
+              1.0
+            ],
+            "entropy_direction": "increasing"
+          },
+          "novelty_verified": false,
+          "retained": true,
+          "mechanism_validated": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "scientific_check": {
+            "status": "passed_formula_check",
+            "regime_n": 1208,
+            "native_regime_bounds": [
+              5.16326,
+              7.68726
+            ],
+            "perturbation": 0.7023999999999999,
+            "training_spearman": 0.4252687599554171,
+            "target_association": "consistent",
+            "mechanism_validated": false,
+            "interpretation": "Finite difference checks the declared proxy; training association is observational and may be confounded."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5590379748119418,
+            "mae_J_mol_K": 4.648100343701983,
+            "r2": 0.8874261427487781,
+            "n": 591
+          },
+          "seconds": 39.71429046988487,
+          "marginal_improvement": 0.016580193676145383
+        },
+        {
+          "name": "rot_aniso_pore",
+          "formula": "log(q_PMI3 / (q_PMI1 + 1)) * (lsd_p / lsd_f)",
+          "hypothesis": "Rotational entropy loss dominates when adsorbates are strongly anisotropic (PMI3/PMI1 large) and the diffusion path is channel-like (lsd_p close to lsd_f); anisotropic molecules in effectively one-dimensional channels cannot freely reorient, so the descriptor correlates positively with entropy loss/R in the narrow-pore regime. Falsified if the association is negative in that regime or if ablating the lsd_p/lsd_f coupling term leaves MAE unchanged.",
+          "rationale": "Rotational frustration couples molecular shape anisotropy with pore dimensionality; lsd_p/lsd_f near 1 signals a non-bottlenecked channel-like path where reorientation is restricted along one axis. This is mechanistic inference, not quoted evidence.",
+          "falsification_criteria": "Training rows with lsd_p/lsd_f above its 0.5 training quantile and PMI3/PMI1 above its 0.7 training quantile must show a positive association with entropy loss/R; the ablated model without the lsd_p/lsd_f factor must show higher MAE, otherwise the coupling hypothesis is falsified.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "scientific_test": {
+            "mechanism_family": "rotation",
+            "proxy_assumptions": "PMI ratio proxies shape anisotropy of the gas-phase geometry, assumed to transfer to the adsorbed state; lsd_p/lsd_f proxies path dimensionality; rigid pure-silica frameworks at infinite dilution assumed.",
+            "physical_interpretation": "PMI1 and PMI3 are principal moments of inertia in angstrom^2*amu; their q-ratio crossing one reflects relative anisotropy against the training median, not a physical isotropy threshold.",
+            "vary_input": "PMI3",
+            "descriptor_direction": "increasing",
+            "regime_input": "lsd_p",
+            "regime_train_quantiles": [
+              0.5,
+              1.0
+            ],
+            "entropy_direction": "increasing"
+          },
+          "novelty_verified": false,
+          "retained": false,
+          "mechanism_validated": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "status": "rejected",
+          "reason": "Formula unstable inside declared physical regime"
+        },
+        {
+          "name": "planarity_openness",
+          "formula": "q_PBF * (1 / q_density)",
+          "hypothesis": "Planar adsorbates (small PBF) in frameworks of low source-scale density (spacious lattices) lose less entropy than non-planar molecules in dense frameworks, because flat molecules can adopt more wall-contact configurations; the product descriptor should correlate positively with entropy loss/R in the low-density regime. Falsified if the association is negative there, or if the planarity factor's finite-difference contribution does not move the descriptor and the term adds no MAE reduction.",
+          "rationale": "Shape/shape-match mechanism: PBF is the mean atom height above the best-fit molecular plane (larger PBF = more three-dimensional molecule), combined with framework density used only through q_density because its physical unit is unresolved. This captures wall-contact configurational restriction by inference from packing arguments, not from stated evidence.",
+          "falsification_criteria": "In the training regime density below its 0.5 training quantile, the descriptor must show an increasing association with entropy loss/R with consistent sign; a finite-difference check increasing PBF at fixed other inputs must raise the descriptor. If the planarity term's partial MAE contribution is within noise of zero, the hypothesis is falsified.",
+          "novelty_status": "uncertain",
+          "evidence_ids": [],
+          "scientific_test": {
+            "mechanism_family": "shape",
+            "proxy_assumptions": "PBF measures out-of-plane bulk, not molecular minimum diameter; the published density scale is assumed monotone with framework openness without assigning a physical unit; transfer from possibly differing source conditions to pure-silica rigid frameworks at infinite dilution is assumed.",
+            "physical_interpretation": "PBF in angstrom: near zero indicates a planar molecule; 1/q_density is a dimensionless openness proxy on the source scale, not a physical volume, and no equality is implied at q-ratio one.",
+            "vary_input": "PBF",
+            "descriptor_direction": "increasing",
+            "regime_input": "density",
+            "regime_train_quantiles": [
+              0.0,
+              0.5
+            ],
+            "entropy_direction": "increasing"
+          },
+          "novelty_verified": false,
+          "retained": false,
+          "mechanism_validated": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "scientific_check": {
+            "status": "passed_formula_check",
+            "regime_n": 1181,
+            "native_regime_bounds": [
+              0.759654,
+              1.73742
+            ],
+            "perturbation": 0.0046290119000000005,
+            "training_spearman": 0.2336292788035625,
+            "target_association": "consistent",
+            "mechanism_validated": false,
+            "interpretation": "Finite difference checks the declared proxy; training association is observational and may be confounded."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.6049516959065574,
+            "mae_J_mol_K": 5.029848261403478,
+            "r2": 0.8766362905155385,
+            "n": 591
+          },
+          "seconds": 36.848085045814514,
+          "marginal_improvement": -0.029333527418470173
+        }
+      ],
+      "completion_attempts": [
+        {
+          "max_tokens": 16000,
+          "finish_reason": "stop"
+        },
+        {
+          "max_tokens": 16000,
+          "finish_reason": "stop"
+        }
+      ],
+      "retrieval": {
+        "query": "zeolite adsorption entropy molecular confinement translational rotational freedom",
+        "items": 0,
+        "lexical_tokens": 0,
+        "graph_paths": 0,
+        "kg_selected_items": 0
+      },
+      "full_request_lexical_tokens": 3166,
+      "next_retrieval_queries": [
+        "rotational entropy loss anisotropic adsorbates one-dimensional zeolite channels infinite dilution",
+        "framework density correlation adsorption entropy pure-silica zeolites molecular simulation",
+        "molecular planarity configurational entropy loss confinement adsorption"
+      ],
+      "after_mae_R": 0.5590379748119418,
+      "retained_formula": "log10(q_Vol / (q_ASA ** 2))"
+    },
+    {
+      "round": 2,
+      "before_mae_R": 0.5590379748119418,
+      "usage": [
+        {
+          "completion_tokens": 2132,
+          "completion_tokens_details": {
+            "reasoning_tokens": 496
+          },
+          "prompt_tokens": 4030,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "total_tokens": 6162
+        }
+      ],
+      "response_model": "glm-5.3-flash",
+      "generations": [
+        {
+          "descriptor_candidates": [
+            {
+              "name": "compactness_wallcontact",
+              "formula": "q_PBF * (q_Vol / q_LabuteASA)",
+              "hypothesis": "Entropy loss/R increases for molecules that are simultaneously bulky in three dimensions (large PBF) and compact relative to their exposed surface (high Vol/LabuteASA ratio): such molecules present few low-energy wall-contact configurations once adsorbed, suppressing configurational freedom. The descriptor should correlate positively with entropy loss/R. Falsified if the association sign is negative in the declared regime or if adding the descriptor does not reduce MAE relative to the full 14-input network.",
+              "rationale": "Inferred configurational-counting argument: a globular molecule (large out-of-plane bulk, small surface-to-volume ratio) has fewer distinct ways to place multiple atoms against pore walls, so its adsorbed configurational entropy is more strongly reduced. This is inference from packing statistics, not from any quoted source; evidence items are empty this round.",
+              "falsification_criteria": "On training rows with Vol above its 0.5 training quantile, the Spearman association between the descriptor and entropy loss/R must be positive, and a finite-difference increase of PBF at fixed other inputs must raise the descriptor. If the sign is negative or appending the descriptor raises MAE, the hypothesis is rejected.",
+              "novelty_status": "new_combination",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "shape",
+                "proxy_assumptions": "PBF proxies three-dimensional bulk of the gas-phase geometry, assumed to carry over to the adsorbed state; Vol/LabuteASA is a surface-to-volume compactness proxy, not a literal wall-contact count; rigid pure-silica frameworks at infinite dilution assumed transferable from source conditions.",
+                "physical_interpretation": "q_Vol/q_LabuteASA is a ratio of independently median-normalized quantities with residual length units (angstrom); its numerical value one does not mean Vol equals LabuteASA in any physical sense.",
+                "vary_input": "PBF",
+                "descriptor_direction": "increasing",
+                "regime_input": "Vol",
+                "regime_train_quantiles": [
+                  0.5,
+                  1.0
+                ],
+                "entropy_direction": "increasing"
+              }
+            },
+            {
+              "name": "bottleneck_tortuosity",
+              "formula": "log10(q_lsd_f / q_lsd_p)",
+              "hypothesis": "Entropy loss/R increases when the diffusion path is strongly bottlenecked relative to the largest cavity: a large lsd_f/lsd_p ratio signals cage-window ('breathing-room') topology in which translational motion is confined to narrow windows between larger cages, removing more translational entropy than an open channel of the same lsd_f. The descriptor should correlate positively with entropy loss/R in narrow-cage regimes. Falsified if the association is negative there or the descriptor adds no MAE reduction over the full 14-input baseline.",
+              "rationale": "Inferred cage-window confinement mechanism: at infinite dilution a molecule rattling in a cage connected by tight windows samples a smaller effective configurational volume than one in a straight channel. Distinguishing window-limited from open-channel frameworks is information not captured by the retained Vol/ASA^2 descriptor, making this a distinct translation-family mechanism. All reasoning is inference; no source evidence exists this round.",
+              "falsification_criteria": "On training rows with lsd_f below its 0.5 training quantile, the descriptor must show a positive association with entropy loss/R; a finite-difference increase of lsd_f at fixed lsd_p must raise the descriptor. Negative sign or null MAE contribution falsifies the bottleneck mechanism as expressed here.",
+              "novelty_status": "new_combination",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "translation",
+                "proxy_assumptions": "lsd_f/lsd_p is treated purely as a topological bottleneck proxy; it is a ratio of probe-sphere diameters, not a geometric identity of any real aperture; rigid frameworks and infinite dilution are assumed transferable from possibly differing source conditions.",
+                "physical_interpretation": "Both lsd quantities are probe-derived diameters; the q-normalizations use independent medians, so a q-ratio of one is not a statement that lsd_f equals lsd_p, and a descriptor value of zero is not a physical no-bottleneck threshold.",
+                "vary_input": "lsd_f",
+                "descriptor_direction": "increasing",
+                "regime_input": "lsd_f",
+                "regime_train_quantiles": [
+                  0.0,
+                  0.5
+                ],
+                "entropy_direction": "increasing"
+              }
+            },
+            {
+              "name": "anisotropy_fit_cage",
+              "formula": "(q_PMI3 / q_PMI1) * (q_GeDi / q_lsd_f)",
+              "hypothesis": "Rotational entropy loss/R increases when a strongly anisotropic molecule (PMI3/PMI1 large) is also elongated relative to the pore diameter (GeDi/lsd_f large): such molecules cannot rotate freely inside the cage and must align with the channel axis, so the descriptor correlates positively with entropy loss/R. Falsified if the association is negative in the declared small-pore regime, if ablating the anisotropy factor leaves MAE unchanged, or if the formula is numerically unstable there.",
+              "rationale": "Inferred rotational-frustration mechanism coupling molecular elongation with pore confinement, extending the previously rejected round-1 rotation candidate by replacing the unstable path-ratio coupling with a direct molecular-length/pore-diameter ratio, which removes the lsd_p factor that caused instability. All mechanism content is inference; evidence items are empty.",
+              "falsification_criteria": "On training rows with lsd_f below its 0.5 training quantile and GeDi above its 0.5 training quantile, the descriptor must show a positive association with entropy loss/R and a finite-difference increase of PMI3 at fixed other inputs must raise the descriptor. Negative sign, instability inside the regime, or no marginal MAE reduction falsifies the hypothesis.",
+              "novelty_status": "new_combination",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "rotation",
+                "proxy_assumptions": "Gas-phase principal moments and GeDi are assumed representative of the adsorbed geometry (no conformational change on adsorption); GeDi/lsd_f is a fit proxy, not a literal insertion criterion; rigid pure-silica frameworks at infinite dilution assumed.",
+                "physical_interpretation": "PMI3/PMI1 is a dimensionless anisotropy ratio of independently median-normalized moments; GeDi and lsd_f are both lengths so q_GeDi/q_lsd_f is dimensionless, but unity of neither ratio implies physical equality between the underlying quantities.",
+                "vary_input": "PMI3",
+                "descriptor_direction": "increasing",
+                "regime_input": "lsd_f",
+                "regime_train_quantiles": [
+                  0.0,
+                  0.5
+                ],
+                "entropy_direction": "increasing"
+              }
+            }
+          ],
+          "next_retrieval_queries": [
+            "cage-window versus channel zeolite adsorption entropy simulation differences",
+            "molecular length to pore diameter ratio effect on rotational entropy of adsorbates",
+            "surface-to-volume ratio of adsorbate and configurational entropy loss on adsorption"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "compactness_wallcontact",
+          "formula": "q_PBF * (q_Vol / q_LabuteASA)",
+          "hypothesis": "Entropy loss/R increases for molecules that are simultaneously bulky in three dimensions (large PBF) and compact relative to their exposed surface (high Vol/LabuteASA ratio): such molecules present few low-energy wall-contact configurations once adsorbed, suppressing configurational freedom. The descriptor should correlate positively with entropy loss/R. Falsified if the association sign is negative in the declared regime or if adding the descriptor does not reduce MAE relative to the full 14-input network.",
+          "rationale": "Inferred configurational-counting argument: a globular molecule (large out-of-plane bulk, small surface-to-volume ratio) has fewer distinct ways to place multiple atoms against pore walls, so its adsorbed configurational entropy is more strongly reduced. This is inference from packing statistics, not from any quoted source; evidence items are empty this round.",
+          "falsification_criteria": "On training rows with Vol above its 0.5 training quantile, the Spearman association between the descriptor and entropy loss/R must be positive, and a finite-difference increase of PBF at fixed other inputs must raise the descriptor. If the sign is negative or appending the descriptor raises MAE, the hypothesis is rejected.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "scientific_test": {
+            "mechanism_family": "shape",
+            "proxy_assumptions": "PBF proxies three-dimensional bulk of the gas-phase geometry, assumed to carry over to the adsorbed state; Vol/LabuteASA is a surface-to-volume compactness proxy, not a literal wall-contact count; rigid pure-silica frameworks at infinite dilution assumed transferable from source conditions.",
+            "physical_interpretation": "q_Vol/q_LabuteASA is a ratio of independently median-normalized quantities with residual length units (angstrom); its numerical value one does not mean Vol equals LabuteASA in any physical sense.",
+            "vary_input": "PBF",
+            "descriptor_direction": "increasing",
+            "regime_input": "Vol",
+            "regime_train_quantiles": [
+              0.5,
+              1.0
+            ],
+            "entropy_direction": "increasing"
+          },
+          "novelty_verified": false,
+          "retained": false,
+          "mechanism_validated": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "scientific_check": {
+            "status": "passed_formula_check",
+            "regime_n": 1193,
+            "native_regime_bounds": [
+              67.24,
+              161.144
+            ],
+            "perturbation": 0.0046290119000000005,
+            "training_spearman": -0.03674301178632363,
+            "target_association": "inconclusive",
+            "mechanism_validated": false,
+            "interpretation": "Finite difference checks the declared proxy; training association is observational and may be confounded."
+          },
+          "status": "rejected",
+          "reason": "redundant with an existing input on training data"
+        },
+        {
+          "name": "bottleneck_tortuosity",
+          "formula": "log10(q_lsd_f / q_lsd_p)",
+          "hypothesis": "Entropy loss/R increases when the diffusion path is strongly bottlenecked relative to the largest cavity: a large lsd_f/lsd_p ratio signals cage-window ('breathing-room') topology in which translational motion is confined to narrow windows between larger cages, removing more translational entropy than an open channel of the same lsd_f. The descriptor should correlate positively with entropy loss/R in narrow-cage regimes. Falsified if the association is negative there or the descriptor adds no MAE reduction over the full 14-input baseline.",
+          "rationale": "Inferred cage-window confinement mechanism: at infinite dilution a molecule rattling in a cage connected by tight windows samples a smaller effective configurational volume than one in a straight channel. Distinguishing window-limited from open-channel frameworks is information not captured by the retained Vol/ASA^2 descriptor, making this a distinct translation-family mechanism. All reasoning is inference; no source evidence exists this round.",
+          "falsification_criteria": "On training rows with lsd_f below its 0.5 training quantile, the descriptor must show a positive association with entropy loss/R; a finite-difference increase of lsd_f at fixed lsd_p must raise the descriptor. Negative sign or null MAE contribution falsifies the bottleneck mechanism as expressed here.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "scientific_test": {
+            "mechanism_family": "translation",
+            "proxy_assumptions": "lsd_f/lsd_p is treated purely as a topological bottleneck proxy; it is a ratio of probe-sphere diameters, not a geometric identity of any real aperture; rigid frameworks and infinite dilution are assumed transferable from possibly differing source conditions.",
+            "physical_interpretation": "Both lsd quantities are probe-derived diameters; the q-normalizations use independent medians, so a q-ratio of one is not a statement that lsd_f equals lsd_p, and a descriptor value of zero is not a physical no-bottleneck threshold.",
+            "vary_input": "lsd_f",
+            "descriptor_direction": "increasing",
+            "regime_input": "lsd_f",
+            "regime_train_quantiles": [
+              0.0,
+              0.5
+            ],
+            "entropy_direction": "increasing"
+          },
+          "novelty_verified": false,
+          "retained": true,
+          "mechanism_validated": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "scientific_check": {
+            "status": "passed_formula_check",
+            "regime_n": 1197,
+            "native_regime_bounds": [
+              0.85684,
+              5.16326
+            ],
+            "perturbation": 0.029412300000000006,
+            "training_spearman": 0.28391898655121994,
+            "target_association": "consistent",
+            "mechanism_validated": false,
+            "interpretation": "Finite difference checks the declared proxy; training association is observational and may be confounded."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5295304499328675,
+            "mae_J_mol_K": 4.402761131140692,
+            "r2": 0.8962990155830541,
+            "n": 591
+          },
+          "seconds": 38.90941299498081,
+          "marginal_improvement": 0.029507524879074376
+        },
+        {
+          "name": "anisotropy_fit_cage",
+          "formula": "(q_PMI3 / q_PMI1) * (q_GeDi / q_lsd_f)",
+          "hypothesis": "Rotational entropy loss/R increases when a strongly anisotropic molecule (PMI3/PMI1 large) is also elongated relative to the pore diameter (GeDi/lsd_f large): such molecules cannot rotate freely inside the cage and must align with the channel axis, so the descriptor correlates positively with entropy loss/R. Falsified if the association is negative in the declared small-pore regime, if ablating the anisotropy factor leaves MAE unchanged, or if the formula is numerically unstable there.",
+          "rationale": "Inferred rotational-frustration mechanism coupling molecular elongation with pore confinement, extending the previously rejected round-1 rotation candidate by replacing the unstable path-ratio coupling with a direct molecular-length/pore-diameter ratio, which removes the lsd_p factor that caused instability. All mechanism content is inference; evidence items are empty.",
+          "falsification_criteria": "On training rows with lsd_f below its 0.5 training quantile and GeDi above its 0.5 training quantile, the descriptor must show a positive association with entropy loss/R and a finite-difference increase of PMI3 at fixed other inputs must raise the descriptor. Negative sign, instability inside the regime, or no marginal MAE reduction falsifies the hypothesis.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "scientific_test": {
+            "mechanism_family": "rotation",
+            "proxy_assumptions": "Gas-phase principal moments and GeDi are assumed representative of the adsorbed geometry (no conformational change on adsorption); GeDi/lsd_f is a fit proxy, not a literal insertion criterion; rigid pure-silica frameworks at infinite dilution assumed.",
+            "physical_interpretation": "PMI3/PMI1 is a dimensionless anisotropy ratio of independently median-normalized moments; GeDi and lsd_f are both lengths so q_GeDi/q_lsd_f is dimensionless, but unity of neither ratio implies physical equality between the underlying quantities.",
+            "vary_input": "PMI3",
+            "descriptor_direction": "increasing",
+            "regime_input": "lsd_f",
+            "regime_train_quantiles": [
+              0.0,
+              0.5
+            ],
+            "entropy_direction": "increasing"
+          },
+          "novelty_verified": false,
+          "retained": false,
+          "mechanism_validated": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "status": "rejected",
+          "reason": "Formula unstable inside declared physical regime"
+        }
+      ],
+      "completion_attempts": [
+        {
+          "max_tokens": 16000,
+          "finish_reason": "stop"
+        }
+      ],
+      "retrieval": {
+        "query": "translation competing adsorption entropy mechanism independent evidence rotation physical variable mapping finite difference dimensional consistency zeolite adsorption entropy molecular confinement translational rotational freedom Van der Waals volume of the adsorbate molecule. Framework surface area accessible to a probe, per framework mass. rotational entropy loss anisotropic adsorbates one-dimensional zeolite channels infinite dilution framework density correlation adsorption entropy pure-silica zeolites molecular simulation molecular planarity configurational entropy loss confinement adsorption adsorbate molecular shape principal moments inertia rotational entropy pore confinement",
+        "items": 0,
+        "lexical_tokens": 0,
+        "graph_paths": 0,
+        "kg_selected_items": 0
+      },
+      "full_request_lexical_tokens": 3597,
+      "next_retrieval_queries": [
+        "cage-window versus channel zeolite adsorption entropy simulation differences",
+        "molecular length to pore diameter ratio effect on rotational entropy of adsorbates",
+        "surface-to-volume ratio of adsorbate and configurational entropy loss on adsorption"
+      ],
+      "after_mae_R": 0.5295304499328675,
+      "retained_formula": "log10(q_lsd_f / q_lsd_p)"
+    },
+    {
+      "round": 3,
+      "before_mae_R": 0.5295304499328675,
+      "usage": [
+        {
+          "completion_tokens": 2223,
+          "completion_tokens_details": {
+            "reasoning_tokens": 536
+          },
+          "prompt_tokens": 6262,
+          "prompt_tokens_details": {
+            "cached_tokens": 64
+          },
+          "total_tokens": 8485
+        }
+      ],
+      "response_model": "glm-5.3-flash",
+      "generations": [
+        {
+          "descriptor_candidates": [
+            {
+              "name": "cage_fill_ratio",
+              "formula": "q_Vol / (q_lsd_f ** 3)",
+              "hypothesis": "Entropy loss/R increases when the molecular vdW volume is large relative to a cubic length scale set by the largest free sphere diameter: a molecule that fills a large fraction of the cage volume has little residual translational freedom, so the descriptor correlates positively with entropy loss/R in the large-pore regime (lsd_f above its training median). This is distinct from the retained Vol/ASA^2 descriptor, which measures volume against wall extent rather than against a cavity-size scale. Falsified if the association is negative in the declared regime or if appending the descriptor does not reduce MAE over the full 14-input network plus the two retained descriptors.",
+              "rationale": "Inferred free-volume confinement mechanism: translational entropy loss scales with the fraction of configurational volume removed, and lsd_f is the only available native proxy for cavity size. Inference from free-volume theory; no source evidence exists this round (evidence items empty).",
+              "falsification_criteria": "On training rows with lsd_f in the [0.5, 1.0] quantile range, Spearman association between the descriptor and entropy loss/R must be positive, and a finite-difference increase of Vol at fixed lsd_f must raise the descriptor. Negative sign, instability, or null marginal MAE reduction falsifies the hypothesis.",
+              "novelty_status": "new_combination",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "translation",
+                "proxy_assumptions": "lsd_f (probe-sphere diameter) is assumed monotone with actual cavity size, though it is not a cavity diameter; q_Vol and q_lsd_f use independent median references so a descriptor value of one is not geometric equality of Vol and lsd_f^3; rigid pure-silica frameworks at infinite dilution assumed transferable from possibly differing source conditions.",
+                "physical_interpretation": "Vol is molecular vdW volume, not framework volume; lsd_f is a probe-accessibility metric. The q-normalized ratio crossing unity is a training-median comparison, not a physical fill threshold.",
+                "vary_input": "Vol",
+                "descriptor_direction": "increasing",
+                "regime_input": "lsd_f",
+                "regime_train_quantiles": [
+                  0.5,
+                  1.0
+                ],
+                "entropy_direction": "increasing"
+              }
+            },
+            {
+              "name": "elongation_rotloss",
+              "formula": "q_GeDi / q_SPAN",
+              "hypothesis": "Rotational entropy loss/R increases with molecular elongation: for a fixed enclosing radius SPAN, a larger maximum atom-to-atom distance GeDi means a rod-like molecule whose rotational configurational space collapses more strongly upon adsorption (fewer distinguishable orientations fit inside any pore). The descriptor correlates positively with entropy loss/R in the small-pore regime. This replaces the previously unstable rotation candidates (PMI-ratio couplings) with a purely geometric, numerically stable elongation index. Falsified if the association is negative in the declared regime or the descriptor adds no MAE reduction.",
+              "rationale": "Inferred rotational-frustration mechanism: rod-like molecules lose more rotational degrees of freedom in confined geometries than globular molecules of the same span. This is inference from rotational configurational counting; no source evidence exists this round. It deliberately avoids PMI ratios, which failed numerical-stability checks in rounds 1 and 2.",
+              "falsification_criteria": "On training rows with lsd_f below its 0.5 training quantile, Spearman association between the descriptor and entropy loss/R must be positive; a finite-difference increase of GeDi at fixed SPAN must raise the descriptor. Negative sign or no marginal MAE reduction over the retained baseline falsifies the hypothesis.",
+              "novelty_status": "new_combination",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "rotation",
+                "proxy_assumptions": "Gas-phase geometry is assumed representative of the adsorbed state (no conformational change); GeDi/SPAN is treated as a pure shape-elongation proxy, not a literal insertion criterion; rigid pure-silica frameworks at infinite dilution assumed.",
+                "physical_interpretation": "GeDi and SPAN are both molecular lengths in angstrom; the q-ratio uses independent median references, so a value of one does not imply GeDi equals SPAN, and elongation near one is a training-median-relative shape statement, not an absolute isotropy threshold.",
+                "vary_input": "GeDi",
+                "descriptor_direction": "increasing",
+                "regime_input": "lsd_f",
+                "regime_train_quantiles": [
+                  0.0,
+                  0.5
+                ],
+                "entropy_direction": "increasing"
+              }
+            },
+            {
+              "name": "density_path_openness",
+              "formula": "(q_lsd_p / q_lsd_f) * log10(1 / q_density)",
+              "hypothesis": "Entropy loss/R decreases with framework openness on the source density scale when the diffusion path is not bottlenecked: frameworks with low source-scale density (spacious lattices) and a large lsd_p/lsd_f ratio (path diameter close to cavity diameter) allow near-free translational and orientational motion, so the descriptor correlates negatively with entropy loss/R. Equivalently, dense, well-connected frameworks remove more entropy. Because the descriptor is decreasing in density, the predicted association in the low-density regime is: descriptor increasing corresponds to entropy loss decreasing. Falsified if the association sign is positive in the declared regime or the descriptor adds no MAE reduction.",
+              "rationale": "Inferred coupling of lattice packing density with path dimensionality: low framework density plus an unblocked path proxies a three-dimensionally connected open network where the adsorbate retains most of its configurational entropy. Density is used only through q_density because its physical unit is unresolved. All mechanism content is inference; evidence items are empty this round.",
+              "falsification_criteria": "On training rows with density in the [0.0, 0.5] training quantile range, Spearman association between the descriptor and entropy loss/R must be negative, and a finite-difference increase of density at fixed lsd_p and lsd_f must lower the descriptor. Positive sign or null marginal MAE contribution falsifies the hypothesis.",
+              "novelty_status": "new_combination",
+              "evidence_ids": [],
+              "scientific_test": {
+                "mechanism_family": "connectivity",
+                "proxy_assumptions": "The published density scale is assumed monotone with framework openness without assigning a physical unit; lsd_p/lsd_f proxies path openness, not a literal aperture-to-cavity ratio; rigid pure-silica frameworks at infinite dilution assumed transferable.",
+                "physical_interpretation": "log10(1/q_density) is a dimensionless openness measure on the source scale only; q_lsd_p/q_lsd_f crossing one is a training-median comparison, not a statement that the path diameter equals the cavity diameter.",
+                "vary_input": "density",
+                "descriptor_direction": "decreasing",
+                "regime_input": "density",
+                "regime_train_quantiles": [
+                  0.0,
+                  0.5
+                ],
+                "entropy_direction": "increasing"
+              }
+            }
+          ],
+          "next_retrieval_queries": [
+            "simulation studies of translational entropy loss versus cage-to-window diameter ratio in pure-silica zeolites at infinite dilution",
+            "molecular shape (elongation versus compactness) dependence of adsorbed rotational entropy in microporous frameworks",
+            "framework density correlation with adsorption entropy across zeolite topologies"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "cage_fill_ratio",
+          "formula": "q_Vol / (q_lsd_f ** 3)",
+          "hypothesis": "Entropy loss/R increases when the molecular vdW volume is large relative to a cubic length scale set by the largest free sphere diameter: a molecule that fills a large fraction of the cage volume has little residual translational freedom, so the descriptor correlates positively with entropy loss/R in the large-pore regime (lsd_f above its training median). This is distinct from the retained Vol/ASA^2 descriptor, which measures volume against wall extent rather than against a cavity-size scale. Falsified if the association is negative in the declared regime or if appending the descriptor does not reduce MAE over the full 14-input network plus the two retained descriptors.",
+          "rationale": "Inferred free-volume confinement mechanism: translational entropy loss scales with the fraction of configurational volume removed, and lsd_f is the only available native proxy for cavity size. Inference from free-volume theory; no source evidence exists this round (evidence items empty).",
+          "falsification_criteria": "On training rows with lsd_f in the [0.5, 1.0] quantile range, Spearman association between the descriptor and entropy loss/R must be positive, and a finite-difference increase of Vol at fixed lsd_f must raise the descriptor. Negative sign, instability, or null marginal MAE reduction falsifies the hypothesis.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "scientific_test": {
+            "mechanism_family": "translation",
+            "proxy_assumptions": "lsd_f (probe-sphere diameter) is assumed monotone with actual cavity size, though it is not a cavity diameter; q_Vol and q_lsd_f use independent median references so a descriptor value of one is not geometric equality of Vol and lsd_f^3; rigid pure-silica frameworks at infinite dilution assumed transferable from possibly differing source conditions.",
+            "physical_interpretation": "Vol is molecular vdW volume, not framework volume; lsd_f is a probe-accessibility metric. The q-normalized ratio crossing unity is a training-median comparison, not a physical fill threshold.",
+            "vary_input": "Vol",
+            "descriptor_direction": "increasing",
+            "regime_input": "lsd_f",
+            "regime_train_quantiles": [
+              0.5,
+              1.0
+            ],
+            "entropy_direction": "increasing"
+          },
+          "novelty_verified": false,
+          "retained": false,
+          "mechanism_validated": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "scientific_check": {
+            "status": "passed_formula_check",
+            "regime_n": 1208,
+            "native_regime_bounds": [
+              5.16326,
+              7.68726
+            ],
+            "perturbation": 0.7023999999999999,
+            "training_spearman": 0.7977151071097408,
+            "target_association": "consistent",
+            "mechanism_validated": false,
+            "interpretation": "Finite difference checks the declared proxy; training association is observational and may be confounded."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5762992005090409,
+            "mae_J_mol_K": 4.7916181595040195,
+            "r2": 0.8819847288576024,
+            "n": 591
+          },
+          "seconds": 36.26742950826883,
+          "marginal_improvement": -0.04676875057617347
+        },
+        {
+          "name": "elongation_rotloss",
+          "formula": "q_GeDi / q_SPAN",
+          "hypothesis": "Rotational entropy loss/R increases with molecular elongation: for a fixed enclosing radius SPAN, a larger maximum atom-to-atom distance GeDi means a rod-like molecule whose rotational configurational space collapses more strongly upon adsorption (fewer distinguishable orientations fit inside any pore). The descriptor correlates positively with entropy loss/R in the small-pore regime. This replaces the previously unstable rotation candidates (PMI-ratio couplings) with a purely geometric, numerically stable elongation index. Falsified if the association is negative in the declared regime or the descriptor adds no MAE reduction.",
+          "rationale": "Inferred rotational-frustration mechanism: rod-like molecules lose more rotational degrees of freedom in confined geometries than globular molecules of the same span. This is inference from rotational configurational counting; no source evidence exists this round. It deliberately avoids PMI ratios, which failed numerical-stability checks in rounds 1 and 2.",
+          "falsification_criteria": "On training rows with lsd_f below its 0.5 training quantile, Spearman association between the descriptor and entropy loss/R must be positive; a finite-difference increase of GeDi at fixed SPAN must raise the descriptor. Negative sign or no marginal MAE reduction over the retained baseline falsifies the hypothesis.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "scientific_test": {
+            "mechanism_family": "rotation",
+            "proxy_assumptions": "Gas-phase geometry is assumed representative of the adsorbed state (no conformational change); GeDi/SPAN is treated as a pure shape-elongation proxy, not a literal insertion criterion; rigid pure-silica frameworks at infinite dilution assumed.",
+            "physical_interpretation": "GeDi and SPAN are both molecular lengths in angstrom; the q-ratio uses independent median references, so a value of one does not imply GeDi equals SPAN, and elongation near one is a training-median-relative shape statement, not an absolute isotropy threshold.",
+            "vary_input": "GeDi",
+            "descriptor_direction": "increasing",
+            "regime_input": "lsd_f",
+            "regime_train_quantiles": [
+              0.0,
+              0.5
+            ],
+            "entropy_direction": "increasing"
+          },
+          "novelty_verified": false,
+          "retained": false,
+          "mechanism_validated": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "status": "rejected",
+          "reason": "Formula unstable inside declared physical regime"
+        },
+        {
+          "name": "density_path_openness",
+          "formula": "(q_lsd_p / q_lsd_f) * log10(1 / q_density)",
+          "hypothesis": "Entropy loss/R decreases with framework openness on the source density scale when the diffusion path is not bottlenecked: frameworks with low source-scale density (spacious lattices) and a large lsd_p/lsd_f ratio (path diameter close to cavity diameter) allow near-free translational and orientational motion, so the descriptor correlates negatively with entropy loss/R. Equivalently, dense, well-connected frameworks remove more entropy. Because the descriptor is decreasing in density, the predicted association in the low-density regime is: descriptor increasing corresponds to entropy loss decreasing. Falsified if the association sign is positive in the declared regime or the descriptor adds no MAE reduction.",
+          "rationale": "Inferred coupling of lattice packing density with path dimensionality: low framework density plus an unblocked path proxies a three-dimensionally connected open network where the adsorbate retains most of its configurational entropy. Density is used only through q_density because its physical unit is unresolved. All mechanism content is inference; evidence items are empty this round.",
+          "falsification_criteria": "On training rows with density in the [0.0, 0.5] training quantile range, Spearman association between the descriptor and entropy loss/R must be negative, and a finite-difference increase of density at fixed lsd_p and lsd_f must lower the descriptor. Positive sign or null marginal MAE contribution falsifies the hypothesis.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "scientific_test": {
+            "mechanism_family": "connectivity",
+            "proxy_assumptions": "The published density scale is assumed monotone with framework openness without assigning a physical unit; lsd_p/lsd_f proxies path openness, not a literal aperture-to-cavity ratio; rigid pure-silica frameworks at infinite dilution assumed transferable.",
+            "physical_interpretation": "log10(1/q_density) is a dimensionless openness measure on the source scale only; q_lsd_p/q_lsd_f crossing one is a training-median comparison, not a statement that the path diameter equals the cavity diameter.",
+            "vary_input": "density",
+            "descriptor_direction": "decreasing",
+            "regime_input": "density",
+            "regime_train_quantiles": [
+              0.0,
+              0.5
+            ],
+            "entropy_direction": "increasing"
+          },
+          "novelty_verified": false,
+          "retained": false,
+          "mechanism_validated": false,
+          "dimensional_audit": {
+            "status": "passed",
+            "output_dimensions": {},
+            "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+          },
+          "scientific_check": {
+            "status": "passed_formula_check",
+            "regime_n": 1181,
+            "native_regime_bounds": [
+              0.759654,
+              1.73742
+            ],
+            "perturbation": 0.005792599999999999,
+            "training_spearman": -0.2994804572473667,
+            "target_association": "contradicted",
+            "mechanism_validated": false,
+            "interpretation": "Finite difference checks the declared proxy; training association is observational and may be confounded."
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.563964990421821,
+            "mae_J_mol_K": 4.689065830809381,
+            "r2": 0.8811798434829844,
+            "n": 591
+          },
+          "seconds": 33.58778481930494,
+          "marginal_improvement": -0.03443454048895356
+        }
+      ],
+      "completion_attempts": [
+        {
+          "max_tokens": 16000,
+          "finish_reason": "stop"
+        }
+      ],
+      "retrieval": {
+        "query": "shape physical variable mapping finite difference dimensional consistency translation competing adsorption entropy mechanism independent evidence rotation physical variable mapping finite difference dimensional consistency zeolite adsorption entropy molecular confinement translational rotational freedom Van der Waals volume of the adsorbate molecule. Framework surface area accessible to a probe, per framework mass. Diameter of the largest free sphere in the framework. Diameter of the largest sphere along a free-sphere path in the framework. cage-window versus channel zeolite adsorption entropy simulation differences molecular length to pore diameter ratio effect on rotational entropy of adsorbates surface-to-volume ratio of adsorbate and configurational entropy loss on adsorption zeolite accessible pore volume occupiable volume molecular volume adsorption entropy",
+        "items": 0,
+        "lexical_tokens": 0,
+        "graph_paths": 0,
+        "kg_selected_items": 0
+      },
+      "full_request_lexical_tokens": 5424,
+      "next_retrieval_queries": [
+        "simulation studies of translational entropy loss versus cage-to-window diameter ratio in pure-silica zeolites at infinite dilution",
+        "molecular shape (elongation versus compactness) dependence of adsorbed rotational entropy in microporous frameworks",
+        "framework density correlation with adsorption entropy across zeolite topologies"
+      ],
+      "after_mae_R": 0.5295304499328675,
+      "retained_formula": null
+    }
+  ],
+  "d0_score_mae_R": 0.5756181684880872,
+  "interpretation": "Replicates vary LLM proposals on one fixed split, not independent datasets. Novelty is unverified.",
+  "knowledge_profile": "jacs-au-kg-v3",
+  "graph_view": "paths",
+  "input_dictionary": {
+    "MW": {
+      "unit": "g/mol",
+      "meaning": "Molecular weight of the adsorbate.",
+      "role": "adsorbate"
+    },
+    "LabuteASA": {
+      "unit": "angstrom^2",
+      "meaning": "Labute approximate molecular surface area of the adsorbate.",
+      "role": "adsorbate"
+    },
+    "PBF": {
+      "unit": "angstrom",
+      "meaning": "Mean atom distance from the best-fit molecular plane; measures planarity.",
+      "role": "adsorbate"
+    },
+    "PMI1": {
+      "unit": "angstrom^2*amu",
+      "meaning": "First principal moment of inertia of the adsorbate.",
+      "role": "adsorbate"
+    },
+    "PMI2": {
+      "unit": "angstrom^2*amu",
+      "meaning": "Second principal moment of inertia of the adsorbate.",
+      "role": "adsorbate"
+    },
+    "PMI3": {
+      "unit": "angstrom^2*amu",
+      "meaning": "Third principal moment of inertia of the adsorbate.",
+      "role": "adsorbate"
+    },
+    "SPAN": {
+      "unit": "angstrom",
+      "meaning": "Radius enclosing all molecular atoms about the center of mass.",
+      "role": "adsorbate"
+    },
+    "GeDi": {
+      "unit": "angstrom",
+      "meaning": "Largest distance between two molecular atoms.",
+      "role": "adsorbate"
+    },
+    "Vol": {
+      "unit": "angstrom^3",
+      "meaning": "Van der Waals volume of the adsorbate molecule.",
+      "role": "adsorbate"
+    },
+    "density": {
+      "unit": "source density (native numerical scale)",
+      "meaning": "Framework density on the published numerical scale; physical unit unresolved.",
+      "role": "framework"
+    },
+    "ASA": {
+      "unit": "m^2/g",
+      "meaning": "Framework surface area accessible to a probe, per framework mass.",
+      "role": "framework"
+    },
+    "AV": {
+      "unit": "cm^3/g",
+      "meaning": "Framework volume accessible to a probe, per framework mass.",
+      "role": "framework"
+    },
+    "lsd_f": {
+      "unit": "angstrom",
+      "meaning": "Diameter of the largest free sphere in the framework.",
+      "role": "framework"
+    },
+    "lsd_p": {
+      "unit": "angstrom",
+      "meaning": "Diameter of the largest sphere along a free-sphere path in the framework.",
+      "role": "framework"
+    }
+  },
+  "training_references": {
+    "MW": 74.07316494,
+    "LabuteASA": 31.85047501,
+    "PBF": 0.230844767,
+    "PMI1": 43.29513794,
+    "PMI2": 93.79729089,
+    "PMI3": 125.4948325,
+    "SPAN": 1.860601424,
+    "GeDi": 3.302656784,
+    "Vol": 67.24,
+    "density": 1.73742,
+    "ASA": 905.715,
+    "AV": 0.0759781,
+    "lsd_f": 5.16326,
+    "lsd_p": 6.38663
+  },
+  "knowledge_bank": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-kg-v3-20260929/evidence/bank.json",
+  "evidence_by_round": [
+    {
+      "round": 1,
+      "retrieval": {
+        "query": "zeolite adsorption entropy molecular confinement translational rotational freedom",
+        "items": 0,
+        "lexical_tokens": 0,
+        "graph_paths": 0,
+        "kg_selected_items": 0
+      },
+      "items": []
+    },
+    {
+      "round": 2,
+      "retrieval": {
+        "query": "translation competing adsorption entropy mechanism independent evidence rotation physical variable mapping finite difference dimensional consistency zeolite adsorption entropy molecular confinement translational rotational freedom Van der Waals volume of the adsorbate molecule. Framework surface area accessible to a probe, per framework mass. rotational entropy loss anisotropic adsorbates one-dimensional zeolite channels infinite dilution framework density correlation adsorption entropy pure-silica zeolites molecular simulation molecular planarity configurational entropy loss confinement adsorption adsorbate molecular shape principal moments inertia rotational entropy pore confinement",
+        "items": 0,
+        "lexical_tokens": 0,
+        "graph_paths": 0,
+        "kg_selected_items": 0
+      },
+      "items": []
+    },
+    {
+      "round": 3,
+      "retrieval": {
+        "query": "shape physical variable mapping finite difference dimensional consistency translation competing adsorption entropy mechanism independent evidence rotation physical variable mapping finite difference dimensional consistency zeolite adsorption entropy molecular confinement translational rotational freedom Van der Waals volume of the adsorbate molecule. Framework surface area accessible to a probe, per framework mass. Diameter of the largest free sphere in the framework. Diameter of the largest sphere along a free-sphere path in the framework. cage-window versus channel zeolite adsorption entropy simulation differences molecular length to pore diameter ratio effect on rotational entropy of adsorbates surface-to-volume ratio of adsorbate and configurational entropy loss on adsorption zeolite accessible pore volume occupiable volume molecular volume adsorption entropy",
+        "items": 0,
+        "lexical_tokens": 0,
+        "graph_paths": 0,
+        "kg_selected_items": 0
+      },
+      "items": []
+    }
+  ],
+  "test_is_development_diagnostic": true,
+  "budget_config": {
+    "retrieval": {
+      "candidates_per_source_per_bank_query": 160,
+      "candidates_per_round": 120,
+      "max_items": 32,
+      "max_items_per_paper": 32,
+      "context_lexical_tokens": 32000,
+      "max_kg_items": 12
+    },
+    "generation": {
+      "max_tokens": 16000,
+      "max_tokens_on_truncation": 32000
+    }
+  },
+  "retained": [
+    {
+      "name": "conf_volume_surface",
+      "formula": "log10(q_Vol / (q_ASA ** 2))",
+      "hypothesis": "Entropy loss/R increases when adsorbate volume is large relative to a length scale derived from the framework's accessible surface area: a large Vol/ASA^2 ratio means the molecule nearly fills the channel cross-section, suppressing translational freedom. Falsifiable: within the large-pore training regime, the descriptor should correlate positively with entropy loss/R; if the association sign flips or the descriptor adds no MAE reduction over the full 14-input baseline, the confinement mechanism as expressed here is falsified for this dataset.",
+      "novelty_status": "new_combination"
+    },
+    {
+      "name": "bottleneck_tortuosity",
+      "formula": "log10(q_lsd_f / q_lsd_p)",
+      "hypothesis": "Entropy loss/R increases when the diffusion path is strongly bottlenecked relative to the largest cavity: a large lsd_f/lsd_p ratio signals cage-window ('breathing-room') topology in which translational motion is confined to narrow windows between larger cages, removing more translational entropy than an open channel of the same lsd_f. The descriptor should correlate positively with entropy loss/R in narrow-cage regimes. Falsified if the association is negative there or the descriptor adds no MAE reduction over the full 14-input baseline.",
+      "novelty_status": "new_combination"
+    }
+  ],
+  "score_improvement_pct": 8.00664764913055,
+  "test": {
+    "d0": {
+      "mae_R": 0.5837445239172757,
+      "mae_J_mol_K": 4.853522022661848,
+      "r2": 0.8819804933409299,
+      "n": 738
+    },
+    "selected": {
+      "mae_R": 0.5636365362853989,
+      "mae_J_mol_K": 4.686334911170321,
+      "r2": 0.8866483213649179,
+      "n": 738
+    },
+    "all_raw_ann": {
+      "mae_R": 0.6151589536388481,
+      "mae_J_mol_K": 5.114716124252464,
+      "r2": 0.8586625368537976,
+      "n": 738
+    },
+    "native14_hgb": {
+      "mae_R": 0.4754063604118087,
+      "mae_J_mol_K": 3.9527484120762697,
+      "r2": 0.9171754010063995,
+      "n": 738
+    },
+    "all_raw_hgb": {
+      "mae_R": 0.4625921022177693,
+      "mae_J_mol_K": 3.8462047413425653,
+      "r2": 0.9246103243291537,
+      "n": 738
+    }
+  },
+  "test_improvement_pct": 3.444655462793924,
+  "all_raw_plus_selected": {
+    "score": {
+      "mae_R": 0.5893290815080494,
+      "mae_J_mol_K": 4.899954617989261,
+      "r2": 0.8678341573563786,
+      "n": 591
+    },
+    "test": {
+      "mae_R": 0.6391692264171656,
+      "mae_J_mol_K": 5.314348639719447,
+      "r2": 0.8438393812353522,
+      "n": 738
+    },
+    "seconds": 36.059463292360306
+  },
+  "tree_transfer": {
+    "native14_hgb": {
+      "selected": {
+        "score": {
+          "mae_R": 0.4648386261542664,
+          "mae_J_mol_K": 3.8648833806333567,
+          "r2": 0.925234285690374,
+          "n": 591
+        },
+        "test": {
+          "mae_R": 0.4695068531407763,
+          "mae_J_mol_K": 3.9036971794057473,
+          "r2": 0.91667345859436,
+          "n": 738
+        },
+        "seconds": 0.4607652947306633
+      },
+      "test_improvement_pct": 1.2409399121042777
+    },
+    "all_raw_hgb": {
+      "selected": {
+        "score": {
+          "mae_R": 0.4369914513423968,
+          "mae_J_mol_K": 3.6333490866388884,
+          "r2": 0.9318892471068534,
+          "n": 591
+        },
+        "test": {
+          "mae_R": 0.4567364089037788,
+          "mae_J_mol_K": 3.797517798180021,
+          "r2": 0.9229879008721523,
+          "n": 738
+        },
+        "seconds": 0.34294499456882477
+      },
+      "test_improvement_pct": 1.2658437716331516
+    }
+  },
+  "seconds": 324.77363369613886
+}

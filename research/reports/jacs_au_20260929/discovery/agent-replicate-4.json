@@ -1,0 +1,424 @@
+{
+  "status": "completed",
+  "benchmark": "10.1021/jacsau.4c00429",
+  "model": "glm-5.3-flash",
+  "mode": "agent",
+  "replicate": 4,
+  "protocol": "3 rounds x 3 proposals; one positive scoring winner at most per round",
+  "fit_seed": 3,
+  "epochs": 4000,
+  "evidence": [],
+  "rounds": [
+    {
+      "round": 1,
+      "before_mae_R": 0.5756181684880872,
+      "usage": [
+        {
+          "completion_tokens": 812,
+          "completion_tokens_details": {
+            "reasoning_tokens": 6
+          },
+          "prompt_tokens": 697,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "total_tokens": 1509
+        }
+      ],
+      "response_model": "glm-5.3-flash",
+      "generations": [
+        {
+          "descriptor_candidates": [
+            {
+              "name": "confine_ratio_entropy",
+              "formula": "log((Vol / (LabuteASA * lsd_p + 1e-9)) ** 2)",
+              "hypothesis": "Adsorption entropy loss scales with the confinement ratio (accessible volume per unit adsorbate-contact surface, normalized by the pore-limiting diameter): frameworks with high Vol/(ASA·lsd_p) retain more gas-like entropy, so adding this ratio to the 14-input model lowers MAE(entropy loss/R) by ≥10% vs baseline; falsified if MAE increases or changes <2%.",
+              "rationale": "Translational entropy loss arises when adsorbate motion is restricted between pore walls; the ratio of free volume to wall-contact area scaled by pore diameter is a first-order confinement-geometry measure. Inference from adsorption thermodynamics, not from supplied evidence.",
+              "falsification_criteria": "Retrain the same nonlinear network with this descriptor added; if MAE of entropy loss/R does not decrease by at least 10% on held-out zeolite/adsorbate pairs, reject.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "shape_anisotropy_entropy",
+              "formula": "log(1 + (PMI3 / (PMI1 + 1e-9)) * (SPAN / (PBF + 1e-9)))",
+              "hypothesis": "Entropy loss increases with combined shape anisotropy of the adsorbate (PMI3/PMI1) times its span-to-brutto-depth ratio (SPAN/PBF), because elongated molecules lose more rotational freedom in channels than in cages; this shape term adds predictive power beyond volumetric features, tested by ≥5% MAE reduction; falsified if the term is redundant with MW/Vol (no improvement).",
+              "rationale": "Rotational and configurational entropy loss depends on anisotropy of the guest molecule relative to pore geometry, not just size; principal moment ratios encode anisotropy. Inference from statistical mechanics of confined rotation.",
+              "falsification_criteria": "If the model with this descriptor fails to beat the 14-input baseline MAE by ≥5% via cross-validation, or permutation importance of the new term is near zero, reject.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "free_volume_density_index",
+              "formula": "sqrt(abs(AV) * density) / (lsd_f + 1e-9) + log(1 + ASA)",
+              "hypothesis": "Framework-level free-volume–density interplay controls framework vibrational contribution to entropy loss: the product AV·density (a framework-fraction index on the source scale) divided by the largest free sphere diameter, combined with accessible area, captures cage-vs-channel entropy fingerprints; adding it improves MAE ≥8%; falsified if AV and density are already jointly exploited by the network so the re-expression yields no gain.",
+              "rationale": "Cage frameworks (high AV, low density at fixed lsd_f) impose stiffer guest localization and larger entropy loss than open channels; combining accessible volume, source density, and pore diameter probes this partitioning. Density used only at its source numerical scale. Inference from framework-density–adsorption correlations reported in literature on zeolite void fractions.",
+              "falsification_criteria": "If adding this descriptor leaves MAE within ±2% of baseline and the descriptor's learned contribution is statistically insignificant, reject the framework-mechanism hypothesis.",
+              "novelty_status": "uncertain",
+              "evidence_ids": []
+            }
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "confine_ratio_entropy",
+          "formula": "log((Vol / (LabuteASA * lsd_p + 1e-9)) ** 2)",
+          "hypothesis": "Adsorption entropy loss scales with the confinement ratio (accessible volume per unit adsorbate-contact surface, normalized by the pore-limiting diameter): frameworks with high Vol/(ASA·lsd_p) retain more gas-like entropy, so adding this ratio to the 14-input model lowers MAE(entropy loss/R) by ≥10% vs baseline; falsified if MAE increases or changes <2%.",
+          "rationale": "Translational entropy loss arises when adsorbate motion is restricted between pore walls; the ratio of free volume to wall-contact area scaled by pore diameter is a first-order confinement-geometry measure. Inference from adsorption thermodynamics, not from supplied evidence.",
+          "falsification_criteria": "Retrain the same nonlinear network with this descriptor added; if MAE of entropy loss/R does not decrease by at least 10% on held-out zeolite/adsorbate pairs, reject.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": true,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5534331504748996,
+            "mae_J_mol_K": 4.6014992412703295,
+            "r2": 0.8897877917700848,
+            "n": 591
+          },
+          "seconds": 48.43074117600918,
+          "marginal_improvement": 0.02218501801318762
+        },
+        {
+          "name": "shape_anisotropy_entropy",
+          "formula": "log(1 + (PMI3 / (PMI1 + 1e-9)) * (SPAN / (PBF + 1e-9)))",
+          "hypothesis": "Entropy loss increases with combined shape anisotropy of the adsorbate (PMI3/PMI1) times its span-to-brutto-depth ratio (SPAN/PBF), because elongated molecules lose more rotational freedom in channels than in cages; this shape term adds predictive power beyond volumetric features, tested by ≥5% MAE reduction; falsified if the term is redundant with MW/Vol (no improvement).",
+          "rationale": "Rotational and configurational entropy loss depends on anisotropy of the guest molecule relative to pore geometry, not just size; principal moment ratios encode anisotropy. Inference from statistical mechanics of confined rotation.",
+          "falsification_criteria": "If the model with this descriptor fails to beat the 14-input baseline MAE by ≥5% via cross-validation, or permutation importance of the new term is near zero, reject.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.569342135897424,
+            "mae_J_mol_K": 4.733773905858653,
+            "r2": 0.8849465450505819,
+            "n": 591
+          },
+          "seconds": 47.48000317066908,
+          "marginal_improvement": 0.0062760325906632275
+        },
+        {
+          "name": "free_volume_density_index",
+          "formula": "sqrt(abs(AV) * density) / (lsd_f + 1e-9) + log(1 + ASA)",
+          "hypothesis": "Framework-level free-volume–density interplay controls framework vibrational contribution to entropy loss: the product AV·density (a framework-fraction index on the source scale) divided by the largest free sphere diameter, combined with accessible area, captures cage-vs-channel entropy fingerprints; adding it improves MAE ≥8%; falsified if AV and density are already jointly exploited by the network so the re-expression yields no gain.",
+          "rationale": "Cage frameworks (high AV, low density at fixed lsd_f) impose stiffer guest localization and larger entropy loss than open channels; combining accessible volume, source density, and pore diameter probes this partitioning. Density used only at its source numerical scale. Inference from framework-density–adsorption correlations reported in literature on zeolite void fractions.",
+          "falsification_criteria": "If adding this descriptor leaves MAE within ±2% of baseline and the descriptor's learned contribution is statistically insignificant, reject the framework-mechanism hypothesis.",
+          "novelty_status": "uncertain",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5639244401277221,
+            "mae_J_mol_K": 4.68872867690494,
+            "r2": 0.8874352136532886,
+            "n": 591
+          },
+          "seconds": 47.91946191340685,
+          "marginal_improvement": 0.011693728360365085
+        }
+      ],
+      "after_mae_R": 0.5534331504748996,
+      "retained_formula": "log((Vol / (LabuteASA * lsd_p + 1e-9)) ** 2)"
+    },
+    {
+      "round": 2,
+      "before_mae_R": 0.5534331504748996,
+      "usage": [
+        {
+          "completion_tokens": 1144,
+          "completion_tokens_details": {
+            "reasoning_tokens": 6
+          },
+          "prompt_tokens": 1999,
+          "prompt_tokens_details": {
+            "cached_tokens": 64
+          },
+          "total_tokens": 3143
+        }
+      ],
+      "response_model": "glm-5.3-flash",
+      "generations": [
+        {
+          "descriptor_candidates": [
+            {
+              "name": "pore_window_confine_index",
+              "formula": "log(1 + (Vol / (AV + 1e-9)) * (lsd_p / (lsd_f + 1e-9)) ** 2)",
+              "hypothesis": "Entropy loss increases when the pore-limiting (guest) diameter is much smaller than the largest free-sphere (framework) diameter, i.e., in windows-with-cages topologies where guests are locally trapped; the descriptor Vol/AV (framework bulk-to-accessible volume ratio) times (lsd_p/lsd_f)^2 captures this window-cage contrast. Adding it to the 14-input model should lower MAE(entropy loss/R) by ≥5% vs the current best (0.5534 in R units); falsified if MAE increases or changes <2%.",
+              "rationale": "Inference from adsorption thermodynamics: translational/vibrational entropy loss is largest where a guest must pass narrow windows into larger cages (cage-like zeolites such as LTA/CHA lose more entropy than straight-channel MFI-type systems for similar accessible volume). The ratio lsd_p/lsd_f is a dimensionless window-vs-cage contrast; Vol/AV contrasts total framework volume with accessible volume at source scale. No supplied evidence; purely mechanistic inference.",
+              "falsification_criteria": "Retrain the identical nonlinear network with 15 inputs; require ≥5% MAE reduction on held-out pairs relative to the retained baseline AND positive permutation importance for this term. If MAE change is within ±2% or negative, reject the window-cage trapping hypothesis.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "surface_curvature_tortuosity_term",
+              "formula": "sqrt(maximum(0.0, (LabuteASA / (Vol ** (2.0 / 3.0) + 1e-9))) * maximum(0.0, (PBF / (SPAN + 1e-9))))",
+              "hypothesis": "Entropy loss scales positively with a combined molecular surface-area-to-volume shape factor (LabuteASA/Vol^(2/3), a sphericity-like index) times the PBF/SPAN compactness ratio: near-spherical, compact adsorbates pack efficiently in cages and lose more rotational/configurational entropy per contact, while elongated ones slide along channels retaining more freedom. Adding this term should reduce MAE by ≥4%; falsified if MW and Vol already fully encode this shape information so the gain is <2%.",
+              "rationale": "Inference from statistical mechanics of confined rotation and packing: the number of resolvable orientational states scales with molecular surface-to-volume ratio and compactness; higher sphericity means fewer favorable orientations against curved pore walls, hence larger rotational entropy loss. Established that sphericity/shape factors influence adsorption, but this specific combination is untested here; classified uncertain as to literature novelty.",
+              "falsification_criteria": "≥4% held-out MAE reduction vs the retained 14-input baseline, and permutation importance of the term above that of a randomly permuted control (p<0.05 over retraining seeds). Reject if gain <2% or if the term's importance is statistically indistinguishable from noise.",
+              "novelty_status": "uncertain",
+              "evidence_ids": []
+            },
+            {
+              "name": "gravimetric_area_window_penalty",
+              "formula": "log(1 + ASA / (MW + 1e-9)) + (lsd_p / (lsd_p + lsd_f + 1e-9)) ** 4",
+              "hypothesis": "Two regimes govern entropy loss: (i) a specific-contact regime where accessible surface per unit adsorbate mass (ASA/MW, gravimetric contact intensity) raises the number of frustrated adsorbate modes, and (ii) a steric regime where lsd_p ≪ lsd_f amplifies entropy loss in the fourth power of the diameter ratio. The additive descriptor tests whether these are separable contributions beyond what the network extracts from raw inputs; expected ≥5% MAE reduction, falsified if the network's nonlinear recombination of ASA, MW, lsd_p, lsd_f already saturates this information (change <2%).",
+              "rationale": "Inference: entropic penalties arise from both the extent of guest-wall contact (per unit adsorbate amount, hence ASA/MW at source scales) and the severity of steric confinement (nonlinear, high-power dependence on window-to-cage diameter ratio, reflecting a threshold-like onset of full orientational freezing). All quantities dimensionless or at source numerical scale; no unverified units assigned. No supplied evidence; mechanistic inference only.",
+              "falsification_criteria": "Train the same network with 15 inputs; accept only if held-out MAE(entropy loss/R) drops ≥5% below 0.5534 AND ablation of this descriptor degrades MAE by ≥2%. If either condition fails, the separability hypothesis (contact term + threshold term as independent mechanisms) is rejected.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            }
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "pore_window_confine_index",
+          "formula": "log(1 + (Vol / (AV + 1e-9)) * (lsd_p / (lsd_f + 1e-9)) ** 2)",
+          "hypothesis": "Entropy loss increases when the pore-limiting (guest) diameter is much smaller than the largest free-sphere (framework) diameter, i.e., in windows-with-cages topologies where guests are locally trapped; the descriptor Vol/AV (framework bulk-to-accessible volume ratio) times (lsd_p/lsd_f)^2 captures this window-cage contrast. Adding it to the 14-input model should lower MAE(entropy loss/R) by ≥5% vs the current best (0.5534 in R units); falsified if MAE increases or changes <2%.",
+          "rationale": "Inference from adsorption thermodynamics: translational/vibrational entropy loss is largest where a guest must pass narrow windows into larger cages (cage-like zeolites such as LTA/CHA lose more entropy than straight-channel MFI-type systems for similar accessible volume). The ratio lsd_p/lsd_f is a dimensionless window-vs-cage contrast; Vol/AV contrasts total framework volume with accessible volume at source scale. No supplied evidence; purely mechanistic inference.",
+          "falsification_criteria": "Retrain the identical nonlinear network with 15 inputs; require ≥5% MAE reduction on held-out pairs relative to the retained baseline AND positive permutation importance for this term. If MAE change is within ±2% or negative, reject the window-cage trapping hypothesis.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": true,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5409268780619676,
+            "mae_J_mol_K": 4.4975163068005655,
+            "r2": 0.8955204059681398,
+            "n": 591
+          },
+          "seconds": 40.27407509833574,
+          "marginal_improvement": 0.012506272412932007
+        },
+        {
+          "name": "surface_curvature_tortuosity_term",
+          "formula": "sqrt(maximum(0.0, (LabuteASA / (Vol ** (2.0 / 3.0) + 1e-9))) * maximum(0.0, (PBF / (SPAN + 1e-9))))",
+          "hypothesis": "Entropy loss scales positively with a combined molecular surface-area-to-volume shape factor (LabuteASA/Vol^(2/3), a sphericity-like index) times the PBF/SPAN compactness ratio: near-spherical, compact adsorbates pack efficiently in cages and lose more rotational/configurational entropy per contact, while elongated ones slide along channels retaining more freedom. Adding this term should reduce MAE by ≥4%; falsified if MW and Vol already fully encode this shape information so the gain is <2%.",
+          "rationale": "Inference from statistical mechanics of confined rotation and packing: the number of resolvable orientational states scales with molecular surface-to-volume ratio and compactness; higher sphericity means fewer favorable orientations against curved pore walls, hence larger rotational entropy loss. Established that sphericity/shape factors influence adsorption, but this specific combination is untested here; classified uncertain as to literature novelty.",
+          "falsification_criteria": "≥4% held-out MAE reduction vs the retained 14-input baseline, and permutation importance of the term above that of a randomly permuted control (p<0.05 over retraining seeds). Reject if gain <2% or if the term's importance is statistically indistinguishable from noise.",
+          "novelty_status": "uncertain",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.551743198230121,
+            "mae_J_mol_K": 4.587448196504654,
+            "r2": 0.8914993124514219,
+            "n": 591
+          },
+          "seconds": 39.335319720208645,
+          "marginal_improvement": 0.0016899522447786364
+        },
+        {
+          "name": "gravimetric_area_window_penalty",
+          "formula": "log(1 + ASA / (MW + 1e-9)) + (lsd_p / (lsd_p + lsd_f + 1e-9)) ** 4",
+          "hypothesis": "Two regimes govern entropy loss: (i) a specific-contact regime where accessible surface per unit adsorbate mass (ASA/MW, gravimetric contact intensity) raises the number of frustrated adsorbate modes, and (ii) a steric regime where lsd_p ≪ lsd_f amplifies entropy loss in the fourth power of the diameter ratio. The additive descriptor tests whether these are separable contributions beyond what the network extracts from raw inputs; expected ≥5% MAE reduction, falsified if the network's nonlinear recombination of ASA, MW, lsd_p, lsd_f already saturates this information (change <2%).",
+          "rationale": "Inference: entropic penalties arise from both the extent of guest-wall contact (per unit adsorbate amount, hence ASA/MW at source scales) and the severity of steric confinement (nonlinear, high-power dependence on window-to-cage diameter ratio, reflecting a threshold-like onset of full orientational freezing). All quantities dimensionless or at source numerical scale; no unverified units assigned. No supplied evidence; mechanistic inference only.",
+          "falsification_criteria": "Train the same network with 15 inputs; accept only if held-out MAE(entropy loss/R) drops ≥5% below 0.5534 AND ablation of this descriptor degrades MAE by ≥2%. If either condition fails, the separability hypothesis (contact term + threshold term as independent mechanisms) is rejected.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5472539309065504,
+            "mae_J_mol_K": 4.550122351159929,
+            "r2": 0.891618997396091,
+            "n": 591
+          },
+          "seconds": 45.28977578133345,
+          "marginal_improvement": 0.006179219568349215
+        }
+      ],
+      "after_mae_R": 0.5409268780619676,
+      "retained_formula": "log(1 + (Vol / (AV + 1e-9)) * (lsd_p / (lsd_f + 1e-9)) ** 2)"
+    },
+    {
+      "round": 3,
+      "before_mae_R": 0.5409268780619676,
+      "usage": [
+        {
+          "completion_tokens": 1051,
+          "completion_tokens_details": {
+            "reasoning_tokens": 7
+          },
+          "prompt_tokens": 3685,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "total_tokens": 4736
+        }
+      ],
+      "response_model": "glm-5.3-flash",
+      "generations": [
+        {
+          "descriptor_candidates": [
+            {
+              "name": "dimensional_contact_ratio",
+              "formula": "log(1 + (LabuteASA ** 1.5) / (Vol + 1e-9))",
+              "hypothesis": "Entropy loss grows with the molecular surface-to-volume ratio raised to 3/2 power (LabuteASA^1.5/Vol is a dimensionally consistent surface-intensity index): guests with large contact surface per unit volume experience more frustrated translational/rotational modes inside pores, so adding this term to the 15-input model lowers MAE(entropy loss/R) by ≥4% vs the current best (0.5409); falsified if MAE change is within ±2%.",
+              "rationale": "Inference from statistical mechanics of confinement: the density of wall-adjacent configurations scales with surface-to-volume ratio; LabuteASA/Vol^(2/3)-type indices partially worked in round 2 (surface_curvature term gave small gain), suggesting a sharper nonlinear re-expression may extract additional signal. Purely mechanistic inference; no supplied evidence.",
+              "falsification_criteria": "Retrain the identical nonlinear network with this descriptor added; accept only if held-out MAE(entropy loss/R) drops ≥4% below 0.5409 AND ablation of the descriptor degrades MAE by ≥2%. Reject if the gain is <2% or the descriptor's permutation importance is statistically indistinguishable from noise.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "window_to_area_asymmetry",
+              "formula": "log(1 + abs(lsd_f - lsd_p) * (AV / (ASA + 1e-9)))",
+              "hypothesis": "Entropy loss is maximized when the window-to-framework diameter gap (|lsd_f - lsd_p|) coincides with a high pore-volume-to-surface ratio (AV/ASA, i.e., deep pockets rather than shallow surfaces): large cages reachable only through narrow windows trap guests in few configurations. The product of the diameter gap and the volume-per-area index tests this joint (interaction, not additive) mechanism; expected ≥5% MAE reduction vs 0.5409; falsified if the network already saturates this interaction (change <2%).",
+              "rationale": "Inference: prior retained descriptors showed that both window-vs-cage contrast (lsd_p/lsd_f) and volume/area ratios carry marginal predictive signal; this proposal tests whether their interaction — narrow windows guarding large voids — is the true mechanistic driver rather than either alone. Mechanistic inference from adsorption thermodynamics of cage-type zeolites; no supplied evidence.",
+              "falsification_criteria": "Retrain the same network with 16 inputs; require ≥5% held-out MAE reduction relative to 0.5409 AND positive permutation importance. Reject if MAE increases, changes <2%, or the interaction term's importance is insignificant across retraining seeds.",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            },
+            {
+              "name": "inertia_pocket_stiffness",
+              "formula": "sqrt((PMI2 / (PMI1 + 1e-9)) * (lsd_p / (Vol ** (1.0 / 3.0) + 1e-9)))",
+              "hypothesis": "Rotational entropy loss depends on the match between adsorbate mid-to-minor inertia anisotropy (PMI2/PMI1) and the geometric stiffness of the pore pocket (lsd_p / Vol^(1/3), window diameter relative to cage linear size): high anisotropy in tight pockets freezes two rotational degrees of freedom, amplifying entropy loss. Adding this shape-geometry coupling term should reduce MAE by ≥4% vs 0.5409; falsified if shape information in PMI inputs is already fully exploited (change <2%).",
+              "rationale": "Inference from rotational partition functions of confined molecules: a guest loses rotational entropy when its inertia tensor anisotropy aligns with tight, locally spherical confinements; previous anisotropy-only descriptor (round 1) showed a small gain, motivating a coupling with pocket stiffness rather than anisotropy alone. Purely mechanistic inference; no supplied evidence.",
+              "falsification_criteria": "Accept only if held-out MAE(entropy loss/R) drops ≥4% below 0.5409 and ablation degrades MAE by ≥2%. Reject if the gain is <2% or the term is redundant with the retained pore_window_confine_index (mutual-information check with retained descriptors).",
+              "novelty_status": "new_combination",
+              "evidence_ids": []
+            }
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "dimensional_contact_ratio",
+          "formula": "log(1 + (LabuteASA ** 1.5) / (Vol + 1e-9))",
+          "hypothesis": "Entropy loss grows with the molecular surface-to-volume ratio raised to 3/2 power (LabuteASA^1.5/Vol is a dimensionally consistent surface-intensity index): guests with large contact surface per unit volume experience more frustrated translational/rotational modes inside pores, so adding this term to the 15-input model lowers MAE(entropy loss/R) by ≥4% vs the current best (0.5409); falsified if MAE change is within ±2%.",
+          "rationale": "Inference from statistical mechanics of confinement: the density of wall-adjacent configurations scales with surface-to-volume ratio; LabuteASA/Vol^(2/3)-type indices partially worked in round 2 (surface_curvature term gave small gain), suggesting a sharper nonlinear re-expression may extract additional signal. Purely mechanistic inference; no supplied evidence.",
+          "falsification_criteria": "Retrain the identical nonlinear network with this descriptor added; accept only if held-out MAE(entropy loss/R) drops ≥4% below 0.5409 AND ablation of the descriptor degrades MAE by ≥2%. Reject if the gain is <2% or the descriptor's permutation importance is statistically indistinguishable from noise.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5770183466192584,
+            "mae_J_mol_K": 4.797597472954413,
+            "r2": 0.8786176086250066,
+            "n": 591
+          },
+          "seconds": 42.862444795668125,
+          "marginal_improvement": -0.03609146855729084
+        },
+        {
+          "name": "window_to_area_asymmetry",
+          "formula": "log(1 + abs(lsd_f - lsd_p) * (AV / (ASA + 1e-9)))",
+          "hypothesis": "Entropy loss is maximized when the window-to-framework diameter gap (|lsd_f - lsd_p|) coincides with a high pore-volume-to-surface ratio (AV/ASA, i.e., deep pockets rather than shallow surfaces): large cages reachable only through narrow windows trap guests in few configurations. The product of the diameter gap and the volume-per-area index tests this joint (interaction, not additive) mechanism; expected ≥5% MAE reduction vs 0.5409; falsified if the network already saturates this interaction (change <2%).",
+          "rationale": "Inference: prior retained descriptors showed that both window-vs-cage contrast (lsd_p/lsd_f) and volume/area ratios carry marginal predictive signal; this proposal tests whether their interaction — narrow windows guarding large voids — is the true mechanistic driver rather than either alone. Mechanistic inference from adsorption thermodynamics of cage-type zeolites; no supplied evidence.",
+          "falsification_criteria": "Retrain the same network with 16 inputs; require ≥5% held-out MAE reduction relative to 0.5409 AND positive permutation importance. Reject if MAE increases, changes <2%, or the interaction term's importance is insignificant across retraining seeds.",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5696950782058884,
+            "mae_J_mol_K": 4.736708431488745,
+            "r2": 0.8787664502529136,
+            "n": 591
+          },
+          "seconds": 42.8481847345829,
+          "marginal_improvement": -0.028768200143920786
+        },
+        {
+          "name": "inertia_pocket_stiffness",
+          "formula": "sqrt((PMI2 / (PMI1 + 1e-9)) * (lsd_p / (Vol ** (1.0 / 3.0) + 1e-9)))",
+          "hypothesis": "Rotational entropy loss depends on the match between adsorbate mid-to-minor inertia anisotropy (PMI2/PMI1) and the geometric stiffness of the pore pocket (lsd_p / Vol^(1/3), window diameter relative to cage linear size): high anisotropy in tight pockets freezes two rotational degrees of freedom, amplifying entropy loss. Adding this shape-geometry coupling term should reduce MAE by ≥4% vs 0.5409; falsified if shape information in PMI inputs is already fully exploited (change <2%).",
+          "rationale": "Inference from rotational partition functions of confined molecules: a guest loses rotational entropy when its inertia tensor anisotropy aligns with tight, locally spherical confinements; previous anisotropy-only descriptor (round 1) showed a small gain, motivating a coupling with pocket stiffness rather than anisotropy alone. Purely mechanistic inference; no supplied evidence.",
+          "falsification_criteria": "Accept only if held-out MAE(entropy loss/R) drops ≥4% below 0.5409 and ablation degrades MAE by ≥2%. Reject if the gain is <2% or the term is redundant with the retained pore_window_confine_index (mutual-information check with retained descriptors).",
+          "novelty_status": "new_combination",
+          "evidence_ids": [],
+          "novelty_verified": false,
+          "retained": false,
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5729231230773395,
+            "mae_J_mol_K": 4.763547889902147,
+            "r2": 0.8770874617843191,
+            "n": 591
+          },
+          "seconds": 46.92171215265989,
+          "marginal_improvement": -0.031996245015371905
+        }
+      ],
+      "after_mae_R": 0.5409268780619676,
+      "retained_formula": null
+    }
+  ],
+  "d0_score_mae_R": 0.5756181684880872,
+  "interpretation": "Replicates vary LLM proposals on one fixed split, not independent datasets. Novelty is unverified.",
+  "retained": [
+    {
+      "name": "confine_ratio_entropy",
+      "formula": "log((Vol / (LabuteASA * lsd_p + 1e-9)) ** 2)",
+      "hypothesis": "Adsorption entropy loss scales with the confinement ratio (accessible volume per unit adsorbate-contact surface, normalized by the pore-limiting diameter): frameworks with high Vol/(ASA·lsd_p) retain more gas-like entropy, so adding this ratio to the 14-input model lowers MAE(entropy loss/R) by ≥10% vs baseline; falsified if MAE increases or changes <2%.",
+      "novelty_status": "new_combination"
+    },
+    {
+      "name": "pore_window_confine_index",
+      "formula": "log(1 + (Vol / (AV + 1e-9)) * (lsd_p / (lsd_f + 1e-9)) ** 2)",
+      "hypothesis": "Entropy loss increases when the pore-limiting (guest) diameter is much smaller than the largest free-sphere (framework) diameter, i.e., in windows-with-cages topologies where guests are locally trapped; the descriptor Vol/AV (framework bulk-to-accessible volume ratio) times (lsd_p/lsd_f)^2 captures this window-cage contrast. Adding it to the 14-input model should lower MAE(entropy loss/R) by ≥5% vs the current best (0.5534 in R units); falsified if MAE increases or changes <2%.",
+      "novelty_status": "new_combination"
+    }
+  ],
+  "score_improvement_pct": 6.026788646584838,
+  "test": {
+    "d0": {
+      "mae_R": 0.5837445239172757,
+      "mae_J_mol_K": 4.853522022661848,
+      "r2": 0.8819804933409299,
+      "n": 738
+    },
+    "selected": {
+      "mae_R": 0.5784483966776904,
+      "mae_J_mol_K": 4.809487570707334,
+      "r2": 0.8838173221434178,
+      "n": 738
+    },
+    "all_raw_ann": {
+      "mae_R": 0.6151589536388481,
+      "mae_J_mol_K": 5.114716124252464,
+      "r2": 0.8586625368537976,
+      "n": 738
+    },
+    "native14_hgb": {
+      "mae_R": 0.4754063604118087,
+      "mae_J_mol_K": 3.9527484120762697,
+      "r2": 0.9171754010063995,
+      "n": 738
+    },
+    "all_raw_hgb": {
+      "mae_R": 0.4625921022177693,
+      "mae_J_mol_K": 3.8462047413425653,
+      "r2": 0.9246103243291537,
+      "n": 738
+    }
+  },
+  "test_improvement_pct": 0.9072679952601681,
+  "all_raw_plus_selected": {
+    "score": {
+      "mae_R": 0.5924366124889232,
+      "mae_J_mol_K": 4.925792068164489,
+      "r2": 0.8703564421312121,
+      "n": 591
+    },
+    "test": {
+      "mae_R": 0.6157035091043487,
+      "mae_J_mol_K": 5.11924381031388,
+      "r2": 0.8579928208388701,
+      "n": 738
+    },
+    "seconds": 48.308922968804836
+  },
+  "seconds": 543.846650287509
+}

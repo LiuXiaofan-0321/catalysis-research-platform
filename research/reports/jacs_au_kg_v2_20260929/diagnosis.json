@@ -1,0 +1,965 @@
+{
+  "audit_type": "offline_saved_prompt_diagnosis",
+  "benchmark_identity": {
+    "doi": "10.1021/jacsau.4c00429",
+    "pmcid": "PMC11672123",
+    "pmid": "39735916",
+    "verification_url": "https://pubmed.ncbi.nlm.nih.gov/39735916/",
+    "present_in_exclusion_list": false
+  },
+  "benchmark_rows_in_bank": {
+    "rag": [
+      {
+        "record_id": "chunk:f97fe7855115ae8ce0f58527",
+        "document_id": "document:ad183880ced31c026e20c474",
+        "locator": {
+          "kind": "markdown_section",
+          "section": "4.2. nn predictions and descriptors"
+        }
+      },
+      {
+        "record_id": "chunk:d0194a3e3577ffd7ea34c48c",
+        "document_id": "document:ad183880ced31c026e20c474",
+        "locator": {
+          "kind": "markdown_section",
+          "section": "4.2. nn predictions and descriptors"
+        }
+      },
+      {
+        "record_id": "chunk:30f7edcc9b3ead69c0e65ec3",
+        "document_id": "document:ad183880ced31c026e20c474",
+        "locator": {
+          "kind": "markdown_section",
+          "section": "2.2. empirical correlation for adsorption entropy"
+        }
+      },
+      {
+        "record_id": "chunk:29da9fa744d3a5295be08d80",
+        "document_id": "document:ad183880ced31c026e20c474",
+        "locator": {
+          "kind": "markdown_section",
+          "section": "4.3. shap analysis"
+        }
+      },
+      {
+        "record_id": "chunk:8844c0f3f4b5cb5f2a29f1d3",
+        "document_id": "document:ad183880ced31c026e20c474",
+        "locator": {
+          "kind": "markdown_section",
+          "section": "introduction"
+        }
+      },
+      {
+        "record_id": "chunk:f4aae0c75c659c52d83efcc8",
+        "document_id": "document:ad183880ced31c026e20c474",
+        "locator": {
+          "kind": "markdown_section",
+          "section": "4.3. shap analysis"
+        }
+      },
+      {
+        "record_id": "chunk:f57034773147c7e136aeaaf4",
+        "document_id": "document:ad183880ced31c026e20c474",
+        "locator": {
+          "kind": "markdown_section",
+          "section": "4.3. shap analysis"
+        }
+      },
+      {
+        "record_id": "chunk:5441450b19cd646bc83d9de8",
+        "document_id": "document:1887d169511f36a3f2d23905",
+        "locator": {
+          "kind": "markdown_section",
+          "section": "si.iv. optimization of framework descriptors"
+        }
+      },
+      {
+        "record_id": "chunk:7b7985fcb8fa7e75ad5d21c1",
+        "document_id": "document:ad183880ced31c026e20c474",
+        "locator": {
+          "kind": "markdown_section",
+          "section": "4.3. shap analysis"
+        }
+      },
+      {
+        "record_id": "chunk:a70148c12db21280238f605c",
+        "document_id": "document:ad183880ced31c026e20c474",
+        "locator": {
+          "kind": "markdown_section",
+          "section": "2.2. empirical correlation for adsorption entropy"
+        }
+      },
+      {
+        "record_id": "chunk:133ec07c6c4451431e620d1a",
+        "document_id": "document:ad183880ced31c026e20c474",
+        "locator": {
+          "kind": "markdown_section",
+          "section": "4.1. limitations of linear correlations"
+        }
+      }
+    ],
+    "kg": []
+  },
+  "groups": {
+    "agent": {
+      "runs": 3,
+      "prompt_rounds": 9,
+      "rounds_containing_benchmark": 0,
+      "benchmark_items_per_round": {
+        "mean": 0,
+        "min": 0,
+        "max": 0
+      },
+      "candidates_citing_benchmark": [],
+      "retained_citing_benchmark": [],
+      "adjacent_round_evidence_jaccard": null
+    },
+    "rag_agent": {
+      "runs": 3,
+      "prompt_rounds": 9,
+      "rounds_containing_benchmark": 9,
+      "benchmark_items_per_round": {
+        "mean": 3.6666666666666665,
+        "min": 3,
+        "max": 4
+      },
+      "candidates_citing_benchmark": [
+        {
+          "replicate": 1,
+          "round": 1,
+          "name": "tightfit_lock_ratio",
+          "formula": "(q_GeDi / q_lsd_f) + (q_GeDi / q_lsd_p)",
+          "benchmark_citations": [
+            "R1E06"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 1,
+          "name": "occivol_per_mol",
+          "formula": "q_AV / q_Vol",
+          "benchmark_citations": [
+            "R1E09"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 1,
+          "name": "shape_aniso_confinement",
+          "formula": "(q_PMI1 / q_PMI3) * (q_lsd_f / q_density_ref_adj)",
+          "benchmark_citations": [
+            "R1E06",
+            "R1E09",
+            "R1E14"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 2,
+          "name": "ink_bottle_asymmetry",
+          "formula": "q_lsd_p / q_lsd_f",
+          "benchmark_citations": [
+            "R2E01"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 2,
+          "name": "shape_confinement_lock",
+          "formula": "(q_PMI1 / q_PMI3) * (q_GeDi / q_lsd_f)",
+          "benchmark_citations": [
+            "R2E06",
+            "R2E14"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 3,
+          "name": "planar_slide_confinement",
+          "formula": "(q_PBF / q_SPAN) * (q_GeDi / q_lsd_f)",
+          "benchmark_citations": [
+            "R3E08",
+            "R3E12"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 3,
+          "name": "site_packing_mismatch",
+          "formula": "q_density * ((q_Vol ** (1/3)) / q_lsd_p)",
+          "benchmark_citations": [
+            "R3E01"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 1,
+          "name": "confinement_ratio_pore_to_molecule",
+          "formula": "(lsd_p/GeDi) * (1/ (1 + (Vol/AV_ref)**2))",
+          "benchmark_citations": [
+            "R1E06",
+            "R1E09"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 1,
+          "name": "inkbottle_path_mismatch_descriptor",
+          "formula": "q_lsd_p * (1 - q_lsd_f * q_lsd_f / (q_lsd_p * q_lsd_p))",
+          "benchmark_citations": [
+            "R1E06"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 2,
+          "name": "density_pore_volume_confinement_descriptor",
+          "formula": "q_density * q_Vol / q_AV",
+          "benchmark_citations": [
+            "R2E01"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 2,
+          "name": "anisotropy_path_elongation_descriptor",
+          "formula": "q_PMI1 * q_lsd_p / q_PMI3",
+          "benchmark_citations": [
+            "R2E01",
+            "R2E10"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 2,
+          "name": "surface_area_flatness_coupling_descriptor",
+          "formula": "q_ASA * q_PBF * exp(-q_lsd_f * q_lsd_f / 2)",
+          "benchmark_citations": [
+            "R2E07"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 3,
+          "name": "gyration_cavity_size_ratio_descriptor",
+          "formula": "q_GeDi / q_lsd_f",
+          "benchmark_citations": [
+            "R3E01",
+            "R3E06"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 3,
+          "name": "anisotropy_path_confinement_descriptor",
+          "formula": "q_PMI3 / (q_lsd_p * q_lsd_p * q_lsd_p)",
+          "benchmark_citations": [
+            "R3E01",
+            "R3E10"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 3,
+          "name": "planar_wall_retention_gate_descriptor",
+          "formula": "q_ASA * exp(-q_GeDi * q_PBF / q_lsd_p)",
+          "benchmark_citations": [
+            "R3E01"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "confinement_ratio_descriptor",
+          "formula": "(q_Vol * q_Vol) / (q_AV * q_AV + q_Vol * q_Vol)",
+          "benchmark_citations": [
+            "R1E06",
+            "R1E09"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "window_shape_rigidity_descriptor",
+          "formula": "minimum(q_lsd_f, q_lsd_p) * exp(-abs(q_lsd_f - q_lsd_p))",
+          "benchmark_citations": [
+            "R1E06",
+            "R1E09"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "rotational_loss_shape_descriptor",
+          "formula": "(q_PMI3 / (q_PMI1 * q_PMI2 + q_PMI3 * q_PMI3)) * q_PBF * q_Vol",
+          "benchmark_citations": [
+            "R1E09",
+            "R1E14"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "framework_packing_confinement_descriptor",
+          "formula": "q_density * (q_Vol / q_AV)",
+          "benchmark_citations": [
+            "R2E01"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "cavity_size_match_descriptor",
+          "formula": "q_Vol / (q_lsd_f * q_lsd_f * q_lsd_f)",
+          "benchmark_citations": [
+            "R2E09"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "elongation_path_friction_descriptor",
+          "formula": "(q_GeDi / minimum(q_lsd_f, q_lsd_p)) * exp(-q_PBF)",
+          "benchmark_citations": [
+            "R2E09",
+            "R2E10"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 3,
+          "name": "hindered_rotation_packing_descriptor",
+          "formula": "q_density * (q_Vol / (q_lsd_f ** 3)) * q_AV",
+          "benchmark_citations": [
+            "R3E01",
+            "R3E06"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 3,
+          "name": "rotational_shape_gating_descriptor",
+          "formula": "(q_PMI1 * q_PMI2 * q_PMI3) ** (1.0 / 3.0) / (q_lsd_p * q_Vol ** (1.0 / 3.0))",
+          "benchmark_citations": [
+            "R3E01",
+            "R3E06",
+            "R3E11"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 3,
+          "name": "surface_area_translational_descriptor",
+          "formula": "q_LabuteASA * q_AV / (q_lsd_f * q_AV + q_LabuteASA * q_lsd_f * q_lsd_f)",
+          "benchmark_citations": [
+            "R3E01"
+          ]
+        }
+      ],
+      "retained_citing_benchmark": [
+        {
+          "replicate": 1,
+          "round": 1,
+          "name": "occivol_per_mol",
+          "formula": "q_AV / q_Vol",
+          "benchmark_citations": [
+            "R1E09"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 1,
+          "name": "inkbottle_path_mismatch_descriptor",
+          "formula": "q_lsd_p * (1 - q_lsd_f * q_lsd_f / (q_lsd_p * q_lsd_p))",
+          "benchmark_citations": [
+            "R1E06"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 2,
+          "name": "density_pore_volume_confinement_descriptor",
+          "formula": "q_density * q_Vol / q_AV",
+          "benchmark_citations": [
+            "R2E01"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "window_shape_rigidity_descriptor",
+          "formula": "minimum(q_lsd_f, q_lsd_p) * exp(-abs(q_lsd_f - q_lsd_p))",
+          "benchmark_citations": [
+            "R1E06",
+            "R1E09"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "cavity_size_match_descriptor",
+          "formula": "q_Vol / (q_lsd_f * q_lsd_f * q_lsd_f)",
+          "benchmark_citations": [
+            "R2E09"
+          ]
+        }
+      ],
+      "adjacent_round_evidence_jaccard": {
+        "mean": 0.7094702568386779,
+        "min": 0.6410256410256411,
+        "max": 0.8285714285714286
+      }
+    },
+    "small_kg_rag_agent": {
+      "runs": 3,
+      "prompt_rounds": 9,
+      "rounds_containing_benchmark": 9,
+      "benchmark_items_per_round": {
+        "mean": 1.8888888888888888,
+        "min": 1,
+        "max": 3
+      },
+      "candidates_citing_benchmark": [
+        {
+          "replicate": 1,
+          "round": 1,
+          "name": "confinement_gap_ratio",
+          "formula": "log((lsd_p / lsd_p_ref) / (GeDi / GeDi_ref))",
+          "benchmark_citations": [
+            "R1E14"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 1,
+          "name": "void_site_pressure",
+          "formula": "q_lsd_f * q_density",
+          "benchmark_citations": [
+            "R1E14"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 2,
+          "name": "free_volume_capacity_ratio",
+          "formula": "log((AV / AV_ref) / (Vol / Vol_ref))",
+          "benchmark_citations": [
+            "R2E21"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 2,
+          "name": "elongation_channel_alignment",
+          "formula": "log((PMI3 / PMI1) ** 0.5 * (lsd_p / lsd_p_ref))",
+          "benchmark_citations": [
+            "R2E08",
+            "R2E21",
+            "R2E22"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 2,
+          "name": "dispersion_contact_area_index",
+          "formula": "log((LabuteASA / LabuteASA_ref) / (ASA / ASA_ref))",
+          "benchmark_citations": [
+            "R2E08"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 3,
+          "name": "curvature_mismatch_index",
+          "formula": "log(((LabuteASA / LabuteASA_ref) * (Vol_ref / Vol)) / ((ASA / ASA_ref) * (AV_ref / AV)))",
+          "benchmark_citations": [
+            "R3E13"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 3,
+          "name": "planarity_cavity_clearance",
+          "formula": "log((PBF / PBF_ref) * (lsd_f / lsd_f_ref))",
+          "benchmark_citations": [
+            "R3E13"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 3,
+          "name": "inertia_density_packing",
+          "formula": "log((PMI3 / PMI3_ref) * (density / density_ref))",
+          "benchmark_citations": [
+            "R3E08",
+            "R3E13"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 1,
+          "name": "cavity_to_molecule_conf_ratio",
+          "formula": "q_lsd_f / q_GeDi",
+          "benchmark_citations": [
+            "R1E14"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 1,
+          "name": "bottleneck_pore_path_penalty",
+          "formula": "minimum(q_lsd_p, q_lsd_f) / q_GeDi",
+          "benchmark_citations": [
+            "R1E14"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 2,
+          "name": "cavity_fraction_ratio",
+          "formula": "q_Vol / q_AV",
+          "benchmark_citations": [
+            "R2E21"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 2,
+          "name": "surface_interaction_index",
+          "formula": "q_ASA * q_LabuteASA / (q_Vol * q_density)",
+          "benchmark_citations": [
+            "R2E08",
+            "R2E21"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 2,
+          "name": "geometric_fit_compatibility",
+          "formula": "log(q_lsd_f / q_SPAN) + log(q_lsd_p / q_PBF)",
+          "benchmark_citations": [
+            "R2E08",
+            "R2E21"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 3,
+          "name": "hydraulic_contact_ratio",
+          "formula": "q_ASA * q_Vol / (q_AV * q_LabuteASA)",
+          "benchmark_citations": [
+            "R3E08"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 3,
+          "name": "cross_sectional_fit_area",
+          "formula": "q_lsd_f ** 2 / (q_GeDi * q_SPAN)",
+          "benchmark_citations": [
+            "R3E08"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 3,
+          "name": "asymmetric_inertia_confinement",
+          "formula": "q_PMI3 / (q_PMI1 * q_lsd_p * q_GeDi)",
+          "benchmark_citations": [
+            "R3E15"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "pore_size_mismatch",
+          "formula": "q_lsd_f / q_GeDi",
+          "benchmark_citations": [
+            "R1E14"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "surface_area_confinement",
+          "formula": "q_AV / q_LabuteASA",
+          "benchmark_citations": [
+            "R1E14"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "planarity_path_confinement",
+          "formula": "q_PBF * q_lsd_p",
+          "benchmark_citations": [
+            "R1E14"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "rotational_inertia_confinement",
+          "formula": "q_PMI3 / (q_lsd_f ** 2)",
+          "benchmark_citations": [
+            "R2E21"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "packing_fraction",
+          "formula": "q_Vol / q_AV",
+          "benchmark_citations": [
+            "R2E21"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "elongation_cage_vs_path",
+          "formula": "(q_PMI3 / (q_PMI1 + q_PMI2)) * (q_lsd_f / q_lsd_p)",
+          "benchmark_citations": [
+            "R2E08",
+            "R2E21"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 3,
+          "name": "cage_volume_packing",
+          "formula": "q_Vol / (q_lsd_f ** 3)",
+          "benchmark_citations": [
+            "R3E14"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 3,
+          "name": "elongation_path_mismatch",
+          "formula": "(q_PMI3 / (q_PMI1 + q_PMI2)) * (q_SPAN / q_lsd_p)",
+          "benchmark_citations": [
+            "R3E14"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 3,
+          "name": "surface_density_confinement",
+          "formula": "q_density * (q_SPAN / q_lsd_f)",
+          "benchmark_citations": [
+            "R3E08"
+          ]
+        }
+      ],
+      "retained_citing_benchmark": [
+        {
+          "replicate": 1,
+          "round": 1,
+          "name": "confinement_gap_ratio",
+          "formula": "log((lsd_p / lsd_p_ref) / (GeDi / GeDi_ref))",
+          "benchmark_citations": [
+            "R1E14"
+          ]
+        },
+        {
+          "replicate": 1,
+          "round": 2,
+          "name": "free_volume_capacity_ratio",
+          "formula": "log((AV / AV_ref) / (Vol / Vol_ref))",
+          "benchmark_citations": [
+            "R2E21"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 2,
+          "name": "surface_interaction_index",
+          "formula": "q_ASA * q_LabuteASA / (q_Vol * q_density)",
+          "benchmark_citations": [
+            "R2E08",
+            "R2E21"
+          ]
+        },
+        {
+          "replicate": 2,
+          "round": 3,
+          "name": "asymmetric_inertia_confinement",
+          "formula": "q_PMI3 / (q_PMI1 * q_lsd_p * q_GeDi)",
+          "benchmark_citations": [
+            "R3E15"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 1,
+          "name": "surface_area_confinement",
+          "formula": "q_AV / q_LabuteASA",
+          "benchmark_citations": [
+            "R1E14"
+          ]
+        },
+        {
+          "replicate": 3,
+          "round": 2,
+          "name": "rotational_inertia_confinement",
+          "formula": "q_PMI3 / (q_lsd_f ** 2)",
+          "benchmark_citations": [
+            "R2E21"
+          ]
+        }
+      ],
+      "adjacent_round_evidence_jaccard": {
+        "mean": 0.8411728395061728,
+        "min": 0.7037037037037037,
+        "max": 1.0
+      }
+    }
+  },
+  "kg_round_replays": [
+    {
+      "replicate": 1,
+      "round": 1,
+      "actual_items": 21,
+      "actual_rag_items": 4,
+      "rag_anchor_items": 32,
+      "rag_anchor_quotes_preserved_any_channel": 4,
+      "rag_anchor_verbatim_quotes_present_including_nested_fields": 4,
+      "original_tokens": 31949,
+      "lossless_deduplicated_tokens": 19233,
+      "rag_anchor_plus_same_kg_deduplicated_tokens": 29737,
+      "round_trip_exact": true,
+      "edge_occurrences": 51,
+      "support_quote_occurrences": 184,
+      "unique_support_quotes": 62,
+      "benchmark_evidence_ids": [
+        "R1E14"
+      ]
+    },
+    {
+      "replicate": 1,
+      "round": 2,
+      "actual_items": 23,
+      "actual_rag_items": 7,
+      "rag_anchor_items": 32,
+      "rag_anchor_quotes_preserved_any_channel": 7,
+      "rag_anchor_verbatim_quotes_present_including_nested_fields": 7,
+      "original_tokens": 31903,
+      "lossless_deduplicated_tokens": 19566,
+      "rag_anchor_plus_same_kg_deduplicated_tokens": 29847,
+      "round_trip_exact": true,
+      "edge_occurrences": 48,
+      "support_quote_occurrences": 181,
+      "unique_support_quotes": 60,
+      "benchmark_evidence_ids": [
+        "R2E08",
+        "R2E21",
+        "R2E22"
+      ]
+    },
+    {
+      "replicate": 1,
+      "round": 3,
+      "actual_items": 23,
+      "actual_rag_items": 7,
+      "rag_anchor_items": 32,
+      "rag_anchor_quotes_preserved_any_channel": 7,
+      "rag_anchor_verbatim_quotes_present_including_nested_fields": 7,
+      "original_tokens": 31903,
+      "lossless_deduplicated_tokens": 19566,
+      "rag_anchor_plus_same_kg_deduplicated_tokens": 30095,
+      "round_trip_exact": true,
+      "edge_occurrences": 48,
+      "support_quote_occurrences": 181,
+      "unique_support_quotes": 60,
+      "benchmark_evidence_ids": [
+        "R3E08",
+        "R3E13"
+      ]
+    },
+    {
+      "replicate": 2,
+      "round": 1,
+      "actual_items": 21,
+      "actual_rag_items": 4,
+      "rag_anchor_items": 32,
+      "rag_anchor_quotes_preserved_any_channel": 4,
+      "rag_anchor_verbatim_quotes_present_including_nested_fields": 4,
+      "original_tokens": 31949,
+      "lossless_deduplicated_tokens": 19233,
+      "rag_anchor_plus_same_kg_deduplicated_tokens": 29737,
+      "round_trip_exact": true,
+      "edge_occurrences": 51,
+      "support_quote_occurrences": 184,
+      "unique_support_quotes": 62,
+      "benchmark_evidence_ids": [
+        "R1E14"
+      ]
+    },
+    {
+      "replicate": 2,
+      "round": 2,
+      "actual_items": 23,
+      "actual_rag_items": 7,
+      "rag_anchor_items": 32,
+      "rag_anchor_quotes_preserved_any_channel": 7,
+      "rag_anchor_verbatim_quotes_present_including_nested_fields": 7,
+      "original_tokens": 31951,
+      "lossless_deduplicated_tokens": 19527,
+      "rag_anchor_plus_same_kg_deduplicated_tokens": 29996,
+      "round_trip_exact": true,
+      "edge_occurrences": 49,
+      "support_quote_occurrences": 182,
+      "unique_support_quotes": 61,
+      "benchmark_evidence_ids": [
+        "R2E08",
+        "R2E21",
+        "R2E22"
+      ]
+    },
+    {
+      "replicate": 2,
+      "round": 3,
+      "actual_items": 23,
+      "actual_rag_items": 7,
+      "rag_anchor_items": 32,
+      "rag_anchor_quotes_preserved_any_channel": 7,
+      "rag_anchor_verbatim_quotes_present_including_nested_fields": 7,
+      "original_tokens": 31966,
+      "lossless_deduplicated_tokens": 20609,
+      "rag_anchor_plus_same_kg_deduplicated_tokens": 31032,
+      "round_trip_exact": true,
+      "edge_occurrences": 48,
+      "support_quote_occurrences": 181,
+      "unique_support_quotes": 61,
+      "benchmark_evidence_ids": [
+        "R3E08",
+        "R3E15"
+      ]
+    },
+    {
+      "replicate": 3,
+      "round": 1,
+      "actual_items": 21,
+      "actual_rag_items": 4,
+      "rag_anchor_items": 32,
+      "rag_anchor_quotes_preserved_any_channel": 4,
+      "rag_anchor_verbatim_quotes_present_including_nested_fields": 4,
+      "original_tokens": 31949,
+      "lossless_deduplicated_tokens": 19233,
+      "rag_anchor_plus_same_kg_deduplicated_tokens": 29737,
+      "round_trip_exact": true,
+      "edge_occurrences": 51,
+      "support_quote_occurrences": 184,
+      "unique_support_quotes": 62,
+      "benchmark_evidence_ids": [
+        "R1E14"
+      ]
+    },
+    {
+      "replicate": 3,
+      "round": 2,
+      "actual_items": 23,
+      "actual_rag_items": 7,
+      "rag_anchor_items": 32,
+      "rag_anchor_quotes_preserved_any_channel": 7,
+      "rag_anchor_verbatim_quotes_present_including_nested_fields": 7,
+      "original_tokens": 31891,
+      "lossless_deduplicated_tokens": 20534,
+      "rag_anchor_plus_same_kg_deduplicated_tokens": 30762,
+      "round_trip_exact": true,
+      "edge_occurrences": 48,
+      "support_quote_occurrences": 181,
+      "unique_support_quotes": 61,
+      "benchmark_evidence_ids": [
+        "R2E08",
+        "R2E21"
+      ]
+    },
+    {
+      "replicate": 3,
+      "round": 3,
+      "actual_items": 23,
+      "actual_rag_items": 7,
+      "rag_anchor_items": 32,
+      "rag_anchor_quotes_preserved_any_channel": 7,
+      "rag_anchor_verbatim_quotes_present_including_nested_fields": 7,
+      "original_tokens": 31891,
+      "lossless_deduplicated_tokens": 20534,
+      "rag_anchor_plus_same_kg_deduplicated_tokens": 30771,
+      "round_trip_exact": true,
+      "edge_occurrences": 48,
+      "support_quote_occurrences": 181,
+      "unique_support_quotes": 61,
+      "benchmark_evidence_ids": [
+        "R3E08",
+        "R3E14"
+      ]
+    }
+  ],
+  "limitations": [
+    "Replay and compression do not measure a change in predictive performance.",
+    "Known benchmark-alias detection is not a complete audit of all external papers or LLM pretraining.",
+    "Citations record attribution, not causal dependence or verification of a hypothesis.",
+    "Compression retains contaminated facts for measurement only; these must be excluded from future runs."
+  ],
+  "replay_summary": {
+    "actual_rag_items": {
+      "mean": 6,
+      "min": 4,
+      "max": 7
+    },
+    "rag_anchor_quotes_preserved_any_channel": {
+      "mean": 6,
+      "min": 4,
+      "max": 7
+    },
+    "original_tokens": {
+      "mean": 31928,
+      "min": 31891,
+      "max": 31966
+    },
+    "rag_anchor_verbatim_quotes_present_including_nested_fields": {
+      "mean": 6,
+      "min": 4,
+      "max": 7
+    },
+    "lossless_deduplicated_tokens": {
+      "mean": 19781.666666666668,
+      "min": 19233,
+      "max": 20609
+    },
+    "rag_anchor_plus_same_kg_deduplicated_tokens": {
+      "mean": 30190.444444444445,
+      "min": 29737,
+      "max": 31032
+    },
+    "support_quote_occurrences": {
+      "mean": 182.11111111111111,
+      "min": 181,
+      "max": 184
+    },
+    "unique_support_quotes": {
+      "mean": 61.111111111111114,
+      "min": 60,
+      "max": 62
+    }
+  },
+  "relation_occurrences": {
+    "PAPER_REPORTS_EXPERIMENT": 27,
+    "PAPER_REPORTS_OBSERVATION": 27,
+    "PAPER_MENTIONS_ENTITY": 9,
+    "PAPER_STUDIES_REACTION": 90,
+    "EXPERIMENT_USES_SAMPLE": 27,
+    "PAPER_ASSERTS_CLAIM": 104,
+    "PAPER_HAS_KEYWORD": 85,
+    "EXPERIMENT_USES_MATERIAL": 18,
+    "OBSERVATION_MEASURES_PROPERTY": 12,
+    "EXPERIMENT_PRODUCES_OBSERVATION": 18,
+    "EXPERIMENT_USES_METHOD": 8,
+    "EXPERIMENT_HAS_CONDITION": 8,
+    "OBSERVATION_MEASURES_METRIC": 6,
+    "OBSERVATION_MEASURED_BY": 3
+  },
+  "paper_relation_fraction": 0.7737556561085973
+}

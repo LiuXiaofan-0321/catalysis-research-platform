@@ -1,0 +1,41 @@
+{
+  "profile": "jacs-au-kg-v2",
+  "benchmark_doi": "10.1021/jacsau.4c00429",
+  "model": "glm-5.3-flash",
+  "thinking": "enabled",
+  "reasoning_effort": "low",
+  "temperature": 0.2,
+  "modes": ["agent", "rag_agent", "small_kg_rag_agent"],
+  "replicates_per_mode": 3,
+  "rounds": 3,
+  "proposals_per_round": 3,
+  "max_retained_per_round": 1,
+  "epochs": 4000,
+  "fit_seed": 3,
+  "native_d0": "All 14 published features, unchanged",
+  "baseline_source": "runs/jacs-au-20260928/baseline",
+  "split_policy": "Reuse the archived split; scoring drives search, published outer test is a development diagnostic because its results have already been inspected",
+  "retrieval": {
+    "frozen_bank_queries": 5,
+    "candidates_per_source_per_bank_query": 160,
+    "candidates_per_round": 120,
+    "max_items": 32,
+    "max_items_per_paper": 4,
+    "context_lexical_tokens": 32000,
+    "kg_priority_items": 8,
+    "preserve_complete_selected_passages_and_support": true,
+    "actual_serialized_graph_tokens_counted": true,
+    "actual_length_matching_claimed": false,
+    "adaptive_search": "Reselect from a frozen bank each round using retained formulas, scoring feedback and optional model queries; no new full-index retrieval within a trajectory"
+  },
+  "generation": {
+    "max_tokens": 16000,
+    "max_tokens_on_truncation": 32000,
+    "policy": "Same output budget for all modes; retry an incomplete length-terminated response with an expanded budget, never select between completed generations"
+  },
+  "shared_checks": ["variable meanings", "dimensional algebra", "train-only reference values", "numeric stability", "redundancy", "evidence IDs"],
+  "kg_changes": ["task relevance filter", "connected directed paths", "edge evidence", "node condition data", "scope caveats"],
+  "tree_transfer": "Freeze ANN-selected formulas and evaluate native14 and all-raw HGB with no test reselection",
+  "pilot_decision": "Review evidence relevance, graph use, invalid formula rate, actual context length and scoring gains before a larger comparison; do not select a method version using test ranking",
+  "new_unseen_evaluation_required_for_paper": true
+}

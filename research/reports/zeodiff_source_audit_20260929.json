@@ -1,0 +1,432 @@
+{
+  "checked_on": "2026-09-29",
+  "paper": {
+    "doi": "10.1038/s41467-026-71698-0",
+    "url": "https://www.nature.com/articles/s41467-026-71698-0"
+  },
+  "release": {
+    "zenodo": "https://zenodo.org/records/18858951",
+    "version": "v1.0",
+    "repository": "https://github.com/WangXiaobao-j/ZeoDiff_HTP",
+    "downloads": [
+      {
+        "file": "ZeoDiff_HTP-v1.0.zip",
+        "url": "https://zenodo.org/api/records/18858951/files/WangXiaobao-j/ZeoDiff_HTP-v1.0.zip/content",
+        "bytes": 14263821,
+        "status": "downloaded"
+      },
+      {
+        "file": "supplementary.pdf",
+        "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-026-71698-0/MediaObjects/41467_2026_71698_MOESM1_ESM.pdf",
+        "bytes": 15329743,
+        "status": "downloaded"
+      },
+      {
+        "file": "source_data.xlsx",
+        "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-026-71698-0/MediaObjects/41467_2026_71698_MOESM3_ESM.xlsx",
+        "bytes": 1943459,
+        "status": "downloaded"
+      },
+      {
+        "file": "zenodo_metadata.json",
+        "url": "https://zenodo.org/api/records/18858951",
+        "bytes": 5178,
+        "status": "downloaded"
+      }
+    ]
+  },
+  "dataset": {
+    "rows": 4194,
+    "unique_ids": 4194,
+    "source_columns": [
+      "Zeolites",
+      "AvgA",
+      "MaxA",
+      "StdA",
+      "Tort",
+      "PLD",
+      "PLD/LCD",
+      "Vacc",
+      "FDSi",
+      "ASA",
+      "Ds"
+    ],
+    "native_d0": [
+      "FDSi",
+      "PLD",
+      "PLD/LCD",
+      "Vacc",
+      "Tort",
+      "AvgA",
+      "StdA",
+      "MaxA",
+      "ASA"
+    ],
+    "initial_d0": [
+      "PLD",
+      "FDSi",
+      "Vacc",
+      "ASA"
+    ],
+    "all_features_finite": true,
+    "all_targets_positive": true,
+    "target": "Ds is D / (1e-8 m^2/s); plot sheets use log10(Ds)",
+    "feature_ranges": {
+      "FDSi": {
+        "min": 9.40623199999999,
+        "max": 24.45607
+      },
+      "PLD": {
+        "min": 3.44747,
+        "max": 12.25557
+      },
+      "PLD/LCD": {
+        "min": 0.4618972024464051,
+        "max": 0.9953608613000435
+      },
+      "Vacc": {
+        "min": 0.5700000000000001,
+        "max": 31.073
+      },
+      "Tort": {
+        "min": 1.0,
+        "max": 1.6849
+      },
+      "AvgA": {
+        "min": 2.597844146508265,
+        "max": 151.6884
+      },
+      "StdA": {
+        "min": 0.1339417951345219,
+        "max": 64.97486792086397
+      },
+      "MaxA": {
+        "min": 2.762401209978716,
+        "max": 199.4918
+      },
+      "ASA": {
+        "min": 204.291,
+        "max": 1814.72
+      }
+    },
+    "target_range_scaled": {
+      "min": 0.0002222743852574572,
+      "max": 95.67585303817937
+    },
+    "id_sources": {
+      "alphabetic_ids": 48,
+      "numeric_ids": 4146
+    }
+  },
+  "source_data": {
+    "sheets": [
+      {
+        "name": "Supplementary data 1",
+        "rows": 4194,
+        "columns": 6
+      },
+      {
+        "name": "Supplementary data 2",
+        "rows": 4194,
+        "columns": 12
+      },
+      {
+        "name": "Supplementary data 3",
+        "rows": 3777,
+        "columns": 4
+      },
+      {
+        "name": "Supplementary data 4",
+        "rows": 5,
+        "columns": 2
+      },
+      {
+        "name": "Supplementary data 5",
+        "rows": 17,
+        "columns": 8
+      },
+      {
+        "name": "Supplementary data 6",
+        "rows": 2503,
+        "columns": 16
+      },
+      {
+        "name": "Supplementary data 7",
+        "rows": 2503,
+        "columns": 15
+      },
+      {
+        "name": "Supplementary data 8",
+        "rows": 4195,
+        "columns": 4
+      },
+      {
+        "name": "Supplementary data 9",
+        "rows": 6,
+        "columns": 8
+      },
+      {
+        "name": "Supplementary data 10",
+        "rows": 3830,
+        "columns": 4
+      },
+      {
+        "name": "Supplementary data 11",
+        "rows": 3776,
+        "columns": 10
+      },
+      {
+        "name": "Supplementary data 12",
+        "rows": 26,
+        "columns": 11
+      },
+      {
+        "name": "Supplementary data 13",
+        "rows": 14,
+        "columns": 11
+      },
+      {
+        "name": "Supplementary data 14",
+        "rows": 2005,
+        "columns": 13
+      },
+      {
+        "name": "Supplementary data 15",
+        "rows": 3831,
+        "columns": 14
+      },
+      {
+        "name": "Supplementary data 16",
+        "rows": 324,
+        "columns": 9
+      }
+    ],
+    "reported_table9": [
+      {
+        "model": "ANN",
+        "r2": 0.91,
+        "rmse": 0.35
+      },
+      {
+        "model": "RF",
+        "r2": 0.9,
+        "rmse": 0.38
+      },
+      {
+        "model": "XGB",
+        "r2": 0.91,
+        "rmse": 0.36
+      },
+      {
+        "model": "LGBM",
+        "r2": 0.9,
+        "rmse": 0.36
+      }
+    ],
+    "metrics_recomputed_from_plot_pairs": {
+      "initial_ann_train": {
+        "n": 3774,
+        "mae": 0.4059828173540011,
+        "rmse": 0.5525267392618869,
+        "r2": 0.5615796612265975
+      },
+      "initial_ann_test": {
+        "n": 420,
+        "mae": 0.4067112857142858,
+        "rmse": 0.5505407773275983,
+        "r2": 0.5677978392853085
+      },
+      "final_ann_train": {
+        "n": 3827,
+        "mae": 0.22811754255484712,
+        "rmse": 0.29694309314012846,
+        "r2": 0.9276054950150984
+      },
+      "final_ann_test": {
+        "n": 426,
+        "mae": 0.2604316666666667,
+        "rmse": 0.34823044078315174,
+        "r2": 0.9030435371390767
+      },
+      "xgb_train": {
+        "n": 3827,
+        "mae": 0.20016527380611446,
+        "rmse": 0.2627047965578781,
+        "r2": 0.9456774694170572
+      },
+      "xgb_test": {
+        "n": 426,
+        "mae": 0.2716102096901408,
+        "rmse": 0.36155738357106637,
+        "r2": 0.8954885614984762
+      },
+      "lgbm_train": {
+        "n": 3827,
+        "mae": 0.15722865589730856,
+        "rmse": 0.204869804015156,
+        "r2": 0.9677062317394229
+      },
+      "lgbm_test": {
+        "n": 426,
+        "mae": 0.27355776995305164,
+        "rmse": 0.3664574776512629,
+        "r2": 0.8944854994434348
+      },
+      "rf_train": {
+        "n": 3827,
+        "mae": 0.2214123466140319,
+        "rmse": 0.2948722170880652,
+        "r2": 0.9274467960647295
+      },
+      "rf_test": {
+        "n": 426,
+        "mae": 0.2820578697206573,
+        "rmse": 0.37676938255320386,
+        "r2": 0.8797845647074236
+      }
+    },
+    "shap_ids": {
+      "n": 3774,
+      "unique": 3774,
+      "not_in_main_dataset": []
+    }
+  },
+  "checkpoint": {
+    "feature_names": [
+      "FDSi",
+      "PLD",
+      "PLD/LCD",
+      "Vacc",
+      "Tort",
+      "AvgA",
+      "StdA",
+      "MaxA",
+      "ASA"
+    ],
+    "hyperparams": {
+      "hidden_size1": 128,
+      "hidden_size2": 64,
+      "hidden_size3": 32,
+      "dropout": 0.2,
+      "learning_rate": 0.001,
+      "batch_size": 16,
+      "weight_decay": 0.005,
+      "use_batchnorm": false,
+      "step_size": 100,
+      "gamma": 0.3
+    },
+    "optimizer": {
+      "lr": 8.999999999999999e-05,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "weight_decay": 0.005,
+      "amsgrad": false,
+      "maximize": false,
+      "foreach": null,
+      "capturable": false,
+      "differentiable": false,
+      "fused": null,
+      "initial_lr": 0.001
+    },
+    "weight_shapes": {
+      "hidden1.weight": [
+        128,
+        9
+      ],
+      "hidden1.bias": [
+        128
+      ],
+      "hidden2.weight": [
+        64,
+        128
+      ],
+      "hidden2.bias": [
+        64
+      ],
+      "hidden3.weight": [
+        32,
+        64
+      ],
+      "hidden3.bias": [
+        32
+      ],
+      "output.weight": [
+        1,
+        32
+      ],
+      "output.bias": [
+        1
+      ]
+    }
+  },
+  "status": "native descriptors and checkpoint replay audited; training recipe and plot-data version unresolved",
+  "discovery_jobs_submitted": false,
+  "checkpoint_replay_diagnostic": {
+    "evaluation_scope": "full dataset, mixes training and test; not independent performance",
+    "implementation": "NumPy forward pass of published weights; no application code executed",
+    "scaler_n_samples_seen": 3774,
+    "scaler_mean": [
+      19.36213815209322,
+      4.709691862745117,
+      0.8390935597508508,
+      6.686795972443028,
+      1.1443634380399912,
+      21.192353326062886,
+      7.036404725483827,
+      34.91408294497469,
+      1007.0201414944371
+    ],
+    "scaler_scale": [
+      1.5742871492350596,
+      1.3469087149240162,
+      0.08234228598657121,
+      4.426400772627825,
+      0.14771674335779694,
+      16.799515310851778,
+      7.235109528271684,
+      28.075529474418484,
+      295.74425158205094
+    ],
+    "as_ln_target": {
+      "n": 4194,
+      "mae": 0.5322444676204794,
+      "rmse": 0.6961502654216126,
+      "r2": 0.9342545226757313
+    },
+    "as_log10_target": {
+      "n": 4194,
+      "mae": 1.226057915751592,
+      "rmse": 1.4790234962402793,
+      "r2": -0.5734082421387583
+    },
+    "author_gui_inverse": "exp(output) * 1e-8 m^2/s"
+  },
+  "native_split_reconstruction": {
+    "method": "SHAP training-table IDs only, matched to author scaler mean and population standard deviation",
+    "shap_values_used_as_features": false,
+    "train_count": 3774,
+    "test_count": 420,
+    "scaler_mean_max_abs_difference": 1.1368683772161603e-13,
+    "scaler_scale_max_abs_difference": 2.8421709430404007e-13,
+    "seed_3407_same_training_ids": false,
+    "membership_verified": true,
+    "original_split_generation_and_order_verified": false,
+    "checkpoint_metrics_log10_ds": {
+      "train": {
+        "n": 3774,
+        "mae": 0.22809531086475307,
+        "rmse": 0.29705763988971395,
+        "r2": 0.936500463579311
+      },
+      "test": {
+        "n": 420,
+        "mae": 0.25860690497907035,
+        "rmse": 0.3461581201345571,
+        "r2": 0.9141640217842996
+      }
+    }
+  }
+}

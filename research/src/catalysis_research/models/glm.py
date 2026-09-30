@@ -20,6 +20,24 @@ class GlmError(RuntimeError):
     """Raised when a GLM request or structured response is invalid."""
 
 
+class GlmMalformedJson(GlmError):
+    """Keep the provider response for bounded format recovery and auditing."""
+
+    def __init__(self, raw: dict[str, Any], error: str) -> None:
+        super().__init__(error)
+        self.raw = raw
+        self.usage = raw.get('usage') or {}
+        self.content = raw['choices'][0]['message']['content']
+
+
+class GlmOutputTruncated(GlmError):
+    """The provider exhausted its output budget before completing the response."""
+
+    def __init__(self, usage: dict[str, Any]) -> None:
+        super().__init__('GLM response ended with finish_reason=length')
+        self.usage = usage
+
+
 @dataclass(frozen=True)
 class GlmResponse:
     structured: dict[str, Any]
@@ -125,11 +143,17 @@ class GlmClient:
                     request, timeout=self.timeout_seconds
                 ) as response:
                     raw = json.loads(response.read().decode("utf-8"))
+                if raw['choices'][0].get('finish_reason') == 'length':
+                    raise GlmOutputTruncated(raw.get('usage') or {})
                 content = raw["choices"][0]["message"]["content"]
                 if not isinstance(content, str):
                     raise GlmError("GLM response content is not text")
+                try:
+                    structured = _parse_json_object(content)
+                except GlmError as error:
+                    raise GlmMalformedJson(raw, str(error)) from error
                 return GlmResponse(
-                    structured=_parse_json_object(content),
+                    structured=structured,
                     raw=raw,
                     provider="zhipu",
                     model=str(raw.get("model") or model),

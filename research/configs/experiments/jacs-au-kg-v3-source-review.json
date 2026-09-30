@@ -1,0 +1,1421 @@
+{
+  "protocol": "V3 manual source applicability review; no score-dependent selection; unresolved conditions explicitly retained",
+  "out_of_scope_papers": {
+    "doi:10.1039/c003977b": "Framework tetrahedral flexibility differs from adsorbate motion in rigid frameworks",
+    "doi:10.1039/b800803e": "Tethered chromophore phosphorescence is not the target adsorption equilibrium",
+    "doi:10.1063/1.1647049": "Rotational diffusivity is a kinetic observable in NaY",
+    "pmc:pmc9490752": "Quantum hydrogen rotational spectra are outside the target regime",
+    "doi:10.1021/ar200138n": "Reaction activation thermodynamics rather than adsorption entropy",
+    "doi:10.1039/c3cc40731d": "Partial transition-state confinement in reaction kinetics",
+    "doi:10.1039/c8cp01615a": "Transition-state calculation rather than target adsorption equilibrium",
+    "doi:10.1002/chem.201800793": "Activation entropy is not adsorption entropy",
+    "doi:10.1021/ja808292c": "Transition-state confinement in protonic catalysis",
+    "doi:10.1021/acs.jctc.7b00716": "NH3 at Cu sites requires different interaction model",
+    "doi:10.1039/d2cc02003c": "Internal torsion barriers are not whole-molecule rotational entropy",
+    "pmc:pmc5337972": "Aqueous hydronium reaction association differs from target adsorption"
+  },
+  "rows": [
+    {
+      "paper_id": "pmc:pmc6161062",
+      "source_quote": "F_trans and F_rot are fitted simultaneously to the experimentally measured entropies of adsorption for each zeolite framework",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Fitted entropy-loss coefficients require outcome data; not available predictors"
+    },
+    {
+      "paper_id": "pmc:pmc6161062",
+      "source_quote": "alkanes adsorbed in MFI experience a 3-fold larger loss in rotational degrees of freedom than in the larger pore FAU",
+      "decision": "conditional_use",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "mechanism_id": "mfi_fau_rotation",
+      "subject": "framework confinement in MFI relative to FAU",
+      "object": "loss of adsorbate rotational degrees of freedom",
+      "relation": "GREATER_REPORTED_LOSS",
+      "proxy_inputs": [
+        "lsd_f",
+        "lsd_p",
+        "PMI1",
+        "PMI2",
+        "PMI3"
+      ],
+      "source_conditions": "Reported zeolite adsorption comparison; linear alkanes, MFI and FAU. Temperature, loading and framework chemistry are not fully resolved in this excerpt.",
+      "transfer_assumptions": [
+        "Transfer to pure-silica rigid frameworks at infinite dilution remains a hypothesis.",
+        "Source-specific percentages and fitted coefficients must not become universal constants.",
+        "Cavity diameter and lsd_f/lsd_p are different geometric quantities; proxy mapping must be justified."
+      ],
+      "proxy_caveat": "D0 inputs are proxies, not measurements of lost freedom. AV is per framework mass, not molecular free volume. Normalized ratios do not preserve physical threshold 1."
+    },
+    {
+      "paper_id": "pmc:pmc6161062",
+      "source_quote": "Rotational and Translational degrees of freedom lost upon adsorption in different zeolite frameworks.",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Caption without a qualified quantitative or directional mechanism"
+    },
+    {
+      "paper_id": "pmc:pmc6161062",
+      "source_quote": "Also, more rotational entropy was lost in smaller pore zeolites (FER $ \\sim $ 4.3 Å) when compared to larger pore zeolites (FAU $ \\sim $ 13 Å); in this case, the average cavity diameter is a descriptor for zeolite framework and indicates the extent of confinement.",
+      "decision": "conditional_use",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "mechanism_id": "cavity_rotation",
+      "subject": "smaller cavity diameter in the reported FER/FAU comparison",
+      "object": "loss of adsorbate rotational entropy",
+      "relation": "GREATER_REPORTED_LOSS",
+      "proxy_inputs": [
+        "lsd_f",
+        "lsd_p",
+        "GeDi"
+      ],
+      "source_conditions": "Reported zeolite adsorption comparison; FER/FAU cavity comparison. Temperature, loading and framework chemistry are not fully resolved in this excerpt.",
+      "transfer_assumptions": [
+        "Transfer to pure-silica rigid frameworks at infinite dilution remains a hypothesis.",
+        "Source-specific percentages and fitted coefficients must not become universal constants.",
+        "Cavity diameter and lsd_f/lsd_p are different geometric quantities; proxy mapping must be justified."
+      ],
+      "proxy_caveat": "D0 inputs are proxies, not measurements of lost freedom. AV is per framework mass, not molecular free volume. Normalized ratios do not preserve physical threshold 1."
+    },
+    {
+      "paper_id": "pmc:pmc6161062",
+      "source_quote": "the degrees of rotational freedom lost upon adsorption in different zeolite frameworks are determined",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Fragment lacks conditions and relation direction"
+    },
+    {
+      "paper_id": "pmc:pmc6161062",
+      "source_quote": "Adsorption can therefore be best described by considering entropic losses due to both translational and rotational motions",
+      "decision": "conditional_use",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "mechanism_id": "translation_rotation",
+      "subject": "adsorbate translational and rotational motions",
+      "object": "adsorption entropy losses",
+      "relation": "REPORTED_CONTRIBUTIONS",
+      "proxy_inputs": [
+        "AV",
+        "Vol",
+        "PMI1",
+        "PMI2",
+        "PMI3"
+      ],
+      "source_conditions": "Reported zeolite adsorption comparison; translation and rotation of adsorbates. Temperature, loading and framework chemistry are not fully resolved in this excerpt.",
+      "transfer_assumptions": [
+        "Transfer to pure-silica rigid frameworks at infinite dilution remains a hypothesis.",
+        "Source-specific percentages and fitted coefficients must not become universal constants.",
+        "Cavity diameter and lsd_f/lsd_p are different geometric quantities; proxy mapping must be justified."
+      ],
+      "proxy_caveat": "D0 inputs are proxies, not measurements of lost freedom. AV is per framework mass, not molecular free volume. Normalized ratios do not preserve physical threshold 1."
+    },
+    {
+      "paper_id": "doi:10.1039/c003977b",
+      "source_quote": "The flexibility of zeolites arises from the fact that their frameworks are locally isostatic; that is, the six degrees of freedom per tetrahedron (three translational, three rotational) are exactly matched by the six constraints imposed by the sharing of the oxygen atoms (three constraints for each of four oxygen atoms, divided by two since every oxygen is shared between two tetrahedra).",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Framework tetrahedral flexibility differs from adsorbate motion in rigid frameworks"
+    },
+    {
+      "paper_id": "doi:10.1039/d3cp02523c",
+      "source_quote": "Best agreement is found for the approach in which only one third of translational entropy is lost upon adsorption.",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "One-third rule without recovered applicability; requires full-source review"
+    },
+    {
+      "paper_id": "doi:10.1039/b800803e",
+      "source_quote": "the framework of the zeolite host can severely restrict rotational motions",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Tethered chromophore phosphorescence is not the target adsorption equilibrium"
+    },
+    {
+      "paper_id": "doi:10.1039/c6cp03266d",
+      "source_quote": "In Table S1 of the ESI, we show the calculated adsorption entropies of n-C1 to n-C8 alkanes in H-MFI",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "H-MFI entropy table reference lacks mechanism and material transfer justification"
+    },
+    {
+      "paper_id": "pmc:pmc6161062",
+      "source_quote": "Degrees of freedom lost were obtained through non-linear least squares regression of Eq. 7 using experimental adsorption entropy data",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Regression-fitted entropy coefficients require outcomes"
+    },
+    {
+      "paper_id": "doi:10.1063/1.1647049",
+      "source_quote": "Rotational diffusivity for SF6 in zeolite Y at various temperatures.",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Rotational diffusivity is a kinetic observable in NaY"
+    },
+    {
+      "paper_id": "pmc:pmc9490752",
+      "source_quote": "we observe the overlapped rotational peaks of both confined and bulk H₂",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Quantum hydrogen rotational spectra are outside the target regime"
+    },
+    {
+      "paper_id": "doi:10.1021/ar200138n",
+      "source_quote": "Thus, trade-offs between enthalpy $ (\\Delta H^{\\circ}_{\\pm}) $ and entropy $ (\\Delta S^{\\circ}_{\\pm}) $ upon confinement determine reactivity.",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Reaction activation thermodynamics rather than adsorption entropy"
+    },
+    {
+      "paper_id": "doi:10.1039/c3cc40731d",
+      "source_quote": "appear to benefit preferentially from the entropy gains associated with partial confinement",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Partial transition-state confinement in reaction kinetics"
+    },
+    {
+      "paper_id": "doi:10.1039/c8cp01615a",
+      "source_quote": "entropic losses upon confinement (44.3 J mol-1 K-1) dominate over the small enthalpic stabilization",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Transition-state entropy rather than target adsorption equilibrium"
+    },
+    {
+      "paper_id": "doi:10.1002/chem.201800793",
+      "source_quote": "the confinement primarily decreases the entropy of the adsorbed state while the entropy of the transition states is much less affected",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Reaction transition-state comparison requires target-specific scope review"
+    },
+    {
+      "paper_id": "doi:10.1021/ja808292c",
+      "source_quote": "Partial transition state confinement results in entropy gains that compensate for concomitant enthalpy losses",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Transition-state confinement in protonic catalysis"
+    },
+    {
+      "paper_id": "doi:10.1021/acs.jctc.7b00716",
+      "source_quote": "We performed additional analysis of the influence of zeolite confinement on the internal entropy of NH₃ desorbed from a ZCu site",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "NH3 at Cu sites requires different interaction model"
+    },
+    {
+      "paper_id": "doi:10.1021/ar200138n",
+      "source_quote": "Confinement causes ubiquitous compromises between entropy and enthalpy because dispersion forces restrict mobility.",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "General reaction enthalpy-entropy claim without target-regime support"
+    },
+    {
+      "paper_id": "doi:10.1002/chem.201800793",
+      "source_quote": "the activation entropy was found to increase with the confinement",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Activation entropy is not adsorption entropy"
+    },
+    {
+      "paper_id": "doi:10.1039/c8cp01615a",
+      "source_quote": "Dispersion-corrected confinement entropies (44.9 J mol-1 K-1) are only slightly different than those obtained without dispersion",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Transition-state calculation rather than target adsorption equilibrium"
+    },
+    {
+      "paper_id": "doi:10.1039/d2cc02003c",
+      "source_quote": "However, confinement does lower the energy barrier for rotation, amounting to 12.0 kJ mol⁻¹ in Si-MOR, while ‘unconfined’ butane has a rotation barrier of 14.6 kJ mol⁻¹, suggesting butane can rotate more easily inside the pore.",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Internal torsion barriers are not whole-molecule rotational entropy"
+    },
+    {
+      "paper_id": "pmc:pmc6161062",
+      "source_quote": "Linear alkanes lose approximately 38% of their gas-phase entropy upon adsorption in MFI, a medium pore zeolite, while experiencing a smaller loss of 20% in the larger pore FAU framework.",
+      "decision": "conditional_use",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "mechanism_id": "mfi_fau_entropy",
+      "subject": "MFI relative to larger-pore FAU for linear alkanes",
+      "object": "fraction of gas-phase entropy lost on adsorption",
+      "relation": "GREATER_REPORTED_LOSS",
+      "proxy_inputs": [
+        "AV",
+        "lsd_f",
+        "lsd_p",
+        "Vol"
+      ],
+      "source_conditions": "Reported zeolite adsorption comparison; linear alkanes, MFI and FAU. Temperature, loading and framework chemistry are not fully resolved in this excerpt.",
+      "transfer_assumptions": [
+        "Transfer to pure-silica rigid frameworks at infinite dilution remains a hypothesis.",
+        "Source-specific percentages and fitted coefficients must not become universal constants.",
+        "Cavity diameter and lsd_f/lsd_p are different geometric quantities; proxy mapping must be justified."
+      ],
+      "proxy_caveat": "D0 inputs are proxies, not measurements of lost freedom. AV is per framework mass, not molecular free volume. Normalized ratios do not preserve physical threshold 1."
+    },
+    {
+      "paper_id": "pmc:pmc5337972",
+      "source_quote": "We attribute this to the lower entropy loss when forming an association complex in the zeolite pore",
+      "decision": "exclude",
+      "review_basis": "Manual inspection of archived quote and graph-node context, independent of experiment scores",
+      "reason": "Aqueous hydronium reaction association differs from target adsorption"
+    },
+    {
+      "paper_id": "doi:10.1002/cphc.201701084",
+      "source_record_id": "chunk:878e3cf9557831b0616715f9",
+      "source_quote": "the entropy cannot be calculated correctly by treating the guest molecules as immobile adsorbates in the RRHO approximation, and that the remaining mobility of the adsorbed species at the active sites needs to be taken into account.",
+      "decision": "conditional_use",
+      "review_basis": "Manual reading of complete archived source passage; reconstructed mechanism layer, no performance-based selection",
+      "mechanism_id": "rrho_mobility",
+      "subject": "immobile RRHO treatment of guest molecules",
+      "object": "adsorption entropy error when retained mobility is neglected",
+      "relation": "REPORTED_APPROXIMATION_LIMITATION",
+      "proxy_inputs": [
+        "PMI1",
+        "PMI2",
+        "PMI3",
+        "lsd_f",
+        "lsd_p"
+      ],
+      "source_conditions": "Review of hydrocarbon adsorption calculations at zeolite active sites; not a direct pure-silica universal law",
+      "transfer_assumptions": [
+        "Source claim is conditional and does not demonstrate the relation in this benchmark.",
+        "PMI and pore diameters are imperfect proxies for rotational freedom; preserve the distinction between cages and free-path diameters."
+      ],
+      "proxy_caveat": "This source motivates an explicitly testable hypothesis; it supplies no fitted formula coefficients."
+    },
+    {
+      "paper_id": "doi:10.1021/jp060657s",
+      "source_record_id": "chunk:51aa804bfe1967d7ebb1d76f",
+      "source_quote": "Differences in rotational freedom in the supercages of MCM-22 may have a substantial impact on the adsorption equilibrium.",
+      "decision": "conditional_use",
+      "review_basis": "Manual reading of complete archived source passage; reconstructed mechanism layer, no performance-based selection",
+      "mechanism_id": "cage_rotational_equilibrium",
+      "subject": "differences in molecular rotational freedom inside MCM-22 supercages",
+      "object": "adsorption equilibrium",
+      "relation": "SOURCE_PROPOSES_POSSIBLE_EFFECT",
+      "proxy_inputs": [
+        "PMI1",
+        "PMI2",
+        "PMI3",
+        "GeDi",
+        "lsd_f",
+        "lsd_p"
+      ],
+      "source_conditions": "Linear and singly branched molecules predominantly in MCM-22 supercages; source also discusses diffusion at 450–850 K. Transfer to all frameworks and 298 K unproven",
+      "transfer_assumptions": [
+        "Source claim is conditional and does not demonstrate the relation in this benchmark.",
+        "PMI and pore diameters are imperfect proxies for rotational freedom; preserve the distinction between cages and free-path diameters."
+      ],
+      "proxy_caveat": "This source motivates an explicitly testable hypothesis; it supplies no fitted formula coefficients."
+    }
+  ],
+  "rag_rows": [
+    {
+      "record_id": "chunk:642357249c4fe6263f302bad",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:878e3cf9557831b0616715f9",
+      "paper_id": "doi:10.1002/cphc.201701084",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:b8b9250d05e1f297cbfd0fd1",
+      "paper_id": "pmc:pmc9264118",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:65209fe749e6f7590f4dd3bc",
+      "paper_id": "doi:10.1021/acs.jpcc.0c02671",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:6fdbe0d90c714b57131a555d",
+      "paper_id": "pmc:pmc8659101",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:6ff464d94650cf224fa5a594",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:70137e579ffdfe0830d0853f",
+      "paper_id": "doi:10.1002/cphc.200500049",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:f5aaff5f2f3433cc6bc66236",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:0851d060eb7c05cdb07c2bd1",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:b6803b3a330aee580d04f1ab",
+      "paper_id": "pmc:pmc11868592",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:0ab30550de42f051fb818a2c",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:4ee093d81da6b5c01358e0ca",
+      "paper_id": "doi:10.1021/acs.jctc.5c01100",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:857fac381c61445d2ce1a415",
+      "paper_id": "doi:10.1021/jacs.0c09825",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:51aa804bfe1967d7ebb1d76f",
+      "paper_id": "doi:10.1021/jp060657s",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:869af4527dd765744b7ebc76",
+      "paper_id": "pmc:pmc8659101",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:9ccf86b591181c4efd577e29",
+      "paper_id": "doi:10.1021/acs.jctc.7b00716",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:ae7cd57a2cbbb7dc3608954a",
+      "paper_id": "doi:10.1002/anie.201908151",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:748c04bb76538a760b350aa0",
+      "paper_id": "doi:10.1039/b504006j",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:cdbfb43c28a3c70f95ba6aaa",
+      "paper_id": "doi:10.1002/cphc.200800238",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:cea920762ccdd7abd3ef7724",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:0b6fce1b4115d3cc5c95c639",
+      "paper_id": "doi:10.1039/c002442b",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:19da3216ec469dc3dd0513ca",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:2b8ddcdf065b64deb15b450b",
+      "paper_id": "pmc:pmc11597874",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:ee87d41e15bd69a9e0f6946b",
+      "paper_id": "doi:10.1002/chem.201800793",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:76ca7b8b99984fbb40eab7d8",
+      "paper_id": "doi:10.1039/d1cp01515j",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:9e1ba348d1b5fdc0cc17198f",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:3e6052070b86a20c46bda23b",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:54534ecbe9452d622d00b5ba",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:8b8a3218b92a9531ca89664e",
+      "paper_id": "doi:10.1021/jacs.5b11355",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:fe3790f42b8b1f280ef6b62c",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:fe3a68996be5a20975894e08",
+      "paper_id": "doi:10.1002/cphc.201701084",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:3c0bf6cb8f9e9bd9e77ede8a",
+      "paper_id": "pmc:pmc5458947",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:e8492443a3017427a37498f6",
+      "paper_id": "pmc:pmc8025683",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:e6c2e1e4265190e15123d639",
+      "paper_id": "doi:10.1021/jacs.5c14291",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:f8f171ae26a62a07e848dd95",
+      "paper_id": "pmc:pmc5458947",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:09552a48e1e1648cc446fae9",
+      "paper_id": "doi:10.1039/c8cs00373d",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:0f7e472e8082369a4c3ff7dc",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:21730041f0d7c792e2a0b8e3",
+      "paper_id": "doi:10.1021/acs.jpcc.0c02671",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:3390ef758c69796ed1c854f0",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:47fe454e9986e820fa0da412",
+      "paper_id": "doi:10.1021/jacs.8b12861",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:de9fad1322f297bfaaac6cf3",
+      "paper_id": "doi:10.1021/la9002675",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:51a8f195afe2a488af43c428",
+      "paper_id": "doi:10.1039/b819435c",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:82f8043ddc4a30ff24415d51",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:ab0d6c7d34d2e5bf986aedd3",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:4026972257ea3461741388c4",
+      "paper_id": "doi:10.1039/b819334g",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:d353c44a1a672e13327ee4a9",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:d8eef552eba72a99f7974a84",
+      "paper_id": "doi:10.1039/b819334g",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:f97fe7855115ae8ce0f58527",
+      "paper_id": "pmc:pmc11672123",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:d0194a3e3577ffd7ea34c48c",
+      "paper_id": "pmc:pmc11672123",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:284bd753c3b7265971a69c86",
+      "paper_id": "pmc:pmc7690318",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:8dd99e6f4fc8a3c4e46d940b",
+      "paper_id": "doi:10.1021/acs.jpcc.0c02671",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:6dfd4c9dd250f5414a82938f",
+      "paper_id": "doi:10.1021/acs.jctc.7b00716",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:7ae3b1541d9380f3e0601841",
+      "paper_id": "doi:10.1021/jp0488362",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:01d0cb8bf43d75bbc448e004",
+      "paper_id": "doi:10.1021/acs.jpcc.0c02671",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:4e0a09f3bacb310a3d0b505c",
+      "paper_id": "doi:10.1021/acs.jpcc.0c02671",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:162f82383a64931f7c04f55f",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:6e3b310eb7c21b4c7481c2e9",
+      "paper_id": "doi:10.1039/d0cp03871g",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:d02110e1acc36143bbc11c32",
+      "paper_id": "doi:10.1039/d1cp01515j",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:30f7edcc9b3ead69c0e65ec3",
+      "paper_id": "pmc:pmc11672123",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:29da9fa744d3a5295be08d80",
+      "paper_id": "pmc:pmc11672123",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:afa7727cca333d42bc294780",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:7e2b24b828c321ce16e42b3d",
+      "paper_id": "pmc:pmc12559319",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:954f2df38fd7bc1c3252fd7b",
+      "paper_id": "doi:10.1039/d0cs01459a",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:e3ee147f884c3f765d75e734",
+      "paper_id": "pmc:pmc10050162",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:554d8c873a29fb7fba436858",
+      "paper_id": "doi:10.1021/ja00118a013",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:3785d42bc139a6fa05f91d29",
+      "paper_id": "doi:10.1021/jacs.5c14291",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:c2e53a226386622916ad078c",
+      "paper_id": "doi:10.1021/jacs.5b11355",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:d52b47528dc9757d7e603c4f",
+      "paper_id": "doi:10.1002/cphc.201701084",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:ded7b419a6242f043e1bc238",
+      "paper_id": "doi:10.1021/es060886s",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:8844c0f3f4b5cb5f2a29f1d3",
+      "paper_id": "pmc:pmc11672123",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:5c864c41e1ab2dfff7446ff9",
+      "paper_id": "pmc:pmc12218917",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:f4aae0c75c659c52d83efcc8",
+      "paper_id": "pmc:pmc11672123",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:f57034773147c7e136aeaaf4",
+      "paper_id": "pmc:pmc11672123",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:18de89f2a91a2afad96e693e",
+      "paper_id": "doi:10.1007/s00894-024-06004-0",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:540fc52a6b0d2f0d19339248",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:73f85a691ed6b42638672f4d",
+      "paper_id": "pmc:pmc8832398",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:f2564e93b14b7e36fa00613f",
+      "paper_id": "pmc:pmc10648503",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:08ab532bacb5318bbfa91ece",
+      "paper_id": "pmc:pmc9093109",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:5441450b19cd646bc83d9de8",
+      "paper_id": "pmc:pmc11672123",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:e913417b45806153c3491b5d",
+      "paper_id": "doi:10.1021/jacs.5b11355",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:1153aaf48b8281abd467122d",
+      "paper_id": "doi:10.1021/jacs.5b11355",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:7b7985fcb8fa7e75ad5d21c1",
+      "paper_id": "pmc:pmc11672123",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:8ffcc4698d37d4f5569d53f5",
+      "paper_id": "doi:10.1021/acs.jpcc.0c02671",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:6548d8cfcf6b0a54557fd663",
+      "paper_id": "doi:10.1021/jacs.5b11355",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:780c5f690f3ead9c996b9e32",
+      "paper_id": "doi:10.1039/c4cp00109e",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:ce7c43688f0a6a2c48654157",
+      "paper_id": "doi:10.1002/cphc.201701084",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:dc13b3ceb7000cd22e7c0a59",
+      "paper_id": "doi:10.1039/c8cp01615a",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:e9cbd53c505a6b75d1635039",
+      "paper_id": "doi:10.1021/jacs.8b08336",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:390fa87db9c99c6447a261b3",
+      "paper_id": "doi:10.1021/ja808292c",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:f2455f156bfe4fa71f154cba",
+      "paper_id": "pmc:pmc8113345",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:ecf3b350af8d5c09a9a10048",
+      "paper_id": "doi:10.1021/ja105950z",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:8121aac9f96e0994f59f4a79",
+      "paper_id": "doi:10.1039/d0cp03871g",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:50facfa2151322e584a8534e",
+      "paper_id": "doi:10.1021/jacs.5b11355",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:a70148c12db21280238f605c",
+      "paper_id": "pmc:pmc11672123",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:a634b5bc74cc19185fbedb2d",
+      "paper_id": "doi:10.1039/d2cs00079b",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:133ec07c6c4451431e620d1a",
+      "paper_id": "pmc:pmc11672123",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:860988c33d5392c77a81037b",
+      "paper_id": "pmc:pmc6161062",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "Experimental hydrocarbon adsorption across zeolite frameworks; chemistry/loading/temperature may differ from target",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:8ee2f667b946a68346bce30b",
+      "paper_id": "doi:10.1021/acs.jpcc.0c02671",
+      "decision": "conditional_use",
+      "reason": "Relevant adsorption-entropy mechanism or approximation caveat, with original qualifications retained",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:379bb83d7ecb9222dc8e5eed",
+      "paper_id": "pmc:pmc12038033",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:0be9df7a1b1ede1dfa892c03",
+      "paper_id": "doi:10.1039/d2cc05964a",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    },
+    {
+      "record_id": "chunk:d3a799358d58da57167e96f1",
+      "paper_id": "doi:10.1021/acs.langmuir.3c03931",
+      "decision": "exclude",
+      "reason": "Outside the reviewed target-mechanism scope or requires source/overlap review",
+      "source_conditions": "See preserved original passage; source method and target-regime transfer are not presumed identical",
+      "transfer_assumptions": [
+        "No outcome-fitted coefficient, quoted percentage, or source-specific geometry becomes a universal constant.",
+        "Any available D0 quantity used as a proxy requires an explicit mapping and limitation."
+      ]
+    }
+  ]
+}

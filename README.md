@@ -2,6 +2,8 @@
 
 面向光催化与分子筛热催化研究的证据知识图谱、多智能体方向分析与实验反馈平台。
 
+当前NMI主线的最新结果、完整轨迹及代码回溯见[JACS Au研究调试入口（2026-09-30）](docs/research/JACS_AU_DEBUG_HANDOFF_20260930.md)。[网页端GPT-6-Pro审查提示词](docs/research/GPT6_PRO_RESEARCH_DEBUG_PROMPT_20260930.md)可直接复制；旧候选择优实验与尚未运行的直接加入协议分别记录。
+
 ## 核心能力
 
 - 光催化语料：247篇结构化论文；

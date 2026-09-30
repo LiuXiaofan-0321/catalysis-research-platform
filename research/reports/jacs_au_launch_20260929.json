@@ -1,0 +1,65 @@
+{
+  "verified_date": "2026-09-29",
+  "phase": "completed",
+  "server_run_root": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-20260928",
+  "code_release": "jacs-au-nmi-20260929c",
+  "model": "glm-5.3-flash",
+  "d0": "Full 14 published input descriptors from JACS Au 10.1021/jacsau.4c00429",
+  "rounds": 3,
+  "proposals_per_round": 3,
+  "replicates_per_mode": 10,
+  "modes": [
+    "agent",
+    "rag_agent",
+    "small_kg_rag_agent"
+  ],
+  "max_concurrent_trajectories": 5,
+  "jobs": {
+    "baseline": {
+      "id": 3812835,
+      "state": "COMPLETED"
+    },
+    "baseline_review": {
+      "id": 3812634,
+      "state": "COMPLETED"
+    },
+    "evidence": {
+      "id": 3826930,
+      "state": "COMPLETED"
+    },
+    "discovery_array": {
+      "id": 3827004,
+      "state": "FINISHED",
+      "initial_completed": 29,
+      "initial_failed": 1,
+      "failed_task_recovered": true
+    },
+    "summary": {
+      "id": 3827005,
+      "state": "COMPLETED",
+      "dependency": "afterany:3827004,3827582"
+    },
+    "recovery": {
+      "id": 3827582,
+      "state": "COMPLETED",
+      "completed_rounds_preserved": 2
+    }
+  },
+  "checkpoint_replay_passed": true,
+  "checkpoint_test_mae_R": 0.567102903,
+  "scratch_d0_score_mae_R": 0.5756181684880872,
+  "first_hypothesis_generation_verified": true,
+  "estimated_compute_hours": [
+    1.5,
+    3
+  ],
+  "queue_time_excluded_from_estimate": true,
+  "scheduler_estimate_is_variable": true,
+  "verified_at": "2026-09-29T11:40:12+08:00",
+  "completed_trajectories": 30,
+  "recovery_code_release": "jacs-au-nmi-20260929d",
+  "results_report": "docs/research/JACS_AU_NMI_RESULTS_20260929.md",
+  "historical_evidence_scheduler_start_estimate": "2026-09-29T21:34:35+08:00",
+  "actual_discovery_start": "2026-09-29T10:08:09+08:00",
+  "actual_summary_end": "2026-09-29T11:20:13+08:00"
+}

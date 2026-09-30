@@ -1,0 +1,185 @@
+{
+  "checked_at": "2026-09-30T18:34:41.514129+08:00",
+  "trajectories": [
+    {
+      "file": "high/discovery/agent-replicate-1.json",
+      "status": "completed",
+      "stage": null,
+      "rounds": 3,
+      "error": null,
+      "score_gain": 3.8759142629065804,
+      "test_gain": 0.3410260154633758,
+      "seconds": 1807.3888518884778
+    },
+    {
+      "file": "high/discovery/agent-replicate-2.json",
+      "status": "completed",
+      "stage": null,
+      "rounds": 3,
+      "error": null,
+      "score_gain": 7.997546316580017,
+      "test_gain": 3.690252013268664,
+      "seconds": 1356.7685544863343
+    },
+    {
+      "file": "high/discovery/agent-replicate-3.json",
+      "status": "running",
+      "stage": "retrieve_and_review",
+      "rounds": 1,
+      "error": null,
+      "score_gain": null,
+      "test_gain": null,
+      "seconds": null
+    },
+    {
+      "file": "high/discovery/rag_agent-replicate-1.json",
+      "status": "failed",
+      "stage": "retrieve_and_review",
+      "rounds": 2,
+      "error": "GLM returned malformed JSON",
+      "score_gain": null,
+      "test_gain": null,
+      "seconds": 1380.332493327558
+    },
+    {
+      "file": "high/discovery/rag_agent-replicate-2.json",
+      "status": "completed",
+      "stage": null,
+      "rounds": 3,
+      "error": null,
+      "score_gain": 6.159986408927344,
+      "test_gain": 2.7940978237378604,
+      "seconds": 1338.3179793283343
+    },
+    {
+      "file": "high/discovery/rag_agent-replicate-3.json",
+      "status": "running",
+      "stage": "blind_proposal",
+      "rounds": 2,
+      "error": null,
+      "score_gain": null,
+      "test_gain": null,
+      "seconds": null
+    },
+    {
+      "file": "high/discovery/small_kg_rag_agent-replicate-1.json",
+      "status": "completed",
+      "stage": null,
+      "rounds": 3,
+      "error": null,
+      "score_gain": 7.525606339152794,
+      "test_gain": 3.249377593124274,
+      "seconds": 1223.9137085154653
+    },
+    {
+      "file": "high/discovery/small_kg_rag_agent-replicate-2.json",
+      "status": "completed",
+      "stage": null,
+      "rounds": 3,
+      "error": null,
+      "score_gain": 7.468633136427625,
+      "test_gain": 2.261032306395234,
+      "seconds": 1326.6438721716404
+    },
+    {
+      "file": "high/discovery/small_kg_rag_agent-replicate-3.json",
+      "status": "running",
+      "stage": "blind_proposal",
+      "rounds": 2,
+      "error": null,
+      "score_gain": null,
+      "test_gain": null,
+      "seconds": null
+    },
+    {
+      "file": "low/discovery/agent-replicate-1.json",
+      "status": "completed",
+      "stage": null,
+      "rounds": 3,
+      "error": null,
+      "score_gain": 5.943964253692521,
+      "test_gain": 2.326412048130831,
+      "seconds": 623.4794788882136
+    },
+    {
+      "file": "low/discovery/agent-replicate-2.json",
+      "status": "completed",
+      "stage": null,
+      "rounds": 3,
+      "error": null,
+      "score_gain": 6.5026818505519,
+      "test_gain": 8.052685567178882,
+      "seconds": 570.8259118199348
+    },
+    {
+      "file": "low/discovery/agent-replicate-3.json",
+      "status": "failed",
+      "stage": "retrieve_and_review",
+      "rounds": 0,
+      "error": "GLM returned malformed JSON",
+      "score_gain": null,
+      "test_gain": null,
+      "seconds": 63.105396412312984
+    },
+    {
+      "file": "low/discovery/rag_agent-replicate-1.json",
+      "status": "completed",
+      "stage": null,
+      "rounds": 3,
+      "error": null,
+      "score_gain": 5.79919281211734,
+      "test_gain": 2.348413532459437,
+      "seconds": 631.6853862851858
+    },
+    {
+      "file": "low/discovery/rag_agent-replicate-2.json",
+      "status": "completed",
+      "stage": null,
+      "rounds": 3,
+      "error": null,
+      "score_gain": 7.020223352388678,
+      "test_gain": 3.6089085121700593,
+      "seconds": 610.4671714454889
+    },
+    {
+      "file": "low/discovery/rag_agent-replicate-3.json",
+      "status": "failed",
+      "stage": "retrieve_and_review",
+      "rounds": 0,
+      "error": "GLM returned malformed JSON",
+      "score_gain": null,
+      "test_gain": null,
+      "seconds": 73.83090026676655
+    },
+    {
+      "file": "low/discovery/small_kg_rag_agent-replicate-1.json",
+      "status": "completed",
+      "stage": null,
+      "rounds": 3,
+      "error": null,
+      "score_gain": 2.8959500817907275,
+      "test_gain": -1.975370178394009,
+      "seconds": 640.2223568186164
+    },
+    {
+      "file": "low/discovery/small_kg_rag_agent-replicate-2.json",
+      "status": "completed",
+      "stage": null,
+      "rounds": 3,
+      "error": null,
+      "score_gain": 2.681088989005062,
+      "test_gain": 2.212697406526504,
+      "seconds": 504.5900868624449
+    },
+    {
+      "file": "low/discovery/small_kg_rag_agent-replicate-3.json",
+      "status": "completed",
+      "stage": null,
+      "rounds": 3,
+      "error": null,
+      "score_gain": 7.308197542981311,
+      "test_gain": 3.2055537354817134,
+      "seconds": 589.7422439679503
+    }
+  ]
+}

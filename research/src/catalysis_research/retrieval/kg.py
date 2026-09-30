@@ -71,6 +71,7 @@ class FrozenKgRetriever:
         candidate_limit: int = 30,
         max_hops: int = 2,
         excluded_paper_ids: Iterable[str] = (),
+        include_graph_semantics: bool = False,
     ) -> list[dict[str, Any]]:
         if not 0 <= max_hops <= 2:
             raise EvidenceContractError("max_hops must be between 0 and 2")
@@ -86,6 +87,7 @@ class FrozenKgRetriever:
                 seeds.append((score, node_id))
         seeds.sort(key=lambda item: (-item[0], item[1]))
         candidates: dict[tuple[str, str, int, str], dict[str, Any]] = {}
+        edge_by_id = {edge['id']: edge for edge in self.edges} if include_graph_semantics else {}
         for seed_score, seed_id in seeds[:candidate_limit]:
             queue = deque([(seed_id, [], [], 0)])
             visited = {seed_id}
@@ -103,7 +105,10 @@ class FrozenKgRetriever:
                         quote = str(item.get("quote") or "").strip()
                         document_id = item.get("document_id")
                         page = item.get("pdf_page_index")
-                        paper_id = (edge or {}).get("source_paper_id") or node.get("source_paper_id")
+                        # Shared nodes may aggregate evidence from several papers.
+                        # Prefer the cited document's identity over an adjacent edge.
+                        paper_id = getattr(self, 'document_paper_ids', {}).get(str(document_id))
+                        paper_id = paper_id or (edge or {}).get("source_paper_id") or node.get("source_paper_id")
                         if not paper_id and edge:
                             paper_id = edge.get("source_paper_id")
                         if not paper_id:
@@ -134,6 +139,30 @@ class FrozenKgRetriever:
                             "evidence_validation": item.get("evidence_validation") or "unknown",
                             "review_status": (edge or node).get("review_status") or "unknown",
                         }
+                        if include_graph_semantics:
+                            # Keep each connected traversal separate. Aggregated node/
+                            # edge ID sets are provenance, not a reconstructed path.
+                            path = {
+                                "nodes": [
+                                    {"id": value, "type": self.nodes[value].get("node_type", "unknown"),
+                                     "label": self.nodes[value].get("label") or self.nodes[value].get("canonical_name") or value,
+                                     "data": self.nodes[value].get("data") or {},
+                                     "review_status": self.nodes[value].get("review_status", "unknown")}
+                                    for value in [*path_nodes, node_id]
+                                ],
+                                "edges": [
+                                    {"id": value,
+                                     "source": edge_by_id[value]["from_node_id"],
+                                     "target": edge_by_id[value]["to_node_id"],
+                                     "relation": edge_by_id[value].get("edge_type") or "unspecified_relation",
+                                     "source_paper_id": edge_by_id[value].get("source_paper_id"),
+                                     "review_status": edge_by_id[value].get("review_status", "unknown"),
+                                     "evidence": edge_by_id[value].get("evidence") or []}
+                                    for value in path_edges
+                                ],
+                                "interpretation": "Extracted graph relations; traversal does not establish causality.",
+                            }
+                            candidate["kg_paths"] = [path]
                         key = (str(paper_id), str(document_id), int(page), quote)
                         current = candidates.get(key)
                         if current is None:
@@ -150,6 +179,14 @@ class FrozenKgRetriever:
                             if len(candidate["kg_path_ids"]) > len(current["kg_path_ids"]):
                                 current["kg_path_ids"] = candidate["kg_path_ids"]
                             current["score"] = max(current["score"], candidate["score"])
+                            if include_graph_semantics:
+                                paths = current.setdefault("kg_paths", [])
+                                if path not in paths:
+                                    paths.append(path)
+                                # Prefer informative connected paths, with deterministic
+                                # tie breaking, and bound serialized graph size.
+                                paths.sort(key=lambda p: (-len(p['edges']), tuple(n['id'] for n in p['nodes'])))
+                                del paths[3:]
                 if depth >= max_hops:
                     continue
                 for edge in sorted(self.adjacency[node_id], key=lambda item: item["id"]):
