@@ -1,0 +1,129 @@
+{
+  "protocol": "all-fixed-stage-replay-summary-v1",
+  "status": "completed",
+  "blocks": 54,
+  "candidate_slots": 162,
+  "api_calls": 0,
+  "fit_calls": 230,
+  "max_abs_prefix_replay_delta_R": 0.0,
+  "max_abs_final_replay_delta_R": 0.0,
+  "groups": {
+    "high/agent": {
+      "blocks": 9,
+      "origin_trajectories": 3,
+      "mean_local_stage_best_final_minus_blind_pp": 0.528954436399443,
+      "positive_blocks": 2,
+      "negative_blocks": 2,
+      "paired_scored_slots": 22,
+      "paired_slot_mean_pp_conditional_on_both_scored": -0.30630034198117717,
+      "status_transitions": {
+        "scored->scored": 22,
+        "rejected->rejected": 1,
+        "rejected->scored": 4
+      },
+      "origin_trace_means_of_local_differences_pp": {
+        "high/agent/replicate-1": -0.18739220401920412,
+        "high/agent/replicate-2": 1.021059756125547,
+        "high/agent/replicate-3": 0.7531957570919863
+      }
+    },
+    "high/rag_agent": {
+      "blocks": 9,
+      "origin_trajectories": 3,
+      "mean_local_stage_best_final_minus_blind_pp": 0.486512164383821,
+      "positive_blocks": 2,
+      "negative_blocks": 0,
+      "paired_scored_slots": 19,
+      "paired_slot_mean_pp_conditional_on_both_scored": 0.03332797221399345,
+      "status_transitions": {
+        "scored->scored": 19,
+        "rejected->scored": 8
+      },
+      "origin_trace_means_of_local_differences_pp": {
+        "high/rag_agent/replicate-1": 0.0,
+        "high/rag_agent/replicate-2": 0.0,
+        "high/rag_agent/replicate-3": 1.459536493151463
+      }
+    },
+    "high/small_kg_rag_agent": {
+      "blocks": 9,
+      "origin_trajectories": 3,
+      "mean_local_stage_best_final_minus_blind_pp": 0.625849533841233,
+      "positive_blocks": 2,
+      "negative_blocks": 1,
+      "paired_scored_slots": 22,
+      "paired_slot_mean_pp_conditional_on_both_scored": 0.20705454026126624,
+      "status_transitions": {
+        "scored->scored": 22,
+        "rejected->scored": 5
+      },
+      "origin_trace_means_of_local_differences_pp": {
+        "high/small_kg_rag_agent/replicate-1": 0.0,
+        "high/small_kg_rag_agent/replicate-2": -0.02415581796613105,
+        "high/small_kg_rag_agent/replicate-3": 1.90170441948983
+      }
+    },
+    "low/agent": {
+      "blocks": 9,
+      "origin_trajectories": 3,
+      "mean_local_stage_best_final_minus_blind_pp": 0.9955963151946684,
+      "positive_blocks": 5,
+      "negative_blocks": 2,
+      "paired_scored_slots": 14,
+      "paired_slot_mean_pp_conditional_on_both_scored": -0.19292440141443534,
+      "status_transitions": {
+        "scored->scored": 14,
+        "rejected->scored": 13
+      },
+      "origin_trace_means_of_local_differences_pp": {
+        "low/agent/replicate-1": 1.7407938802308853,
+        "low/agent/replicate-2": 0.1641371622599929,
+        "low/agent/replicate-3": 1.0818579030931277
+      }
+    },
+    "low/rag_agent": {
+      "blocks": 9,
+      "origin_trajectories": 3,
+      "mean_local_stage_best_final_minus_blind_pp": 1.2143525056545212,
+      "positive_blocks": 3,
+      "negative_blocks": 2,
+      "paired_scored_slots": 16,
+      "paired_slot_mean_pp_conditional_on_both_scored": 0.42542343102470814,
+      "status_transitions": {
+        "rejected->rejected": 1,
+        "rejected->scored": 10,
+        "scored->scored": 16
+      },
+      "origin_trace_means_of_local_differences_pp": {
+        "low/rag_agent/replicate-1": 1.8828399251526262,
+        "low/rag_agent/replicate-2": 1.2846942438797397,
+        "low/rag_agent/replicate-3": 0.475523347931198
+      }
+    },
+    "low/small_kg_rag_agent": {
+      "blocks": 9,
+      "origin_trajectories": 3,
+      "mean_local_stage_best_final_minus_blind_pp": 0.30221178886144867,
+      "positive_blocks": 2,
+      "negative_blocks": 1,
+      "paired_scored_slots": 20,
+      "paired_slot_mean_pp_conditional_on_both_scored": 0.32732323782693507,
+      "status_transitions": {
+        "scored->scored": 20,
+        "rejected->scored": 7
+      },
+      "origin_trace_means_of_local_differences_pp": {
+        "low/small_kg_rag_agent/replicate-1": -1.125559908016283,
+        "low/small_kg_rag_agent/replicate-2": 0.3203872300847814,
+        "low/small_kg_rag_agent/replicate-3": 1.7118080445158477
+      }
+    }
+  },
+  "limits": [
+    "Local effects on historical prefixes, not whole new trajectories.",
+    "Do not sum local gains into a hypothetical new final result or rank methods by these differences.",
+    "Paired slot statistics condition on both stages being executable; all rejected slots/statuses also retained.",
+    "54 blocks are nested in 18 source trajectories; no candidate-level independent-sample claim.",
+    "Faithful V4 metadata rejection preserved; numeric-only diagnostic not yet run."
+  ]
+}

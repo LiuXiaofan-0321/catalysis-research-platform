@@ -1,0 +1,455 @@
+{
+  "protocol": "fixed-prefix-stage-replay-v1",
+  "block_id": "high/small_kg_rag_agent/replicate-1/round-2",
+  "status": "completed",
+  "epochs": 4000,
+  "fit_seed": 3,
+  "api_calls": 0,
+  "frozen_prefix": [
+    {
+      "slot_id": "h1",
+      "name": "cavity_window_contrast_log",
+      "formula": "log(lsd_p / lsd_f)",
+      "hypothesis": "For rigid pure-silica zeolites at infinite dilution, the logarithmic ratio of the largest included sphere along the free-sphere path (lsd_p, Dif) to the passing bottleneck sphere (lsd_f, Df) is monotonically associated with the dimensionless adsorbed-vs-gas entropy ratio: frameworks with larger cavity-to-window contrast adsorb molecules with smaller translational entropy loss (higher s_ads/s_gas), because the accessible configuration space scales with the included cavity diameter rather than with the window diameter.",
+      "rationale": "Mechanism (correlational, not causal): the contrast log(lsd_p/lsd_f) compares the largest included sphere ALONG the free-sphere path (Dif) with the passing bottleneck sphere (Df); neither is the global cavity diameter Di, and the hypothesis's reference to a 'cavity diameter' is a conditional proxy mapping, not an equality. Literature reports that smaller average cavity diameter indicates greater confinement and greater rotational entropy loss in a FER/FAU comparison (E02), which motivates — under explicit assumptions — using an included-sphere proxy directionally, but this source does not establish the translational-entropy contrast claimed here. Critically, the training precheck at fixed rotor class found a near-zero Spearman association (-0.019, target_association 'inconclusive') between this descriptor and entropy loss, so the asserted monotone association is currently unsupported in-training and the descriptor may add little beyond collinearity with other framework descriptors. Limitations: hard-sphere geometric constructs for a fixed probe; asserted only within training domains lsd_f in [0.857, 7.687] A and lsd_p in [3.345, 15.560] A; no independent information beyond published D0 inputs.",
+      "falsification_criteria": "Given the already inconclusive training association (Spearman -0.019 at fixed rotor class), the hypothesis requires a significantly negative partial association between log(lsd_p/lsd_f) and entropy loss (in units of R) in an independent validation set of pure-silica frameworks; absence of such an association, or a sign flip across framework-density strata, falsifies it. Competing mechanism: entropy loss is governed by accessible volume (AV) or window/bottleneck size, with Df/Dif acting only as correlates.",
+      "novelty_status": "uncertain",
+      "evidence_ids": [
+        "E02"
+      ],
+      "variable_mappings": {
+        "lsd_p": "included_along_free_path_Dif",
+        "lsd_f": "bottleneck_free_sphere_Df"
+      },
+      "physical_claims": [
+        "geometric_path_contrast"
+      ],
+      "scientific_test": {
+        "mechanism_family": "connectivity",
+        "proxy_assumptions": "lsd_p is assumed, conditionally, to track the molecule-accessible configuration space along the free path and lsd_f the confinement imposed by periodic windows; both are hard-sphere geometric proxies for a fixed probe and may deviate from the accessible volume of a specific adsorbate. The training precheck association is inconclusive (Spearman -0.019 at fixed rotor class), so transfer of the asserted direction is explicitly not supported by in-training evidence. Transfer beyond pure-silica rigid frameworks or outside the training lsd ranges is not asserted.",
+        "physical_interpretation": "lsd_p/lsd_f is a dimensionless geometric contrast between the included-along-path sphere (Dif) and the bottleneck sphere (Df) on their native Zeo++ definitions; since Dif is the largest included sphere along a path that must pass the Df bottleneck, the ratio is expected to be at least 1 along free paths, but the value 1 has no universal physical meaning as a threshold and q-normalization constants are not involved here.",
+        "boundary_behavior": "Both lsd_p (min 3.345 A) and lsd_f (min 0.857 A) are strictly positive across the training domain, so the ratio is positive and the log is finite for every training row; the descriptor approaches 0 as the two spheres coincide (uniform channel) and grows without an imposed cap as contrast grows, with no zero or negative-argument regimes present.",
+        "vary_input": "lsd_p",
+        "descriptor_direction": "increasing",
+        "regime_input": "lsd_p",
+        "regime_train_quantiles": [
+          0.0,
+          1.0
+        ],
+        "entropy_direction": "decreasing"
+      }
+    }
+  ],
+  "prefix_score": {
+    "mae_R": 0.5567470467287312,
+    "mae_J_mol_K": 4.629052507793251,
+    "r2": 0.8873685422720745,
+    "n": 591
+  },
+  "historical_prefix_mae_R": 0.5567470467287312,
+  "prefix_replay_delta_R": 0.0,
+  "test_is_development_diagnostic": true,
+  "stages": {
+    "blind_drafts": {
+      "candidates": [
+        {
+          "slot_id": "h1",
+          "formula": "log(lsd_p / lsd_f)",
+          "precheck": {
+            "status": "rejected",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "lsd_f",
+                "lsd_p"
+              ],
+              "quantity_roles": {
+                "lsd_f": "bottleneck_free_sphere_Df",
+                "lsd_p": "included_along_free_path_Dif"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "reason": "Redundant with a current input"
+          },
+          "status": "rejected",
+          "reason": "Redundant with a current input"
+        },
+        {
+          "slot_id": "h2",
+          "formula": "log(1 + LabuteASA / LabuteASA_ref) - log(1 + ASA / ASA_ref)",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "ASA",
+                "LabuteASA"
+              ],
+              "quantity_roles": {
+                "ASA": "probe_accessible_specific_area",
+                "LabuteASA": "adsorbate_geometry_proxy"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.0,
+                2874.75
+              ],
+              "training_spearman": 0.4943539090196363,
+              "target_association": "consistent",
+              "perturbation": 8.465169999999999,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5322994111110325,
+            "mae_J_mol_K": 4.425783555347663,
+            "r2": 0.8992931881906298,
+            "n": 591
+          },
+          "fit_seconds": 39.58961693197489,
+          "exact_formula_fit_reused": false
+        },
+        {
+          "slot_id": "h3",
+          "formula": "rotor_case(0.0, log(1 + PMI2 / PMI2_ref), log(1 + (PMI1 + PMI2 + PMI3) / (PMI1_ref + PMI2_ref + PMI3_ref)))",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "explicit_rotor_branches": true
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "PMI1",
+                "PMI2",
+                "PMI3"
+              ],
+              "quantity_roles": {
+                "PMI1": "heavy_atom_inertia_proxy",
+                "PMI2": "heavy_atom_inertia_proxy",
+                "PMI3": "heavy_atom_inertia_proxy"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.0,
+                2414.631462
+              ],
+              "training_spearman": 0.40777040084177063,
+              "target_association": "consistent",
+              "perturbation": 4.425680816,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5660774746030686,
+            "mae_J_mol_K": 4.706630001565803,
+            "r2": 0.8921686343770177,
+            "n": 591
+          },
+          "fit_seconds": 38.1031554415822,
+          "exact_formula_fit_reused": false
+        }
+      ],
+      "best_including_prefix_mae_R": 0.5322994111110325,
+      "retained_slot": "h2",
+      "gain_pp_of_D0": 4.247196658491966
+    },
+    "reviewed_candidates": {
+      "candidates": [
+        {
+          "slot_id": "h1",
+          "formula": "log(lsd_p / lsd_f)",
+          "precheck": {
+            "status": "rejected",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "lsd_f",
+                "lsd_p"
+              ],
+              "quantity_roles": {
+                "lsd_f": "bottleneck_free_sphere_Df",
+                "lsd_p": "included_along_free_path_Dif"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "reason": "Redundant with a current input"
+          },
+          "status": "rejected",
+          "reason": "Redundant with a current input"
+        },
+        {
+          "slot_id": "h2",
+          "formula": "log(1 + LabuteASA / LabuteASA_ref) - log(1 + ASA / ASA_ref)",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "ASA",
+                "LabuteASA"
+              ],
+              "quantity_roles": {
+                "ASA": "probe_accessible_specific_area",
+                "LabuteASA": "adsorbate_geometry_proxy"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.0,
+                2874.75
+              ],
+              "training_spearman": 0.4943539090196363,
+              "target_association": "consistent",
+              "perturbation": 8.465169999999999,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5322994111110325,
+            "mae_J_mol_K": 4.425783555347663,
+            "r2": 0.8992931881906298,
+            "n": 591
+          },
+          "fit_seconds": 39.58961693197489,
+          "exact_formula_fit_reused": true
+        },
+        {
+          "slot_id": "h3",
+          "formula": "rotor_case(0.0, log(1 + PMI2 / PMI2_ref), log(1 + (PMI1 + PMI2 + PMI3) / (PMI1_ref + PMI2_ref + PMI3_ref)))",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "explicit_rotor_branches": true
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "PMI1",
+                "PMI2",
+                "PMI3"
+              ],
+              "quantity_roles": {
+                "PMI1": "heavy_atom_inertia_proxy",
+                "PMI2": "heavy_atom_inertia_proxy",
+                "PMI3": "heavy_atom_inertia_proxy"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.0,
+                2414.631462
+              ],
+              "training_spearman": 0.40777040084177063,
+              "target_association": "consistent",
+              "perturbation": 4.425680816,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5660774746030686,
+            "mae_J_mol_K": 4.706630001565803,
+            "r2": 0.8921686343770177,
+            "n": 591
+          },
+          "fit_seconds": 38.1031554415822,
+          "exact_formula_fit_reused": true
+        }
+      ],
+      "best_including_prefix_mae_R": 0.5322994111110325,
+      "retained_slot": "h2",
+      "gain_pp_of_D0": 4.247196658491966
+    },
+    "final_candidates": {
+      "candidates": [
+        {
+          "slot_id": "h1",
+          "formula": "log(1 + (lsd_p - lsd_f) / lsd_f_ref)",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "lsd_f",
+                "lsd_p"
+              ],
+              "quantity_roles": {
+                "lsd_f": "bottleneck_free_sphere_Df",
+                "lsd_p": "included_along_free_path_Dif"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.85684,
+                7.68726
+              ],
+              "training_spearman": -0.13346318903946128,
+              "target_association": "consistent",
+              "perturbation": 0.029412300000000006,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5708491059080542,
+            "mae_J_mol_K": 4.746303551678716,
+            "r2": 0.881070345688871,
+            "n": 591
+          },
+          "fit_seconds": 46.3698837980628,
+          "exact_formula_fit_reused": false
+        },
+        {
+          "slot_id": "h2",
+          "formula": "log(1 + LabuteASA / LabuteASA_ref) - log(1 + ASA / ASA_ref)",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "ASA",
+                "LabuteASA"
+              ],
+              "quantity_roles": {
+                "ASA": "probe_accessible_specific_area",
+                "LabuteASA": "adsorbate_geometry_proxy"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.0,
+                2874.75
+              ],
+              "training_spearman": 0.4943539090196363,
+              "target_association": "consistent",
+              "perturbation": 8.465169999999999,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5322994111110325,
+            "mae_J_mol_K": 4.425783555347663,
+            "r2": 0.8992931881906298,
+            "n": 591
+          },
+          "fit_seconds": 39.58961693197489,
+          "exact_formula_fit_reused": true
+        },
+        {
+          "slot_id": "h3",
+          "formula": "rotor_case(0.0, log(1 + PMI2 / PMI2_ref), log(1 + (PMI1 + PMI2 + PMI3) / (PMI1_ref + PMI2_ref + PMI3_ref)))",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "explicit_rotor_branches": true
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "PMI1",
+                "PMI2",
+                "PMI3"
+              ],
+              "quantity_roles": {
+                "PMI1": "heavy_atom_inertia_proxy",
+                "PMI2": "heavy_atom_inertia_proxy",
+                "PMI3": "heavy_atom_inertia_proxy"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.0,
+                2414.631462
+              ],
+              "training_spearman": 0.40777040084177063,
+              "target_association": "consistent",
+              "perturbation": 4.425680816,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5660774746030686,
+            "mae_J_mol_K": 4.706630001565803,
+            "r2": 0.8921686343770177,
+            "n": 591
+          },
+          "fit_seconds": 38.1031554415822,
+          "exact_formula_fit_reused": true
+        }
+      ],
+      "best_including_prefix_mae_R": 0.5322994111110325,
+      "retained_slot": "h2",
+      "gain_pp_of_D0": 4.247196658491966
+    }
+  },
+  "fit_calls": 4,
+  "historical_final_mae_R": 0.5322994111110325,
+  "final_replay_delta_R": 0.0,
+  "review_minus_blind_pp": 0.0,
+  "final_minus_blind_pp": 0.0
+}

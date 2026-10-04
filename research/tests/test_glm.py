@@ -45,6 +45,7 @@ class GlmClientTests(unittest.TestCase):
 
     def test_length_finish_reason_is_reported_before_parsing_partial_json(self) -> None:
         class Truncated(_Response):
+            headers = {'x-request-id':'truncated-request'}
             def read(self) -> bytes:
                 return json.dumps({'choices': [{'finish_reason': 'length',
                     'message': {'content': '{"descriptor_candidates": ['}}],
@@ -53,6 +54,8 @@ class GlmClientTests(unittest.TestCase):
             with self.assertRaises(GlmOutputTruncated) as caught:
                 GlmClient(api_key='test-key', retries=0).chat_json(model='glm-5.3-flash', system='s', user='u')
         self.assertEqual(caught.exception.usage['completion_tokens'], 16000)
+        self.assertEqual(caught.exception.raw['choices'][0]['message']['content'], '{"descriptor_candidates": [')
+        self.assertEqual(caught.exception.raw['_response_request_ids']['x-request-id'], 'truncated-request')
 
     def test_glm53_payload_enables_thinking_with_frozen_effort(self) -> None:
         captured: dict[str, object] = {}

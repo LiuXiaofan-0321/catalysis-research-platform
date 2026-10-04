@@ -1,0 +1,451 @@
+{
+  "protocol": "fixed-prefix-stage-replay-v1",
+  "block_id": "high/rag_agent/replicate-2/round-2",
+  "status": "completed",
+  "epochs": 4000,
+  "fit_seed": 3,
+  "api_calls": 0,
+  "frozen_prefix": [
+    {
+      "slot_id": "h1",
+      "name": "bottleneck_volume_confinement",
+      "formula": "log((q_Vol**(0.3333333333)) / q_lsd_f)",
+      "hypothesis": "For pure-silica rigid zeolites at infinite dilution, the adsorption entropy loss (-delta_s/R) increases monotonically with the ratio of the adsorbate's cubic-root van der Waals volume to the framework's free-passage bottleneck diameter, because tighter passage relative to molecular size reduces the accessible translational configuration space.",
+      "rationale": "Translational confinement at infinite dilution is governed by the free volume actually reachable by a molecule of a given size; lsd_f (Zeo++ Df) is the largest free sphere that can pass through the periodic path, so a molecule whose cubic volume scale approaches the bottleneck experiences strong translational restriction. Literature reports that entropic loss correlates with gas-phase translational/rotational entropies and with framework occupiable volume (E07) and that tighter frameworks show larger entropy-loss fractions for linear alkanes (E04), consistent in direction with this descriptor. The descriptor is a dimensionless re-expression of two native inputs already present in the nonlinear ANN baseline; it adds interpretability, not new information. Limitations: Df is a geometric bottleneck proxy, not a global cavity diameter, and vdW volume is not the kinetic diameter seen by the framework; training association (Spearman ~0.63) is consistent but does not validate causality.",
+      "falsification_criteria": "If entropy loss computed from published D0 values shows no monotone positive association with (Vol)^(1/3)/Df across the training domain, or if frameworks with equal Df but different pore connectivity (e.g., 1D channels vs 3D cages) show systematically different entropy loss at the same descriptor value, the confinement-ratio mechanism is falsified in favor of a connectivity or multi-site mechanism.",
+      "novelty_status": "new_combination",
+      "evidence_ids": [
+        "E04",
+        "E07"
+      ],
+      "variable_mappings": {
+        "Vol": "molecular_vdw_volume",
+        "lsd_f": "bottleneck_free_sphere_Df"
+      },
+      "physical_claims": [
+        "geometric_path_contrast",
+        "empirical_proxy"
+      ],
+      "scientific_test": {
+        "mechanism_family": "translation",
+        "proxy_assumptions": "(Vol)^(1/3) is a length-scale proxy for the molecule and lsd_f (Df) is the passing-bottleneck proxy only; neither is the true kinetic dimension nor the global cavity diameter Di, and Di is not available in D0. Cited comparisons (E02, E04) use average cavity/pore size, a different geometric quantity from Df; the transfer to a Df-based descriptor is a hypothesis. Source temperature, loading and framework chemistry are not fully resolved, and no source percentage or coefficient becomes a universal constant. Both proxies are transferable only within this rigid pure-silica, infinite-dilution regime.",
+        "physical_interpretation": "Vol is the native vdW volume; lsd_f is the native passing free sphere (bottleneck), not the included-along-path Dif (lsd_p) and not a cavity diameter. q_Vol and q_lsd_f are dimensionless row-varying ratios to fixed positive training-reference medians; no q-unity threshold and no X/q_X construction is used.",
+        "boundary_behavior": "Vol (min 20.424) and lsd_f (min 0.85684) are strictly positive over the full training domain, so log((q_Vol**(1/3))/q_lsd_f) is finite for every row with no imputation or epsilon; the monotone claim is declared only over the observed training range, and the fixed reference constants Vol_ref^(1/3)/lsd_f_ref carry no universal physical meaning (they rescale the physical ratio Vol**(1/3)/Df by a constant).",
+        "vary_input": "Vol",
+        "descriptor_direction": "increasing",
+        "regime_input": "lsd_f",
+        "regime_train_quantiles": [
+          0.0,
+          1.0
+        ],
+        "entropy_direction": "increasing"
+      }
+    }
+  ],
+  "prefix_score": {
+    "mae_R": 0.5683535796430516,
+    "mae_J_mol_K": 4.725554591835732,
+    "r2": 0.8834128471909073,
+    "n": 591
+  },
+  "historical_prefix_mae_R": 0.5683535796430516,
+  "prefix_replay_delta_R": 0.0,
+  "test_is_development_diagnostic": true,
+  "stages": {
+    "blind_drafts": {
+      "candidates": [
+        {
+          "slot_id": "h1",
+          "formula": "log((q_Vol**(0.3333333333)) / q_lsd_f)",
+          "precheck": {
+            "status": "rejected",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "Vol",
+                "lsd_f"
+              ],
+              "quantity_roles": {
+                "Vol": "molecular_vdw_volume",
+                "lsd_f": "bottleneck_free_sphere_Df"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "reason": "Redundant with a current input"
+          },
+          "status": "rejected",
+          "reason": "Redundant with a current input"
+        },
+        {
+          "slot_id": "h2",
+          "formula": "log(q_lsd_p / q_lsd_f)",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "lsd_f",
+                "lsd_p"
+              ],
+              "quantity_roles": {
+                "lsd_f": "bottleneck_free_sphere_Df",
+                "lsd_p": "included_along_free_path_Dif"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.85684,
+                7.68726
+              ],
+              "training_spearman": -0.01948972800795131,
+              "target_association": "inconclusive",
+              "perturbation": 0.0452717,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5401601675419045,
+            "mae_J_mol_K": 4.4911415208425565,
+            "r2": 0.8922152554745126,
+            "n": 591
+          },
+          "fit_seconds": 45.931371755898,
+          "exact_formula_fit_reused": false
+        },
+        {
+          "slot_id": "h3",
+          "formula": "log(1.0 + q_PBF)",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "PBF"
+              ],
+              "quantity_roles": {
+                "PBF": "heavy_atom_planarity"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.0,
+                0.656249528
+              ],
+              "training_spearman": 0.2917049313081072,
+              "target_association": "contradicted",
+              "perturbation": 0.0046290119000000005,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5695032623737745,
+            "mae_J_mol_K": 4.735113585923064,
+            "r2": 0.8898470321964204,
+            "n": 591
+          },
+          "fit_seconds": 38.634793385863304,
+          "exact_formula_fit_reused": false
+        }
+      ],
+      "best_including_prefix_mae_R": 0.5401601675419045,
+      "retained_slot": "h2",
+      "gain_pp_of_D0": 4.8979364524228854
+    },
+    "reviewed_candidates": {
+      "candidates": [
+        {
+          "slot_id": "h1",
+          "formula": "log((q_Vol**(0.3333333333)) / q_lsd_f)",
+          "precheck": {
+            "status": "rejected",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "Vol",
+                "lsd_f"
+              ],
+              "quantity_roles": {
+                "Vol": "molecular_vdw_volume",
+                "lsd_f": "bottleneck_free_sphere_Df"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "reason": "Redundant with a current input"
+          },
+          "status": "rejected",
+          "reason": "Redundant with a current input"
+        },
+        {
+          "slot_id": "h2",
+          "formula": "log(q_lsd_p / q_lsd_f)",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "lsd_f",
+                "lsd_p"
+              ],
+              "quantity_roles": {
+                "lsd_f": "bottleneck_free_sphere_Df",
+                "lsd_p": "included_along_free_path_Dif"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.85684,
+                7.68726
+              ],
+              "training_spearman": -0.01948972800795131,
+              "target_association": "inconclusive",
+              "perturbation": 0.0452717,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5401601675419045,
+            "mae_J_mol_K": 4.4911415208425565,
+            "r2": 0.8922152554745126,
+            "n": 591
+          },
+          "fit_seconds": 45.931371755898,
+          "exact_formula_fit_reused": true
+        },
+        {
+          "slot_id": "h3",
+          "formula": "log(1.0 + q_PBF/(q_Vol**(0.3333333333)))",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "PBF",
+                "Vol"
+              ],
+              "quantity_roles": {
+                "PBF": "heavy_atom_planarity",
+                "Vol": "molecular_vdw_volume"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.0,
+                0.656249528
+              ],
+              "training_spearman": 0.2767107320017334,
+              "target_association": "contradicted",
+              "perturbation": 0.0046290119000000005,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5705082429782952,
+            "mae_J_mol_K": 4.743469459591321,
+            "r2": 0.8890486883297605,
+            "n": 591
+          },
+          "fit_seconds": 42.040808744728565,
+          "exact_formula_fit_reused": false
+        }
+      ],
+      "best_including_prefix_mae_R": 0.5401601675419045,
+      "retained_slot": "h2",
+      "gain_pp_of_D0": 4.8979364524228854
+    },
+    "final_candidates": {
+      "candidates": [
+        {
+          "slot_id": "h1",
+          "formula": "(Vol**(0.3333333333))/lsd_f",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {
+                "length": "-1/10000000000"
+              },
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "Vol",
+                "lsd_f"
+              ],
+              "quantity_roles": {
+                "Vol": "molecular_vdw_volume",
+                "lsd_f": "bottleneck_free_sphere_Df"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.85684,
+                7.68726
+              ],
+              "training_spearman": 0.6285950097652175,
+              "target_association": "contradicted",
+              "perturbation": 0.7023999999999999,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5654000397562122,
+            "mae_J_mol_K": 4.700997494855382,
+            "r2": 0.8876872335150607,
+            "n": 591
+          },
+          "fit_seconds": 47.11818300187588,
+          "exact_formula_fit_reused": false
+        },
+        {
+          "slot_id": "h2",
+          "formula": "log(q_lsd_p / q_lsd_f)",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "lsd_f",
+                "lsd_p"
+              ],
+              "quantity_roles": {
+                "lsd_f": "bottleneck_free_sphere_Df",
+                "lsd_p": "included_along_free_path_Dif"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.85684,
+                7.68726
+              ],
+              "training_spearman": -0.01948972800795131,
+              "target_association": "inconclusive",
+              "perturbation": 0.0452717,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5401601675419045,
+            "mae_J_mol_K": 4.4911415208425565,
+            "r2": 0.8922152554745126,
+            "n": 591
+          },
+          "fit_seconds": 45.931371755898,
+          "exact_formula_fit_reused": true
+        },
+        {
+          "slot_id": "h3",
+          "formula": "log(1.0 + q_PBF/(q_Vol**(0.3333333333)))",
+          "precheck": {
+            "status": "passed",
+            "dimensions": {
+              "status": "passed",
+              "output_dimensions": {},
+              "limitation": "Unit algebra does not verify the mechanism or numerical unit conversion."
+            },
+            "grounding": {
+              "status": "passed",
+              "used_variables": [
+                "PBF",
+                "Vol"
+              ],
+              "quantity_roles": {
+                "PBF": "heavy_atom_planarity",
+                "Vol": "molecular_vdw_volume"
+              },
+              "interpretation": "Executable definition checks; not a proof of all natural-language claims or causality."
+            },
+            "scientific_check": {
+              "regime_n": 2361,
+              "native_regime_bounds": [
+                0.0,
+                0.656249528
+              ],
+              "training_spearman": 0.2767107320017334,
+              "target_association": "contradicted",
+              "perturbation": 0.0046290119000000005,
+              "mechanism_validated": false,
+              "rotor_class_fixed_during_partial_derivative": true
+            }
+          },
+          "status": "scored",
+          "score": {
+            "mae_R": 0.5705082429782952,
+            "mae_J_mol_K": 4.743469459591321,
+            "r2": 0.8890486883297605,
+            "n": 591
+          },
+          "fit_seconds": 42.040808744728565,
+          "exact_formula_fit_reused": true
+        }
+      ],
+      "best_including_prefix_mae_R": 0.5401601675419045,
+      "retained_slot": "h2",
+      "gain_pp_of_D0": 4.8979364524228854
+    }
+  },
+  "fit_calls": 5,
+  "historical_final_mae_R": 0.5401601675419045,
+  "final_replay_delta_R": 0.0,
+  "review_minus_blind_pp": 0.0,
+  "final_minus_blind_pp": 0.0
+}

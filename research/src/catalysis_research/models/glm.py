@@ -33,9 +33,10 @@ class GlmMalformedJson(GlmError):
 class GlmOutputTruncated(GlmError):
     """The provider exhausted its output budget before completing the response."""
 
-    def __init__(self, usage: dict[str, Any]) -> None:
+    def __init__(self, usage: dict[str, Any], raw: dict[str, Any] | None = None) -> None:
         super().__init__('GLM response ended with finish_reason=length')
         self.usage = usage
+        self.raw = raw
 
 
 @dataclass(frozen=True)
@@ -143,8 +144,14 @@ class GlmClient:
                     request, timeout=self.timeout_seconds
                 ) as response:
                     raw = json.loads(response.read().decode("utf-8"))
+                    response_headers = getattr(response, 'headers', {})
+                    raw['_response_request_ids'] = {
+                        name: response_headers[name]
+                        for name in ('x-request-id', 'request-id', 'x-correlation-id')
+                        if response_headers.get(name)
+                    }
                 if raw['choices'][0].get('finish_reason') == 'length':
-                    raise GlmOutputTruncated(raw.get('usage') or {})
+                    raise GlmOutputTruncated(raw.get('usage') or {}, raw=raw)
                 content = raw["choices"][0]["message"]["content"]
                 if not isinstance(content, str):
                     raise GlmError("GLM response content is not text")
