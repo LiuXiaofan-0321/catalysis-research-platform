@@ -1,6 +1,6 @@
 {
   "date": "2026-10-04",
-  "status": "prepared_not_launched",
+  "status": "generation_running_evaluation_and_summary_queued",
   "profile": "jacs-au-direct-v5",
   "execution_revision": "label-free-preservation-canonical-20261004",
   "prepared_code_release": "code/releases/jacs-au-direct-v5-20261004a",
@@ -16,25 +16,41 @@
   },
   "historical_replay": "completed_54_of_54",
   "sign_pair_diagnostic": {
-    "status": "submission_refused_cpu_time_quota",
+    "status": "completed_all_five_seeds",
     "code_release": "code/releases/jacs-au-sign-pair-20261004a",
     "intended_run": "runs/jacs-au-sign-pair-20261004a",
-    "attempted_walltime_limits": ["02:00:00", "00:20:00"],
-    "assigned_job_ids": [],
-    "results": 0,
-    "scheduler_message": "Job refused: account xiaohe have not enough available CPU time. Please contact the administrator!"
+    "results": 5,
+    "historical_submission_refusals": {
+      "attempted_walltime_limits": [
+        "02:00:00",
+        "00:20:00"
+      ],
+      "assigned_job_ids_before_restore": [],
+      "scheduler_message": "Job refused: account xiaohe have not enough available CPU time. Please contact the administrator!"
+    },
+    "job_id": 3868189,
+    "paired_final_prediction_max_abs_difference_all_seeds": 0.0
   },
-  "v5_generation_trajectories_run": 0,
-  "v5_ann_fits_run": 0,
-  "v5_api_calls": 0,
-  "dedicated_api_proxy": "not_started_while_compute_prerequisites_blocked",
+  "dedicated_api_proxy": "running_with_guarded_auto_cleanup",
   "credential_policy": "Private interactive/process environment only; no credentials in code, command arguments, files, archives or logs",
   "do_not_resubmit_finished_v4_jobs": true,
   "next": [
-    "Restore authorized Slurm CPU-time availability",
-    "Run all five predeclared sign-pair seeds and evaluate outcome-independent engineering gate",
-    "Compute all five original D0 seed predictions",
-    "Start dedicated login02 1800s proxy and verify compute-node model response",
-    "Run all 30 new high trajectories, then score final combinations and summarize all records"
-  ]
+    "Complete all thirty frozen high generation traces",
+    "Evaluate final combinations only after successful generation array completion",
+    "Summarize all thirty with all five predeclared seeds; recover interrupted events without rerolling hypotheses if needed",
+    "Retrieve completed records and report gains, failures, duplicates and uncertainty without outcome selection"
+  ],
+  "quota": "restored_and_new_jobs_accepted",
+  "d0_baseline": "completed_all_five_seeds",
+  "engineering_gate": "passed",
+  "compute_node_high_api_probe": "passed",
+  "launch_record": "LAUNCH.json",
+  "v5_generation_trajectories_started": 3,
+  "v5_generation_trajectories_completed": 1,
+  "v5_scientific_api_calls": "In progress; saved per-event; not a zero-call record",
+  "v5_final_combination_fits_run": 0,
+  "v5_d0_baseline_fits_completed": 5,
+  "sign_diagnostic_fits_completed": 15,
+  "completed_rounds_at_snapshot": 7,
+  "snapshot_note": "Non-live launch checkpoint: three generation records present, one frozen, all scoring flags false"
 }

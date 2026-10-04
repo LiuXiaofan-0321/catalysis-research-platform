@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-04",
+  "status": "completed",
+  "job_id": 3868189,
+  "seeds": [
+    3,
+    7,
+    11,
+    17,
+    23
+  ],
+  "ann_fits": 15,
+  "api_calls": 0,
+  "max_paired_final_prediction_difference": 0.0,
+  "rows": [
+    {
+      "seed": 3,
+      "positive_mae_R": 0.5563299108978513,
+      "paired_negative_mae_R": 0.5563299108978513,
+      "original_unpaired_negative_mae_R": 0.5753313438945024
+    },
+    {
+      "seed": 7,
+      "positive_mae_R": 0.5673205856368447,
+      "paired_negative_mae_R": 0.5673205856368447,
+      "original_unpaired_negative_mae_R": 0.5712360277469054
+    },
+    {
+      "seed": 11,
+      "positive_mae_R": 0.5792562503226537,
+      "paired_negative_mae_R": 0.5792562503226537,
+      "original_unpaired_negative_mae_R": 0.582223843302264
+    },
+    {
+      "seed": 17,
+      "positive_mae_R": 0.549986971976869,
+      "paired_negative_mae_R": 0.549986971976869,
+      "original_unpaired_negative_mae_R": 0.5569224795841905
+    },
+    {
+      "seed": 23,
+      "positive_mae_R": 0.554445144161497,
+      "paired_negative_mae_R": 0.554445144161497,
+      "original_unpaired_negative_mae_R": 0.5710637899054405
+    }
+  ],
+  "interpretation": "Fixed sign-pair initialization diagnostic; not a method-ranking result, not a sign/seed selection rule, not proof of arbitrary nonlinear representation invariance"
+}
