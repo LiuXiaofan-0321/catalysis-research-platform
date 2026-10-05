@@ -1,6 +1,6 @@
 {
   "date": "2026-10-04",
-  "status": "generation_running_evaluation_and_summary_queued",
+  "status": "completed_and_analyzed",
   "profile": "jacs-au-direct-v5",
   "execution_revision": "label-free-preservation-canonical-20261004",
   "prepared_code_release": "code/releases/jacs-au-direct-v5-20261004a",
@@ -31,26 +31,26 @@
     "job_id": 3868189,
     "paired_final_prediction_max_abs_difference_all_seeds": 0.0
   },
-  "dedicated_api_proxy": "running_with_guarded_auto_cleanup",
+  "dedicated_api_proxy": "stopped_by_guarded_cleanup",
   "credential_policy": "Private interactive/process environment only; no credentials in code, command arguments, files, archives or logs",
   "do_not_resubmit_finished_v4_jobs": true,
   "next": [
-    "Complete all thirty frozen high generation traces",
-    "Evaluate final combinations only after successful generation array completion",
-    "Summarize all thirty with all five predeclared seeds; recover interrupted events without rerolling hypotheses if needed",
-    "Retrieve completed records and report gains, failures, duplicates and uncertainty without outcome selection"
+    "Freeze interface correction and fixed-candidate diagnostic before another new discovery batch",
+    "Keep complete V5 results including all failures and negative gains; no outcome-based selection"
   ],
   "quota": "restored_and_new_jobs_accepted",
   "d0_baseline": "completed_all_five_seeds",
   "engineering_gate": "passed",
   "compute_node_high_api_probe": "passed",
   "launch_record": "LAUNCH.json",
-  "v5_generation_trajectories_started": 3,
-  "v5_generation_trajectories_completed": 1,
-  "v5_scientific_api_calls": "In progress; saved per-event; not a zero-call record",
-  "v5_final_combination_fits_run": 0,
+  "v5_generation_trajectories_started": 30,
+  "v5_generation_trajectories_completed": 30,
+  "v5_scientific_api_calls": 237,
+  "v5_final_combination_fits_run": 140,
   "v5_d0_baseline_fits_completed": 5,
   "sign_diagnostic_fits_completed": 15,
-  "completed_rounds_at_snapshot": 7,
-  "snapshot_note": "Non-live launch checkpoint: three generation records present, one frozen, all scoring flags false"
+  "completed_rounds_at_snapshot": 90,
+  "snapshot_note": "Complete result check; see ../jacs_au_direct_v5_20261005/EXECUTION_STATUS.json",
+  "last_checked_date": "2026-10-05",
+  "seed_score_records": 150
 }

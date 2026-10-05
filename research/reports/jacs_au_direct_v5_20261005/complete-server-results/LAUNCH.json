@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-04",
+  "status": "submitted_generation_running",
+  "profile": "jacs-au-direct-v5",
+  "execution_revision": "label-free-preservation-canonical-20261004",
+  "server_root": "/public/home/xiaohe/lxf/catalysis-rag",
+  "run": "runs/jacs-au-direct-v5-20261004a",
+  "scientific_code_release": "code/releases/jacs-au-direct-v5-20261004a",
+  "launch_auxiliary_release": "code/releases/jacs-au-direct-v5-20261004-launch",
+  "jobs": {
+    "sign_pair": {
+      "id": 3868189,
+      "array": "0-4%2",
+      "status": "completed"
+    },
+    "d0_baseline": {
+      "id": 3868190,
+      "status": "completed"
+    },
+    "compute_node_api_probe": {
+      "id": 3868196,
+      "status": "completed_passed"
+    },
+    "generation": {
+      "id": 3868198,
+      "array": "0-29%3",
+      "cpus_per_task": 1,
+      "wall_limit": "10:00:00",
+      "dependencies": "afterok:3868189:3868190:3868196",
+      "status": "running_first_three"
+    },
+    "evaluation": {
+      "id": 3868202,
+      "array": "0-29%3",
+      "cpus_per_task": 2,
+      "wall_limit": "00:40:00",
+      "dependencies": "afterok:3868198:3868190",
+      "status": "pending_dependency"
+    },
+    "summary": {
+      "id": 3868203,
+      "wall_limit": "00:10:00",
+      "dependencies": "afterok:3868202",
+      "status": "pending_dependency"
+    }
+  },
+  "proxy": {
+    "host": "login02 / 59.78.189.133",
+    "url": "http://10.11.100.254:5000/api/paas/v4",
+    "pid": 82910,
+    "upstream_timeout_seconds": 1800,
+    "cleanup_watcher_pid": 87418,
+    "cleanup_watches_api_jobs": [
+      3868196,
+      3868198
+    ],
+    "credential_policy": "Private submitting environment only; removed from shell before evaluation, summary and cleanup submissions"
+  },
+  "scientific_tasks": 30,
+  "descriptor_slots": 90,
+  "generation_order": "replicate-major, round-robin Agent/RAG/KG; same thirty identities as original mode-blocked plan",
+  "knowledge_and_scientific_configuration_unchanged": true,
+  "fit_seeds": [
+    3,
+    7,
+    11,
+    17,
+    23
+  ],
+  "baseline_seed3_exact_historical_match": true,
+  "all_five_paired_final_prediction_differences": 0.0,
+  "no_finished_historical_jobs_resubmitted": true,
+  "completion_status_is_not_a_new_method_ranking": true
+}

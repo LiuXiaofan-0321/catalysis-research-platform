@@ -1,0 +1,156 @@
+{
+  "profile": "jacs-au-direct-v5-audit-20261005",
+  "status": "completed_all_records_audited",
+  "trajectories": 30,
+  "evaluated_trajectories": 30,
+  "candidate_slots": 90,
+  "all_seed_records": 150,
+  "actual_final_ann_fits": 140,
+  "local_summary_identical_to_server_after_json_key_normalization": true,
+  "groups": {
+    "agent": {
+      "slot_statuses": {
+        "technical_failure_not_appended": 5,
+        "appended": 21,
+        "proposal_failure": 4
+      },
+      "proxy_list_type_failures": 3,
+      "schema_passed_by_lossless_proxy_adapter": 2,
+      "recovery_only_proxy_field_changed": 3,
+      "negative_final_traces": 3,
+      "no_addition_traces": 0,
+      "actual_final_ann_fits": 50,
+      "prediction_fallbacks": 0,
+      "mean_outer_development_gain_pct": 0.3231575778268724,
+      "mean_within_trace_seed_sd_pp": 2.9697543389505037,
+      "per_seed_mean_gains_pct": {
+        "3": 2.0083314461710295,
+        "7": -0.8522824895208361,
+        "11": -0.5841119398979685,
+        "17": 3.025961865917511,
+        "23": 0.28230841190811157
+      },
+      "appended_with_scientific_consistency_failed": 1,
+      "finish_reasons": {
+        "stop": 81
+      },
+      "api_calls": 81,
+      "usage_totals": {
+        "prompt_tokens": 351977,
+        "completion_tokens": 158737,
+        "total_tokens": 510714
+      },
+      "cached_input_tokens": 22592,
+      "used_native_inputs": {
+        "Vol": 6,
+        "lsd_p": 8,
+        "PMI3": 1,
+        "MW": 1,
+        "GeDi": 8,
+        "lsd_f": 12,
+        "LabuteASA": 3,
+        "AV": 2,
+        "SPAN": 3,
+        "PBF": 1
+      },
+      "within_trace_affine_duplicate_slots": 0
+    },
+    "rag_agent": {
+      "slot_statuses": {
+        "appended": 17,
+        "proposal_failure": 9,
+        "technical_failure_not_appended": 4
+      },
+      "proxy_list_type_failures": 9,
+      "schema_passed_by_lossless_proxy_adapter": 9,
+      "recovery_only_proxy_field_changed": 7,
+      "negative_final_traces": 2,
+      "no_addition_traces": 1,
+      "actual_final_ann_fits": 45,
+      "prediction_fallbacks": 0,
+      "mean_outer_development_gain_pct": 0.43857622599786844,
+      "mean_within_trace_seed_sd_pp": 2.808341477318383,
+      "per_seed_mean_gains_pct": {
+        "3": -0.662018228188049,
+        "7": -2.52899886813966,
+        "11": 0.4140406384571181,
+        "17": 3.258426757050161,
+        "23": 1.6606119625316524
+      },
+      "appended_with_scientific_consistency_failed": 2,
+      "finish_reasons": {
+        "stop": 76
+      },
+      "api_calls": 76,
+      "usage_totals": {
+        "prompt_tokens": 960935,
+        "completion_tokens": 151758,
+        "total_tokens": 1112693
+      },
+      "cached_input_tokens": 52224,
+      "used_native_inputs": {
+        "lsd_p": 9,
+        "GeDi": 7,
+        "lsd_f": 9,
+        "SPAN": 4,
+        "Vol": 3,
+        "PBF": 1,
+        "LabuteASA": 1
+      },
+      "within_trace_affine_duplicate_slots": 0
+    },
+    "small_kg_rag_agent": {
+      "slot_statuses": {
+        "appended": 16,
+        "proposal_failure": 10,
+        "technical_failure_not_appended": 4
+      },
+      "proxy_list_type_failures": 9,
+      "schema_passed_by_lossless_proxy_adapter": 8,
+      "recovery_only_proxy_field_changed": 4,
+      "negative_final_traces": 1,
+      "no_addition_traces": 1,
+      "actual_final_ann_fits": 45,
+      "prediction_fallbacks": 0,
+      "mean_outer_development_gain_pct": -0.0840410658822035,
+      "mean_within_trace_seed_sd_pp": 2.868693090066326,
+      "per_seed_mean_gains_pct": {
+        "3": 1.060694325865739,
+        "7": -1.8951890160804166,
+        "11": 0.4777943035850994,
+        "17": 2.224596212467288,
+        "23": 2.764445253966432
+      },
+      "appended_with_scientific_consistency_failed": 1,
+      "finish_reasons": {
+        "stop": 80
+      },
+      "api_calls": 80,
+      "usage_totals": {
+        "prompt_tokens": 933824,
+        "completion_tokens": 176338,
+        "total_tokens": 1110162
+      },
+      "cached_input_tokens": 31808,
+      "used_native_inputs": {
+        "GeDi": 7,
+        "lsd_p": 8,
+        "SPAN": 3,
+        "lsd_f": 8,
+        "Vol": 5,
+        "LabuteASA": 1
+      },
+      "within_trace_affine_duplicate_slots": 0
+    }
+  },
+  "distinct_saved_response_ids": 237,
+  "saved_response_ids": 237,
+  "interface_audit_new_api_calls": 0,
+  "interface_audit_new_ann_fits": 0,
+  "limitations": [
+    "Lossless-adapter schema pass is not an execution/physics/ANN score.",
+    "Corrected failed slots cannot be inserted into an old trajectory and called a new causal ranking.",
+    "All original failures, all seeds and negative gains remain in the primary summary.",
+    "Outer data is a previously viewed development diagnostic, not independent validation."
+  ]
+}

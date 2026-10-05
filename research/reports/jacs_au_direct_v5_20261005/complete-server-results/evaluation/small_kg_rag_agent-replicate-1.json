@@ -1,0 +1,216 @@
+{
+  "profile": "jacs-au-direct-v5",
+  "status": "completed",
+  "mode": "small_kg_rag_agent",
+  "replicate": 1,
+  "successful_additions": 3,
+  "input_count": 17,
+  "evaluation": {
+    "epochs": 4000,
+    "fit_seeds": [
+      3,
+      7,
+      11,
+      17,
+      23
+    ],
+    "primary": "Mean of per-seed final-combination MAE reductions relative to matching-seed D0; all ten trajectories per method",
+    "input_representation": "train-only-affine-sign-v1",
+    "input_representation_note": "Training-feature-only affine/sign canonicalization of added columns; scientific formulas unchanged; original D0 and ANN fit unchanged; no best sign or seed selection",
+    "fitting_failure_policy": "explicit_d0_prediction_fallback",
+    "outer_test": "Previously viewed development diagnostic only",
+    "intermediate_scores": false
+  },
+  "outer_is_development_diagnostic": true,
+  "seeds": [
+    {
+      "seed": 3,
+      "status": "fitted",
+      "failure_reason": null,
+      "seconds": 54.52809824794531,
+      "score": {
+        "mae_R": 0.575699893910163,
+        "mae_J_mol_K": 4.786635247190835,
+        "r2": 0.8798540174677354,
+        "n": 591
+      },
+      "d0_score": {
+        "mae_R": 0.5756181684880872,
+        "mae_J_mol_K": 4.785955744224034,
+        "r2": 0.880638061676539,
+        "n": 591
+      },
+      "outer": {
+        "mae_R": 0.5716427289724564,
+        "mae_J_mol_K": 4.7529021009805925,
+        "r2": 0.8758920376333751,
+        "n": 738
+      },
+      "d0_outer": {
+        "mae_R": 0.5837445239172757,
+        "mae_J_mol_K": 4.853522022661848,
+        "r2": 0.8819804933409299,
+        "n": 738
+      },
+      "gain_pct": -0.014197853116832524
+    },
+    {
+      "seed": 7,
+      "status": "fitted",
+      "failure_reason": null,
+      "seconds": 47.29667753726244,
+      "score": {
+        "mae_R": 0.5631641090071807,
+        "mae_J_mol_K": 4.68240693222578,
+        "r2": 0.8886972098198971,
+        "n": 591
+      },
+      "d0_score": {
+        "mae_R": 0.5682881333906762,
+        "mae_J_mol_K": 4.725010441416859,
+        "r2": 0.8849342418724505,
+        "n": 591
+      },
+      "outer": {
+        "mae_R": 0.5845571427278344,
+        "mae_J_mol_K": 4.860278511385047,
+        "r2": 0.8810034513300525,
+        "n": 738
+      },
+      "d0_outer": {
+        "mae_R": 0.5879623472141715,
+        "mae_J_mol_K": 4.888590956793864,
+        "r2": 0.8762240168541782,
+        "n": 738
+      },
+      "gain_pct": 0.9016595776728797
+    },
+    {
+      "seed": 11,
+      "status": "fitted",
+      "failure_reason": null,
+      "seconds": 46.356703981757164,
+      "score": {
+        "mae_R": 0.5838727420464946,
+        "mae_J_mol_K": 4.854588087504209,
+        "r2": 0.8733597096127281,
+        "n": 591
+      },
+      "d0_score": {
+        "mae_R": 0.5772019947156202,
+        "mae_J_mol_K": 4.799124408186508,
+        "r2": 0.8820314996733355,
+        "n": 591
+      },
+      "outer": {
+        "mae_R": 0.5938166484977982,
+        "mae_J_mol_K": 4.937266325971986,
+        "r2": 0.8705533162701795,
+        "n": 738
+      },
+      "d0_outer": {
+        "mae_R": 0.6115964022996796,
+        "mae_J_mol_K": 5.085095424317696,
+        "r2": 0.870218293455661,
+        "n": 738
+      },
+      "gain_pct": -1.1557041368439935
+    },
+    {
+      "seed": 17,
+      "status": "fitted",
+      "failure_reason": null,
+      "seconds": 42.908333368599415,
+      "score": {
+        "mae_R": 0.5906765867861539,
+        "mae_J_mol_K": 4.911158400251824,
+        "r2": 0.8761835080442988,
+        "n": 591
+      },
+      "d0_score": {
+        "mae_R": 0.5762111811447479,
+        "mae_J_mol_K": 4.7908863257899315,
+        "r2": 0.8861991095329912,
+        "n": 591
+      },
+      "outer": {
+        "mae_R": 0.6088814963433936,
+        "mae_J_mol_K": 5.062522440232355,
+        "r2": 0.8648627042640167,
+        "n": 738
+      },
+      "d0_outer": {
+        "mae_R": 0.600952747606377,
+        "mae_J_mol_K": 4.9965991552497,
+        "r2": 0.8762261604253555,
+        "n": 738
+      },
+      "gain_pct": -2.510434735519679
+    },
+    {
+      "seed": 23,
+      "status": "fitted",
+      "failure_reason": null,
+      "seconds": 46.16124355047941,
+      "score": {
+        "mae_R": 0.5462562792160931,
+        "mae_J_mol_K": 4.541827413473684,
+        "r2": 0.8871597349153407,
+        "n": 591
+      },
+      "d0_score": {
+        "mae_R": 0.5742521961191466,
+        "mae_J_mol_K": 4.774598418025047,
+        "r2": 0.8863891611308615,
+        "n": 591
+      },
+      "outer": {
+        "mae_R": 0.5514644014729038,
+        "mae_J_mol_K": 4.585130151288709,
+        "r2": 0.895505848322893,
+        "n": 738
+      },
+      "d0_outer": {
+        "mae_R": 0.6013691370683009,
+        "mae_J_mol_K": 5.000061209865459,
+        "r2": 0.8766347830736044,
+        "n": 738
+      },
+      "gain_pct": 4.875195444136333
+    }
+  ],
+  "fallbacks": 0,
+  "model_input_representation": [
+    {
+      "training_center": 0.606836748567569,
+      "training_scale": 0.14529859213790988,
+      "model_input_sign": 1,
+      "training_anchor_row": 2632,
+      "rule": "first nonzero centered training value positive",
+      "labels_or_scoring_used": false,
+      "scientific_expression_unchanged": true
+    },
+    {
+      "training_center": 0.8298141727616701,
+      "training_scale": 0.14175619041829166,
+      "model_input_sign": 1,
+      "training_anchor_row": 2632,
+      "rule": "first nonzero centered training value positive",
+      "labels_or_scoring_used": false,
+      "scientific_expression_unchanged": true
+    },
+    {
+      "training_center": 0.7763147467181198,
+      "training_scale": 0.12557494389868476,
+      "model_input_sign": 1,
+      "training_anchor_row": 2632,
+      "rule": "first nonzero centered training value positive",
+      "labels_or_scoring_used": false,
+      "scientific_expression_unchanged": true
+    }
+  ],
+  "mean_gain_pct": 0.4193036592657415,
+  "mean_final_mae_R": 0.571933922193217,
+  "report_interpretation": "Fallback scores are actual baseline predictions, explicitly flagged, not imputed missing outcomes",
+  "frozen_generation_path": "/public/home/xiaohe/lxf/catalysis-rag/runs/jacs-au-direct-v5-20261004a/generation/small_kg_rag_agent-replicate-1.json"
+}
