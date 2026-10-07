@@ -1,5 +1,7 @@
 # Research Experiment Layer
 
+**2026-10-07 新主线：** [ZeoSyn 无标签直接加入实验 V1 协议与本地验证](../docs/research/ZEOSYN_DIRECT_V1_PROTOCOL.md)。原论文 D0 精确复现；DOI 分组划分；服务器一键运行见根目录 `AGENTS.md`。尚无方法排名结果，JACS Au 记录保留为历史。
+
 最新接续入口：[JACS Au研究调试索引](../docs/research/JACS_AU_DEBUG_HANDOFF_20260930.md)和[网页端GPT-6-Pro提示词](../docs/research/GPT6_PRO_RESEARCH_DEBUG_PROMPT_20260930.md)。用户已澄清后续需要每轮直接加入描述符；优先建议high每轮1项、3轮、各组10条新轨迹，尚未执行。下面V2/V3/V4候选择优结果保持历史记录，不与新协议混算。
 
 最新批次： [KG-v4 修复与 low/high 对照](../docs/research/JACS_AU_KG_V4_LOW_HIGH_20260930.md)，原生 14D0、3×3，两档各三组各三次生成重复，保留所有结果。

@@ -11,9 +11,10 @@ mkdir -p "$DEST/prepared" "$DEST/logs"
 for f in config.json data-manifest.json tasks.json retrieval-config.json knowledge.json; do
   if [[ -f "$RUN_DIR/prepared/$f" ]]; then cp "$RUN_DIR/prepared/$f" "$DEST/prepared/"; fi
 done
-for f in d0.json api-probe.json summary.json LAUNCH.log; do
+for f in d0.json api-probe.json summary.json; do
   if [[ -f "$RUN_DIR/$f" ]]; then cp "$RUN_DIR/$f" "$DEST/"; fi
 done
+if [[ -f "$RUN_DIR/LAUNCH.log" ]]; then cp "$RUN_DIR/LAUNCH.log" "$DEST/LAUNCH.txt"; fi  # *.log is gitignored
 for d in generation evaluation; do
   if [[ -d "$RUN_DIR/$d" ]]; then mkdir -p "$DEST/$d"; cp "$RUN_DIR/$d"/*.json "$DEST/$d/" 2>/dev/null || true; fi
 done
@@ -22,7 +23,7 @@ find "$RUN_DIR/logs" -maxdepth 1 -name 'zeosyn-*' \( -name '*.out' -o -name '*.e
 BASE="${BASE:-/public/home/xiaohe/lxf/catalysis-rag}"
 KEY="${ZHIPU_API_KEY:-$(tr -d '[:space:]' < "${ZHIPU_KEY_FILE:-$BASE/.secrets/zhipu_api_key}" 2>/dev/null || true)}"
 if { [[ -n "$KEY" ]] && grep -rqsF -- "$KEY" "$DEST"; } || grep -rqs "Bearer " "$DEST"; then
-  echo "credential-like text found in $DEST; aborting" >&2; exit 1
+  rm -rf "$DEST"; echo "credential-like text found in the run; nothing collected" >&2; exit 1
 fi
 git -C "$REPO" add "$DEST"
 git -C "$REPO" commit -m "research: collect ZeoSyn direct-v1 run $(basename "$RUN_DIR")" -- "$DEST"
