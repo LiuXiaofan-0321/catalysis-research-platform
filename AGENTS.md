@@ -10,11 +10,11 @@ Only these commands, from the repository root, on **login02**:
 
 ```bash
 git pull                                              # update to the branch you were told to use
-bash research/jobs/zeosyn/launch.sh --dry-run         # checks only
-bash research/jobs/zeosyn/launch.sh                   # submit a new run (prints RUN_DIR)
-bash research/jobs/zeosyn/launch.sh --status RUN_DIR  # progress
-bash research/jobs/zeosyn/launch.sh --resume RUN_DIR  # only if --status lists missing tasks
-bash research/jobs/zeosyn/collect.sh RUN_DIR          # after summary.json exists
+bash jobs/zeosyn/launch.sh --dry-run         # checks only
+bash jobs/zeosyn/launch.sh                   # submit a new run (prints RUN_DIR)
+bash jobs/zeosyn/launch.sh --status RUN_DIR  # progress
+bash jobs/zeosyn/launch.sh --resume RUN_DIR  # only if --status lists missing tasks
+bash jobs/zeosyn/collect.sh RUN_DIR          # after summary.json exists
 git push                                              # push the commit made by collect.sh
 ```
 
@@ -22,10 +22,10 @@ Read-only inspection (`cat`, `ls`, `tail`, `squeue`, `sacct`) is always fine.
 
 ## Forbidden
 
-- Do not edit, create or delete any file under `research/` (code, configs,
-  prompts, data, tests). `launch.sh` refuses to run with uncommitted changes.
+- Do not edit, create or delete any file in the repository (code, configs,
+  data, docs, tests). `launch.sh` refuses to run with uncommitted code changes.
   The only files added to the repository are the ones `collect.sh` copies into
-  `research/reports/` and commits.
+  `results/` and commits.
 - Do not "fix" a failing stage by changing code, thresholds, seeds, queries,
   splits, models or retries. Stop and report instead.
 - Do not rerun, delete or overwrite finished generations or evaluations to
@@ -40,7 +40,7 @@ Read-only inspection (`cat`, `ls`, `tail`, `squeue`, `sacct`) is always fine.
 Report, without modifying anything:
 
 1. the exact command and its full error output;
-2. `bash research/jobs/zeosyn/launch.sh --status RUN_DIR`;
+2. `bash jobs/zeosyn/launch.sh --status RUN_DIR`;
 3. `sacct -j <job ids from RUN_DIR/LAUNCH.log> --format=JobID,JobName,State,ExitCode,Elapsed,MaxRSS`;
 4. the last 50 lines of the relevant `RUN_DIR/logs/zeosyn-*.err` and `.out` files.
 

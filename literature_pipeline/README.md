@@ -1,0 +1,182 @@
+# Literature Extraction and KG-RAG Pipeline
+
+This package is the independent literature-processing layer for large
+catalysis corpora. It does not modify the frozen K247 or thermal K20-K100
+snapshots and does not read private evaluation data.
+
+## What Changed
+
+The previous Stage-1 program sent the full PDF text to the model twice and
+cached only the final paper JSON. This implementation:
+
+- identifies papers by PDF SHA-256 rather than directory order;
+- parses and chunks each PDF once;
+- uses compact, section-targeted core and quantitative prompts;
+- caches each model call independently;
+- stores task state in a SQLite WAL ledger;
+- creates immutable run and RAG-index manifests;
+- exports the existing Stage-1 JSON shape;
+- builds portable dense plus lexical retrieval, with optional LanceDB tables.
+
+## Install
+
+```powershell
+cd literature_pipeline
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -e .
+```
+
+For the complete indexing and document-layout stack:
+
+```powershell
+pip install -e ".[index,docling]"
+```
+
+PyMuPDF is the preferred parser. If it is unavailable, the program uses
+`pypdf`. Docling is invoked only when the initial parse fails the configured
+quality gate.
+
+## Run
+
+Copy `configs/example.yaml` and set `source` to a public PDF directory or a
+source manifest. API credentials remain environment variables:
+
+```powershell
+$env:DEEPSEEK_API_KEY = "<key>"
+litpipe doctor
+litpipe preflight --config .\configs\my-run.yaml
+litpipe run --config .\configs\my-run.yaml --limit 20 --run-id smoke-mock-001
+```
+
+For a DeepSeek smoke test, use 20-50 papers and audit extraction quality before
+freezing the production config. A run selecting more than 100 papers requires
+an explicit confirmation after preflight:
+
+```powershell
+litpipe run --config .\configs\production.yaml --run-id zeolite-6000-v1 --confirm-large-run
+```
+
+The command prints the generated `run_id`. Resume and query with:
+
+```powershell
+litpipe resume --run-id <run_id> --workspace <workspace>
+litpipe retrieve --index <workspace>\indexes\<run_id>-index --query "甲醇选择性与酸位关系"
+litpipe export-stage1 --run-id <run_id> --workspace <workspace> --output <new-output-directory>
+litpipe verify --run-id <run_id> --workspace <workspace>
+```
+
+Run the frozen three-question full-index audit with one index/model load:
+
+```powershell
+litpipe audit-retrieval `
+  --index <workspace>\indexes\full-rag-v1-index `
+  --questions .\configs\full-rag-retrieval-audit-v1.json `
+  --top-k 8 `
+  --context-token-budget 4000
+```
+
+The audit makes no LLM API calls. It records the index hash, retrieval traces,
+expected SI rank checks, term-group coverage, and a manual-review flag.
+
+For the first full-corpus extraction check, use
+`configs/full-rag-extraction-pilot-3.template.yaml`. It limits extraction to
+3,000/4,200 input-context tokens and 1,800/2,400 output tokens for the core/data
+stages. Compared with the former 30,000-token configured maximum per document,
+the pilot ceiling is 11,400 tokens. The prompt omits abstract translation,
+caps record counts, preserves numeric basis/normalization, and injects main/SI
+document provenance in code rather than asking the model to repeat it.
+
+Build the manifest from the three audited paper IDs, keeping each main text and
+at most one targeted SI document:
+
+```bash
+python scripts/build_extraction_pilot_manifest.py \
+  --index /public/home/xiaohe/lxf/catalysis-rag/workspace-full/indexes/full-rag-v1-index \
+  --paper-id '<paper-1>' --paper-id '<paper-2>' --paper-id '<paper-3>' \
+  --output /public/home/xiaohe/lxf/catalysis-rag/manifests/full-rag-extraction-pilot-3.jsonl
+```
+
+Do not submit `jobs/full-rag-extraction-pilot-3.sbatch` until the manifest and
+preflight report are reviewed and `DEEPSEEK_API_KEY` is supplied through the
+job environment. Never store the key in a tracked file.
+
+The inventory is frozen inside the run and reused on resume. Use
+`--refresh-inventory` only when intentionally changing the source corpus.
+Per-paper outcomes are appended to `paper-results.journal.jsonl`, so an
+interrupted process resumes only missing or failed papers. A run is finalized
+and indexed automatically only when every selected paper succeeds. To stop
+retrying known failures, explicitly seal the partial run before indexing:
+
+```powershell
+litpipe finalize-partial --run-id <run_id> --workspace <workspace>
+litpipe build-index --run-id <run_id> --workspace <workspace>
+```
+
+Partial finalization is an exception path and remains labelled `partial`; it
+never appears as a complete corpus.
+
+For production, set `parser.fail_on_low_quality: true`. PDFs that still fail
+the text-quality gate after optional Docling fallback then remain retryable
+failures instead of entering the RAG index as apparently successful papers.
+
+`provider: mock`, `hash-embedding-v1`, and `backend: portable` are available
+for offline tests. Production configs must pin a real embedding revision and
+keep `allow_hash_embedding_fallback: false`.
+Production manifests always record the actual parser, embedding backend,
+model, prompt hashes, source hashes, token use, cache hits, errors, and Git
+commit.
+
+## Generated Data
+
+The workspace contains PDFs only by reference. Parsed text, model responses,
+extractions, indexes, SQLite ledgers, and manifests are generated below the
+configured workspace and are excluded from Git. Only code, prompts, schemas,
+configuration examples, tests, and documentation belong in the repository.
+
+## Main Text and Supporting Information Markdown
+
+For corpora that already contain parsed Markdown, use a JSONL source manifest
+with one row per document. Main text and supporting information share a
+canonical `paper_id` but have distinct `document_id` values:
+
+```json
+{"path":"/data/paper/main.md","paper_id":"doi:10.1021/example","document_id":"document:main","document_type":"main","doi":"10.1021/example"}
+{"path":"/data/paper/si.md","paper_id":"doi:10.1021/example","document_id":"document:si-1","document_type":"si","doi":"10.1021/example"}
+```
+
+The RAG index counts papers and documents separately and keeps `document_type`,
+source path, and parent paper identity on every chunk. To freeze the
+deterministic first 50 ACS papers from `batch_001`, including all available SI
+Markdown:
+
+```bash
+python scripts/build_acs_md_manifest.py \
+  --batch-directory /public/home/xiaohe/zwan/zya/paper_all/ACS/file/batch_001 \
+  --output /public/home/xiaohe/lxf/catalysis-rag/manifests/acs-50-main-si.jsonl \
+  --limit 50
+```
+
+Run this pilot with `configs/acs-50-rag.template.yaml`. Its extraction stage is
+disabled: the job builds the evidence RAG only and makes no DeepSeek calls.
+After the index is frozen, submit `jobs/acs-50-rag-retrieval-audit.sbatch` to
+check SI retrieval with questions containing evidence that appears in the SI
+rather than generic phrases such as "supporting information".
+
+## Full-Corpus Shards
+
+`scripts/build_full_corpus_manifests.py` scans the corpus read-only, excludes
+all directories ending in `_spectra` or `_null`, deduplicates DOI-level paper
+bundles, prefers existing Markdown over PDF, and writes 200-paper shard
+manifests plus shard configs. Submit `jobs/full-rag-prepare.sbatch` first, then
+run the generated shard count as a bounded GPU array:
+
+```bash
+sbatch --array=1-SHARD_COUNT%6 jobs/full-rag-array.sbatch
+```
+
+Each shard has an independent resumable run and portable index. After the
+array completes, `jobs/full-rag-merge.sbatch` combines the indexes and reuses
+their existing vectors; it does not call the embedding model again. The same
+`litpipe merge-indexes` command can later combine the frozen global index with
+new disjoint shards.

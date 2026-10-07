@@ -1,240 +1,51 @@
-# Catalysis Research Platform
+# Catalysis Research
 
-面向光催化与分子筛热催化研究的证据知识图谱、多智能体方向分析与实验反馈平台。
+研究问题：**外部科学知识（RAG 原文检索，或知识图谱 KG + RAG）能否帮助大模型提出可计算、并能被公开数据验证的科学描述符？知识范围从本领域扩展到邻近领域、跨领域（Small → Medium → Large KG）时，这种能力是否随之提高？**
 
-当前NMI主线的最新结果、完整轨迹及代码回溯见[JACS Au研究调试入口（2026-09-30）](docs/research/JACS_AU_DEBUG_HANDOFF_20260930.md)。[网页端GPT-6-Pro审查提示词](docs/research/GPT6_PRO_RESEARCH_DEBUG_PROMPT_20260930.md)可直接复制；旧候选择优实验与尚未运行的直接加入协议分别记录。
+做法：选取有公开数据、原生描述符（D0）和原生模型的 benchmark，让 Agent / RAG / KG+RAG 三组 LLM 在相同预算下提出新描述符，再用原论文的模型比较 D0 与 D0+新描述符。详见 [docs/RESEARCH_QUESTION.md](docs/RESEARCH_QUESTION.md)。
 
-## 核心能力
-
-- 光催化语料：247篇结构化论文；
-- 热催化语料：512篇结构化论文；
-- 论文、关键词、实体、关键实验、原子化观测和 Claims 的单向证据图；
-- DeepSeek 驱动的候选研究方向、证据边界和最小判别实验；
-- 实验记录、观察、阶段性结论和后续建议回流；
-- 独立的研究者画像，保存研究兴趣、设备技术、当前目标和实验约束；
-- 账号隔离、Workspace 隔离和可复现的数据导入。
-
-平台严格区分：
-
-1. 论文直接证据；
-2. 跨论文归纳；
-3. AI 候选假设；
-4. 用户实验记录。
-
-不会把相关性自动写成因果关系，也不会将待验证假设伪装为论文结论。
+**当前进展与下一步：[docs/STATUS.md](docs/STATUS.md)**
 
 ## 目录
 
 ```text
-backend/       Express + Prisma + SQLite + DeepSeek
-frontend/      React + Vite
-data/          可导入的光催化、热催化结构化数据包
-research/      独立、命令行可复现的论文实验层
-scripts/       Windows/Linux 初始化脚本
-docker-compose.yml
+src/catalysis_research/
+  knowledge/     冻结的知识库：KG 快照校验、科学归一化 overlay、同预算 RAG / KG+RAG 检索
+  llm/           GLM 客户端
+  benchmarks/    benchmark 数据适配（当前：ZeoSyn）
+  discovery/     公式 DSL、无标签直接加入的生成循环、评估与统计
+literature_pipeline/   文献 PDF 结构化抽取与 RAG 索引构建（建 Medium/Large KG 时使用）
+scripts/       run_zeosyn.py（实验各阶段）、knowledge.py（overlay、检索、检索审计）
+jobs/zeosyn/   集群一键提交 launch.sh、结果回收 collect.sh、Slurm 作业脚本
+configs/       实验、检索与归一化配置
+data/zeosyn/   ZeoSyn 原始文件（MIT 许可证，逐字节保存）
+results/       正式运行结果（由 collect.sh 写入）
+tests/         单元测试
+docs/          研究问题、进展、历史、实验协议、基础设施说明
 ```
 
-`research/` 与生产平台解耦，用于 Model × Knowledge scaling、KG
-版本化、描述符发现、下游建模、评估和统计分析。基础结构检查：
+## 运行
+
+服务器（华东师大集群 login02）上的运行规则见 [AGENTS.md](AGENTS.md)：
 
 ```bash
-npm run research:doctor
-npm run research:test
+bash jobs/zeosyn/launch.sh --dry-run    # 只做检查
+bash jobs/zeosyn/launch.sh              # 提交完整作业链
+bash jobs/zeosyn/launch.sh --status RUN_DIR
+bash jobs/zeosyn/collect.sh RUN_DIR && git push
 ```
 
-当前科学主线是 Evidence-grounded Scientific Hypothesis Discovery Loop：
-
-```text
-已有研究 -> KG 证据链 -> 科学假设 -> 可计算描述符
-         -> ML 数据验证 -> 结果反馈 -> 下一轮假设
-```
-
-下一阶段先对已经下载的约 5000-6000 篇分子筛论文建立只读 inventory、去重规则和
-immutable Small KG，并在一个合格的公开 benchmark 上跑通最小闭环。实际纳入
-论文数必须以冻结 manifest 为准。Medium/Large KG 将分别扩展到 MOF/COF/吸附
-邻近领域和催化、表面科学等跨领域知识，用于区分 knowledge quantity 与 domain
-diversity 的贡献。完整定义见
-`docs/research/SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md`。
-
-当前已冻结的知识输入包括：
-
-```text
-research/kg_snapshots/K247-photocatalysis-v1
-research/corpora/thermal-catalysis-stage1-v1
-research/kg_snapshots/K20-thermal-catalysis-v1
-research/kg_snapshots/K40-thermal-catalysis-v1
-research/kg_snapshots/K60-thermal-catalysis-v1
-research/kg_snapshots/K80-thermal-catalysis-v1
-research/kg_snapshots/K100-thermal-catalysis-v1
-```
-
-验证冻结内容：
+本地开发：
 
 ```bash
-npm run research:verify:k247
-npm run research:verify:thermal-corpus
-npm run research:verify:thermal-nested
+python -m venv .venv && .venv/bin/pip install -e ".[test]"
+.venv/bin/python -m pytest
+.venv/bin/python scripts/run_zeosyn.py reproduce --data-root data/zeosyn --output /tmp/repro.json
 ```
 
-统一 Run Manifest：
+RAG 索引（`full-rag-v1-index`）、Small KG（`Small-KG-zeolite-v1`）和归一化 overlay 只存放在服务器上，身份与 hash 见 [docs/infra/KNOWLEDGE_BASE.md](docs/infra/KNOWLEDGE_BASE.md)。
 
-```bash
-python research/scripts/research.py run --help
-```
+## 相关仓库与存档
 
-公开预测数据集登记与固定划分：
-
-```bash
-python research/scripts/research.py dataset --help
-```
-
-## 使用与维护文档
-
-- `docs/README.md`：完整文档索引；
-- `docs/user/USER_GUIDE.md`：第一次使用平台的图文指南；
-- `docs/user/USER_GUIDE.pdf`：便于分发的 PDF 版本；
-- `docs/deployment/ALIYUN.md`：阿里云 ECS 部署和升级说明。
-
-## 研究方法文档
-
-- `docs/research/SCIENTIFIC_HYPOTHESIS_DISCOVERY_LOOP.md`：当前科学问题、KG scope 和 Small KG MVP；
-- `docs/research/CURRENT_ARCHITECTURE.md`：当前代码、数据流和真实能力；
-- `docs/research/NMI_GAP_ANALYSIS.md`：按照 P0/P1/P2 排列的方法学缺口；
-- `docs/research/RESEARCH_IMPLEMENTATION_PLAN.md`：模块接口、CLI、测试和验收；
-- `docs/research/EXPERIMENT_PROTOCOL.md`：冻结的实验变量、endpoint、公平性规则和成功判据；
-- `docs/research/PRIVATE_DATA_PROTOCOL.md`：private unseen data 的权限、防火墙、冻结和盲测规则。
-
-## 环境要求
-
-- Node.js 20.19–22.x，推荐 Node.js 22；
-- npm 10+；
-- DeepSeek API Key；
-- Windows、Linux 或 Docker。
-
-## 本地部署
-
-复制环境模板：
-
-```bash
-cp .env.example .env
-```
-
-Windows PowerShell：
-
-```powershell
-Copy-Item .env.example .env
-```
-
-至少填写：
-
-```dotenv
-SESSION_SECRET=<长度足够的随机字符串>
-COOKIE_SECURE=false
-DEEPSEEK_API_KEY=<你的密钥>
-INITIAL_ADMIN_PASSWORD=<首次管理员密码，至少8位>
-```
-
-一键初始化：
-
-```bash
-npm run setup
-```
-
-Windows 也可以运行：
-
-```powershell
-.\scripts\setup.ps1
-```
-
-首次导入预计耗时：
-
-- 光催化约1–2分钟；
-- 热催化约6–8分钟；
-- 具体取决于磁盘和 CPU。
-
-启动：
-
-```bash
-npm run dev:backend
-npm run dev:frontend
-```
-
-访问：
-
-```text
-http://localhost:5173
-```
-
-## Docker 部署
-
-准备 `.env` 后运行：
-
-```bash
-docker compose up -d --build
-```
-
-首次启动会：
-
-1. 创建 SQLite 表；
-2. 创建管理员和研究者画像；
-3. 创建光催化、热催化 Workspace；
-4. 导入两个结构化语料包；
-5. 写入数据卷标记，后续重启不会重复导入。
-
-查看日志：
-
-```bash
-docker compose logs -f backend
-```
-
-## 常用命令
-
-```bash
-npm run build
-npm run import:photocatalysis
-npm run import:thermal
-npm --prefix backend run check
-```
-
-重新覆盖导入：
-
-```bash
-npm --prefix backend run import:dataset -- \
-  --input ../data/thermal-catalysis-stage1.zip \
-  --system thermal_catalysis \
-  --username admin \
-  --replace
-```
-
-## AI 配置
-
-默认科研模型：
-
-```dotenv
-AI_RESEARCH_PROVIDER=deepseek
-AI_RESEARCH_MODEL=deepseek-v4-flash
-DEEPSEEK_BASE_URL=https://api.deepseek.com
-```
-
-API 密钥只能放在本地 `.env` 或服务器密钥管理系统中，不得提交到 Git。
-
-如果平台通过 HTTPS 对外服务，请设置：
-
-```dotenv
-COOKIE_SECURE=true
-FRONTEND_ORIGIN=https://你的域名
-```
-
-## 数据安全
-
-仓库不包含：
-
-- API 密钥；
-- 论文 PDF；
-- 原平台数据库；
-- 用户密码和会话；
-- 用户实验记录；
-- 私人研究者画像；
-- 开发日志和临时输出。
-
-生产部署前应进一步配置 HTTPS、反向代理、数据库备份和访问审计。
+- 网页平台（文献浏览、研究建议、实验记录）：[catalysis-web](https://github.com/LiuXiaofan-0321/catalysis-web)
+- 2026-10-07 重组之前的完整内容（JACS Au、AdsZeo 等旧研究线及其全部结果）：tag `archive/full-2026-10-07`，概要见 [docs/HISTORY.md](docs/HISTORY.md)
