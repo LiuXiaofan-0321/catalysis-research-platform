@@ -20,6 +20,10 @@ import pandas as pd
 SOURCE_DOI = '10.1021/acscentsci.3c01615'
 SOURCE_REPOSITORY = 'https://github.com/eltonpan/zeosyn_dataset'
 DATA_FILES = ('ZEOSYN.xlsx', 'osda_descriptors.csv')
+EXPECTED_SHA256 = {
+    'ZEOSYN.xlsx': '95f9b8f5d1464fc3d577d93f9551e40cc984b5b475a49ddc8177f598c3c1987c',
+    'osda_descriptors.csv': 'd6677fd3cf6f120405bbd14867aed6b1b9b8f5e788532a948fe1042f1b1f77ba',
+}
 
 # utils.osda_cols in the source repository.
 NATIVE_OSDA_COLS = (
@@ -255,10 +259,12 @@ class ZeoSynData:
 
 def load(root):
     root = Path(root)
+    hashes = {f: file_sha256(root / f) for f in DATA_FILES}
+    if hashes != EXPECTED_SHA256:
+        raise ValueError(f'ZeoSyn source files differ from the frozen release: {hashes}')
     df, osda = load_tables(root)
     frame = native_frame(df, osda)
-    return ZeoSynData(frame=frame, y=labels(frame),
-                      source_hashes={f: file_sha256(root / f) for f in DATA_FILES})
+    return ZeoSynData(frame=frame, y=labels(frame), source_hashes=hashes)
 
 
 def classification_metrics(y_true, y_pred):
