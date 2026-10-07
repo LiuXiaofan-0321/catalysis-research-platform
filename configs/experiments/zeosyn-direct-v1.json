@@ -20,7 +20,7 @@
     "germanium boron titanium phosphorus heteroatoms crystallization temperature and time control zeolite framework selection and phase transformation"
   ],
   "retrieval": {
-    "base_config": "research/configs/retrieval/small-kg-hybrid-v1.json",
+    "base_config": "configs/retrieval/small-kg-hybrid-v1.json",
     "candidate_limit": 30,
     "item_limit": 10,
     "context_token_budget": 4000,

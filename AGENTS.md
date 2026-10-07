@@ -9,13 +9,13 @@ ECNU cluster (`/public/home/xiaohe/lxf/catalysis-rag`). The agent's job is to
 Only these commands, from the repository root, on **login02**:
 
 ```bash
-git pull                                              # update to the branch you were told to use
+git pull                                     # update to the branch you were told to use
 bash jobs/zeosyn/launch.sh --dry-run         # checks only
 bash jobs/zeosyn/launch.sh                   # submit a new run (prints RUN_DIR)
 bash jobs/zeosyn/launch.sh --status RUN_DIR  # progress
 bash jobs/zeosyn/launch.sh --resume RUN_DIR  # only if --status lists missing tasks
 bash jobs/zeosyn/collect.sh RUN_DIR          # after summary.json exists
-git push                                              # push the commit made by collect.sh
+git push                                     # push the commit made by collect.sh
 ```
 
 Read-only inspection (`cat`, `ls`, `tail`, `squeue`, `sacct`) is always fine.
