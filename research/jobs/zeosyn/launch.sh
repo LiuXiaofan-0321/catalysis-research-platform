@@ -119,11 +119,17 @@ done
 [[ -n "$PORT" ]] || { kill "$PROXY_PID" 2>/dev/null || true; cat "$PROXY_LOG" >&2; die "could not read the proxy port from $PROXY_LOG"; }
 export ZHIPU_PROXY_BASE_URL="http://$PROXY_HOST:$PORT/api/paas/v4"
 say "proxy pid $PROXY_PID at $ZHIPU_PROXY_BASE_URL"
+JOBS=()
+abort_submission() {  # a failed submission leaves no orphan jobs or proxy behind
+  if ((${#JOBS[@]})); then scancel "${JOBS[@]}" 2>/dev/null || true; echo "cancelled ${JOBS[*]}" >&2; fi
+  kill "$PROXY_PID" 2>/dev/null || true
+}
+trap abort_submission EXIT
 
 # ------------------------------------------------------------------ submission helpers
 export CODE_ROOT RUN_DIR ZEOSYN_PYTHON ZEOSYN_LD_PRELOAD RAG_INDEX KG_SNAPSHOT KG_OVERLAY HF_HOME
 SBATCH_FILE="$CODE_ROOT/$SBATCH_FILE_REL"
-JOBS=(); LAST=""
+LAST=""
 submit() {  # submit NAME PHASE DEPENDENCY CPUS MEM TIME [ARRAY]; sets $LAST (no subshell, so JOBS is kept)
   local name=$1 phase=$2 dep=$3 cpus=$4 mem=$5 time=$6 array=${7:-}
   local args=(--parsable --job-name "zeosyn-$name" --partition "$PARTITION" --cpus-per-task "$cpus" --mem "$mem"
@@ -170,6 +176,7 @@ nohup bash -c '
   while squeue -h -j "$1" 2>/dev/null | grep -q .; do sleep 60; done
   if tr "\0" " " < /proc/$2/cmdline 2>/dev/null | grep -q -- "--name $3"; then kill "$2"; echo "proxy $2 stopped $(date -Is)"; fi
 ' _ "$JOB_LIST" "$PROXY_PID" "$PROXY_NAME" >> "$RUN_DIR/logs/proxy-watcher.log" 2>&1 &
+trap - EXIT
 
 cat > "$RUN_DIR/LAUNCH.env" <<EOF
 CODE_ROOT=$CODE_ROOT
