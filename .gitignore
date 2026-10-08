@@ -16,3 +16,4 @@ literature_pipeline/**/model_calls/
 literature_pipeline/**/cache/
 literature_pipeline/**/extractions/
 runs/
+results/*.tar.gz

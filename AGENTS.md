@@ -1,33 +1,46 @@
 # Instructions for coding agents running experiments on the cluster
 
 These rules apply to Codex or any other agent operating this repository on the
-ECNU cluster (`/public/home/xiaohe/lxf/catalysis-rag`). The agent's job is to
+ECNU cluster (`/public/home/xiaohe/lxf/catalysis-rag`, login node `login2`,
+also reachable as login02 / 59.78.189.133). The agent's job is to
 **run and report**, not to change science.
 
-## Allowed
+## Workflow
 
-Only these commands, from the repository root, on **login02**:
+The cluster cannot reach GitHub, so code goes up as a snapshot and results come
+back as an archive.
 
-```bash
-git pull                                     # update to the branch you were told to use
-bash jobs/zeosyn/launch.sh --dry-run         # checks only
-bash jobs/zeosyn/launch.sh                   # submit a new run (prints RUN_DIR)
-bash jobs/zeosyn/launch.sh --status RUN_DIR  # progress
-bash jobs/zeosyn/launch.sh --resume RUN_DIR  # only if --status lists missing tasks
-bash jobs/zeosyn/collect.sh RUN_DIR          # after summary.json exists
-git push                                     # push the commit made by collect.sh
-```
+1. **Local machine:** `git checkout main && git pull`. Make a fresh shallow clone
+   of `main` (it must include `.git`), upload it to
+   `$BASE/code/catalysis-research-<first 12 characters of the commit>/` and check
+   that `git rev-parse HEAD` there prints the same commit. Never edit it on the server.
+2. **Cluster, from that directory, on login2:**
 
-Read-only inspection (`cat`, `ls`, `tail`, `squeue`, `sacct`) is always fine.
+   ```bash
+   bash jobs/zeosyn/launch.sh --dry-run         # checks only; must end with "dry run: all checks passed"
+   bash jobs/zeosyn/launch.sh                   # submit a new run (prints RUN_DIR)
+   bash jobs/zeosyn/launch.sh --status RUN_DIR  # progress
+   bash jobs/zeosyn/launch.sh --resume RUN_DIR  # only if --status lists missing tasks
+   bash jobs/zeosyn/collect.sh RUN_DIR          # after summary.json exists
+   ```
+
+3. **Local machine:** download `results/<name>.tar.gz` printed by `collect.sh`,
+   extract it into `results/` of the local clone, then
+   `git add results/<name> && git commit -m "results: <name>" && git push`.
+
+Read-only inspection (`cat`, `ls`, `tail`, `squeue`, `sinfo`, `sacct`, `git log`,
+`git status`) is always fine.
 
 ## Forbidden
 
 - Do not edit, create or delete any file in the repository (code, configs,
-  data, docs, tests). `launch.sh` refuses to run with uncommitted code changes.
-  The only files added to the repository are the ones `collect.sh` copies into
-  `results/` and commits.
-- Do not "fix" a failing stage by changing code, thresholds, seeds, queries,
-  splits, models or retries. Stop and report instead.
+  data, docs, tests), locally or on the server. `launch.sh` refuses to run with
+  uncommitted code changes. The only files added are the `results/` folders
+  produced by `collect.sh`.
+- Do not work around a failing check with environment overrides
+  (`ALLOW_NON_LOGIN02`, `LD_PRELOAD`, `PYTHONPATH`, another Python environment)
+  or by changing code, thresholds, seeds, queries, splits, models or retries.
+  Stop and report instead.
 - Do not rerun, delete or overwrite finished generations or evaluations to
   obtain a different result. Failed slots, zero-append and negative
   trajectories are results and must be kept.
@@ -40,13 +53,15 @@ Read-only inspection (`cat`, `ls`, `tail`, `squeue`, `sacct`) is always fine.
 Report, without modifying anything:
 
 1. the exact command and its full error output;
-2. `bash jobs/zeosyn/launch.sh --status RUN_DIR`;
-3. `sacct -j <job ids from RUN_DIR/LAUNCH.log> --format=JobID,JobName,State,ExitCode,Elapsed,MaxRSS`;
-4. the last 50 lines of the relevant `RUN_DIR/logs/zeosyn-*.err` and `.out` files.
+2. `bash jobs/zeosyn/launch.sh --status RUN_DIR` (if a run was submitted);
+3. `sacct -j <job ids from RUN_DIR/LAUNCH.log> --format=JobID,JobName,Partition,State,ExitCode,Elapsed,MaxRSS,Reason`;
+4. the last 50 lines of the relevant `RUN_DIR/logs/zeosyn-*.err` and `.out` files;
+5. for jobs that stay pending: `squeue -u $USER -o '%.12i %.20j %.8T %.10M %R'` and
+   `sinfo -p cpu_96G,cpu_192G`.
 
 If only some generation tasks are missing because of API/network errors
 (the job log shows `GlmError`), `--resume RUN_DIR` is allowed once. If the
 `knowledge`, `prepare` or `baseline` stage fails, do not resume; report.
 
-If the run finishes, run `collect.sh RUN_DIR` and `git push`, then report the
-commit hash and the `per_mode` block of `summary.json`.
+When the run finishes, collect and push the results as in step 3, then report
+the commit hash and the `per_mode` block of `summary.json`.

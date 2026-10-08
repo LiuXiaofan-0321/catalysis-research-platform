@@ -12,5 +12,12 @@ Machine-Learning Rationalization of Hydrothermal Parameters. *ACS Cent. Sci.*
 | `ZEOSYN.xlsx` | `95f9b8f5d1464fc3d577d93f9551e40cc984b5b475a49ddc8177f598c3c1987c` |
 | `osda_descriptors.csv` | `d6677fd3cf6f120405bbd14867aed6b1b9b8f5e788532a948fe1042f1b1f77ba` |
 
+`osda_rdkit_features.csv` is derived here, not part of the upstream release: the
+11 OSDA composition counts for every SMILES in `ZEOSYN.xlsx`, computed once with
+RDKit 2026.03.6 by `catalysis_research.benchmarks.zeosyn.write_rdkit_table`
+(SHA-256 `b73efa856176c10bfdc3bcb92d20c4b14f40b9eb87dd2dd000ecc7f28c0d2881`).
+Experiments read this table, so the cluster does not need RDKit; `tests/test_zeosyn.py`
+checks the table against RDKit wherever RDKit is installed.
+
 `zeolite_descriptors.csv` (product-side framework descriptors) is deliberately
 not copied: it describes the label and is never an input.

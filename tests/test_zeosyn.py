@@ -188,3 +188,25 @@ def test_bundle_leak_check_fails_closed():
             return {'items': [{'paper_id': 'doi:10.1/A'}]}
     with pytest.raises(RuntimeError, match='Held-out'):
         zk.freeze_bundles(R(), queries=['q'], budget=None, held_out_dois=['10.1/a'])
+
+
+DATA = Path(__file__).resolve().parents[1] / 'data' / 'zeosyn'
+
+
+def test_rdkit_table_covers_every_smiles_and_missing_smiles_fail():
+    table = z.load_rdkit_table(DATA)
+    df = pd.read_excel(DATA / 'ZEOSYN.xlsx', usecols=['osda1 smiles', 'osda2 smiles', 'osda3 smiles'])
+    used = {s for c in df for s in df[c].dropna() if isinstance(s, str) and s.strip()}
+    assert used <= set(table)
+    out = z.osda_composition([None, '', next(iter(used))], table)
+    assert (out.iloc[0] == 0).all() and (out.iloc[1] == 0).all()
+    with pytest.raises(ValueError, match='missing'):
+        z.osda_composition(['C[N+](C)(C)C_not_in_table'], table)
+
+
+def test_rdkit_table_matches_rdkit_when_available():
+    pytest.importorskip('rdkit')
+    table = z.load_rdkit_table(DATA)
+    smiles = sorted(table)
+    fresh = z.rdkit_features(smiles).to_numpy()
+    assert np.array_equal(np.array([table[s] for s in smiles]), fresh, equal_nan=True)

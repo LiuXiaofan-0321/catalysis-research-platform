@@ -19,10 +19,13 @@ import pandas as pd
 
 SOURCE_DOI = '10.1021/acscentsci.3c01615'
 SOURCE_REPOSITORY = 'https://github.com/eltonpan/zeosyn_dataset'
-DATA_FILES = ('ZEOSYN.xlsx', 'osda_descriptors.csv')
+RDKIT_TABLE = 'osda_rdkit_features.csv'
+DATA_FILES = ('ZEOSYN.xlsx', 'osda_descriptors.csv', RDKIT_TABLE)
 EXPECTED_SHA256 = {
     'ZEOSYN.xlsx': '95f9b8f5d1464fc3d577d93f9551e40cc984b5b475a49ddc8177f598c3c1987c',
     'osda_descriptors.csv': 'd6677fd3cf6f120405bbd14867aed6b1b9b8f5e788532a948fe1042f1b1f77ba',
+    # Derived once with RDKit 2026.03.6 by write_rdkit_table(); RDKit is not needed to run experiments.
+    RDKIT_TABLE: 'b73efa856176c10bfdc3bcb92d20c4b14f40b9eb87dd2dd000ecc7f28c0d2881',
 }
 
 # utils.osda_cols in the source repository.
@@ -178,6 +181,7 @@ def labels(frame):
 
 
 def rdkit_features(smiles_values):
+    """Compute OSDA composition counts with RDKit (only used to regenerate the frozen table)."""
     from rdkit import Chem, RDLogger
     from rdkit.Chem import Crippen, rdMolDescriptors
     RDLogger.DisableLog('rdApp.*')
@@ -206,11 +210,39 @@ def rdkit_features(smiles_values):
     return pd.DataFrame(rows, columns=list(RDKIT_INPUTS))
 
 
-def raw_inputs(frame, imputed):
+def write_rdkit_table(root):
+    """Regenerate data/zeosyn/osda_rdkit_features.csv from every SMILES in ZEOSYN.xlsx."""
+    root = Path(root)
+    df = pd.read_excel(root / 'ZEOSYN.xlsx')
+    smiles = sorted({s for c in ('osda1 smiles', 'osda2 smiles', 'osda3 smiles') for s in df[c].dropna()
+                     if isinstance(s, str) and s.strip()})
+    table = rdkit_features(smiles)
+    table.insert(0, 'smiles', smiles)
+    table.to_csv(root / RDKIT_TABLE, index=False, lineterminator='\n')
+
+
+def load_rdkit_table(root):
+    table = pd.read_csv(Path(root) / RDKIT_TABLE, keep_default_na=False, na_values=[''], float_precision='round_trip')
+    return {s: row for s, row in zip(table['smiles'], table[list(RDKIT_INPUTS)].to_numpy(float))}
+
+
+def osda_composition(smiles_values, table):
+    rows = []
+    for s in smiles_values:
+        if not isinstance(s, str) or not s.strip():
+            rows.append(np.zeros(len(RDKIT_INPUTS)))
+        elif s in table:
+            rows.append(table[s])
+        else:
+            raise ValueError(f'SMILES missing from {RDKIT_TABLE}: {s}')
+    return pd.DataFrame(rows, columns=list(RDKIT_INPUTS))
+
+
+def raw_inputs(frame, imputed, rdkit_table):
     env = {k: imputed[k].to_numpy(float) for k in GEL_INPUTS + CONDITION_INPUTS}
     for short, col in OSDA_TABLE_INPUTS.items():
         env[short] = pd.to_numeric(frame[col], errors='coerce').fillna(0).to_numpy(float)
-    rd = rdkit_features(frame['osda1 smiles'].tolist())
+    rd = osda_composition(frame['osda1 smiles'].tolist(), rdkit_table)
     for k in RDKIT_INPUTS:
         env[k] = rd[k].to_numpy(float)
     env['n_osda'] = sum(frame[f'osda{i} smiles'].notna().astype(float) for i in (1, 2, 3)).to_numpy(float)
@@ -255,6 +287,7 @@ class ZeoSynData:
     frame: pd.DataFrame
     y: np.ndarray
     source_hashes: dict
+    rdkit_table: dict
 
 
 def load(root):
@@ -264,7 +297,7 @@ def load(root):
         raise ValueError(f'ZeoSyn source files differ from the frozen release: {hashes}')
     df, osda = load_tables(root)
     frame = native_frame(df, osda)
-    return ZeoSynData(frame=frame, y=labels(frame), source_hashes=hashes)
+    return ZeoSynData(frame=frame, y=labels(frame), source_hashes=hashes, rdkit_table=load_rdkit_table(root))
 
 
 def classification_metrics(y_true, y_pred):
@@ -316,7 +349,7 @@ def prepare_matrices(root, output, *, test_fraction, split_seed):
     data = load(root)
     train, test, test_dois = doi_group_split(data.frame, test_fraction=test_fraction, seed=split_seed)
     imputed = impute(data.frame, train)
-    env = raw_inputs(data.frame, imputed)
+    env = raw_inputs(data.frame, imputed, data.rdkit_table)
     arrays = {'train': train, 'test': test, 'y': data.y.astype(str), 'd0': d0_matrix(imputed),
               'doi': data.frame['doi'].map(normalize_doi).fillna('').to_numpy(str),
               'year': pd.to_numeric(data.frame['year'], errors='coerce').to_numpy(float)}

@@ -30,6 +30,13 @@ CODE_PATHS=(src scripts configs data jobs literature_pipeline pyproject.toml)
 
 die() { echo "ERROR: $*" >&2; exit 1; }
 say() { echo "[zeosyn] $*"; }
+repo_git() { (cd "$REPO" && git "$@"); }  # the cluster has Git 1.8.3: no "git -C"
+ZEOSYN_LD_PRELOAD="${ZEOSYN_LD_PRELOAD-}"
+if [[ -z "$ZEOSYN_LD_PRELOAD" && -f "$BASE/envs/adszeo-py312/lib/libstdc++.so.6" ]]; then
+  ZEOSYN_LD_PRELOAD="$BASE/envs/adszeo-py312/lib/libstdc++.so.6"  # newer libstdc++ than the system one
+fi
+ZEOSYN_PYTHON="$ZEOSYN_ENV/bin/python"
+py() { LD_PRELOAD="$ZEOSYN_LD_PRELOAD${LD_PRELOAD:+:$LD_PRELOAD}" "$ZEOSYN_PYTHON" "$@"; }
 
 MODE=new; RUN_DIR=""; DRY=0
 case "${1:-}" in
@@ -44,7 +51,7 @@ if [[ "$MODE" == status ]]; then
   [[ -f "$RUN_DIR/LAUNCH.env" ]] || die "$RUN_DIR/LAUNCH.env not found"
   # shellcheck disable=SC1090,SC1091
   source "$RUN_DIR/LAUNCH.env"
-  PYTHONPATH="$CODE_ROOT/src" "$ZEOSYN_PYTHON" -W ignore "$CODE_ROOT/scripts/run_zeosyn.py" status --run-dir "$RUN_DIR"
+  PYTHONPATH="$CODE_ROOT/src" py -W ignore "$CODE_ROOT/scripts/run_zeosyn.py" status --run-dir "$RUN_DIR"
   squeue -u "$USER" -o '%.12i %.20j %.8T %.10M %R' 2>/dev/null | grep -E "zeosyn|JOBID" || true
   [[ -f "$RUN_DIR/summary.json" ]] && say "summary: $RUN_DIR/summary.json"
   exit 0
@@ -52,7 +59,9 @@ fi
 
 # ------------------------------------------------------------------ checks
 command -v sbatch >/dev/null || die "sbatch not found; run this on the cluster login node"
-[[ "$(hostname)" == *login02* || -n "${ALLOW_NON_LOGIN02:-}" ]] || die "start on login02 (proxy requirement); set ALLOW_NON_LOGIN02=1 to override"
+# login02 (59.78.189.133) reports its hostname as "login2".
+[[ "$(hostname)" =~ ^login0?2([.]|$) || -n "${ALLOW_NON_LOGIN02:-}" ]] || die "start on login2/login02 (proxy requirement); set ALLOW_NON_LOGIN02=1 to override"
+say "git $(git --version | awk '{print $3}'), host $(hostname)"
 if [[ -z "${ZHIPU_API_KEY:-}" ]]; then
   [[ -r "$ZHIPU_KEY_FILE" ]] || die "set ZHIPU_API_KEY or create $ZHIPU_KEY_FILE (chmod 600)"
   ZHIPU_API_KEY="$(tr -d '[:space:]' < "$ZHIPU_KEY_FILE")"
@@ -64,12 +73,13 @@ for p in "$RAG_INDEX" "$KG_SNAPSHOT" "$KG_OVERLAY" "$HF_HOME"; do [[ -e "$p" ]] 
 
 # ------------------------------------------------------------------ frozen code release
 if [[ "$MODE" == new ]]; then
-  git -C "$REPO" diff --quiet HEAD -- "${CODE_PATHS[@]}" || die "uncommitted code changes; do not edit code on the server"
-  COMMIT="$(git -C "$REPO" rev-parse HEAD)"
+  repo_git rev-parse HEAD >/dev/null 2>&1 || die "$REPO is not a git checkout; upload a clone of main that includes .git"
+  repo_git diff --quiet HEAD -- "${CODE_PATHS[@]}" || die "uncommitted code changes; do not edit code on the server"
+  COMMIT="$(repo_git rev-parse HEAD)"
   CODE_ROOT="$BASE/code/releases/zeosyn-direct-v1-${COMMIT:0:12}"
   if [[ ! -d "$CODE_ROOT" ]]; then
     mkdir -p "$CODE_ROOT"
-    git -C "$REPO" archive "$COMMIT" "${CODE_PATHS[@]}" | tar -x -C "$CODE_ROOT"
+    repo_git archive "$COMMIT" "${CODE_PATHS[@]}" | tar -x -C "$CODE_ROOT"
   fi
 else
   # shellcheck disable=SC1090,SC1091
@@ -77,25 +87,25 @@ else
 fi
 
 # ------------------------------------------------------------------ python environment
-if [[ ! -x "$ZEOSYN_ENV/bin/python" ]]; then
-  say "creating $ZEOSYN_ENV (inherits $BASE_PYTHON site-packages)"
-  "$BASE_PYTHON" -m venv --system-site-packages "$ZEOSYN_ENV"
+if [[ ! -x "$ZEOSYN_PYTHON" ]]; then
+  say "creating $ZEOSYN_ENV"
+  LD_PRELOAD="$ZEOSYN_LD_PRELOAD" "$BASE_PYTHON" -m venv "$ZEOSYN_ENV"
 fi
-ZEOSYN_PYTHON="$ZEOSYN_ENV/bin/python"
-missing="$("$ZEOSYN_PYTHON" - <<'EOF'
-import importlib.util as u
-print(' '.join(p for m, p in (('numpy','numpy'),('pandas','pandas'),('sklearn','scikit-learn'),('openpyxl','openpyxl'),('rdkit','rdkit'),('scipy','scipy')) if u.find_spec(m) is None))
-EOF
-)"
+# Inherit every package of the base environment (pydantic, sentence-transformers, ...) through a .pth
+# file; packages installed into ZEOSYN_ENV itself still take precedence. venv --system-site-packages
+# does not work here because the base python is itself a virtual environment.
+BASE_SITE="$(LD_PRELOAD="$ZEOSYN_LD_PRELOAD" "$BASE_PYTHON" -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')"
+OWN_SITE="$(py -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')"
+[[ "$BASE_SITE" == "$OWN_SITE" ]] || printf '%s\n' "$BASE_SITE" > "$OWN_SITE/zz_inherit_base_env.pth"
+missing="$(py -c "import importlib.util as u; print(' '.join(p for m, p in (('numpy','numpy'),('pandas','pandas'),('sklearn','scikit-learn'),('openpyxl','openpyxl'),('scipy','scipy')) if u.find_spec(m) is None))")"
 if [[ -n "$missing" ]]; then
   say "installing into $ZEOSYN_ENV: $missing"
-  "$ZEOSYN_PYTHON" -m pip install ${PIP_INDEX_URL:+--index-url "$PIP_INDEX_URL"} $missing
+  # shellcheck disable=SC2086
+  py -m pip install --timeout 120 --retries 5 ${PIP_INDEX_URL:+--index-url "$PIP_INDEX_URL"} $missing
 fi
-PYTHONPATH="${CODE_ROOT:-$REPO}/src:${CODE_ROOT:-$REPO}/literature_pipeline/src" "$ZEOSYN_PYTHON" -c \
-  'import numpy, pandas, sklearn, openpyxl, rdkit, catalysis_research.discovery.zeosyn_direct, catalysis_literature.retrieval' \
+PYTHONPATH="${CODE_ROOT:-$REPO}/src:${CODE_ROOT:-$REPO}/literature_pipeline/src" py -c \
+  'import numpy, pandas, sklearn, openpyxl, catalysis_research.discovery.zeosyn_direct, catalysis_literature.retrieval' \
   || die "python environment check failed"
-ZEOSYN_LD_PRELOAD=""
-[[ -f "$BASE/envs/adszeo-py312/lib/libstdc++.so.6" ]] && ZEOSYN_LD_PRELOAD="$BASE/envs/adszeo-py312/lib/libstdc++.so.6"
 
 if [[ "$MODE" == new ]]; then
   RUN_DIR="$BASE/runs/zeosyn-direct-v1-$(date +%Y%m%d-%H%M%S)"
@@ -146,20 +156,20 @@ submit() {  # submit NAME PHASE DEPENDENCY CPUS MEM TIME [ARRAY]; sets $LAST (no
   say "submitted $name: $id${dep:+ ($dep)}"
 }
 missing_list() {  # missing_list generation|evaluation -> "0,3,7" or ""
-  PYTHONPATH="$CODE_ROOT/src" "$ZEOSYN_PYTHON" -W ignore "$CODE_ROOT/scripts/run_zeosyn.py" status --run-dir "$RUN_DIR" \
-    | "$ZEOSYN_PYTHON" -c "import json,sys; print(','.join(map(str, json.load(sys.stdin)['missing_$1_task_indexes'])))"
+  PYTHONPATH="$CODE_ROOT/src" py -W ignore "$CODE_ROOT/scripts/run_zeosyn.py" status --run-dir "$RUN_DIR" \
+    | py -c "import json,sys; print(','.join(map(str, json.load(sys.stdin)['missing_$1_task_indexes'])))"
 }
 
 if [[ "$MODE" == new ]]; then
-  submit prepare prepare "" 2 16G 01:00:00; PREP=$LAST
-  submit knowledge knowledge "afterok:$PREP" 2 32G 03:00:00; KNOW=$LAST
-  submit baseline baseline "afterok:$PREP" 8 16G 02:00:00; BASEJ=$LAST
+  submit prepare prepare "" 2 8G 01:00:00; PREP=$LAST
+  submit knowledge knowledge "afterok:$PREP" 2 16G 03:00:00; KNOW=$LAST
+  submit baseline baseline "afterok:$PREP" 4 8G 02:00:00; BASEJ=$LAST
   submit probe probe "afterok:$KNOW" 1 2G 00:30:00; PROBE=$LAST
   # Smoke: first replicate of each condition, generated and evaluated before the full array is released.
   submit smoke-gen generate "afterok:$PROBE" 1 4G 03:00:00 "0,10,20"; SGEN=$LAST
-  submit smoke-eval evaluate "afterok:$SGEN:$BASEJ" 4 16G 01:00:00 "0,10,20"; SEVAL=$LAST
+  submit smoke-eval evaluate "afterok:$SGEN:$BASEJ" 4 8G 01:00:00 "0,10,20"; SEVAL=$LAST
   submit gen generate "afterok:$SEVAL" 1 4G 04:00:00 "1-9,11-19,21-29%$MAX_PARALLEL"; GEN=$LAST
-  submit eval evaluate "afterany:$GEN" 4 16G 02:00:00 "0-29%10"; EVAL=$LAST
+  submit eval evaluate "afterany:$GEN" 4 8G 02:00:00 "0-29%10"; EVAL=$LAST
   submit summarize summarize "afterany:$EVAL" 1 2G 00:30:00
 else
   GEN_MISSING="$(missing_list generation)"
@@ -167,7 +177,7 @@ else
   if [[ -n "$GEN_MISSING" ]]; then
     submit gen-resume generate "" 1 4G 04:00:00 "$GEN_MISSING%$MAX_PARALLEL"; GEN=$LAST; DEP="afterany:$GEN"
   fi
-  submit eval-resume evaluate "$DEP" 4 16G 02:00:00 "0-29%10"; EVAL=$LAST
+  submit eval-resume evaluate "$DEP" 4 8G 02:00:00 "0-29%10"; EVAL=$LAST
   submit summarize summarize "afterany:$EVAL" 1 2G 00:30:00
 fi
 
@@ -188,4 +198,4 @@ $(date -Is) mode=$MODE commit=$(basename "$CODE_ROOT") jobs=$JOB_LIST proxy_pid=
 EOF
 say "submitted jobs: $JOB_LIST"
 say "progress:  bash jobs/zeosyn/launch.sh --status $RUN_DIR"
-say "when summary.json exists:  bash jobs/zeosyn/collect.sh $RUN_DIR && git push"
+say "when summary.json exists:  bash jobs/zeosyn/collect.sh $RUN_DIR"

@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
-# Copy a finished ZeoSyn run into results/ and commit it (push separately).
-#   bash jobs/zeosyn/collect.sh RUN_DIR [--partial]
-# --partial collects a run whose summary.json is missing (for debugging a failure).
+# Copy a finished ZeoSyn run into results/ of this checkout.
+#   bash jobs/zeosyn/collect.sh RUN_DIR [--partial] [--commit]
+# --partial  collect a run whose summary.json is missing (for debugging a failure)
+# --commit   also git-commit the copied folder (use where this checkout can push to GitHub)
+# The cluster cannot reach GitHub: copy results/<folder> back to a local clone and commit there.
 set -euo pipefail
-RUN_DIR="${1:?RUN_DIR}"
+RUN_DIR="${1:?RUN_DIR}"; shift
+PARTIAL=0; COMMIT=0
+for a in "$@"; do
+  case "$a" in --partial) PARTIAL=1 ;; --commit) COMMIT=1 ;; *) echo "unknown option $a" >&2; exit 2 ;; esac
+done
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-[[ -f "$RUN_DIR/summary.json" || "${2:-}" == --partial ]] || { echo "summary.json missing; use --partial to collect anyway" >&2; exit 1; }
-DEST="$REPO/results/zeosyn_direct_v1_$(basename "$RUN_DIR" | sed 's/^zeosyn-direct-v1-//')"
+[[ -f "$RUN_DIR/summary.json" || "$PARTIAL" == 1 ]] || { echo "summary.json missing; use --partial to collect anyway" >&2; exit 1; }
+NAME="zeosyn_direct_v1_$(basename "$RUN_DIR" | sed 's/^zeosyn-direct-v1-//')"
+DEST="$REPO/results/$NAME"
 mkdir -p "$DEST/prepared" "$DEST/logs"
 for f in config.json data-manifest.json tasks.json retrieval-config.json knowledge.json; do
   if [[ -f "$RUN_DIR/prepared/$f" ]]; then cp "$RUN_DIR/prepared/$f" "$DEST/prepared/"; fi
@@ -25,6 +32,10 @@ KEY="${ZHIPU_API_KEY:-$(tr -d '[:space:]' < "${ZHIPU_KEY_FILE:-$BASE/.secrets/zh
 if { [[ -n "$KEY" ]] && grep -rqsF -- "$KEY" "$DEST"; } || grep -rqs "Bearer " "$DEST"; then
   rm -rf "$DEST"; echo "credential-like text found in the run; nothing collected" >&2; exit 1
 fi
-git -C "$REPO" add "$DEST"
-git -C "$REPO" commit -m "research: collect ZeoSyn direct-v1 run $(basename "$RUN_DIR")" -- "$DEST"
-echo "committed $DEST; now run: git push"
+(cd "$REPO/results" && tar -czf "$NAME.tar.gz" "$NAME")
+echo "collected $DEST"
+echo "archive   $REPO/results/$NAME.tar.gz  (download this, extract into results/ of a local clone)"
+if [[ "$COMMIT" == 1 ]]; then
+  (cd "$REPO" && git add "results/$NAME" && git commit -m "results: ZeoSyn direct-v1 run $(basename "$RUN_DIR")" -- "results/$NAME")
+  echo "committed results/$NAME; now run: git push"
+fi

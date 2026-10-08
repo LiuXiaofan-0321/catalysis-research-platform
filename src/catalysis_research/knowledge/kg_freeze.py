@@ -261,10 +261,12 @@ def _git_state(repository_root: Path) -> dict[str, Any]:
         ).stdout.strip()
 
     status = run("status", "--porcelain")
+    # rev-parse --abbrev-ref works on Git 1.8 (the cluster); "HEAD" means detached, like --show-current's "".
+    branch = run("rev-parse", "--abbrev-ref", "HEAD")
     return {
         "commit": run("rev-parse", "HEAD"),
         "tree": run("rev-parse", "HEAD^{tree}"),
-        "branch": run("branch", "--show-current"),
+        "branch": "" if branch == "HEAD" else branch,
         "dirty": bool(status),
     }
 
