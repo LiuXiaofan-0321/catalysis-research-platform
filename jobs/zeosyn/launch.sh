@@ -94,9 +94,11 @@ fi
 # Inherit every package of the base environment (pydantic, sentence-transformers, ...) through a .pth
 # file; packages installed into ZEOSYN_ENV itself still take precedence. venv --system-site-packages
 # does not work here because the base python is itself a virtual environment.
-BASE_SITE="$(LD_PRELOAD="$ZEOSYN_LD_PRELOAD" "$BASE_PYTHON" -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')"
-OWN_SITE="$(py -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')"
-[[ "$BASE_SITE" == "$OWN_SITE" ]] || printf '%s\n' "$BASE_SITE" > "$OWN_SITE/zz_inherit_base_env.pth"
+SITE_DIRS='import os, site; print("\n".join(p for p in dict.fromkeys(site.getsitepackages()) if os.path.isdir(p)))'
+BASE_SITES="$(LD_PRELOAD="$ZEOSYN_LD_PRELOAD" "$BASE_PYTHON" -c "$SITE_DIRS")"
+OWN_SITE="$(py -c "$SITE_DIRS" | head -1)"
+[[ -n "$BASE_SITES" && -d "$OWN_SITE" ]] || die "could not locate site-packages of $BASE_PYTHON or $ZEOSYN_ENV"
+printf '%s\n' "$BASE_SITES" > "$OWN_SITE/zz_inherit_base_env.pth"
 missing="$(py -c "import importlib.util as u; print(' '.join(p for m, p in (('numpy','numpy'),('pandas','pandas'),('sklearn','scikit-learn'),('openpyxl','openpyxl'),('scipy','scipy')) if u.find_spec(m) is None))")"
 if [[ -n "$missing" ]]; then
   say "installing into $ZEOSYN_ENV: $missing"
