@@ -1,0 +1,154 @@
+{
+  "tasks": [
+    {
+      "index": 0,
+      "mode": "agent",
+      "replicate": 1
+    },
+    {
+      "index": 1,
+      "mode": "agent",
+      "replicate": 2
+    },
+    {
+      "index": 2,
+      "mode": "agent",
+      "replicate": 3
+    },
+    {
+      "index": 3,
+      "mode": "agent",
+      "replicate": 4
+    },
+    {
+      "index": 4,
+      "mode": "agent",
+      "replicate": 5
+    },
+    {
+      "index": 5,
+      "mode": "agent",
+      "replicate": 6
+    },
+    {
+      "index": 6,
+      "mode": "agent",
+      "replicate": 7
+    },
+    {
+      "index": 7,
+      "mode": "agent",
+      "replicate": 8
+    },
+    {
+      "index": 8,
+      "mode": "agent",
+      "replicate": 9
+    },
+    {
+      "index": 9,
+      "mode": "agent",
+      "replicate": 10
+    },
+    {
+      "index": 10,
+      "mode": "rag_agent",
+      "replicate": 1
+    },
+    {
+      "index": 11,
+      "mode": "rag_agent",
+      "replicate": 2
+    },
+    {
+      "index": 12,
+      "mode": "rag_agent",
+      "replicate": 3
+    },
+    {
+      "index": 13,
+      "mode": "rag_agent",
+      "replicate": 4
+    },
+    {
+      "index": 14,
+      "mode": "rag_agent",
+      "replicate": 5
+    },
+    {
+      "index": 15,
+      "mode": "rag_agent",
+      "replicate": 6
+    },
+    {
+      "index": 16,
+      "mode": "rag_agent",
+      "replicate": 7
+    },
+    {
+      "index": 17,
+      "mode": "rag_agent",
+      "replicate": 8
+    },
+    {
+      "index": 18,
+      "mode": "rag_agent",
+      "replicate": 9
+    },
+    {
+      "index": 19,
+      "mode": "rag_agent",
+      "replicate": 10
+    },
+    {
+      "index": 20,
+      "mode": "small_kg_rag_agent",
+      "replicate": 1
+    },
+    {
+      "index": 21,
+      "mode": "small_kg_rag_agent",
+      "replicate": 2
+    },
+    {
+      "index": 22,
+      "mode": "small_kg_rag_agent",
+      "replicate": 3
+    },
+    {
+      "index": 23,
+      "mode": "small_kg_rag_agent",
+      "replicate": 4
+    },
+    {
+      "index": 24,
+      "mode": "small_kg_rag_agent",
+      "replicate": 5
+    },
+    {
+      "index": 25,
+      "mode": "small_kg_rag_agent",
+      "replicate": 6
+    },
+    {
+      "index": 26,
+      "mode": "small_kg_rag_agent",
+      "replicate": 7
+    },
+    {
+      "index": 27,
+      "mode": "small_kg_rag_agent",
+      "replicate": 8
+    },
+    {
+      "index": 28,
+      "mode": "small_kg_rag_agent",
+      "replicate": 9
+    },
+    {
+      "index": 29,
+      "mode": "small_kg_rag_agent",
+      "replicate": 10
+    }
+  ]
+}

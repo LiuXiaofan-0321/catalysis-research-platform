@@ -1,0 +1,4 @@
+rag_agent r7 round 1: (Na + K + Li + Rb + Cs) / (sda1 * abs(osda_charge) + 0.01)
+rag_agent r7 round 2: F / (Al + B + Ga + Zn + 0.01)
+rag_agent r7 round 3: H2O / (Si + Al + P + B + Ge + Ga + 0.01)
+{"mode": "rag_agent", "replicate": 7, "appended": 3, "formulas": ["(Na + K + Li + Rb + Cs) / (sda1 * abs(osda_charge) + 0.01)", "F / (Al + B + Ga + Zn + 0.01)", "H2O / (Si + Al + P + B + Ge + Ga + 0.01)"]}

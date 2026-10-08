@@ -1,0 +1,4 @@
+agent r7 round 1: osda_charge / (osda_volume + 1.0)
+agent r7 round 2: F / (H2O + F + 0.001)
+agent r7 round 3: OH / (Si + Al + P + 0.001)
+{"mode": "agent", "replicate": 7, "appended": 3, "formulas": ["osda_charge / (osda_volume + 1.0)", "F / (H2O + F + 0.001)", "OH / (Si + Al + P + 0.001)"]}

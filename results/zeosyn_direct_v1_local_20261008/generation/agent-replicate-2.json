@@ -1,0 +1,322 @@
+{
+  "appended": 3,
+  "config_sha256": "f3160bf000a8c1a21a22e20b077cca80631a15c0cfda16e755484a58d6c73c21",
+  "final_formulas": [
+    {
+      "formula": "OH / (H2O + 0.001)",
+      "name": "alkalinity_oh_per_water"
+    },
+    {
+      "formula": "Si / (Al + 0.001)",
+      "name": "si_al_ratio"
+    },
+    {
+      "formula": "Ge / (Si + Al + P + Ge + 0.001)",
+      "name": "germanium_tatom_fraction"
+    }
+  ],
+  "knowledge_sha256": "9e905434ff79e6f8be4f5523a9e509160da7edf103f99d8d0cd8c8c95319caea",
+  "label_feedback": false,
+  "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "profile": "zeosyn-direct-v1",
+  "reasoning_effort": "high",
+  "replicate": 2,
+  "seconds": 101.52547407150269,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "H2O",
+              "OH"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes hydroxide is the dominant mineralizing agent (true for OH- media but not for F- media, where fluoride mineralizer activity is not captured); assumes H2O mole fraction is a reliable proxy for solvent dilution (hydration of salts and OSDA not modeled); the additive constant 0.001 prevents division by zero for essentially water-free gels but compresses the descriptor in that regime. The ratio ignores which cation balances OH (Na vs K vs OSDA), which is a known secondary effect.",
+              "evidence_ids": [],
+              "expected_effect": "As alkalinity_oh_per_water increases, probability mass should shift toward low-silica small-pore/cage frameworks (LTA, FAU) and, at extremes, toward Failed; as it decreases, high-silica frameworks (MFI, MTW, *BEA, TON) should become more likely, with Failed increasing at very low alkalinity when crystallization kinetics are too slow.",
+              "falsification": "If held-out predictions show that MFI and LTA occupy the same alkalinity band, or if the descriptor receives near-zero feature importance while an alternative single-column interaction proxy dominates, the ratio hypothesis is contradicted. It would also be falsified if predictions from unseen papers improve for high-alkalinity recipes but degrade for fluoride-mediated high-silica recipes in a way inconsistent with a monotone alkalinity effect.",
+              "formula": "OH / (H2O + 0.001)",
+              "hypothesis": "The molar hydroxide-to-water ratio (gel alkalinity) controls the dissolution rate of the amorphous gel, the silica/alumina speciation, and the supersaturation trajectory of the crystallizing phase, and therefore steers which framework (or amorphous/dense 'Failed' product) nucleates. Because tree ensembles split on single columns, the model currently receives OH and H2O only as independent mole fractions; the physically meaningful ratio is unavailable to it even though it is one of the most predictive quantities in zeolite synthesis.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "High OH/H2O accelerates dissolution of Si and Al sources and increases the concentration of anionic silicate and aluminate species, raising nucleation rates and favoring low-silica, small-pore or cage-containing frameworks that nucleate readily under strongly basic conditions (LTA, FAU, and related low-Si/Al phases); excessive alkalinity can also redissolve metastable frameworks and drive 'Failed' or dense-phase outcomes. Low OH/H2O (dilute or fluoride-rich conditions) slows dissolution, favors high-silica frameworks where bulky OSDAs stabilize large-pore or 1D/2D structures (MFI, MTW, *BEA, TON), and slows crystallization enough that amorphous 'Failed' outcomes become more likely when time is insufficient.",
+              "name": "alkalinity_oh_per_water",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "LTA",
+                "FAU",
+                "MFI",
+                "MTW",
+                "*BEA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610082258557739a5e2e0904310",
+          "usage": {
+            "completion_tokens": 1064,
+            "completion_tokens_details": {
+              "reasoning_tokens": 368
+            },
+            "prompt_tokens": 1619,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2683
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes hydroxide is the dominant mineralizing agent (true for OH- media but not for F- media, where fluoride mineralizer activity is not captured); assumes H2O mole fraction is a reliable proxy for solvent dilution (hydration of salts and OSDA not modeled); the additive constant 0.001 prevents division by zero for essentially water-free gels but compresses the descriptor in that regime. The ratio ignores which cation balances OH (Na vs K vs OSDA), which is a known secondary effect.",
+        "evidence_ids": [],
+        "expected_effect": "As alkalinity_oh_per_water increases, probability mass should shift toward low-silica small-pore/cage frameworks (LTA, FAU) and, at extremes, toward Failed; as it decreases, high-silica frameworks (MFI, MTW, *BEA, TON) should become more likely, with Failed increasing at very low alkalinity when crystallization kinetics are too slow.",
+        "falsification": "If held-out predictions show that MFI and LTA occupy the same alkalinity band, or if the descriptor receives near-zero feature importance while an alternative single-column interaction proxy dominates, the ratio hypothesis is contradicted. It would also be falsified if predictions from unseen papers improve for high-alkalinity recipes but degrade for fluoride-mediated high-silica recipes in a way inconsistent with a monotone alkalinity effect.",
+        "formula": "OH / (H2O + 0.001)",
+        "hypothesis": "The molar hydroxide-to-water ratio (gel alkalinity) controls the dissolution rate of the amorphous gel, the silica/alumina speciation, and the supersaturation trajectory of the crystallizing phase, and therefore steers which framework (or amorphous/dense 'Failed' product) nucleates. Because tree ensembles split on single columns, the model currently receives OH and H2O only as independent mole fractions; the physically meaningful ratio is unavailable to it even though it is one of the most predictive quantities in zeolite synthesis.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "High OH/H2O accelerates dissolution of Si and Al sources and increases the concentration of anionic silicate and aluminate species, raising nucleation rates and favoring low-silica, small-pore or cage-containing frameworks that nucleate readily under strongly basic conditions (LTA, FAU, and related low-Si/Al phases); excessive alkalinity can also redissolve metastable frameworks and drive 'Failed' or dense-phase outcomes. Low OH/H2O (dilute or fluoride-rich conditions) slows dissolution, favors high-silica frameworks where bulky OSDAs stabilize large-pore or 1D/2D structures (MFI, MTW, *BEA, TON), and slows crystallization enough that amorphous 'Failed' outcomes become more likely when time is insufficient.",
+        "name": "alkalinity_oh_per_water",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "LTA",
+          "FAU",
+          "MFI",
+          "MTW",
+          "*BEA",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "0258220dfcf60dc540b76f821f685cde3a3580699a6fe5b267d7fd01671b0936",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes gel mole fractions reflect the effective batch Si:Al available for framework incorporation (i.e., that Si and Al speciation, seeding, and interconversion losses transfer across publications well enough for a coarse ratio split). Adding 0.001 to the denominator caps the ratio at ~1000*x_Si for Al-free gels so trees can still order Al-free recipes among themselves; this cap means Al-free gels are not distinguished from extremely Al-dilute ones. The ratio ignores P and Ge, so gallium-, germano-, and borosilicate chemistries are only crudely proxied by it.",
+              "evidence_ids": [],
+              "expected_effect": "As si_al_ratio increases, predicted outcomes should shift from Failed / low-silica frameworks (FAU, LTA, AEL, AEI, CHA) toward intermediate Si/Al frameworks (CHA, LEV) and then to high-silica frameworks (MFI, *BEA, MEL, MTW, TON, FER, BEC). Very large values (essentially Al-free) should further favor pure-silica phases or Failed; the ratio near zero on phosphate gels should favor AlPO frameworks (AFI, AEL, AEI).",
+              "falsification": "If held-out predictions show that framework identity is well separated by the raw Al mole fraction alone, or that adding si_al_ratio does not change which frameworks are predicted at fixed Al (e.g., MFI and FAU recipes with the same Al mole fraction but different Si dilution are not distinguished), the hypothesis is contradicted. Likewise, if Si/Al is found to be irrelevant because crystallization outcome is fully determined by OSDA descriptors and temperature within each publication, the descriptor adds nothing.",
+              "formula": "Si / (Al + 0.001)",
+              "hypothesis": "The gel Si/Al molar ratio is a primary determinant of which zeolite framework crystallizes: very low ratios favor low-silica, high-framework-density aluminosilicates and aluminophosphate-type products, while very high ratios favor pure-silica or high-silica frameworks, and extreme values (essentially Al-free silicate or Si-free phosphate gels) point to a distinct family of outcomes including amorphous/dense 'Failed' products.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Framework Al content is kinetically and thermodynamically constrained by the gel composition: each framework has a characteristic range of achievable Si/Al and a distinct nucleation pathway. Low Si/Al gels generate abundant anionic aluminate/silicate oligomers that crystallize into frameworks with high negative charge density and small rings (FAU, LTA, CHA, AEL, AEI), with inorganic cations balancing charge. As Si/Al rises, aluminate becomes a minor directing species and the crystallizing networks shift to frameworks tolerant of low charge density (MFI, *BEA, MEL, MTW, TON, FER), which are typically OSDA-directed. For phosphate-dominated gels (Al present, Si near zero) the same descriptor collapses toward ~0 and flags the AlPO/P-bearing chemistry (AFI, AEL, AEI, CHA-type). Because the model only receives Si and Al as separate normalized mole fractions whose absolute values are dominated by water content and cation amounts, a tree ensemble cannot access their ratio, which is the composition variable actually reported and controlled in the literature.",
+              "name": "si_al_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "MFI",
+                "*BEA",
+                "MEL",
+                "MTW",
+                "TON",
+                "FER",
+                "FAU",
+                "LTA",
+                "CHA",
+                "AEL",
+                "AEI",
+                "AFI",
+                "LEV",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008225919f726488659a14575",
+          "usage": {
+            "completion_tokens": 1533,
+            "completion_tokens_details": {
+              "reasoning_tokens": 684
+            },
+            "prompt_tokens": 1764,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3297
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes gel mole fractions reflect the effective batch Si:Al available for framework incorporation (i.e., that Si and Al speciation, seeding, and interconversion losses transfer across publications well enough for a coarse ratio split). Adding 0.001 to the denominator caps the ratio at ~1000*x_Si for Al-free gels so trees can still order Al-free recipes among themselves; this cap means Al-free gels are not distinguished from extremely Al-dilute ones. The ratio ignores P and Ge, so gallium-, germano-, and borosilicate chemistries are only crudely proxied by it.",
+        "evidence_ids": [],
+        "expected_effect": "As si_al_ratio increases, predicted outcomes should shift from Failed / low-silica frameworks (FAU, LTA, AEL, AEI, CHA) toward intermediate Si/Al frameworks (CHA, LEV) and then to high-silica frameworks (MFI, *BEA, MEL, MTW, TON, FER, BEC). Very large values (essentially Al-free) should further favor pure-silica phases or Failed; the ratio near zero on phosphate gels should favor AlPO frameworks (AFI, AEL, AEI).",
+        "falsification": "If held-out predictions show that framework identity is well separated by the raw Al mole fraction alone, or that adding si_al_ratio does not change which frameworks are predicted at fixed Al (e.g., MFI and FAU recipes with the same Al mole fraction but different Si dilution are not distinguished), the hypothesis is contradicted. Likewise, if Si/Al is found to be irrelevant because crystallization outcome is fully determined by OSDA descriptors and temperature within each publication, the descriptor adds nothing.",
+        "formula": "Si / (Al + 0.001)",
+        "hypothesis": "The gel Si/Al molar ratio is a primary determinant of which zeolite framework crystallizes: very low ratios favor low-silica, high-framework-density aluminosilicates and aluminophosphate-type products, while very high ratios favor pure-silica or high-silica frameworks, and extreme values (essentially Al-free silicate or Si-free phosphate gels) point to a distinct family of outcomes including amorphous/dense 'Failed' products.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Framework Al content is kinetically and thermodynamically constrained by the gel composition: each framework has a characteristic range of achievable Si/Al and a distinct nucleation pathway. Low Si/Al gels generate abundant anionic aluminate/silicate oligomers that crystallize into frameworks with high negative charge density and small rings (FAU, LTA, CHA, AEL, AEI), with inorganic cations balancing charge. As Si/Al rises, aluminate becomes a minor directing species and the crystallizing networks shift to frameworks tolerant of low charge density (MFI, *BEA, MEL, MTW, TON, FER), which are typically OSDA-directed. For phosphate-dominated gels (Al present, Si near zero) the same descriptor collapses toward ~0 and flags the AlPO/P-bearing chemistry (AFI, AEL, AEI, CHA-type). Because the model only receives Si and Al as separate normalized mole fractions whose absolute values are dominated by water content and cation amounts, a tree ensemble cannot access their ratio, which is the composition variable actually reported and controlled in the literature.",
+        "name": "si_al_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "MFI",
+          "*BEA",
+          "MEL",
+          "MTW",
+          "TON",
+          "FER",
+          "FAU",
+          "LTA",
+          "CHA",
+          "AEL",
+          "AEI",
+          "AFI",
+          "LEV",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "9eb99c2df1e76dab42ffada00474c3f5df2b7e91a8ea3222c53b0fe2cf19a869",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "error": "redundant: rank-equivalent to existing column F (|rho|=1.00000)",
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes F and OH are the only relevant mineralizing anions in the record and treats them as interchangeable contributors to a single pool, ignoring absolute mineralizer concentration (which partially overlaps with alkalinity_oh_per_water already given), fluoride volatilization, and HF speciation with Al or Ge. Gels with neither F nor OH map to ~0 (neutral/F-free regime proxy). It also assumes the recorded F and OH mole fractions reflect the effective crystallization medium rather than the initial mixing gel only.",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor increases toward 1 (fluoride-dominated mineralization), the probability of high-silica/pure-silica frameworks such as *BEA, MTW, MFI and FER should rise and the probability of low-silica frameworks (FAU, LTA) and 'Failed' should fall; as it decreases toward 0 (hydroxide-dominated), the reverse should occur. Mixed intermediate values should behave according to the dominant anion, which is exactly the regime information a single-column split on F or OH alone cannot resolve.",
+              "falsification": "If, holding Si/Al and alkalinity_oh_per_water fixed, product distributions show no systematic shift between fluoride-rich and hydroxide-rich gels, or if fluoride-dominated gels crystallize the same low-silica/failed outcomes as hydroxide-dominated gels, the hypothesis is contradicted and the descriptor is uninformative.",
+              "formula": "F / (F + OH + 0.001)",
+              "hypothesis": "The relative contribution of fluoride versus hydroxide to the total mineralizing anion pool governs the crystallization pathway and hence the product framework: fluoride-dominated gels crystallize more slowly at low supersaturation and favor defect-free, high-silica or pure-silica frameworks and larger-pore phases, whereas hydroxide-dominated gels crystallize fast at high supersaturation and favor low-silica aluminosilicates, dense phases, or amorphous 'Failed' outcomes.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Fluoride is a milder mineralizer than hydroxide: it dissolves and transports silica as fluorosilicate/silicofluoride species and (near neutral pH) promotes the double-4-ring and double-6-ring secondary building units and framework germanosilicate/aluminosilicate order. This shifts nucleation toward low-defect, high-silica frameworks (e.g., pure-silica MFI, MTW, FER, CHA, STT-type phases, and fluoride-route *BEA), often with well-defined large crystals and high framework quality. Hydroxide, by contrast, gives strongly alkaline conditions that depolymerize the gel rapidly, keep Al in solution as aluminate, raise supersaturation, and favor kinetically accessible open frameworks like FAU and LTA or, when unbalanced, dense phases and amorphous solids ('Failed'). The fraction F/(F+OH) captures which mineralizing regime dominates while remaining insensitive to the overall gel normalization, so it transfers across papers with different absolute compositions.",
+              "name": "fluoride_mineralizer_fraction",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "*BEA",
+                "MTW",
+                "MFI",
+                "FER",
+                "CHA",
+                "FAU",
+                "LTA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610082259547628b71e06224bea",
+          "usage": {
+            "completion_tokens": 895,
+            "completion_tokens_details": {
+              "reasoning_tokens": 135
+            },
+            "prompt_tokens": 1877,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 2772
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "technical_repair",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Ge",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes Si, Al, P and Ge are the only gel species incorporated into the framework (B, Ga, Ti, Zn, etc. are ignored as minor dopants), and that the recorded gel mole fractions reflect the effective T-atom availability rather than post-synthesis losses. Gels with no T atoms at all map to ~0 via the added constant. It treats Ge incorporation as driven by gel composition alone, ignoring OSDA–Ge synergy and fluoride complexation of Ge, and it does not distinguish Ge added as framework director from trace contaminant levels.",
+              "evidence_ids": [],
+              "expected_effect": "As germanium_tatom_fraction increases from 0, the probability of D4R-rich germanosilicate frameworks (BEC, ISV, UTL, ITH, IWW, AST) should rise sharply while the probability of Ge-free phases such as MFI, MTW, low-silica FAU/LTA and 'Failed' falls; at zero the descriptor collapses to 0 and the outcome space is governed by the other descriptors. Very high Ge fractions with insufficient OSDA/charge balance may instead raise the 'Failed' probability.",
+              "falsification": "If, holding si_al_ratio, alkalinity_oh_per_water and OSDA descriptors fixed, products show no shift toward D4R-containing frameworks as the Ge fraction of T atoms increases — for example, gels with Ge/(Si+Al+P+Ge) between 0.05 and 0.3 yielding the same framework distribution as purely Ge-free gels — the hypothesis is falsified and the descriptor carries no phase-selection information beyond what D0 already contains.",
+              "formula": "Ge / (Si + Al + P + Ge + 0.001)",
+              "hypothesis": "The fraction of germanium among the tetrahedrally coordinated framework-forming atoms in the gel is a primary steering variable for which framework crystallizes: even small Ge substitutions stabilize double-4-ring (D4R) and double-3-ring building units, so germanosilicate gels preferentially yield D4R-rich, low-density frameworks (BEC, ISV, UTL, ITH, IWW, AST, ITQ-type phases), whereas Ge-free gels distribute across the conventional silicoalumino-phosphate outcome space including 'Failed'.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Ge–O bonds are longer and GeO4 tetrahedra have a smaller T–O–T angle preference than SiO4; incorporating Ge relieves the strain of small-ring (especially double-4-ring) units, lowering the free energy of D4R-containing open frameworks. In fluoride or OH media this kinetic/thermodynamic bias is strong enough that the Ge fraction, rather than the absolute Ge mole fraction (which is confounded by overall gel dilution), determines whether the crystallization trajectory enters the germanosilicate family. Normalizing Ge by the sum of all framework-forming T atoms (Si, Al, P, Ge) makes the descriptor a composition-independent variable of the solidifying network, so it transfers across publications that use different absolute gel concentrations; tree ensembles cannot form this ratio from the individual D0 columns.",
+              "name": "germanium_tatom_fraction",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "BEC",
+                "ISV",
+                "UTL",
+                "ITH",
+                "IWW",
+                "AST",
+                "MFI",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008230015e940301442be4aa7",
+          "usage": {
+            "completion_tokens": 953,
+            "completion_tokens_details": {
+              "reasoning_tokens": 187
+            },
+            "prompt_tokens": 2672,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3625
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes Si, Al, P and Ge are the only gel species incorporated into the framework (B, Ga, Ti, Zn, etc. are ignored as minor dopants), and that the recorded gel mole fractions reflect the effective T-atom availability rather than post-synthesis losses. Gels with no T atoms at all map to ~0 via the added constant. It treats Ge incorporation as driven by gel composition alone, ignoring OSDA–Ge synergy and fluoride complexation of Ge, and it does not distinguish Ge added as framework director from trace contaminant levels.",
+        "evidence_ids": [],
+        "expected_effect": "As germanium_tatom_fraction increases from 0, the probability of D4R-rich germanosilicate frameworks (BEC, ISV, UTL, ITH, IWW, AST) should rise sharply while the probability of Ge-free phases such as MFI, MTW, low-silica FAU/LTA and 'Failed' falls; at zero the descriptor collapses to 0 and the outcome space is governed by the other descriptors. Very high Ge fractions with insufficient OSDA/charge balance may instead raise the 'Failed' probability.",
+        "falsification": "If, holding si_al_ratio, alkalinity_oh_per_water and OSDA descriptors fixed, products show no shift toward D4R-containing frameworks as the Ge fraction of T atoms increases — for example, gels with Ge/(Si+Al+P+Ge) between 0.05 and 0.3 yielding the same framework distribution as purely Ge-free gels — the hypothesis is falsified and the descriptor carries no phase-selection information beyond what D0 already contains.",
+        "formula": "Ge / (Si + Al + P + Ge + 0.001)",
+        "hypothesis": "The fraction of germanium among the tetrahedrally coordinated framework-forming atoms in the gel is a primary steering variable for which framework crystallizes: even small Ge substitutions stabilize double-4-ring (D4R) and double-3-ring building units, so germanosilicate gels preferentially yield D4R-rich, low-density frameworks (BEC, ISV, UTL, ITH, IWW, AST, ITQ-type phases), whereas Ge-free gels distribute across the conventional silicoalumino-phosphate outcome space including 'Failed'.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Ge–O bonds are longer and GeO4 tetrahedra have a smaller T–O–T angle preference than SiO4; incorporating Ge relieves the strain of small-ring (especially double-4-ring) units, lowering the free energy of D4R-containing open frameworks. In fluoride or OH media this kinetic/thermodynamic bias is strong enough that the Ge fraction, rather than the absolute Ge mole fraction (which is confounded by overall gel dilution), determines whether the crystallization trajectory enters the germanosilicate family. Normalizing Ge by the sum of all framework-forming T atoms (Si, Al, P, Ge) makes the descriptor a composition-independent variable of the solidifying network, so it transfers across publications that use different absolute gel concentrations; tree ensembles cannot form this ratio from the individual D0 columns.",
+        "name": "germanium_tatom_fraction",
+        "novelty": "known_relation",
+        "repair_changed_hypothesis": true,
+        "target_frameworks": [
+          "BEC",
+          "ISV",
+          "UTL",
+          "ITH",
+          "IWW",
+          "AST",
+          "MFI",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "3218347cecd0e0b3eec8d15e6f80f6157c0a505ca6606d1f9edf4e213f5a0e73",
+      "round": 3,
+      "status": "appended"
+    }
+  ]
+}

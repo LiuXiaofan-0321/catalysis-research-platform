@@ -1,0 +1,109 @@
+{
+  "appended": 3,
+  "delta": {
+    "mean": {
+      "accuracy": 0.004177071509648145,
+      "balanced_accuracy": 0.013394686714944638,
+      "macro_f1": 0.009456663599206572
+    },
+    "per_seed": [
+      {
+        "accuracy": 0.0097616345062429,
+        "balanced_accuracy": 0.02930243757806844,
+        "macro_f1": 0.01612349146156672,
+        "seed": 3
+      },
+      {
+        "accuracy": 0.00590238365493756,
+        "balanced_accuracy": 0.011693820330331839,
+        "macro_f1": 0.0036958800443878115,
+        "seed": 7
+      },
+      {
+        "accuracy": 0.003632236095346242,
+        "balanced_accuracy": 0.0006018553139404137,
+        "macro_f1": 0.0043859547748266725,
+        "seed": 11
+      },
+      {
+        "accuracy": -0.0031782065834278783,
+        "balanced_accuracy": 0.0118700982008893,
+        "macro_f1": 0.0038988673804409846,
+        "seed": 17
+      },
+      {
+        "accuracy": 0.004767309875141901,
+        "balanced_accuracy": 0.01350522215149319,
+        "macro_f1": 0.01917912433481067,
+        "seed": 23
+      }
+    ]
+  },
+  "final_formulas": [
+    {
+      "formula": "OH / (H2O + 0.001)",
+      "name": "alkalinity_oh_per_water"
+    },
+    {
+      "formula": "Si / (Al + 0.001)",
+      "name": "si_al_ratio"
+    },
+    {
+      "formula": "Ge / (Si + Al + P + Ge + 0.001)",
+      "name": "germanium_tatom_fraction"
+    }
+  ],
+  "generation_sha256": "99943e7f80b83b4b2a3ff9c7fe7684692a62213216685ae33082e93d5544527f",
+  "mode": "agent",
+  "per_seed": [
+    {
+      "accuracy": 0.4440408626560726,
+      "balanced_accuracy": 0.36787215421547786,
+      "macro_f1": 0.32993084840696146,
+      "macro_f1_report": 0.29670040324367036,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 3
+    },
+    {
+      "accuracy": 0.4376844494892168,
+      "balanced_accuracy": 0.3515232861697725,
+      "macro_f1": 0.3119371859958917,
+      "macro_f1_report": 0.2846142207991713,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 7
+    },
+    {
+      "accuracy": 0.43791146424517596,
+      "balanced_accuracy": 0.3491428097478289,
+      "macro_f1": 0.32018847572728326,
+      "macro_f1_report": 0.2879392767331685,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 11
+    },
+    {
+      "accuracy": 0.4295119182746879,
+      "balanced_accuracy": 0.3495710797733769,
+      "macro_f1": 0.30867957262436363,
+      "macro_f1_report": 0.2775895437269458,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 17
+    },
+    {
+      "accuracy": 0.43745743473325766,
+      "balanced_accuracy": 0.3609239475059325,
+      "macro_f1": 0.332668051779011,
+      "macro_f1_report": 0.3035292443239151,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 23
+    }
+  ],
+  "profile": "zeosyn-direct-v1",
+  "replicate": 2,
+  "reused_d0_for_zero_append": false,
+  "seconds": 5.289276123046875
+}

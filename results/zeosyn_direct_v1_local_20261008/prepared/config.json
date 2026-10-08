@@ -1,0 +1,48 @@
+{
+  "profile": "zeosyn-direct-v1",
+  "benchmark": "ZeoSyn (Pan et al., ACS Cent. Sci. 2024, DOI 10.1021/acscentsci.3c01615; MIT license)",
+  "model": "glm-5.3-flash",
+  "thinking": "enabled",
+  "reasoning_effort": "high",
+  "temperature": 0.2,
+  "api_timeout_seconds": 1800,
+  "modes": ["agent", "rag_agent", "small_kg_rag_agent"],
+  "replicates_per_mode": 10,
+  "rounds": 3,
+  "proposals_per_round": 1,
+  "technical_repair_attempts": 1,
+  "label_feedback": false,
+  "score_after_trajectory_frozen": true,
+  "generation": {"max_tokens": 32768, "max_tokens_on_truncation": 65536},
+  "queries": [
+    "organic structure-directing agent size shape charge and carbon to nitrogen ratio determine which zeolite framework crystallizes",
+    "gel composition Si/Al ratio hydroxide fluoride water content and alkali cations control zeolite phase selectivity and competing phases",
+    "germanium boron titanium phosphorus heteroatoms crystallization temperature and time control zeolite framework selection and phase transformation"
+  ],
+  "retrieval": {
+    "base_config": "configs/retrieval/small-kg-hybrid-v1.json",
+    "candidate_limit": 30,
+    "item_limit": 10,
+    "context_token_budget": 4000,
+    "max_items_per_paper": 3,
+    "tokenizer_id": "unicode_lexical_v1"
+  },
+  "split": {
+    "kind": "doi_grouped",
+    "test_fraction": 0.2,
+    "seed": 20261007,
+    "note": "Held-out publications; their DOIs are removed from RAG and Small KG before retrieval."
+  },
+  "evaluation": {
+    "model": "RandomForestClassifier(n_estimators=100, max_depth=None) as in the source notebook",
+    "n_estimators": 100,
+    "fit_seeds": [3, 7, 11, 17, 23],
+    "primary_metric": "accuracy",
+    "secondary_metrics": ["macro_f1", "balanced_accuracy"],
+    "primary": "Mean over trajectories of the per-trajectory mean (over fit seeds) accuracy difference D0+X versus D0 at the same seed",
+    "comparisons": "KG+RAG minus RAG and RAG minus Agent, 97.5% bootstrap intervals over trajectories",
+    "intermediate_scores": false
+  },
+  "failure_policy": "At most one technical repair per slot; a failed slot is skipped and never resampled; all trajectories enter the denominator.",
+  "redundancy_policy": "Reject a formula whose training-row ranks are equivalent (|Spearman| >= 0.9999) to a D0 column or an already appended descriptor; tree models are invariant to monotone transforms."
+}

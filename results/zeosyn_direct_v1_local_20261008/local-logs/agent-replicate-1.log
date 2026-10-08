@@ -1,0 +1,4 @@
+agent r1 round 1: OH / (Si + Al + P + Ge + B + Ga + 1e-6)
+agent r1 round 2: H2O / (Si + Al + P + Ge + B + Ga + 1e-6)
+agent r1 round 3: osda_charge / (osda_volume + 1e-6)
+{"mode": "agent", "replicate": 1, "appended": 3, "formulas": ["OH / (Si + Al + P + Ge + B + Ga + 1e-6)", "H2O / (Si + Al + P + Ge + B + Ga + 1e-6)", "osda_charge / (osda_volume + 1e-6)"]}

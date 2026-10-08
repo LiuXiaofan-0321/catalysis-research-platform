@@ -1,0 +1,4 @@
+agent r6 round 1: OH / (Si + Al + P + Ge + B + Ga + 0.005)
+agent r6 round 2: H2O / (Si + Al + P + Ge + B + Ga + 0.005)
+agent r6 round 3: F / (Si + Al + P + Ge + B + Ga + 0.005)
+{"mode": "agent", "replicate": 6, "appended": 3, "formulas": ["OH / (Si + Al + P + Ge + B + Ga + 0.005)", "H2O / (Si + Al + P + Ge + B + Ga + 0.005)", "F / (Si + Al + P + Ge + B + Ga + 0.005)"]}

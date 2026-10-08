@@ -1,0 +1,302 @@
+{
+  "appended": 3,
+  "config_sha256": "f3160bf000a8c1a21a22e20b077cca80631a15c0cfda16e755484a58d6c73c21",
+  "final_formulas": [
+    {
+      "formula": "log10(Si / (Al + 1e-6))",
+      "name": "log_gel_sial_ratio"
+    },
+    {
+      "formula": "log10((F + 1e-6) / (sda1 + 1e-6))",
+      "name": "log_f_to_osda_ratio"
+    },
+    {
+      "formula": "log10((H2O + 1e-6) / (Si + Ge + Al + P + 1e-6))",
+      "name": "log_h2o_to_tatom_ratio"
+    }
+  ],
+  "knowledge_sha256": "9e905434ff79e6f8be4f5523a9e509160da7edf103f99d8d0cd8c8c95319caea",
+  "label_feedback": false,
+  "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+  "mode": "rag_agent",
+  "model": "glm-5.3-flash",
+  "profile": "zeosyn-direct-v1",
+  "reasoning_effort": "high",
+  "replicate": 1,
+  "seconds": 103.33805274963379,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.1679854272214949,
+            "used_inputs": [
+              "Al",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes gel mole fractions approximate the batched Si/Al and that Al is the dominant trivalent framework heteroatom; gels using B, Ga, or Be for charge balance (for which this ratio overestimates charge demand) or postsynthesis-treated records will be misdescribed. The +1e-6 offset makes the ratio finite for Al-free gels, mapping them to a large value that the tree can use as an 'all-silica regime' split. The log scale is monotone, so it only reshapes the split thresholds, not the ordering. Assumes crystallized framework Si/Al correlates with, but need not equal, gel Si/Al.",
+              "evidence_ids": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_effect": "As log(Si/Al) increases, probability mass should shift from low-silica, inorganic-cation-templated frameworks (FAU, LTA, LEV) toward OSDA-templated and all-silica phases (MFI, MTW, *BEA, AFI). At the extreme Al-free end (log ratio ~6 when Al = 0), outcomes should be dominated by all-silica phases or Failed, since framework formation then relies on fluoride/defect charge compensation rather than Al.",
+              "falsification": "If the held-out publications show that product framework is essentially independent of the gel Si/Al ratio within fixed OSDA/alkali/fluoride regimes — e.g., the same topology obtained across several orders of magnitude of Si/(Al+1e-6) while different topologies appear at identical Si/Al with other variables changed — the descriptor adds no transferable information and its feature importance should be negligible. Also, if B- or Ga-substituted gels behave like Al gels at the same Si/Al, the Al-only normalization is an inadequate charge proxy.",
+              "formula": "log10(Si / (Al + 1e-6))",
+              "hypothesis": "The gel Si/Al ratio is a primary control on which framework crystallizes: gels with abundant Al charge-compensated by inorganic cations crystallize low-silica frameworks, while Al-lean gels favor high-silica or all-silica phases whose void filling is dominated by the OSDA (or fluoride). Because the model only receives Si and Al as separate mole-fraction columns, a tree cannot split on their ratio; making the ratio (log-scaled for range compression) an explicit column lets single-split decisions separate the low- and high-silica synthesis regimes.",
+              "knowledge_source": "both",
+              "mechanism": "Framework Al generates one negative charge per T-site substitution that must be balanced by extraframework cations (Na+, K+, OSDA+). At low Si/Al the dense population of anionic sites requires small, hydrated inorganic cations and stabilizes open, low-silica topologies (e.g., FAU, LTA, gmelinic/LEV-type phases) whose cages accommodate hydrated cations. As Si/Al rises, fewer charge-compensating sites are needed and phase selection shifts to OSDA-templated or defect-charge-templated siliceous frameworks (e.g., MFI with TPA+, MTW with benzyltrimethylammonium, *BEA/BEC with TEA+, AFI/MTW all-silica in fluoride media). Literature [1] explicitly adjusts Si/Al so the SDA:Al ratio is ~1 for MTW crystallization; [2] shows OSDA-free *BEA formation is governed by the Na+-aluminosilicate gel Si/Al; [4] reports that at Si/Al = 20 the same SDA/alkali system switches phase selectivity (P1/SUZ-4 vs MOR); [3] shows Si/Al controls Al density and hence the host-guest charge ordering that directs a given framework.",
+              "name": "log_gel_SiAl_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "MFI",
+                "MTW",
+                "*BEA",
+                "BEC",
+                "MOR",
+                "FER",
+                "LEV",
+                "AFI",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008230108389ba59b5918491a",
+          "usage": {
+            "completion_tokens": 1969,
+            "completion_tokens_details": {
+              "reasoning_tokens": 1026
+            },
+            "prompt_tokens": 6617,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 8586
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes gel mole fractions approximate the batched Si/Al and that Al is the dominant trivalent framework heteroatom; gels using B, Ga, or Be for charge balance (for which this ratio overestimates charge demand) or postsynthesis-treated records will be misdescribed. The +1e-6 offset makes the ratio finite for Al-free gels, mapping them to a large value that the tree can use as an 'all-silica regime' split. The log scale is monotone, so it only reshapes the split thresholds, not the ordering. Assumes crystallized framework Si/Al correlates with, but need not equal, gel Si/Al.",
+        "evidence_ids": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "expected_effect": "As log(Si/Al) increases, probability mass should shift from low-silica, inorganic-cation-templated frameworks (FAU, LTA, LEV) toward OSDA-templated and all-silica phases (MFI, MTW, *BEA, AFI). At the extreme Al-free end (log ratio ~6 when Al = 0), outcomes should be dominated by all-silica phases or Failed, since framework formation then relies on fluoride/defect charge compensation rather than Al.",
+        "falsification": "If the held-out publications show that product framework is essentially independent of the gel Si/Al ratio within fixed OSDA/alkali/fluoride regimes — e.g., the same topology obtained across several orders of magnitude of Si/(Al+1e-6) while different topologies appear at identical Si/Al with other variables changed — the descriptor adds no transferable information and its feature importance should be negligible. Also, if B- or Ga-substituted gels behave like Al gels at the same Si/Al, the Al-only normalization is an inadequate charge proxy.",
+        "formula": "log10(Si / (Al + 1e-6))",
+        "hypothesis": "The gel Si/Al ratio is a primary control on which framework crystallizes: gels with abundant Al charge-compensated by inorganic cations crystallize low-silica frameworks, while Al-lean gels favor high-silica or all-silica phases whose void filling is dominated by the OSDA (or fluoride). Because the model only receives Si and Al as separate mole-fraction columns, a tree cannot split on their ratio; making the ratio (log-scaled for range compression) an explicit column lets single-split decisions separate the low- and high-silica synthesis regimes.",
+        "knowledge_source": "both",
+        "mechanism": "Framework Al generates one negative charge per T-site substitution that must be balanced by extraframework cations (Na+, K+, OSDA+). At low Si/Al the dense population of anionic sites requires small, hydrated inorganic cations and stabilizes open, low-silica topologies (e.g., FAU, LTA, gmelinic/LEV-type phases) whose cages accommodate hydrated cations. As Si/Al rises, fewer charge-compensating sites are needed and phase selection shifts to OSDA-templated or defect-charge-templated siliceous frameworks (e.g., MFI with TPA+, MTW with benzyltrimethylammonium, *BEA/BEC with TEA+, AFI/MTW all-silica in fluoride media). Literature [1] explicitly adjusts Si/Al so the SDA:Al ratio is ~1 for MTW crystallization; [2] shows OSDA-free *BEA formation is governed by the Na+-aluminosilicate gel Si/Al; [4] reports that at Si/Al = 20 the same SDA/alkali system switches phase selectivity (P1/SUZ-4 vs MOR); [3] shows Si/Al controls Al density and hence the host-guest charge ordering that directs a given framework.",
+        "name": "log_gel_sial_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "MFI",
+          "MTW",
+          "*BEA",
+          "BEC",
+          "MOR",
+          "FER",
+          "LEV",
+          "AFI",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": "7d6d934cfbd9f038cd5edaad6a1bade84591a847c16e75a8a904e9a3e5015f79",
+      "evidence_items": 9,
+      "prompt_sha256": "9412f981627a63fb590fc059314112571dec51248ceafa77e4c7f9e9d24b0b3d",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "F",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes the recorded F mole fraction tracks free fluoride activity (ignoring protonation to HF, volatilization, and complexation by Al/B/Ge/Si), and that sda1 is the dominant organic cation (ignoring additional OSDAs or multivalent charges: osda_charge is not folded in, so monovalent OSDAs are implicitly assumed). It also ignores whether the gel is actually a fluoride route (OH-mediated gels with trace F contribute noise near the lower limit). The +1e-6 constants prevent division/log errors for gels without F or OSDA but compress the extreme ends of the range.",
+              "evidence_ids": [
+                2,
+                3
+              ],
+              "expected_effect": "As the descriptor increases from strongly negative to ~0 (F/OSDA from <<1 to ~1), Al-bearing phases (e.g. FER, MFI with Al) and amorphous outcomes should give way to OSDA/F-balanced phases such as *BEA; further increases into excess fluoride (>1) should favor cage-containing small-pore frameworks (LTA, CHA, AST-type) and reduce dense-phase/Failed outcomes in fluoride-rich gels.",
+              "falsification": "If, within this dataset, the product framework distribution is statistically invariant across the range of F/sda1 (e.g. the same frameworks dominate in both sub-stoichiometric and excess-fluoride gels, or the split on this column carries no information beyond F and sda1 individually), or if the observed phase ordering is inverted (excess fluoride consistently producing dense phases rather than cage-containing ones), the hypothesis is contradicted.",
+              "formula": "log10((F + 1e-6) / (sda1 + 1e-6))",
+              "hypothesis": "The molar ratio of fluoride to organic structure-directing agent in the gel is a primary phase-selectivity switch in fluoride-mediated syntheses: near-stoichiometric F/OSDA (~1, the conventional fluoride route) favors one set of frameworks, sub-stoichiometric F/OSDA (<0.5) shifts selectivity toward frameworks that balance framework charge with heteroatoms (Al-containing phases, e.g. FER-type or MFI-type products), while excess fluoride (F/OSDA > 1) favors small-pore or cage-containing frameworks where F- is occluded in cages (LTA, AST, CHA-family) and can unlock otherwise inaccessible topologies. Since the classifier only receives F and sda1 as separate mole-fraction columns, a single tree split cannot access their ratio; making it an explicit log-scaled column lets one split separate the sub-stoichiometric, stoichiometric and excess-fluoride regimes.",
+              "knowledge_source": "both",
+              "mechanism": "In fluoride media the OSDA cation must be charge-balanced either by framework negative charges ([AlO4/2]- or [ZnO4/2]-, or connectivity defects) or by encapsulated F- in cages. When F is scarce relative to OSDA, framework defects/heteroatom incorporation must supply the compensating charge, biasing toward Al-bearing frameworks (or failure if no adequate balance is possible); when F is abundant, F- occlusion in small cages stabilizes frameworks with cage units and lowers crystallization driving force for dense phases. Evidence [2] shows pure-silica beta only at HF/OSDA = 1.00 while pure-silica ZSM-5 forms at HF/OSDA = 0.25 and amorphous at 0.13; evidence [3] shows ERS-7 forms only at HF/Ch+ = 2.0 whereas HF/Ch+ <= 1.0 yields FER/RUB-10, demonstrating F/OSDA-driven phase switches.",
+              "name": "log_f_to_osda_ratio",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "*BEA",
+                "MFI",
+                "FER",
+                "LTA",
+                "CHA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008230154ef2c9a6e4f224342",
+          "usage": {
+            "completion_tokens": 1316,
+            "completion_tokens_details": {
+              "reasoning_tokens": 441
+            },
+            "prompt_tokens": 7044,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 8360
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes the recorded F mole fraction tracks free fluoride activity (ignoring protonation to HF, volatilization, and complexation by Al/B/Ge/Si), and that sda1 is the dominant organic cation (ignoring additional OSDAs or multivalent charges: osda_charge is not folded in, so monovalent OSDAs are implicitly assumed). It also ignores whether the gel is actually a fluoride route (OH-mediated gels with trace F contribute noise near the lower limit). The +1e-6 constants prevent division/log errors for gels without F or OSDA but compress the extreme ends of the range.",
+        "evidence_ids": [
+          2,
+          3
+        ],
+        "expected_effect": "As the descriptor increases from strongly negative to ~0 (F/OSDA from <<1 to ~1), Al-bearing phases (e.g. FER, MFI with Al) and amorphous outcomes should give way to OSDA/F-balanced phases such as *BEA; further increases into excess fluoride (>1) should favor cage-containing small-pore frameworks (LTA, CHA, AST-type) and reduce dense-phase/Failed outcomes in fluoride-rich gels.",
+        "falsification": "If, within this dataset, the product framework distribution is statistically invariant across the range of F/sda1 (e.g. the same frameworks dominate in both sub-stoichiometric and excess-fluoride gels, or the split on this column carries no information beyond F and sda1 individually), or if the observed phase ordering is inverted (excess fluoride consistently producing dense phases rather than cage-containing ones), the hypothesis is contradicted.",
+        "formula": "log10((F + 1e-6) / (sda1 + 1e-6))",
+        "hypothesis": "The molar ratio of fluoride to organic structure-directing agent in the gel is a primary phase-selectivity switch in fluoride-mediated syntheses: near-stoichiometric F/OSDA (~1, the conventional fluoride route) favors one set of frameworks, sub-stoichiometric F/OSDA (<0.5) shifts selectivity toward frameworks that balance framework charge with heteroatoms (Al-containing phases, e.g. FER-type or MFI-type products), while excess fluoride (F/OSDA > 1) favors small-pore or cage-containing frameworks where F- is occluded in cages (LTA, AST, CHA-family) and can unlock otherwise inaccessible topologies. Since the classifier only receives F and sda1 as separate mole-fraction columns, a single tree split cannot access their ratio; making it an explicit log-scaled column lets one split separate the sub-stoichiometric, stoichiometric and excess-fluoride regimes.",
+        "knowledge_source": "both",
+        "mechanism": "In fluoride media the OSDA cation must be charge-balanced either by framework negative charges ([AlO4/2]- or [ZnO4/2]-, or connectivity defects) or by encapsulated F- in cages. When F is scarce relative to OSDA, framework defects/heteroatom incorporation must supply the compensating charge, biasing toward Al-bearing frameworks (or failure if no adequate balance is possible); when F is abundant, F- occlusion in small cages stabilizes frameworks with cage units and lowers crystallization driving force for dense phases. Evidence [2] shows pure-silica beta only at HF/OSDA = 1.00 while pure-silica ZSM-5 forms at HF/OSDA = 0.25 and amorphous at 0.13; evidence [3] shows ERS-7 forms only at HF/Ch+ = 2.0 whereas HF/Ch+ <= 1.0 yields FER/RUB-10, demonstrating F/OSDA-driven phase switches.",
+        "name": "log_f_to_osda_ratio",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "*BEA",
+          "MFI",
+          "FER",
+          "LTA",
+          "CHA",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": "60cee3f447f0a292415c2de935b21a160b3c07a65782764647609303c264e04d",
+      "evidence_items": 8,
+      "prompt_sha256": "98212cb9609f6a345dfce77a408c070941c9657cb32eb86467cbad294f0445bb",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Ge",
+              "H2O",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The mole-fraction ratio of H2O to the main T-atoms (Si, Ge, Al, P) is taken as a proxy for the classical H2O/SiO2 (or H2O/T-atom) gel concentration, ignoring the fact that mole fractions are normalized so the ratio is one minus the sum of all other species; it also assumes solvent-free and dry-gel-conversion recipes in the dataset are recorded consistently (their H2O fraction may reflect only added water, weakening the descriptor for those records). Ge and P are lumped with Si as framework-forming atoms, which is a simplification since Ge- and aluminophosphate chemistries have their own concentration effects. The log transform is purely for range compression across several orders of magnitude of dilution.",
+              "evidence_ids": [
+                10,
+                7,
+                8
+              ],
+              "expected_effect": "As log_h2o_to_tatom_ratio increases (more dilute gels), high-framework-density and thermodynamically favored products (MTW, MOR, FER, dense/Failed outcomes, secondary phases from FAU gels such as sodalite/NaP-type) should become more likely, while metastable low-framework-density, cage-rich phases (*BEA/ISV/BEC, UTL, and generally large-cage fluoride-route phases) should become less likely and concentrate at the low end of the descriptor.",
+              "falsification": "If, after adding the column, split statistics show it carries negligible importance, or if the phases predicted to track dilution show no systematic ordering along the descriptor (e.g., *BEA equally likely at high and low water/T-atom ratios, or MTW favored in concentrated gels), the hypothesis is contradicted.",
+              "formula": "log10((H2O + 1e-6) / (Si + Ge + Al + P + 1e-6))",
+              "hypothesis": "The water-to-framework-forming-atom ratio (gel dilution) is an independent phase-selectivity lever that the current feature set cannot access: trees receive H2O, Si, Ge, Al and P only as separate normalized mole-fraction columns, and no single-column split can represent their ratio. Gels with low water/T-atom ratios (concentrated, high-supersaturation media) should preferentially crystallize metastable, low-framework-density, open frameworks whose formation needs fast nucleation, while dilute gels should favor thermodynamically more stable, higher-framework-density phases or denser/impurity products. This mirrors the previously added Si/Al and F/OSDA ratio descriptors but encodes a different, orthogonal axis of synthesis space.",
+              "knowledge_source": "both",
+              "mechanism": "Gel concentration controls supersaturation and thereby the nucleation-to-growth balance and the metastability window exploited during crystallization. In fluoride-mediated pure-silica systems it has been explicitly shown that the same OSDA yields the metastable open framework (*BEA) only in concentrated (low H2O/SiO2) gels, whereas more dilute mixtures, higher temperature and longer times give the denser, thermodynamically more stable phase (MTW/ZSM-12), with slow Ostwald ripening from Beta toward the denser phase [10]. Low water content also limits dissolution of soluble silicate/germanate species and favors occlusion of fluoride/OSDA in cages, stabilizing cage-containing low-density frameworks; high water content increases solubility and allows dissolution-recrystallization pathways that select equilibrium-like dense phases and secondary dense phases (e.g., NaP appearing from FAU gels as conditions push the system toward the stable phase [7]).",
+              "name": "log_h2o_to_tatom_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "*BEA",
+                "BEC",
+                "ISV",
+                "UTL",
+                "MTW",
+                "MOR",
+                "FER",
+                "FAU",
+                "LTA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "2026100823022317027fb3517543fd",
+          "usage": {
+            "completion_tokens": 1202,
+            "completion_tokens_details": {
+              "reasoning_tokens": 336
+            },
+            "prompt_tokens": 7125,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 8327
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The mole-fraction ratio of H2O to the main T-atoms (Si, Ge, Al, P) is taken as a proxy for the classical H2O/SiO2 (or H2O/T-atom) gel concentration, ignoring the fact that mole fractions are normalized so the ratio is one minus the sum of all other species; it also assumes solvent-free and dry-gel-conversion recipes in the dataset are recorded consistently (their H2O fraction may reflect only added water, weakening the descriptor for those records). Ge and P are lumped with Si as framework-forming atoms, which is a simplification since Ge- and aluminophosphate chemistries have their own concentration effects. The log transform is purely for range compression across several orders of magnitude of dilution.",
+        "evidence_ids": [
+          7,
+          8,
+          10
+        ],
+        "expected_effect": "As log_h2o_to_tatom_ratio increases (more dilute gels), high-framework-density and thermodynamically favored products (MTW, MOR, FER, dense/Failed outcomes, secondary phases from FAU gels such as sodalite/NaP-type) should become more likely, while metastable low-framework-density, cage-rich phases (*BEA/ISV/BEC, UTL, and generally large-cage fluoride-route phases) should become less likely and concentrate at the low end of the descriptor.",
+        "falsification": "If, after adding the column, split statistics show it carries negligible importance, or if the phases predicted to track dilution show no systematic ordering along the descriptor (e.g., *BEA equally likely at high and low water/T-atom ratios, or MTW favored in concentrated gels), the hypothesis is contradicted.",
+        "formula": "log10((H2O + 1e-6) / (Si + Ge + Al + P + 1e-6))",
+        "hypothesis": "The water-to-framework-forming-atom ratio (gel dilution) is an independent phase-selectivity lever that the current feature set cannot access: trees receive H2O, Si, Ge, Al and P only as separate normalized mole-fraction columns, and no single-column split can represent their ratio. Gels with low water/T-atom ratios (concentrated, high-supersaturation media) should preferentially crystallize metastable, low-framework-density, open frameworks whose formation needs fast nucleation, while dilute gels should favor thermodynamically more stable, higher-framework-density phases or denser/impurity products. This mirrors the previously added Si/Al and F/OSDA ratio descriptors but encodes a different, orthogonal axis of synthesis space.",
+        "knowledge_source": "both",
+        "mechanism": "Gel concentration controls supersaturation and thereby the nucleation-to-growth balance and the metastability window exploited during crystallization. In fluoride-mediated pure-silica systems it has been explicitly shown that the same OSDA yields the metastable open framework (*BEA) only in concentrated (low H2O/SiO2) gels, whereas more dilute mixtures, higher temperature and longer times give the denser, thermodynamically more stable phase (MTW/ZSM-12), with slow Ostwald ripening from Beta toward the denser phase [10]. Low water content also limits dissolution of soluble silicate/germanate species and favors occlusion of fluoride/OSDA in cages, stabilizing cage-containing low-density frameworks; high water content increases solubility and allows dissolution-recrystallization pathways that select equilibrium-like dense phases and secondary dense phases (e.g., NaP appearing from FAU gels as conditions push the system toward the stable phase [7]).",
+        "name": "log_h2o_to_tatom_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "*BEA",
+          "BEC",
+          "ISV",
+          "UTL",
+          "MTW",
+          "MOR",
+          "FER",
+          "FAU",
+          "LTA",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": "f8e265fa4d624077e200b862fb346ce51259b79edd2f74969206e5b71d131ec1",
+      "evidence_items": 10,
+      "prompt_sha256": "89f90b533972f0f94442e397eca14642977ffa7df491ad6d78be461c508445c2",
+      "round": 3,
+      "status": "appended"
+    }
+  ]
+}

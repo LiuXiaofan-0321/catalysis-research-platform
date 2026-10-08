@@ -1,0 +1,4 @@
+small_kg_rag_agent r6 round 1: log10((Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / (sda1 * abs(osda_charge) + 0.01) + 1.0)
+small_kg_rag_agent r6 round 2: log10((F + 0.001) / (sda1 + 0.001) + 1.0)
+small_kg_rag_agent r6 round 3: log10((H2O + 0.001) / (Si + Al + P + Ge + B + Ga + Ti + Sn + Zr + Zn + Be + Mg + V + W + Cu + 0.001) + 1.0)
+{"mode": "small_kg_rag_agent", "replicate": 6, "appended": 3, "formulas": ["log10((Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / (sda1 * abs(osda_charge) + 0.01) + 1.0)", "log10((F + 0.001) / (sda1 + 0.001) + 1.0)", "log10((H2O + 0.001) / (Si + Al + P + Ge + B + Ga + Ti + Sn + Zr + Zn + Be + Mg + V + W + Cu + 0.001) + 1.0)"]}

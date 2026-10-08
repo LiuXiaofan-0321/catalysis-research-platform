@@ -1,0 +1,4 @@
+agent r4 round 1: OH / (H2O + 0.005)
+agent r4 round 2: log10((Si + 0.001) / (Al + P + 0.001))
+agent r4 round 3: osda_charge / (osda_volume + 1.0)
+{"mode": "agent", "replicate": 4, "appended": 3, "formulas": ["OH / (H2O + 0.005)", "log10((Si + 0.001) / (Al + P + 0.001))", "osda_charge / (osda_volume + 1.0)"]}

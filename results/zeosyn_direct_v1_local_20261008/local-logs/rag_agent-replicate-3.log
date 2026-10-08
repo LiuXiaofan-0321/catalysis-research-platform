@@ -1,0 +1,4 @@
+rag_agent r3 round 1: (Na + K + Li + Rb + Cs + 2*Ca + 2*Sr + 2*Ba + sda1*maximum(osda_charge, 0)) / (Al + 0.001)
+rag_agent r3 round 2: F / (sda1 * maximum(osda_charge, 0) + 0.001)
+rag_agent r3 round 3: H2O / (Si + Al + P + Ge + 0.001)
+{"mode": "rag_agent", "replicate": 3, "appended": 3, "formulas": ["(Na + K + Li + Rb + Cs + 2*Ca + 2*Sr + 2*Ba + sda1*maximum(osda_charge, 0)) / (Al + 0.001)", "F / (sda1 * maximum(osda_charge, 0) + 0.001)", "H2O / (Si + Al + P + Ge + 0.001)"]}

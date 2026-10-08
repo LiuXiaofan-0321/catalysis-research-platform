@@ -1,0 +1,136 @@
+{
+  "comparisons": {
+    "rag_agent-agent": {
+      "ci": [
+        -0.006978433598183877,
+        -0.0017297956867196318
+      ],
+      "level": 0.975,
+      "mean": -0.004354143019296252
+    },
+    "small_kg_rag_agent-agent": {
+      "ci": [
+        -0.006578944381384788,
+        -0.0010078887627695719
+      ],
+      "level": 0.975,
+      "mean": -0.003718501702610665
+    },
+    "small_kg_rag_agent-rag_agent": {
+      "ci": [
+        -0.0021249148694665178,
+        0.0032145289443813838
+      ],
+      "level": 0.975,
+      "mean": 0.0006356413166855872
+    }
+  },
+  "d0": {
+    "accuracy": 0.43314415437003406,
+    "balanced_accuracy": 0.3424119687675331,
+    "macro_f1": 0.31122416330749564
+  },
+  "missing": [],
+  "note": "Deltas are absolute metric differences versus D0 at the same fit seed; failed slots, zero-append and negative trajectories are all included.",
+  "per_mode": {
+    "agent": {
+      "accuracy": {
+        "ci": [
+          0.0037774120317820795,
+          0.007110102156640196
+        ],
+        "mean": 0.005402951191827482,
+        "n": 10
+      },
+      "appended_slots": 30,
+      "balanced_accuracy": {
+        "ci": [
+          -0.0001253079510004984,
+          0.007343231576526849
+        ],
+        "mean": 0.003650088117285774,
+        "n": 10
+      },
+      "macro_f1": {
+        "ci": [
+          -0.002828836409547609,
+          0.004347018424066723
+        ],
+        "mean": 0.0008239003944290304,
+        "n": 10
+      },
+      "negative_trajectories": 0,
+      "total_slots": 30,
+      "trajectories_evaluated": 10,
+      "trajectories_expected": 10,
+      "zero_append_trajectories": 0
+    },
+    "rag_agent": {
+      "accuracy": {
+        "ci": [
+          -0.0004812712826333554,
+          0.0026289443813848085
+        ],
+        "mean": 0.0010488081725312302,
+        "n": 10
+      },
+      "appended_slots": 30,
+      "balanced_accuracy": {
+        "ci": [
+          -0.00760632584436549,
+          -0.0012573551419596419
+        ],
+        "mean": -0.004665676762531067,
+        "n": 10
+      },
+      "macro_f1": {
+        "ci": [
+          -0.01001844577628843,
+          -0.0020998389269542652
+        ],
+        "mean": -0.006283074690428032,
+        "n": 10
+      },
+      "negative_trajectories": 2,
+      "total_slots": 30,
+      "trajectories_evaluated": 10,
+      "trajectories_expected": 10,
+      "zero_append_trajectories": 0
+    },
+    "small_kg_rag_agent": {
+      "accuracy": {
+        "ci": [
+          -0.00015891032917138008,
+          0.00339160045402953
+        ],
+        "mean": 0.0016844494892168174,
+        "n": 10
+      },
+      "appended_slots": 30,
+      "balanced_accuracy": {
+        "ci": [
+          -0.003610037667390615,
+          0.0012094977611860434
+        ],
+        "mean": -0.0010367892728034179,
+        "n": 10
+      },
+      "macro_f1": {
+        "ci": [
+          -0.005334338358805411,
+          -0.0011502077023664418
+        ],
+        "mean": -0.0032039251197054546,
+        "n": 10
+      },
+      "negative_trajectories": 4,
+      "total_slots": 30,
+      "trajectories_evaluated": 10,
+      "trajectories_expected": 10,
+      "zero_append_trajectories": 0
+    }
+  },
+  "primary_metric": "accuracy",
+  "profile": "zeosyn-direct-v1",
+  "unit": "generation trajectory (seeds averaged within)"
+}

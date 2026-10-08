@@ -1,0 +1,4 @@
+rag_agent r9 round 1: (Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / (Al + 0.0001)
+rag_agent r9 round 2: F / (sda1 + 0.0001)
+rag_agent r9 round 3: cryst_time * exp(-9000.0 / (cryst_temp + 273.15) + 9000.0 / 423.15)
+{"mode": "rag_agent", "replicate": 9, "appended": 3, "formulas": ["(Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / (Al + 0.0001)", "F / (sda1 + 0.0001)", "cryst_time * exp(-9000.0 / (cryst_temp + 273.15) + 9000.0 / 423.15)"]}

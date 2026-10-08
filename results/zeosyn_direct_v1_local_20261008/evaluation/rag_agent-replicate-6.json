@@ -1,0 +1,109 @@
+{
+  "appended": 3,
+  "delta": {
+    "mean": {
+      "accuracy": 0.00662883087400683,
+      "balanced_accuracy": -0.002907866855558805,
+      "macro_f1": 0.0013913588349355522
+    },
+    "per_seed": [
+      {
+        "accuracy": 0.00295119182746878,
+        "balanced_accuracy": -0.0064731047076426185,
+        "macro_f1": -0.008705248184948111,
+        "seed": 3
+      },
+      {
+        "accuracy": 0.00885357548240634,
+        "balanced_accuracy": 0.0037063768169070532,
+        "macro_f1": 0.015285668573795375,
+        "seed": 7
+      },
+      {
+        "accuracy": 0.004313280363223648,
+        "balanced_accuracy": -0.016679946343146734,
+        "macro_f1": -0.01383879759380785,
+        "seed": 11
+      },
+      {
+        "accuracy": 0.005902383654937615,
+        "balanced_accuracy": -0.00547985491945957,
+        "macro_f1": -0.006073422215288671,
+        "seed": 17
+      },
+      {
+        "accuracy": 0.011123723041997768,
+        "balanced_accuracy": 0.010387194875547845,
+        "macro_f1": 0.020288593594927018,
+        "seed": 23
+      }
+    ]
+  },
+  "final_formulas": [
+    {
+      "formula": "osda_charge / (osda_volume + 1e-6)",
+      "name": "osda_charge_density"
+    },
+    {
+      "formula": "F / (sda1 + 1e-6)",
+      "name": "fluoride_to_osda_ratio"
+    },
+    {
+      "formula": "cryst_time * exp(-8314.0 / (1.987 * (cryst_temp + 273.15)))",
+      "name": "thermal_dose_arrhenius"
+    }
+  ],
+  "generation_sha256": "5f66036f6f15380b504f46e4fa81cd598fede0b515789ec73f5ebb8593f5357c",
+  "mode": "rag_agent",
+  "per_seed": [
+    {
+      "accuracy": 0.4372304199772985,
+      "balanced_accuracy": 0.3320966119297668,
+      "macro_f1": 0.30510210876044663,
+      "macro_f1_report": 0.27837783646026154,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 3
+    },
+    {
+      "accuracy": 0.4406356413166856,
+      "balanced_accuracy": 0.34353584265634773,
+      "macro_f1": 0.32352697452529927,
+      "macro_f1_report": 0.2909415238536864,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 7
+    },
+    {
+      "accuracy": 0.43859250851305337,
+      "balanced_accuracy": 0.33186100809074176,
+      "macro_f1": 0.30196372335864874,
+      "macro_f1_report": 0.2816825777599335,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 11
+    },
+    {
+      "accuracy": 0.43859250851305337,
+      "balanced_accuracy": 0.33222112665302805,
+      "macro_f1": 0.298707283028634,
+      "macro_f1_report": 0.2745471351366121,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 17
+    },
+    {
+      "accuracy": 0.4438138479001135,
+      "balanced_accuracy": 0.35780592022998714,
+      "macro_f1": 0.33377752103912733,
+      "macro_f1_report": 0.31135962783500687,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 23
+    }
+  ],
+  "profile": "zeosyn-direct-v1",
+  "replicate": 6,
+  "reused_d0_for_zero_append": false,
+  "seconds": 5.452678203582764
+}

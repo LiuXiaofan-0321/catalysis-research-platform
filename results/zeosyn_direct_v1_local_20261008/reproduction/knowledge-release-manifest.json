@@ -1,0 +1,250 @@
+{
+  "schema": "catalysis_portable_knowledge.v1",
+  "created_unix": 1791461820.4711158,
+  "source_code_commit": "3bfc543b8cc89439bfb76f0c6407f3d328ca8902",
+  "embedding": {
+    "actual_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "actual_revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+    "backend": "sentence-transformers",
+    "dimensions": 384,
+    "requested_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "requested_revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42"
+  },
+  "archives": [
+    {
+      "name": "rag.tar.gz",
+      "bytes": 884203384,
+      "sha256": "0468d7c7f5554d5fd96715bcadbba702b7e7eeed7656ca7c3a633d538ec8dc73",
+      "component": "rag"
+    },
+    {
+      "name": "kg.tar.gz",
+      "bytes": 241502730,
+      "sha256": "05e419047ba0ebf31fef9ed3c8d05347077ecf65f609350b0e1d4dab6cd5b530",
+      "component": "kg"
+    },
+    {
+      "name": "normalization.tar.gz",
+      "bytes": 27777850,
+      "sha256": "872c940c06d0d912f94e946f6a30ffab14436687007f7e91d8b2fc4fd8ef8d9d",
+      "component": "normalization"
+    },
+    {
+      "name": "embedding.tar.gz",
+      "bytes": 434738065,
+      "sha256": "bd0597f76978e3b86352588694cdc3c14ef3a025b10b70acf7b9003e7635d842",
+      "component": "embedding"
+    }
+  ],
+  "files": [
+    {
+      "path": "rag/full-rag-v1-index/chunk_vectors.npy",
+      "bytes": 561656960,
+      "sha256": "3df1ccc39fa5b9bfd3e1e3b311694530559e2abda792a078e0c25d9b8ddbe51b"
+    },
+    {
+      "path": "rag/full-rag-v1-index/chunks.jsonl",
+      "bytes": 1134364177,
+      "sha256": "744f3f588cda9bbab2a81c59204c75d495152f43babf8fae47078f081cb5d546"
+    },
+    {
+      "path": "rag/full-rag-v1-index/documents.jsonl",
+      "bytes": 9527446,
+      "sha256": "2b58ce8b96d3e6d72ed1021db12442e5acdc72a98301d2bbaf31662e49ac63c3"
+    },
+    {
+      "path": "rag/full-rag-v1-index/evidence_records.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rag/full-rag-v1-index/evidence_vectors.npy",
+      "bytes": 128,
+      "sha256": "9f62ffa6d4de05182c6c86296c77a84c30471a3a1c9ffd6349848fb796422e94"
+    },
+    {
+      "path": "rag/full-rag-v1-index/manifest.json",
+      "bytes": 11429,
+      "sha256": "1da45b74725edfcb12ef5f633ad3dfc319b7cf43f19b494a1b2c8cfa8d7df49f"
+    },
+    {
+      "path": "rag/full-rag-v1-index/papers.jsonl",
+      "bytes": 3628588,
+      "sha256": "e3797613e93bec8cbea2994bc888e2fd9edd4bff592271149167ec3299f39d1d"
+    },
+    {
+      "path": "kg/Small-KG-zeolite-v1/edges.jsonl.gz",
+      "bytes": 160433003,
+      "sha256": "308a70bbf1c645d853a8166858d11065570d539e7e284af5e3cc76475f1f925f"
+    },
+    {
+      "path": "kg/Small-KG-zeolite-v1/manifest.json",
+      "bytes": 317623,
+      "sha256": "db60086e19f48d92bf69d31fc5d7262f35008854299193eeb2b018a523dbf4ba"
+    },
+    {
+      "path": "kg/Small-KG-zeolite-v1/nodes.jsonl.gz",
+      "bytes": 78690596,
+      "sha256": "6131c3e6dfaa6a2a12376ab6bf713f2907ef2c6083538d1b3d6eb97b0c0d5d45"
+    },
+    {
+      "path": "kg/Small-KG-zeolite-v1/ontology.json",
+      "bytes": 1242,
+      "sha256": "9abfa403e8300df8fd71e039efb58e98f95a4443e0ad0763860b101830b31257"
+    },
+    {
+      "path": "kg/Small-KG-zeolite-v1/paper_ids.txt",
+      "bytes": 153021,
+      "sha256": "8a5a3a781721b11a30976cca722146215c53a65b68b68911b3a9041318c93a41"
+    },
+    {
+      "path": "kg/Small-KG-zeolite-v1/papers.jsonl",
+      "bytes": 7195821,
+      "sha256": "c83112bd60b1e37a46463fbe007e3762abaedc4f884964b77cac9de36abc8912"
+    },
+    {
+      "path": "normalization/scientific-normalization-Small-KG-zeolite-v1.1/concept_mappings.jsonl.gz",
+      "bytes": 1536164,
+      "sha256": "be19e277af5245034aadcbca6af4cd5866ba17dff382bc019af3d642b97524cb"
+    },
+    {
+      "path": "normalization/scientific-normalization-Small-KG-zeolite-v1.1/manifest.json",
+      "bytes": 2187,
+      "sha256": "c283a60207d266bb4bda19a0ea1af5ef152a607c8c1741554b8e9aa327bc0146"
+    },
+    {
+      "path": "normalization/scientific-normalization-Small-KG-zeolite-v1.1/metadata_repairs.jsonl.gz",
+      "bytes": 600717,
+      "sha256": "6139f69dbe84dbe135860eb0dbd7b758f626642aa1848a2c1df9754724fc6c7b"
+    },
+    {
+      "path": "normalization/scientific-normalization-Small-KG-zeolite-v1.1/quality-summary.json",
+      "bytes": 824,
+      "sha256": "1829413087189faa54c4b2d43dd05ac9637dd39febf4ae09a9b5fbbc94f93d65"
+    },
+    {
+      "path": "normalization/scientific-normalization-Small-KG-zeolite-v1.1/unresolved.jsonl.gz",
+      "bytes": 24849722,
+      "sha256": "7a42b877d4f6774e937ea13234bb0b9f90d04842c5221b53806c48ef6211d068"
+    },
+    {
+      "path": "normalization/scientific-normalization-Small-KG-zeolite-v1.1/value_mappings.jsonl.gz",
+      "bytes": 782613,
+      "sha256": "9b3038ed54859e80c5ac2c42417c60d32e8a0f2aea3da4c6bcf5d740472c6563"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/.no_exist/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/adapter_config.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/.no_exist/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/added_tokens.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/.no_exist/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/chat_template.jinja",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/.no_exist/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/preprocessor_config.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/.no_exist/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/processor_config.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/.no_exist/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/tokenizer.model",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/.no_exist/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/video_preprocessor_config.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/snapshots/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/1_Pooling/config.json",
+      "bytes": 190,
+      "sha256": "4be450dde3b0273bb9787637cfbd28fe04a7ba6ab9d36ac48e92b11e350ffc23"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/snapshots/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/README.md",
+      "bytes": 3888,
+      "sha256": "1e98ea05b0de579fcaad3d625b62ea55647142ed674d5f5ebf1440e4bbbb6f23"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/snapshots/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/config.json",
+      "bytes": 645,
+      "sha256": "6300193cb75e01cf80c96decef7187dfb33094d97cc1490b7ead6ff134476e4e"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/snapshots/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/config_sentence_transformers.json",
+      "bytes": 122,
+      "sha256": "b8c64b5cece00d8424b4896ea75b512b6008576088497609dfeb6bd63e6d36b8"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/snapshots/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/model.safetensors",
+      "bytes": 470641600,
+      "sha256": "eaa086f0ffee582aeb45b36e34cdd1fe2d6de2bef61f8a559a1bbc9bd955917b"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/snapshots/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/modules.json",
+      "bytes": 229,
+      "sha256": "8f4b264b80206c830bebbdcae377e137925650a433b689343a63bdc9b3145460"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/snapshots/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/sentence_bert_config.json",
+      "bytes": 53,
+      "sha256": "70f4448f31320443fe3557cacea5abf2dcc4915dda8c80646bec9f3bb0aa5a1f"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/snapshots/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/special_tokens_map.json",
+      "bytes": 239,
+      "sha256": "378eb3bf733eb16e65792d7e3fda5b8a4631387ca04d2015199c4d4f22ae554d"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/snapshots/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/tokenizer.json",
+      "bytes": 9081518,
+      "sha256": "2c3387be76557bd40970cec13153b3bbf80407865484b209e655e5e4729076b8"
+    },
+    {
+      "path": "cache/huggingface/models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2/snapshots/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/tokenizer_config.json",
+      "bytes": 526,
+      "sha256": "5036ea374ffedd706e3bef33e2e0d6953cb868ef8a490e76e32ba0faa37a6b9b"
+    }
+  ],
+  "identities": {
+    "rag": "7da20ce475e04c185fdc27e271d417883c81525ca3cd527b67b7477670bbcf16",
+    "kg": "07925455449dfe13cc78b9b958dd71d5e4d77aee2ad54fcd8a312ce4f1bf9f43",
+    "normalization": "509b9deca237506fc0e8577cf713cae40e0d32d960c98115a71df2cc98ebe433"
+  },
+  "distribution": "GitHub Release published at user request; original corpus license audit remains pending. No new license grant for third-party corpus content is implied.",
+  "contains_credentials": false,
+  "source_environment": {
+    "python": "3.12.3",
+    "platform": "Linux-3.10.0-1160.119.1.el7.x86_64-x86_64-with-glibc2.17",
+    "packages": {
+      "numpy": "2.2.6",
+      "pandas": "2.3.2",
+      "scipy": "1.16.3",
+      "scikit-learn": "1.7.2",
+      "openpyxl": "3.1.5",
+      "pydantic": "2.13.5",
+      "PyYAML": "6.0.3",
+      "httpx": "0.28.1",
+      "PyMuPDF": "1.26.0",
+      "pypdf": "6.16.2",
+      "sentence-transformers": "3.1.1",
+      "transformers": "4.57.6",
+      "huggingface-hub": "0.36.2",
+      "torch": "2.4.1+cu121",
+      "safetensors": "0.8.0",
+      "tokenizers": "0.22.2"
+    }
+  }
+}

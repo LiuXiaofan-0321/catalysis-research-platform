@@ -1,0 +1,4 @@
+rag_agent r5 round 1: (sda1 * osda_charge) / (Al + 0.0001)
+rag_agent r5 round 2: (F + 0.0001) / (sda1 + 0.0001)
+rag_agent r5 round 3: (H2O / (Si + 0.0001)) * (cryst_temp / 373.0) * log10(cryst_time + 1.0)
+{"mode": "rag_agent", "replicate": 5, "appended": 3, "formulas": ["(sda1 * osda_charge) / (Al + 0.0001)", "(F + 0.0001) / (sda1 + 0.0001)", "(H2O / (Si + 0.0001)) * (cryst_temp / 373.0) * log10(cryst_time + 1.0)"]}

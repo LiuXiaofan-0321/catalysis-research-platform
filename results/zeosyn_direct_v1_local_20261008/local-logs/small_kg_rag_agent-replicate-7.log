@@ -1,0 +1,4 @@
+small_kg_rag_agent r7 round 1: sda1 * abs(osda_charge) / (Al + 0.001)
+small_kg_rag_agent r7 round 2: F / (sda1 * abs(osda_charge) + 0.001)
+small_kg_rag_agent r7 round 3: (cryst_time + 0.01) * exp(-6000.0 / (cryst_temp + 273.15 + 1.0))
+{"mode": "small_kg_rag_agent", "replicate": 7, "appended": 3, "formulas": ["sda1 * abs(osda_charge) / (Al + 0.001)", "F / (sda1 * abs(osda_charge) + 0.001)", "(cryst_time + 0.01) * exp(-6000.0 / (cryst_temp + 273.15 + 1.0))"]}

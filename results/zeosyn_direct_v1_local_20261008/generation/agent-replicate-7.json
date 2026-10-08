@@ -1,0 +1,315 @@
+{
+  "appended": 3,
+  "config_sha256": "f3160bf000a8c1a21a22e20b077cca80631a15c0cfda16e755484a58d6c73c21",
+  "final_formulas": [
+    {
+      "formula": "osda_charge / (osda_volume + 1.0)",
+      "name": "osda_charge_density"
+    },
+    {
+      "formula": "F / (H2O + F + 0.001)",
+      "name": "fluoride_aqueous_concentration"
+    },
+    {
+      "formula": "OH / (Si + Al + P + 0.001)",
+      "name": "gel_alkalinity_per_t"
+    }
+  ],
+  "knowledge_sha256": "9e905434ff79e6f8be4f5523a9e509160da7edf103f99d8d0cd8c8c95319caea",
+  "label_feedback": false,
+  "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "profile": "zeosyn-direct-v1",
+  "reasoning_effort": "high",
+  "replicate": 7,
+  "seconds": 134.2354507446289,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "osda_charge",
+              "osda_volume"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes the conformer volume reported by the dataset authors is a good proxy for the effective space one OSDA molecule occupies in the framework, and that the dominant energetic term is Coulombic charge compensation rather than OSDA-framework van der Waals fit or synthesis kinetics. Assumes formal charge equals the cationic charge presented to the framework (protonation/thermal degradation not captured). The +1.0 constant in the denominator makes OSDA-free gels return ≈0 and avoids division by zero; it slightly compresses values for very small volumes. Volume for 0-OSDA rows is exactly 0 in the dataset, so the descriptor is exactly 0 there, which also lets trees separate OSDA-mediated from purely inorganic syntheses.",
+              "evidence_ids": [],
+              "expected_effect": "As osda_charge_density increases, predictions should shift from large-pore, low-framework-density products (MFI, *BEA, MTW, MEL, and Failed all-silica syntheses) toward small-pore, cage-based, higher-charge frameworks (CHA, LTA, AEI, LEV, FAU). Gels without OSDA (descriptor ≈ 0) should mostly map to Failed or inorganic-mediated phases (LTA, FAU) via other features.",
+              "falsification": "If phase selection is instead governed by OSDA size and charge independently of their ratio, the descriptor adds no split gain: e.g. if compact monocations and bulky dications behave identically to bulky monocations at matched volume, or if high-charge-density OSDAs frequently yield large-pore frameworks at the observed gel compositions, the hypothesis is contradicted.",
+              "formula": "osda_charge / (osda_volume + 1.0)",
+              "hypothesis": "The formal charge of the OSDA divided by its molecular volume (charge density, e/Å^3) determines which framework charge density the OSDA can stabilise, and therefore which zeolite phase crystallises. Bulky OSDAs with low charge density stabilise open, low-framework-density large-pore phases, while compact highly charged OSDAs stabilise small-pore, high-charge-density frameworks.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "A zeolite framework must carry a framework charge that is compensated by the OSDA. Charge-density matching between the organic cation and the framework means that a large, singly charged OSDA occupies large pore/cage volumes per unit charge (low framework charge density, e.g. all-silica or high-silica MFI, *BEA, MTW, MEL), whereas small or multiply charged OSDAs pack more charge per volume, matching dense, highly substituted frameworks with small cages (CHA, LTA, AEI, LEV, FAU). Neither osda_charge nor osda_volume alone encodes this ratio: a tree can split on charge alone and confuse a bulky divalent dication with a compact monocation, or split on volume and confuse a small neutral molecule with a large dication. The ratio exposes the compensation-relevant quantity directly to single-column splits.",
+              "name": "osda_charge_density",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "CHA",
+                "LTA",
+                "AEI",
+                "LEV",
+                "FAU",
+                "MFI",
+                "*BEA",
+                "MTW",
+                "MEL"
+              ]
+            }
+          },
+          "response_id": "20261008230015c8bbad9add0e4f8e",
+          "usage": {
+            "completion_tokens": 1244,
+            "completion_tokens_details": {
+              "reasoning_tokens": 499
+            },
+            "prompt_tokens": 1619,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2863
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes the conformer volume reported by the dataset authors is a good proxy for the effective space one OSDA molecule occupies in the framework, and that the dominant energetic term is Coulombic charge compensation rather than OSDA-framework van der Waals fit or synthesis kinetics. Assumes formal charge equals the cationic charge presented to the framework (protonation/thermal degradation not captured). The +1.0 constant in the denominator makes OSDA-free gels return ≈0 and avoids division by zero; it slightly compresses values for very small volumes. Volume for 0-OSDA rows is exactly 0 in the dataset, so the descriptor is exactly 0 there, which also lets trees separate OSDA-mediated from purely inorganic syntheses.",
+        "evidence_ids": [],
+        "expected_effect": "As osda_charge_density increases, predictions should shift from large-pore, low-framework-density products (MFI, *BEA, MTW, MEL, and Failed all-silica syntheses) toward small-pore, cage-based, higher-charge frameworks (CHA, LTA, AEI, LEV, FAU). Gels without OSDA (descriptor ≈ 0) should mostly map to Failed or inorganic-mediated phases (LTA, FAU) via other features.",
+        "falsification": "If phase selection is instead governed by OSDA size and charge independently of their ratio, the descriptor adds no split gain: e.g. if compact monocations and bulky dications behave identically to bulky monocations at matched volume, or if high-charge-density OSDAs frequently yield large-pore frameworks at the observed gel compositions, the hypothesis is contradicted.",
+        "formula": "osda_charge / (osda_volume + 1.0)",
+        "hypothesis": "The formal charge of the OSDA divided by its molecular volume (charge density, e/Å^3) determines which framework charge density the OSDA can stabilise, and therefore which zeolite phase crystallises. Bulky OSDAs with low charge density stabilise open, low-framework-density large-pore phases, while compact highly charged OSDAs stabilise small-pore, high-charge-density frameworks.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "A zeolite framework must carry a framework charge that is compensated by the OSDA. Charge-density matching between the organic cation and the framework means that a large, singly charged OSDA occupies large pore/cage volumes per unit charge (low framework charge density, e.g. all-silica or high-silica MFI, *BEA, MTW, MEL), whereas small or multiply charged OSDAs pack more charge per volume, matching dense, highly substituted frameworks with small cages (CHA, LTA, AEI, LEV, FAU). Neither osda_charge nor osda_volume alone encodes this ratio: a tree can split on charge alone and confuse a bulky divalent dication with a compact monocation, or split on volume and confuse a small neutral molecule with a large dication. The ratio exposes the compensation-relevant quantity directly to single-column splits.",
+        "name": "osda_charge_density",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "CHA",
+          "LTA",
+          "AEI",
+          "LEV",
+          "FAU",
+          "MFI",
+          "*BEA",
+          "MTW",
+          "MEL"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "0258220dfcf60dc540b76f821f685cde3a3580699a6fe5b267d7fd01671b0936",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "error": "redundant: rank-equivalent to existing column F (|rho|=1.00000)",
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes F and OH are the only relevant mineralizers and treats them as mutually competing pathways; the +0.001 constant prevents division by zero for gels containing neither species (descriptor then evaluates to 0, which is interpreted as a neutral/non-fluoride route). It ignores speciation effects (e.g., HF generated in situ, fluoride complexation with Ge or Al) and the absolute amount of mineralizer; a gel with 0.001 F and 0 OH is treated the same as a strongly fluoride gel. It also ignores other anions (e.g., sulfate, chloride) not present in the input list.",
+              "evidence_ids": [],
+              "expected_effect": "As fluoride_mineralizer_fraction increases from 0 to 1, predictions should shift away from hydroxide-typical outcomes (more Failed, small-pore and cation-rich phases like LTA, dense phases) toward high-silica large-pore frameworks (*BEA, MTW, MFI) and D4R-stabilized frameworks (AST, LTA, UTL); the probability of Failed should generally decrease for otherwise equivalent batches.",
+              "falsification": "If held-out publications show that hydroxide and fluoride gels of otherwise identical composition, OSDA, temperature and time give the same framework distribution (i.e., the descriptor has low feature importance and does not change predictions for intermediate values), or if fluoride-rich batches fail at a higher rate than comparable hydroxide batches, the hypothesis is contradicted.",
+              "formula": "F / (F + OH + 0.001)",
+              "hypothesis": "The relative importance of fluoride versus hydroxide as mineralizing agent is a decisive determinant of which framework crystallizes, but it is a ratio of two gel species and therefore cannot be recovered by a tree ensemble that splits on the individual mole fractions separately. Gels dominated by fluoride mineralization (descriptor near 1) should crystallize different, predominantly high-silica large-pore or double-4-ring-containing frameworks than hydroxide-mineralized gels (descriptor near 0), and fluoride routes should reduce the frequency of Failed outcomes for a given gel composition.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Fluoride and hydroxide mineralize the gel through different chemistry. Hydroxide gives high pH, rapid dissolution-reprecipitation, high nucleation rates, and incorporation of framework defects and charge-balancing cations. Fluoride media operate near neutral pH, dissolve and transport silica/germania more gently, suppress nucleation density, and produce more defect-free, often more siliceous frameworks. Additionally, F- can be occluded inside small double-4-ring (D4R) cages and stabilize D4R-containing structures (LTA, AST, UTL-type germanosilicates), while bulky fluoride-grown crystals are characteristic of high-silica large-pore phases. The gentle fluoride pathway also widens the crystallization window, lowering the chance that the batch remains amorphous or forms dense phases.",
+              "name": "fluoride_mineralizer_fraction",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "*BEA",
+                "MTW",
+                "MFI",
+                "AST",
+                "LTA",
+                "UTL",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008230042bc6b9d8e5a02417d",
+          "usage": {
+            "completion_tokens": 1239,
+            "completion_tokens_details": {
+              "reasoning_tokens": 516
+            },
+            "prompt_tokens": 1732,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 2971
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "technical_repair",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "F",
+              "H2O"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula uses water mole fraction as a proxy for the solvent volume and ignores fluoride speciation (HF formation, complexation with Ge/Al/B) and ionic strength effects. It treats F as fully dissolved and available. The +0.001 constant keeps the expression finite for water-free or fluoride-free gels; the descriptor is exactly 0 when no fluoride is present, preserving a clean fluoride-free baseline. It does not explicitly represent the competing hydroxide pathway, which is assumed to be captured elsewhere in the feature set (OH is already a D0 column).",
+              "evidence_ids": [],
+              "expected_effect": "As fluoride_aqueous_concentration increases from 0 toward its maximum, predictions should shift away from hydroxide-typical and fluoride-free outcomes (more Failed, cation-rich small-pore phases like LTA, dense phases) toward high-silica large-pore frameworks (*BEA, MTW, MFI) and D4R-stabilized frameworks (AST, LTA, UTL); the probability of Failed should generally decrease for otherwise equivalent batches. Recipes with the same F but different H2O should receive different predictions.",
+              "falsification": "If held-out publications show that fluoride gels with widely different F/H2O ratios (but the same F mole fraction) give identical framework distributions, i.e. the descriptor adds no predictive power over the raw F column, or if highly fluoride-concentrated batches fail at a higher rate than dilute ones, the hypothesis is contradicted.",
+              "formula": "F / (H2O + F + 0.001)",
+              "hypothesis": "The strength of fluoride-mediated mineralization depends not merely on whether fluoride is present but on its effective concentration in the aqueous phase, i.e. fluoride loading relative to water. A tree ensemble splitting on F alone confounds a dilute fluoride gel with a concentrated one; the ratio F/(H2O+F) separates them. Gels with high fluoride concentration (high descriptor) should crystallize distinct, predominantly high-silica large-pore or double-4-ring-containing frameworks and fail less often than gels with only trace fluoride relative to water (low descriptor), while gels with no fluoride stay at exactly 0.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Fluoride mineralizes silica/germania through gentle near-neutral dissolution and transport, contrasting with the aggressive high-pH hydroxide route. The extent of this pathway scales with the amount of F- available per unit of solvent: at higher F/H2O the mineralizing capacity, fluoride speciation (HF complexes with Si, Ge, Al), and the ability of F- to occlude in double-4-ring units all increase. Sufficient fluoride loading suppresses nucleation density, yields defect-free siliceous frameworks, and stabilizes D4R-containing phases (LTA, AST, UTL-type germanosilicates), whereas a trace amount of fluoride dispersed in abundant water behaves almost like a fluoride-free batch. Because water mole fraction varies widely across recipes, this concentration measure orders recipes differently than the raw F mole fraction alone.",
+              "name": "fluoride_aqueous_concentration",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "*BEA",
+                "MTW",
+                "MFI",
+                "AST",
+                "LTA",
+                "UTL",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "2026100823011528b357c068e94942",
+          "usage": {
+            "completion_tokens": 1977,
+            "completion_tokens_details": {
+              "reasoning_tokens": 1234
+            },
+            "prompt_tokens": 2491,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 4468
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula uses water mole fraction as a proxy for the solvent volume and ignores fluoride speciation (HF formation, complexation with Ge/Al/B) and ionic strength effects. It treats F as fully dissolved and available. The +0.001 constant keeps the expression finite for water-free or fluoride-free gels; the descriptor is exactly 0 when no fluoride is present, preserving a clean fluoride-free baseline. It does not explicitly represent the competing hydroxide pathway, which is assumed to be captured elsewhere in the feature set (OH is already a D0 column).",
+        "evidence_ids": [],
+        "expected_effect": "As fluoride_aqueous_concentration increases from 0 toward its maximum, predictions should shift away from hydroxide-typical and fluoride-free outcomes (more Failed, cation-rich small-pore phases like LTA, dense phases) toward high-silica large-pore frameworks (*BEA, MTW, MFI) and D4R-stabilized frameworks (AST, LTA, UTL); the probability of Failed should generally decrease for otherwise equivalent batches. Recipes with the same F but different H2O should receive different predictions.",
+        "falsification": "If held-out publications show that fluoride gels with widely different F/H2O ratios (but the same F mole fraction) give identical framework distributions, i.e. the descriptor adds no predictive power over the raw F column, or if highly fluoride-concentrated batches fail at a higher rate than dilute ones, the hypothesis is contradicted.",
+        "formula": "F / (H2O + F + 0.001)",
+        "hypothesis": "The strength of fluoride-mediated mineralization depends not merely on whether fluoride is present but on its effective concentration in the aqueous phase, i.e. fluoride loading relative to water. A tree ensemble splitting on F alone confounds a dilute fluoride gel with a concentrated one; the ratio F/(H2O+F) separates them. Gels with high fluoride concentration (high descriptor) should crystallize distinct, predominantly high-silica large-pore or double-4-ring-containing frameworks and fail less often than gels with only trace fluoride relative to water (low descriptor), while gels with no fluoride stay at exactly 0.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Fluoride mineralizes silica/germania through gentle near-neutral dissolution and transport, contrasting with the aggressive high-pH hydroxide route. The extent of this pathway scales with the amount of F- available per unit of solvent: at higher F/H2O the mineralizing capacity, fluoride speciation (HF complexes with Si, Ge, Al), and the ability of F- to occlude in double-4-ring units all increase. Sufficient fluoride loading suppresses nucleation density, yields defect-free siliceous frameworks, and stabilizes D4R-containing phases (LTA, AST, UTL-type germanosilicates), whereas a trace amount of fluoride dispersed in abundant water behaves almost like a fluoride-free batch. Because water mole fraction varies widely across recipes, this concentration measure orders recipes differently than the raw F mole fraction alone.",
+        "name": "fluoride_aqueous_concentration",
+        "novelty": "known_relation",
+        "repair_changed_hypothesis": true,
+        "target_frameworks": [
+          "*BEA",
+          "MTW",
+          "MFI",
+          "AST",
+          "LTA",
+          "UTL",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "bd856689cc1f5011f21dbdbdbf73652b32bdf6130f3ed5d56701572b3450fcb7",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "OH",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The mole-fraction OH is taken as a proxy for the free-hydroxide concentration at crystallisation; it ignores buffering by silicate, aluminate and cation hydrolysis, and treats Si+Al+P as a uniform measure of T atoms even though P gels (aluminophosphates) have very different pH speciation than silicate gels. Acid-fluoride-route gels and neutral/pH-unreported recipes are compressed toward the low end of the scale. A constant 0.001 only guards against division by zero and fixes the value for T-free gels arbitrarily.",
+              "evidence_ids": [],
+              "expected_effect": "As gel_alkalinity_per_T increases, the probability of small-pore / low-framework-density aluminosilicates (LTA, FAU, CHA, sodalite-like dense phases) rises, while high-silica large-pore phases (*BEA, MTW, UTL, MFI) become less likely; failures are expected to be bimodal — high at very low OH/T (incomplete crystallisation) and possibly elevated at extreme OH/T (excessive dissolution of the growing product).",
+              "falsification": "If held-out publications show that phase selectivity is invariant across a wide range of OH/(Si+Al+P) values — i.e. the same frameworks appear at low and high alkalinity once the OSDA and composition are fixed — or if the descriptor's splits do not reduce impurity beyond what the OH column already achieves, the mineralizing-strength hypothesis is falsified.",
+              "formula": "OH / (Si + Al + P + 0.001)",
+              "hypothesis": "The mineralizing strength of a gel is set by the hydroxide loading per mole of framework-forming (T) atoms, not by the absolute hydroxide mole fraction. A tree ensemble splitting on OH alone confounds a hydroxide-rich gel that is also framework-rich with a genuinely caustic dilute gel. Expressing alkalinity as OH/(Si+Al+P) captures the true pH-driven dissolution/mineralization intensity per unit of silica-alumina-phosphate available to build the framework, and this quantity steers which framework density and framework composition can nucleate and grow.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Hydroxide catalyses Si-O-Si and Al-O-Si bond hydrolysis, raising the steady-state concentration of soluble silicate and aluminate oligomers and shortening the induction period. At low OH/T the T atoms stay largely polymerised; mineralization is gentle, and crystallisation requires the fluoride route or long times, favouring high-silica, large-pore or interrupted frameworks (e.g. *BEA, MTW, UTL) and more failures by incomplete crystallisation. At high OH/T, rapid depolymerisation produces abundant small oligomers and high pH stabilises the low-Si, high-framework-charge-density small-pore and medium-pore phases (LTA, FAU, CHA-type and sodalite-like products), and can push GME/MER/dense phases or cause dissolution of metastable phases. The ratio also implicitly separates inorganic (NaOH/KOH) mineralization from OSDA-OH mineralization, since sda1-based gels have low OH/T.",
+              "name": "gel_alkalinity_per_T",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "LTA",
+                "FAU",
+                "CHA",
+                "SOD",
+                "*BEA",
+                "MTW",
+                "UTL",
+                "MFI",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610082301589014290d20c34cb0",
+          "usage": {
+            "completion_tokens": 1288,
+            "completion_tokens_details": {
+              "reasoning_tokens": 486
+            },
+            "prompt_tokens": 1881,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3169
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The mole-fraction OH is taken as a proxy for the free-hydroxide concentration at crystallisation; it ignores buffering by silicate, aluminate and cation hydrolysis, and treats Si+Al+P as a uniform measure of T atoms even though P gels (aluminophosphates) have very different pH speciation than silicate gels. Acid-fluoride-route gels and neutral/pH-unreported recipes are compressed toward the low end of the scale. A constant 0.001 only guards against division by zero and fixes the value for T-free gels arbitrarily.",
+        "evidence_ids": [],
+        "expected_effect": "As gel_alkalinity_per_T increases, the probability of small-pore / low-framework-density aluminosilicates (LTA, FAU, CHA, sodalite-like dense phases) rises, while high-silica large-pore phases (*BEA, MTW, UTL, MFI) become less likely; failures are expected to be bimodal — high at very low OH/T (incomplete crystallisation) and possibly elevated at extreme OH/T (excessive dissolution of the growing product).",
+        "falsification": "If held-out publications show that phase selectivity is invariant across a wide range of OH/(Si+Al+P) values — i.e. the same frameworks appear at low and high alkalinity once the OSDA and composition are fixed — or if the descriptor's splits do not reduce impurity beyond what the OH column already achieves, the mineralizing-strength hypothesis is falsified.",
+        "formula": "OH / (Si + Al + P + 0.001)",
+        "hypothesis": "The mineralizing strength of a gel is set by the hydroxide loading per mole of framework-forming (T) atoms, not by the absolute hydroxide mole fraction. A tree ensemble splitting on OH alone confounds a hydroxide-rich gel that is also framework-rich with a genuinely caustic dilute gel. Expressing alkalinity as OH/(Si+Al+P) captures the true pH-driven dissolution/mineralization intensity per unit of silica-alumina-phosphate available to build the framework, and this quantity steers which framework density and framework composition can nucleate and grow.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Hydroxide catalyses Si-O-Si and Al-O-Si bond hydrolysis, raising the steady-state concentration of soluble silicate and aluminate oligomers and shortening the induction period. At low OH/T the T atoms stay largely polymerised; mineralization is gentle, and crystallisation requires the fluoride route or long times, favouring high-silica, large-pore or interrupted frameworks (e.g. *BEA, MTW, UTL) and more failures by incomplete crystallisation. At high OH/T, rapid depolymerisation produces abundant small oligomers and high pH stabilises the low-Si, high-framework-charge-density small-pore and medium-pore phases (LTA, FAU, CHA-type and sodalite-like products), and can push GME/MER/dense phases or cause dissolution of metastable phases. The ratio also implicitly separates inorganic (NaOH/KOH) mineralization from OSDA-OH mineralization, since sda1-based gels have low OH/T.",
+        "name": "gel_alkalinity_per_t",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "LTA",
+          "FAU",
+          "CHA",
+          "SOD",
+          "*BEA",
+          "MTW",
+          "UTL",
+          "MFI",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "7ef83d15c87ad7ff814380fec951978e6225b0c597c79c89b07cfb9f59c53ddb",
+      "round": 3,
+      "status": "appended"
+    }
+  ]
+}

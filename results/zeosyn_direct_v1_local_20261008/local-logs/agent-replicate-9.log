@@ -1,0 +1,4 @@
+agent r9 round 1: OH / (H2O + 0.001)
+agent r9 round 2: (osda_charge + 0.0) / (osda_volume + 0.001)
+agent r9 round 3: (OH + F) / (Si + Ge + 0.001)
+{"mode": "agent", "replicate": 9, "appended": 3, "formulas": ["OH / (H2O + 0.001)", "(osda_charge + 0.0) / (osda_volume + 0.001)", "(OH + F) / (Si + Ge + 0.001)"]}

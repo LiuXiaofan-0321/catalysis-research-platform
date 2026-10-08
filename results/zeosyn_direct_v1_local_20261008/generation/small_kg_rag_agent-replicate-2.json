@@ -1,0 +1,325 @@
+{
+  "appended": 3,
+  "config_sha256": "f3160bf000a8c1a21a22e20b077cca80631a15c0cfda16e755484a58d6c73c21",
+  "final_formulas": [
+    {
+      "formula": "(Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (abs(osda_charge) * sda1 + 0.001)",
+      "name": "inorganic_to_organic_cation_charge_ratio"
+    },
+    {
+      "formula": "F / (abs(osda_charge) * sda1 + 0.001)",
+      "name": "fluoride_to_osda_charge_ratio"
+    },
+    {
+      "formula": "OH / (Si + Al + P + Ge + 0.001)",
+      "name": "hydroxide_to_framework_tatom_ratio"
+    }
+  ],
+  "knowledge_sha256": "9e905434ff79e6f8be4f5523a9e509160da7edf103f99d8d0cd8c8c95319caea",
+  "label_feedback": false,
+  "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+  "mode": "small_kg_rag_agent",
+  "model": "glm-5.3-flash",
+  "profile": "zeosyn-direct-v1",
+  "reasoning_effort": "high",
+  "replicate": 2,
+  "seconds": 77.07780408859253,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Ba",
+              "Ca",
+              "Cs",
+              "K",
+              "Li",
+              "Na",
+              "Rb",
+              "Sr",
+              "osda_charge",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes (i) formal OSDA charge proxies the number of occluded cationic species per mole of OSDA, (ii) monovalent and divalent inorganic cations can be summed by mole fraction as a rough charge proxy (divalent cations contribute ~2x charge, so Ca/Sr/Ba-rich gels are underestimated), (iii) sda1 mole fraction is proportional to organic cation concentration, (iv) neutral OSDAs (charge 0) correctly push the ratio to infinity, and (v) hydroxide and fluoride mineralizing roles are ignored here. The 0.001 constant only prevents division by zero and fixes the scale for OSDA-free gels.",
+              "evidence_ids": [
+                1,
+                5,
+                6,
+                7,
+                9
+              ],
+              "expected_effect": "As the ratio increases (inorganic-dominated gels), probability of alkali-stabilized low-silica phases (LTA, FAU, CHA, LEV, AEI) and of Failed (amorphous or dense phases) should rise; as it decreases below ~1 (OSDA-charge-dominated gels), probability of OSDA-templated high-silica frameworks (MFI, MTW, *BEA, MWW, UTL, BEC) should rise.",
+              "falsification": "If phase outcome distributions are statistically indistinguishable across bins of this ratio (e.g., identical top-label frequencies in ratio < 0.5, 0.5-2, > 2 strata within held-out publications), or if OSDA-templated phases dominate equally at very high inorganic/organic charge ratios, the descriptor carries no phase-selecting information and should be dropped.",
+              "formula": "(Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (abs(osda_charge) * sda1 + 0.001)",
+              "hypothesis": "The phase selected during crystallization depends on the balance between inorganic cations and the organic OSDA as competing charge-balancing/structure-directing species; recipes where inorganic cation content greatly exceeds the organic cation charge concentration should crystallize phases stabilized by alkali cations (e.g., LTA, FAU, CHA, ZK-5/KFI-type small-pore phases) or fail, while recipes where the organic cation dominates should favor OSDA-templated high-silica frameworks (e.g., MFI, *BEA, MTW, MWW, UTL).",
+              "knowledge_source": "both",
+              "mechanism": "Framework anionic charge (from Al or defects) must be balanced either by inorganic cations or by occluded organic cations. Alkali cations coordinate silicate/aluminosilicate oligomers directly and stabilize small-pore, low-silica cages via cation-site ordering, whereas bulky OSDAs template larger voids and, at low Si/Al, must pair with framework Al at roughly 1:1 charge (NMR evidence of SDA-Al proximity). The ratio of total inorganic cation mole fraction to the organic cation charge concentration (|charge| x mole fraction) therefore measures which structure-directing regime the gel is in, a quantity a tree cannot access from individual columns alone.",
+              "name": "inorganic_to_organic_cation_charge_ratio",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "LTA",
+                "FAU",
+                "CHA",
+                "LEV",
+                "AEI",
+                "MOR",
+                "MFI",
+                "MTW",
+                "*BEA",
+                "MWW",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610082304232a92d936b38049e7",
+          "usage": {
+            "completion_tokens": 1000,
+            "completion_tokens_details": {
+              "reasoning_tokens": 213
+            },
+            "prompt_tokens": 5801,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 6801
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes (i) formal OSDA charge proxies the number of occluded cationic species per mole of OSDA, (ii) monovalent and divalent inorganic cations can be summed by mole fraction as a rough charge proxy (divalent cations contribute ~2x charge, so Ca/Sr/Ba-rich gels are underestimated), (iii) sda1 mole fraction is proportional to organic cation concentration, (iv) neutral OSDAs (charge 0) correctly push the ratio to infinity, and (v) hydroxide and fluoride mineralizing roles are ignored here. The 0.001 constant only prevents division by zero and fixes the scale for OSDA-free gels.",
+        "evidence_ids": [
+          1,
+          5,
+          6,
+          7,
+          9
+        ],
+        "expected_effect": "As the ratio increases (inorganic-dominated gels), probability of alkali-stabilized low-silica phases (LTA, FAU, CHA, LEV, AEI) and of Failed (amorphous or dense phases) should rise; as it decreases below ~1 (OSDA-charge-dominated gels), probability of OSDA-templated high-silica frameworks (MFI, MTW, *BEA, MWW, UTL, BEC) should rise.",
+        "falsification": "If phase outcome distributions are statistically indistinguishable across bins of this ratio (e.g., identical top-label frequencies in ratio < 0.5, 0.5-2, > 2 strata within held-out publications), or if OSDA-templated phases dominate equally at very high inorganic/organic charge ratios, the descriptor carries no phase-selecting information and should be dropped.",
+        "formula": "(Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (abs(osda_charge) * sda1 + 0.001)",
+        "hypothesis": "The phase selected during crystallization depends on the balance between inorganic cations and the organic OSDA as competing charge-balancing/structure-directing species; recipes where inorganic cation content greatly exceeds the organic cation charge concentration should crystallize phases stabilized by alkali cations (e.g., LTA, FAU, CHA, ZK-5/KFI-type small-pore phases) or fail, while recipes where the organic cation dominates should favor OSDA-templated high-silica frameworks (e.g., MFI, *BEA, MTW, MWW, UTL).",
+        "knowledge_source": "both",
+        "mechanism": "Framework anionic charge (from Al or defects) must be balanced either by inorganic cations or by occluded organic cations. Alkali cations coordinate silicate/aluminosilicate oligomers directly and stabilize small-pore, low-silica cages via cation-site ordering, whereas bulky OSDAs template larger voids and, at low Si/Al, must pair with framework Al at roughly 1:1 charge (NMR evidence of SDA-Al proximity). The ratio of total inorganic cation mole fraction to the organic cation charge concentration (|charge| x mole fraction) therefore measures which structure-directing regime the gel is in, a quantity a tree cannot access from individual columns alone.",
+        "name": "inorganic_to_organic_cation_charge_ratio",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "LTA",
+          "FAU",
+          "CHA",
+          "LEV",
+          "AEI",
+          "MOR",
+          "MFI",
+          "MTW",
+          "*BEA",
+          "MWW",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": "36722958fd34f6de57a158041071936ff025369ddd747563a659cf9715c17c7c",
+      "evidence_items": 10,
+      "prompt_sha256": "9bf24804f724fbe10e1639e8056f93a9e87cd43ba2059a5151bad4c674224249",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "F",
+              "osda_charge",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes F− is quantified as total fluoride added (mole fraction F), which proxies for free F− in solution; protonation as HF at acidic pH and complexation by Al, B, or Ge are not captured. It assumes sda1 with osda_charge reflects the actual concentration of organic cation charge, ignoring multiple OSDAs (n_osda > 1 counts only OSDA1) and neutral amine contributions. Gels without OSDA or fluoride collapse to the safe value 0 (denominator floor 0.001), which is interpreted as the non-fluoride, OSDA-free regime. The ratio alone cannot distinguish HF/OSDA effects from concomitant pH/alkalinity differences.",
+              "evidence_ids": [
+                3,
+                5,
+                4
+              ],
+              "expected_effect": "As the descriptor increases from ~0 to ~1, products should shift from defect/Al-charge-balanced or hydroxide-route phases toward Al-containing intermediate phases (e.g., FER, RUT-type mixtures per evidence 5; Al-bearing beta per evidence 3) and, around ratio ≈ 0.5–1, to high-silica fluoride-route phases (*BEA, MFI, UTL, AST, fluoride-LTA). Pure-silica gels (Al ≈ 0) with very low ratios should tend toward Failed/amorphous or delayed crystallization, while ratios ≥ ~1 with excess fluoride can open previously inaccessible small-pore high-silica phases. Very high values combined with low OSDA may push toward dense or amorphous outcomes.",
+              "falsification": "The hypothesis would be contradicted if the descriptor shows no association with the identity of the crystallized framework across held-out publications (e.g., the same fluoride-route phases crystallize over the full F−/OSDA range, or phase changes between *BEA and MFI occur without changes in F−/OSDA), or if recipes with F−/OSDA << 1 routinely yield the same phases as those with F−/OSDA ≈ 1 under otherwise matched compositions.",
+              "formula": "F / (abs(osda_charge) * sda1 + 0.001)",
+              "hypothesis": "The amount of fluoride available per unit of organic cation charge in the gel is a primary lever on phase selectivity: gels with F−/OSDA+ near or above unity follow the fluoride synthesis route, which favors high-silica, often pure-silica frameworks — especially those containing double-four-ring (D4R) units where F− is occluded as a counter-ion — and can completely switch the product between frameworks such as *BEA and MFI as the ratio is swept. Gels with F− far below the organic cation charge behave like conventional (hydroxide-type or non-fluoride) syntheses, where F− plays no directing role.",
+              "knowledge_source": "both",
+              "mechanism": "In fluoride media, F− mineralizes silica at near-neutral pH and, at F−/OSDA ≈ 1, the OSDA cations are counterbalanced by F− located inside small cages (notably D4R units), allowing defect-free high-silica frameworks to crystallize. When F− is deficient relative to OSDA (ratio << 1), framework negative charges must instead be balanced by framework Al (heteroatom incorporation) or by connectivity defects, shifting selectivity toward Al-bearing phases (e.g., beta at low Si/Al) or even suppressing crystallization in pure-silica gels. When F− is in excess (ratio >> 1), F− competes with trivalent heteroatom (Al, B) incorporation and with inorganic cation charge balancing, favoring fluoride-occluding topologies and previously unobserved small-pore phases. Because the ratio is computed from gel mole fractions, it transfers across publications without requiring paper-specific normalizations.",
+              "name": "fluoride_to_osda_charge_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "*BEA",
+                "MFI",
+                "UTL",
+                "FER",
+                "AST",
+                "LTA",
+                "BEC",
+                "MTW",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008230444f91749f1866049f1",
+          "usage": {
+            "completion_tokens": 1344,
+            "completion_tokens_details": {
+              "reasoning_tokens": 431
+            },
+            "prompt_tokens": 6497,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 7841
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes F− is quantified as total fluoride added (mole fraction F), which proxies for free F− in solution; protonation as HF at acidic pH and complexation by Al, B, or Ge are not captured. It assumes sda1 with osda_charge reflects the actual concentration of organic cation charge, ignoring multiple OSDAs (n_osda > 1 counts only OSDA1) and neutral amine contributions. Gels without OSDA or fluoride collapse to the safe value 0 (denominator floor 0.001), which is interpreted as the non-fluoride, OSDA-free regime. The ratio alone cannot distinguish HF/OSDA effects from concomitant pH/alkalinity differences.",
+        "evidence_ids": [
+          3,
+          4,
+          5
+        ],
+        "expected_effect": "As the descriptor increases from ~0 to ~1, products should shift from defect/Al-charge-balanced or hydroxide-route phases toward Al-containing intermediate phases (e.g., FER, RUT-type mixtures per evidence 5; Al-bearing beta per evidence 3) and, around ratio ≈ 0.5–1, to high-silica fluoride-route phases (*BEA, MFI, UTL, AST, fluoride-LTA). Pure-silica gels (Al ≈ 0) with very low ratios should tend toward Failed/amorphous or delayed crystallization, while ratios ≥ ~1 with excess fluoride can open previously inaccessible small-pore high-silica phases. Very high values combined with low OSDA may push toward dense or amorphous outcomes.",
+        "falsification": "The hypothesis would be contradicted if the descriptor shows no association with the identity of the crystallized framework across held-out publications (e.g., the same fluoride-route phases crystallize over the full F−/OSDA range, or phase changes between *BEA and MFI occur without changes in F−/OSDA), or if recipes with F−/OSDA << 1 routinely yield the same phases as those with F−/OSDA ≈ 1 under otherwise matched compositions.",
+        "formula": "F / (abs(osda_charge) * sda1 + 0.001)",
+        "hypothesis": "The amount of fluoride available per unit of organic cation charge in the gel is a primary lever on phase selectivity: gels with F−/OSDA+ near or above unity follow the fluoride synthesis route, which favors high-silica, often pure-silica frameworks — especially those containing double-four-ring (D4R) units where F− is occluded as a counter-ion — and can completely switch the product between frameworks such as *BEA and MFI as the ratio is swept. Gels with F− far below the organic cation charge behave like conventional (hydroxide-type or non-fluoride) syntheses, where F− plays no directing role.",
+        "knowledge_source": "both",
+        "mechanism": "In fluoride media, F− mineralizes silica at near-neutral pH and, at F−/OSDA ≈ 1, the OSDA cations are counterbalanced by F− located inside small cages (notably D4R units), allowing defect-free high-silica frameworks to crystallize. When F− is deficient relative to OSDA (ratio << 1), framework negative charges must instead be balanced by framework Al (heteroatom incorporation) or by connectivity defects, shifting selectivity toward Al-bearing phases (e.g., beta at low Si/Al) or even suppressing crystallization in pure-silica gels. When F− is in excess (ratio >> 1), F− competes with trivalent heteroatom (Al, B) incorporation and with inorganic cation charge balancing, favoring fluoride-occluding topologies and previously unobserved small-pore phases. Because the ratio is computed from gel mole fractions, it transfers across publications without requiring paper-specific normalizations.",
+        "name": "fluoride_to_osda_charge_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "*BEA",
+          "MFI",
+          "UTL",
+          "FER",
+          "AST",
+          "LTA",
+          "BEC",
+          "MTW",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": "017615fb39c3b317390b8c8f379c8fbfc1fed6d72c13d66501313f114524962d",
+      "evidence_items": 10,
+      "prompt_sha256": "fa992f692f4c0630fe50c9ef66ae58499bc6e977368d5208d9881c99bfdefbb8",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Ge",
+              "OH",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The mole-fraction ratio is a proxy for the true batch alkalinity (mol OH per mol SiO2), which also depends on OSDA hydroxide and acid counterions not individually recorded; OH here counts only explicit hydroxide, so recipes buffered by fluoride or by OSDA-OH will show lower apparent alkalinity than the actual solution pH. It assumes Al, P, and Ge contribute comparably to framework T-atom demand and ignores B, Ti, Ga, Zn, etc., which are usually minor. A small constant prevents division by zero in gels with no framework-forming T atoms.",
+              "evidence_ids": [
+                8,
+                10,
+                5,
+                7
+              ],
+              "expected_effect": "As hydroxide_to_framework_tatom_ratio increases, the probability of low-silica alkali-stabilized frameworks (LTA, FAU, CHA, sodalite-type products) and of Failed should increase; as it decreases, high-silica OSDA-templated frameworks (MFI, *BEA, MTW, MWW, UTL, BEC) and pure-silica products should become more likely.",
+              "falsification": "If the held-out publication predictions are unchanged (near-zero permutation importance) after appending this descriptor, or if high-ratio recipes systematically yield high-silica frameworks while low-ratio recipes yield low-silica frameworks (the opposite trend), the hypothesis is contradicted.",
+              "formula": "OH / (Si + Al + P + Ge + 0.001)",
+              "hypothesis": "The alkalinity of the synthesis gel, expressed as hydroxide per mole of framework-forming T atoms (Si, Al, P, Ge), is a primary determinant of which framework crystallizes. Low-OH (near-neutral or fluoride-route) gels dissolve and repolymerize silica slowly and favor high-silica, low-density frameworks (MFI, *BEA, MTW, MWW, UTL, BEC), whereas high-OH gels aggressively depolymerize the source material, raise the concentration of low-molecular-weight aluminate/silicate anions, and drive crystallization of low-silica, dense small-pore phases (LTA, FAU, SOD-type, CHA with low Si/Al) or complete failure by dissolving the gel or precipitating dense phases. Because the classifier receives individual mole fractions but cannot form the ratio, this quantity is not directly available to the tree ensemble.",
+              "knowledge_source": "both",
+              "mechanism": "OH- controls the dissolution rate of amorphous silica/alumina and the speciation of silicate and aluminate anions in solution (monomers vs oligomers, Q^n distribution). High hydroxide activity lowers the polymerization degree of the gel, accelerates nucleation of frameworks built from small rings and stabilized by alkali cations balancing framework Al (LTA, FAU, CHA, SOD), and at extreme values dissolves metastable zeolite products (Ostwald ripening toward dense phases or failure). Low hydroxide (especially with fluoride, which both mineralizes and directly stabilizes D4R units) slows dissolution, keeps silicate oligomerization high, and favors high-silica phases whose frameworks are neutral or organic-charge-balanced. The Si/OH ratio is explicitly a tuned synthesis variable in FAU/LTA preparations (e.g., Si/OH spanning 0.10-0.75 in documented FAU/LTA gel series), confirming its independent steering role.",
+              "name": "hydroxide_to_framework_tatom_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "LTA",
+                "FAU",
+                "CHA",
+                "SOD",
+                "MFI",
+                "*BEA",
+                "MTW",
+                "MWW",
+                "UTL",
+                "BEC",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610082305176e105375730a4f93",
+          "usage": {
+            "completion_tokens": 1112,
+            "completion_tokens_details": {
+              "reasoning_tokens": 272
+            },
+            "prompt_tokens": 6208,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 7320
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The mole-fraction ratio is a proxy for the true batch alkalinity (mol OH per mol SiO2), which also depends on OSDA hydroxide and acid counterions not individually recorded; OH here counts only explicit hydroxide, so recipes buffered by fluoride or by OSDA-OH will show lower apparent alkalinity than the actual solution pH. It assumes Al, P, and Ge contribute comparably to framework T-atom demand and ignores B, Ti, Ga, Zn, etc., which are usually minor. A small constant prevents division by zero in gels with no framework-forming T atoms.",
+        "evidence_ids": [
+          5,
+          7,
+          8,
+          10
+        ],
+        "expected_effect": "As hydroxide_to_framework_tatom_ratio increases, the probability of low-silica alkali-stabilized frameworks (LTA, FAU, CHA, sodalite-type products) and of Failed should increase; as it decreases, high-silica OSDA-templated frameworks (MFI, *BEA, MTW, MWW, UTL, BEC) and pure-silica products should become more likely.",
+        "falsification": "If the held-out publication predictions are unchanged (near-zero permutation importance) after appending this descriptor, or if high-ratio recipes systematically yield high-silica frameworks while low-ratio recipes yield low-silica frameworks (the opposite trend), the hypothesis is contradicted.",
+        "formula": "OH / (Si + Al + P + Ge + 0.001)",
+        "hypothesis": "The alkalinity of the synthesis gel, expressed as hydroxide per mole of framework-forming T atoms (Si, Al, P, Ge), is a primary determinant of which framework crystallizes. Low-OH (near-neutral or fluoride-route) gels dissolve and repolymerize silica slowly and favor high-silica, low-density frameworks (MFI, *BEA, MTW, MWW, UTL, BEC), whereas high-OH gels aggressively depolymerize the source material, raise the concentration of low-molecular-weight aluminate/silicate anions, and drive crystallization of low-silica, dense small-pore phases (LTA, FAU, SOD-type, CHA with low Si/Al) or complete failure by dissolving the gel or precipitating dense phases. Because the classifier receives individual mole fractions but cannot form the ratio, this quantity is not directly available to the tree ensemble.",
+        "knowledge_source": "both",
+        "mechanism": "OH- controls the dissolution rate of amorphous silica/alumina and the speciation of silicate and aluminate anions in solution (monomers vs oligomers, Q^n distribution). High hydroxide activity lowers the polymerization degree of the gel, accelerates nucleation of frameworks built from small rings and stabilized by alkali cations balancing framework Al (LTA, FAU, CHA, SOD), and at extreme values dissolves metastable zeolite products (Ostwald ripening toward dense phases or failure). Low hydroxide (especially with fluoride, which both mineralizes and directly stabilizes D4R units) slows dissolution, keeps silicate oligomerization high, and favors high-silica phases whose frameworks are neutral or organic-charge-balanced. The Si/OH ratio is explicitly a tuned synthesis variable in FAU/LTA preparations (e.g., Si/OH spanning 0.10-0.75 in documented FAU/LTA gel series), confirming its independent steering role.",
+        "name": "hydroxide_to_framework_tatom_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "LTA",
+          "FAU",
+          "CHA",
+          "SOD",
+          "MFI",
+          "*BEA",
+          "MTW",
+          "MWW",
+          "UTL",
+          "BEC",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": "928dba9bc192fa0713115b961cdf523a0be485beb3b3e498c5acdc8db61b28ac",
+      "evidence_items": 10,
+      "prompt_sha256": "d98b19c8da8664c46886700091ec5bb2fa70cb75232af546aafa42881c868b0f",
+      "round": 3,
+      "status": "appended"
+    }
+  ]
+}

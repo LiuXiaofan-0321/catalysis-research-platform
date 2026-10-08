@@ -1,0 +1,109 @@
+{
+  "appended": 3,
+  "delta": {
+    "mean": {
+      "accuracy": 0.01057888762769581,
+      "balanced_accuracy": 0.002301734117047316,
+      "macro_f1": 0.0017722522435249743
+    },
+    "per_seed": [
+      {
+        "accuracy": 0.007945516458569835,
+        "balanced_accuracy": 0.004842925634129525,
+        "macro_f1": -0.0055583834330434345,
+        "seed": 3
+      },
+      {
+        "accuracy": 0.008626560726447186,
+        "balanced_accuracy": 0.008538305256639012,
+        "macro_f1": 0.010485982124652016,
+        "seed": 7
+      },
+      {
+        "accuracy": 0.014074914869466548,
+        "balanced_accuracy": -0.004731253293194404,
+        "macro_f1": -0.013010921576709689,
+        "seed": 11
+      },
+      {
+        "accuracy": 0.009307604994324647,
+        "balanced_accuracy": 0.004911577522452915,
+        "macro_f1": 0.01172605700730922,
+        "seed": 17
+      },
+      {
+        "accuracy": 0.012939841089670834,
+        "balanced_accuracy": -0.0020528845347904667,
+        "macro_f1": 0.005218527095416758,
+        "seed": 23
+      }
+    ]
+  },
+  "final_formulas": [
+    {
+      "formula": "(OH + F) / (Si + Al + Ge + 0.001)",
+      "name": "mineralizer_per_t_atom"
+    },
+    {
+      "formula": "cryst_time * exp(-7500.0 / (cryst_temp + 273.15))",
+      "name": "thermal_severity_arrhenius"
+    },
+    {
+      "formula": "abs(osda_charge) / (osda_volume + 1.0)",
+      "name": "osda_charge_density"
+    }
+  ],
+  "generation_sha256": "b90dedca696fc4270427533d0cd48793d44d491ac5eb00bef3528d638f097d21",
+  "mode": "agent",
+  "per_seed": [
+    {
+      "accuracy": 0.44222474460839956,
+      "balanced_accuracy": 0.34341264227153895,
+      "macro_f1": 0.3082489735123513,
+      "macro_f1_report": 0.2752222977788851,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 3
+    },
+    {
+      "accuracy": 0.44040862656072643,
+      "balanced_accuracy": 0.3483677710960797,
+      "macro_f1": 0.3187272880761559,
+      "macro_f1_report": 0.29294787506999626,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 7
+    },
+    {
+      "accuracy": 0.44835414301929627,
+      "balanced_accuracy": 0.3438097011406941,
+      "macro_f1": 0.3027915993757469,
+      "macro_f1_report": 0.2762697074596231,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 11
+    },
+    {
+      "accuracy": 0.4419977298524404,
+      "balanced_accuracy": 0.34261255909494054,
+      "macro_f1": 0.31650676225123187,
+      "macro_f1_report": 0.2887835422000291,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 17
+    },
+    {
+      "accuracy": 0.4456299659477866,
+      "balanced_accuracy": 0.34536584081964883,
+      "macro_f1": 0.3187074545396171,
+      "macro_f1_report": 0.2929296457165599,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 23
+    }
+  ],
+  "profile": "zeosyn-direct-v1",
+  "replicate": 10,
+  "reused_d0_for_zero_append": false,
+  "seconds": 5.6528966426849365
+}

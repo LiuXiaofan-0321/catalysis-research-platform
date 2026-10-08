@@ -1,0 +1,292 @@
+{
+  "appended": 3,
+  "config_sha256": "f3160bf000a8c1a21a22e20b077cca80631a15c0cfda16e755484a58d6c73c21",
+  "final_formulas": [
+    {
+      "formula": "OH / (H2O + 0.005)",
+      "name": "alkalinity_oh_per_water"
+    },
+    {
+      "formula": "log10((Si + 0.001) / (Al + P + 0.001))",
+      "name": "si_over_al_p_ratio"
+    },
+    {
+      "formula": "osda_charge / (osda_volume + 1.0)",
+      "name": "osda_charge_density"
+    }
+  ],
+  "knowledge_sha256": "9e905434ff79e6f8be4f5523a9e509160da7edf103f99d8d0cd8c8c95319caea",
+  "label_feedback": false,
+  "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "profile": "zeosyn-direct-v1",
+  "reasoning_effort": "high",
+  "replicate": 4,
+  "seconds": 80.2827353477478,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "H2O",
+              "OH"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "This formula assumes (1) hydroxide is the dominant mineralizing base, i.e., the record's OH mole fraction reflects the effective alkalinity (fluoride-mediated or neutral-pH routes will have OH near 0 and the descriptor will be uninformative for them); (2) alkali cations contribute comparable effective alkalinity per mole so that OH alone is a fair proxy; (3) H2O in the normalized gel reflects actual synthesis water content rather than a bookkeeping entry; and (4) the additive constant 0.005 only guards against division by zero for water-free (e.g., ionothermal or non-aqueous) records, where the descriptor becomes large but such records are rare.",
+              "evidence_ids": [],
+              "expected_effect": "As alkalinity_oh_per_water increases from low values, outcomes should shift from Failed/dense products at very low alkalinity (insufficient dissolution) through large-pore or low-density frameworks, toward small-pore frameworks (LTA, FAU, CHA) and possibly Failed again at very high alkalinity (framework dissolution, formation of dense phases such as cancrinite or sodalite). Intermediate values should favor MFI and MOR-type phases.",
+              "falsification": "If phase outcome is essentially invariant across a wide range of OH/H2O values within a single OSDA/cation family, or if the model's error rate on held-out publications is unchanged after appending this descriptor relative to D0 alone, the hypothesis that hydroxide-to-water ratio steers phase selection is contradicted for this dataset.",
+              "formula": "OH / (H2O + 0.005)",
+              "hypothesis": "The alkalinity of the synthesis gel, expressed as the hydroxide-to-water molar ratio, is a primary control on which framework crystallizes versus failure to nucleate a zeolite, because it governs silicate speciation, dissolution rates, and the nucleation pathway competition between ordered microporous frameworks and amorphous or dense phases.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Hydroxide deprotonates and depolymerizes silicate and aluminate species, controlling the concentration of low-molecular-weight anionic silicate oligomers that are the building units for framework assembly. High OH/H2O increases the solubility of silica, accelerating nucleation and favoring frameworks that grow from small, mobile oligomers at high supersaturation (e.g., LTA, FAU, CHA-type small-pore phases), while low alkalinity favors slower crystallization routes that can yield larger-pore or silica-rich phases and, at extremes, dense quartz-like or amorphous products. Because water is both the solvent and a participant in hydrolysis, the ratio rather than the absolute amounts of OH or H2O determines the chemical potential of hydroxide in solution, and this quantity cannot be recovered by a tree ensemble splitting on a single mole-fraction column. The ratio also transfers across publications better than raw mole fractions, which scale differently depending on how each paper normalizes its gel recipe.",
+              "name": "alkalinity_oh_per_water",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "LTA",
+                "FAU",
+                "CHA",
+                "MFI",
+                "MOR",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008225855f064a67025334e52",
+          "usage": {
+            "completion_tokens": 1078,
+            "completion_tokens_details": {
+              "reasoning_tokens": 344
+            },
+            "prompt_tokens": 1619,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2697
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "This formula assumes (1) hydroxide is the dominant mineralizing base, i.e., the record's OH mole fraction reflects the effective alkalinity (fluoride-mediated or neutral-pH routes will have OH near 0 and the descriptor will be uninformative for them); (2) alkali cations contribute comparable effective alkalinity per mole so that OH alone is a fair proxy; (3) H2O in the normalized gel reflects actual synthesis water content rather than a bookkeeping entry; and (4) the additive constant 0.005 only guards against division by zero for water-free (e.g., ionothermal or non-aqueous) records, where the descriptor becomes large but such records are rare.",
+        "evidence_ids": [],
+        "expected_effect": "As alkalinity_oh_per_water increases from low values, outcomes should shift from Failed/dense products at very low alkalinity (insufficient dissolution) through large-pore or low-density frameworks, toward small-pore frameworks (LTA, FAU, CHA) and possibly Failed again at very high alkalinity (framework dissolution, formation of dense phases such as cancrinite or sodalite). Intermediate values should favor MFI and MOR-type phases.",
+        "falsification": "If phase outcome is essentially invariant across a wide range of OH/H2O values within a single OSDA/cation family, or if the model's error rate on held-out publications is unchanged after appending this descriptor relative to D0 alone, the hypothesis that hydroxide-to-water ratio steers phase selection is contradicted for this dataset.",
+        "formula": "OH / (H2O + 0.005)",
+        "hypothesis": "The alkalinity of the synthesis gel, expressed as the hydroxide-to-water molar ratio, is a primary control on which framework crystallizes versus failure to nucleate a zeolite, because it governs silicate speciation, dissolution rates, and the nucleation pathway competition between ordered microporous frameworks and amorphous or dense phases.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Hydroxide deprotonates and depolymerizes silicate and aluminate species, controlling the concentration of low-molecular-weight anionic silicate oligomers that are the building units for framework assembly. High OH/H2O increases the solubility of silica, accelerating nucleation and favoring frameworks that grow from small, mobile oligomers at high supersaturation (e.g., LTA, FAU, CHA-type small-pore phases), while low alkalinity favors slower crystallization routes that can yield larger-pore or silica-rich phases and, at extremes, dense quartz-like or amorphous products. Because water is both the solvent and a participant in hydrolysis, the ratio rather than the absolute amounts of OH or H2O determines the chemical potential of hydroxide in solution, and this quantity cannot be recovered by a tree ensemble splitting on a single mole-fraction column. The ratio also transfers across publications better than raw mole fractions, which scale differently depending on how each paper normalizes its gel recipe.",
+        "name": "alkalinity_oh_per_water",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "LTA",
+          "FAU",
+          "CHA",
+          "MFI",
+          "MOR",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "0258220dfcf60dc540b76f821f685cde3a3580699a6fe5b267d7fd01671b0936",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes Al and P compete for the same 'heteroatom' role in the T-atom budget, which is a simplification: Al substitutes into silicate frameworks while P defines aluminophosphate frameworks, and SAPO chemistry sits between. The +0.001 additive constants prevent division by zero for AlPO-free or pure-silica gels but impose an arbitrary floor; the log base-10 scaling is monotone and does not affect tree splits. The descriptor ignores heteroatoms such as Ge, B, Ti, Ga, and Zn, whose ratios with Si could also define composition regimes (a possible follow-up descriptor). It also assumes the gel mole fractions reflect the effective batch composition despite evaporation, aging, or post-synthesis Al sources, which held-out papers may handle differently.",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor increases (more siliceous gels), the model should assign more probability to MFI, *BEA, MTW, TON, FER, and Failed; as it decreases toward zero (Al- or P-rich gels), probability mass should shift to FAU, LTA, MOR, and, at the lowest values, the aluminophosphate frameworks AFI, AEL, AEI, AEN, and UTL. Intermediate values should favor CHA and low-silica frameworks.",
+              "falsification": "If the descriptor carries no synthesis-relevant information beyond the individual Si, Al, and P mole fractions already present in D0, its importances will be negligible and permutation/testing performance will be unchanged after appending it. It is also contradicted if product phase boundaries in the data do not align with Si/(Al+P) composition regimes (e.g., aluminophosphate frameworks appearing predominantly at high descriptor values).",
+              "formula": "log10((Si + 0.001) / (Al + P + 0.001))",
+              "hypothesis": "The logarithm of the silicon-to-(aluminium+phosphorus) molar ratio of the gel is a primary determinant of which framework crystallizes, because it places the synthesis in a chemically distinct regime: pure-silica/high-silica zeolite synthesis, low-silica aluminosilicate synthesis, or aluminophosphate (AlPO/SAPO) synthesis. Individual mole fractions of Si, Al, and P cannot express this compositional regime because a tree can only threshold one of them at a time, whereas the ratio is the quantity chemists actually tune (e.g., Si/Al = 12 vs 100 vs infinity selects different product fields).",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "The T-atom composition of the gel controls the solution speciation and the building units available for framework formation. High Si/(Al+P) favors silicate-rich oligomers and OSDA-templated silicalite-like frameworks such as MFI, *BEA, MTW, and TON; intermediate ratios favor aluminosilicate frameworks whose nucleation requires framework Al charge-balancing cations (FAU, LTA, MOR, CHA at low values); near-zero Si/(Al+P) corresponds to aluminophosphate chemistry where Al-O-P alternating frameworks (AFI, AEL, AEI, AEN, UTL) form, often aided by fluoride. Very low Al with high OH commonly leads to Failed (dense phases or no crystallization). The log transform compresses the enormous dynamic range (from ~0 for AlPO gels to ~1000+ for fluoride pure-silica gels) into a scale where tree splits can be placed at chemically meaningful boundaries.",
+              "name": "si_over_al_p_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "MFI",
+                "*BEA",
+                "MTW",
+                "TON",
+                "FER",
+                "FAU",
+                "LTA",
+                "MOR",
+                "CHA",
+                "AFI",
+                "AEL",
+                "AEI",
+                "AEN",
+                "UTL",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008225923c5acb242a5404147",
+          "usage": {
+            "completion_tokens": 1245,
+            "completion_tokens_details": {
+              "reasoning_tokens": 349
+            },
+            "prompt_tokens": 1722,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2967
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes Al and P compete for the same 'heteroatom' role in the T-atom budget, which is a simplification: Al substitutes into silicate frameworks while P defines aluminophosphate frameworks, and SAPO chemistry sits between. The +0.001 additive constants prevent division by zero for AlPO-free or pure-silica gels but impose an arbitrary floor; the log base-10 scaling is monotone and does not affect tree splits. The descriptor ignores heteroatoms such as Ge, B, Ti, Ga, and Zn, whose ratios with Si could also define composition regimes (a possible follow-up descriptor). It also assumes the gel mole fractions reflect the effective batch composition despite evaporation, aging, or post-synthesis Al sources, which held-out papers may handle differently.",
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor increases (more siliceous gels), the model should assign more probability to MFI, *BEA, MTW, TON, FER, and Failed; as it decreases toward zero (Al- or P-rich gels), probability mass should shift to FAU, LTA, MOR, and, at the lowest values, the aluminophosphate frameworks AFI, AEL, AEI, AEN, and UTL. Intermediate values should favor CHA and low-silica frameworks.",
+        "falsification": "If the descriptor carries no synthesis-relevant information beyond the individual Si, Al, and P mole fractions already present in D0, its importances will be negligible and permutation/testing performance will be unchanged after appending it. It is also contradicted if product phase boundaries in the data do not align with Si/(Al+P) composition regimes (e.g., aluminophosphate frameworks appearing predominantly at high descriptor values).",
+        "formula": "log10((Si + 0.001) / (Al + P + 0.001))",
+        "hypothesis": "The logarithm of the silicon-to-(aluminium+phosphorus) molar ratio of the gel is a primary determinant of which framework crystallizes, because it places the synthesis in a chemically distinct regime: pure-silica/high-silica zeolite synthesis, low-silica aluminosilicate synthesis, or aluminophosphate (AlPO/SAPO) synthesis. Individual mole fractions of Si, Al, and P cannot express this compositional regime because a tree can only threshold one of them at a time, whereas the ratio is the quantity chemists actually tune (e.g., Si/Al = 12 vs 100 vs infinity selects different product fields).",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "The T-atom composition of the gel controls the solution speciation and the building units available for framework formation. High Si/(Al+P) favors silicate-rich oligomers and OSDA-templated silicalite-like frameworks such as MFI, *BEA, MTW, and TON; intermediate ratios favor aluminosilicate frameworks whose nucleation requires framework Al charge-balancing cations (FAU, LTA, MOR, CHA at low values); near-zero Si/(Al+P) corresponds to aluminophosphate chemistry where Al-O-P alternating frameworks (AFI, AEL, AEI, AEN, UTL) form, often aided by fluoride. Very low Al with high OH commonly leads to Failed (dense phases or no crystallization). The log transform compresses the enormous dynamic range (from ~0 for AlPO gels to ~1000+ for fluoride pure-silica gels) into a scale where tree splits can be placed at chemically meaningful boundaries.",
+        "name": "si_over_al_p_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "MFI",
+          "*BEA",
+          "MTW",
+          "TON",
+          "FER",
+          "FAU",
+          "LTA",
+          "MOR",
+          "CHA",
+          "AFI",
+          "AEL",
+          "AEI",
+          "AEN",
+          "UTL",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "a3ec8fe26fad5414d0e676ed202b596219ca9b8385e700ef9892634acc4aac86",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "osda_charge",
+              "osda_volume"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The single lowest-energy conformer volume is a good proxy for the effective molecular volume in the gel; the OSDA is protonated to its formal charge under synthesis conditions; inorganic cations are not accounted for, so the descriptor is only a partial proxy for the true charge-balancing demand; the +1.0 constant makes the value ≈ osda_charge for tiny or absent OSDA volumes, which is acceptable since charge 0 with no OSDA yields 0 and charge with vanishing volume is an edge case; the descriptor ignores OSDA shape and conformational flexibility, which also matter.",
+              "evidence_ids": [],
+              "expected_effect": "As osda_charge_density increases, outcomes should shift from Failed and from bulky-OSDA, low-framework-charge frameworks (MFI, MEL, MTW, *BEA, UTL, BEC) toward high-framework-charge, small-cage frameworks (CHA, AEI, LEV, LTA, FAU) and away from dense/amorphous phases in Al-rich gels. At very high charge density with insufficient Al/P to compensate, Failed or dense-phase probability may rise again.",
+              "falsification": "If product phase frequencies are statistically independent of osda_charge_density when gels are stratified by the existing D0 features and the two appended descriptors (e.g., high-charge-density and low-charge-density OSDAs give the same framework distribution at fixed Si/(Al+P) and OH/H2O), or if the descriptor's feature importance is negligible in permutation tests, the hypothesis is contradicted.",
+              "formula": "osda_charge / (osda_volume + 1.0)",
+              "hypothesis": "The formal charge of the OSDA per unit of its molecular volume (charge density, e per angstrom^3) steers which framework crystallizes: bulky, low-charge-density OSDAs favor frameworks with low framework charge density and small micropore volume (pure-silica MFI, MEL, MTW, *BEA, UTL, ISV/BEC), whereas small, high-charge-density OSDAs favor frameworks with high framework charge density and small cages or large pore apertures that need dense cation packing (CHA, AEI, LEV, LTA, FAU, AEL, AEN).",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "A growing zeolite framework carries negative charge proportional to the number of framework Al (or other trivalent T atoms) minus charge-balancing inorganic cations; the OSDA must compensate the remaining charge. Charge compensation is geometrically constrained: a voluminous OSDA with a single +1 charge can only occupy a large cage or channel intersection and enforces low framework charge density, while a compact multicharged OSDA can pack several charges per unit cell volume, permitting and stabilizing frameworks with high Al content and small cavities. Because framework charge density is an intrinsic topological property of each IZA framework, the OSDA charge density selects among qualitatively different framework types. A tree ensemble can threshold osda_charge or osda_volume individually, but the ratio (charge per volume) is the physically meaningful quantity and cannot emerge from single-column splits.",
+              "name": "osda_charge_density",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "CHA",
+                "AEI",
+                "LEV",
+                "LTA",
+                "FAU",
+                "AEL",
+                "AEN",
+                "MFI",
+                "MEL",
+                "MTW",
+                "*BEA",
+                "UTL",
+                "ISV/BEC",
+                "BEC"
+              ]
+            }
+          },
+          "response_id": "20261008225950cc4b8c6ea0194dce",
+          "usage": {
+            "completion_tokens": 1146,
+            "completion_tokens_details": {
+              "reasoning_tokens": 368
+            },
+            "prompt_tokens": 1891,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3037
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The single lowest-energy conformer volume is a good proxy for the effective molecular volume in the gel; the OSDA is protonated to its formal charge under synthesis conditions; inorganic cations are not accounted for, so the descriptor is only a partial proxy for the true charge-balancing demand; the +1.0 constant makes the value ≈ osda_charge for tiny or absent OSDA volumes, which is acceptable since charge 0 with no OSDA yields 0 and charge with vanishing volume is an edge case; the descriptor ignores OSDA shape and conformational flexibility, which also matter.",
+        "evidence_ids": [],
+        "expected_effect": "As osda_charge_density increases, outcomes should shift from Failed and from bulky-OSDA, low-framework-charge frameworks (MFI, MEL, MTW, *BEA, UTL, BEC) toward high-framework-charge, small-cage frameworks (CHA, AEI, LEV, LTA, FAU) and away from dense/amorphous phases in Al-rich gels. At very high charge density with insufficient Al/P to compensate, Failed or dense-phase probability may rise again.",
+        "falsification": "If product phase frequencies are statistically independent of osda_charge_density when gels are stratified by the existing D0 features and the two appended descriptors (e.g., high-charge-density and low-charge-density OSDAs give the same framework distribution at fixed Si/(Al+P) and OH/H2O), or if the descriptor's feature importance is negligible in permutation tests, the hypothesis is contradicted.",
+        "formula": "osda_charge / (osda_volume + 1.0)",
+        "hypothesis": "The formal charge of the OSDA per unit of its molecular volume (charge density, e per angstrom^3) steers which framework crystallizes: bulky, low-charge-density OSDAs favor frameworks with low framework charge density and small micropore volume (pure-silica MFI, MEL, MTW, *BEA, UTL, ISV/BEC), whereas small, high-charge-density OSDAs favor frameworks with high framework charge density and small cages or large pore apertures that need dense cation packing (CHA, AEI, LEV, LTA, FAU, AEL, AEN).",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "A growing zeolite framework carries negative charge proportional to the number of framework Al (or other trivalent T atoms) minus charge-balancing inorganic cations; the OSDA must compensate the remaining charge. Charge compensation is geometrically constrained: a voluminous OSDA with a single +1 charge can only occupy a large cage or channel intersection and enforces low framework charge density, while a compact multicharged OSDA can pack several charges per unit cell volume, permitting and stabilizing frameworks with high Al content and small cavities. Because framework charge density is an intrinsic topological property of each IZA framework, the OSDA charge density selects among qualitatively different framework types. A tree ensemble can threshold osda_charge or osda_volume individually, but the ratio (charge per volume) is the physically meaningful quantity and cannot emerge from single-column splits.",
+        "name": "osda_charge_density",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "CHA",
+          "AEI",
+          "LEV",
+          "LTA",
+          "FAU",
+          "AEL",
+          "AEN",
+          "MFI",
+          "MEL",
+          "MTW",
+          "*BEA",
+          "UTL",
+          "ISV/BEC",
+          "BEC"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "cf30ab568566cf73191279a1b922016c67521f851364edd07a59ea25444237b9",
+      "round": 3,
+      "status": "appended"
+    }
+  ]
+}

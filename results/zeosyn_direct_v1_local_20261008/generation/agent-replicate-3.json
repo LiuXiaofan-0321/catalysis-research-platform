@@ -1,0 +1,279 @@
+{
+  "appended": 3,
+  "config_sha256": "f3160bf000a8c1a21a22e20b077cca80631a15c0cfda16e755484a58d6c73c21",
+  "final_formulas": [
+    {
+      "formula": "OH / (Si + Al + P + Ge + 0.001)",
+      "name": "hydroxide_per_t_atom"
+    },
+    {
+      "formula": "H2O / (Si + Al + P + Ge + 0.001)",
+      "name": "water_per_t_atom"
+    },
+    {
+      "formula": "osda_charge / (osda_volume + 0.001)",
+      "name": "osda_charge_density"
+    }
+  ],
+  "knowledge_sha256": "9e905434ff79e6f8be4f5523a9e509160da7edf103f99d8d0cd8c8c95319caea",
+  "label_feedback": false,
+  "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "profile": "zeosyn-direct-v1",
+  "reasoning_effort": "high",
+  "replicate": 3,
+  "seconds": 106.80411195755005,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Ge",
+              "OH",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes hydroxide is the dominant mineralizer, which underweights fluoride-mediated syntheses (F media with low OH); a complementary descriptor F/(Si+Ge+0.001) would be needed in a later round. Assumes the recorded OH mole fraction reflects the free (non-protonated, non-cation-paired) hydroxide activity, ignoring buffering by the OSDA, amine hydrolysis, or consumed OH incorporated as charge-balancing species. The +0.001 constant makes fluoride-only and OSDA-only gels produce a finite but very large value, which tree splits may treat as a pseudo-category for 'essentially no hydroxide relative to T'. Normalizing by mole fraction rather than absolute molarity ignores water-content effects on concentration, which is acceptable here since the model already receives H2O as a separate column.",
+              "evidence_ids": [],
+              "expected_effect": "As hydroxide_per_T_atom increases from near zero: Failed and dense-phase outcomes at the lowest values (insufficient dissolution), then pure-silica phases (MFI, MTW, *BEA, BEC) at low-moderate values, then small-pore/low-Si frameworks (LTA, FAU, CHA, AEL, TON) at moderate-high values, and again increased Failed frequency at extreme values (over-dissolution, non-selective precipitation).",
+              "falsification": "If the confusion structure of the held-out publications is unaffected by this descriptor — i.e., model error patterns across OH-rich vs OH-lean gels do not change, or phase boundaries that the model already captures with raw OH and raw Si, Al, P, Ge fractions remain equally sharp — then the per-T normalization carries no transferable information and should be dropped in round 2. A specific contradiction would be finding that CHA and MFI gels with identical descriptor values but opposite outcomes dominate the residual errors.",
+              "formula": "OH / (Si + Al + P + Ge + 0.001)",
+              "hypothesis": "The hydroxide mineralizer strength per framework-forming T atom (T = Si, Al, P, Ge) controls the dissolution-reprecipitation equilibrium of the gel and thereby selects between open, low-density frameworks and dense or amorphous products. Low hydroxide-per-T (near-neutral or fluoride-mediated batches) suppresses dissolution and favors siliceous, low-nucleation-density phases (MFI, MTW, *BEA, BEC) or slow crystallization that ends in Failed when the OSDA cannot template efficiently. Intermediate-to-high hydroxide-per-T accelerates nucleation and favors small-pore, high-aluminum frameworks (LTA, FAU, CHA, MER-type and other Na-templated phases). Very high values over-dissolve the growing crystals and push outcomes toward Failed.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "OH- depolymerizes the amorphous aluminosilicate/phosphate network by deprotonating bridging silanols and breaking Si-O-Si/Si-O-Al bonds, raising the monomer/oligomer activity in solution. Nucleation rate scales superlinearly with this dissolved T-atom activity, so the competition between nucleation and crystal growth, and thus which critical nucleus reaches the thermodynamic-kinetic window first, is a direct function of OH availability per T site. Frameworks stabilized at high pH (high framework Al, small pores, low framework density, e.g. LTA, FAU, CHA) require faster network reorganization and more counter-cation charge balance, while pure-silica, high-framework-density phases form under low hydroxide activity where dissolution is rate-limiting and fluoride (absent from this descriptor) would otherwise act as the mineralizer.",
+              "name": "hydroxide_per_T_atom",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "LTA",
+                "FAU",
+                "CHA",
+                "MFI",
+                "MTW",
+                "*BEA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008225855f0fa1992326b4c6c",
+          "usage": {
+            "completion_tokens": 1188,
+            "completion_tokens_details": {
+              "reasoning_tokens": 303
+            },
+            "prompt_tokens": 1619,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2807
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes hydroxide is the dominant mineralizer, which underweights fluoride-mediated syntheses (F media with low OH); a complementary descriptor F/(Si+Ge+0.001) would be needed in a later round. Assumes the recorded OH mole fraction reflects the free (non-protonated, non-cation-paired) hydroxide activity, ignoring buffering by the OSDA, amine hydrolysis, or consumed OH incorporated as charge-balancing species. The +0.001 constant makes fluoride-only and OSDA-only gels produce a finite but very large value, which tree splits may treat as a pseudo-category for 'essentially no hydroxide relative to T'. Normalizing by mole fraction rather than absolute molarity ignores water-content effects on concentration, which is acceptable here since the model already receives H2O as a separate column.",
+        "evidence_ids": [],
+        "expected_effect": "As hydroxide_per_T_atom increases from near zero: Failed and dense-phase outcomes at the lowest values (insufficient dissolution), then pure-silica phases (MFI, MTW, *BEA, BEC) at low-moderate values, then small-pore/low-Si frameworks (LTA, FAU, CHA, AEL, TON) at moderate-high values, and again increased Failed frequency at extreme values (over-dissolution, non-selective precipitation).",
+        "falsification": "If the confusion structure of the held-out publications is unaffected by this descriptor — i.e., model error patterns across OH-rich vs OH-lean gels do not change, or phase boundaries that the model already captures with raw OH and raw Si, Al, P, Ge fractions remain equally sharp — then the per-T normalization carries no transferable information and should be dropped in round 2. A specific contradiction would be finding that CHA and MFI gels with identical descriptor values but opposite outcomes dominate the residual errors.",
+        "formula": "OH / (Si + Al + P + Ge + 0.001)",
+        "hypothesis": "The hydroxide mineralizer strength per framework-forming T atom (T = Si, Al, P, Ge) controls the dissolution-reprecipitation equilibrium of the gel and thereby selects between open, low-density frameworks and dense or amorphous products. Low hydroxide-per-T (near-neutral or fluoride-mediated batches) suppresses dissolution and favors siliceous, low-nucleation-density phases (MFI, MTW, *BEA, BEC) or slow crystallization that ends in Failed when the OSDA cannot template efficiently. Intermediate-to-high hydroxide-per-T accelerates nucleation and favors small-pore, high-aluminum frameworks (LTA, FAU, CHA, MER-type and other Na-templated phases). Very high values over-dissolve the growing crystals and push outcomes toward Failed.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "OH- depolymerizes the amorphous aluminosilicate/phosphate network by deprotonating bridging silanols and breaking Si-O-Si/Si-O-Al bonds, raising the monomer/oligomer activity in solution. Nucleation rate scales superlinearly with this dissolved T-atom activity, so the competition between nucleation and crystal growth, and thus which critical nucleus reaches the thermodynamic-kinetic window first, is a direct function of OH availability per T site. Frameworks stabilized at high pH (high framework Al, small pores, low framework density, e.g. LTA, FAU, CHA) require faster network reorganization and more counter-cation charge balance, while pure-silica, high-framework-density phases form under low hydroxide activity where dissolution is rate-limiting and fluoride (absent from this descriptor) would otherwise act as the mineralizer.",
+        "name": "hydroxide_per_t_atom",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "LTA",
+          "FAU",
+          "CHA",
+          "MFI",
+          "MTW",
+          "*BEA",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "0258220dfcf60dc540b76f821f685cde3a3580699a6fe5b267d7fd01671b0936",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Ge",
+              "H2O",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes all listed framework-forming species (Si, Al, P, Ge) are the relevant T atoms and treats them additively, ignoring Ti, B, Ga, Zn substitution; the 0.001 constant makes Al-free, P-free, all-silica gels finite but then the value is dominated by the Si fraction. It also assumes the recorded H2O mole fraction reflects the true synthesis water content (not added post hoc) and ignores vapor loss and yields of hydrated salts. Gels with essentially zero T atoms (pure OH/OSDA records) would blow up without the constant and are treated as limiting high-dilution cases.",
+              "evidence_ids": [],
+              "expected_effect": "As water_per_t_atom increases from very low values: dense/small-pore, cation-rich products (LTA, FAU, analcime-like Failed) dominate; at intermediate values open frameworks (MFI, *BEA, CHA, MWW, MTW, BEC) become more likely; at very high values Failed increases again. Held between fixed extremes, the open-framework classes should gain probability relative to Failed at mid-range dilution.",
+              "falsification": "If phase outcomes change with OH/T but show no systematic shift across water/T ranges (i.e., the same frameworks appear over the whole dilution spectrum, and Failed rates do not rise at the dilute end), the dilution hypothesis is contradicted for this dataset.",
+              "formula": "H2O / (Si + Al + P + Ge + 0.001)",
+              "hypothesis": "Gel dilution, quantified as water per framework-forming T atom, is an independent control on phase selection that is not captured by mineralizer strength alone. Concentrated gels (low water/T) have high supersaturation and high nucleation density, favoring rapid crystallization of dense or small-pore, kinetically accessible phases and, when combined with slow transport, amorphous or dense Failed products. Moderately dilute gels allow selective nucleation of open, low-framework-density zeolites that need slow, ordered assembly around OSDAs. Extremely dilute gels starve the gel of nutrient, delaying nucleation beyond typical batch times and pushing outcomes toward Failed or dense by-products.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Water content sets the chemical potential of dissolved silica/aluminate species and therefore the supersaturation driving nucleation. At low water/T, monomer activities are high, many nuclei form simultaneously, and growth outranks ordering, which favors dense phases (e.g., analcime-like or quartz/dense products) and Na-filled small-pore phases that tolerate disorder. At intermediate water/T, fewer nuclei form and each grows under near-equilibrium conditions, allowing the OSDA and inorganic cations to template open frameworks such as *BEA, MFI, CHA, MWW, and FAU. At very high water/T, the driving force for nucleation collapses; crystallization times lengthen past the recorded batch window, yielding Failed. Because water/T varies across publications independently of OH/T (e.g., fluoride routes are simultaneously dilute and near-neutral), it adds an axis orthogonal to hydroxide_per_t_atom.",
+              "name": "water_per_t_atom",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "Failed",
+                "MFI",
+                "CHA",
+                "*BEA",
+                "FAU",
+                "LTA",
+                "MWW",
+                "MTW",
+                "BEC"
+              ]
+            }
+          },
+          "response_id": "20261008225923709824f0ec2345a3",
+          "usage": {
+            "completion_tokens": 1907,
+            "completion_tokens_details": {
+              "reasoning_tokens": 1134
+            },
+            "prompt_tokens": 1823,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3730
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes all listed framework-forming species (Si, Al, P, Ge) are the relevant T atoms and treats them additively, ignoring Ti, B, Ga, Zn substitution; the 0.001 constant makes Al-free, P-free, all-silica gels finite but then the value is dominated by the Si fraction. It also assumes the recorded H2O mole fraction reflects the true synthesis water content (not added post hoc) and ignores vapor loss and yields of hydrated salts. Gels with essentially zero T atoms (pure OH/OSDA records) would blow up without the constant and are treated as limiting high-dilution cases.",
+        "evidence_ids": [],
+        "expected_effect": "As water_per_t_atom increases from very low values: dense/small-pore, cation-rich products (LTA, FAU, analcime-like Failed) dominate; at intermediate values open frameworks (MFI, *BEA, CHA, MWW, MTW, BEC) become more likely; at very high values Failed increases again. Held between fixed extremes, the open-framework classes should gain probability relative to Failed at mid-range dilution.",
+        "falsification": "If phase outcomes change with OH/T but show no systematic shift across water/T ranges (i.e., the same frameworks appear over the whole dilution spectrum, and Failed rates do not rise at the dilute end), the dilution hypothesis is contradicted for this dataset.",
+        "formula": "H2O / (Si + Al + P + Ge + 0.001)",
+        "hypothesis": "Gel dilution, quantified as water per framework-forming T atom, is an independent control on phase selection that is not captured by mineralizer strength alone. Concentrated gels (low water/T) have high supersaturation and high nucleation density, favoring rapid crystallization of dense or small-pore, kinetically accessible phases and, when combined with slow transport, amorphous or dense Failed products. Moderately dilute gels allow selective nucleation of open, low-framework-density zeolites that need slow, ordered assembly around OSDAs. Extremely dilute gels starve the gel of nutrient, delaying nucleation beyond typical batch times and pushing outcomes toward Failed or dense by-products.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Water content sets the chemical potential of dissolved silica/aluminate species and therefore the supersaturation driving nucleation. At low water/T, monomer activities are high, many nuclei form simultaneously, and growth outranks ordering, which favors dense phases (e.g., analcime-like or quartz/dense products) and Na-filled small-pore phases that tolerate disorder. At intermediate water/T, fewer nuclei form and each grows under near-equilibrium conditions, allowing the OSDA and inorganic cations to template open frameworks such as *BEA, MFI, CHA, MWW, and FAU. At very high water/T, the driving force for nucleation collapses; crystallization times lengthen past the recorded batch window, yielding Failed. Because water/T varies across publications independently of OH/T (e.g., fluoride routes are simultaneously dilute and near-neutral), it adds an axis orthogonal to hydroxide_per_t_atom.",
+        "name": "water_per_t_atom",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "Failed",
+          "MFI",
+          "CHA",
+          "*BEA",
+          "FAU",
+          "LTA",
+          "MWW",
+          "MTW",
+          "BEC"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "14ff717f5fec1ea965df80bf24bb296426a0f7d6ae9d2fab502d3ba367591551",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "osda_charge",
+              "osda_volume"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The single conformer volume provided by the dataset authors is taken as the effective template size in the gel, ignoring conformational flexibility; formal charge is assumed equal to the number of framework-compensating centers (ignoring partial charge and H-bonding roles); batches with no OSDA give a value of 0, which mixes 'inorganic-only' syntheses with the low end of the organic scale rather than treating them as a separate regime; Al/P content of the gel (available to D0) will interact with charge density, so the descriptor is a selector, not a deterministic predictor.",
+              "evidence_ids": [],
+              "expected_effect": "As osda_charge_density increases (compact, strongly charged templates or OSDA-free alkali-rich gels), outcomes should shift toward small-pore cage frameworks (CHA, LTA, LEV, AEI) and inorganic-templated dense phases. As it decreases (bulky mono- or low-charge templates), outcomes should shift toward large-pore, multidimensional frameworks (*BEA, MFI, MTW, BEC, UTL), with both extremes of bad size/charge matching pushing toward Failed.",
+              "falsification": "If the same frameworks appear across the full range of osda_charge_density, or if bulky low-charge-density OSDAs produce small-pore CHA/LTA as often as compact high-charge-density ones on held-out publications, the charge-density hypothesis is contradicted and the discriminating information must lie elsewhere (e.g. mineralizer or cation content already captured by D0).",
+              "formula": "osda_charge / (osda_volume + 0.001)",
+              "hypothesis": "The formal charge of the OSDA per unit of its molecular volume (charge density) is the quantity that determines how many framework T atoms one OSDA molecule can stabilize during assembly, and therefore selects the pore-system scale of the product. Bulky OSDAs with low charge density (large quaternary ammonium salts, e.g. TEA+, TPA+, bulky diquaternaries) space the growing framework apart and template large-pore or multidimensional frameworks (*BEA, MFI, MTW, BEC, UTL) and, when poorly matched to the gel chemistry, leave the batch amorphous (Failed). Compact OSDAs with high charge density (TMA+, small monoquaternaries, or batches relying only on inorganic cations where the descriptor is near its low-OSDA limit) pack more charge per framework volume and favor small-pore cages (CHA, LTA, LEV, AEI) or very dense, inorganic-templated phases (FAU-type sodalitic products).",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Zeolite nucleation around an organic cation requires charge-compensating the framework Al/P or silicate defect sites: each framework negative charge must be neutralized either by the OSDA or by inorganic cations/hydroxide. For a fixed number of charge centers, a larger molecular volume means the OSDA occupies more of the void it stabilizes, forcing wider channels or larger cages; a small molecule with the same charge fits into small cages and stabilizes them against collapse. Charge density is a single scalar that the tree ensemble can threshold to separate 'bulky low-charge templates' from 'compact high-charge templates' without needing to combine the raw charge and volume columns internally, which a per-split decision cannot do.",
+              "name": "osda_charge_density",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "*BEA",
+                "MFI",
+                "MTW",
+                "BEC",
+                "UTL",
+                "CHA",
+                "LTA",
+                "LEV",
+                "AEI",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "2026100823001532b04d9165454e67",
+          "usage": {
+            "completion_tokens": 1202,
+            "completion_tokens_details": {
+              "reasoning_tokens": 378
+            },
+            "prompt_tokens": 1990,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3192
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The single conformer volume provided by the dataset authors is taken as the effective template size in the gel, ignoring conformational flexibility; formal charge is assumed equal to the number of framework-compensating centers (ignoring partial charge and H-bonding roles); batches with no OSDA give a value of 0, which mixes 'inorganic-only' syntheses with the low end of the organic scale rather than treating them as a separate regime; Al/P content of the gel (available to D0) will interact with charge density, so the descriptor is a selector, not a deterministic predictor.",
+        "evidence_ids": [],
+        "expected_effect": "As osda_charge_density increases (compact, strongly charged templates or OSDA-free alkali-rich gels), outcomes should shift toward small-pore cage frameworks (CHA, LTA, LEV, AEI) and inorganic-templated dense phases. As it decreases (bulky mono- or low-charge templates), outcomes should shift toward large-pore, multidimensional frameworks (*BEA, MFI, MTW, BEC, UTL), with both extremes of bad size/charge matching pushing toward Failed.",
+        "falsification": "If the same frameworks appear across the full range of osda_charge_density, or if bulky low-charge-density OSDAs produce small-pore CHA/LTA as often as compact high-charge-density ones on held-out publications, the charge-density hypothesis is contradicted and the discriminating information must lie elsewhere (e.g. mineralizer or cation content already captured by D0).",
+        "formula": "osda_charge / (osda_volume + 0.001)",
+        "hypothesis": "The formal charge of the OSDA per unit of its molecular volume (charge density) is the quantity that determines how many framework T atoms one OSDA molecule can stabilize during assembly, and therefore selects the pore-system scale of the product. Bulky OSDAs with low charge density (large quaternary ammonium salts, e.g. TEA+, TPA+, bulky diquaternaries) space the growing framework apart and template large-pore or multidimensional frameworks (*BEA, MFI, MTW, BEC, UTL) and, when poorly matched to the gel chemistry, leave the batch amorphous (Failed). Compact OSDAs with high charge density (TMA+, small monoquaternaries, or batches relying only on inorganic cations where the descriptor is near its low-OSDA limit) pack more charge per framework volume and favor small-pore cages (CHA, LTA, LEV, AEI) or very dense, inorganic-templated phases (FAU-type sodalitic products).",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Zeolite nucleation around an organic cation requires charge-compensating the framework Al/P or silicate defect sites: each framework negative charge must be neutralized either by the OSDA or by inorganic cations/hydroxide. For a fixed number of charge centers, a larger molecular volume means the OSDA occupies more of the void it stabilizes, forcing wider channels or larger cages; a small molecule with the same charge fits into small cages and stabilizes them against collapse. Charge density is a single scalar that the tree ensemble can threshold to separate 'bulky low-charge templates' from 'compact high-charge templates' without needing to combine the raw charge and volume columns internally, which a per-split decision cannot do.",
+        "name": "osda_charge_density",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "*BEA",
+          "MFI",
+          "MTW",
+          "BEC",
+          "UTL",
+          "CHA",
+          "LTA",
+          "LEV",
+          "AEI",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "452f7e0013ac335b4cc2243b4a4e7a102b40aa5dd9ab2827cb5df49a5c17ff13",
+      "round": 3,
+      "status": "appended"
+    }
+  ]
+}

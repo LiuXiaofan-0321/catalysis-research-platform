@@ -1,0 +1,307 @@
+{
+  "appended": 3,
+  "config_sha256": "f3160bf000a8c1a21a22e20b077cca80631a15c0cfda16e755484a58d6c73c21",
+  "final_formulas": [
+    {
+      "formula": "(Na + K + Li + Rb + Cs + 2*Ba + 2*Ca + 2*Sr + 2*Mg) / (abs(osda_charge) * sda1 + 0.002)",
+      "name": "inorganic_to_osda_charge_ratio"
+    },
+    {
+      "formula": "F / (sda1 + Al + B + Ga + 0.002)",
+      "name": "fluoride_per_directing_charge"
+    },
+    {
+      "formula": "cryst_temp * log10(cryst_time + 1.0)",
+      "name": "thermal_dose"
+    }
+  ],
+  "knowledge_sha256": "9e905434ff79e6f8be4f5523a9e509160da7edf103f99d8d0cd8c8c95319caea",
+  "label_feedback": false,
+  "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+  "mode": "small_kg_rag_agent",
+  "model": "glm-5.3-flash",
+  "profile": "zeosyn-direct-v1",
+  "reasoning_effort": "high",
+  "replicate": 3,
+  "seconds": 54.857386350631714,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Ba",
+              "Ca",
+              "Cs",
+              "K",
+              "Li",
+              "Mg",
+              "Na",
+              "Rb",
+              "Sr",
+              "osda_charge",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Mole fractions are used as proxies for ionic charge: alkali ions counted as +1 and divalent alkaline-earth/Mg as +2, ignoring that only a fraction may be hydroxide-bound or ionized. osda_charge is taken as the formal charge magnitude of a single OSDA molecule scaled by its gel mole fraction; neutral OSDAs or sda1 = 0 give a large ratio by construction (dominated by the 0.002 safeguard), which is intentional since inorganic cations then dominate charge balance. The ratio says nothing about OH-, F- mineralizers or Ge/B heteroatom chemistry, which can override this balance.",
+              "evidence_ids": [
+                1,
+                2,
+                5,
+                6,
+                7,
+                9
+              ],
+              "expected_effect": "As the ratio increases (inorganic cations dominating), likelihood of inorganic-directed phases such as LTA, FAU, CHA, LEV and dense/Failed outcomes should rise, while OSDA-templated high-silica phases such as MFI, MTW, *BEA and MWW should become less likely. Very large values (effectively no charged OSDA) should correspond to OSDA-free alkali-aluminosilicate syntheses. Low values should shift predictions toward OSDA-templated frameworks.",
+              "falsification": "If the descriptor carries no synthesis-relevant information, held-out publication accuracy will not change when it is added, or feature importance will be near zero. It is also falsified if phases like MTW or *BEA appear across the full range of the ratio with no systematic separation from LTA/FAU/CHA, since then cation/OSDA charge balance is not a discriminating axis.",
+              "formula": "(Na + K + Li + Rb + Cs + 2*Ba + 2*Ca + 2*Sr + 2*Mg) / (abs(osda_charge) * sda1 + 0.002)",
+              "hypothesis": "The competition between inorganic cations and the OSDA for charge-balancing roles in the gel steers phase selectivity: recipes where the inorganic cationic charge dominates over the organic cationic charge should favor inorganic-templated, low-silica or small-pore frameworks, whereas recipes where the OSDA charge dominates should favor OSDA-templated high-silica frameworks.",
+              "knowledge_source": "both",
+              "mechanism": "Framework T-atom substitution (Al, B, Ga, divalent heteroatoms) creates framework charge that must be balanced by cations; OSDA charge density matching and cation-OSDA-defect charge ordering determine which framework topology can crystallize. When inorganic charge far exceeds OSDA charge, the OSDA cannot act as the primary template and Na/K-rich regimes direct dense or small-pore phases (LTA, FAU, CHA, sodalite-like, P1) or amorphous products; when OSDA charge dominates, the OSDA fills the pores and high-silica large-pore phases (MFI, MTW, *BEA, MWW) are stabilized. The literature repeatedly shows that phase selectivity with a fixed OSDA flips depending on the inorganic cation content (Na/Rb choline EU-12; Na synergy with Et6-diquat-5 giving P1 vs SUZ-4 vs MOR; charge density mismatch between organic and inorganic SDAs), so a single scalar capturing this balance should transfer across unseen publications. Because trees split on one column, this ratio makes an emergent balance directly available.",
+              "name": "inorganic_to_osda_charge_ratio",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "MFI",
+                "MTW",
+                "*BEA",
+                "MWW",
+                "LTA",
+                "FAU",
+                "CHA",
+                "LEV",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "2026100823050780721bc7f6cb4503",
+          "usage": {
+            "completion_tokens": 1395,
+            "completion_tokens_details": {
+              "reasoning_tokens": 536
+            },
+            "prompt_tokens": 5801,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 7196
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Mole fractions are used as proxies for ionic charge: alkali ions counted as +1 and divalent alkaline-earth/Mg as +2, ignoring that only a fraction may be hydroxide-bound or ionized. osda_charge is taken as the formal charge magnitude of a single OSDA molecule scaled by its gel mole fraction; neutral OSDAs or sda1 = 0 give a large ratio by construction (dominated by the 0.002 safeguard), which is intentional since inorganic cations then dominate charge balance. The ratio says nothing about OH-, F- mineralizers or Ge/B heteroatom chemistry, which can override this balance.",
+        "evidence_ids": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          9
+        ],
+        "expected_effect": "As the ratio increases (inorganic cations dominating), likelihood of inorganic-directed phases such as LTA, FAU, CHA, LEV and dense/Failed outcomes should rise, while OSDA-templated high-silica phases such as MFI, MTW, *BEA and MWW should become less likely. Very large values (effectively no charged OSDA) should correspond to OSDA-free alkali-aluminosilicate syntheses. Low values should shift predictions toward OSDA-templated frameworks.",
+        "falsification": "If the descriptor carries no synthesis-relevant information, held-out publication accuracy will not change when it is added, or feature importance will be near zero. It is also falsified if phases like MTW or *BEA appear across the full range of the ratio with no systematic separation from LTA/FAU/CHA, since then cation/OSDA charge balance is not a discriminating axis.",
+        "formula": "(Na + K + Li + Rb + Cs + 2*Ba + 2*Ca + 2*Sr + 2*Mg) / (abs(osda_charge) * sda1 + 0.002)",
+        "hypothesis": "The competition between inorganic cations and the OSDA for charge-balancing roles in the gel steers phase selectivity: recipes where the inorganic cationic charge dominates over the organic cationic charge should favor inorganic-templated, low-silica or small-pore frameworks, whereas recipes where the OSDA charge dominates should favor OSDA-templated high-silica frameworks.",
+        "knowledge_source": "both",
+        "mechanism": "Framework T-atom substitution (Al, B, Ga, divalent heteroatoms) creates framework charge that must be balanced by cations; OSDA charge density matching and cation-OSDA-defect charge ordering determine which framework topology can crystallize. When inorganic charge far exceeds OSDA charge, the OSDA cannot act as the primary template and Na/K-rich regimes direct dense or small-pore phases (LTA, FAU, CHA, sodalite-like, P1) or amorphous products; when OSDA charge dominates, the OSDA fills the pores and high-silica large-pore phases (MFI, MTW, *BEA, MWW) are stabilized. The literature repeatedly shows that phase selectivity with a fixed OSDA flips depending on the inorganic cation content (Na/Rb choline EU-12; Na synergy with Et6-diquat-5 giving P1 vs SUZ-4 vs MOR; charge density mismatch between organic and inorganic SDAs), so a single scalar capturing this balance should transfer across unseen publications. Because trees split on one column, this ratio makes an emergent balance directly available.",
+        "name": "inorganic_to_osda_charge_ratio",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "MFI",
+          "MTW",
+          "*BEA",
+          "MWW",
+          "LTA",
+          "FAU",
+          "CHA",
+          "LEV",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": "36722958fd34f6de57a158041071936ff025369ddd747563a659cf9715c17c7c",
+      "evidence_items": 10,
+      "prompt_sha256": "9bf24804f724fbe10e1639e8056f93a9e87cd43ba2059a5151bad4c674224249",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "F",
+              "Ga",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes fluoride and OSDA/trivalent-species mole fractions in the normalized gel are a faithful proxy for the actual HF/OSDA and Si/Al ratios in the published recipes, which is only approximately true because normalization by total moles (including large water fractions) compresses these ratios differently across papers. It assumes Al, B and Ga play a similar charge-compensating role, ignoring that B is more easily rejected by the framework and that P (in aluminophosphate syntheses) and divalent heteroatoms (Zn, Mg) follow different charge rules; these syntheses will show descriptor values driven only by their F and sda1 content. F-source identity (NH4F vs HF) and OH content, which also matter, are not captured by this descriptor alone.",
+              "evidence_ids": [
+                3,
+                5
+              ],
+              "expected_effect": "As the descriptor increases from 0: fluoride-free hydroxide-type aluminosilicate phases (FAU, LTA, MOR, low-silica CHA) should give way to fluoride-route high-silica phases; at moderate values (~1) D4R-containing high-silica phases such as *BEA/BEC, MTW, UTL and pure-silica MFI become accessible; at very high values (>1.5) small-pore or excess-fluoride-specific phases (AEL, AEI, LEV-type high-silica products) or Failed (over-mineralized, slow-crystallizing gels) become more likely. Very low values with high Al should also raise Failed probability (dense/amorphous phases from fast hydroxide crystallization).",
+              "falsification": "If the descriptor carries no phase-selective information, the distributions of F/(sda1+Al+B+Ga) should be statistically indistinguishable across the product classes (e.g., *BEA vs MFI vs FER vs Failed) on held-out publications, or the direction of the effect should reverse: fluoride-rich recipes should not systematically differ in outcome from fluoride-poor recipes at fixed OSDA/Al chemistry. Also falsified if fluoride-free gels (descriptor = 0) show the same phase distribution as high-fluoride gels with the same OSDA and Si/Al.",
+              "formula": "F / (sda1 + Al + B + Ga + 0.002)",
+              "hypothesis": "The ratio of fluoride in the gel to the total charge-directing species available to pair with it (OSDA cations plus trivalent framework heteroatoms Al, B, Ga) controls whether the synthesis proceeds along a fluoride-mineralized, defect-free high-silica pathway or an Al-charge-balanced pathway, and thus which framework crystallizes. Recipes with fluoride in excess of the available OSDA and trivalent centers (high value of this descriptor) should favor phases known from excess-fluoride synthesis (e.g., small-pore or novel high-silica phases such as *BEA at HF/OSDA = 1, FER/RUT mixtures at low HF/OSDA shifting to ERS-7-like phases at HF/OSDA ~ 2), while recipes where Al greatly exceeds fluoride (low value) should favor aluminosilicate phases crystallized in hydroxide media (LTA, FAU, MOR, CHA, TON), and zero-fluoride recipes collapse to the hydroxide-route limit.",
+              "knowledge_source": "both",
+              "mechanism": "Fluoride acts both as a mineralizer and as an occluded anion: in near-neutral fluoride media it can sit inside small cages of the framework (e.g., D4R units in *BEA, UTL, LTA-type germanosilicates) or pair with divalent/trivalent heteroatoms, compensating framework charge instead of creating silanol defects. When F- is scarce relative to OSDA+ (Al+B+Ga), the OSDA cations must be balanced by [AlO4/2]- or [BO4/2]- framework charges, which stabilizes heteroatom-containing frameworks and suppresses pure-silica phases (e.g., pure-silica beta remains amorphous at HF/OSDA <= 0.5, but forms at HF/OSDA = 1.0; pure-silica ZSM-5 appears at intermediate HF/OSDA). When F- is in large excess, heteroatom incorporation and F- cage occlusion compete, and phase selectivity shifts entirely (FER/RUT at HF/Ch+ <= 1 becomes ERS-7 at HF/Ch+ = 2; excess fluoride enables PST-21/22-type new phases). A tree ensemble can split directly on this single ratio, which is not expressible from the individual mole fractions alone.",
+              "name": "fluoride_per_directing_charge",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "*BEA",
+                "MFI",
+                "FER",
+                "LTA",
+                "CHA",
+                "Failed",
+                "UTL",
+                "RUT",
+                "MTW"
+              ]
+            }
+          },
+          "response_id": "2026100823053884cb074e744d413b",
+          "usage": {
+            "completion_tokens": 1336,
+            "completion_tokens_details": {
+              "reasoning_tokens": 236
+            },
+            "prompt_tokens": 6466,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 7802
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes fluoride and OSDA/trivalent-species mole fractions in the normalized gel are a faithful proxy for the actual HF/OSDA and Si/Al ratios in the published recipes, which is only approximately true because normalization by total moles (including large water fractions) compresses these ratios differently across papers. It assumes Al, B and Ga play a similar charge-compensating role, ignoring that B is more easily rejected by the framework and that P (in aluminophosphate syntheses) and divalent heteroatoms (Zn, Mg) follow different charge rules; these syntheses will show descriptor values driven only by their F and sda1 content. F-source identity (NH4F vs HF) and OH content, which also matter, are not captured by this descriptor alone.",
+        "evidence_ids": [
+          3,
+          5
+        ],
+        "expected_effect": "As the descriptor increases from 0: fluoride-free hydroxide-type aluminosilicate phases (FAU, LTA, MOR, low-silica CHA) should give way to fluoride-route high-silica phases; at moderate values (~1) D4R-containing high-silica phases such as *BEA/BEC, MTW, UTL and pure-silica MFI become accessible; at very high values (>1.5) small-pore or excess-fluoride-specific phases (AEL, AEI, LEV-type high-silica products) or Failed (over-mineralized, slow-crystallizing gels) become more likely. Very low values with high Al should also raise Failed probability (dense/amorphous phases from fast hydroxide crystallization).",
+        "falsification": "If the descriptor carries no phase-selective information, the distributions of F/(sda1+Al+B+Ga) should be statistically indistinguishable across the product classes (e.g., *BEA vs MFI vs FER vs Failed) on held-out publications, or the direction of the effect should reverse: fluoride-rich recipes should not systematically differ in outcome from fluoride-poor recipes at fixed OSDA/Al chemistry. Also falsified if fluoride-free gels (descriptor = 0) show the same phase distribution as high-fluoride gels with the same OSDA and Si/Al.",
+        "formula": "F / (sda1 + Al + B + Ga + 0.002)",
+        "hypothesis": "The ratio of fluoride in the gel to the total charge-directing species available to pair with it (OSDA cations plus trivalent framework heteroatoms Al, B, Ga) controls whether the synthesis proceeds along a fluoride-mineralized, defect-free high-silica pathway or an Al-charge-balanced pathway, and thus which framework crystallizes. Recipes with fluoride in excess of the available OSDA and trivalent centers (high value of this descriptor) should favor phases known from excess-fluoride synthesis (e.g., small-pore or novel high-silica phases such as *BEA at HF/OSDA = 1, FER/RUT mixtures at low HF/OSDA shifting to ERS-7-like phases at HF/OSDA ~ 2), while recipes where Al greatly exceeds fluoride (low value) should favor aluminosilicate phases crystallized in hydroxide media (LTA, FAU, MOR, CHA, TON), and zero-fluoride recipes collapse to the hydroxide-route limit.",
+        "knowledge_source": "both",
+        "mechanism": "Fluoride acts both as a mineralizer and as an occluded anion: in near-neutral fluoride media it can sit inside small cages of the framework (e.g., D4R units in *BEA, UTL, LTA-type germanosilicates) or pair with divalent/trivalent heteroatoms, compensating framework charge instead of creating silanol defects. When F- is scarce relative to OSDA+ (Al+B+Ga), the OSDA cations must be balanced by [AlO4/2]- or [BO4/2]- framework charges, which stabilizes heteroatom-containing frameworks and suppresses pure-silica phases (e.g., pure-silica beta remains amorphous at HF/OSDA <= 0.5, but forms at HF/OSDA = 1.0; pure-silica ZSM-5 appears at intermediate HF/OSDA). When F- is in large excess, heteroatom incorporation and F- cage occlusion compete, and phase selectivity shifts entirely (FER/RUT at HF/Ch+ <= 1 becomes ERS-7 at HF/Ch+ = 2; excess fluoride enables PST-21/22-type new phases). A tree ensemble can split directly on this single ratio, which is not expressible from the individual mole fractions alone.",
+        "name": "fluoride_per_directing_charge",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "*BEA",
+          "MFI",
+          "FER",
+          "LTA",
+          "CHA",
+          "Failed",
+          "UTL",
+          "RUT",
+          "MTW"
+        ]
+      },
+      "evidence_bundle_hash": "017615fb39c3b317390b8c8f379c8fbfc1fed6d72c13d66501313f114524962d",
+      "evidence_items": 10,
+      "prompt_sha256": "d50e4b3d4481bbdb5d41f1753731d04deafc65dac105ffd2d401364ddce75970",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "cryst_temp",
+              "cryst_time"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes crystallization is approximately isothermal during the recorded cryst_time and that an Arrhenius-type product T*log(t) with T in Celsius is a serviceable proxy for the true time-temperature exposure integral (no activation energy is fitted; the Celsius offset is not physically exact but preserves ordering at fixed t). log10 compresses the wide range of crystallization times so that long runs do not dominate. This is a kinetic-severity proxy only: it ignores heating/cooling ramps, seeding, and gel composition effects already captured elsewhere.",
+              "evidence_ids": [
+                5,
+                7,
+                1
+              ],
+              "expected_effect": "As thermal_dose increases, 'Failed' outcomes should first decrease (gels cross the nucleation threshold) and then rise or shift toward dense/thermodynamically stable products at very high dose; metastable, low-temperature frameworks (FAU, LTA, layered MWW) should concentrate at intermediate dose, while refractory high-silica phases tolerate higher dose before transforming.",
+              "falsification": "If the product-phase distribution is essentially invariant when thermal_dose is varied while holding cryst_temp and cryst_time fixed within their observed ranges (i.e., the model gains no split quality from thermal_dose beyond the existing time and temperature columns), or if Failed and phase-transformed outcomes occur uniformly across the thermal_dose range, the hypothesis is contradicted.",
+              "formula": "cryst_temp * log10(cryst_time + 1.0)",
+              "hypothesis": "The product of crystallization temperature and the logarithm of crystallization time (an Arrhenius-inspired 'thermal dose') governs whether a gel reaches nucleation, fully crystallizes, or over-crystallizes into a secondary/dense phase. Recipes with low thermal dose should end in 'Failed' (insufficient nucleation/growth), intermediate dose should yield the metastable OSDA-templated target phase, and high dose should favor thermodynamically more stable or denser phases (e.g., transformation of FAU to denser phases, loss of layered MWW-type precursors to condensed products) or impurity mixtures.",
+              "knowledge_source": "both",
+              "mechanism": "Zeolite crystallization kinetics are thermally activated; the extent of reaction scales roughly with an integral of temperature-weighted time (analogous to an Arrhenius exposure). Nucleation requires a minimum thermal dose; once crystals form, continued hydrothermal exposure drives Ostwald ripening and solution-mediated phase transformation, because metastable zeolites dissolve when not in equilibrium with the mother liquor. Tree ensembles receive cryst_temp and cryst_time as separate columns and can only split on one at a time, so this exposure-like combination is not directly available to the model.",
+              "name": "thermal_dose",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "Failed",
+                "FAU",
+                "LTA",
+                "MWW",
+                "CHA"
+              ]
+            }
+          },
+          "response_id": "20261008230551944bd22c595d42a7",
+          "usage": {
+            "completion_tokens": 990,
+            "completion_tokens_details": {
+              "reasoning_tokens": 337
+            },
+            "prompt_tokens": 6254,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 7244
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes crystallization is approximately isothermal during the recorded cryst_time and that an Arrhenius-type product T*log(t) with T in Celsius is a serviceable proxy for the true time-temperature exposure integral (no activation energy is fitted; the Celsius offset is not physically exact but preserves ordering at fixed t). log10 compresses the wide range of crystallization times so that long runs do not dominate. This is a kinetic-severity proxy only: it ignores heating/cooling ramps, seeding, and gel composition effects already captured elsewhere.",
+        "evidence_ids": [
+          1,
+          5,
+          7
+        ],
+        "expected_effect": "As thermal_dose increases, 'Failed' outcomes should first decrease (gels cross the nucleation threshold) and then rise or shift toward dense/thermodynamically stable products at very high dose; metastable, low-temperature frameworks (FAU, LTA, layered MWW) should concentrate at intermediate dose, while refractory high-silica phases tolerate higher dose before transforming.",
+        "falsification": "If the product-phase distribution is essentially invariant when thermal_dose is varied while holding cryst_temp and cryst_time fixed within their observed ranges (i.e., the model gains no split quality from thermal_dose beyond the existing time and temperature columns), or if Failed and phase-transformed outcomes occur uniformly across the thermal_dose range, the hypothesis is contradicted.",
+        "formula": "cryst_temp * log10(cryst_time + 1.0)",
+        "hypothesis": "The product of crystallization temperature and the logarithm of crystallization time (an Arrhenius-inspired 'thermal dose') governs whether a gel reaches nucleation, fully crystallizes, or over-crystallizes into a secondary/dense phase. Recipes with low thermal dose should end in 'Failed' (insufficient nucleation/growth), intermediate dose should yield the metastable OSDA-templated target phase, and high dose should favor thermodynamically more stable or denser phases (e.g., transformation of FAU to denser phases, loss of layered MWW-type precursors to condensed products) or impurity mixtures.",
+        "knowledge_source": "both",
+        "mechanism": "Zeolite crystallization kinetics are thermally activated; the extent of reaction scales roughly with an integral of temperature-weighted time (analogous to an Arrhenius exposure). Nucleation requires a minimum thermal dose; once crystals form, continued hydrothermal exposure drives Ostwald ripening and solution-mediated phase transformation, because metastable zeolites dissolve when not in equilibrium with the mother liquor. Tree ensembles receive cryst_temp and cryst_time as separate columns and can only split on one at a time, so this exposure-like combination is not directly available to the model.",
+        "name": "thermal_dose",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "Failed",
+          "FAU",
+          "LTA",
+          "MWW",
+          "CHA"
+        ]
+      },
+      "evidence_bundle_hash": "928dba9bc192fa0713115b961cdf523a0be485beb3b3e498c5acdc8db61b28ac",
+      "evidence_items": 10,
+      "prompt_sha256": "1d24ab844aa592aafb032d8b634de6ee67525c497d775bd5ebbf63c23b6c6d66",
+      "round": 3,
+      "status": "appended"
+    }
+  ]
+}

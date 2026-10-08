@@ -1,0 +1,277 @@
+{
+  "appended": 3,
+  "config_sha256": "f3160bf000a8c1a21a22e20b077cca80631a15c0cfda16e755484a58d6c73c21",
+  "final_formulas": [
+    {
+      "formula": "OH / (H2O + 0.001)",
+      "name": "alkalinity_per_water"
+    },
+    {
+      "formula": "(osda_charge + 0.0) / (osda_volume + 0.001)",
+      "name": "osda_charge_density"
+    },
+    {
+      "formula": "(OH + F) / (Si + Ge + 0.001)",
+      "name": "mineralizer_per_tatom"
+    }
+  ],
+  "knowledge_sha256": "9e905434ff79e6f8be4f5523a9e509160da7edf103f99d8d0cd8c8c95319caea",
+  "label_feedback": false,
+  "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "profile": "zeosyn-direct-v1",
+  "reasoning_effort": "high",
+  "replicate": 9,
+  "seconds": 106.18151450157166,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "H2O",
+              "OH"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes the reported OH mole fraction reflects free hydroxide and that water is the dominant diluent controlling basicity; ignores buffering by OSDA deprotonation, cation hydrolysis (Na, K), and fluoride mineralization, which also alter effective alkalinity. The additive constant 0.001 only prevents division by zero in essentially anhydrous (e.g., solvent-free or fluoride) gels; for those records the descriptor saturates at a large value and is treated as 'very concentrated', which may misrepresent them.",
+              "evidence_ids": [],
+              "expected_effect": "As alkalinity_per_water increases, the probability mass should shift from high-silica phases (MFI, MTW, TON, MEL, *BEA) toward low-silica small-pore and cage-containing phases (CHA, AEI, LTA, FAU, LEV), with Failed becoming more frequent at both very low and very high values of the descriptor.",
+              "falsification": "The descriptor would be falsified if phase outcomes show no systematic dependence on OH/H2O when compared at fixed gel composition (e.g., MFI and FAU predictions remain uncorrelated with the descriptor across held-out publications), or if fluoride-mediated syntheses (where mineralizing role of OH- is replaced by F-) dominate the records so the descriptor carries no signal outside its near-zero range.",
+              "formula": "OH / (H2O + 0.001)",
+              "hypothesis": "The hydroxide-to-water ratio (alkalinity of the synthesis gel on a per-water basis) is a key phase-directing variable that is not available to the model from any single D0 column: two gels with identical OH mole fraction but different dilution behave as chemically different systems. I hypothesize that alkalinity_per_water separates low-silica, rapidly nucleating frameworks (FAU, LTA, CHA, AEI) from high-silica, slowly nucleating frameworks (MFI, MTW, TON, FER) and drives the outcome toward Failed at both extremes.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Hydroxide concentration relative to water sets the effective basicity of the aqueous medium: OH- deprotonates and depolymerizes silicate/aluminate species, controlling (i) the monomer/oligomer distribution in solution, (ii) the rate of nucleation versus crystal growth, and (iii) the degree of framework Si substitution. High alkalinity per water accelerates dissolution and nucleation, favoring open, low-framework-density structures that incorporate Al (FAU, LTA, CHA, AEL) and, at extreme values, dissolution/redissolution leading to Failed or dense phases. Low alkalinity per water favors condensed, high-silica frameworks (MFI, MTW, TON, MEL) and, when too low, incomplete crystallization (Failed). Because the model splits on single columns, it currently cannot distinguish 'high OH in a dilute gel' from 'high OH in a concentrated gel', even though these correspond to very different chemical potentials of dissolved silicate species.",
+              "name": "alkalinity_per_water",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "CHA",
+                "MFI",
+                "MTW",
+                "TON",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610082300429362051bc8df4833",
+          "usage": {
+            "completion_tokens": 1056,
+            "completion_tokens_details": {
+              "reasoning_tokens": 307
+            },
+            "prompt_tokens": 1619,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2675
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes the reported OH mole fraction reflects free hydroxide and that water is the dominant diluent controlling basicity; ignores buffering by OSDA deprotonation, cation hydrolysis (Na, K), and fluoride mineralization, which also alter effective alkalinity. The additive constant 0.001 only prevents division by zero in essentially anhydrous (e.g., solvent-free or fluoride) gels; for those records the descriptor saturates at a large value and is treated as 'very concentrated', which may misrepresent them.",
+        "evidence_ids": [],
+        "expected_effect": "As alkalinity_per_water increases, the probability mass should shift from high-silica phases (MFI, MTW, TON, MEL, *BEA) toward low-silica small-pore and cage-containing phases (CHA, AEI, LTA, FAU, LEV), with Failed becoming more frequent at both very low and very high values of the descriptor.",
+        "falsification": "The descriptor would be falsified if phase outcomes show no systematic dependence on OH/H2O when compared at fixed gel composition (e.g., MFI and FAU predictions remain uncorrelated with the descriptor across held-out publications), or if fluoride-mediated syntheses (where mineralizing role of OH- is replaced by F-) dominate the records so the descriptor carries no signal outside its near-zero range.",
+        "formula": "OH / (H2O + 0.001)",
+        "hypothesis": "The hydroxide-to-water ratio (alkalinity of the synthesis gel on a per-water basis) is a key phase-directing variable that is not available to the model from any single D0 column: two gels with identical OH mole fraction but different dilution behave as chemically different systems. I hypothesize that alkalinity_per_water separates low-silica, rapidly nucleating frameworks (FAU, LTA, CHA, AEI) from high-silica, slowly nucleating frameworks (MFI, MTW, TON, FER) and drives the outcome toward Failed at both extremes.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Hydroxide concentration relative to water sets the effective basicity of the aqueous medium: OH- deprotonates and depolymerizes silicate/aluminate species, controlling (i) the monomer/oligomer distribution in solution, (ii) the rate of nucleation versus crystal growth, and (iii) the degree of framework Si substitution. High alkalinity per water accelerates dissolution and nucleation, favoring open, low-framework-density structures that incorporate Al (FAU, LTA, CHA, AEL) and, at extreme values, dissolution/redissolution leading to Failed or dense phases. Low alkalinity per water favors condensed, high-silica frameworks (MFI, MTW, TON, MEL) and, when too low, incomplete crystallization (Failed). Because the model splits on single columns, it currently cannot distinguish 'high OH in a dilute gel' from 'high OH in a concentrated gel', even though these correspond to very different chemical potentials of dissolved silicate species.",
+        "name": "alkalinity_per_water",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "CHA",
+          "MFI",
+          "MTW",
+          "TON",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "0258220dfcf60dc540b76f821f685cde3a3580699a6fe5b267d7fd01671b0936",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "osda_charge",
+              "osda_volume"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The conformer volume is treated as the volume the OSDA occupies in the framework or gel, ignoring conformational compression and that a single conformer may not represent the occluded geometry. It assumes OSDA1 is the dominant structure-directing species even when multiple OSDAs or large inorganic cation contents are present (n_osda > 1 or high Na/K). For multicharged OSDAs the simple ratio ignores charge delocalization and hydration shells; for gels without OSDA the value is forced to 0, which conflates 'no OSDA' with 'zero charge density' rather than being a chemically meaningful charge density. Framework charge density itself is a gel/post-synthesis property not directly input here, so this descriptor is only a proxy for the charge-matching argument.",
+              "evidence_ids": [],
+              "expected_effect": "As osda_charge_density increases (small and/or multicharged OSDAs), predicted outcomes should shift from high-silica frameworks (*BEA, MFI, MTW, BEC) toward high-framework-charge-density frameworks (LTA, FAU, CHA, AEI, LEV), with Failed rising at extreme values where charge mismatch occurs; as it decreases (large, monocharged OSDAs), high-silica frameworks should be favored. Records with no OSDA (descriptor = 0) should behave like inorganic-cation-only syntheses and cluster with low-silica or Failed outcomes.",
+              "falsification": "If the descriptor adds no relevant information, no improvement in held-out-publication accuracy should occur. A direct chemical falsification would be observing that product framework charge density is uncorrelated with osda_charge_density across syntheses, e.g. bulky monocharged OSDAs routinely yielding low-silica frameworks like FAU/LTA while small charged OSDAs yield high-silica MFI/MTW under otherwise comparable gels, or that the OSDA is merely a pore-filling agent whose size and charge never correlate with the phase obtained.",
+              "formula": "(osda_charge + 0.0) / (osda_volume + 0.001)",
+              "hypothesis": "The formal charge of OSDA1 normalized by its conformer volume (charge density, e/Å^3) determines which framework charge density the gel can stabilize, and therefore steers the product between low-framework-charge-density (high-silica) phases and high-framework-charge-density (low-silica) phases. Two gels with the same OSDA volume but different charge (or the same charge but very different molecular size) are chemically different OSDA choices, yet the classifier currently only sees charge and volume as separate columns that a tree ensemble cannot combine into this per-molecule intensity quantity.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Organic structure-directing agents must electrostatically and geometrically match the charge density of the framework they stabilize: an OSDA of charge q occluded in a cavity of volume V contributes a cationic charge density q/V that must balance the anionic framework charge density set by the T-atom substitution (Al, B, Ge, etc.). Bulky, low-charge OSDAs (low q/V) compensate only sparse framework charge and therefore favor high-silica frameworks (MFI, *BEA, MTW, TON, UTL-type phases), while small or highly charged OSDAs (high q/V) fit dense cation populations and favor low-silica frameworks (LTA, FAU, CHA, AEI, LEV). If the OSDA charge density is mismatched to what the gel composition can supply, crystallization is poorly directed and amorphous/dense Failed outcomes or inorganic-cation-stabilized phases dominate.",
+              "name": "osda_charge_density",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "*BEA",
+                "MFI",
+                "MTW",
+                "UTL",
+                "BEC",
+                "CHA",
+                "AEI",
+                "LTA",
+                "FAU",
+                "LEV"
+              ]
+            }
+          },
+          "response_id": "2026100823010824207c9709194888",
+          "usage": {
+            "completion_tokens": 1511,
+            "completion_tokens_details": {
+              "reasoning_tokens": 630
+            },
+            "prompt_tokens": 1773,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3284
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The conformer volume is treated as the volume the OSDA occupies in the framework or gel, ignoring conformational compression and that a single conformer may not represent the occluded geometry. It assumes OSDA1 is the dominant structure-directing species even when multiple OSDAs or large inorganic cation contents are present (n_osda > 1 or high Na/K). For multicharged OSDAs the simple ratio ignores charge delocalization and hydration shells; for gels without OSDA the value is forced to 0, which conflates 'no OSDA' with 'zero charge density' rather than being a chemically meaningful charge density. Framework charge density itself is a gel/post-synthesis property not directly input here, so this descriptor is only a proxy for the charge-matching argument.",
+        "evidence_ids": [],
+        "expected_effect": "As osda_charge_density increases (small and/or multicharged OSDAs), predicted outcomes should shift from high-silica frameworks (*BEA, MFI, MTW, BEC) toward high-framework-charge-density frameworks (LTA, FAU, CHA, AEI, LEV), with Failed rising at extreme values where charge mismatch occurs; as it decreases (large, monocharged OSDAs), high-silica frameworks should be favored. Records with no OSDA (descriptor = 0) should behave like inorganic-cation-only syntheses and cluster with low-silica or Failed outcomes.",
+        "falsification": "If the descriptor adds no relevant information, no improvement in held-out-publication accuracy should occur. A direct chemical falsification would be observing that product framework charge density is uncorrelated with osda_charge_density across syntheses, e.g. bulky monocharged OSDAs routinely yielding low-silica frameworks like FAU/LTA while small charged OSDAs yield high-silica MFI/MTW under otherwise comparable gels, or that the OSDA is merely a pore-filling agent whose size and charge never correlate with the phase obtained.",
+        "formula": "(osda_charge + 0.0) / (osda_volume + 0.001)",
+        "hypothesis": "The formal charge of OSDA1 normalized by its conformer volume (charge density, e/Å^3) determines which framework charge density the gel can stabilize, and therefore steers the product between low-framework-charge-density (high-silica) phases and high-framework-charge-density (low-silica) phases. Two gels with the same OSDA volume but different charge (or the same charge but very different molecular size) are chemically different OSDA choices, yet the classifier currently only sees charge and volume as separate columns that a tree ensemble cannot combine into this per-molecule intensity quantity.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Organic structure-directing agents must electrostatically and geometrically match the charge density of the framework they stabilize: an OSDA of charge q occluded in a cavity of volume V contributes a cationic charge density q/V that must balance the anionic framework charge density set by the T-atom substitution (Al, B, Ge, etc.). Bulky, low-charge OSDAs (low q/V) compensate only sparse framework charge and therefore favor high-silica frameworks (MFI, *BEA, MTW, TON, UTL-type phases), while small or highly charged OSDAs (high q/V) fit dense cation populations and favor low-silica frameworks (LTA, FAU, CHA, AEI, LEV). If the OSDA charge density is mismatched to what the gel composition can supply, crystallization is poorly directed and amorphous/dense Failed outcomes or inorganic-cation-stabilized phases dominate.",
+        "name": "osda_charge_density",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "*BEA",
+          "MFI",
+          "MTW",
+          "UTL",
+          "BEC",
+          "CHA",
+          "AEI",
+          "LTA",
+          "FAU",
+          "LEV"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "76ab4d238b0c78edd931a3857ba38ce794fc62a50197a7f1795479b6d5cc3cdd",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "F",
+              "Ge",
+              "OH",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes OH- and F- can be summed as interchangeable mineralizing anions on a molar basis, which ignores their very different complexation chemistry (F- sequesters Si/Ge into fluoro complexes while OH- only depolymerizes); it assumes Si and Ge are the only framework-forming species worth normalizing against (Al, P, B, Ti etc. are excluded, which is a good proxy for aluminosilicates and germanosilicates but wrong for aluminophosphate gels where P should count); and it inherits the mole-fraction normalization, so the ratio depends on the full gel composition including water.",
+              "evidence_ids": [],
+              "expected_effect": "As mineralizer_per_tatom increases from very low values, products should move from Failed/undissolved-gel outcomes toward crystalline frameworks; at moderate-high alkaline values the low-silica fast-nucleating phases (FAU, LTA, CHA, AEI) should dominate; in the fluoride-dominated high-ratio branch (large F contribution relative to Si+Ge) the products should shift toward high-silica D4R-containing or large-pore frameworks (*BEA, ISV/BEC, MTW) and, at both extremes, toward Failed.",
+              "falsification": "If held-out publications show that phase selection (e.g., FAU vs MFI, or *BEA vs MTW) is independent of (OH + F)/(Si + Ge), or if the fluoride and hydroxide regimes produce the same frameworks at equal descriptor values while differing phases appear at equal values within one regime, the descriptor carries no phase-directing information and should be dropped.",
+              "formula": "(OH + F) / (Si + Ge + 0.001)",
+              "hypothesis": "The total mineralizer loading (hydroxide plus fluoride) per mole of framework-forming tetrahedral atoms (Si + Ge) controls how fast the solid framework dissolves and reprecipitates, and therefore which framework nucleates before the gel composition locks in a competing phase or amorphous material. Two gels with the same Si and OH mole fractions but different water content (or the same OH but different Si) are chemically distinct systems, yet the ensemble can only split on OH, F, Si and Ge as separate columns and cannot form this per-T-atom intensity. I hypothesize that mineralizer_per_tatom separates the alkaline, fast-nucleating regime (low-to-moderate values favoring low-silica frameworks such as FAU, LTA, CHA, AEI, and extremes driving Failed) from the fluoride-dominated, slow-dissolution regime (high F fraction values favoring high-silica D4R-containing or large-pore phases such as *BEA, ISV/BEC, MTW, AST-type products).",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "OH- attacks Si-O-Si and Si-O-Ge bridges, depolymerizing the gel and increasing the concentration of mobile silicate/germanate oligomers available for nucleation; F- forms fluoro-silicate and fluoro-germanate complexes (e.g. SiF6 2-, GeF6 2-) that lower monomer activity and slow nucleation, while F- can also act as an inorganic structure-directing agent that stabilizes double-four-ring (D4R) units, especially in Ge-bearing high-silica gels. The mineralizer-to-T ratio therefore sets both the dissolution/nucleation kinetics and whether the fluoride route (D4R-favoring, low framework charge density) or the hydroxide route (faster, higher framework charge density) dominates. Because mole fractions are normalized against all gel species including water, this ratio is not a monotone transform of any single D0 column: the same OH mole fraction with different Si or Ge content, or different dilution, changes the ratio and the expected phase field.",
+              "name": "mineralizer_per_tatom",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "CHA",
+                "AEI",
+                "*BEA",
+                "ISV",
+                "BEC",
+                "MTW",
+                "MFI",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008230145cdd78b52ca4e41d3",
+          "usage": {
+            "completion_tokens": 1789,
+            "completion_tokens_details": {
+              "reasoning_tokens": 851
+            },
+            "prompt_tokens": 1924,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3713
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes OH- and F- can be summed as interchangeable mineralizing anions on a molar basis, which ignores their very different complexation chemistry (F- sequesters Si/Ge into fluoro complexes while OH- only depolymerizes); it assumes Si and Ge are the only framework-forming species worth normalizing against (Al, P, B, Ti etc. are excluded, which is a good proxy for aluminosilicates and germanosilicates but wrong for aluminophosphate gels where P should count); and it inherits the mole-fraction normalization, so the ratio depends on the full gel composition including water.",
+        "evidence_ids": [],
+        "expected_effect": "As mineralizer_per_tatom increases from very low values, products should move from Failed/undissolved-gel outcomes toward crystalline frameworks; at moderate-high alkaline values the low-silica fast-nucleating phases (FAU, LTA, CHA, AEI) should dominate; in the fluoride-dominated high-ratio branch (large F contribution relative to Si+Ge) the products should shift toward high-silica D4R-containing or large-pore frameworks (*BEA, ISV/BEC, MTW) and, at both extremes, toward Failed.",
+        "falsification": "If held-out publications show that phase selection (e.g., FAU vs MFI, or *BEA vs MTW) is independent of (OH + F)/(Si + Ge), or if the fluoride and hydroxide regimes produce the same frameworks at equal descriptor values while differing phases appear at equal values within one regime, the descriptor carries no phase-directing information and should be dropped.",
+        "formula": "(OH + F) / (Si + Ge + 0.001)",
+        "hypothesis": "The total mineralizer loading (hydroxide plus fluoride) per mole of framework-forming tetrahedral atoms (Si + Ge) controls how fast the solid framework dissolves and reprecipitates, and therefore which framework nucleates before the gel composition locks in a competing phase or amorphous material. Two gels with the same Si and OH mole fractions but different water content (or the same OH but different Si) are chemically distinct systems, yet the ensemble can only split on OH, F, Si and Ge as separate columns and cannot form this per-T-atom intensity. I hypothesize that mineralizer_per_tatom separates the alkaline, fast-nucleating regime (low-to-moderate values favoring low-silica frameworks such as FAU, LTA, CHA, AEI, and extremes driving Failed) from the fluoride-dominated, slow-dissolution regime (high F fraction values favoring high-silica D4R-containing or large-pore phases such as *BEA, ISV/BEC, MTW, AST-type products).",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "OH- attacks Si-O-Si and Si-O-Ge bridges, depolymerizing the gel and increasing the concentration of mobile silicate/germanate oligomers available for nucleation; F- forms fluoro-silicate and fluoro-germanate complexes (e.g. SiF6 2-, GeF6 2-) that lower monomer activity and slow nucleation, while F- can also act as an inorganic structure-directing agent that stabilizes double-four-ring (D4R) units, especially in Ge-bearing high-silica gels. The mineralizer-to-T ratio therefore sets both the dissolution/nucleation kinetics and whether the fluoride route (D4R-favoring, low framework charge density) or the hydroxide route (faster, higher framework charge density) dominates. Because mole fractions are normalized against all gel species including water, this ratio is not a monotone transform of any single D0 column: the same OH mole fraction with different Si or Ge content, or different dilution, changes the ratio and the expected phase field.",
+        "name": "mineralizer_per_tatom",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "CHA",
+          "AEI",
+          "*BEA",
+          "ISV",
+          "BEC",
+          "MTW",
+          "MFI",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "5466cbdd9d0b0d91763962d00d1bbfd7ff5728590bd957893aa7af67339ba672",
+      "round": 3,
+      "status": "appended"
+    }
+  ]
+}

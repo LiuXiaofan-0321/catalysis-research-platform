@@ -1,0 +1,4 @@
+agent r2 round 1: OH / (H2O + 0.001)
+agent r2 round 2: Si / (Al + 0.001)
+agent r2 round 3: Ge / (Si + Al + P + Ge + 0.001)
+{"mode": "agent", "replicate": 2, "appended": 3, "formulas": ["OH / (H2O + 0.001)", "Si / (Al + 0.001)", "Ge / (Si + Al + P + Ge + 0.001)"]}

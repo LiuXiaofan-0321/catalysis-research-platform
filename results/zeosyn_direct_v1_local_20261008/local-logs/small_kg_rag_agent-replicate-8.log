@@ -1,0 +1,4 @@
+small_kg_rag_agent r8 round 1: (Na + K + Li + Rb + Cs) / (abs(osda_charge) * sda1 + 0.01)
+small_kg_rag_agent r8 round 2: F / (sda1 + 0.01)
+small_kg_rag_agent r8 round 3: cryst_time * exp(-6000.0 / (cryst_temp + 273.15))
+{"mode": "small_kg_rag_agent", "replicate": 8, "appended": 3, "formulas": ["(Na + K + Li + Rb + Cs) / (abs(osda_charge) * sda1 + 0.01)", "F / (sda1 + 0.01)", "cryst_time * exp(-6000.0 / (cryst_temp + 273.15))"]}

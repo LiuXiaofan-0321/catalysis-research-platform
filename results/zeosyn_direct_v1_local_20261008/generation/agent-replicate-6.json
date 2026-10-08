@@ -1,0 +1,292 @@
+{
+  "appended": 3,
+  "config_sha256": "f3160bf000a8c1a21a22e20b077cca80631a15c0cfda16e755484a58d6c73c21",
+  "final_formulas": [
+    {
+      "formula": "OH / (Si + Al + P + Ge + B + Ga + 0.005)",
+      "name": "alkalinity_per_tatom"
+    },
+    {
+      "formula": "H2O / (Si + Al + P + Ge + B + Ga + 0.005)",
+      "name": "water_to_tatom"
+    },
+    {
+      "formula": "F / (Si + Al + P + Ge + B + Ga + 0.005)",
+      "name": "fluoride_per_tatom"
+    }
+  ],
+  "knowledge_sha256": "9e905434ff79e6f8be4f5523a9e509160da7edf103f99d8d0cd8c8c95319caea",
+  "label_feedback": false,
+  "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "profile": "zeosyn-direct-v1",
+  "reasoning_effort": "high",
+  "replicate": 6,
+  "seconds": 70.20277810096741,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ga",
+              "Ge",
+              "OH",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes OH- measured in the gel approximates effective mineralizer activity (ignores buffering by cations, fluoride medium, and OSDA deprotonation). Treats Si+Al+P+Ge+B+Ga as the total framework T pool and ignores Ti, Zn, etc., which are minor. Denominator epsilon 0.005 prevents division by zero for essentially T-free gels. Fluoride route syntheses, where OH is low but mineralization proceeds via F-, will partially violate this proxy.",
+              "evidence_ids": [],
+              "expected_effect": "As alkalinity_per_tatom increases, probability mass should shift from Failed and high-silica phases (MFI, MTW, TON) toward low-silica open frameworks (FAU, LTA, CHA, MOR) and, at very high values, toward dense phases or Failed again (nonmonotonic for Failed, roughly monotonic for the framework-density ordering).",
+              "falsification": "If phase assignment is essentially independent of the OH/T ratio once D0 features are accounted for (no improvement in held-out accuracy, no frequent splits on this feature with consistent phase ordering), the hypothesis is contradicted. A monotone increase of Failed with alkalinity without the intermediate low-silica-to-dense-framework trend would also falsify the proposed mechanism.",
+              "formula": "OH / (Si + Al + P + Ge + B + Ga + 0.005)",
+              "hypothesis": "The hydroxide-to-tetrahedral-atom ratio (gel alkalinity per framework-forming T atom) controls nucleation rate and framework density, and therefore steers which framework crystallizes versus failure. Low alkalinity slows dissolution of amorphous precursors and favors high-silica, lower-density phases (MTW, MFI, TON) or Failed batches, while moderate-to-high alkalinity promotes dissolution-recombination and denser, lower Si/T frameworks (FAU, LTA, CHA, MOR, AEL) and can push synthesis toward dense phases or failure at extremes.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "OH- catalyzes Si-O-Si and Si-O-Al bond breaking, increasing the concentration of mobile silicate and aluminate oligomers. Higher OH/T raises supersaturation of soluble species, shortens induction time, increases nucleation density, and shifts equilibria toward less condensed (lower framework density) anionic frameworks stabilized by inorganic cations. It also governs whether Al is accommodated in the framework (aluminosilicates) versus excluded (pure-silica polymorphs). Because the model can only split on single mole-fraction columns, this emergent ratio is not currently accessible to the classifier.",
+              "name": "alkalinity_per_tatom",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "CHA",
+                "MOR",
+                "MFI",
+                "MTW",
+                "TON",
+                "AEL",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008225958012d2437012542bf",
+          "usage": {
+            "completion_tokens": 849,
+            "completion_tokens_details": {
+              "reasoning_tokens": 176
+            },
+            "prompt_tokens": 1619,
+            "prompt_tokens_details": {
+              "cached_tokens": 1600
+            },
+            "total_tokens": 2468
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes OH- measured in the gel approximates effective mineralizer activity (ignores buffering by cations, fluoride medium, and OSDA deprotonation). Treats Si+Al+P+Ge+B+Ga as the total framework T pool and ignores Ti, Zn, etc., which are minor. Denominator epsilon 0.005 prevents division by zero for essentially T-free gels. Fluoride route syntheses, where OH is low but mineralization proceeds via F-, will partially violate this proxy.",
+        "evidence_ids": [],
+        "expected_effect": "As alkalinity_per_tatom increases, probability mass should shift from Failed and high-silica phases (MFI, MTW, TON) toward low-silica open frameworks (FAU, LTA, CHA, MOR) and, at very high values, toward dense phases or Failed again (nonmonotonic for Failed, roughly monotonic for the framework-density ordering).",
+        "falsification": "If phase assignment is essentially independent of the OH/T ratio once D0 features are accounted for (no improvement in held-out accuracy, no frequent splits on this feature with consistent phase ordering), the hypothesis is contradicted. A monotone increase of Failed with alkalinity without the intermediate low-silica-to-dense-framework trend would also falsify the proposed mechanism.",
+        "formula": "OH / (Si + Al + P + Ge + B + Ga + 0.005)",
+        "hypothesis": "The hydroxide-to-tetrahedral-atom ratio (gel alkalinity per framework-forming T atom) controls nucleation rate and framework density, and therefore steers which framework crystallizes versus failure. Low alkalinity slows dissolution of amorphous precursors and favors high-silica, lower-density phases (MTW, MFI, TON) or Failed batches, while moderate-to-high alkalinity promotes dissolution-recombination and denser, lower Si/T frameworks (FAU, LTA, CHA, MOR, AEL) and can push synthesis toward dense phases or failure at extremes.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "OH- catalyzes Si-O-Si and Si-O-Al bond breaking, increasing the concentration of mobile silicate and aluminate oligomers. Higher OH/T raises supersaturation of soluble species, shortens induction time, increases nucleation density, and shifts equilibria toward less condensed (lower framework density) anionic frameworks stabilized by inorganic cations. It also governs whether Al is accommodated in the framework (aluminosilicates) versus excluded (pure-silica polymorphs). Because the model can only split on single mole-fraction columns, this emergent ratio is not currently accessible to the classifier.",
+        "name": "alkalinity_per_tatom",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "CHA",
+          "MOR",
+          "MFI",
+          "MTW",
+          "TON",
+          "AEL",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "0258220dfcf60dc540b76f821f685cde3a3580699a6fe5b267d7fd01671b0936",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ga",
+              "Ge",
+              "H2O",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The sum Si+Al+P+Ge+B+Ga+0.005 is used as a proxy for total framework-forming tetrahedral atoms, which ignores minor T elements (Ti, Zn, Sn, etc.) and treats all T atoms as equally framework-relevant; it also assumes the recorded H2O reflects the free synthesis water (not strongly bound to salts) and that publication-reported gel compositions are comparable across labs since evaluation is on unseen papers.",
+              "evidence_ids": [],
+              "expected_effect": "As water_to_tatom increases: probability of Failed, FAU, *BEA, MWW and other large-pore/low-density phases should rise, while probability of MFI, MOR, TON, FER and other compact frameworks should fall; at the extreme dilute end Failed should dominate.",
+              "falsification": "If the descriptor carries no phase-selective information, permuting or removing water_to_tatom from the fitted model will leave held-out-publication accuracy and per-class error rates for the listed frameworks statistically unchanged, and partial dependence will be flat (no monotone or threshold pattern in class probabilities vs water_to_tatom).",
+              "formula": "H2O / (Si + Al + P + Ge + B + Ga + 0.005)",
+              "hypothesis": "The water-to-tetrahedral-atom ratio (gel dilution) is an independent control on zeolite phase selectivity: dilute gels slow both nucleation and crystal growth, favoring lower-density or large-pore frameworks and amorphous 'Failed' outcomes, while concentrated gels promote fast nucleation of small-pore, dense frameworks. This information cannot be recovered by any single D0 column because the model sees H2O and T-atom fractions only as separate normalized values, and tree splits cannot form their ratio directly.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Water content sets the effective supersaturation and the chemical potential of dissolved silicate/aluminophosphate species. At high H2O/T, monomeric and oligomeric T species are more hydrated and less concentrated, crystal growth is diffusion-limited, and metastable large-pore or low-framework-density phases (FAU, *BEA, MWW, AFI) or incomplete crystallization (Failed) are favored. At low H2O/T, high local concentrations of T and hydroxide species accelerate nucleation and favor compact, dense frameworks (MFI, MOR, TON, FER, LTA) and dense byphases. Dilution also modulates the effective activity of OH- and OSDA per T atom beyond what alkalinity_per_tatom captures, because water competes for solvation of both cations and silicate anions.",
+              "name": "water_to_tatom",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "FAU",
+                "*BEA",
+                "MWW",
+                "AFI",
+                "MFI",
+                "MOR",
+                "TON",
+                "FER",
+                "LTA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008230020ceb52546b58f4d96",
+          "usage": {
+            "completion_tokens": 858,
+            "completion_tokens_details": {
+              "reasoning_tokens": 180
+            },
+            "prompt_tokens": 1780,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 2638
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The sum Si+Al+P+Ge+B+Ga+0.005 is used as a proxy for total framework-forming tetrahedral atoms, which ignores minor T elements (Ti, Zn, Sn, etc.) and treats all T atoms as equally framework-relevant; it also assumes the recorded H2O reflects the free synthesis water (not strongly bound to salts) and that publication-reported gel compositions are comparable across labs since evaluation is on unseen papers.",
+        "evidence_ids": [],
+        "expected_effect": "As water_to_tatom increases: probability of Failed, FAU, *BEA, MWW and other large-pore/low-density phases should rise, while probability of MFI, MOR, TON, FER and other compact frameworks should fall; at the extreme dilute end Failed should dominate.",
+        "falsification": "If the descriptor carries no phase-selective information, permuting or removing water_to_tatom from the fitted model will leave held-out-publication accuracy and per-class error rates for the listed frameworks statistically unchanged, and partial dependence will be flat (no monotone or threshold pattern in class probabilities vs water_to_tatom).",
+        "formula": "H2O / (Si + Al + P + Ge + B + Ga + 0.005)",
+        "hypothesis": "The water-to-tetrahedral-atom ratio (gel dilution) is an independent control on zeolite phase selectivity: dilute gels slow both nucleation and crystal growth, favoring lower-density or large-pore frameworks and amorphous 'Failed' outcomes, while concentrated gels promote fast nucleation of small-pore, dense frameworks. This information cannot be recovered by any single D0 column because the model sees H2O and T-atom fractions only as separate normalized values, and tree splits cannot form their ratio directly.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Water content sets the effective supersaturation and the chemical potential of dissolved silicate/aluminophosphate species. At high H2O/T, monomeric and oligomeric T species are more hydrated and less concentrated, crystal growth is diffusion-limited, and metastable large-pore or low-framework-density phases (FAU, *BEA, MWW, AFI) or incomplete crystallization (Failed) are favored. At low H2O/T, high local concentrations of T and hydroxide species accelerate nucleation and favor compact, dense frameworks (MFI, MOR, TON, FER, LTA) and dense byphases. Dilution also modulates the effective activity of OH- and OSDA per T atom beyond what alkalinity_per_tatom captures, because water competes for solvation of both cations and silicate anions.",
+        "name": "water_to_tatom",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "FAU",
+          "*BEA",
+          "MWW",
+          "AFI",
+          "MFI",
+          "MOR",
+          "TON",
+          "FER",
+          "LTA",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "660cea56c426f4fafb62805324994f2160b928faf59cb9450814629c928ea986",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "F",
+              "Ga",
+              "Ge",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Mole fraction of F in the normalized gel is used as a proxy for the actual fluoride mineralizer concentration; some recorded F may be present as ammonium fluoride (so it also contributes OH-equivalents) and some fluoride may be consumed by heteroatom complexation rather than acting as mineralizer. The denominator counts only the main framework-forming T atoms (Si, Al, P, Ge, B, Ga) and ignores minor heteroatoms (Ti, Zn, etc.), so gels dominated by rare heteroatoms will show an inflated ratio. The 0.005 constant avoids division by zero for essentially T-free gels.",
+              "evidence_ids": [],
+              "expected_effect": "As fluoride_per_tatom increases from 0, predictions should move from hydroxide-route outcomes (Failed, FAU, LTA, low-silica CHA, AEL) toward high-silica and D4R-containing frameworks (MFI, MTW, *BEA, TON, AST); at very high fluoride with low OH, slow crystallization should partly raise the 'Failed' probability for short cryst_time, which is testable against the time column the model already has.",
+              "falsification": "If held-out predictions show no systematic shift of phase labels as fluoride_per_tatom varies (e.g. FAU/LTA still dominate at high F/T and MFI/MTW/*BEA show no enrichment), or if fluoride-containing and fluoride-free gels with matched alkalinity and dilution behave identically, the mineralizer-route hypothesis is contradicted.",
+              "formula": "F / (Si + Al + P + Ge + B + Ga + 0.005)",
+              "hypothesis": "The fluoride-to-tetrahedral-atom ratio captures the strength of the fluoride mineralizing route, which is a fundamentally different crystallization pathway from the hydroxide route and selects for a distinct set of framework outcomes. Increasing F per framework-forming T atom should shift predictions away from conventional alkaline-route phases (FAU, LTA, low-silica CHA, AEL) toward high-silica, defect-poor frameworks typically grown in fluoride media (MFI, MTW, *BEA, TON, and F-specific phases such as AST and -CLO), while intermediate fluoride levels with high silica should reduce the 'Failed' rate relative to gels that have neither enough OH nor enough F to mineralize.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Fluoride acts as a weaker, more selective mineralizer than hydroxide: it complexes Si and heteroatoms (forming e.g. SiF6 2- and octahedral Al/Ga complexes), slows dissolution-reconversion, suppresses nucleation density, and enables near-neutral crystallization of pure-silica and high-silica frameworks that are metastable in strongly basic media. Fluoride also preferentially stabilizes double-ring (D4R/D3R) building units by sitting inside their cages (e.g. in *BEA, AST, LTA-derived germanosilicates), so gels with high fluoride-to-T ratios and available Ge or Si disproportionately access frameworks built from D4R units. Because F and the T-atom fractions are separate normalized columns in D0, a tree ensemble cannot form their ratio; the ratio also cannot be recovered from the already-appended alkalinity and dilution descriptors, which use OH and H2O.",
+              "name": "fluoride_per_tatom",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "MFI",
+                "MTW",
+                "*BEA",
+                "TON",
+                "AST",
+                "CHA",
+                "FAU",
+                "LTA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "2026100823003930090255f9f84894",
+          "usage": {
+            "completion_tokens": 1194,
+            "completion_tokens_details": {
+              "reasoning_tokens": 385
+            },
+            "prompt_tokens": 1921,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3115
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Mole fraction of F in the normalized gel is used as a proxy for the actual fluoride mineralizer concentration; some recorded F may be present as ammonium fluoride (so it also contributes OH-equivalents) and some fluoride may be consumed by heteroatom complexation rather than acting as mineralizer. The denominator counts only the main framework-forming T atoms (Si, Al, P, Ge, B, Ga) and ignores minor heteroatoms (Ti, Zn, etc.), so gels dominated by rare heteroatoms will show an inflated ratio. The 0.005 constant avoids division by zero for essentially T-free gels.",
+        "evidence_ids": [],
+        "expected_effect": "As fluoride_per_tatom increases from 0, predictions should move from hydroxide-route outcomes (Failed, FAU, LTA, low-silica CHA, AEL) toward high-silica and D4R-containing frameworks (MFI, MTW, *BEA, TON, AST); at very high fluoride with low OH, slow crystallization should partly raise the 'Failed' probability for short cryst_time, which is testable against the time column the model already has.",
+        "falsification": "If held-out predictions show no systematic shift of phase labels as fluoride_per_tatom varies (e.g. FAU/LTA still dominate at high F/T and MFI/MTW/*BEA show no enrichment), or if fluoride-containing and fluoride-free gels with matched alkalinity and dilution behave identically, the mineralizer-route hypothesis is contradicted.",
+        "formula": "F / (Si + Al + P + Ge + B + Ga + 0.005)",
+        "hypothesis": "The fluoride-to-tetrahedral-atom ratio captures the strength of the fluoride mineralizing route, which is a fundamentally different crystallization pathway from the hydroxide route and selects for a distinct set of framework outcomes. Increasing F per framework-forming T atom should shift predictions away from conventional alkaline-route phases (FAU, LTA, low-silica CHA, AEL) toward high-silica, defect-poor frameworks typically grown in fluoride media (MFI, MTW, *BEA, TON, and F-specific phases such as AST and -CLO), while intermediate fluoride levels with high silica should reduce the 'Failed' rate relative to gels that have neither enough OH nor enough F to mineralize.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Fluoride acts as a weaker, more selective mineralizer than hydroxide: it complexes Si and heteroatoms (forming e.g. SiF6 2- and octahedral Al/Ga complexes), slows dissolution-reconversion, suppresses nucleation density, and enables near-neutral crystallization of pure-silica and high-silica frameworks that are metastable in strongly basic media. Fluoride also preferentially stabilizes double-ring (D4R/D3R) building units by sitting inside their cages (e.g. in *BEA, AST, LTA-derived germanosilicates), so gels with high fluoride-to-T ratios and available Ge or Si disproportionately access frameworks built from D4R units. Because F and the T-atom fractions are separate normalized columns in D0, a tree ensemble cannot form their ratio; the ratio also cannot be recovered from the already-appended alkalinity and dilution descriptors, which use OH and H2O.",
+        "name": "fluoride_per_tatom",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "MFI",
+          "MTW",
+          "*BEA",
+          "TON",
+          "AST",
+          "CHA",
+          "FAU",
+          "LTA",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "be111f02448e304d077de619e30a7deed2950866f2ee6b5eebff5137ae86b5bd",
+      "round": 3,
+      "status": "appended"
+    }
+  ]
+}

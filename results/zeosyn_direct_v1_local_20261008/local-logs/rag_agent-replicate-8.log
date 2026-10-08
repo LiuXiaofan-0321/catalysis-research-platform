@@ -1,0 +1,4 @@
+rag_agent r8 round 1: (Na + K + Li + Rb + Cs + 2 * (Ca + Sr + Ba) + sda1 * abs(osda_charge) + 1e-6) / (Al + Ga + B + 1e-6)
+rag_agent r8 round 2: (F + 1e-6) / (sda1 * abs(osda_charge) + Na + K + Li + Rb + Cs + 1e-6)
+rag_agent r8 round 3: cryst_time * exp(-60000.0 / (8.314 * (cryst_temp + 273.15)))
+{"mode": "rag_agent", "replicate": 8, "appended": 3, "formulas": ["(Na + K + Li + Rb + Cs + 2 * (Ca + Sr + Ba) + sda1 * abs(osda_charge) + 1e-6) / (Al + Ga + B + 1e-6)", "(F + 1e-6) / (sda1 * abs(osda_charge) + Na + K + Li + Rb + Cs + 1e-6)", "cryst_time * exp(-60000.0 / (8.314 * (cryst_temp + 273.15)))"]}

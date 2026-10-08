@@ -1,0 +1,4 @@
+rag_agent r10 round 1: (sda1 * (osda_charge + 0.0)) / (Al + 0.005)
+rag_agent r10 round 2: (F + 0.0) / (sda1 + 0.001)
+rag_agent r10 round 3: H2O / (Si + Ge + Al + P + 0.01)
+{"mode": "rag_agent", "replicate": 10, "appended": 3, "formulas": ["(sda1 * (osda_charge + 0.0)) / (Al + 0.005)", "(F + 0.0) / (sda1 + 0.001)", "H2O / (Si + Ge + Al + P + 0.01)"]}

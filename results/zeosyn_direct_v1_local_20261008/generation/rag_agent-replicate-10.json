@@ -1,0 +1,295 @@
+{
+  "appended": 3,
+  "config_sha256": "f3160bf000a8c1a21a22e20b077cca80631a15c0cfda16e755484a58d6c73c21",
+  "final_formulas": [
+    {
+      "formula": "(sda1 * (osda_charge + 0.0)) / (Al + 0.005)",
+      "name": "osda_charge_to_al_ratio"
+    },
+    {
+      "formula": "(F + 0.0) / (sda1 + 0.001)",
+      "name": "fluoride_to_osda_ratio"
+    },
+    {
+      "formula": "H2O / (Si + Ge + Al + P + 0.01)",
+      "name": "gel_dilution_h2o_per_tgo"
+    }
+  ],
+  "knowledge_sha256": "9e905434ff79e6f8be4f5523a9e509160da7edf103f99d8d0cd8c8c95319caea",
+  "label_feedback": false,
+  "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+  "mode": "rag_agent",
+  "model": "glm-5.3-flash",
+  "profile": "zeosyn-direct-v1",
+  "reasoning_effort": "high",
+  "replicate": 10,
+  "seconds": 74.5942268371582,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "osda_charge",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Gel Al mole fraction is assumed proportional to incorporated framework Al (ignores Al loss to dense byphases or incomplete incorporation); osda_charge is a formal charge proxy for actual protonation state in solution; the 0.005 offset caps the descriptor at ~200*OSDA_charge for Al-free gels, deliberately treating 'no Al' as 'maximum mismatch' rather than a separate regime; fluoride-mediated syntheses, where F- rather than Al balances charge, are an exception this proxy does not separate.",
+              "evidence_ids": [
+                1,
+                3,
+                6,
+                4
+              ],
+              "expected_effect": "As the descriptor increases from 0 toward ~1, outcome probability should shift from alkali-directed low-silica phases (LTA, FAU) toward OSDA-templated aluminosilicates (MFI, *BEA, CHA, MTW, MWW); very large values (OSDA-rich, Al-free gels) should favor high-silica phases or Failed.",
+              "falsification": "If product phase distributions are statistically indistinguishable across wide ranges of sda1*osda_charge/Al (e.g., MFI forms equally at ratios of 0.1 and 10), or if alkali-directed phases appear just as often at high ratios, the charge-matching hypothesis is contradicted.",
+              "formula": "(sda1 * (osda_charge + 0.0)) / (Al + 0.005)",
+              "hypothesis": "The ratio of cationic charge supplied by OSDA1 to the amount of aluminum in the gel (a proxy for framework negative charge density) determines whether the OSDA can act as an efficient, charge-matched template. When the OSDA charge roughly matches the Al available to compensate it, OSDA-templated frameworks (e.g., MFI, *BEA, CHA, MTW, MWW) are favored; when the ratio is very high (large OSDA charge, little Al) all-silica/defect-templated phases or failure dominate; when the ratio is near zero (no OSDA or Al-rich gels) inorganic-cation-directed low-silica phases (LTA, FAU, and Failed) dominate.",
+              "knowledge_source": "both",
+              "mechanism": "Cationic OSDAs stabilize anionic framework charges and silicate defect sites via Coulombic interactions; NMR studies of as-made Al-ZSM-12 and all-silica zeolites show strong SDA-Al / SDA-defect charge ordering, and charge-density-mismatch concepts control which topology crystallizes at fixed composition. A per-gel quantity like OSDA charge per Al is an emergent ratio of two D0 columns and therefore cannot be accessed by a tree ensemble splitting on single columns. Low ratios imply Na+/K+-mediated structure direction (alkali-templated small-pore and low-silica frameworks), intermediate ratios imply genuine OSDA-Al templating, and very high ratios imply OSDA templating of siliceous frameworks where defects or fluoride (not Al) carry the compensating charge.",
+              "name": "osda_charge_to_al_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "MFI",
+                "*BEA",
+                "CHA",
+                "MTW",
+                "MWW",
+                "LTA",
+                "FAU",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610082304063cb6594d1b124112",
+          "usage": {
+            "completion_tokens": 942,
+            "completion_tokens_details": {
+              "reasoning_tokens": 189
+            },
+            "prompt_tokens": 6617,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 7559
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Gel Al mole fraction is assumed proportional to incorporated framework Al (ignores Al loss to dense byphases or incomplete incorporation); osda_charge is a formal charge proxy for actual protonation state in solution; the 0.005 offset caps the descriptor at ~200*OSDA_charge for Al-free gels, deliberately treating 'no Al' as 'maximum mismatch' rather than a separate regime; fluoride-mediated syntheses, where F- rather than Al balances charge, are an exception this proxy does not separate.",
+        "evidence_ids": [
+          1,
+          3,
+          4,
+          6
+        ],
+        "expected_effect": "As the descriptor increases from 0 toward ~1, outcome probability should shift from alkali-directed low-silica phases (LTA, FAU) toward OSDA-templated aluminosilicates (MFI, *BEA, CHA, MTW, MWW); very large values (OSDA-rich, Al-free gels) should favor high-silica phases or Failed.",
+        "falsification": "If product phase distributions are statistically indistinguishable across wide ranges of sda1*osda_charge/Al (e.g., MFI forms equally at ratios of 0.1 and 10), or if alkali-directed phases appear just as often at high ratios, the charge-matching hypothesis is contradicted.",
+        "formula": "(sda1 * (osda_charge + 0.0)) / (Al + 0.005)",
+        "hypothesis": "The ratio of cationic charge supplied by OSDA1 to the amount of aluminum in the gel (a proxy for framework negative charge density) determines whether the OSDA can act as an efficient, charge-matched template. When the OSDA charge roughly matches the Al available to compensate it, OSDA-templated frameworks (e.g., MFI, *BEA, CHA, MTW, MWW) are favored; when the ratio is very high (large OSDA charge, little Al) all-silica/defect-templated phases or failure dominate; when the ratio is near zero (no OSDA or Al-rich gels) inorganic-cation-directed low-silica phases (LTA, FAU, and Failed) dominate.",
+        "knowledge_source": "both",
+        "mechanism": "Cationic OSDAs stabilize anionic framework charges and silicate defect sites via Coulombic interactions; NMR studies of as-made Al-ZSM-12 and all-silica zeolites show strong SDA-Al / SDA-defect charge ordering, and charge-density-mismatch concepts control which topology crystallizes at fixed composition. A per-gel quantity like OSDA charge per Al is an emergent ratio of two D0 columns and therefore cannot be accessed by a tree ensemble splitting on single columns. Low ratios imply Na+/K+-mediated structure direction (alkali-templated small-pore and low-silica frameworks), intermediate ratios imply genuine OSDA-Al templating, and very high ratios imply OSDA templating of siliceous frameworks where defects or fluoride (not Al) carry the compensating charge.",
+        "name": "osda_charge_to_al_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "MFI",
+          "*BEA",
+          "CHA",
+          "MTW",
+          "MWW",
+          "LTA",
+          "FAU",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": "7d6d934cfbd9f038cd5edaad6a1bade84591a847c16e75a8a904e9a3e5015f79",
+      "evidence_items": 9,
+      "prompt_sha256": "9412f981627a63fb590fc059314112571dec51248ceafa77e4c7f9e9d24b0b3d",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "F",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The descriptor assumes reported F corresponds to HF-equivalent fluoride activity and that sda1 mole fraction scales its molar amount (single-charge OSDAs dominate), so the ratio approximates HF/OSDA. It ignores additional Na/K/OH fluoride sources, pH, and water content, which modulate the same chemistry; neutral OSDAs (charge 0) still consume F only weakly, diluting the interpretation. Gels with no OSDA get a very large or undefined ratio (dominated by the 0.001 guard), which is acceptable only if those records are already separated by other features.",
+              "evidence_ids": [
+                2,
+                3
+              ],
+              "expected_effect": "As the ratio increases from 0 toward ~1, fluoride-route phases (*BEA, BEC, MTW, CHA) become favored over hydroxide-route phases and Failed; at very low ratios (<~0.3) pure-silica/low-F gels tend to Failed or MFI; at ratios well above 1 (excess fluoride), small-pore frameworks (FER, AEL, chabazite-family) and novel/high-silica phases are favored over BEC/*BEA.",
+              "falsification": "If product phase distribution is essentially invariant across a wide range of F/(sda1+0.001) at fixed OSDA identity and Si/Al (i.e., the descriptor contributes no split importance in the forest), or if the same framework appears at both extreme low and high ratios while distinct phases occupy the intermediate range in a way inconsistent with the monotone-then-shift pattern, the hypothesis is contradicted.",
+              "formula": "(F + 0.0) / (sda1 + 0.001)",
+              "hypothesis": "The molar ratio of fluoride to OSDA1 in the gel is a primary phase-selectivity lever in organic-directed syntheses: near stoichiometric HF/OSDA (~1) under low-water conditions favors pure-silica, high-silica or Ge-containing open frameworks crystallized via the fluoride route, whereas excess fluoride (>1) shifts selectivity toward small-cage/low-SiO2-framework phases and sub-stoichiometric fluoride (<~0.5) leaves pure-silica gels amorphous or drives MFI-type products under basic/neutral media.",
+              "knowledge_source": "both",
+              "mechanism": "Fluoride acts as both a mineralizing agent and a structure-directing anion: at ~1 F per OSDA cation, F- is compensated by the OSDA and can be occluded in small cages or double-4-ring units, stabilizing open frameworks (BEC, *BEA, MTW, CHA) at low water content where hydroxide routes fail. With F below stoichiometry, the OSDA must be charge-balanced by framework AlO4- or connectivity defects instead; Al-bearing gels then form OSDA-templated phases (e.g., beta or ZSM-5) while pure-silica gels remain amorphous (evidence [2]). With large F excess, fluoride saturates small cages and competes with heteroatom incorporation, diverting crystallization to small-pore or previously unobserved frameworks (e.g., ERS-7 at HF/Ch = 2.0 vs FER at HF/Ch <= 1.0, evidence [3]).",
+              "name": "fluoride_to_osda_ratio",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "*BEA",
+                "BEC",
+                "MFI",
+                "MTW",
+                "CHA",
+                "FER",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008230428a92254f4b8ac4b32",
+          "usage": {
+            "completion_tokens": 1340,
+            "completion_tokens_details": {
+              "reasoning_tokens": 535
+            },
+            "prompt_tokens": 7090,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 8430
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The descriptor assumes reported F corresponds to HF-equivalent fluoride activity and that sda1 mole fraction scales its molar amount (single-charge OSDAs dominate), so the ratio approximates HF/OSDA. It ignores additional Na/K/OH fluoride sources, pH, and water content, which modulate the same chemistry; neutral OSDAs (charge 0) still consume F only weakly, diluting the interpretation. Gels with no OSDA get a very large or undefined ratio (dominated by the 0.001 guard), which is acceptable only if those records are already separated by other features.",
+        "evidence_ids": [
+          2,
+          3
+        ],
+        "expected_effect": "As the ratio increases from 0 toward ~1, fluoride-route phases (*BEA, BEC, MTW, CHA) become favored over hydroxide-route phases and Failed; at very low ratios (<~0.3) pure-silica/low-F gels tend to Failed or MFI; at ratios well above 1 (excess fluoride), small-pore frameworks (FER, AEL, chabazite-family) and novel/high-silica phases are favored over BEC/*BEA.",
+        "falsification": "If product phase distribution is essentially invariant across a wide range of F/(sda1+0.001) at fixed OSDA identity and Si/Al (i.e., the descriptor contributes no split importance in the forest), or if the same framework appears at both extreme low and high ratios while distinct phases occupy the intermediate range in a way inconsistent with the monotone-then-shift pattern, the hypothesis is contradicted.",
+        "formula": "(F + 0.0) / (sda1 + 0.001)",
+        "hypothesis": "The molar ratio of fluoride to OSDA1 in the gel is a primary phase-selectivity lever in organic-directed syntheses: near stoichiometric HF/OSDA (~1) under low-water conditions favors pure-silica, high-silica or Ge-containing open frameworks crystallized via the fluoride route, whereas excess fluoride (>1) shifts selectivity toward small-cage/low-SiO2-framework phases and sub-stoichiometric fluoride (<~0.5) leaves pure-silica gels amorphous or drives MFI-type products under basic/neutral media.",
+        "knowledge_source": "both",
+        "mechanism": "Fluoride acts as both a mineralizing agent and a structure-directing anion: at ~1 F per OSDA cation, F- is compensated by the OSDA and can be occluded in small cages or double-4-ring units, stabilizing open frameworks (BEC, *BEA, MTW, CHA) at low water content where hydroxide routes fail. With F below stoichiometry, the OSDA must be charge-balanced by framework AlO4- or connectivity defects instead; Al-bearing gels then form OSDA-templated phases (e.g., beta or ZSM-5) while pure-silica gels remain amorphous (evidence [2]). With large F excess, fluoride saturates small cages and competes with heteroatom incorporation, diverting crystallization to small-pore or previously unobserved frameworks (e.g., ERS-7 at HF/Ch = 2.0 vs FER at HF/Ch <= 1.0, evidence [3]).",
+        "name": "fluoride_to_osda_ratio",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "*BEA",
+          "BEC",
+          "MFI",
+          "MTW",
+          "CHA",
+          "FER",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": "60cee3f447f0a292415c2de935b21a160b3c07a65782764647609303c264e04d",
+      "evidence_items": 8,
+      "prompt_sha256": "b3d4c5b2c085ee3d20abe0980944767dae300f15129eba9303bdb2c8155fe65f",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Ge",
+              "H2O",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The mole-fraction sum is a proxy for gel concentration since the dataset normalizes all species to 1, so H2O/(Si+Ge+Al+P) approximates H2O/SiO2-type ratios used in the literature. It ignores the identity of heteroatoms other than Ge, Al, P and the role of OSDA mass as a diluent; it also cannot distinguish vapor-phase/dry-gel conversions where free water is minimal. The 0.01 constant avoids division by zero for non-oxide (e.g., phosphate-only) gels.",
+              "evidence_ids": [
+                10,
+                2,
+                6
+              ],
+              "expected_effect": "As the descriptor increases (dilution), selectivity shifts from open/pure-silica frameworks (*BEA, BEC, ISV) toward denser frameworks (MTW, MFI), and with very high dilution in inorganic systems toward dense phases (FAU/LTA-type or Failed); as it decreases (concentrated gels), open-framework and fluoride-route phases are favored.",
+              "falsification": "If, within a fixed OSDA/fluoride chemistry, phase identity (e.g., *BEA vs MTW) shows no consistent shift as the descriptor varies, or if dilute gels produce open frameworks as often as concentrated gels do in this dataset, the concentration-control hypothesis is contradicted.",
+              "formula": "H2O / (Si + Ge + Al + P + 0.01)",
+              "hypothesis": "The water-to-framework-forming-elements ratio (an inverse gel concentration) is a primary phase-selectivity lever: concentrated gels (low H2O/T) crystallize open, low-framework-density phases and pure-silica fluoride-route frameworks, while dilute gels (high H2O/T) favor denser frameworks, thermodynamically more stable phases, and inorganic-cation-directed products or amorphous/failed outcomes.",
+              "knowledge_source": "both",
+              "mechanism": "Gel concentration controls supersaturation of soluble Si/Al/P/Ge species and therefore the nucleation mechanism. In fluoride media, highly concentrated (near solvent-free) gels give high local supersaturation where metastable, low-framework-density open frameworks (e.g., *BEA-type) nucleate faster than denser phases (Ostwald step rule); more dilute gels with higher water activity lower supersaturation, slow nucleation, and let the thermodynamically denser phase (e.g., MTW/ZSM-12-type) dominate. High water content also promotes hydrolysis, dissolution-reprecipitation, and Ostwald ripening toward denser or more stable phases, and in strongly alkaline Na-rich gels drives denser/small-pore phases. Trees can split on this single engineered ratio directly, which no individual mole-fraction column in D0 encodes.",
+              "name": "gel_dilution_h2o_per_tgo",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "*BEA",
+                "BEC",
+                "ISV",
+                "MTW",
+                "MFI",
+                "FAU",
+                "LTA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610082304597a07377195304b91",
+          "usage": {
+            "completion_tokens": 1046,
+            "completion_tokens_details": {
+              "reasoning_tokens": 336
+            },
+            "prompt_tokens": 7088,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 8134
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The mole-fraction sum is a proxy for gel concentration since the dataset normalizes all species to 1, so H2O/(Si+Ge+Al+P) approximates H2O/SiO2-type ratios used in the literature. It ignores the identity of heteroatoms other than Ge, Al, P and the role of OSDA mass as a diluent; it also cannot distinguish vapor-phase/dry-gel conversions where free water is minimal. The 0.01 constant avoids division by zero for non-oxide (e.g., phosphate-only) gels.",
+        "evidence_ids": [
+          2,
+          6,
+          10
+        ],
+        "expected_effect": "As the descriptor increases (dilution), selectivity shifts from open/pure-silica frameworks (*BEA, BEC, ISV) toward denser frameworks (MTW, MFI), and with very high dilution in inorganic systems toward dense phases (FAU/LTA-type or Failed); as it decreases (concentrated gels), open-framework and fluoride-route phases are favored.",
+        "falsification": "If, within a fixed OSDA/fluoride chemistry, phase identity (e.g., *BEA vs MTW) shows no consistent shift as the descriptor varies, or if dilute gels produce open frameworks as often as concentrated gels do in this dataset, the concentration-control hypothesis is contradicted.",
+        "formula": "H2O / (Si + Ge + Al + P + 0.01)",
+        "hypothesis": "The water-to-framework-forming-elements ratio (an inverse gel concentration) is a primary phase-selectivity lever: concentrated gels (low H2O/T) crystallize open, low-framework-density phases and pure-silica fluoride-route frameworks, while dilute gels (high H2O/T) favor denser frameworks, thermodynamically more stable phases, and inorganic-cation-directed products or amorphous/failed outcomes.",
+        "knowledge_source": "both",
+        "mechanism": "Gel concentration controls supersaturation of soluble Si/Al/P/Ge species and therefore the nucleation mechanism. In fluoride media, highly concentrated (near solvent-free) gels give high local supersaturation where metastable, low-framework-density open frameworks (e.g., *BEA-type) nucleate faster than denser phases (Ostwald step rule); more dilute gels with higher water activity lower supersaturation, slow nucleation, and let the thermodynamically denser phase (e.g., MTW/ZSM-12-type) dominate. High water content also promotes hydrolysis, dissolution-reprecipitation, and Ostwald ripening toward denser or more stable phases, and in strongly alkaline Na-rich gels drives denser/small-pore phases. Trees can split on this single engineered ratio directly, which no individual mole-fraction column in D0 encodes.",
+        "name": "gel_dilution_h2o_per_tgo",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "*BEA",
+          "BEC",
+          "ISV",
+          "MTW",
+          "MFI",
+          "FAU",
+          "LTA",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": "f8e265fa4d624077e200b862fb346ce51259b79edd2f74969206e5b71d131ec1",
+      "evidence_items": 10,
+      "prompt_sha256": "eee92b5fe78bf9da412957984cc7ac6521460c00f15cc691bb00c6def7f7cdc7",
+      "round": 3,
+      "status": "appended"
+    }
+  ]
+}

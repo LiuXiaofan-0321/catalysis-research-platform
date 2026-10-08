@@ -1,0 +1,4 @@
+agent r5 round 1: (F - OH) / (F + OH + Na + K + 1e-6)
+agent r5 round 2: Si / (Si + Al + P + 1e-6)
+agent r5 round 3: (Ge + Ti + B + Zn + Sn + Ga) / (Si + Al + P + Ge + Ti + B + Zn + Sn + Ga + 1e-6)
+{"mode": "agent", "replicate": 5, "appended": 3, "formulas": ["(F - OH) / (F + OH + Na + K + 1e-6)", "Si / (Si + Al + P + 1e-6)", "(Ge + Ti + B + Zn + Sn + Ga) / (Si + Al + P + Ge + Ti + B + Zn + Sn + Ga + 1e-6)"]}

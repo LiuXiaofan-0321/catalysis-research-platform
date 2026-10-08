@@ -1,0 +1,24 @@
+{
+  "started_at": "2026-10-08T22:58:54+08:00",
+  "code_commit": "3bfc543b8cc89439bfb76f0c6407f3d328ca8902",
+  "run_dir": "runs/zeosyn-local-v1-20261008",
+  "model": "glm-5.3-flash",
+  "generation_workers": 5,
+  "rf_jobs": 8,
+  "expected_trajectories": 30,
+  "rounds_per_trajectory": 3,
+  "status": "complete",
+  "credentials": "process memory only",
+  "prepared_sources": ".local-knowledge/knowledge-zeolite-v1-20261008/local-validation.json",
+  "finished_at": "2026-10-08T23:12:36.737725+08:00",
+  "generated": 30,
+  "evaluated": 30,
+  "failed_slots": 0,
+  "recorded_generation_usage": {
+    "prompt_tokens": 454567,
+    "completion_tokens": 122121,
+    "total_tokens": 576688
+  },
+  "validation": "hashes, all 30 trajectories, five-seed evaluations, no credential-pattern matches",
+  "elapsed_seconds": 822.0
+}

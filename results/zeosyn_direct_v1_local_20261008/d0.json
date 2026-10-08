@@ -1,0 +1,57 @@
+{
+  "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+  "mean": {
+    "accuracy": 0.43314415437003406,
+    "balanced_accuracy": 0.3424119687675331,
+    "macro_f1": 0.31122416330749564
+  },
+  "per_seed": [
+    {
+      "accuracy": 0.4342792281498297,
+      "balanced_accuracy": 0.3385697166374094,
+      "macro_f1": 0.31380735694539474,
+      "macro_f1_report": 0.2905623675420323,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 3
+    },
+    {
+      "accuracy": 0.43178206583427925,
+      "balanced_accuracy": 0.3398294658394407,
+      "macro_f1": 0.3082413059515039,
+      "macro_f1_report": 0.28124206747399993,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 7
+    },
+    {
+      "accuracy": 0.4342792281498297,
+      "balanced_accuracy": 0.3485409544338885,
+      "macro_f1": 0.3158025209524566,
+      "macro_f1_report": 0.2945919038735602,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 11
+    },
+    {
+      "accuracy": 0.43269012485811575,
+      "balanced_accuracy": 0.3377009815724876,
+      "macro_f1": 0.30478070524392264,
+      "macro_f1_report": 0.280129324672723,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 17
+    },
+    {
+      "accuracy": 0.43269012485811575,
+      "balanced_accuracy": 0.3474187253544393,
+      "macro_f1": 0.3134889274442003,
+      "macro_f1_report": 0.2881332053715076,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 23
+    }
+  ],
+  "profile": "zeosyn-direct-v1",
+  "seconds": 5.649598836898804
+}

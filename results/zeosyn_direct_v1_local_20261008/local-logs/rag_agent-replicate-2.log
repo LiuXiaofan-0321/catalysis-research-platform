@@ -1,0 +1,4 @@
+rag_agent r2 round 1: (osda_charge * sda1) / (Al + 0.001)
+rag_agent r2 round 2: F / (sda1 + 0.001)
+rag_agent r2 round 3: cryst_time * exp(-9000.0 * (1.0/(cryst_temp + 273.15) - 1.0/423.15))
+{"mode": "rag_agent", "replicate": 2, "appended": 3, "formulas": ["(osda_charge * sda1) / (Al + 0.001)", "F / (sda1 + 0.001)", "cryst_time * exp(-9000.0 * (1.0/(cryst_temp + 273.15) - 1.0/423.15))"]}

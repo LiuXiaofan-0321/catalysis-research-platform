@@ -1,0 +1,4 @@
+agent r10 round 1: (OH + F) / (Si + Al + Ge + 0.001)
+agent r10 round 2: cryst_time * exp(-7500.0 / (cryst_temp + 273.15))
+agent r10 round 3: abs(osda_charge) / (osda_volume + 1.0)
+{"mode": "agent", "replicate": 10, "appended": 3, "formulas": ["(OH + F) / (Si + Al + Ge + 0.001)", "cryst_time * exp(-7500.0 / (cryst_temp + 273.15))", "abs(osda_charge) / (osda_volume + 1.0)"]}

@@ -1,0 +1,109 @@
+{
+  "appended": 3,
+  "delta": {
+    "mean": {
+      "accuracy": 0.0016345062429057977,
+      "balanced_accuracy": 0.0049197748792988326,
+      "macro_f1": -0.0032683774588445403
+    },
+    "per_seed": [
+      {
+        "accuracy": 0.001589103291713967,
+        "balanced_accuracy": -0.0010225121737454934,
+        "macro_f1": -0.00831181675250392,
+        "seed": 3
+      },
+      {
+        "accuracy": 0.0034052213393870323,
+        "balanced_accuracy": 0.011435646037744107,
+        "macro_f1": 0.005593843504417939,
+        "seed": 7
+      },
+      {
+        "accuracy": -0.001135073779795659,
+        "balanced_accuracy": -0.008602361357341437,
+        "macro_f1": -0.018629444707059184,
+        "seed": 11
+      },
+      {
+        "accuracy": -0.004086265607264439,
+        "balanced_accuracy": -0.0012875278949346924,
+        "macro_f1": -0.006308896830920119,
+        "seed": 17
+      },
+      {
+        "accuracy": 0.008399545970488087,
+        "balanced_accuracy": 0.02407562978477168,
+        "macro_f1": 0.011314427491842582,
+        "seed": 23
+      }
+    ]
+  },
+  "final_formulas": [
+    {
+      "formula": "log10(Si / (Al + 1e-6))",
+      "name": "log_gel_sial_ratio"
+    },
+    {
+      "formula": "log10((F + 1e-6) / (sda1 + 1e-6))",
+      "name": "log_f_to_osda_ratio"
+    },
+    {
+      "formula": "log10((H2O + 1e-6) / (Si + Ge + Al + P + 1e-6))",
+      "name": "log_h2o_to_tatom_ratio"
+    }
+  ],
+  "generation_sha256": "1177d946c3ed9cba97675c9cfb54ab1fa3963760d3376ae593ae1bce3d5fa47c",
+  "mode": "rag_agent",
+  "per_seed": [
+    {
+      "accuracy": 0.4358683314415437,
+      "balanced_accuracy": 0.33754720446366393,
+      "macro_f1": 0.3054955401928908,
+      "macro_f1_report": 0.2807863420890541,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 3
+    },
+    {
+      "accuracy": 0.4351872871736663,
+      "balanced_accuracy": 0.3512651118771848,
+      "macro_f1": 0.31383514945592184,
+      "macro_f1_report": 0.2905881013480758,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 7
+    },
+    {
+      "accuracy": 0.43314415437003406,
+      "balanced_accuracy": 0.33993859307654706,
+      "macro_f1": 0.2971730762453974,
+      "macro_f1_report": 0.2653331037905335,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 11
+    },
+    {
+      "accuracy": 0.4286038592508513,
+      "balanced_accuracy": 0.33641345367755293,
+      "macro_f1": 0.2984718084130025,
+      "macro_f1_report": 0.27232829234763006,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 17
+    },
+    {
+      "accuracy": 0.44108967082860384,
+      "balanced_accuracy": 0.371494355139211,
+      "macro_f1": 0.3248033549360429,
+      "macro_f1_report": 0.30074384716300273,
+      "n": 4405,
+      "n_classes_present": 125,
+      "seed": 23
+    }
+  ],
+  "profile": "zeosyn-direct-v1",
+  "replicate": 1,
+  "reused_d0_for_zero_append": false,
+  "seconds": 5.765077829360962
+}

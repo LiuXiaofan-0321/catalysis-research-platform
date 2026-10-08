@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-08",
+  "release": "knowledge-zeolite-v1-20261008",
+  "code_commit": "3bfc543b8cc89439bfb76f0c6407f3d328ca8902",
+  "verified_archive_count": 4,
+  "download_bytes": 1588222029,
+  "verified_extracted_file_count": 36,
+  "assets_path": "C:\\scientific_research\\catalysis-research-platform\\knowledge",
+  "identity_hashes": {
+    "rag": "7da20ce475e04c185fdc27e271d417883c81525ca3cd527b67b7477670bbcf16",
+    "kg": "07925455449dfe13cc78b9b958dd71d5e4d77aee2ad54fcd8a312ce4f1bf9f43",
+    "normalization": "509b9deca237506fc0e8577cf713cae40e0d32d960c98115a71df2cc98ebe433"
+  },
+  "test_paper_exclusion": {
+    "base_excluded_paper_ids": [
+      "doi:10.1126/science.ads7290"
+    ],
+    "benchmark": "ZeoSyn",
+    "held_out_dois": 495,
+    "held_out_dois_in_index": 205,
+    "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+    "policy": "held-out test publications removed from RAG and Small KG"
+  },
+  "frozen_evidence_counts": {
+    "rag_agent": [
+      9,
+      8,
+      10
+    ],
+    "small_kg_rag_agent": [
+      10,
+      10,
+      10
+    ]
+  },
+  "d0": {
+    "accuracy": 0.43314415437003406,
+    "balanced_accuracy": 0.3424119687675331,
+    "macro_f1": 0.31122416330749564
+  },
+  "timing_seconds": {
+    "initial_load": 49.03,
+    "query_1": {
+      "rag_agent": 2.913,
+      "small_kg_rag_agent": 9.749
+    },
+    "query_2": {
+      "rag_agent": 2.909,
+      "small_kg_rag_agent": 9.69
+    }
+  },
+  "dependencies": {
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.0",
+    "scipy": "1.18.1",
+    "openpyxl": "3.1.5",
+    "sentence-transformers": "6.0.0",
+    "transformers": "5.16.1",
+    "torch": "2.13.0",
+    "pydantic": "2.13.4",
+    "huggingface-hub": "1.29.0"
+  },
+  "parallelism": {
+    "generation_workers": 5,
+    "rf_jobs": 8
+  },
+  "glm_called": false,
+  "ready_stages": [
+    "prepare",
+    "knowledge",
+    "baseline"
+  ],
+  "remaining": "Configure ZHIPU_API_KEY in a local terminal and invoke knowledge/run_local.py run.",
+  "git_status": ""
+}

@@ -1,0 +1,278 @@
+{
+  "appended": 3,
+  "config_sha256": "f3160bf000a8c1a21a22e20b077cca80631a15c0cfda16e755484a58d6c73c21",
+  "final_formulas": [
+    {
+      "formula": "(OH + F) / (Si + Al + Ge + 0.001)",
+      "name": "mineralizer_per_t_atom"
+    },
+    {
+      "formula": "cryst_time * exp(-7500.0 / (cryst_temp + 273.15))",
+      "name": "thermal_severity_arrhenius"
+    },
+    {
+      "formula": "abs(osda_charge) / (osda_volume + 1.0)",
+      "name": "osda_charge_density"
+    }
+  ],
+  "knowledge_sha256": "9e905434ff79e6f8be4f5523a9e509160da7edf103f99d8d0cd8c8c95319caea",
+  "label_feedback": false,
+  "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "profile": "zeosyn-direct-v1",
+  "reasoning_effort": "high",
+  "replicate": 10,
+  "seconds": 99.25258874893188,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "F",
+              "Ge",
+              "OH",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes OH and F mole fractions are both directly available and comparable as mineralizers, that P-containing (AlPO4-type) systems can be approximately ignored by not including P in the denominator (P networks mineralize differently), and that other cations' templating/structure-directing roles are captured elsewhere. It is a gel-composition proxy: actual pH in the autoclave, OSDA hydroxide exchange, and consumption of mineralizer during crystallization are not modeled. The 0.001 constant only prevents division by zero for essentially T-atom-free gels.",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor increases from near zero, Failed and gel-like outcomes should decrease (mineralization enables crystallization) while low-silica/open frameworks such as LTA and FAU become more likely; at very high values Failed should rise again through excessive dissolution. The lowest values (e.g., fluoride route) should favor MFI, MTW and *BEA.",
+              "falsification": "If the descriptor does not change prediction accuracy on held-out publications, or if feature-importance/permutation analysis shows it carries no information beyond the raw OH, F, Si, Al and Ge fractions, the hypothesis is contradicted. It would also be contradicted if products like LTA or FAU are systematically obtained at low values of this ratio while high-silica frameworks appear at high values.",
+              "formula": "(OH + F) / (Si + Al + Ge + 0.001)",
+              "hypothesis": "The ratio of mineralizing anions (hydroxide plus fluoride) to network-forming T atoms (Si, Al, Ge) in the gel controls the dissolution rate of the amorphous precursor and the supersaturation of aluminosilicate/phosphorosilicate species, and therefore steers which framework crystallizes versus failure. Because D0 only contains individual mole fractions, the model cannot currently see this ratio; tree splits on the raw mole fractions conflate changes in mineralizer level with changes in batch dilution and T-atom content.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "OH- and F- catalyze the breaking and re-forming of Si-O-Si, Al-O-Si and Ge-O-Si bonds. High mineralizer-per-T-atom keeps a large concentration of small, mobile silicate anions in solution, favoring dissolution-re crystallization pathways that build dense or small-pore, low-silica frameworks (e.g., LTA, FAU, sodalite-like products) and, at extreme values, amorphous or dense phases. Low mineralizer-per-T-atom (especially in fluoride media, where F- gives a mildly acidic, low-water-activity route) produces slow growth from oligomeric species, favoring high-silica, large-pore or pure-silica frameworks such as MFI, MTW, *BEA and polymorph-like products, and improves crystallinity overall.",
+              "name": "mineralizer_per_T_atom",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "MFI",
+                "MTW",
+                "*BEA",
+                "LTA",
+                "FAU",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008230057319589803c2b40b1",
+          "usage": {
+            "completion_tokens": 1003,
+            "completion_tokens_details": {
+              "reasoning_tokens": 293
+            },
+            "prompt_tokens": 1619,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 2622
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes OH and F mole fractions are both directly available and comparable as mineralizers, that P-containing (AlPO4-type) systems can be approximately ignored by not including P in the denominator (P networks mineralize differently), and that other cations' templating/structure-directing roles are captured elsewhere. It is a gel-composition proxy: actual pH in the autoclave, OSDA hydroxide exchange, and consumption of mineralizer during crystallization are not modeled. The 0.001 constant only prevents division by zero for essentially T-atom-free gels.",
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor increases from near zero, Failed and gel-like outcomes should decrease (mineralization enables crystallization) while low-silica/open frameworks such as LTA and FAU become more likely; at very high values Failed should rise again through excessive dissolution. The lowest values (e.g., fluoride route) should favor MFI, MTW and *BEA.",
+        "falsification": "If the descriptor does not change prediction accuracy on held-out publications, or if feature-importance/permutation analysis shows it carries no information beyond the raw OH, F, Si, Al and Ge fractions, the hypothesis is contradicted. It would also be contradicted if products like LTA or FAU are systematically obtained at low values of this ratio while high-silica frameworks appear at high values.",
+        "formula": "(OH + F) / (Si + Al + Ge + 0.001)",
+        "hypothesis": "The ratio of mineralizing anions (hydroxide plus fluoride) to network-forming T atoms (Si, Al, Ge) in the gel controls the dissolution rate of the amorphous precursor and the supersaturation of aluminosilicate/phosphorosilicate species, and therefore steers which framework crystallizes versus failure. Because D0 only contains individual mole fractions, the model cannot currently see this ratio; tree splits on the raw mole fractions conflate changes in mineralizer level with changes in batch dilution and T-atom content.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "OH- and F- catalyze the breaking and re-forming of Si-O-Si, Al-O-Si and Ge-O-Si bonds. High mineralizer-per-T-atom keeps a large concentration of small, mobile silicate anions in solution, favoring dissolution-re crystallization pathways that build dense or small-pore, low-silica frameworks (e.g., LTA, FAU, sodalite-like products) and, at extreme values, amorphous or dense phases. Low mineralizer-per-T-atom (especially in fluoride media, where F- gives a mildly acidic, low-water-activity route) produces slow growth from oligomeric species, favoring high-silica, large-pore or pure-silica frameworks such as MFI, MTW, *BEA and polymorph-like products, and improves crystallinity overall.",
+        "name": "mineralizer_per_t_atom",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "MFI",
+          "MTW",
+          "*BEA",
+          "LTA",
+          "FAU",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "0258220dfcf60dc540b76f821f685cde3a3580699a6fe5b267d7fd01671b0936",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "cryst_temp",
+              "cryst_time"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "(1) The apparent activation energy is approximated by a single value Ea/R = 7500 K for all chemistry in the dataset; silicogermanate, phosphoroaluminate, and fluoride-media systems may have different effective Ea, so the constant is a compromise. (2) Isothermal synthesis is assumed; heating/cooling ramps and staged temperature programs are not captured. (3) Aging at room temperature before heating contributes no dose here, although in practice it can seed nucleation. (4) exp(-7500/(T+273)) produces very small numbers (about 4e-8 at 200 C), so the descriptor scale is tiny; tree models are scale-invariant under thresholding, but the absolute magnitude carries no meaning. (5) This descriptor encodes kinetic dose only; it intentionally ignores gel chemistry, which the model already receives.",
+              "evidence_ids": [],
+              "expected_effect": "As thermal_severity_arrhenius increases from near zero, outcomes should progress from Failed (amorphous, under-crystallized) toward rapidly nucleating open frameworks (CHA, LTA, AEI, LEV); at further increases the label should shift toward slower-nucleating large-pore/high-silica frameworks (MFI, MTW, MOR, *BEA, FER), and at the highest values toward dense phases or transformation products, i.e., Failed again - giving a non-monotone, framework-specific mapping rather than a single trend.",
+              "falsification": "If the phase boundaries in held-out publications are determined by cryst_temp alone (or cryst_time alone) with no time-temperature compensation - for example, if all syntheses at 170 C give the same framework regardless of whether they ran 6 h or 10 days - then splits on this descriptor will not separate labels better than splits on the raw time or temperature columns, and the descriptor should be judged uninformative. Conversely, a strong effect of time at fixed temperature that this descriptor fails to capture would also falsify the specific Arrhenius parameterization (Ea/R = 7500 K).",
+              "formula": "cryst_time * exp(-7500.0 / (cryst_temp + 273.15))",
+              "hypothesis": "The effective hydrothermal dose delivered to the gel is governed by the Arrhenius-weighted product of crystallization time and temperature, not by time and temperature independently. Frameworks that nucleate quickly at moderate severity (small-pore, metastable open frameworks such as CHA, LEV, AEI, LTA, and amorphous 'Failed' outcomes at too-low dose) occupy a different severity window than frameworks that require extended ripening or dissolve/reorganize at high severity (large-pore or high-silica phases such as MTW, MOR, MFI, *BEA, and dense phases / Failed at excessive dose). Because a tree ensemble can only threshold cryst_time or cryst_temp separately, it cannot represent the time-temperature compensation that experimentalists routinely exploit (lower temperature for longer times), so this combined quantity should reveal phase boundaries that are currently invisible to the model.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Zeolite crystallization proceeds through dissolution of the amorphous gel and nucleation/growth of metastable frameworks, both of which are thermally activated with apparent activation energies of roughly 60-90 kJ/mol (Ea/R ~ 7000-11000 K). Integrating the rate over time means the relevant kinetic variable is t * exp(-Ea/(R*T)); two recipes with equal t * exp(-Ea/(R*T)) have consumed comparable 'thermal dose' and should reach comparable stages of the Ostwald sequence. At low dose the amorphous precursor has not ordered, giving Failed; at intermediate dose the kinetically favored open frameworks crystallize; at high dose metastable phases transform toward denser, more stable phases (e.g., toward quartz/dense products or coarsened frameworks), shifting the product label.",
+              "name": "thermal_severity_arrhenius",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "CHA",
+                "AEI",
+                "LEV",
+                "LTA",
+                "MFI",
+                "MTW",
+                "MOR",
+                "FER",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261008230120e72505c5bfd24dda",
+          "usage": {
+            "completion_tokens": 1716,
+            "completion_tokens_details": {
+              "reasoning_tokens": 781
+            },
+            "prompt_tokens": 1767,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3483
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "(1) The apparent activation energy is approximated by a single value Ea/R = 7500 K for all chemistry in the dataset; silicogermanate, phosphoroaluminate, and fluoride-media systems may have different effective Ea, so the constant is a compromise. (2) Isothermal synthesis is assumed; heating/cooling ramps and staged temperature programs are not captured. (3) Aging at room temperature before heating contributes no dose here, although in practice it can seed nucleation. (4) exp(-7500/(T+273)) produces very small numbers (about 4e-8 at 200 C), so the descriptor scale is tiny; tree models are scale-invariant under thresholding, but the absolute magnitude carries no meaning. (5) This descriptor encodes kinetic dose only; it intentionally ignores gel chemistry, which the model already receives.",
+        "evidence_ids": [],
+        "expected_effect": "As thermal_severity_arrhenius increases from near zero, outcomes should progress from Failed (amorphous, under-crystallized) toward rapidly nucleating open frameworks (CHA, LTA, AEI, LEV); at further increases the label should shift toward slower-nucleating large-pore/high-silica frameworks (MFI, MTW, MOR, *BEA, FER), and at the highest values toward dense phases or transformation products, i.e., Failed again - giving a non-monotone, framework-specific mapping rather than a single trend.",
+        "falsification": "If the phase boundaries in held-out publications are determined by cryst_temp alone (or cryst_time alone) with no time-temperature compensation - for example, if all syntheses at 170 C give the same framework regardless of whether they ran 6 h or 10 days - then splits on this descriptor will not separate labels better than splits on the raw time or temperature columns, and the descriptor should be judged uninformative. Conversely, a strong effect of time at fixed temperature that this descriptor fails to capture would also falsify the specific Arrhenius parameterization (Ea/R = 7500 K).",
+        "formula": "cryst_time * exp(-7500.0 / (cryst_temp + 273.15))",
+        "hypothesis": "The effective hydrothermal dose delivered to the gel is governed by the Arrhenius-weighted product of crystallization time and temperature, not by time and temperature independently. Frameworks that nucleate quickly at moderate severity (small-pore, metastable open frameworks such as CHA, LEV, AEI, LTA, and amorphous 'Failed' outcomes at too-low dose) occupy a different severity window than frameworks that require extended ripening or dissolve/reorganize at high severity (large-pore or high-silica phases such as MTW, MOR, MFI, *BEA, and dense phases / Failed at excessive dose). Because a tree ensemble can only threshold cryst_time or cryst_temp separately, it cannot represent the time-temperature compensation that experimentalists routinely exploit (lower temperature for longer times), so this combined quantity should reveal phase boundaries that are currently invisible to the model.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Zeolite crystallization proceeds through dissolution of the amorphous gel and nucleation/growth of metastable frameworks, both of which are thermally activated with apparent activation energies of roughly 60-90 kJ/mol (Ea/R ~ 7000-11000 K). Integrating the rate over time means the relevant kinetic variable is t * exp(-Ea/(R*T)); two recipes with equal t * exp(-Ea/(R*T)) have consumed comparable 'thermal dose' and should reach comparable stages of the Ostwald sequence. At low dose the amorphous precursor has not ordered, giving Failed; at intermediate dose the kinetically favored open frameworks crystallize; at high dose metastable phases transform toward denser, more stable phases (e.g., toward quartz/dense products or coarsened frameworks), shifting the product label.",
+        "name": "thermal_severity_arrhenius",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "CHA",
+          "AEI",
+          "LEV",
+          "LTA",
+          "MFI",
+          "MTW",
+          "MOR",
+          "FER",
+          "Failed"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "6d8da3331969682dfe3f4decf7151c3015e66a5830c9836b4a96fdf7561e9847",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "osda_charge",
+              "osda_volume"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula uses the conformer volume as a proxy for the effective excluded volume of the cation in the pores, ignoring conformational flexibility, H-bonding ability and location of the charge within the molecule; it assumes the lowest-energy conformer's volume is representative and that OSDA1 dominates structure direction even when n_osda > 1. The +1.0 constant handles the no-OSDA case (descriptor collapses to ~0, i.e. 'no direction'), but inorganic-templated syntheses (Na, K only) receive a value that carries no OSDA information. Charge density alone ignores the second, independent requirement that gel Al content must supply the matching framework charge, which the model must learn from the existing Al column.",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor increases (compact, highly charged OSDA), predicted outcomes should shift from high-silica large-pore phases (*BEA, MTW, MFI, MEL, BEC) toward small-pore or charge-dense frameworks (LTA, CHA, LEV, AEI, TON) and, at the extreme, toward Failed or dense products when the gel cannot supply the matching framework charge. The reverse shift should occur as the descriptor decreases toward bulky monocations.",
+              "falsification": "If phase selection is unchanged across wide ranges of the ratio, or if frameworks with very different framework densities appear at the same charge-density values after conditioning on the existing D0 features (meaning charge and volume are already effectively disentangled by other splits), the hypothesis is contradicted. It would also be falsified if high charge density systematically predicts *BEA/MTW rather than small-pore phases in the held-out papers.",
+              "formula": "abs(osda_charge) / (osda_volume + 1.0)",
+              "hypothesis": "The formal charge of the OSDA per unit of its molecular volume (charge density) constrains the framework charge density it can stabilize, and therefore which framework code crystallizes. Bulky, low-charge-density cations (one quaternary ammonium spread over a large volume) match the low framework charge density of high-silica, large-pore frameworks such as *BEA, MTW, MFI, MEL and BEC, whereas compact, high-charge-density cations match the higher framework charge densities of small-pore and/or heteroatom-rich frameworks such as LTA, CHA, LEV, AEI, AEL and TON, and can also drive dense or Failed outcomes when the gel chemistry cannot accommodate the demanded charge. The model currently sees charge and volume as separate columns, and a single-feature threshold cannot express that what matters is their ratio: a large molecule with two charges can behave like a small monocation.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Crystalline zeolite frameworks carry a fixed anionic charge per T atom set by their Al (or other trivalent/heteroatom) content, and the structure-directing cation must pack into the pore system with a cationic charge density that electrostatically complements the framework charge distribution. OSDAs whose charge density is low stabilize frameworks with low framework density and high Si/Al (large void volume per charge), while high charge density cations stabilize frameworks with high framework density or lower Si/Al. This charge-density matching argument is a standard structure-direction principle, but as a derived ratio of two raw columns it is invisible to a tree ensemble, which can only threshold osda_charge and osda_volume independently.",
+              "name": "osda_charge_density",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "*BEA",
+                "MTW",
+                "MFI",
+                "MEL",
+                "BEC",
+                "LTA",
+                "CHA",
+                "LEV",
+                "AEI",
+                "AEL",
+                "TON",
+                "FAU"
+              ]
+            }
+          },
+          "response_id": "202610082302038734cd5df7364b8a",
+          "usage": {
+            "completion_tokens": 1292,
+            "completion_tokens_details": {
+              "reasoning_tokens": 452
+            },
+            "prompt_tokens": 1978,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3270
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula uses the conformer volume as a proxy for the effective excluded volume of the cation in the pores, ignoring conformational flexibility, H-bonding ability and location of the charge within the molecule; it assumes the lowest-energy conformer's volume is representative and that OSDA1 dominates structure direction even when n_osda > 1. The +1.0 constant handles the no-OSDA case (descriptor collapses to ~0, i.e. 'no direction'), but inorganic-templated syntheses (Na, K only) receive a value that carries no OSDA information. Charge density alone ignores the second, independent requirement that gel Al content must supply the matching framework charge, which the model must learn from the existing Al column.",
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor increases (compact, highly charged OSDA), predicted outcomes should shift from high-silica large-pore phases (*BEA, MTW, MFI, MEL, BEC) toward small-pore or charge-dense frameworks (LTA, CHA, LEV, AEI, TON) and, at the extreme, toward Failed or dense products when the gel cannot supply the matching framework charge. The reverse shift should occur as the descriptor decreases toward bulky monocations.",
+        "falsification": "If phase selection is unchanged across wide ranges of the ratio, or if frameworks with very different framework densities appear at the same charge-density values after conditioning on the existing D0 features (meaning charge and volume are already effectively disentangled by other splits), the hypothesis is contradicted. It would also be falsified if high charge density systematically predicts *BEA/MTW rather than small-pore phases in the held-out papers.",
+        "formula": "abs(osda_charge) / (osda_volume + 1.0)",
+        "hypothesis": "The formal charge of the OSDA per unit of its molecular volume (charge density) constrains the framework charge density it can stabilize, and therefore which framework code crystallizes. Bulky, low-charge-density cations (one quaternary ammonium spread over a large volume) match the low framework charge density of high-silica, large-pore frameworks such as *BEA, MTW, MFI, MEL and BEC, whereas compact, high-charge-density cations match the higher framework charge densities of small-pore and/or heteroatom-rich frameworks such as LTA, CHA, LEV, AEI, AEL and TON, and can also drive dense or Failed outcomes when the gel chemistry cannot accommodate the demanded charge. The model currently sees charge and volume as separate columns, and a single-feature threshold cannot express that what matters is their ratio: a large molecule with two charges can behave like a small monocation.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Crystalline zeolite frameworks carry a fixed anionic charge per T atom set by their Al (or other trivalent/heteroatom) content, and the structure-directing cation must pack into the pore system with a cationic charge density that electrostatically complements the framework charge distribution. OSDAs whose charge density is low stabilize frameworks with low framework density and high Si/Al (large void volume per charge), while high charge density cations stabilize frameworks with high framework density or lower Si/Al. This charge-density matching argument is a standard structure-direction principle, but as a derived ratio of two raw columns it is invisible to a tree ensemble, which can only threshold osda_charge and osda_volume independently.",
+        "name": "osda_charge_density",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "*BEA",
+          "MTW",
+          "MFI",
+          "MEL",
+          "BEC",
+          "LTA",
+          "CHA",
+          "LEV",
+          "AEI",
+          "AEL",
+          "TON",
+          "FAU"
+        ]
+      },
+      "evidence_bundle_hash": null,
+      "evidence_items": 0,
+      "prompt_sha256": "a92204bfd2536fe80c47589f3306ca6e2224d445e8bda5c2a84cf12657ae8640",
+      "round": 3,
+      "status": "appended"
+    }
+  ]
+}

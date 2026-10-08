@@ -1,0 +1,4 @@
+rag_agent r6 round 1: osda_charge / (osda_volume + 1e-6)
+rag_agent r6 round 2: F / (sda1 + 1e-6)
+rag_agent r6 round 3: cryst_time * exp(-8314.0 / (1.987 * (cryst_temp + 273.15)))
+{"mode": "rag_agent", "replicate": 6, "appended": 3, "formulas": ["osda_charge / (osda_volume + 1e-6)", "F / (sda1 + 1e-6)", "cryst_time * exp(-8314.0 / (1.987 * (cryst_temp + 273.15)))"]}
