@@ -1,0 +1,6390 @@
+{
+  "kg-node-00020cae335656c3e534360cfae965ed": [
+    "USY38.4"
+  ],
+  "kg-node-00039f4a9cf176c991d042c9aac7ca1e": [
+    "N,N-diethyl-2,6-cis-dimethylpiperidinium (SDA I)",
+    "SDA I"
+  ],
+  "kg-node-000bd0a72d101901bb58c96b29425045": [
+    "(octyl)-trimethoxysilane (OTS)"
+  ],
+  "kg-node-0014df9c11c3b3debc386ebb15d9d0cd": [
+    "1,6-diaminohexane"
+  ],
+  "kg-node-0024a4af7652b6ad809fa52ca46a14f4": [
+    "NaF",
+    "sodium fluoride",
+    "fluoride ions"
+  ],
+  "kg-node-0059f7846a455bba062043079fc22466": [
+    "HAuCl4",
+    "HAuCl4·3H2O"
+  ],
+  "kg-node-00659db701e02a3dbe60e4ec10dacd68": [
+    "GeCl4"
+  ],
+  "kg-node-009396b2ef5054adf8b2a5551fb362dc": [
+    "N-isobutyl-N-methylpyrrolidinium hydroxide",
+    "iButOH"
+  ],
+  "kg-node-00b2dae4ef128a79e15cd623e5d8b2b4": [
+    "amorphous silica-alumina (ASA)",
+    "ASA"
+  ],
+  "kg-node-011bfefc9fb8029baf00c5e0120e5135": [
+    "metakaolin"
+  ],
+  "kg-node-011dd50e65e005dd80b5b45ec54c3646": [
+    "1,6-hexamethylene bis(benzyl dimethyl ammonium hydroxide)",
+    "diquaternary ammonium template",
+    "R"
+  ],
+  "kg-node-012062cf9b7ef1116aa6fa82712823de": [
+    "ASG from kaolin"
+  ],
+  "kg-node-01476719487718463252022343f69c5e": [
+    "H2SO4"
+  ],
+  "kg-node-017e5fc0a292ecc99bb38045c14ae629": [
+    "zirconia milling balls (0.5 mm)"
+  ],
+  "kg-node-01d11ee9b85f1aeaf36b1e97364de4b0": [
+    "NH4-form faujasite (CBV500)",
+    "faujasite",
+    "CBV500"
+  ],
+  "kg-node-01d8cf883ae333b4a6f82ce53ddae96a": [
+    "Pb2+ ions"
+  ],
+  "kg-node-01e823876be7e2ad44c440b06a86f5d5": [
+    "diatomaceous earth",
+    "kieselguhr"
+  ],
+  "kg-node-022133a833493c9ea0e69227308e53df": [
+    "dipropylamine",
+    "DPA"
+  ],
+  "kg-node-022851d75657006acb41f9438bbc0e64": [
+    "PHAPTMS",
+    "organosilane",
+    "silanization agent"
+  ],
+  "kg-node-0232e2a588ae17b07832add2b9608edd": [
+    "Me2NH"
+  ],
+  "kg-node-023f80c4dca7c408e797af781c22373a": [
+    "聚丙烯蜡(Epolene N-15)",
+    "Epolene N-15",
+    "polypropylene wax"
+  ],
+  "kg-node-0240ced4127de4a7b892a025277f5df9": [
+    "NaBH₄"
+  ],
+  "kg-node-0284bd32ddd2514e5b6ca3f470fd73b6": [
+    "Na vapour"
+  ],
+  "kg-node-029b11854149dd240c2a5c65e3f99e9d": [
+    "dimethylamine"
+  ],
+  "kg-node-02a9837727fe2e76fc7c39417dad0d0f": [
+    "APTES"
+  ],
+  "kg-node-02c267c98a3f545d56cedb1a25d7d8df": [
+    "γ-Al₂O₃",
+    "aluminum hydroxide-derived alumina"
+  ],
+  "kg-node-033c1bf85ae7aaf8b49745aafc3eb5c5": [
+    "(NH4)2SiF6 (AHFS)",
+    "AHFS"
+  ],
+  "kg-node-033f0c7804dbe9b7b50e0e18d733ba8f": [
+    "palladium nitrate",
+    "Pd(NO₃)₂"
+  ],
+  "kg-node-037226990a72af44db16eb85668f5722": [
+    "1-benzyl-3-methylimidazolium (1B3MI)",
+    "1B3MI"
+  ],
+  "kg-node-037fc75666b8fc064a17a0e19f417398": [
+    "iminodiacetic acid"
+  ],
+  "kg-node-03866bffb02225046945bcc0fb4b6613": [
+    "PVDF",
+    "polyvinylidene fluoride"
+  ],
+  "kg-node-03aa4ee68a8e87c731529ec992f994af": [
+    "N,N'-diisopropylethylamine (DIEA)"
+  ],
+  "kg-node-03bb4f5ae6d9af8ec7c440ca996a2113": [
+    "Pippy OSDA"
+  ],
+  "kg-node-03bda363a997b9f3e8ece4ba245c5640": [
+    "sodium silicate",
+    "N° Sodium silicate (PQ Corporation)"
+  ],
+  "kg-node-03c27a3c92c61183175a95a13842ce56": [
+    "5-nitrosalicylaldehyde"
+  ],
+  "kg-node-03fab26e7711547e2dcdd04b901e0daf": [
+    "tetrapropylammonium (TPA⁺)"
+  ],
+  "kg-node-0435b5a8d9548498f6bd206208037673": [
+    "tetramethylammonium hydroxide (TMAOH·5H2O)",
+    "TMA",
+    "TMAOH"
+  ],
+  "kg-node-043c2e8b4771a3e55709ad523d9e43d1": [
+    "N,N-ethyl-methyl-pseudoephedrinium hydroxide (EMPS)",
+    "SS-EMPS",
+    "RR-EMPS"
+  ],
+  "kg-node-0446b263094a7a10a1c60f737fcfea7f": [
+    "手性OSDA 2 (R-2 / S-2 / racemic 2)",
+    "OSDA 2"
+  ],
+  "kg-node-045322bafd78831cce0291b250372dc1": [
+    "5-azonia-spiro[4,4]nonane hydroxide",
+    "SDA"
+  ],
+  "kg-node-047f877e42bd3669e52765436f095141": [
+    "bmp (1-benzyl-1-methyl-pyrrolidinium)"
+  ],
+  "kg-node-04956e602f0fd4e8627e7b036760875d": [
+    "titanium ammonium oxalate",
+    "(NH4)2[TiO(C2O4)2]"
+  ],
+  "kg-node-04b617defb794f03204591429023d8cc": [
+    "oleic acid",
+    "OA"
+  ],
+  "kg-node-0502eeb7476039e556644a5b8315c223": [
+    "sodium hydroxide aqueous slurry"
+  ],
+  "kg-node-05142e9882776677bdbf24fc9ee19943": [
+    "胶体硅悬浮液",
+    "colloidal silica suspension"
+  ],
+  "kg-node-054f7d99823b526625250dd1663395ac": [
+    "fumed silica",
+    "Aerosil®200"
+  ],
+  "kg-node-056b5340bdb78f5f65cf647336cb36f6": [
+    "colloidal silica (Ludox AS 40)",
+    "Ludox AS 40"
+  ],
+  "kg-node-057e736babe1b0041bb7aee004989440": [
+    "AP2",
+    "amorphous aluminosilicate"
+  ],
+  "kg-node-059008e442d9db4b4c05d72179c1cd99": [
+    "PVDF/PVP"
+  ],
+  "kg-node-0598b66451897404ed34ff0c63bb9196": [
+    "C_PBI",
+    "Sur"
+  ],
+  "kg-node-059c48f4a1a1821eccf1ff9fdcba7b71": [
+    "MCHA",
+    "SDA"
+  ],
+  "kg-node-05aa3b766829295fed0436c93175265e": [
+    "89ZrCl4",
+    "89Zr-chloride"
+  ],
+  "kg-node-05b034a7d596513831a955e03b045358": [
+    "OSDA-C2"
+  ],
+  "kg-node-05c584e7e40f4d5e97858c52f486c5ed": [
+    "acetyl-L-carnitine (AcLC)",
+    "acetylcarnitine"
+  ],
+  "kg-node-05c7546e2bbc6e30e9e9158f9eb472c7": [
+    "sodium silicate (Na2SiO3)"
+  ],
+  "kg-node-05d7a1f184ee58bf0abf8bdff217d68d": [
+    "cyclic amine OSDAs (HPZ, HMI, MPD, CHA)",
+    "homopiperazine",
+    "hexamethyleneimine",
+    "4-methylpiperidine",
+    "cyclohexylamine"
+  ],
+  "kg-node-06008985a54027203d301d8bd67804a2": [
+    "vanillin"
+  ],
+  "kg-node-06024d83bd7b74ef5f9979e46df695d7": [
+    "trimethylpyridinium cations (TMP)",
+    "123TMP",
+    "124TMP",
+    "125TMP",
+    "126TMP",
+    "134TMP",
+    "135TMP"
+  ],
+  "kg-node-0611b6b868ed8f9c2101c7fb1a168342": [
+    "MTEA+"
+  ],
+  "kg-node-06318162785460ea93e2e97b136d65c1": [
+    "NH4-Y zeolite"
+  ],
+  "kg-node-06320f9682f0538433530281795c4912": [
+    "o-hydroxyacetophenone"
+  ],
+  "kg-node-0695aae3a1e2eba2a2c5590079fa338c": [
+    "2-methylimidazolate"
+  ],
+  "kg-node-06b4aa8b8f290e9a8d22c7ddbc78ac64": [
+    "phenethyl alcohol"
+  ],
+  "kg-node-06bc85369576bc02ec89626ea3b6729d": [
+    "CaCl2·2H2O"
+  ],
+  "kg-node-06e6ed4ce5f47c8b28155eb80d4389d0": [
+    "硝酸镓",
+    "Ga(NO3)3"
+  ],
+  "kg-node-070287ccf31fb9c68848282847ba5bc5": [
+    "isotopically labeled silica gel (29Si)"
+  ],
+  "kg-node-0740687a518a445c3f7bc5146d87a1d4": [
+    "Al2(SO4)3·16H2O",
+    "aluminium sulfate"
+  ],
+  "kg-node-077c47cd46b6ce4b09711a0fd771d2fa": [
+    "N,N,N-trimethyl-1-adamantylammonium hydroxide (TMAdaOH)",
+    "TMAdaOH",
+    "TMA-daOH"
+  ],
+  "kg-node-0794b1579bf3d5b48bb81a161237ab03": [
+    "CTAB+TPABr"
+  ],
+  "kg-node-07bafd505a4e4265a940ade12c7d5330": [
+    "β-Cyclodextrin"
+  ],
+  "kg-node-07e51640d9893201fb5c69bc3a285a24": [
+    "A₄-3N",
+    "C4H7-N+(CH3)2-C6H12-N+(CH3)2-C6H12-N+(CH3)2-C6H13·3Br-"
+  ],
+  "kg-node-07faa895d3e089f80f1078fd5a01b948": [
+    "diethylamine",
+    "DEA"
+  ],
+  "kg-node-08220ec2a6666555df22c898a3fed1fc": [
+    "cellulose aerogel",
+    "CLCA"
+  ],
+  "kg-node-0840f081ede47a8d36881ef7c2a88a6d": [
+    "TPB-8"
+  ],
+  "kg-node-084d78d362b43e110d89dbb2d8ddf53c": [
+    "pseudoboehmite (Catapal B)",
+    "Catapal B"
+  ],
+  "kg-node-0887ad4696b1801d2f16ad2180a4d841": [
+    "1,4-butanediylbis[tris(dimethylamino)]phosphonium dication",
+    "OSDA"
+  ],
+  "kg-node-08a09d50835f01bab532c641ea94853b": [
+    "N,N,N-trimethyl-1-adamantammonium hydroxide (SDA)",
+    "SDA"
+  ],
+  "kg-node-08c11af78705841c3b24b8141c012ab6": [
+    "TPSCl (chlorotriphenylsilane)",
+    "Ph₃SiCl",
+    "TPSCI"
+  ],
+  "kg-node-08e907968e3ea3c165e0556d316a4286": [
+    "1,2-butanediol"
+  ],
+  "kg-node-08f9da03b159128518532b04500665fb": [
+    "134TMI",
+    "134-TMI"
+  ],
+  "kg-node-09256fc2ddc23ffa11f118613b6befa1": [
+    "NH4VO3"
+  ],
+  "kg-node-093f2e92652364f2f5e6eaa17c6d04e5": [
+    "TPA (tetrapropylammonium hydroxide)",
+    "TPAOH"
+  ],
+  "kg-node-09596084f859ccc2f86f5ecc27572c5b": [
+    "bmpOH",
+    "bmp"
+  ],
+  "kg-node-09646c0eef6049a92980d5285c49b323": [
+    "NaAlO₂",
+    "sodium metaaluminate"
+  ],
+  "kg-node-0972f37423d9299e7fa71307eb46ba1f": [
+    "ammonium hexafluorotitanate",
+    "(NH4)2[TiF6]"
+  ],
+  "kg-node-097663e39a11aa395f891d737f60db7c": [
+    "LiCl/KCl/RbCl/CsCl"
+  ],
+  "kg-node-0a09e530f5e4ea0a9136a95bc1330e26": [
+    "benzyltriethylammonium bromide (SDA-1)",
+    "SDA-1"
+  ],
+  "kg-node-0b14b2a33d367258b175cc9456ba0826": [
+    "C22-6-6 OSDA",
+    "di-quaternary ammonium OSDA"
+  ],
+  "kg-node-0b3654a46f69aa26d4dde70253947e5d": [
+    "Ce(SO4)2·(H2O)4"
+  ],
+  "kg-node-0b724450185c7bae13e080fcdfa0c753": [
+    "Ga(NO3)3"
+  ],
+  "kg-node-0b9bddc4f72259f549d0b05652fc9ace": [
+    "AgNO₃"
+  ],
+  "kg-node-0bc9a17a55d614b8e97660650edd3362": [
+    "N-benzyl DABCO"
+  ],
+  "kg-node-0c272b8587be9917e8a633474c43fc5a": [
+    "草酸"
+  ],
+  "kg-node-0c42fb48b01b581040aaa6d28275c1c7": [
+    "HM-dq (flexible SDA)",
+    "SDA"
+  ],
+  "kg-node-0c4373ab56f068e2acaec773400fb93e": [
+    "hexadecyltrimethoxysilane (HTS)",
+    "HTS"
+  ],
+  "kg-node-0c5995ce210c7adde2086be11b9d3423": [
+    "sodium borohydride",
+    "NaBH4"
+  ],
+  "kg-node-0c683df8777917e03935940719c7392f": [
+    "N-methylpiperazine"
+  ],
+  "kg-node-0c866c45c24b3be94d45d8b4ef544f40": [
+    "ethylenediamine (en)",
+    "en",
+    "1,2-ethanediamine"
+  ],
+  "kg-node-0c95e133fdb853ae3a199c9db28f2dfc": [
+    "cobalt nitrate",
+    "Co(NO3)2·6H2O"
+  ],
+  "kg-node-0ca2ff033b8a5f8f5ddcb03326a1409f": [
+    "MDBN"
+  ],
+  "kg-node-0ca761dbb7436e756b05cd7655ab7d5e": [
+    "1,2-dicyanobenzene",
+    "DCB"
+  ],
+  "kg-node-0caf3c94be5818ff66f11bbd2fa1d59b": [
+    "Al₂O₃ (Catapal)",
+    "Catapal alumina"
+  ],
+  "kg-node-0cd6995f4f6240804e455d3f8fe54cf0": [
+    "Colloidal silica (30 wt%)"
+  ],
+  "kg-node-0cdc01b962d8f8eb1cdc5952abd08038": [
+    "M4BQ2+ (1,4-diquinuclidiniumbutane)",
+    "M4BQ2+"
+  ],
+  "kg-node-0ce9836da6fc2656adf7823cbbc0e37b": [
+    "Rh(acac)(CO)2",
+    "IV"
+  ],
+  "kg-node-0d1d03c1eab255cddda7202668aa793f": [
+    "methylcellulose"
+  ],
+  "kg-node-0d48ff098566cef08d5991301d5e6452": [
+    "TPOAC",
+    "[3-(trimethoxysilyl)propyl]octadecyldimethylammonium chloride"
+  ],
+  "kg-node-0d76c347bfe92aaece1fe38dde9d327e": [
+    "α-alumina tube support",
+    "macroporous α-alumina tube"
+  ],
+  "kg-node-0db47368097f39d51318d5b9cd4bc441": [
+    "1-adamantylamine (ADA)",
+    "ADA"
+  ],
+  "kg-node-0de28c58f4a0450d0f6600edef16b856": [
+    "1,3,5-Trimethylpyridinium (135TMP) hydroxide",
+    "135TMP"
+  ],
+  "kg-node-0df1dca4efcf4b36b7818a58b68aaeb3": [
+    "perlite powder",
+    "perlite fines"
+  ],
+  "kg-node-0e0d75930ae936e776a2793aa0d1fe7f": [
+    "triethylamine",
+    "TEA"
+  ],
+  "kg-node-0e32522a19c427a80579a19b1bd7d7f2": [
+    "Zn(NO₃)₂"
+  ],
+  "kg-node-0e5126337ba057546973df0fef3698e0": [
+    "硫酸镓",
+    "gallium sulfate"
+  ],
+  "kg-node-0e625778915a7bced7b32a20e5bb09f7": [
+    "NH₄OH"
+  ],
+  "kg-node-0e69be221411f8f72185db795c52d960": [
+    "1,3,4-Trimethylpyridinium (134TMP) hydroxide",
+    "134TMP"
+  ],
+  "kg-node-0e78fd6de7f580276a7aba8af5e69f2a": [
+    "MoO3"
+  ],
+  "kg-node-0ec426d11fbf6eba6714d81a027ea2af": [
+    "Me₄-C₅,₆",
+    "[-N+(CH3)2-C5H10-N+(CH3)2-C6H12]n[Br-]2n"
+  ],
+  "kg-node-0f4b9eafb9eb0d76ca4d06446abc2ea3": [
+    "EuBr3·6H2O",
+    "EuBr3"
+  ],
+  "kg-node-101ab428cb4ae3bb414d49394cc40a8c": [
+    "LaCl3"
+  ],
+  "kg-node-102011c03d9cb94733f24dfd8ab01797": [
+    "PDMS-b-PEO diblock copolymer",
+    "PEO-b-PDMS",
+    "poly(dimethylsiloxane)-b-poly(ethylene oxide)"
+  ],
+  "kg-node-1025987d91abadcf5e537a82fa2730c9": [
+    "13DMI",
+    "13-DMI"
+  ],
+  "kg-node-1068b86c972dc7cec2ad8e4d168c20fc": [
+    "hydrochloric acid (HCl)"
+  ],
+  "kg-node-10b3dab8c559d07bdc4cced1d1325389": [
+    "H2PtCl6·xH2O"
+  ],
+  "kg-node-10b4245ef585d53ab2499b224dcf8d6d": [
+    "软模板ST",
+    "ST",
+    "mesoporogen"
+  ],
+  "kg-node-10de39da3d2bcdb9d46c87d61612e29c": [
+    "[Pd(NH3)4](NO3)2"
+  ],
+  "kg-node-10e80376fc52c78338fe688f1fa82ef6": [
+    "titanate acid (TA) nanosheet",
+    "TA"
+  ],
+  "kg-node-10f475838100b9e299ef0bb7ad93a8b3": [
+    "dC5",
+    "diquaternary bis-1,5(tripropyl ammonium)pentamethylene diiodide"
+  ],
+  "kg-node-10f636effc7d1fe1d7da7bd42c389905": [
+    "N-methylpiperidine"
+  ],
+  "kg-node-116ab75bca91aa587103b4f82cd1eec7": [
+    "PDADMAC",
+    "poly(diallyldimethylammonium chloride)"
+  ],
+  "kg-node-118ada1a9193833a2d6de1f7f3212b9f": [
+    "1,3-bis(cyclohexyl) imidazolium hydroxide",
+    "IM+OH−"
+  ],
+  "kg-node-11bc0fe2cfe3b40a5590081007435626": [
+    "NC6N"
+  ],
+  "kg-node-11c28708ab3a71aa178db6237996345f": [
+    "n-butanol (P4)",
+    "P4"
+  ],
+  "kg-node-11ff7ad7d9128c46ae87e7cf6c45936c": [
+    "1,3,5-tris(1,2-dimethylimidazolium) benzene",
+    "triquat",
+    "SDA"
+  ],
+  "kg-node-121189e7480b72f90a574b810dd95998": [
+    "Ludox AS-40"
+  ],
+  "kg-node-121d4a5245711984439eed39295c106e": [
+    "SiO2 (quartz glass tube)",
+    "quartz glass tube"
+  ],
+  "kg-node-12411c79363723f10966321827649a31": [
+    "acetophenone"
+  ],
+  "kg-node-1291adb0ac1424abb57ffbed23b2e8df": [
+    "copper nitrate"
+  ],
+  "kg-node-12acf2c0cf45426385a327fe7449524c": [
+    "isopropyl alcohol"
+  ],
+  "kg-node-12afd7e9db684c7aa6cb568592459783": [
+    "NaNO₃"
+  ],
+  "kg-node-12e784d4035823f639117047faad873e": [
+    "Tetraethylammonium (TEA+)"
+  ],
+  "kg-node-12ebe5874125e243765df072c7595f93": [
+    "N,N,N-trimethyl-1,7-octanediaminium (template)",
+    "(CH4)3N-(CH2)7-N(CH4)32+"
+  ],
+  "kg-node-1308af7aa2325d94db6b33f34a7b4d71": [
+    "HNO₃ (dealumination)"
+  ],
+  "kg-node-130bbb8848a15f9182ab97a826cd59d9": [
+    "SDABr (5-azonia-spiro[4.4]nonane bromide)",
+    "SDA",
+    "SDA(OH)"
+  ],
+  "kg-node-133b4bfdc637bc325df4cdec2d7e564c": [
+    "aluminum foil"
+  ],
+  "kg-node-13f1e866c4254bace6a8b357df8dcc73": [
+    "choline cation (Ch⁺)",
+    "ChCl"
+  ],
+  "kg-node-14796e93c216d92949fea9113a41e8ab": [
+    "kaolinite"
+  ],
+  "kg-node-14a3dc9b1936bc51fc8ac5b9171e99dc": [
+    "Ludox"
+  ],
+  "kg-node-150d5a9b4447419bd50dfc1e2e51a1f6": [
+    "CuSO4·5H2O"
+  ],
+  "kg-node-1541b9c215364696594153907a5c5898": [
+    "tetramethylammonium",
+    "TMA"
+  ],
+  "kg-node-15aeabe072d4334890005b9b3e94d315": [
+    "ethylene glycol (EG)",
+    "EG"
+  ],
+  "kg-node-15b2ce092f04c04d305a1734b5f2ffc0": [
+    "4,4'-三亚甲基双(1-甲基哌啶)季铵盐"
+  ],
+  "kg-node-16091ac54f3b653edb60aac7fbb0234a": [
+    "kaolin"
+  ],
+  "kg-node-1635455eb2b32a0932ac2738038a0252": [
+    "[(1-(3-fluorophenyl)cyclopentyl)methyl]trimethylammonium hydroxide",
+    "SDA"
+  ],
+  "kg-node-16979c09f494bfce835035c6e7702d0a": [
+    "Cu(CH3CO2)2·H2O"
+  ],
+  "kg-node-16b6a40e79aaf9c43e56a8ecf7f3bb2b": [
+    "diethanolamine",
+    "DEA",
+    "DEOH"
+  ],
+  "kg-node-16ca44cd8bd115b6930509b27945f89a": [
+    "氢氟酸",
+    "hydrofluoric acid",
+    "HF"
+  ],
+  "kg-node-16e78a2433934f98e30257a9fbec5cf4": [
+    "Al[OCH(CH3)2]3",
+    "aluminum isopropoxide"
+  ],
+  "kg-node-16e9e0c628c698f1cdf053957c7391a4": [
+    "2-甲基咪唑鎮二季铵SDA"
+  ],
+  "kg-node-170e94125f18c120b6721802c841a421": [
+    "Ni(OAc)₂",
+    "nickel acetate"
+  ],
+  "kg-node-1723752ccf87fb8a946767f895132d9e": [
+    "1,4-bis(N-methylpyrrolidinium) cations",
+    "OSDA"
+  ],
+  "kg-node-1790787768dec781693695a9de6ed84b": [
+    "SiO2"
+  ],
+  "kg-node-179d9b7bb6a6d92cbcf79bccf9e0b03a": [
+    "[Co(en)3]Cl3"
+  ],
+  "kg-node-17c1ec6dd65c4030b9ea10e16b438670": [
+    "18-crown-6 ether (18C6)",
+    "18C6"
+  ],
+  "kg-node-17f904c3d834f79ce11718e36e93eb51": [
+    "ammonium metatungstate"
+  ],
+  "kg-node-18123ad3c1c884092f5967979619646b": [
+    "2.5 M HCl (acid leaching)"
+  ],
+  "kg-node-184393175f58cb0044f1683efc390344": [
+    "quinuclidine (quinuclidinium)",
+    "Q⁺",
+    "SDA"
+  ],
+  "kg-node-185098e49d6f229fe3bb125bbb6e317e": [
+    "SDA 3 (C₁₆H₂₈N⁺)"
+  ],
+  "kg-node-1853cacb5e751d57c3f4dcd840d1344b": [
+    "tetrabutylammonium bromide",
+    "TBABr"
+  ],
+  "kg-node-187835c8f004fda73dda9e64c05faf48": [
+    "TiCl4/SiCl4 plasma precursors"
+  ],
+  "kg-node-187d78237cc19979bbab16e1e2f7a7c9": [
+    "natural kaolin clay"
+  ],
+  "kg-node-188ad68db837090bddb71e926e5fed6a": [
+    "FeCl₃水溶液"
+  ],
+  "kg-node-18e1266ecf6f76dc9854c8ce2b62bee9": [
+    "hydroxypropyl methylcellulose (HPMC)",
+    "HPMC"
+  ],
+  "kg-node-18e9cb1da4abddc65be3059a8c9cc675": [
+    "TiCl₃",
+    "titanium trichloride"
+  ],
+  "kg-node-193dfed275a1c2f265ddd6409b2cea65": [
+    "TPABr",
+    "tetrapropylammonium bromide"
+  ],
+  "kg-node-1957fa1263a4208a0727ff58b520e380": [
+    "zirconium nitrate pentahydrate"
+  ],
+  "kg-node-1970262c8d7c3a102d8cc08200ff693d": [
+    "1-adamantanamine (ADA)",
+    "SDA"
+  ],
+  "kg-node-19a1888b98729541ceff36c8d1c02b48": [
+    "hydrated Ce(NO3)4"
+  ],
+  "kg-node-19af3e4a815a249239bf3a54a8383042": [
+    "MPTS",
+    "3-mercaptopropyl trimethoxysilane"
+  ],
+  "kg-node-19c5988da19889e1a75989c216cc83a5": [
+    "C22-6-6(OH)2",
+    "[C22H45-N+(CH3)2-C6H12-N+(CH3)2-C6H13](OH)2"
+  ],
+  "kg-node-19ef8a8d398c194ad3dc703cd7b39b08": [
+    "N,N-dimethyl-3,5-dimethylpiperidinium hydroxide",
+    "OSDA"
+  ],
+  "kg-node-19f1a7aba15140616d430b4bb0f74c02": [
+    "H3PO4",
+    "phosphoric acid"
+  ],
+  "kg-node-19f7a1dedeb1f3d1ed6df7b15bf52e58": [
+    "silicalite-1 seed"
+  ],
+  "kg-node-19fa9e5bf9787169a91721af73d44a79": [
+    "2-thenoyltrifluoroacetone (tta)",
+    "tta"
+  ],
+  "kg-node-1a1d964991ca17a5d9166d5fab282b5e": [
+    "zinc nitrate"
+  ],
+  "kg-node-1a54ffb314242b98a54e88c22af76ce4": [
+    "N6-diphe(Cl)4(Br)2",
+    "N6-diphe",
+    "OSDA"
+  ],
+  "kg-node-1a7c5cbec32395b26bf0488c2d90611b": [
+    "Cu(NO3)2 aqueous solution",
+    "Cu-nitrate"
+  ],
+  "kg-node-1a874236c98d7c222e7be0a1ad7436d7": [
+    "N,N-dimethylpyrrolidinium bromide",
+    "dmpyrr"
+  ],
+  "kg-node-1b1d72227b3120e1ad6ad9bf889f49fd": [
+    "tetraethylphosphonium hydroxide",
+    "tetraethylphosphonium"
+  ],
+  "kg-node-1b20d233f108fd5a610d35c81d00dc46": [
+    "N₆-diphe surfactant"
+  ],
+  "kg-node-1b49d9873dbce8c1e88f36b85f51d498": [
+    "TPA+OH-",
+    "tetrapropylammonium hydroxide"
+  ],
+  "kg-node-1b78cfedae0beec2322622008235957f": [
+    "表面活性剂/丁醇/甲苯微乳体系",
+    "surfactant, butanol, toluene"
+  ],
+  "kg-node-1c029cceef15443dd4c0989d182f1a63": [
+    "BTPA+"
+  ],
+  "kg-node-1c160c5b7c14e47aba0cf88cfa240cde": [
+    "HTMA+"
+  ],
+  "kg-node-1c596449847be0ac0be8c846cd3547be": [
+    "triethanolamine (TEA)",
+    "TEA"
+  ],
+  "kg-node-1c5b34903432f71c309758d486149933": [
+    "Cu(NO3)2·6H2O"
+  ],
+  "kg-node-1c62f297f0f9d2c70844cfce09cfcfd6": [
+    "as-MCF",
+    "mesocellular foam"
+  ],
+  "kg-node-1c648a89df7c2050f521e652179b9d2d": [
+    "PDADMA",
+    "polydiallyldimethylammonium chloride"
+  ],
+  "kg-node-1c84ef04cfc3302c1c5b9cd431c1dd53": [
+    "BP"
+  ],
+  "kg-node-1c8ea885c7f657a82df332dad9896c09": [
+    "DMP",
+    "N,N-diethyl-cis-2,6-dimethylpiperidinium"
+  ],
+  "kg-node-1caeacaeb648f675a3813e4a872a165c": [
+    "29SiO2 (99% 29Si)"
+  ],
+  "kg-node-1cd1172f370dafb8c32d0959b1207cb1": [
+    "calcium hydroxide",
+    "Ca(OH)₂"
+  ],
+  "kg-node-1d0abd66e14c14249815134a8feb1be6": [
+    "sodium fluoride (NaF)"
+  ],
+  "kg-node-1d174144944e29c0e2a5c471701db8be": [
+    "4,4-dimethyl-4-azoniatricyclo[5.2.2.0²⁶]undec-8-ene",
+    "SDA"
+  ],
+  "kg-node-1d19269c07123fecfb13c94b24b94406": [
+    "fluoride ions",
+    "F-"
+  ],
+  "kg-node-1d3639a276e0a67dad5fd513b8523572": [
+    "DBTMED",
+    "R"
+  ],
+  "kg-node-1d73fc970749bba4470b5270542e0b13": [
+    "NH₄Cl"
+  ],
+  "kg-node-1d8aa18f95866a16c5dd8f0d323dcc8d": [
+    "hexamethonium dihydroxide",
+    "HM(OH)2"
+  ],
+  "kg-node-1dcc2652b8b438412fae40c34955a7c7": [
+    "tert-butylamine"
+  ],
+  "kg-node-1dd91eff52e4362c59c597d91f418a3c": [
+    "PU foam template",
+    "polyurethane scaffold"
+  ],
+  "kg-node-1dff5cae4a07297f9c552cda02e03403": [
+    "cetyltrimethylammonium bromide (C16TAB)",
+    "C16TAB",
+    "CTAB"
+  ],
+  "kg-node-1e33a69e5bb6c0f525c656e291e0773b": [
+    "Triethylamine (TEA)",
+    "TEA"
+  ],
+  "kg-node-1e4d8782958685bcc0a443cc7ce21163": [
+    "Mn(NO3)2"
+  ],
+  "kg-node-1e712e44e0d443e6f6b080d8d4bad03b": [
+    "bentonite clay",
+    "Nanoclay",
+    "hydrophilic bentonite"
+  ],
+  "kg-node-1ea01f4022c300d5c62fa29c402f7836": [
+    "MSA-1强碱性阴离子交换树脂",
+    "macroporous strongly basic ion-exchange resin"
+  ],
+  "kg-node-1ea506b7bd4b37718b3214fa1b6edbd3": [
+    "Ru(NH3)6Cl3",
+    "ruthenium precursor"
+  ],
+  "kg-node-1eb58266640a00e6db6a9bf13fe9eddc": [
+    "N,N,N-trimethyl-1-adamantammonium (TMAda⁺)",
+    "TMAdaOH"
+  ],
+  "kg-node-1ecd4f3841c4a313ba225ed0d30f0660": [
+    "ethylenediamine (EDA)",
+    "EDA"
+  ],
+  "kg-node-1ee16f7e7a1735dc6cbfab17c0da2d3f": [
+    "cobalt acetate"
+  ],
+  "kg-node-1f39af4aa49975b0715d3f8eedbf9c7e": [
+    "Ga-rich amorphous silica–gallia",
+    "Ga-rich silica-gallia"
+  ],
+  "kg-node-1f3a966fbd95137669ebe8fe2fc6c69f": [
+    "hydrochloric acid (HCl, 1 M)"
+  ],
+  "kg-node-1fb0f443ac15188bfde2c531260a6718": [
+    "zirconium sulfate tetrahydrate",
+    "Zr precursor"
+  ],
+  "kg-node-200b6ee0ae93ed15124e7b2d2a0f62b5": [
+    "potassium hydroxide (KOH)"
+  ],
+  "kg-node-20399e38d27a492df62fa8efac02998f": [
+    "cobaltocene",
+    "Cp₂Co"
+  ],
+  "kg-node-2097806450caa2829d24e1c46f153728": [
+    "N-ethyl-N-methyl-2,2,6,6-tetramethylpiperidinium",
+    "OSDA",
+    "quaternary amine"
+  ],
+  "kg-node-20d34e85a8143d6fd82c15f4f7ee9400": [
+    "kaolin binder",
+    "binder"
+  ],
+  "kg-node-20fd45fa3120c302fca91b33ad173597": [
+    "DBTOL",
+    "dibutyltin dilaurate"
+  ],
+  "kg-node-214a77f45ad6313dfe08d21d0fd13935": [
+    "SR-349",
+    "ethoxylated (3) bisphenol A diacrylate"
+  ],
+  "kg-node-21669f443041e3a959c6ba34691fc72a": [
+    "FeCl2"
+  ],
+  "kg-node-217253903449ef75b5c893410b1a1a0c": [
+    "DTPA"
+  ],
+  "kg-node-218cb0b7dd12e012b19ea7aead2a1ed1": [
+    "4,4-dimethyl-4-azonia-tricyclo[5.2.2.0^2,6]undec-8-ene iodide",
+    "SDA"
+  ],
+  "kg-node-21b5397bbe18e066e7aad2fd61e226b2": [
+    "TiO₂",
+    "titanium dioxide"
+  ],
+  "kg-node-22260f2cc8eb2e71b433d9c9cb52fe34": [
+    "Na-form mordenite (TZM 1011)",
+    "mordenite",
+    "TZM 1011"
+  ],
+  "kg-node-22af429ab45bc7877e726af337664669": [
+    "rice husk",
+    "RH"
+  ],
+  "kg-node-22c051a0fc6b0b8c614878241073fb75": [
+    "NaSiO3·9H2O"
+  ],
+  "kg-node-22c5496fb3a0548946dfdfb9761a3e24": [
+    "SiO2 powder"
+  ],
+  "kg-node-22c8f124f4e6ad7680999756c2cd4487": [
+    "potassium nitrate",
+    "KNO₃"
+  ],
+  "kg-node-22f06ee1bbbd4e6c2895c2c08b1a7e9d": [
+    "mercaptosilane protecting ligand",
+    "mercapto ligands"
+  ],
+  "kg-node-232429a020ffa99b73d95c9872b50151": [
+    "Ni–PEHA complex"
+  ],
+  "kg-node-239055532db6b7274d5fad94c4319e0c": [
+    "bentonite"
+  ],
+  "kg-node-23dd80de40f8aecd3d4e01421e04bfa5": [
+    "lithium hydroxide",
+    "LiOH"
+  ],
+  "kg-node-23ef983fb403d43527734a531eee557d": [
+    "Fenton's reagent (H2O2/FeSO4)",
+    "Fenton"
+  ],
+  "kg-node-243191556f251615e49c909b1f3105b2": [
+    "Ca(NO3)2·4H2O"
+  ],
+  "kg-node-244700218ebdc545f88622a7f2cd42ae": [
+    "Pd(en)2(Ac)2",
+    "Diethylenediamine palladium(II) acetate",
+    "Pd(en)2 2+"
+  ],
+  "kg-node-245d05f557f4cd66301e137ab88f8dc3": [
+    "LUDOX AS-40 colloidal silica"
+  ],
+  "kg-node-248045ba5e0085417ef3729696c98a21": [
+    "SAPO seed",
+    "SAPO-34"
+  ],
+  "kg-node-249138a5ba7ac229773da1c55336bab7": [
+    "dimer-TPA",
+    "hexapropylhexamethylenediammonium"
+  ],
+  "kg-node-24aa625cf7b4f36cf083d358c5b03776": [
+    "carbamate-linked double alkyl chain organosilane",
+    "double alkyl chain organosilane"
+  ],
+  "kg-node-24b144128c98a0f48a3b8ca112b89930": [
+    "BSA"
+  ],
+  "kg-node-24c453ee303c34039b694068a1c217a1": [
+    "N,N-dimethyl-3,5-dimethylpyridinium hydroxide",
+    "DMDMPOH",
+    "DMDMP cation"
+  ],
+  "kg-node-251ba6bfa983f81a5043c63e1f1a8f03": [
+    "DMF"
+  ],
+  "kg-node-25476fe3505ba5cf9308c9bf18b304f7": [
+    "CH3NH2",
+    "短链烷基胺"
+  ],
+  "kg-node-25487df7e0fb7c297bdc2a9b1bdf7891": [
+    "hydrogen peroxide",
+    "H₂O₂"
+  ],
+  "kg-node-25852efc934eafa08c0f81edf26c7d80": [
+    "C22-6Br2 diquaternary ammonium surfactant",
+    "C₂₂₋₆Br₂"
+  ],
+  "kg-node-2595e0312e3a231c3f897468c48cb234": [
+    "GLYMO",
+    "(3-glycidyloxypropyl)trimethoxy silane"
+  ],
+  "kg-node-25c2764ea051062c44a8057bbd097dac": [
+    "zinc nitrate hexahydrate",
+    "Zn(NO3)2"
+  ],
+  "kg-node-25d093da6b5b20f98cfe5e795bd6e7ca": [
+    "N,N-diethyl-3,5-dimethylpiperidinium hydroxide",
+    "structure-directing agent"
+  ],
+  "kg-node-2636bc0f54c46e9b1554385cf1b45ec9": [
+    "PVP",
+    "polyvinylpyrrolidone"
+  ],
+  "kg-node-268e41eb750de1d48b78c09474ccecb6": [
+    "1,3,3-trimethylspiro[6-azoniabicyclo[3.2.1]]octane 6,1′-piperidinium fluoride",
+    "SDA"
+  ],
+  "kg-node-26c6c71199e80bd7a7eeef895e31363e": [
+    "Cp2TiCl2"
+  ],
+  "kg-node-26dcba0a6ad4d39b88e918951c0c81b5": [
+    "F⁻ (fluoride)"
+  ],
+  "kg-node-26ea40e19622595611739ae100bb9090": [
+    "2E134TMI hydroxide",
+    "2-ethyl-1,3,4-trimethylimidazolium"
+  ],
+  "kg-node-26ed21e5dad6bf741a08d7ef4194ad03": [
+    "TEAOH/Cu-TEPA",
+    "TEAOH",
+    "Cu-TEPA"
+  ],
+  "kg-node-27024433bd99f30df658dd4b5fc2e3d4": [
+    "sucrose",
+    "carbon precursor"
+  ],
+  "kg-node-2702b6d7c474145150112e45d94aec2d": [
+    "前驱体试剂",
+    "Al(NO₃)₃·9H₂O",
+    "(NH₄)₆H₂W₁₂O₄₀",
+    "Ni(NO₃)₂·6H₂O"
+  ],
+  "kg-node-2721158c478c95dd2f18234d0c903f24": [
+    "NH₄-Y zeolite"
+  ],
+  "kg-node-27eb7c2586e22e349fce4f0f1788d8df": [
+    "Pr₂NH template",
+    "di-n-propylamine"
+  ],
+  "kg-node-280062d04486474de9603b87d2779bbf": [
+    "zeolite seeds",
+    "seed crystals",
+    "CIT-6 seeds"
+  ],
+  "kg-node-280957746ab3278e5cf7fbb8306458ce": [
+    "DMDMPOH",
+    "DMDMP"
+  ],
+  "kg-node-280c133562ff2bbee61539996b3d0582": [
+    "In(NO3)3·nH2O"
+  ],
+  "kg-node-2813292db20b5254f6964231e1747a91": [
+    "H2SiF6"
+  ],
+  "kg-node-282544b9ff7757ce701cd1a49545a747": [
+    "N-methylpyridinium iodide",
+    "NMP"
+  ],
+  "kg-node-2833693f8ddae304362d16ce38bbd4e4": [
+    "n-hexane"
+  ],
+  "kg-node-284354e3aec392e4dc5f730511e22a44": [
+    "ammonium acetate 1 M"
+  ],
+  "kg-node-2853029883fd1dd906885e8feb4225a3": [
+    "zeolite Y"
+  ],
+  "kg-node-2867c7c543b5d6cdc7114a9235270fa3": [
+    "PVA",
+    "polyvinyl acetate"
+  ],
+  "kg-node-2872e95bd328354b10e83e3034170217": [
+    "4-methylpiperidine (MPD)",
+    "MPD",
+    "OSDA"
+  ],
+  "kg-node-293c9efd94989a50622cbd95ad5ff732": [
+    "C₁₄H₂₆NOH",
+    "1,3,3-trimethyl-6-azonium-tricyclo[3.2.1.4⁶.⁶]dodecane hydroxide",
+    "SDA"
+  ],
+  "kg-node-294557f57f665ddc6a643f663b50c4ea": [
+    "4bBnMI",
+    "1,1'-(butane-1,4-diyl)bis(3-benzyl-2-methylimidazolium)"
+  ],
+  "kg-node-296f69e44920b7a5cfaa70cc0c1ae416": [
+    "C22-6-6 双季铵盐表面活性剂",
+    "C22H45-N+(CH3)2-C6H12-N+(CH3)2-C6H13",
+    "C22-6-6Br2"
+  ],
+  "kg-node-299ac32682f11004b16aea5203a4dfdd": [
+    "ethanol (EtOH)",
+    "EtOH"
+  ],
+  "kg-node-29a29df0e5b48f0143632244e3306d3b": [
+    "AgNO3 aqueous solution"
+  ],
+  "kg-node-29a69a25fcfed0a68d08ee785fcee59c": [
+    "Fe₃O₄@SiO₂"
+  ],
+  "kg-node-29af6c2cbb5328e182b50c7b295af06b": [
+    "titanium tetrachloride"
+  ],
+  "kg-node-29c5c201f3e3fe499cd44e94781eb3ba": [
+    "octyltrimethylammonium chloride",
+    "SDA"
+  ],
+  "kg-node-29d97fea0657f5bb6a1b77d58f2b7ca9": [
+    "TMAD",
+    "N,N,N-trimethyl-1-adamantanammonium hydroxide",
+    "SDA"
+  ],
+  "kg-node-29f0b40d5769085a401b848d1fb3eb87": [
+    "C-PAM hydrogel",
+    "crosslinked polyacrylamide"
+  ],
+  "kg-node-2a67144a7191d79974a5e44331925bae": [
+    "DMPTS"
+  ],
+  "kg-node-2adc9b38abb017f7dac194aea1f1bbf2": [
+    "PV glass",
+    "G-PV"
+  ],
+  "kg-node-2addfddac5198713e8a25893fbc05192": [
+    "benzotriazole"
+  ],
+  "kg-node-2af44e9645addcbfdcffec3646fb042f": [
+    "T6-1,2,6"
+  ],
+  "kg-node-2b1145def448f6d95453bf046722f812": [
+    "SBA-15"
+  ],
+  "kg-node-2b5f14d443f15553f62145fb96728340": [
+    "Polyvinylpyrrolidone (PVP)",
+    "PVP"
+  ],
+  "kg-node-2b6a296fac0f89b155187d8baccf1928": [
+    "HNO₃"
+  ],
+  "kg-node-2b7cdf016ea702ad57a719c99534943d": [
+    "SDA isomer I",
+    "isomer I"
+  ],
+  "kg-node-2b7d3b0781b98835006972aa479dfdd1": [
+    "dibenzylpiperazine"
+  ],
+  "kg-node-2c12a7f9bb1f6dea6b1d47a8f4cd2176": [
+    "(C2H5)3N",
+    "TEA"
+  ],
+  "kg-node-2c240a86fe1e3b11d169e231f4e40fbe": [
+    "tetraamine platinum nitrate"
+  ],
+  "kg-node-2c27dec880c11d1bce3042e87dcc2af7": [
+    "tetraethylphosphonium (TEP)",
+    "TEP"
+  ],
+  "kg-node-2c2993bd8d8c9c1d9e6d8bec6e3752ff": [
+    "bacterial cellulose (BC)",
+    "BC aerogel"
+  ],
+  "kg-node-2c69d33adcab16388e0961ca8bdcdd27": [
+    "trimer-TPA"
+  ],
+  "kg-node-2cec7b1c2fc0210e495b2fd87776b188": [
+    "2-Ethyl-1,3,4-trimethylimidazolium (SDAOH)",
+    "SDAOH"
+  ],
+  "kg-node-2d07c34f2809abdbe0b694755dd7abfa": [
+    "TEA"
+  ],
+  "kg-node-2d231e78e25039195d7b39cd28002f7a": [
+    "Ga2(SO4)3·18H2O"
+  ],
+  "kg-node-2d3451309cf1aba4a15ad5176d1d66ec": [
+    "AgNO3"
+  ],
+  "kg-node-2d3d678fb1d127ad233d27c70ac24108": [
+    "titanium isopropoxide (TTIP)",
+    "TTIP"
+  ],
+  "kg-node-2d7a324d447f26c9946ccc0ede5d713a": [
+    "Zn(NO3)2",
+    "Zn(NO3)2·6H2O"
+  ],
+  "kg-node-2d7df109231fd04b2047a1a0b76456f6": [
+    "SDA1-SDA4 (polyammonium Gemini surfactants)",
+    "SDA1",
+    "SDA2",
+    "SDA3",
+    "SDA4"
+  ],
+  "kg-node-2ddad25c45e0613cbedd6c437eb2d80f": [
+    "Sil-1 seeds (~50 nm)"
+  ],
+  "kg-node-2ddd619a265a5c720922b634b9a314a3": [
+    "germanium dioxide",
+    "GeO2"
+  ],
+  "kg-node-2e77f415d586862538ca8df11e8822af": [
+    "KHCO3"
+  ],
+  "kg-node-2eb0e44f8ce9ee423e459a1b55486ae1": [
+    "C16NMP (N-cetyl-N-methylpyrrolidinium bromide)",
+    "N-cetyl-N-methylpyrrolidinium bromide",
+    "mesoporogen"
+  ],
+  "kg-node-2eb40c6f5289df9647c041025d206e50": [
+    "4,4'-bipyridine"
+  ],
+  "kg-node-2ec8c1234d37761720837cda3d903793": [
+    "1-adamantamine (1-ADA)",
+    "1-ADA"
+  ],
+  "kg-node-2f253c06e2b151597489064f58f43aff": [
+    "triquaternary alkylammonium template"
+  ],
+  "kg-node-2f4a2c37d4a9ddea7ee1c254e5870eb1": [
+    "(6R,10S)-6,10-二甲基-5-氮鎓螺[4.5]癸烷氢氧化物",
+    "SDAOH"
+  ],
+  "kg-node-2fc706c759e35581bd9d0bff25f16413": [
+    "Cs+ (cesium cation)",
+    "cesium"
+  ],
+  "kg-node-303c2f3f74dc5ae358c6011ccfe8862b": [
+    "TEAOH/HF合成凝胶"
+  ],
+  "kg-node-303f96e990c85f39aceedaa4c8f60290": [
+    "borax",
+    "set retarder"
+  ],
+  "kg-node-307ebbfa074b45dda0b9d4ba059701a8": [
+    "1-butyl-3-methylimidazolium bromide",
+    "[bmim]Br",
+    "imidazolium ionic liquid",
+    "ILs"
+  ],
+  "kg-node-309f38e883f35764dce7f283a03b54cf": [
+    "DBDM cation"
+  ],
+  "kg-node-30dcf5a3b0a782a4488b8e736e28519c": [
+    "Di-propylamine (DPA)",
+    "DPA"
+  ],
+  "kg-node-310c343931228e5ff1706d2083b26a26": [
+    "三乙基-n-丁基溴化铵（TEBA-Br）",
+    "TEBA-Br"
+  ],
+  "kg-node-313ec1e5c3ee280b5f119b28e9f67da4": [
+    "Cu(NO₃)₂"
+  ],
+  "kg-node-314e894b5864cd3ac2e733eb345bf4d9": [
+    "3BDMI",
+    "short imidazolium-based dication"
+  ],
+  "kg-node-317f667070d6228b963057ae7ff50e78": [
+    "hydroxypropyl cellulose (HPC)",
+    "HPC"
+  ],
+  "kg-node-3181103cd914454b4669e358d2f408b4": [
+    "fluoride anion (F⁻)",
+    "F-",
+    "HF"
+  ],
+  "kg-node-318eef1c5255c1ae119b00c08acc063e": [
+    "sulphuric acid (96 wt/vol%)"
+  ],
+  "kg-node-319d7a7cf85d5234793c34488190c135": [
+    "fluoride anion mineralizer",
+    "F−"
+  ],
+  "kg-node-31b28a93358da944aaa07be7cd6d3d05": [
+    "Na2O-Al2O3-SiO2-H2O凝胶",
+    "initial gel composition"
+  ],
+  "kg-node-31be962b24a58077c4ae5f087823df8a": [
+    "polyvinyl alcohol (PVA)",
+    "PVA"
+  ],
+  "kg-node-31f4fab9921b4c6db69a5e2bc521ddc4": [
+    "quaternary ammonium SDA (hydroxide form)",
+    "organic directing molecule"
+  ],
+  "kg-node-320bf7a17c5e840727623dff9173a7fb": [
+    "EDTA(Na)",
+    "ethylenediaminetetraacetic sodium"
+  ],
+  "kg-node-3243a268fa2eb5a4dc28a17d682a2a2b": [
+    "异丙醇铝",
+    "aluminum isopropoxide",
+    "Al(O-i-Pr)3"
+  ],
+  "kg-node-329ca35781148b45496c6a777c0050a8": [
+    "hexamethylenetetramine (H-amine)",
+    "H-amine"
+  ],
+  "kg-node-329cc960e2371978dd279b54e6f8729b": [
+    "gallium oxide",
+    "Ga2O3"
+  ],
+  "kg-node-32d66db04841ff900de343edfe95660d": [
+    "potassium hydroxide",
+    "KOH"
+  ],
+  "kg-node-330ccc41295a6c45e3191ec6a2c2eb23": [
+    "benzyldimethyltetradecylammonium chloride"
+  ],
+  "kg-node-33141e4beee69334d6a2584ef36c5e24": [
+    "activated carbon"
+  ],
+  "kg-node-331bb5870e4194364aa8b508dc95c76f": [
+    "ZrO2-SiO2 precursor gel",
+    "ZrO2-SiO2(x)"
+  ],
+  "kg-node-333741a65b9137c46fd3d936574f5888": [
+    "HDTMA-Cl",
+    "hexadecyltrimethylammonium chloride"
+  ],
+  "kg-node-334212be93b8bcc3d015c2452db66465": [
+    "germanium dioxide (GeO2)"
+  ],
+  "kg-node-335a6287d038e3f5723f834853970254": [
+    "tris-(dimethylamino)-(methyl)-phosphonium"
+  ],
+  "kg-node-335c9f84d9c9584a343964eaa166f7d9": [
+    "Cu(NO3)2·3H2O / Ni(NO3)2·6H2O"
+  ],
+  "kg-node-337fb787a9995d100924f583d18aed76": [
+    "colloidal silica (30%)"
+  ],
+  "kg-node-338a167d175fc24c7b5238dfa6d2c35a": [
+    "NH₄VO₃",
+    "ammonium metavanadate"
+  ],
+  "kg-node-338b59b244d6bb0f695ae486679e5343": [
+    "N-benzylquinuclidinium (BQ)",
+    "BQ"
+  ],
+  "kg-node-33a11f49e81e9cb761711698bab4880f": [
+    "tetrapropylammonium hydroxide",
+    "TPAOH"
+  ],
+  "kg-node-33e788d08a060170fa7f6b7b3ac50aca": [
+    "N,N,N-trimethylcyclopentylammonium-d9",
+    "d9-TMC5"
+  ],
+  "kg-node-34044cbf8c6d66099ccfb73ed8d69efe": [
+    "diethanolamine (DEA)",
+    "DEA",
+    "模板剂"
+  ],
+  "kg-node-3424fb39a9f6d47ab1784eccb74bb477": [
+    "SnCl4",
+    "SnCl4·5H2O"
+  ],
+  "kg-node-342700e66908372a977acab02121077a": [
+    "Li2CO3",
+    "lithium carbonate"
+  ],
+  "kg-node-34309f92dcf6ede16b2b74abddfa6c5d": [
+    "tetra-isopropyl-phosphonium",
+    "TetIPP"
+  ],
+  "kg-node-3461b0848ae8c2c5b3b4281bfb45de78": [
+    "silicic acid"
+  ],
+  "kg-node-3492ff70dbfbe03d3c690865a1ddb8d6": [
+    "NaBH4"
+  ],
+  "kg-node-34c2b739d060d326c9b53cb3c5d30045": [
+    "OSDA1 (1,1-dimethyl-4-(1-methylpyrrolidin-1-yl)piperidinium)",
+    "MPP methylated salt"
+  ],
+  "kg-node-34ecec059f025428c3f45b4071c3f4c8": [
+    "CsNO3 solution"
+  ],
+  "kg-node-35368a52c9ad090aec7031891e5dfeb1": [
+    "GeO₂ (germanium oxide)",
+    "germanium oxide"
+  ],
+  "kg-node-353e1052b7571b34b5e44e7eea536579": [
+    "graphene oxide (GO)",
+    "GO"
+  ],
+  "kg-node-354ce0aa829a5417f885f5bfc36659bc": [
+    "4BI (polymethylene-bis(methylimidazolium), n=4)",
+    "nBI"
+  ],
+  "kg-node-3555feeb483c61a7e65f9991fae3ecd1": [
+    "aluminate"
+  ],
+  "kg-node-35707378e85b4ea7cd916f8fe8ae297c": [
+    "5BDMI"
+  ],
+  "kg-node-35a5a3952cdc4650b6af0dc98e4b9849": [
+    "zinc sulfate"
+  ],
+  "kg-node-35aecb2c3318c072bfd9c077376b773d": [
+    "C-PSt-co-P4VP",
+    "PSt-co-P4VP"
+  ],
+  "kg-node-35c81a0c7468ec0863122d145f17b929": [
+    "H2S"
+  ],
+  "kg-node-35c932b5af3dcf62afdda6d8d104c801": [
+    "FeCl₃·6H₂O",
+    "iron chloride solution"
+  ],
+  "kg-node-35cb81742da71ee884c53c0e8aa3f7fc": [
+    "neopentylamine"
+  ],
+  "kg-node-35cd6c42e4b5c0409a0fc505a0067710": [
+    "Bza-4-16"
+  ],
+  "kg-node-35e627e587678006b0b2097afbcc6d3d": [
+    "EMPS (ethyl-methyl-pseudoephedrinium)",
+    "(1S,2S)-EMPS",
+    "(1R,2R)-EMPS"
+  ],
+  "kg-node-36154bb573d671df10e0f97cd28a2400": [
+    "hexamethonium hydroxide",
+    "HM2+",
+    "hexamethonium bromide (HMBr2)"
+  ],
+  "kg-node-361ebc0fad7f7d5c353d992ab76d370f": [
+    "BMH (N-butyl-N-methylhexamethyleneiminium)",
+    "BMH"
+  ],
+  "kg-node-3660182089c9c3a0739e92d6fe1b6391": [
+    "BzDOH (OSDA)",
+    "BzD+"
+  ],
+  "kg-node-366225d81d1431f77bf171002daeb77b": [
+    "morpholine (MA)",
+    "MA"
+  ],
+  "kg-node-366f04ffb0f5d9a3566e5b6f3f0bb42f": [
+    "titanium(IV) butoxide",
+    "TBD"
+  ],
+  "kg-node-369fe1c1faf24617b7853228656e66e6": [
+    "diquat-4",
+    "1,4-bis(N-methylpyrrolidinium)butane"
+  ],
+  "kg-node-36b9c63c48b02d015d393fef9b266d75": [
+    "titanocene dichloride",
+    "C10H10Cl2Ti"
+  ],
+  "kg-node-36bd18bff0ccf825f5a6cc205bce2176": [
+    "copper(II) acetate"
+  ],
+  "kg-node-36d09296a1b81c86ed23802cafb920b6": [
+    "calcium nitrate"
+  ],
+  "kg-node-36f007b89eaad22e6101e647ca09b0ea": [
+    "Cu(CO2CH3)2",
+    "copper acetate"
+  ],
+  "kg-node-370dd829eb25bbeb12c001b9d7db85de": [
+    "NH4H2PO4"
+  ],
+  "kg-node-3735d5f6614a447396fe63780110ec6c": [
+    "合成凝胶"
+  ],
+  "kg-node-3736db93c1aee724574e66b8638130c2": [
+    "Na2CO3·10H2O",
+    "sodium carbonate decahydrate"
+  ],
+  "kg-node-373716c62660aa70c558361c9514891c": [
+    "N,N-dimethyl piperidinium chloride (DMPCl)",
+    "DMPCl"
+  ],
+  "kg-node-37ccdecd60c60023f97aa763713a7771": [
+    "DMEDA"
+  ],
+  "kg-node-37d754f7a95247656718bed80ff137cf": [
+    "PDDA",
+    "poly(diallyldimethylammonium) chloride"
+  ],
+  "kg-node-384223eeb6de9890130b572c9a497f85": [
+    "N-benzyl-1-azoniumbicyclo[2,2,2]-octane",
+    "C14H20N+OH-"
+  ],
+  "kg-node-385d218c445876d1cf5b63ccc7bda0ed": [
+    "TTDDA"
+  ],
+  "kg-node-38bc4040d6cca3fc714206ffaceae4b6": [
+    "ZrOCl2",
+    "zirconium oxychloride"
+  ],
+  "kg-node-38ee602c24335ba1ed9fbc2bd2018ea5": [
+    "dealuminated beta (seed)"
+  ],
+  "kg-node-38f3f070508d0142e3a850aec1f937b9": [
+    "aluminium triisopropoxide"
+  ],
+  "kg-node-391971767dfad2206972d25ff8e48072": [
+    "aluminum hydroxide",
+    "Al(OH)3"
+  ],
+  "kg-node-391b00a5059c9a47198db416fae28a40": [
+    "boron oxide (B2)",
+    "B2"
+  ],
+  "kg-node-3957744248a80f1d567341e7e94c92e7": [
+    "H2"
+  ],
+  "kg-node-3970bb62b2ab03a2b1f58ed64f6f9981": [
+    "magnesium acetate tetrahydrate",
+    "Mg(CH3COO)2·4H2O"
+  ],
+  "kg-node-397ca704b181ad3c6045d9b0e1f4632a": [
+    "Tetraethylammonium fluoride (TEAF)",
+    "TEAF"
+  ],
+  "kg-node-399cc5aa8be1a8760d6a1f97e99eb940": [
+    "DMABOH",
+    "N,N-dimethyl-6-azonium-1,3,3-trimethylbicyclo(3.2.1)octane"
+  ],
+  "kg-node-39b4d36dc8bedeaf855533b2d60a84e7": [
+    "N-ethyl,N-methyl-2,6-cis-dimethylpiperidinium (SDA II)",
+    "SDA II"
+  ],
+  "kg-node-39babba8752bbb0d9b3f3f0beefba6d6": [
+    "decamethonium dihydroxide (DMDH)",
+    "DMDH"
+  ],
+  "kg-node-39d3d2f8b94d1d80e9f6d1edd404c42a": [
+    "Ba(OH)2·8H2O"
+  ],
+  "kg-node-3a25c96e158fda522e4f4442ff0d7daf": [
+    "HM(Br)2",
+    "HM(OH)2"
+  ],
+  "kg-node-3a83716e62529327130aa54e6a850189": [
+    "2-ethyl-1,3,4-trimethylimidazolium hydroxide (SDAOH)",
+    "SDAOH"
+  ],
+  "kg-node-3a883d9fdf9ef28b4696b81259689550": [
+    "n-hexyltrimethylammonium bromide",
+    "HTAB",
+    "HTA+"
+  ],
+  "kg-node-3a9281c4a4095c4ae3207a2c20ccaff0": [
+    "3-aminopropyldimethylmethoxysilane",
+    "APMS"
+  ],
+  "kg-node-3a9c092775da37fd882331a690f90110": [
+    "tropane SDA"
+  ],
+  "kg-node-3ac3b47dbe4d2ced3235e1c890349242": [
+    "carbon black",
+    "mesoporous carbon nanopowder"
+  ],
+  "kg-node-3acf1808d2628c38a1420f7ee7aa3b79": [
+    "coal fly ash",
+    "FA"
+  ],
+  "kg-node-3ae1ad816d9b4d3bcb5724a101f614e3": [
+    "Pd(NH3)2(NO3)2"
+  ],
+  "kg-node-3b2c281add781cbe97251a25ef484fcb": [
+    "tetramethoxysilan",
+    "Tetramethoxysilan"
+  ],
+  "kg-node-3b367669f6b7814b128f94ecd89c9574": [
+    "fluoride anion",
+    "F-"
+  ],
+  "kg-node-3b5be945c27b718dbd4bd93cff97bca3": [
+    "colloidal silica (SM30)",
+    "SM30"
+  ],
+  "kg-node-3b91fac1f74898f15420a860e9b8ea76": [
+    "Ir(C2H4)2(acac)"
+  ],
+  "kg-node-3bbbb3c3fed0d3a97881faa596723cda": [
+    "K+"
+  ],
+  "kg-node-3bc7dfce4bd2d44cbb0afee5b3ecf302": [
+    "2CoCO3·3Co(OH)2·xH2O"
+  ],
+  "kg-node-3be72b50bd7c0c27a8289f7cdb9bcd03": [
+    "Zeolite CBV-720 FAU"
+  ],
+  "kg-node-3c03f8ae0d01e443baaeecc942aa7b27": [
+    "K+ cation"
+  ],
+  "kg-node-3c08148557861b1ea8b183277565bed2": [
+    "EDC",
+    "1-ethyl-3-(3-dimethylaminopropyl)carbodiimide"
+  ],
+  "kg-node-3c35c2b9c207720e97f96a11cc9581ca": [
+    "corn stover ash"
+  ],
+  "kg-node-3c36812f7e32d79d47c2284d81aa844f": [
+    "Et6-diquat-5",
+    "OSDA"
+  ],
+  "kg-node-3c4260cb8493a61d710cf8d0375a545f": [
+    "BMImBr"
+  ],
+  "kg-node-3c4fab4ec91cf87021078a7325f9c81c": [
+    "aluminum sulfate hydrate (Al2(SO4)3·18H2O)"
+  ],
+  "kg-node-3c53ab331a02942881f2796f70d9870b": [
+    "tetramethylammonium (TMA)"
+  ],
+  "kg-node-3c76583a228de199b90648169c56953b": [
+    "1-adamantanamine",
+    "1-adamantylamine"
+  ],
+  "kg-node-3c9184ef41414a1d19ae7e58395b93cd": [
+    "EDC/NHS",
+    "1-ethyl-3-(3-dimethylaminopropyl)carbodiimide",
+    "N-hydroxysuccinimide"
+  ],
+  "kg-node-3d1a3ed166981ed52935b6c5e16d845e": [
+    "PVP (poly(vinylpyrrolidone))"
+  ],
+  "kg-node-3d1aab70468f209de9f38235c82531dd": [
+    "TMA (tetramethylammonium)",
+    "TMA"
+  ],
+  "kg-node-3d4215aadcb9cd950e42f5ccf8a0a599": [
+    "2,2′;6′,2″-terpyridine",
+    "terpy"
+  ],
+  "kg-node-3d42defda612ac08f720e04c333e7b15": [
+    "氯磺酸（ClSO₃H）",
+    "chlorosulfonic acid"
+  ],
+  "kg-node-3d4d368cc2741ff939d2ea882cc43184": [
+    "1,5-dibromopentane"
+  ],
+  "kg-node-3d796453c0087b9b6bf2f7d75c9e5268": [
+    "tetra-n-propylammonium hydroxide (TPAOH)",
+    "TPA+"
+  ],
+  "kg-node-3d7d416af2f8a9841947e875390f1b02": [
+    "copper(II) sulfate",
+    "CuSO4"
+  ],
+  "kg-node-3d9a8acc9a993a512211257180a8ef53": [
+    "isopropanol (IPA)",
+    "IPA"
+  ],
+  "kg-node-3daae7c43402c7fba539bcfdef878ca3": [
+    "RF aerogel",
+    "resorcinol-formaldehyde aerogel"
+  ],
+  "kg-node-3dedb4974617d02ea3b5c0ae7713f073": [
+    "OSDA-C6",
+    "1,1'-(pentane-1,5-diyl)bis(1-butylazepan-1-ium)"
+  ],
+  "kg-node-3e06c4a5aaa5633a60d499eb22c036da": [
+    "n-DPA",
+    "n-dipropyl amine"
+  ],
+  "kg-node-3e9c95860d43c2416499a92534d5758a": [
+    "alkaline silica sol"
+  ],
+  "kg-node-3e9d9b33c27a461453d4cccdd6594008": [
+    "AEAPTMS"
+  ],
+  "kg-node-3ecb5d2774b0da4dc6f6c5e017fa16b5": [
+    "AESA (fatty alcohol polyoxyethylene ether ammonium sulfate)",
+    "anionic surfactant"
+  ],
+  "kg-node-3efa93d8d0844e3f60de43a3fa14edf6": [
+    "BMH (benzylmethylhexamethyleniminium)",
+    "BMH"
+  ],
+  "kg-node-3efaaa80c53b0a45f28170ea3e791bf9": [
+    "LiOH"
+  ],
+  "kg-node-3f025c1dc77c637d8b371f0c50aac155": [
+    "aluminum scraps"
+  ],
+  "kg-node-3f2e900844af9d2803ae44e9a3b9fcf5": [
+    "Mg(NO3)2·6H2O"
+  ],
+  "kg-node-3f304c29cbe97bb0d143aca33f5bf0b6": [
+    "SnCl₄·5H₂O"
+  ],
+  "kg-node-3f5025a9936e5a7b1f51e64c89ee1eb9": [
+    "硅油季铵盐介孔结构导向剂",
+    "mesoporous SDA"
+  ],
+  "kg-node-3f72a5e2e7180b7e50801fb8d44e846f": [
+    "Co(NO3)2",
+    "Co(NO₃)₃·6H₂O"
+  ],
+  "kg-node-3fb46c240eaad2996b90485d3dd1f691": [
+    "TPAOH/TPA₂O",
+    "SDA",
+    "TPA₂O"
+  ],
+  "kg-node-3fcb3263819a4bd185835d1f1090513d": [
+    "hexamethonium bromide (RBr2)",
+    "RBr₂",
+    "OSDA"
+  ],
+  "kg-node-3ff224a88053450f1f7167a53635a25b": [
+    "oxygen",
+    "O2"
+  ],
+  "kg-node-402defb38380aa8a0d568242d3198c1a": [
+    "pseudobohemite"
+  ],
+  "kg-node-4051983eda2dca5b234f6e0c4448783f": [
+    "CrCl3·6H2O"
+  ],
+  "kg-node-40e28c350e767d369cf9865cb3dcf0fc": [
+    "pyrrolidine"
+  ],
+  "kg-node-4127b4f4c0440608a884b9bf7f3fac75": [
+    "[EMIm]Br",
+    "1-ethyl-3-methyl-imidazolate bromide"
+  ],
+  "kg-node-4168de1da17720c7853328d8fffff304": [
+    "NH4F aqueous solution"
+  ],
+  "kg-node-41699de201d98c2802f8a0abce1c31b6": [
+    "VOCl₃",
+    "VOC₁₃"
+  ],
+  "kg-node-41a887d83d87afb07bbb5db78fc1681c": [
+    "PK3 (ketal polymer)"
+  ],
+  "kg-node-41b3aaaaa94c74ebca6a04f112ed0dba": [
+    "dry ammonia"
+  ],
+  "kg-node-41f5f70fdfbc68bff539a433633c997b": [
+    "TMA+ (tetramethylammonium)"
+  ],
+  "kg-node-4207d0b55ed6a9aa1fd6acfd81f624de": [
+    "FeSO4·7H2O"
+  ],
+  "kg-node-4255c734c78a9efdbd9f37376b2f7377": [
+    "Ru(bpy)Cl2(CO)2",
+    "(2,2′-bipyridyl)dicarbonyldichloro ruthenium (II)"
+  ],
+  "kg-node-42712bd82e8a129e312d86bbd37a65b2": [
+    "N-methyl-2-pyrrolidone (NMP)",
+    "NMP"
+  ],
+  "kg-node-42799b7eab618e42b9b2a3e59338f4cf": [
+    "(S)-(+)-1-(2-pyrrolidinylmethyl)pyrrolidine",
+    "OSDA (1)",
+    "C9H18N2"
+  ],
+  "kg-node-42afecda48f7e311085f68f92661669e": [
+    "HF",
+    "hydrofluoric acid"
+  ],
+  "kg-node-42bc036d262343ad36d97fdfc8cb4c73": [
+    "Ce(NO3)3"
+  ],
+  "kg-node-42ddfc7169324a8222c2763b4862405e": [
+    "BP2000 carbon black",
+    "Black Pearls 2000"
+  ],
+  "kg-node-432ab786c8f5dc1c1b5c0d0169f0ac27": [
+    "NH4-ZSM-5 (Zeolyst)"
+  ],
+  "kg-node-433bffc6e719205db274c3d009a2fbbe": [
+    "hydrofluoric acid",
+    "HF"
+  ],
+  "kg-node-4398a0d82f6aeec4e2b9dc06d8de6f8e": [
+    "Cazo-10-6-6"
+  ],
+  "kg-node-43a42eacaf126fc4ad1f867a1fa7c7ff": [
+    "ammonium hexafluorosilicate",
+    "AHFS"
+  ],
+  "kg-node-43b8e7474346b871e71a237a92cc956e": [
+    "ceramic boat (aluminosilicate source)"
+  ],
+  "kg-node-4445f3e77a4eb75573458bde2a3acb33": [
+    "KF",
+    "KF·2H2O"
+  ],
+  "kg-node-448482c7aa16de515c7aee369524a439": [
+    "OSDA mimic of the DA adduct"
+  ],
+  "kg-node-44da9f515082443e42aa78d91e549f0e": [
+    "AHFS",
+    "ammonium hexafluorosilicate"
+  ],
+  "kg-node-4529b89a9faf1501ad48786f2eaa296e": [
+    "PAA",
+    "anionic polymer PAA"
+  ],
+  "kg-node-4561c28f3cfd284964c276fa98b40670": [
+    "CO"
+  ],
+  "kg-node-45aceb5519f12afa5f58a98d9d7d57d7": [
+    "tetramethylammonium chloride",
+    "TMACl"
+  ],
+  "kg-node-45b861a3cc8518891ed36d6c50d7c13f": [
+    "BAdaI⁺",
+    "BAdaIOH",
+    "1,3-bis(1-adamantyl)-imidazolium"
+  ],
+  "kg-node-45c556e4b92d2c1c7307d1521205d99a": [
+    "OSDA1"
+  ],
+  "kg-node-45d9f2affef255e6f522e864d7fc6af4": [
+    "HF (aqueous fluoride source)"
+  ],
+  "kg-node-45ead0f6594b70d881e6d99178d3bd5a": [
+    "CsCl aqueous solution"
+  ],
+  "kg-node-45eda2180829a21b5b230ed7dba6fefe": [
+    "ZnO"
+  ],
+  "kg-node-4617bb1cac8faf8065e4e521140e8abb": [
+    "ASG from bentonite"
+  ],
+  "kg-node-463548d994ab0592dba0ffbaa53ecceb": [
+    "DMCHABr",
+    "N,N,N-dimethylethylcyclohexylammonium bromide"
+  ],
+  "kg-node-463ea88505096f27c9f341e165c90425": [
+    "1,3-dimethyl imidazole iodide (DMIm)",
+    "DMIm"
+  ],
+  "kg-node-463f317ad715d9370225bd1d0e88b93b": [
+    "tetrapropylammonium bromide (TPABr)",
+    "TPABr"
+  ],
+  "kg-node-465d3cda8409297220375c1127b812cb": [
+    "TMA hydroxide (TMAOH·5H2O)",
+    "tetramethylammonium hydroxide",
+    "TMA template"
+  ],
+  "kg-node-469bd0a4cc9c4fa78d7212f74c88e23b": [
+    "Bu6-diquat-7",
+    "tributylamine-derived diquaternary ammonium cation"
+  ],
+  "kg-node-469d6d03fc87832e5fbec2992c8fe08d": [
+    "zinc(II) nitrate hexahydrate",
+    "Zn(NO3)2·6H2O"
+  ],
+  "kg-node-47195465bbf984f89aefc6a7cea0ee24": [
+    "Carbon Black Pearls 2000",
+    "CBP 2000"
+  ],
+  "kg-node-474e237db21040414cc7b62f53d2000e": [
+    "LR White acrylic resin"
+  ],
+  "kg-node-478607c294410b4b3fb93b953f56f4a8": [
+    "SiCl4"
+  ],
+  "kg-node-478a219dda4b873bcab88c14cede060c": [
+    "DMPOH",
+    "N,N-dimethyl-2,6-cis-dimethylpiperidinium hydroxide"
+  ],
+  "kg-node-479441a92df7c9e3974142aedbaca8ef": [
+    "DMDMP",
+    "N,N-dimethyl-3,5-dimethylpiperidinium"
+  ],
+  "kg-node-480452c31ca2b01475f27afd1cc8b444": [
+    "123TMI",
+    "123-TMI"
+  ],
+  "kg-node-482d152cd012a717f3cf86b937b8f732": [
+    "acetate ions",
+    "acetic acid",
+    "metal acetate"
+  ],
+  "kg-node-4863cdebf53bf55cf4517c7fce0041df": [
+    "THMAOH"
+  ],
+  "kg-node-487221eb77280dd37462e1a2635dfbb4": [
+    "Aerosil 200 silica",
+    "SiO2"
+  ],
+  "kg-node-48b6bcd98b198afac83ed19f8008493c": [
+    "氯化亚锡二水合物",
+    "SnCl2·2H2O",
+    "tin(II) chloride dihydrate"
+  ],
+  "kg-node-48bff6001829caafc940911a2559f8e3": [
+    "NaOH solution"
+  ],
+  "kg-node-48e42c4190e5eb10ac414322e9a1dd4e": [
+    "1,3-diaminopropane"
+  ],
+  "kg-node-48e9249c192a5d051f9a34f886abd032": [
+    "CaCl2 / MgCl2 / ZnCl2"
+  ],
+  "kg-node-492f09055f09fd2f13eb43f5444f9b35": [
+    "D-Arg",
+    "D-arginine"
+  ],
+  "kg-node-493a2a5d7f2ca3545740ab612abdef87": [
+    "Ludox SiO2",
+    "SiO2"
+  ],
+  "kg-node-49699aaa62e02dfc14fe6e2e061b3eb4": [
+    "双咪唑鎓二价阳离子OSDA (C16N4H28)",
+    "bisimidazolium dication",
+    "7BMI/8BMI/9BMI"
+  ],
+  "kg-node-49a624dc18ff949c9f902db19ea926ab": [
+    "2,2-bis(hydroxymethyl)-2,2',2''-nitrilotriethanol",
+    "bis-tris"
+  ],
+  "kg-node-49b216096a293a54970f68806303b2c6": [
+    "deionised water",
+    "DI water"
+  ],
+  "kg-node-49c57637d5ccec8a2621c822b833ff83": [
+    "(NH4)2SO4",
+    "ammonium sulfate"
+  ],
+  "kg-node-49dca0c9e695c3aa6435ffc95accbc70": [
+    "trimethyl(methylcyclopentadienyl)platinum(IV) (MeCpPtMe₃)",
+    "MeCpPtMe3"
+  ],
+  "kg-node-49f13e4ed708358313a1f73fcb39ef82": [
+    "silicon tetrachloride",
+    "SiCl4"
+  ],
+  "kg-node-49f40f255e6cdc1e85ffbc2e1a08d0fd": [
+    "6BDMI"
+  ],
+  "kg-node-4a37918e1dac781e197b0dc0dcd4a687": [
+    "BML ((1S,2S)-2-hydroxymethyl-1-benzyl-1-methylpyrrolidinium)",
+    "BML"
+  ],
+  "kg-node-4a54b014aad458989e9f63de26bc6641": [
+    "N-异丙基咪唑鎮二季铵SDA"
+  ],
+  "kg-node-4a6d38a5ee96b56026c30f2ec4d8e198": [
+    "nitric acid"
+  ],
+  "kg-node-4a72f03bdc011c555a3b5516a9a40e6f": [
+    "1,3,3,6,6-pentamethyl-6-azoniabicyclo[3.2.1]octane hydroxide",
+    "C12H24NOH",
+    "C12H24N+"
+  ],
+  "kg-node-4a7442e8ffdc740421a945b6326332fa": [
+    "TBOT"
+  ],
+  "kg-node-4a993a5fd95a2339a786bc626abff41f": [
+    "metal nitrate solution"
+  ],
+  "kg-node-4aaa7ce88dde5cc28e9c0d7ebd4478ac": [
+    "高岭土 (Kaolin)",
+    "meta-kaolinite"
+  ],
+  "kg-node-4ad4fb6c82682a203fc914f7e563c7b6": [
+    "histidine (His)",
+    "His"
+  ],
+  "kg-node-4ae2cecf8905bd5a38d7cb60c1aac624": [
+    "C16EO10"
+  ],
+  "kg-node-4ae8ef6a857a9fa3c5bbdf9791a2e691": [
+    "NH₄-ZSM-5 (CBV 5524G)"
+  ],
+  "kg-node-4b0e8681c69ad43e022f35b81a892a0c": [
+    "NH4F/HF buffer solution"
+  ],
+  "kg-node-4b1e46e67afc3337cc01439d89e0042f": [
+    "N,N,N-trimethyl-1-adamantammonium hydroxide (TMA-daOH)",
+    "TMA-daOH",
+    "SDA"
+  ],
+  "kg-node-4bbdb5458103887567c2513cb80ef679": [
+    "Span 60"
+  ],
+  "kg-node-4bf26937bf4a8ccfdf073972fc4e8f86": [
+    "12345PMI"
+  ],
+  "kg-node-4c3557747ca036101aa70671f0ef5ee6": [
+    "lithium nitrate"
+  ],
+  "kg-node-4c48394e4c5423667b380d2e98f8aefd": [
+    "SSZ-13 seed"
+  ],
+  "kg-node-4c7a183a4723b9fd59360b3c2fbab43a": [
+    "DTAB"
+  ],
+  "kg-node-4c86a7bc0dad08a1134f4bee296e9764": [
+    "[Pd(NH2CH2CH2NH2)2]Cl2"
+  ],
+  "kg-node-4cd1ec62998d61b7b678acadcced2e56": [
+    "BTP (1,5-bis(tetramethylimidazolium)pentane)",
+    "BTPOH",
+    "BTPBr"
+  ],
+  "kg-node-4d3609404ef5ee9a9dbeae497058daf1": [
+    "三异丙醇铝",
+    "aluminum trisopropoxide"
+  ],
+  "kg-node-4d5d3013da0447f9bcb1b41821043f99": [
+    "N,N'-bis(5-hydroxy salicylidene)ethylenediamine",
+    "5-OH salen ligand"
+  ],
+  "kg-node-4d6236ad1a72594c8bd740748e82739d": [
+    "SDA-1 (Cy6-C5-Cy5)"
+  ],
+  "kg-node-4d743d44aa803cb95924536d814f057f": [
+    "Araldite 6005 epoxy resin"
+  ],
+  "kg-node-4d875aeb941aacf5097312810b2b1ede": [
+    "boric acid (H3BO3)"
+  ],
+  "kg-node-4d8ee4ff808bca5958f87cb69337adff": [
+    "TMAda",
+    "N,N,N-trimethyladamantylammonium"
+  ],
+  "kg-node-4daf9b5fc569854e183c55c110aebc27": [
+    "Cu(NO3)2"
+  ],
+  "kg-node-4dc424b8f95200f1d3414405e39d6858": [
+    "tetrapropylammonium cation",
+    "TPA+"
+  ],
+  "kg-node-4de9a25b138b36725e877dd8d6517b66": [
+    "TEABr",
+    "tetraethylammonium bromide"
+  ],
+  "kg-node-4e0dbad6ce74ece9776a82696eeec328": [
+    "chalcone"
+  ],
+  "kg-node-4e0e8667ef80af32652fa5770d1ca8f2": [
+    "Folic acid (FA)"
+  ],
+  "kg-node-4e1aefeeee844f6b22e5406d2ad35eb1": [
+    "1E3MI (1-ethyl-3-methylimidazolium)",
+    "monomer OSDA"
+  ],
+  "kg-node-4e2f21271362365b813603c98daacad1": [
+    "tetrabutylammonium hydroxide",
+    "TBAOH"
+  ],
+  "kg-node-4e3fe842e9c00983670ba9dd84765c79": [
+    "BTDA",
+    "benzophenone-3,3',4,4'-tetracarboxylic dianhydride"
+  ],
+  "kg-node-4e59549d114949dda99a27b189a0c45d": [
+    "TPA+",
+    "tetrapropylammonium"
+  ],
+  "kg-node-4e6449256714962139efc2a3cba8478e": [
+    "(NH4)2TiF6"
+  ],
+  "kg-node-4e6cd654e53381a290d0678d4e9b5efe": [
+    "orthophosphoric acid"
+  ],
+  "kg-node-4e70acb5ade5302d3161f9e3f2f8cd3c": [
+    "(NH₄)₆Mo₇O₂₄·4H₂O"
+  ],
+  "kg-node-4e834a9e3462b5e2e29e28b26da1e317": [
+    "2,6-methyl-N-methylpyridinium"
+  ],
+  "kg-node-4e87f3a9707cd22aaf0eccfcfd8870fd": [
+    "Na2EDTA"
+  ],
+  "kg-node-4e902e542c44b9cac1755cbf08a1c6a1": [
+    "benzyl alcohol (BA)",
+    "BA"
+  ],
+  "kg-node-4eac5deb266653a44c6ee570205b2b5c": [
+    "bisDABCO cations",
+    "[DABCO-C6]3",
+    "[DABCO-C6]5",
+    "[DABCO-C6]7"
+  ],
+  "kg-node-4ec88ebb8500bddbc169d42fb7c075ec": [
+    "C2H5OH",
+    "ethanol"
+  ],
+  "kg-node-4f1e2874d542318266787f2e13a7e2fc": [
+    "dopamine hydrochloride",
+    "DA hydrochloride"
+  ],
+  "kg-node-4f5262291021858555faec92ea72b552": [
+    "Fenton's-type reagent (Fe³⁺–H₂O₂)",
+    "Fe³⁺–H₂O₂"
+  ],
+  "kg-node-4f537a39eb1cd664b2de3bf3109b982e": [
+    "TBPOH",
+    "tetra(n-butyl) phosphonium hydroxide"
+  ],
+  "kg-node-4f5f959d2ec4a55bbb234f3d41efce54": [
+    "N,N-dimethyl-3,5-dimethylpiperidinium (DMDMP)",
+    "DMDMP",
+    "OSDA"
+  ],
+  "kg-node-4f87de81a1c8de1783e2d3cc47b15df6": [
+    "trimer-tetrapropylammonium (trimer-TPA³⁺)",
+    "trimer-TPA⁺"
+  ],
+  "kg-node-4f8bdee1a62c722c70f6e8c349b8e5a5": [
+    "orthophosphoric acid (85 wt%)"
+  ],
+  "kg-node-4f946f564365bd255b8643cc7e793b8b": [
+    "TEOS/NaAlO2/TPAOH/TPABr/H2O凝胶"
+  ],
+  "kg-node-4fd54a744ddee1efbc1f98d26d090fb8": [
+    "nickel nitrate"
+  ],
+  "kg-node-4fd5a320b907dd994e47b61414270ad3": [
+    "calcium chloride dihydrate",
+    "CaCl2·2H2O"
+  ],
+  "kg-node-4fdd62d6de87236a2156994464f50282": [
+    "1,2-diaminocyclohexane (DACH)",
+    "DACH",
+    "C₆H₁₄N₂"
+  ],
+  "kg-node-4fe9004aa02af8639ca0d924b5c6fa29": [
+    "magnesium nitrate"
+  ],
+  "kg-node-4ffc9888b52480d514553862114dc066": [
+    "KH2PO4"
+  ],
+  "kg-node-50059282f92b00d5109787dbc2ba3a9f": [
+    "ammonium heptamolybdate tetrahydrate (AHM)",
+    "(NH4)6Mo7O24·4H2O"
+  ],
+  "kg-node-507c627ae2ce2211d078f8d23fa62942": [
+    "1-Hexyl-2,3-dimethylimidazolium hydroxide",
+    "SDA"
+  ],
+  "kg-node-5088ee784b41e283a0475375050d4ad1": [
+    "CPh-Ph-10-6",
+    "1"
+  ],
+  "kg-node-50adc94c04713c448beeef3acd2c9e2d": [
+    "CuCl2"
+  ],
+  "kg-node-50c60c75a807e97876db5d552521dcdf": [
+    "羧甲基纤维素(CMC)",
+    "carboxymethyl cellulose"
+  ],
+  "kg-node-50dd487fef24351c19b74ce2fd6692fc": [
+    "1,3,3,6,6-五甲基-6-鎓双环[3.2.1]辛烷阳离子",
+    "SDA"
+  ],
+  "kg-node-5117a2815534deb7cc06bb5607204801": [
+    "TTAB",
+    "cationic surfactant"
+  ],
+  "kg-node-516dc9cc3d2c4bd7b3b78f39a350c878": [
+    "rice husk ash SiO2",
+    "RH ash"
+  ],
+  "kg-node-5171821ac6a6b64ce2783d06f52186c5": [
+    "OSDA 14"
+  ],
+  "kg-node-51840e5ae02f83fe3cb49f7dbbeab28e": [
+    "multi-wall carbon nanotubes (MWNT)",
+    "MWNTs"
+  ],
+  "kg-node-51a251910d27c6fadf33427e89b5b6d4": [
+    "Na2SiO3·9H2O"
+  ],
+  "kg-node-51b8f1d26901ed2c7ea8aba9248c7c48": [
+    "[Pd₃Cl(PPh₂)₂(PPh₃)₃]⁺ (Pd₃Cl)",
+    "PdCl"
+  ],
+  "kg-node-51c037f6c07b19d03fd6698fec6eac77": [
+    "EuCl3 solution (0.1 mol/L)"
+  ],
+  "kg-node-5209d475455d19701cbaa1566d4ba0b8": [
+    "三乙胺",
+    "triethylamine"
+  ],
+  "kg-node-5214cf1bbc5b549a1ed22e5ea16c2d99": [
+    "FeCl3·6H2O",
+    "iron(III) chloride hexahydrate"
+  ],
+  "kg-node-521e2eb5c7d189d61ca81e95d88918f2": [
+    "氧化石墨烯（GO）",
+    "GO"
+  ],
+  "kg-node-5222b91051d956bd6c229b16ff125831": [
+    "Cp3MP+OH−",
+    "Cp3MP+"
+  ],
+  "kg-node-522893f104350a87db98c6dae2d05a9a": [
+    "imidazole",
+    "protonated imidazole cations"
+  ],
+  "kg-node-52468d8c4bc5b1557ffa52946b2e17f9": [
+    "trimethyl aluminum (TMA)",
+    "Al(CH3)3"
+  ],
+  "kg-node-52be58f93590bf976946caf967ca8a59": [
+    "graphene oxide",
+    "GO"
+  ],
+  "kg-node-52c8c63a901c8c433fa89c7de2038e87": [
+    "diDABCO-C8²⁺",
+    "(diDABCO-C8)Br2"
+  ],
+  "kg-node-533e48dfa2a788018405f51b91dfc067": [
+    "molar composition 80Na2O: 1Al2O3: 19SiO2: 5000H2O",
+    "ultra-dilute reaction solution"
+  ],
+  "kg-node-5381ce6bf0bad0ac665960666d121da4": [
+    "zinc oxide"
+  ],
+  "kg-node-53a4c140690d92596afd2880603aa039": [
+    "Ni-DETA complex",
+    "nickel-amine complex"
+  ],
+  "kg-node-53b2ab4c473a4791d434fa60438e49d9": [
+    "(NH4)SiF6"
+  ],
+  "kg-node-53def14311ce76533954779bcf75440f": [
+    "LiNO3"
+  ],
+  "kg-node-545ecfe710d51599be9fdc1e67dcaf98": [
+    "Secondary tetramethylammonium phosphate"
+  ],
+  "kg-node-54a5fd6322bcd3df64dc8b77ea16cd7a": [
+    "SiO2 (precipitated white carbon black)"
+  ],
+  "kg-node-54b0cfcc670f2c1861febd501d446696": [
+    "1,4-bis(N-methylpyrrolidinium)butane",
+    "1,4-MPB"
+  ],
+  "kg-node-550261ae9c652135ec6a658e2591bd3a": [
+    "metakaolinite"
+  ],
+  "kg-node-5504b6bdecc2ec473779d2b5770a5f99": [
+    "FeCl3"
+  ],
+  "kg-node-5510333adccfaf40c6a8d0d84fe63da2": [
+    "benzyl-DABCO hydroxide (BDOH)",
+    "BD+",
+    "BDOH"
+  ],
+  "kg-node-555479f496045aaf545633e14f015914": [
+    "4BDMI(OH)₂",
+    "4BDMI"
+  ],
+  "kg-node-558d8e01db467c16109f3a4d1a6a4237": [
+    "dimethyl dimethoxy silane (DDS)",
+    "DDS"
+  ],
+  "kg-node-5596c20a25f5466e076ae7afb5f80b06": [
+    "α-Al₂O₃ support"
+  ],
+  "kg-node-55ab75a9c7c15ab411270891f118ecef": [
+    "1,2-pentanediol (D5-1,2)",
+    "D5-1,2"
+  ],
+  "kg-node-55c6584ea74e088373f0555da6189864": [
+    "TPHAC",
+    "3-(trimethoxysilyl)-propylhexadecyldimethylammonium chloride"
+  ],
+  "kg-node-563119687e97efa10f177d6a3c656058": [
+    "organosilane surfactant [(CH3O)3SiC3H6N(CH3)2C16H33]Cl"
+  ],
+  "kg-node-56426a47dabd6220b2486d83d347ef46": [
+    "Al₂(SO₄)₃·18H₂O",
+    "aluminum sulfate octadecahydrate"
+  ],
+  "kg-node-5676f19f8d6bf30b022b9effa5d954fc": [
+    "diisopropylethylmethylammonium hydroxide",
+    "SDA"
+  ],
+  "kg-node-56cb710fa54a319529b6444dc2937792": [
+    "BMPS",
+    "N,N-benzyl-methyl-pseudoephedrinium"
+  ],
+  "kg-node-56f983e1da4d01bf80d49eacc29d127c": [
+    "ethylamine",
+    "C2H5NH2"
+  ],
+  "kg-node-5717a0ad96e6cb37bf42ed07b2c1464c": [
+    "tetramethylammonium (TMA) / TMAOH",
+    "TMA",
+    "TMAOH"
+  ],
+  "kg-node-57336e097f7c36002b383f4284cd8d35": [
+    "oMBMPS",
+    "N,N-(2-methylbenzyl)-methyl-pseudoephedrinium"
+  ],
+  "kg-node-5758028fcfce7fd50609a8ebfbaeac16": [
+    "sodium aluminate Carlo Erba",
+    "NaAlO₂"
+  ],
+  "kg-node-578de7cabe41afd3775e7e8680fe1c83": [
+    "Al2(SO4)3"
+  ],
+  "kg-node-579932481ac94bb7eac2a4cfa34815fa": [
+    "Cd(CH3COO)2 solution"
+  ],
+  "kg-node-57e07e8532bf7412a0336b5d15073526": [
+    "Cu(CH₃COO)₂",
+    "copper acetate"
+  ],
+  "kg-node-57f180a23a7b89078aed832632034f37": [
+    "(S)-(-)-N-benzylpyrrolidine-2-methanol (BPM)",
+    "BPM"
+  ],
+  "kg-node-57f88e10e565181336801db37968093c": [
+    "硅酸钠",
+    "aqueous sodium silicate"
+  ],
+  "kg-node-57fb18fca266a726c1536c909050feff": [
+    "tetramethylammonium bromide (TMABr)",
+    "TMABr",
+    "TMA+"
+  ],
+  "kg-node-587e064fc84a3e7fe2726190a68ef597": [
+    "tetraethylammonium (TEA⁺)",
+    "TEA⁺"
+  ],
+  "kg-node-58b70c6d5203c7ec2233cfed1aa7e141": [
+    "kaolinitic rock",
+    "kaolinite",
+    "metakaolinite"
+  ],
+  "kg-node-58ca6b0b4c569de63ceeaaa9e3dbe738": [
+    "C22-6-6Br2"
+  ],
+  "kg-node-58f4350c71b049a724e34541231edeed": [
+    "citric acid"
+  ],
+  "kg-node-5939d73a2ec816f9485a0485f79683e9": [
+    "BULKY (1,2-dimethyl-3-(4-methylbenzyl)imidazolium)",
+    "BULKY"
+  ],
+  "kg-node-595453b8cac14758aead69685924db41": [
+    "distilled water (floatation medium)"
+  ],
+  "kg-node-5956960d2a50103ecb24b16e789cb30a": [
+    "Na+",
+    "Na2O"
+  ],
+  "kg-node-597697a0c4c05ab62a467e913b60f1c3": [
+    "EuCl3·5H2O"
+  ],
+  "kg-node-59c3ec4cf0bf4d84abcb994c04f75a6c": [
+    "copper acetate monohydrate"
+  ],
+  "kg-node-59cbf68712dc12d230fa05b2a301ba9b": [
+    "ZnSO4·7H2O",
+    "zinc sulfate"
+  ],
+  "kg-node-59e110a295af9c41910359e064f24c0a": [
+    "Al2O3 (VERSAL 900)",
+    "VERSAL 900"
+  ],
+  "kg-node-5a2965e238757bb108eccc3dc3241e9b": [
+    "3-chloropropyl-trimethoxysilane (CPT)",
+    "CPT"
+  ],
+  "kg-node-5a5f609c911c4b2617b9c32394773057": [
+    "Cr(NO3)3·9H2O"
+  ],
+  "kg-node-5a776481c1151389d6f93c5730760005": [
+    "Na+离子"
+  ],
+  "kg-node-5ae689b2505e9157415231a1158f6b89": [
+    "tetraethylammonium (TEA/TEAOH)",
+    "TEAOH"
+  ],
+  "kg-node-5b36d2410925438b137f7dd14a3bbea2": [
+    "Ni(NO₃)₂·6H₂O"
+  ],
+  "kg-node-5b3d863dbe96484c141b9eb78569dd16": [
+    "ethylene glycol",
+    "HO(CH2)2OH"
+  ],
+  "kg-node-5b4927c637f3150f8abe0779cb770957": [
+    "8BI",
+    "octamethylene dication"
+  ],
+  "kg-node-5b593f0ac38bc4725386a5efa59f9968": [
+    "Fumed silica (SiO2)",
+    "SiO2"
+  ],
+  "kg-node-5b79e667eecc03eba692335c235c7232": [
+    "aluminum triethoxide",
+    "Al(OCH2CH3)3"
+  ],
+  "kg-node-5b85a41e517b0c1a2689917b7ad26ac4": [
+    "Aerosil 200 (amorphous silica, silicate 1)",
+    "silicate 1"
+  ],
+  "kg-node-5b8b5fca40a284912e5e6d5f78c90328": [
+    "metal nitrates"
+  ],
+  "kg-node-5b9d72ac7b2649180ee10ff89950dfd3": [
+    "ammonium ferric citrate",
+    "C6H10FeNO8"
+  ],
+  "kg-node-5bb6d61b55083d4a9261c0409c6921d7": [
+    "polyquaternium（PB/PDDA/PUB）",
+    "PB",
+    "PDDA",
+    "PUB"
+  ],
+  "kg-node-5bd40630d339a31416984bf7b3d26ea7": [
+    "1,4-diazabicyclo[2.2.2]octane (DABCO)",
+    "DABCO"
+  ],
+  "kg-node-5c5b3ab4e663b35c115e3b5094fb9b00": [
+    "heptamethonium bromide (C7 diquat)",
+    "C7 diquat"
+  ],
+  "kg-node-5c86fef496d47f1d91411e089e15b870": [
+    "propylamine",
+    "PrNH2"
+  ],
+  "kg-node-5caf4686420dd1530d1cb090daad5244": [
+    "LnCl3·6H2O",
+    "TbCl3·6H2O",
+    "EuCl3·6H2O"
+  ],
+  "kg-node-5cec6e33058fd8977034957df129ee0c": [
+    "Cu(OAc)2·H2O",
+    "copper acetate"
+  ],
+  "kg-node-5cf9382d08ffa12d351433c76efb4df7": [
+    "ammonium fluoride",
+    "NH4F"
+  ],
+  "kg-node-5d0493a90ef84226c59e8e152fd5b7ec": [
+    "NH4F-HF混合溶液",
+    "NH₄F-HF"
+  ],
+  "kg-node-5d4df3d467c72c3647b09991a7957d0f": [
+    "TPABr + KOH溶液"
+  ],
+  "kg-node-5d64fa6129189ec86e0915fb75dfe924": [
+    "ethylene",
+    "C2H4"
+  ],
+  "kg-node-5d7305e0c5e84449fcdbdf27e3b8fb8b": [
+    "piperidine (C5H10NH)",
+    "C5H11N",
+    "C5H10NH"
+  ],
+  "kg-node-5d792c86b7323539820d7c0b41ffe57e": [
+    "3-aminopropyl-trimethoxysilane (APTMS)",
+    "APTMS"
+  ],
+  "kg-node-5d86501a678a6814f8abe03d02e04523": [
+    "C22-6-6-OH",
+    "C22-6-Br precursor"
+  ],
+  "kg-node-5deb7ceb8b3afcefd3c08e6ffc6c3697": [
+    "C18-6 SDA",
+    "[C18H37N+-(CH3)2-C6H12-N+(CH3)2-C6H13]Br2"
+  ],
+  "kg-node-5df8198614ca5b3bc8814364e194cbf6": [
+    "tetraethyl orthosilicate",
+    "TEOS"
+  ],
+  "kg-node-5e08ac06f01c9288a3c6f0f97237b012": [
+    "h-BN",
+    "hexagonal boron nitride"
+  ],
+  "kg-node-5e13b9fe0082d966646797982e802b93": [
+    "cyclam",
+    "SDA"
+  ],
+  "kg-node-5e4cb9a5f05a0160e694ba9adcba7152": [
+    "Pr2NH",
+    "di-n-propylamine"
+  ],
+  "kg-node-5e8b92d474aa0217141314a1c9e30129": [
+    "hydrothermal ion exchange with Cu and Ni cations"
+  ],
+  "kg-node-5e92906b4dcade6a4fd74770a75ee95d": [
+    "PMMA",
+    "poly(methyl methacrylate)"
+  ],
+  "kg-node-5eea131170299f43050f147a64669198": [
+    "C22-6(3)-3(3) dibromide template",
+    "C22-6-3",
+    "N-(6-(dipropylamino)hexyl)-N,N-dipropyldocosan-1-aminium bromide"
+  ],
+  "kg-node-5eed2946971b59fd1d94bb9c027dcee8": [
+    "TBABr"
+  ],
+  "kg-node-5f1cb563c2c662dd7e6e573a06cd7d69": [
+    "aluminosilicate gel",
+    "amorphous hydrogel"
+  ],
+  "kg-node-5f8b2673efe8f77695ce018833bc867e": [
+    "isopropylamine (IPA)",
+    "IPA"
+  ],
+  "kg-node-5fa1c8d2dd87f0ef504fbbcfbde43e9a": [
+    "aqueous ammonia (NH₄OH)",
+    "NH₄OH"
+  ],
+  "kg-node-5fdbc35ba494573cd10665c467a3a4ab": [
+    "HMPA",
+    "OSDA",
+    "HMI"
+  ],
+  "kg-node-5fea3272fa218f1a79e4f57fa07acaed": [
+    "tetrapropylammonium bromide (TPA)"
+  ],
+  "kg-node-5ffa29e100aef6f831981fdc18a07748": [
+    "Triton X-100",
+    "polyethylene glycol tert-octylphenyl ether"
+  ],
+  "kg-node-6016ca065d1028ac670efeea21ea4719": [
+    "cis-tetramethyl-N,N,3,5-piperidinium hydroxide",
+    "OSDA"
+  ],
+  "kg-node-602dc3f8e4a93d9391a5c85f488e969e": [
+    "tetraethylammonium hydroxide (TEAOH)",
+    "TEAOH"
+  ],
+  "kg-node-60802713174f4f88142293c31ae017eb": [
+    "isooctane"
+  ],
+  "kg-node-610d3bdddef427046c2b7e0461b232e1": [
+    "silver exchange (AgNO3 suspension exchange)"
+  ],
+  "kg-node-611576114af23f6d75e2911b6f4255a3": [
+    "BenMIMBr",
+    "1-benzyl-3-methyl imidazolium bromide"
+  ],
+  "kg-node-61193a256db2146f9103fbefe646359d": [
+    "EMIM-es"
+  ],
+  "kg-node-61231711880736ecc713cf2afee77cc2": [
+    "K2O"
+  ],
+  "kg-node-61432b3bdeac5e153e59cf8166b13b4e": [
+    "1,5-bis-(methylpyrrolidinium)pentane (MPP)",
+    "MPP(OH)2",
+    "OSDA"
+  ],
+  "kg-node-61789ac8eb9cf807123edb3d95d545b2": [
+    "CsBr"
+  ],
+  "kg-node-61aa8c98c143bddea6c3510151890c73": [
+    "cesium acetate",
+    "CsOOC2H3"
+  ],
+  "kg-node-61b4861b6701072d6e8a95c65aff3dbc": [
+    "n-butylamine"
+  ],
+  "kg-node-61b9a78e8e8c5e6ebd9acf7f98d597a4": [
+    "coal-tar pitch powder",
+    "pitch"
+  ],
+  "kg-node-61dc11520d3496a257871c9ee38985f0": [
+    "DABMe(OH)",
+    "DABMe+"
+  ],
+  "kg-node-61e243c4af42f41fa8221f0bef054998": [
+    "polydimethylammoniumbutane, dimethylammoniumhexane bromide",
+    "polymer 1",
+    "cationic polymer 1"
+  ],
+  "kg-node-61fd69e3df7efc5f80cd314b86ff40d5": [
+    "TEBOP2+(I)2",
+    "SDA"
+  ],
+  "kg-node-6247aec8258f98b5b54f6dc715ff0660": [
+    "Pr₆-diquat-5",
+    "N,N,N,N',N',N'-hexopropylpentanediammonium"
+  ],
+  "kg-node-625e4bd5bff8d331bcf58e2b6ac6cfe6": [
+    "TMMAOH"
+  ],
+  "kg-node-62748a84a82e2d364c4338957e6d3186": [
+    "DEDMS",
+    "diethoxydimethylsilane"
+  ],
+  "kg-node-627c0cf34ebf37382e4d352ea78b0032": [
+    "[C₁₆Mim]Cl",
+    "imidazolium-based ionic liquid"
+  ],
+  "kg-node-62a44461432a9c8b4e36ac644cd946a4": [
+    "gallium nitrate hydrate",
+    "Ga(NO3)3"
+  ],
+  "kg-node-62c7525561db7486e14400eafecc1ac6": [
+    "HSIL"
+  ],
+  "kg-node-62dade9ebfdeed5cd08a3fbb2dc4b0b1": [
+    "sodium silicon (水玻璃)",
+    "sodium silicon"
+  ],
+  "kg-node-6373e51a0a3c5e7f79754ce92cca82f6": [
+    "NDC monolith (N-doped carbon)",
+    "NDC"
+  ],
+  "kg-node-63c45e32908abfefb408e8161e7ead9e": [
+    "2-pyrrolidone",
+    "α-P"
+  ],
+  "kg-node-63cbba9aea668d760acb2ab0cfed1d05": [
+    "Ga(CH3)3",
+    "trimethylgallium"
+  ],
+  "kg-node-63d893d7583b71d855e878fa10422720": [
+    "diquat-3",
+    "1,3-bis(N-methylpyrrolidinium)propane"
+  ],
+  "kg-node-63dfc1e185e417a19238fa824ccb1f77": [
+    "Zn(CH3COO)2·2H2O",
+    "zinc acetate dihydrate"
+  ],
+  "kg-node-63e0f7c801def28e72853b1a73d4c0f7": [
+    "硫酸铝十八水合物",
+    "Al2(SO4)3·18H2O"
+  ],
+  "kg-node-642f87a9168db2018287decb7915c756": [
+    "BTMAOH",
+    "BTMA⁺"
+  ],
+  "kg-node-64589a7b14bd887b5eeae0ea70ae35c0": [
+    "colloidal silica (Ludox TMA40)",
+    "Ludox TMA40"
+  ],
+  "kg-node-647b56bf498b98fa830c9ae46474b324": [
+    "DA-adduct模拟物OSDA",
+    "(3aR,4S,7R,7aS)-2,2-dimethyl-...-2-ium"
+  ],
+  "kg-node-649a90ff9125abd4e2bb68c04c74b3a9": [
+    "biomass fly ash"
+  ],
+  "kg-node-64cfd416a9dd10ae1d9334b174c7aeee": [
+    "trimethoxy(propyl)silane",
+    "C6H16O3Si"
+  ],
+  "kg-node-64dbdf25d165a26eee7a669e8beb8982": [
+    "HDTM",
+    "hexadecyltrimethoxysilane"
+  ],
+  "kg-node-64e01af74411f4012bb015803132de47": [
+    "zeolite β seeds (Si/Al = 14)"
+  ],
+  "kg-node-64ee3a456d6941642b0adb50b3925ced": [
+    "carbon black BP 2000",
+    "BP 2000"
+  ],
+  "kg-node-6501838688e6c707b7c5ed4185a48e7b": [
+    "Germanium (Ge)"
+  ],
+  "kg-node-65401245f0c2711bf6366084b6e58eb6": [
+    "amorphous aluminosilicate",
+    "temporary binder"
+  ],
+  "kg-node-65747e5dcf984ded9ac9f663dc228189": [
+    "KH-560",
+    "3-glycidoxypropyltrimethoxysilane"
+  ],
+  "kg-node-65bfb00a436f82171fc310eaf36bc391": [
+    "surfactant"
+  ],
+  "kg-node-65ca0eaa079590ecd77d4968eb035c48": [
+    "5-azonia-spiro[4,5]decane",
+    "azonia-spiro[4,5]"
+  ],
+  "kg-node-65edcba814dcd9b7c917e801c8bccb1c": [
+    "hydroxide anion mineralizer",
+    "OH−"
+  ],
+  "kg-node-6619600b71e8b8426928998c3006dfff": [
+    "propylamine / butylamine / pentylamine",
+    "n-alkylamines"
+  ],
+  "kg-node-66476709a8dba1fea59ede96fca77427": [
+    "Pb(NO₃)₂",
+    "Pb(CH₃COO)₂"
+  ],
+  "kg-node-66eb771c5f69dbe6df5861dacd3510cf": [
+    "硝酸",
+    "HNO3"
+  ],
+  "kg-node-66f6eaf7eca57b9bab6a278131820c37": [
+    "Sc(NO3)3"
+  ],
+  "kg-node-670ac9e1dea25d5dd3733fb0e6aa188d": [
+    "Yb(NO₃)₃·5H₂O"
+  ],
+  "kg-node-670fedc4b40dbf77a1fa9336414fcb14": [
+    "MgCl2"
+  ],
+  "kg-node-67262cab540c7a1e65712c0f34f84f90": [
+    "HMI (hexamethyleneimine)",
+    "HMI"
+  ],
+  "kg-node-67580320a66d0afd6b2e4b4c1faa388f": [
+    "glucose (meso-OSDA)"
+  ],
+  "kg-node-6762e359f98ba6c1b4d7206e37b6cc04": [
+    "zinc acetate dihydrate",
+    "ZnAc2·2H2O"
+  ],
+  "kg-node-67921eb7c5b8b298fcf193599bf71995": [
+    "CsNO3"
+  ],
+  "kg-node-67a86e28199d7d5d64133aa306b4eac0": [
+    "tetra ethylene pentamine (TEPA)",
+    "TEPA"
+  ],
+  "kg-node-67dbe03607d0330a6f639bb747c43fe6": [
+    "AlCl3"
+  ],
+  "kg-node-6831bb12b3a14da55231aae082a2c7cf": [
+    "ion exchange from solution"
+  ],
+  "kg-node-68cd13d506fdd4e5d6cc53bc50b78573": [
+    "lanthanide chloride solution (0.1 M)"
+  ],
+  "kg-node-68d9d2a068db509c9d80d3e852189d2e": [
+    "胶体硅胶（Ludox TM-40）",
+    "Ludox TM-40"
+  ],
+  "kg-node-69023932e437d243c9ff1850c80cd9d1": [
+    "fumed silica (Aerosil 380)",
+    "Aerosil 380 Degussa"
+  ],
+  "kg-node-690577eb8bf819a3804466ca15f987eb": [
+    "NaHCO3"
+  ],
+  "kg-node-6938d9331bab55df5704b121770b80c7": [
+    "Pd(NO3)2 solution"
+  ],
+  "kg-node-6948cca9ea5501a9e3202e57e1505385": [
+    "Pr4NBr",
+    "Pr4N+"
+  ],
+  "kg-node-69733790a86c6f36d5c4d429d3d95f38": [
+    "二氧化锗",
+    "GeO2"
+  ],
+  "kg-node-69e459964784e6986ae15c8fe02d2acd": [
+    "chloroacetic acid",
+    "ClCH2COOH"
+  ],
+  "kg-node-6a322b872b833f6ba926c14c0f4b495e": [
+    "MPP(OH)2",
+    "MPP2+",
+    "MPP(Br)2"
+  ],
+  "kg-node-6aa37299e8bf3846f623453c08f1a266": [
+    "4BDMI",
+    "tetramethylene-linked dication"
+  ],
+  "kg-node-6aad2ceb68ce5b7a40269e36e988c122": [
+    "dolochar"
+  ],
+  "kg-node-6ab1790e6bfe6654306bdcb64a5fb72b": [
+    "硼泥尾矿（BOT）",
+    "BOT",
+    "boron tailings"
+  ],
+  "kg-node-6abea6aa8ffbea088426982c3f968eec": [
+    "AlPO-5"
+  ],
+  "kg-node-6b2fa7e9b72c5fba32d3a5610534f9d0": [
+    "Aluminosilicate binder"
+  ],
+  "kg-node-6b3c0a9fafc150b90e619eff5786f6b5": [
+    "Colloidal silica (ST-S)",
+    "ST-S"
+  ],
+  "kg-node-6b4737a5fdd7c67bb007661fdb1c3f27": [
+    "niobium ethanol",
+    "niobium ethoxide"
+  ],
+  "kg-node-6b732208efc908bf3eaeec7f93ba7b1e": [
+    "EDA",
+    "ethylenediamine"
+  ],
+  "kg-node-6c0c78f40d99aface6ca8219f1565073": [
+    "metallic Zn vapour"
+  ],
+  "kg-node-6c5b6c8b20e48ec06aaabf90acf99541": [
+    "DIPI",
+    "N,N'-di-isopropyl-imidazolium"
+  ],
+  "kg-node-6ca0d8e077412700c763846790dcf5ab": [
+    "HM(OH)2",
+    "SDA"
+  ],
+  "kg-node-6cab472ef2156f2d8351df160548e402": [
+    "quinolinium structure directing agent",
+    "4-methyl-2,3,6,7-tetrahydro-1H,5H-pyrido[3.2.1-ij]quinolinium"
+  ],
+  "kg-node-6cdba803a3f49e57f3efb6621602af0c": [
+    "BMP (benzylmethylpyrrolidinium)",
+    "BMP"
+  ],
+  "kg-node-6d49af6b40089f829d5c8956e4109efe": [
+    "CBV400"
+  ],
+  "kg-node-6d7730ab827c4b13c76e6808fb32b86c": [
+    "EDTA"
+  ],
+  "kg-node-6d9364b458534a10061c8defcb8c25a3": [
+    "TPAB",
+    "tetrapropylammonium bromide"
+  ],
+  "kg-node-6dbac6bf4c9c7ee81cee0ddf4cce4410": [
+    "OSDA1 (pyrrolidine-based cation)"
+  ],
+  "kg-node-6dd8935a274ad54d9e9b682b02f0ffa6": [
+    "hexamethylenetetramine (HMTA)",
+    "urotropine",
+    "HMTA⁺"
+  ],
+  "kg-node-6de789ffe8158da5a83646f9cf0a4e01": [
+    "CoCl2·6H2O"
+  ],
+  "kg-node-6e13ad858ddbc8d1b4c6759bdd5e3767": [
+    "DMECHA-OH",
+    "N,N,N-dimethylethylcyclohexylammonium hydroxide"
+  ],
+  "kg-node-6e6b3c33bfee309d92e16eb5fb0c3aa2": [
+    "MgO"
+  ],
+  "kg-node-6e76abb98229c15a46051760694778de": [
+    "KMnO4"
+  ],
+  "kg-node-6e77fd464340ff0ae6e909db70deb4ea": [
+    "tMA",
+    "trimethylamine"
+  ],
+  "kg-node-6e9c182a0eea5e072c6ec399c6b8e71b": [
+    "sodium cation (Na+)"
+  ],
+  "kg-node-6ea6599b8528b7272ff94119b6d09e9f": [
+    "polyacrylamide (PAM)",
+    "PAM"
+  ],
+  "kg-node-6ec7d2cd36e84d99446a47303fdfd3ab": [
+    "Al2O3 (Catapal)",
+    "Catapal"
+  ],
+  "kg-node-6ec86c91ccf9a25d2fecb0c784d1d531": [
+    "CTPABr"
+  ],
+  "kg-node-6efc35176970065faa495d0ea8c01670": [
+    "bacterial cellulose (BC) aerogel",
+    "BC aerogel",
+    "Acetobacter xylinum HN001"
+  ],
+  "kg-node-6f4ea710817c778631904b60d4fc3216": [
+    "SiO2 (TIXOSIL 38A)",
+    "TIXOSIL 38A"
+  ],
+  "kg-node-6f6c72f047792693d333ed3e5c384da1": [
+    "OSDA3"
+  ],
+  "kg-node-6f82498d7f946e3476ee06733f4a420f": [
+    "cis-N,N-dimethyl-3,5-lupetidine",
+    "cis-3,5"
+  ],
+  "kg-node-6f95284648c1990013d5c80caba61f9a": [
+    "PEG",
+    "polyethylene glycol"
+  ],
+  "kg-node-6f9c07f1f62e09f704429440bc8b46b8": [
+    "N,N-diisopropylethylamine"
+  ],
+  "kg-node-6fa46b56d4f3b22ae0ec151fc91155f5": [
+    "aluminium trisopropoxide"
+  ],
+  "kg-node-6fc775911f5a87ed65b62c8a9d38d162": [
+    "diisopropylamine (DIPA)",
+    "DIPA"
+  ],
+  "kg-node-6fcc845ba04423bb6a63332ea33e22cf": [
+    "morpholine",
+    "MO"
+  ],
+  "kg-node-6fe42210f23e3210c50e814c9a35caea": [
+    "HPMC",
+    "hydroxypropyl methylcellulose"
+  ],
+  "kg-node-6fe7802423a14ea1312fa1391be6f8e9": [
+    "ammonium zeolite Y"
+  ],
+  "kg-node-70328dea6e71a24048daacf71a142923": [
+    "SDA (hard sphere model)",
+    "structure-directing agent"
+  ],
+  "kg-node-703ec390beb27b8f4515334a9e2268a7": [
+    "TEA+",
+    "tetraethylammonium",
+    "TEA"
+  ],
+  "kg-node-7046f6d6eab1515de97a74848bd3c29a": [
+    "silica fume",
+    "silica source"
+  ],
+  "kg-node-706af196013c7661568fba90399ed93d": [
+    "benzamide 2"
+  ],
+  "kg-node-706e3ca7cc9230d789594e4809f2f326": [
+    "ch-OSDA3",
+    "OSDA3",
+    "ch-OSDA"
+  ],
+  "kg-node-70786cc30ce9007a17eb9bba9b90d8cf": [
+    "G2 unseeded gel"
+  ],
+  "kg-node-708196ba5f146c1803b580d540ff38a0": [
+    "sugar cane bagasse alkaline hydrolysate",
+    "BSST",
+    "biomass hydrolysate"
+  ],
+  "kg-node-713a4db79d95eafef25e73855725b71c": [
+    "Cu-TAPTS",
+    "3-[2-(2-aminoethylamino)ethylamino]propyl-trimethoxysilane铜络合物"
+  ],
+  "kg-node-715409f24d8cf47649675387d513f21d": [
+    "G1 seeded gel"
+  ],
+  "kg-node-718ee89897bd57136f0d4d0175a58088": [
+    "ammonium metavanadate",
+    "NH4VO3"
+  ],
+  "kg-node-719b7f3fd5763fe128033fff17f04f64": [
+    "H2^17O",
+    "40% H2^17O"
+  ],
+  "kg-node-71b51d133817c790a18e8ab140abe31b": [
+    "TPAOH (tetra-n-propylammonium hydroxide)",
+    "structure-directing agent (SDA)"
+  ],
+  "kg-node-722475664fdc8d34b8463bcbfd1d265a": [
+    "bridged polysilsesquioxane"
+  ],
+  "kg-node-7238d247cf2d095bb782ba9b654676c6": [
+    "Mg(NO₃)₂·4H₂O"
+  ],
+  "kg-node-724278da5659f3c8e1f8df6e1d7eb6da": [
+    "kaolin (halloysite nanoclay)",
+    "halloysite nanoclay"
+  ],
+  "kg-node-72782e32d6d83d0f733d7859031044d2": [
+    "NH4Cl"
+  ],
+  "kg-node-72977cf5f0273e9ebf6b498d56261c47": [
+    "cationic polymer 1"
+  ],
+  "kg-node-729cb92838653da202af165f4b5c8f3b": [
+    "benzylpyrrolidine (BP)",
+    "BP"
+  ],
+  "kg-node-72a31f8b1c82e40b2a54ffca712e2968": [
+    "Al(sec-BuO)3"
+  ],
+  "kg-node-72a36f363eed327e5ea7bebba8dcea67": [
+    "aluminium isopropoxide"
+  ],
+  "kg-node-72ad4d7ed3fa8c7a5378a7b3aeed3dea": [
+    "TMC3"
+  ],
+  "kg-node-72c5b698d16e5fb9db08b5e67da676e0": [
+    "N6-diphe surfactant"
+  ],
+  "kg-node-72e70060d7b116ca2ff1ccfaedb848c4": [
+    "CsCl"
+  ],
+  "kg-node-72eb51a897dbc202be9f693b2ac3af97": [
+    "Kryptofix 222 (K222)",
+    "hexaoxa-4,7,13,16,21,24-diaza-1,10-bicyclo[8,8,8]-hexacosane"
+  ],
+  "kg-node-72f532ec93d1fc6ee27d767cd50b255d": [
+    "TAEA",
+    "tris(2-aminoethyl)amine"
+  ],
+  "kg-node-7300ae7ef9588e8cb8b14f7356326e9b": [
+    "正硅酸乙酯",
+    "TEOS"
+  ],
+  "kg-node-732c7da47a7a0dec2831628bb9525567": [
+    "TPEA+",
+    "R(Pr)3N+"
+  ],
+  "kg-node-743fd670e0792c7e3530a8be5621a259": [
+    "CaCl2"
+  ],
+  "kg-node-744aed632387ef683cbe8f8030180e4a": [
+    "tetraethylammonium hydroxide",
+    "TEAOH"
+  ],
+  "kg-node-7458e9c0ef6a4ff81c8b5c874e590507": [
+    "trimethylaluminium (TMA)",
+    "TMA"
+  ],
+  "kg-node-748982f599c1345eefe83fa1e9a6b82b": [
+    "3-Aminopropyl-triethoxysilane",
+    "APTES"
+  ],
+  "kg-node-74ce552247424e98789afd88560216fd": [
+    "TMAda+ (N,N,N-trimethyl-1-adamantammonium)",
+    "TMAda+"
+  ],
+  "kg-node-750c1ebecef96c1aeb2bbfa8e0bfdffe": [
+    "乙酸（HAc）",
+    "HAc",
+    "acetic acid"
+  ],
+  "kg-node-751adb0f8519df3a9d581e80969ca643": [
+    "TEOA",
+    "triethanolamine"
+  ],
+  "kg-node-756ea1b6f8321c95db61f141b0520bbb": [
+    "TMAOH/TMA+",
+    "TMA+"
+  ],
+  "kg-node-7579c0cf67b99c3cf2f87a404c76b5c0": [
+    "starch"
+  ],
+  "kg-node-75a0d7db7269648ef06fe95327a136a1": [
+    "poly(hexamethylene biguanide) hydrochloride",
+    "PHMB"
+  ],
+  "kg-node-75bcdaa9550258821151aa09b4c226a5": [
+    "supramolecular OSDA"
+  ],
+  "kg-node-75c2ee1915373ee1590904b4d686cfee": [
+    "H₂S"
+  ],
+  "kg-node-75e968c62b14078055e26f3b94469bd2": [
+    "D₂O"
+  ],
+  "kg-node-75fd252ca0388cc4e612a67c9f8c12f8": [
+    "C22-6-6",
+    "[C22H45-N+(CH3)2-C6H12-N+(CH3)2-C6H13]Br2"
+  ],
+  "kg-node-7609d8e1567b0a672e47e6353293a920": [
+    "Na2CO3"
+  ],
+  "kg-node-7612339e7001ab5f48a3b0579c5f8850": [
+    "tetraalkylammonium bromides",
+    "TAABr",
+    "TMABr",
+    "TEABr",
+    "TPABr",
+    "TBABr"
+  ],
+  "kg-node-76317a822e1c97f6e63a0cd6deddf0ef": [
+    "EuCl3·6H2O",
+    "EuCl3"
+  ],
+  "kg-node-763daa52309de22705cbc646b7472b7c": [
+    "low-grade kaolin",
+    "highly impure kaolin"
+  ],
+  "kg-node-7675ed33dbdf586b3344b8082a9e941b": [
+    "Ge(OC2H5)4",
+    "germanium ethoxide"
+  ],
+  "kg-node-76802bbadc7e29becc29832fd532880c": [
+    "四乙基氢氧化铵(TEAOH)",
+    "Tetraethylammonium hydroxide",
+    "template/SDA"
+  ],
+  "kg-node-76e3adc2e77149376461f2cf457f167f": [
+    "ferric chloride hexahydrate",
+    "FeCl3·6H2O"
+  ],
+  "kg-node-771b4b48109f9905ab1aa7d9ba45549e": [
+    "VCl3"
+  ],
+  "kg-node-772b3b753850d80bc92d101a5c609214": [
+    "Sr(OH)2"
+  ],
+  "kg-node-77884eb5c6e807d128d7c8fe7035079c": [
+    "CeCl3·5H2O"
+  ],
+  "kg-node-77989e0088143a6cc77e43a0680b0fb2": [
+    "sodium ions",
+    "[Na]"
+  ],
+  "kg-node-77a94feeb26ccdc202c2585602feb649": [
+    "TEAOH",
+    "OSDA"
+  ],
+  "kg-node-77be71cdebd99d1f8a4e6f1aeb94bbcd": [
+    "hexamethonium bromide"
+  ],
+  "kg-node-7836169a13e9ebae80cbe3c7bc49d6c6": [
+    "N₂-p-N₂ (tailored simple organic molecule SDA)",
+    "SDA⁺"
+  ],
+  "kg-node-78374292545a883d3528e600ca1e89d6": [
+    "(3-cyanopropyl)-triethoxysilane"
+  ],
+  "kg-node-7842783e0424692235322c2a9619dced": [
+    "sodium metasilicate",
+    "Na2SiO3·5H2O"
+  ],
+  "kg-node-785b64003cd6401fe07d2b56f5a9452f": [
+    "P123",
+    "pluronic P123"
+  ],
+  "kg-node-7874a63fba7ab19d0a52c5118a834821": [
+    "SnCl4·5H2O"
+  ],
+  "kg-node-78b5d19066ff1d08bd1a76827e4db9c5": [
+    "pyrocatechol"
+  ],
+  "kg-node-796e0bd41fbe121320a33262f5dfe772": [
+    "10BDMI"
+  ],
+  "kg-node-799b8afaa23c1cdc87ed356bde1cdc6c": [
+    "Rh(C₂H₄)₂(acac)",
+    "acetylacetonatobis(ethylene)rhodium(I)",
+    "Rh(C₂H₄)₂(C₅H₈O₂)"
+  ],
+  "kg-node-79a09f2fa51bc42ad19601474700c3ac": [
+    "NH4F and HF",
+    "NH₄F",
+    "HF"
+  ],
+  "kg-node-79bbe5d3f2ba7b78d996f6faf5f61407": [
+    "NaOH"
+  ],
+  "kg-node-7a1453a295714ee0f0c6366dd6c273b9": [
+    "1-methyl 3-ethyl imidazolium bromide",
+    "ionic liquid"
+  ],
+  "kg-node-7a442fea685b436b903897899aea4fd4": [
+    "TMAdamOH",
+    "OSDAOH"
+  ],
+  "kg-node-7a6aa75749913f09dfbc4443d1613658": [
+    "Al(OiPr)3",
+    "Al[OCH(CH3)2]"
+  ],
+  "kg-node-7abec4bae3fbdd604f7cc51f2711cd62": [
+    "NaOH / LiOH"
+  ],
+  "kg-node-7b38fc4b9549500f068d882bb745a0cb": [
+    "acetic acid (CH3COOH)"
+  ],
+  "kg-node-7ba0b3788b238fb428697be10c8fd635": [
+    "magadiite"
+  ],
+  "kg-node-7ba58efdc0854f496dd5c506d7c130f9": [
+    "potassium ethoxide",
+    "K ethoxide"
+  ],
+  "kg-node-7ba64d8c550053f4980a1a7ba89c5f38": [
+    "1,4-bis(N-methylpyrrolidinium)butane (1,4-MPB)",
+    "1,4-MPB"
+  ],
+  "kg-node-7bbed6944191ada20fe3e5fce7a38b96": [
+    "Fe(NO3)3·9H2O"
+  ],
+  "kg-node-7bddd5d29f553e975412c5bda26da6df": [
+    "三乙胺（TEA）",
+    "TEA"
+  ],
+  "kg-node-7c0824a2e70c4741104abedfc219cba7": [
+    "aluminum nitrate"
+  ],
+  "kg-node-7c4e7a02556bd66355c35d66d7071e33": [
+    "Morphy OSDA"
+  ],
+  "kg-node-7c6119b96e4c7b82e17c3d0be27cdd8a": [
+    "colloidal silica (Ludox LS-30)",
+    "Ludox LS-30"
+  ],
+  "kg-node-7cfc1558cee105ffbf2499f606d1798a": [
+    "laponite",
+    "Laponite RD"
+  ],
+  "kg-node-7d433845287fda17ff9f59a4cab3bbb7": [
+    "3,5-dimethyl-N,N-diethylpiperidinium hydroxide (DDP)",
+    "DDP"
+  ],
+  "kg-node-7d4aa38d197dbfd774870fc8661255aa": [
+    "α-Al2O3"
+  ],
+  "kg-node-7d4b9318ff5fffb10bc12be38ab914ec": [
+    "anion-exchange resin"
+  ],
+  "kg-node-7d5d8bf190d5f76d8397a9b240231e91": [
+    "Ludox AS-40 silica",
+    "AS-40 colloidal silica"
+  ],
+  "kg-node-7d7e59a324fff7be866958b9492d1ac3": [
+    "magnesium sulfate"
+  ],
+  "kg-node-7da198f4139aeb24c1a40e9636c72e52": [
+    "RhCl₃"
+  ],
+  "kg-node-7dcc5774a7b320bf09c49f2c4373ce97": [
+    "triphenylphosphine (TPP)",
+    "TPP"
+  ],
+  "kg-node-7e07c230d512694ead2fbbd330ec0b90": [
+    "attapulgite (Attagel, BASF)",
+    "Attagel"
+  ],
+  "kg-node-7e40bfee05023d6c19736e4a71bc12be": [
+    "tetraammine palladium nitrate"
+  ],
+  "kg-node-7e4427812b4b3cc5bc462f2809b24c46": [
+    "tin(II) acetate"
+  ],
+  "kg-node-7eca928660684bec870b0c9a4a6fa154": [
+    "pseudoboehmite"
+  ],
+  "kg-node-7f05a3c0e466799205acf3d6e9abfc59": [
+    "PMIOH",
+    "PMI"
+  ],
+  "kg-node-7f2e6765dc8eeb211440a2a011c0411e": [
+    "CaCl₂"
+  ],
+  "kg-node-7f4e7b4e78922428c2920fe7e77e29e5": [
+    "Ni(NO3)2·6H2O与ZrO(NO3)2·13H2O"
+  ],
+  "kg-node-7f632e7edc77fd26856fcbc87e12a6b1": [
+    "[BMIm]OH0.65Br0.35"
+  ],
+  "kg-node-7f6c4958a475c0ff2d1687fab1c4d32e": [
+    "SOM-1"
+  ],
+  "kg-node-7f8cace212446c3c919d71ebe008ce4c": [
+    "fumaric acid"
+  ],
+  "kg-node-7fc77c065238ecc09bda3b00bc6d5150": [
+    "colloidal silica Ludox SM 30"
+  ],
+  "kg-node-7fd51f618244789814add6a46a88c395": [
+    "TMEDA",
+    "N,N,N',N'-Tetra-methylethylenediamine",
+    "OSDA"
+  ],
+  "kg-node-8017de523aaed1fe32eab4366e4cf210": [
+    "cyclohexylamine",
+    "C₆H₁₃N"
+  ],
+  "kg-node-801a382e14791390be0950a376b70bf0": [
+    "PrCl3"
+  ],
+  "kg-node-8077c41caa2e37d35a4d46c2c1c25f71": [
+    "Trimethylchlorosilane",
+    "TMS-Cl"
+  ],
+  "kg-node-8082592ead56d01c95eec595c2f78060": [
+    "Anthemis xylopoda flowers aqueous extract"
+  ],
+  "kg-node-8088fcb1796af1e3a260645715911602": [
+    "APDMES",
+    "1a"
+  ],
+  "kg-node-809ee256212629f6a1a70bc36d35b82d": [
+    "natural kaolin"
+  ],
+  "kg-node-80b4f285d23f78ae0abbb682129a8342": [
+    "C2-12-6 双季铵盐表面活性剂",
+    "(C12H25)2-N+(CH3)2-C6H12-N+(C3H7)3"
+  ],
+  "kg-node-80bc864c88a6396f50be2dc4a7b9b622": [
+    "hydrochloric acid",
+    "HCl"
+  ],
+  "kg-node-80c1c1ae8f965520d59518473dc61e4d": [
+    "TMAda+ (N,N,N-trimethyl-1-adamantylammonium)"
+  ],
+  "kg-node-80eab8c02c73154295ada221a9ad14a6": [
+    "N-methylpiperidine (NMP)",
+    "NMP"
+  ],
+  "kg-node-810409c7d7438318ebaeaf83d252c90f": [
+    "N,N,N-trimethyladamantammonium hydroxide (TMAdaOH)",
+    "TMAda+"
+  ],
+  "kg-node-811e6f8075081a3d3b852aaaea70f3bd": [
+    "Mg–Al layered double hydroxide (LDH)",
+    "LDH"
+  ],
+  "kg-node-81b1c92cfb3409d713626da315a5b631": [
+    "Kankara Kaolin",
+    "kaolin"
+  ],
+  "kg-node-81d49955b4650e7aa0ab0c19c061318b": [
+    "磷酸",
+    "phosphoric acid",
+    "H3PO4"
+  ],
+  "kg-node-81dbd63f4b6a9465a8839fbf71734ac8": [
+    "N-methylpiperazine (NMP)",
+    "NMP"
+  ],
+  "kg-node-820c8f3060e74a87b16057753fa5498e": [
+    "123TE4MI"
+  ],
+  "kg-node-822f9b0e0fcaafb3751f9fec657b9034": [
+    "tetra-n-butylammonium hydroxide",
+    "TBAOH"
+  ],
+  "kg-node-825c4c49578aa6a9479e91248521ced5": [
+    "high-carbon fly ash (HC FA)",
+    "HC FA",
+    "fly ash"
+  ],
+  "kg-node-827b1e45023a4652b54c10edc5ee5be8": [
+    "硅溶胶"
+  ],
+  "kg-node-8299cb56b0a13fe387fd3d7f9819e4ad": [
+    "Alconox®",
+    "anionic detergent"
+  ],
+  "kg-node-82d3b3973b048f6e2b5b231dfdd8be0b": [
+    "tetramethylene-1,4-bis-(N-methylpyrrolidinium) dihydroxide",
+    "SDA"
+  ],
+  "kg-node-82d416ce81422ab84a6629160bc1a3b6": [
+    "micron-sized zeolite P2 seeds",
+    "zeolite P2"
+  ],
+  "kg-node-82f563f0cdaab37d87027e1169bbcf3c": [
+    "N(16)-methylsparteinium (MeSPAOH)",
+    "MeSPAOH"
+  ],
+  "kg-node-831342298dda1bac3ce0b38fe306b035": [
+    "SR-508",
+    "dipropylene glycol diacrylate"
+  ],
+  "kg-node-8328caa2f1dcb48367358c78c8b633b2": [
+    "palladium nitrate dihydrate"
+  ],
+  "kg-node-8349bf9f4c6bcb606454b56c8b8698a2": [
+    "calcium nitrate tetrahydrate"
+  ],
+  "kg-node-8366bcb970f7b697af1f26ff624d732f": [
+    "silica sol (30%, 5 nm, pH 10)"
+  ],
+  "kg-node-839bc1b03809f04744dab48d7b96685b": [
+    "surfactant and fluoride mineralizing agent"
+  ],
+  "kg-node-83aee2cfb5abf3a5e4ad6ddbe9be08a0": [
+    "ethanol"
+  ],
+  "kg-node-84197efe3032e54ed75e941f802e2faf": [
+    "BDSA",
+    "1,6-bis(diethyl(3-trimethoxysilylpropyl)ammonium) hexane bromide"
+  ],
+  "kg-node-841f1b0a3c5f3768c470a8af9f8f83df": [
+    "boron (B2O3 lattice substituent)"
+  ],
+  "kg-node-842585eac905ad974286dfe93df3106f": [
+    "TPOAB"
+  ],
+  "kg-node-8455ac6ff2283c3e360134174df168d2": [
+    "89Zr-oxalate",
+    "[Zr(C2O4)4]4-"
+  ],
+  "kg-node-84597fcc0200848275550a2a066cfe6b": [
+    "aniline (AN)",
+    "AN"
+  ],
+  "kg-node-849c20ed707b71bd404cd723105c7696": [
+    "zinc acetate"
+  ],
+  "kg-node-849c8e4b8701b08472414044c3f351f1": [
+    "CuSO4"
+  ],
+  "kg-node-85291673581750cc7bdcb71de9f2e1c2": [
+    "trimethylamine"
+  ],
+  "kg-node-853ac61da52defdc4b6a7bff0bdfee41": [
+    "前驱体凝胶"
+  ],
+  "kg-node-8540d9e60773f1aa8f73a0e74b77f7fe": [
+    "PbBr2"
+  ],
+  "kg-node-855c684b860af48fb807050929cf37a7": [
+    "Gemini-type SDA",
+    "[C16H33-N+(CH3)2-...]Br2Cl4"
+  ],
+  "kg-node-8569ad7d5fb4cbccb42b1d0137bf07c0": [
+    "piranha solution"
+  ],
+  "kg-node-85dfe3430b737b8e17015341952ef74c": [
+    "ferric citrate"
+  ],
+  "kg-node-85f333c035eb99f4d5cd82c236ff4ca4": [
+    "Aerosil 200 fumed silica",
+    "Aerosil 200 silica"
+  ],
+  "kg-node-85fe026929d0787e66ceeb43ce6980ea": [
+    "PEIM",
+    "polyethylenimine"
+  ],
+  "kg-node-860c13471d65cdb9414ffbfe8a277ff8": [
+    "Ni(NO3)2·6H2O",
+    "Nickel (II) nitrate hexahydrate"
+  ],
+  "kg-node-86695c6e83be49b5a05f4cc7d4ffab1d": [
+    "butanone"
+  ],
+  "kg-node-867c1caed12f4a4427c79fb5996ca8a4": [
+    "tetramethylammonium cation (TMA+)"
+  ],
+  "kg-node-868245e056f2970e39602a8882ae0e80": [
+    "NH₄F"
+  ],
+  "kg-node-869099154eac6f6e3e05b129f09749ea": [
+    "silicalite-1 (S-1) seed",
+    "S-1",
+    "silicate-1"
+  ],
+  "kg-node-86bb92361170f15bd96792af3140f260": [
+    "impregnation method"
+  ],
+  "kg-node-86e012cb60b8ca27264aebff1776939a": [
+    "Et6-diquat-5 dibromide",
+    "N,N,N,N',N',N'-hexaethylpentanediammonium"
+  ],
+  "kg-node-86e7c9b99b341c3bde2adcae2d14ba80": [
+    "tetraethoxysilane",
+    "TEOS"
+  ],
+  "kg-node-86ffb8a97cf3b5e12eb79f937492f817": [
+    "NH₄NO₃"
+  ],
+  "kg-node-8701de360f81800b1079373132c58579": [
+    "HMI",
+    "hexamethylenimine"
+  ],
+  "kg-node-87456797af45a705ed793f14bfc4586c": [
+    "imidazolium-based OSDA"
+  ],
+  "kg-node-874b0aa319462ca25525b3499319a2fd": [
+    "heptane"
+  ],
+  "kg-node-877d75c28f4abe16dc33a091c0e6f5aa": [
+    "3-aminopropyl groups (surface modifier)",
+    "aminopropyl"
+  ],
+  "kg-node-87af15a98b379ac479b270ce1196f2c3": [
+    "diluted HF solution"
+  ],
+  "kg-node-87b812f71b22c1ba411862debc19355a": [
+    "germanium oxide",
+    "GeO₂"
+  ],
+  "kg-node-87e48870052be8f73bf65514a1e1a107": [
+    "M8BQ2+ (1,8-diquinuclidiniumoctane)",
+    "M8BQ2+"
+  ],
+  "kg-node-87e66cbddadd16eeac8210e2aab1e547": [
+    "TPPBr",
+    "tetrapropylphosphonium bromide"
+  ],
+  "kg-node-883f52dfffdb968c77ccc640b82029fe": [
+    "pentamethylimidazolium"
+  ],
+  "kg-node-887199a70b96ac9d6896a3a1a37ee3fb": [
+    "chloride salts (MCl, ZnCl2)"
+  ],
+  "kg-node-8887fac457ca2282c9fd722e1e2ec9cf": [
+    "DPA",
+    "di-n-propylamine"
+  ],
+  "kg-node-889d10cb3366b55913128728fe6da02f": [
+    "aluminum nitrate (Al(NO3)3)"
+  ],
+  "kg-node-88acfce9cb5d34e9979f3a1e701dc236": [
+    "MnCl₂·4H₂O"
+  ],
+  "kg-node-88d0dc4aac7c42c98415ca7b52222914": [
+    "N,N-dimethylethylamine / 1,6-dibromohexane based OSDA"
+  ],
+  "kg-node-88ea88939957030e1eb72944b01a7f61": [
+    "MSPs",
+    "mesoporous silica particles"
+  ],
+  "kg-node-88f8d0a40cd8dc6468f4fc70e7bc3888": [
+    "MeCpPtMe3",
+    "(methylcyclopentadienyl)trimethylplatinum"
+  ],
+  "kg-node-89370b4f7e926984db153b82eb2e5cad": [
+    "fumed silica (A200)",
+    "A200"
+  ],
+  "kg-node-895053a5bcb41941e60291a3923d4f8d": [
+    "metal nitrate precursor"
+  ],
+  "kg-node-896812933233f5c8eda2214c8c5d0989": [
+    "L-carnitine (LC)",
+    "carnitine"
+  ],
+  "kg-node-897166b6a4a2c3166f12460ea6b244f8": [
+    "aluminium oxide"
+  ],
+  "kg-node-89a8e8379129215aca14cd171e6de8bd": [
+    "Methyltriethoxysilane (MTES)",
+    "MTES"
+  ],
+  "kg-node-89af62e55dc7bd8e210ae21c1e9f96ad": [
+    "aluminum tri-sec-butoxide"
+  ],
+  "kg-node-89b7b95f74b8b761328f8c89a5f16c2e": [
+    "SiO2 (Davisil)",
+    "Davisil"
+  ],
+  "kg-node-89f28c2b0fef08f452f482526d672389": [
+    "tetramethylammonium hydroxide (TMAOH)",
+    "TMA+"
+  ],
+  "kg-node-8aa06ec1576a11c70268b185778aed80": [
+    "1-ethyl-3-methylimidazolium bromide (EmimBr)",
+    "EmimBr",
+    "Emin⁺"
+  ],
+  "kg-node-8ab0d9849b2e3d0173825ca3fe7f9b34": [
+    "PAH (poly(allylamine hydrochloride))"
+  ],
+  "kg-node-8acd793a63a92bd3aa358743d44e0b6b": [
+    "TPA+（四丙基铵阳离子）",
+    "tetrapropylammonium cation",
+    "SDA"
+  ],
+  "kg-node-8b10e9c55e3bdbdfb6e841d4542b8b4f": [
+    "ammonium fluorosilicate"
+  ],
+  "kg-node-8b274487771e26abff8f4f95922e4484": [
+    "Oxalic acid",
+    "OA"
+  ],
+  "kg-node-8b30d2e670150711d5b9f1e2beca3a4c": [
+    "Na2SiO3"
+  ],
+  "kg-node-8b35d56aff43a7048cc7c9774e1840ca": [
+    "TEA₂O (四乙基铵/模板剂)",
+    "TEAOH"
+  ],
+  "kg-node-8b42a814466517338b0d013dfd73687f": [
+    "TMA+",
+    "tetramethylammonium"
+  ],
+  "kg-node-8b96b76f24a18deb55521a20116c7156": [
+    "硝酸铵",
+    "ammonium nitrate"
+  ],
+  "kg-node-8bb6cffe55785a485a8f97e37f1af46b": [
+    "xylitol",
+    "Xy"
+  ],
+  "kg-node-8bc390d5a16552dd247843374d1aa97c": [
+    "DIPEA (N,N-diisopropylethylamine)",
+    "N,N-diisopropylethylamine"
+  ],
+  "kg-node-8c2393a7a51ded5ec4f9355b46166402": [
+    "oxalic acid (OxA)",
+    "OxA"
+  ],
+  "kg-node-8c2c7c29a3e574b4c2a987dc7794c84d": [
+    "Fe(NO3)3"
+  ],
+  "kg-node-8c3c1e4067de5081af19ed5462835cb7": [
+    "rice husk ash (RHA)",
+    "RHA"
+  ],
+  "kg-node-8c5c06ecd8c8a57b763bdfda4e6137b8": [
+    "1,2-二羟基苯 (C6H6O2)",
+    "catechol"
+  ],
+  "kg-node-8c7eeeaa02949cdc4245ea4ecab1e5d3": [
+    "Sodium aluminate (NaAlO2)"
+  ],
+  "kg-node-8c9d7031fa7fc8e07e8993c6ce7a1e74": [
+    "Pt(NH₃)₄(NO₃)₂"
+  ],
+  "kg-node-8cefed008d74d036836ff82f283e43e3": [
+    "HDTMA-Br",
+    "hexadecyltrimethylammonium bromide",
+    "C19H42N+"
+  ],
+  "kg-node-8d013eef79a90f297984a4bffdd31f75": [
+    "water glass"
+  ],
+  "kg-node-8d11e90c1690995ed6f99745b546ced8": [
+    "NH3"
+  ],
+  "kg-node-8d2085cc2c28ee22956d745be04123df": [
+    "1,1,1,8,8,8-hexaethyl-1,8-diazoniaoctane dihydroxide",
+    "SDA (1)",
+    "R²⁺(OH⁻)₂"
+  ],
+  "kg-node-8d2c5435ad6dba6aae7e22b285947106": [
+    "ferric ammonium citrate"
+  ],
+  "kg-node-8d98bce437b4f4bcb0d03e07991463c5": [
+    "tetramethylammonium hydroxide",
+    "TMAOH"
+  ],
+  "kg-node-8da7fa166bac7fa557db3309218342db": [
+    "N-methyl pyrrolidine",
+    "MP"
+  ],
+  "kg-node-8dc5a27ac4c998677762c2c5e995cd5e": [
+    "copper acetate",
+    "(CH3COO)2Cu"
+  ],
+  "kg-node-8dfedbf9fa039b2992e106051efa45a3": [
+    "1,4-bis(1-azoniabicyclo[2.2.2]octane)butyl dibromide",
+    "diquaternary ammonium compound",
+    "molecule I"
+  ],
+  "kg-node-8e3061c69c16fc93219f11173b4482d2": [
+    "TMAda+",
+    "trimethyladamantylammonium"
+  ],
+  "kg-node-8e4870b3bcc3d514b18e8cc59d26aa09": [
+    "LUDOX AS-30"
+  ],
+  "kg-node-8e52284ee8f0296543b827a9c7590821": [
+    "diquat-5",
+    "1,5-bis(N-methylpyrrolidinium)pentane"
+  ],
+  "kg-node-8e8e1061cb24614892109861cd3627aa": [
+    "N,N-diisopropylethylamine (C8H19N)"
+  ],
+  "kg-node-8ecf59b6d978106174baa137f579c850": [
+    "Ludox HS-30 colloidal silica"
+  ],
+  "kg-node-8f08431c5aac4a706a4d61bae3f5dd54": [
+    "DECDMP",
+    "SDA 1"
+  ],
+  "kg-node-8f21b9b70195660332d44c482df92846": [
+    "Co(NO₃)₂·6H₂O"
+  ],
+  "kg-node-8f344f814969a98011ed9ea17fba2bee": [
+    "TPA (tetrapropyl ammonium)",
+    "TPA"
+  ],
+  "kg-node-8f52de9fa966645cf516d673261fed05": [
+    "DABCO-based multiquaternary ammonium SDA",
+    "C18-D-C2",
+    "C18-D-C6",
+    "C18-D-C18"
+  ],
+  "kg-node-8fa1aa1d8637feb470df7fdf2dcf43a3": [
+    "N,N,N-trimethyl ammonium hydroxide"
+  ],
+  "kg-node-8fa96972623d1886193ab39a4c9cc51e": [
+    "piperazine"
+  ],
+  "kg-node-8fdf37a3da0de5b9bb4ac61bfd74afec": [
+    "ammonium chloride",
+    "NH4Cl"
+  ],
+  "kg-node-8fe8695466fef7f093eee0bfaa43225f": [
+    "KNO3"
+  ],
+  "kg-node-8ffe6e627e09a96d69309a6938433b30": [
+    "1,3,3-三甲基-6-鎓三环[3.2.1.4^6,6]十二烷阳离子",
+    "SDA I",
+    "C₁₄H₂₆NOH"
+  ],
+  "kg-node-900589d2058d3029f684d79700dcc8aa": [
+    "N,N'-trimethylimidazolium SDA",
+    "SDA+ (ITW)"
+  ],
+  "kg-node-901684e3b5ce4a44f72df07afedc84d6": [
+    "Al2O3"
+  ],
+  "kg-node-904a796363e24682900b8815e4e49d37": [
+    "diatomite"
+  ],
+  "kg-node-904cdd3eb5e7993e9f9b4a0e21c5942d": [
+    "s-triazine-based triply branched surfactant (C₃N₃-{[p–C₆H₄–CH₂–N⁺(CH₃)₂–C₆H₁₂–N⁺(CH₃)₂C₆H₁₃][Br]₂}₃)",
+    "OSDA",
+    "bifunctional structure directing agent"
+  ],
+  "kg-node-909c92ac25c27602f1fa8d971f9b33bf": [
+    "MgCl2 aqueous solution"
+  ],
+  "kg-node-90e3451170aff235ffd3892a104653f6": [
+    "Ferric acetylacetonate"
+  ],
+  "kg-node-91337227a7b4afb33ccbf478a66fcfdb": [
+    "Cd powder"
+  ],
+  "kg-node-91611fbced781f2e8624980ebcb19d0c": [
+    "Sr(NO₃)₂"
+  ],
+  "kg-node-9184acc23957ff8b1d0a6d060dd4fc5c": [
+    "dimethyl tin dichloride",
+    "(CH3)2SnCl2"
+  ],
+  "kg-node-91a7fba8fd60f670b04ce71841c4b163": [
+    "sodium carbonate",
+    "Na2CO3"
+  ],
+  "kg-node-91d187dd04a8303d07497471d526876b": [
+    "Pyrazole hydrochloride (Pya·HCl)",
+    "Pya-HCl"
+  ],
+  "kg-node-91e6e54d4f6c328d311b320280782519": [
+    "TMHDA",
+    "SDA3"
+  ],
+  "kg-node-924ce9a34379d62798deba6fd93a4aa7": [
+    "TTA",
+    "thenoyltrifluoroacetone"
+  ],
+  "kg-node-92f8f6f3078e123d06f9018ba487121d": [
+    "sodium aluminate",
+    "NaAlO2"
+  ],
+  "kg-node-935b297ecb1d642429ae8de9a098cb2b": [
+    "aniline",
+    "AN"
+  ],
+  "kg-node-938b8f3cc331260f2ecaf6733757aa2d": [
+    "C₁₆DC₁ (biquaternary ammonium surfactant)",
+    "bifunctional biquaternary ammonium surfactant"
+  ],
+  "kg-node-93933257924159016442b6077b8d95ff": [
+    "n-propylamine (NPA)",
+    "NPA"
+  ],
+  "kg-node-939c0023195cfd6ef17a0078be6dc57e": [
+    "TMAOH",
+    "tetramethylammonium hydroxide"
+  ],
+  "kg-node-93c171ed8bc7742f310f0e1cfdd9f79e": [
+    "tetraammineplatinum(II) nitrate"
+  ],
+  "kg-node-93f8dce1de15b54baedb7c1071a05780": [
+    "hexamethonium (HM)",
+    "HM"
+  ],
+  "kg-node-941cc341e3ccddc1788c460424695fa8": [
+    "Aluminiumisopropylat"
+  ],
+  "kg-node-9443a69d284bd52367355a4891ec006d": [
+    "RuCl3·3H2O"
+  ],
+  "kg-node-949b2643ea0715358f78ebd2c51fe29e": [
+    "alkali metal hydroxides (LiOH, NaOH, KOH, RbOH, CsOH)",
+    "MOH"
+  ],
+  "kg-node-94dc6b29995cd28d11a0e91abb51ef8d": [
+    "NH4+ form zeolites"
+  ],
+  "kg-node-94e38821e711405c04f6eb6a269746a4": [
+    "水玻璃",
+    "water glass"
+  ],
+  "kg-node-951a596cc23a0bdf532113deb9f9ccf9": [
+    "dextrin",
+    "organic binder"
+  ],
+  "kg-node-956d4b923a93e56d27f5d4b19eaaa0c1": [
+    "benzyltrimethylammonium chloride"
+  ],
+  "kg-node-95a05101445f3fda0ada036111cb6aa3": [
+    "Ada-4-16 OSDA",
+    "Ada-(4,5,6)-16"
+  ],
+  "kg-node-95a7644fef62bdec760af41c3b992dfe": [
+    "tetra-amineplatinum(II) nitrate"
+  ],
+  "kg-node-961aa0688ca707daf4d647a8e89fa7b0": [
+    "1,2-hexanediol (D6₁,₂)",
+    "D61,2",
+    "D6₁,₂"
+  ],
+  "kg-node-962e46dfcd79ae9a0cf55a48ed5664b2": [
+    "CTS",
+    "chitosan"
+  ],
+  "kg-node-96959384dfaf4219b1022bad7cd0a8fb": [
+    "APTMS"
+  ],
+  "kg-node-96a6312b1fc4893608e1b3a69a134880": [
+    "concentrated ammonium hydroxide (NH4OH)"
+  ],
+  "kg-node-96c34f96a47ffc8c1b376875494bf633": [
+    "N-[3-(trimethoxysilyl)propyl]ethylenediamine (DETA)",
+    "DETA"
+  ],
+  "kg-node-96cc32ea083be6639bc77d2cceee1d0c": [
+    "OSDA2"
+  ],
+  "kg-node-96f106764146f709c2a0ca3fe8580863": [
+    "MTPQ",
+    "4-methyl-2,3,6,7-tetrahydro-1H,5H-pyrido[3.2.1-ij]quinolinium"
+  ],
+  "kg-node-97122290bb47482172ff80d7b35e691b": [
+    "Ludox HS40"
+  ],
+  "kg-node-971fcdf17a48de9b6b9d0d71e71804ac": [
+    "CuCl"
+  ],
+  "kg-node-974eb8e33cba051d46cb61812cc9fe7f": [
+    "TPAOH/TEAOH"
+  ],
+  "kg-node-97548f94dde5de8784e8f5e46d637a0c": [
+    "tetrabutyl titanate"
+  ],
+  "kg-node-975eceef2437d3c0c6816761bd006518": [
+    "PMP/EDA (1,2,2,6,6-pentamethylpiperidine + ethylenediamine)",
+    "pentamethylpiperidine",
+    "ethylenediamine"
+  ],
+  "kg-node-977cd73675803fb64189b7555135368f": [
+    "Ga(NO₃)₃",
+    "gallium nitrate hydrate"
+  ],
+  "kg-node-979a7bdfa9f2d6a740b0ed931accc8ab": [
+    "imidazole–tetramethylammonium chloride eutectic mixture",
+    "EU"
+  ],
+  "kg-node-97ca1c6471831e80af705173d102b482": [
+    "OSDA-C4",
+    "1,1'-(pentane-1,5-diyl)bis(1-butylpyrrolidin-1-ium)"
+  ],
+  "kg-node-97cee1389fce3e5d0669447f958e0b54": [
+    "n-octane"
+  ],
+  "kg-node-97f9655234baf0411f66e81d9390db23": [
+    "Na₂SiO₃·9H₂O"
+  ],
+  "kg-node-981e4b72187e100b969395e13af85790": [
+    "NaOH水溶液"
+  ],
+  "kg-node-984e8a9d2e01ed451dc2570631843309": [
+    "methylene blue",
+    "MB"
+  ],
+  "kg-node-98e20bcaf68a98f1df5a82a34682b5a6": [
+    "dichloromethane"
+  ],
+  "kg-node-99332a2e55d506d144c349cb0af5e0a7": [
+    "n-Butylamine (BTA)",
+    "BTA"
+  ],
+  "kg-node-996991a7a80b894c6da1f9c9cd906984": [
+    "Cu-TEPA",
+    "Cu-tetraethylene-pentamine"
+  ],
+  "kg-node-996f0637ad805062ea119080b41e57c8": [
+    "2E134TMI",
+    "2-ethyl-1,3,4-trimethylimidazolium"
+  ],
+  "kg-node-9990900dd28f43946d99465c816c2992": [
+    "fumed silica (Cab-O-Sil M5)",
+    "Cab-O-Sil M5"
+  ],
+  "kg-node-999d7306887b572bedda99f01be2f40d": [
+    "tetrabutyl orthotitanate (TBOT)",
+    "TBOT"
+  ],
+  "kg-node-99a0d1ea9fb7f6b6334f341b62f91453": [
+    "H2PtCl6"
+  ],
+  "kg-node-99a8b1e0d510370af048af6ef12892cf": [
+    "LUDOX AS40 silica sol"
+  ],
+  "kg-node-99ac92cc2b1869873bd5d1ee969bab17": [
+    "arginine"
+  ],
+  "kg-node-99ae5010bfd7db5f3c8a338cfadf291c": [
+    "zirconium incorporation (ZrO2 grafting)"
+  ],
+  "kg-node-99c3bea7ad4e620d9643dde84766c5fc": [
+    "cerium(III) nitrate"
+  ],
+  "kg-node-99cf9ccdbabfa75dd1317d530692607e": [
+    "3-mercaptopropyl-trimethoxysilane (MPS)",
+    "MPS"
+  ],
+  "kg-node-99ddf147b594b79f6f8a514fdb3778fd": [
+    "H2PtCl6·6H2O"
+  ],
+  "kg-node-99fc6dd36138dc0947537137b780e3d8": [
+    "Ph₃SiCl (TPSCl)",
+    "TPSCl"
+  ],
+  "kg-node-9a2c9554b2282140e60f5c4c90922bda": [
+    "Na-aluminosilicate gel"
+  ],
+  "kg-node-9a5236f13fb3fb26f7aa992234601a9d": [
+    "RhCl₃·3H₂O"
+  ],
+  "kg-node-9aa5d74f36260c275e9589431a6fc1d9": [
+    "CBV720"
+  ],
+  "kg-node-9abcb6969d7f9f11eafed6791fb15a10": [
+    "choline chloride",
+    "CC"
+  ],
+  "kg-node-9addb8e039cf71c32590db978fb8c140": [
+    "ultrastable Y-type zeolite",
+    "HSZ-390HUA"
+  ],
+  "kg-node-9b13f63dd9ec823e649d0ae7283e56bb": [
+    "SDA 2 (C₁₄H₂₆NOH)"
+  ],
+  "kg-node-9b5468f38af8a5dc4a4edb1c79bc7f54": [
+    "organosilane surfactant",
+    "OSS"
+  ],
+  "kg-node-9b584b144adc1e032f508cd3880b8955": [
+    "胶体硅晶种",
+    "colloidal silicon seeds"
+  ],
+  "kg-node-9b891c4ffd1c54e2fc6874f58fbe0a29": [
+    "formic acid (FA)",
+    "FA"
+  ],
+  "kg-node-9c1d7e886c6b7248367946a69712db6b": [
+    "Al(OH)3",
+    "hydrated aluminium hydroxide"
+  ],
+  "kg-node-9c21f0e356866c8188d0a8bff78b0f6a": [
+    "K222 (Kryptofix 222)",
+    "4,7,13,16,21,24-Hexaoxa-1,10-diazabicyclo[8.8.8]hexacosane"
+  ],
+  "kg-node-9c5104903dd794b27e0495a48674635e": [
+    "helium",
+    "He"
+  ],
+  "kg-node-9c59b6da5f55075eaf40ca1c6cf3f4d7": [
+    "Cu(II) acetate monohydrate"
+  ],
+  "kg-node-9cfa04d1ac862c0c7e15b208439ab619": [
+    "cellulose nanofibrils (CNF)",
+    "CNF"
+  ],
+  "kg-node-9d38ae2101dbdb660844004f60f950a8": [
+    "bivalent copper ions aqueous solution"
+  ],
+  "kg-node-9d38fb24ee07dfbb4431141d74bf42ef": [
+    "ClO4-",
+    "perchlorate"
+  ],
+  "kg-node-9d7e33368bb8cc01859d5548250bd6d5": [
+    "aluminum isopropoxide"
+  ],
+  "kg-node-9db22796f0faf95d5a3f6f2687f1d2d4": [
+    "tetraethoxysilane (TEOS)",
+    "TEOS"
+  ],
+  "kg-node-9e634a4ba7210e718b8e972533833562": [
+    "H3AsO4",
+    "arsenic acid",
+    "H5As3O10 (Feng方法)"
+  ],
+  "kg-node-9e65d4cf6d5283e6665f8b60d6e7da8e": [
+    "boehmite"
+  ],
+  "kg-node-9e829f666165f52e84fd3d4a80341d20": [
+    "Cs2CO3"
+  ],
+  "kg-node-9ea1c2408cc12ef81a3ee8eb95f16799": [
+    "fluoride mineralizing agent"
+  ],
+  "kg-node-9ed5c47518ba15554427a7c37e391f6b": [
+    "d16-benzyltrimethylammonium hydroxide",
+    "d16-BTMA OH",
+    "BTMA"
+  ],
+  "kg-node-9eee26ea016472fc7bb2af9522ecb723": [
+    "food-grade aluminium foil"
+  ],
+  "kg-node-9f36824e1c9276ec6d0950f2d4af9b7b": [
+    "TEBOP",
+    "OSDA (III)"
+  ],
+  "kg-node-9f485c7a6502cddd5284444ef159d9c3": [
+    "3BDMI dication",
+    "3BDMI bromide",
+    "SDA"
+  ],
+  "kg-node-9f71c75230c07370d982c28980ae8b2a": [
+    "MK-450 (metakaolin)",
+    "metakaolin"
+  ],
+  "kg-node-9f9385a35defd3b29403a3f5756fe3de": [
+    "1,6-dibromohexane",
+    "diBrC6",
+    "dibromohexane"
+  ],
+  "kg-node-9fcb832b4cfd63df85e2c6a2fa963e25": [
+    "DMASD bromide",
+    "SDA"
+  ],
+  "kg-node-9fd13311c8bad7a4668850957c1e7d1e": [
+    "1,4-dibromobutane",
+    "1,4-DBB"
+  ],
+  "kg-node-9febe982c5c793c4ee99eb351d5e8368": [
+    "KOH",
+    "1 M KOH"
+  ],
+  "kg-node-9fed87dc4934f9dfa786b569fb2845e8": [
+    "PDDAC",
+    "poly diallyldimethylammonium chloride"
+  ],
+  "kg-node-a028b2f9458b9e056ecf971dabd19239": [
+    "dimethyldipropylammonium hydroxide (SDA)",
+    "SDA"
+  ],
+  "kg-node-a04db875bbdcfb0e71d99d240c4ad0eb": [
+    "氢氧化钠",
+    "sodium hydroxide",
+    "NaOH"
+  ],
+  "kg-node-a0862729988855830c5bd519132a11bf": [
+    "PEI (聚乙烯亚胺)",
+    "polyethyleneimine"
+  ],
+  "kg-node-a0bd8226b79df37b3fb134f80db11edd": [
+    "CH₃COOH / Al(NO₃)₃ hydrolysis mixture"
+  ],
+  "kg-node-a0d0e2b59b304477569a915f74adb669": [
+    "sodium hydroxide",
+    "NaOH"
+  ],
+  "kg-node-a0eef413cb91e28d92aec5bb20d55a11": [
+    "julolidinium hydroxide (ROH)",
+    "4-methyl-2,3,6,7-tetrahydro-1H-5H-pyrido[3.2.1-ij]quinolinium hydroxide"
+  ],
+  "kg-node-a12f323df08a1e5dd3a31b456407e089": [
+    "salt slag",
+    "SS"
+  ],
+  "kg-node-a14176756bcc8767dbbb7a77eaa53870": [
+    "inorganic cations Na⁺, K⁺, Cs⁺"
+  ],
+  "kg-node-a1468280d73214440cdfa3210a9a47e8": [
+    "TiCl4"
+  ],
+  "kg-node-a1674e94599f3d59dc992df39c0ec5bd": [
+    "ADA",
+    "SDA"
+  ],
+  "kg-node-a1997298af70c893f304e758dd4d1a98": [
+    "o-FDBDM cation",
+    "ortho-fluorinated cation"
+  ],
+  "kg-node-a1de705b5d7a6c15056fdaf4a64ba35d": [
+    "Ludox胶体二氧化硅",
+    "Ludox colloidal Silica",
+    "SiO2 suspension"
+  ],
+  "kg-node-a1ea14ae36eb462631670dbaee0d2818": [
+    "BTESM"
+  ],
+  "kg-node-a1f20213f09b6184d5896f970bbfd50d": [
+    "NaOH (0.2 M)"
+  ],
+  "kg-node-a206a6c0863d427bf7eec73720b59995": [
+    "HNO3"
+  ],
+  "kg-node-a20741d5547b16d5636f6c3f6683f8e8": [
+    "SDA III",
+    "4,8-(2-methyl)ethenobenzo[1,2-c:4,5-c']dipyrrolium dications"
+  ],
+  "kg-node-a20ea2a95e0756b8101021ba0b6514ac": [
+    "TEBA",
+    "templating agent"
+  ],
+  "kg-node-a220c5b9d0df6a7a1e9548120cd00772": [
+    "MFI nanoseeds"
+  ],
+  "kg-node-a22713ec1709b8442ca330063cc74c12": [
+    "18-crown-6"
+  ],
+  "kg-node-a25b84d10104969b001bfd9ddd56aec1": [
+    "ethylenediamine"
+  ],
+  "kg-node-a25e2102caeaebd8565ebebdc403bd02": [
+    "C22 di-quaternary ammonium surfactant",
+    "bifunctional cationic surfactant"
+  ],
+  "kg-node-a2d2ce1890f494c17e6efd22dfd092f1": [
+    "Na2O"
+  ],
+  "kg-node-a2f0dc890bed702e761e1341089d86f3": [
+    "sodium silicate solution"
+  ],
+  "kg-node-a2fd4147d1682913d8a387d4721efa0a": [
+    "Ga2O3"
+  ],
+  "kg-node-a30b03394f4bd93132c4f60e29481a93": [
+    "hexamethonium dihydroxide (SDA1)",
+    "hexamethylene-bis(trimethylammonium)dibromide precursor"
+  ],
+  "kg-node-a3132dac9522d9904018da8f4e6ddd91": [
+    "quinuclidine (Q)",
+    "SDA",
+    "quinucidine"
+  ],
+  "kg-node-a33cd9d86265a336797512b38f04320e": [
+    "NaAlO2"
+  ],
+  "kg-node-a344a1e3993c81b6105ced2d4bfcc6b9": [
+    "NH4F"
+  ],
+  "kg-node-a35ff5690fd2330ab63e39a3b8cb83f3": [
+    "H₂PtCl₆"
+  ],
+  "kg-node-a37ed3eb92e49466889383f29f06eb25": [
+    "THMA+",
+    "tetrakis(2-hydroxyethyl)ammonium"
+  ],
+  "kg-node-a396426b313de065e51761c4acd08000": [
+    "dibenzyldimethylammonium",
+    "dbdm"
+  ],
+  "kg-node-a42297b00cf2e208f639be205c40bc58": [
+    "M4BQ(OH)2 (tetramethylene bisquinuclidinium dihydroxide)",
+    "M4BQ2+"
+  ],
+  "kg-node-a453bdde17413490ae59ba467a93eb6e": [
+    "DDBQ",
+    "2,2-dimethyl-2,3-dihydro-1H-benzo[de]isoquinoline-2-ium"
+  ],
+  "kg-node-a45ec992af2b8ec3ca5164cb9f00fb76": [
+    "二氧化硅",
+    "SiO2",
+    "Cab-o-sil"
+  ],
+  "kg-node-a492f4288c12ee53600711ad9ae9245c": [
+    "tetraethyl orthosilicate (TEOS)",
+    "TEOS"
+  ],
+  "kg-node-a495c6bdd2534d67a59d2c45ff5439c9": [
+    "Ludox silica"
+  ],
+  "kg-node-a4d01bac2272c02ab611c48e29166af0": [
+    "1,3-propanediamine",
+    "PDA"
+  ],
+  "kg-node-a4ea82b7d510e37561cadc47afc6acfd": [
+    "chromium(3+) nitrate nonahydrate"
+  ],
+  "kg-node-a525dd8679cf94c57cdeecf3776eecd5": [
+    "amorphous aluminosilicate (SiO2/Al2O3 = 50)",
+    "ASM-1",
+    "ASM-2"
+  ],
+  "kg-node-a55ff80234004d0ef8af4e99d1011885": [
+    "NMP"
+  ],
+  "kg-node-a579b10633d347bab2997d4a3e637df8": [
+    "NH₄F/HF/HBr",
+    "F⁻"
+  ],
+  "kg-node-a67565f7e4c5083ddf98b4298f84da12": [
+    "lanthanum(III) nitrate"
+  ],
+  "kg-node-a6dbb0a2f8ab97ed96d06277796b2be1": [
+    "HF and HCl (acid activation), NH4Cl (ion exchange)"
+  ],
+  "kg-node-a6eca9e131938181f7accd8d8648d3be": [
+    "trimethyl-adamantammonium hydroxide",
+    "SDA"
+  ],
+  "kg-node-a7293e265e13343e6029db14a15cfef7": [
+    "CD (3,10-diazoniabicyclo[10.2.2]hexadeca-12,14,15-triene, 3,3,10,10-tetramethyl-dichloride)",
+    "cyclic diammonium"
+  ],
+  "kg-node-a7f5e45e9ea357f959cf45c1412aef7c": [
+    "N-benzylquinuclidinium cation",
+    "benzylquinuclidinium"
+  ],
+  "kg-node-a806151e7b5c58b625c82392b06c5f98": [
+    "Al(NO3)3·9H2O"
+  ],
+  "kg-node-a815950f5f2d1fb1fc88c63b98909735": [
+    "attapulgite clay"
+  ],
+  "kg-node-a81ff4f67caa143a061f3aeabe968404": [
+    "TWEEN 80"
+  ],
+  "kg-node-a83d1a8c08096b0340cc903f26a13e5c": [
+    "PrTES",
+    "propyltriethoxy silane"
+  ],
+  "kg-node-a846f6ad4d3f0155778cb42b86235968": [
+    "silica sol (25 wt.%)"
+  ],
+  "kg-node-a88032a985a0c4d98de288e9a2efbd29": [
+    "cobalt(II) acetate tetrahydrate",
+    "C4H14CoO8"
+  ],
+  "kg-node-a8b4e8c668a6ad2c061bea874f5209d0": [
+    "tetrabutyl ammonium iodide"
+  ],
+  "kg-node-a8b81ff35fcf413a2e4321df6104e95a": [
+    "resorcinol-formaldehyde organic aerogel"
+  ],
+  "kg-node-a8cce51faf71d5d80503cdabb30bdb8d": [
+    "1,3-dimethylurea (DMU)",
+    "DMU"
+  ],
+  "kg-node-a8f96868a3f6804c5f39be0716b16968": [
+    "LiCl"
+  ],
+  "kg-node-a93e840c06e7c9eaf11851f3af779c1f": [
+    "Pr6-diquat-C5"
+  ],
+  "kg-node-a96882b39d542ff8f298ef9a92003be6": [
+    "TMeA⁺",
+    "tetramethylammonium cation"
+  ],
+  "kg-node-a96bb7f620fc690397d33a830a46ef40": [
+    "tetrapropylammonium (TPA+)"
+  ],
+  "kg-node-a98c987cf793a2943423fc0c1aa4fdc4": [
+    "Ludox SH-40"
+  ],
+  "kg-node-a9d7e60321887819d200c853d2c6d018": [
+    "spherical silica"
+  ],
+  "kg-node-aa023dfc305ef47f532829d3ce841bab": [
+    "piperidine"
+  ],
+  "kg-node-aa2ba1790a613f611ab1871d801753ae": [
+    "七钼酸铵（AHM）",
+    "ammonium heptamolybdate"
+  ],
+  "kg-node-aa2e0e1faa878962df70ed1457845e20": [
+    "high fructose corn syrup (HFCS)",
+    "HFCS"
+  ],
+  "kg-node-aa329a86e64a9139c7f5f759652676cc": [
+    "O10 inhibitor"
+  ],
+  "kg-node-aa34868d353bd5baa4f1623a6a470286": [
+    "leached metakaolin"
+  ],
+  "kg-node-aa83bd4cd2a8325fe4884cf9774e802b": [
+    "TEA+ (tetraethylammonium)"
+  ],
+  "kg-node-aa9e93de7f3c5859a0a9f8c316d1ed6e": [
+    "Na2B4O7·10H2O",
+    "sodium borate decahydrate"
+  ],
+  "kg-node-aadd0a000c8221615beea2ea5eaa2142": [
+    "TPA cation (tetrapropylammonium)",
+    "TPA"
+  ],
+  "kg-node-aae2abaad0abfbc107ff2b3dc6fd091f": [
+    "tetrabutylammonium hydroxide (TBAOH)",
+    "TBAOH"
+  ],
+  "kg-node-aae7798fe39ecab47d67692966143634": [
+    "sugarcane bagasse"
+  ],
+  "kg-node-ab02179d11d58dd82bd9b95676d89d69": [
+    "Li+ / Sr2+",
+    "LiCl",
+    "Sr(NO3)2"
+  ],
+  "kg-node-ab23fce422691026d2012d6c03162385": [
+    "TMP²⁺ SDA",
+    "TMP(Br)2",
+    "TMP(OH)2",
+    "TMP(OD)2"
+  ],
+  "kg-node-ab31f5eae4940be827c6f3d3e943fb54": [
+    "BCPh-6-6-6"
+  ],
+  "kg-node-ab8af4b134567521e41993150eeb1dd1": [
+    "AMCE complex",
+    "OSDA",
+    "organic directing agent"
+  ],
+  "kg-node-ab9646e7d74f63ee6753870afd4d8b26": [
+    "SiCl₄"
+  ],
+  "kg-node-abb2c16b36dfe21fd10f501efcee5249": [
+    "isopropylamine"
+  ],
+  "kg-node-abcfbb14df23b8d3501db1060fde60a3": [
+    "NH4OH"
+  ],
+  "kg-node-ac4a972c2481007343b772c3fe8660f3": [
+    "[Rh(C2H4)2(acac)]",
+    "Rh(acac)(ethylene)2"
+  ],
+  "kg-node-ac5e05620775b72e5929be3b7d63b17c": [
+    "propyltriethoxysilane (PrTES)",
+    "PrTES"
+  ],
+  "kg-node-ac6e53e699bd72c721b8ba1813952d5e": [
+    "123TEI (1,2,3-triethylimidazolium)",
+    "C/N = 4.5"
+  ],
+  "kg-node-ac842a1df03146a2ab74f41f518b148f": [
+    "BSTFA"
+  ],
+  "kg-node-ac885568d4383a1be20e14a188d4339d": [
+    "HMMOH",
+    "HMM+"
+  ],
+  "kg-node-acb9a1965d6e2e52a90ff334a6307885": [
+    "Be(OH)2",
+    "BeO"
+  ],
+  "kg-node-ace2901385e3c754ada356859a51381a": [
+    "ammonium nitrate"
+  ],
+  "kg-node-ad05089eadb55cff9ad6944a02ef3c7c": [
+    "Zeolite NaX powder (Sigma-Aldrich)"
+  ],
+  "kg-node-ad9ae45efc39be009832d8b6ff8553ab": [
+    "18-crown-6 ether",
+    "18C6"
+  ],
+  "kg-node-ad9b1115bd7d7c233d2cdfbf8611843c": [
+    "silicalite-1 seeds"
+  ],
+  "kg-node-add2702141e85c950001577af85e502d": [
+    "coal fly ash (CFA)",
+    "CFA"
+  ],
+  "kg-node-adf3e4afcca4c8229e388ceff456d3f1": [
+    "NH4Cl solution"
+  ],
+  "kg-node-ae2a30a2ed33a8eafefd07a83c03a953": [
+    "HCl",
+    "矿物酸"
+  ],
+  "kg-node-ae5a4d2af414e62f4a1c2b966096ba11": [
+    "Silica"
+  ],
+  "kg-node-ae665d7bf568423c4c1ed255df6e597c": [
+    "1,2,3-trimethylimidazolium hydroxide (123TMOH)",
+    "123TMI",
+    "123TMOH"
+  ],
+  "kg-node-ae981e4e429d69bc88733b48943f28ec": [
+    "OSDA"
+  ],
+  "kg-node-ae9ce4553b2725a4aa1e76aea73ffe20": [
+    "Tetrapropylammonium bromide",
+    "TPABr"
+  ],
+  "kg-node-aed92463b4ebc13dbf9529a2696e4fdd": [
+    "TAPTS ligand",
+    "3-[2-(2-aminoethylamino)ethylamino]propyl-trimethoxysilane"
+  ],
+  "kg-node-af508a003509d4c5b0374bb3fd595bf0": [
+    "diQuin-C8²⁺"
+  ],
+  "kg-node-af55a0c8091234007c165d9916a4a645": [
+    "bifunctional surfactant (C22-6-N+)"
+  ],
+  "kg-node-af59efe711c4927e936770521b6c8348": [
+    "oxygen plasma gas"
+  ],
+  "kg-node-af636a30d834a9aef429375ae73ec1f7": [
+    "C22-6-3",
+    "DQAS C22-6-3",
+    "C22H45-N+(CH3)2-C6H12-N+(CH3)2-C3H7"
+  ],
+  "kg-node-af73ab5b07f3937cdde4e0cc9f28ce5b": [
+    "C22-N+-C6-N+-C6 (C22-6Br2)",
+    "SDA",
+    "diquaternary ammonium cation"
+  ],
+  "kg-node-af7edcfaa6ef8ebff0d06420e5025f99": [
+    "single wall carbon nanohorn",
+    "SWCNH"
+  ],
+  "kg-node-af93a6d8deeb50ba4de0da22535b2b1e": [
+    "DMECHA",
+    "N,N,N-Dimethylethylcyclohexylammonium"
+  ],
+  "kg-node-afa32b40d4150f41d2e4d79be2d73f62": [
+    "silica sol (colloidal silica)",
+    "colloidal silica"
+  ],
+  "kg-node-afa33ea8312ee883c346569f5bb37226": [
+    "CPh–Ph-10-6",
+    "1"
+  ],
+  "kg-node-afb3387c93abe318ec756ae9182c509f": [
+    "alumina support",
+    "Al₂O₃/TiO₂ tubular membrane"
+  ],
+  "kg-node-afce33dfa2c5ebd8d7dfce86d1860e77": [
+    "caramel"
+  ],
+  "kg-node-b00fca278e2ac300833b5ed9d3e992d1": [
+    "cobalt(II) hydroxide"
+  ],
+  "kg-node-b014ce979b453376358b0896de27ad3c": [
+    "Na2O:Cs2O:GeO2:Al2O3:H2O"
+  ],
+  "kg-node-b04ff8fe8aa97b9e2c206294762656fe": [
+    "persulfate (APS)",
+    "S2O8^2-"
+  ],
+  "kg-node-b05665f714f96914d9fa1df45d930deb": [
+    "SPP seed"
+  ],
+  "kg-node-b0630634e7d7439ed74ed1b7fca802c1": [
+    "(NH4)6Mo7O24·4H2O",
+    "Mo heptamolybdate"
+  ],
+  "kg-node-b0668c7be382c4c4690ae18cd48f7eb7": [
+    "tetra-n-propylammonium (TPA+)",
+    "TPA+"
+  ],
+  "kg-node-b07cdf51b4ab04d5c44541cf73455637": [
+    "Zr(NO3)4·5H2O",
+    "zirconium nitrate pentahydrate"
+  ],
+  "kg-node-b08e97ea2446ffe5b9d19856382544e6": [
+    "TPAOH"
+  ],
+  "kg-node-b091d727248a4d6306901cfff9161476": [
+    "methyl iodide"
+  ],
+  "kg-node-b0c4e552231bada2e0f9954a93eb2422": [
+    "rice husk ash",
+    "RHA"
+  ],
+  "kg-node-b0df64a662c1c1871f3fa77d025f5be8": [
+    "NaNO3"
+  ],
+  "kg-node-b10843a7b54b989dfe9e6bd2d9b49088": [
+    "SnCl4·H2O",
+    "tin(iv) chloride"
+  ],
+  "kg-node-b1505c78fd34928e0b7d54740b6130ce": [
+    "2-ethyl-1,3,4-trimethylimidazolium (ROH)",
+    "ROH"
+  ],
+  "kg-node-b1c8db4707ab4a5c1c438fd09bda5213": [
+    "polyaluminum hydroxide chloride solution"
+  ],
+  "kg-node-b1ca5ec24706635b7460695ec7782d20": [
+    "sodium metaluminate"
+  ],
+  "kg-node-b1dced279d91869ac0bd20027552a76a": [
+    "ethanolamine (EA)",
+    "EA"
+  ],
+  "kg-node-b21733f9651f4f8adfb42f71bd97e53a": [
+    "MPTES"
+  ],
+  "kg-node-b223bc2f1c836c01d010d1688d533afa": [
+    "TMAdaOH"
+  ],
+  "kg-node-b22ca60f7159c3cfd9aec6f13b71266a": [
+    "Na2S"
+  ],
+  "kg-node-b2382a86322b609ee29fdd637282a79f": [
+    "tetraethylammonium cation",
+    "TEA+"
+  ],
+  "kg-node-b24453d6598bb22f92a878abcbc0c915": [
+    "(3-Mercaptopropyl) trimethoxysilane",
+    "MPTMS"
+  ],
+  "kg-node-b27632139209a76fc57b25dc0cf5b143": [
+    "Halloysite nanotubes (HNTs)",
+    "HNTs"
+  ],
+  "kg-node-b2906cd5a1005ae5a2105a2b0013a770": [
+    "magnesium nitrate hexahydrate",
+    "Mg(NO₃)₂·6H₂O"
+  ],
+  "kg-node-b2bc465500445e0931c1fa02a3d1a0e5": [
+    "APTES (3-aminopropyltriethoxysilane)"
+  ],
+  "kg-node-b2c7891201da956cac01e4e2e6f130d3": [
+    "Ba(NO3)2"
+  ],
+  "kg-node-b2d093532493f69fb90c5626b268a2de": [
+    "n-propylamine",
+    "PA",
+    "monopropylamine"
+  ],
+  "kg-node-b2e58be4947a29f45c13c7350eb88275": [
+    "manganese(II) acetate"
+  ],
+  "kg-node-b2f24aef121006e1662c27465954e627": [
+    "hydroxy-functionalized MWCNTs (AF98MH-1)",
+    "AF98MH-1"
+  ],
+  "kg-node-b33365d2d72664d0cbbe3f90ff0a2079": [
+    "TEPA"
+  ],
+  "kg-node-b36c575744821cf14869878b4027016c": [
+    "nitrate solution (Na, Ca, Sr, 0.5 M)"
+  ],
+  "kg-node-b375f1431e95d4c1f2dccf248ddfa360": [
+    "凝胶混合物 70Na2O:Al2O3:20SiO2:2000H2O",
+    "molar gel mixture"
+  ],
+  "kg-node-b3a01d01023b136e08aed601c55d3e85": [
+    "microcrystalline cellulose (MCC)",
+    "MCC"
+  ],
+  "kg-node-b3a6fd9c4f19841c9d7fc1df11a8f94d": [
+    "vanadyl sulfate hydrate"
+  ],
+  "kg-node-b3b5a55e7942ae4b4acf97000514a631": [
+    "FeSO4·7H2O (ferrous sulfate)",
+    "ferrous sulfate octadecahydrate"
+  ],
+  "kg-node-b3d66b10a8137eebfc4a753f33f3d7fa": [
+    "indium(III) nitrate hydrate"
+  ],
+  "kg-node-b4366075ed7fedfe3557a141ae2b780f": [
+    "phenylsilane"
+  ],
+  "kg-node-b438a0db493dd7722cec851e37257b1d": [
+    "(+)EABO-5",
+    "EABO-5"
+  ],
+  "kg-node-b47c4e7235fae5c2eb658cfa3a3241bd": [
+    "Pyridine"
+  ],
+  "kg-node-b4d6e2b5ef3b00cabec48d043cf911a7": [
+    "Nickel sulphate hexahydrate"
+  ],
+  "kg-node-b4e83627f59363e3f5392783e8958536": [
+    "ammonia solution",
+    "NH₃·H₂O"
+  ],
+  "kg-node-b53ce0a067cb145401a1a90f026e53b8": [
+    "salicylideneaniline from Sigma Aldrich (97%)"
+  ],
+  "kg-node-b5555499f50876adfa4e72bd3529a18b": [
+    "glucose (hard template)"
+  ],
+  "kg-node-b582068b3a7a15d08cd572280a449cbb": [
+    "AlF₃"
+  ],
+  "kg-node-b5d0c878fe6fe68f899fddbf2cc48f78": [
+    "DBU",
+    "1,8-diazabicyclo[5.4.0]undec-7-ene"
+  ],
+  "kg-node-b5d12091ec2874333a3ee6058310b685": [
+    "imidazolium-based diquaternary OSDA",
+    "diquat"
+  ],
+  "kg-node-b60fa4af38e8ac166d83270e624cbb55": [
+    "Vietnamese natural bentonite clay",
+    "bentonite"
+  ],
+  "kg-node-b639e93c2ce634171604ed62810a2d16": [
+    "NaF / NH4F",
+    "fluoride source"
+  ],
+  "kg-node-b696a2fc84ab965d7afd53c463c81b36": [
+    "C12-6 双季铵盐表面活性剂",
+    "C12H25-N+(CH3)2-C6H12-N+(C3H7)3"
+  ],
+  "kg-node-b6a2455bfbc12de41d57ead1cf110f94": [
+    "Mo(CO)6"
+  ],
+  "kg-node-b6acc61270f3ac0243b2a73bf45171c7": [
+    "sodium methoxide"
+  ],
+  "kg-node-b6b7326014d456681a3c15c8ac97be04": [
+    "TEA+ (四乙基铵)"
+  ],
+  "kg-node-b6df98f3bd1e6b5ff855a40cfb8dadca": [
+    "N,N-dimethylpiperidinium hydroxide",
+    "SDA"
+  ],
+  "kg-node-b6fae3d78cf2b045ea7ac28e8f931eca": [
+    "3DOM carbon monolith",
+    "3DOM carbon reactor",
+    "carbon template"
+  ],
+  "kg-node-b70c52b0c8bfbf8133495d58a5defffc": [
+    "1,5-bis(tetramethylimidazolium) hydroxide",
+    "bisimidazole OSDA"
+  ],
+  "kg-node-b741e3f9d5cb530390d3567776ac8300": [
+    "cesium hydroxide",
+    "CsOH"
+  ],
+  "kg-node-b763b2143b3ab1242e081fe5cb8a0f60": [
+    "N,N,N',N'-tetramethyl-1,4-diaminobutane",
+    "tmdab"
+  ],
+  "kg-node-b765f90f54b9128e2c03cb7105b112f8": [
+    "1-propyl-4-pyrrolidin-1-yl-piperidine (OSDA/SDAProp)",
+    "SDAProp"
+  ],
+  "kg-node-b79d4ec401f1e35770ff1da15fd2dd39": [
+    "di-n-propylamine (DPA)",
+    "DPA"
+  ],
+  "kg-node-b7ac083710f7e7da670535db290a7e6b": [
+    "H-kanemite",
+    "H2Si2O5"
+  ],
+  "kg-node-b7c3e527545b4aa5724468bcccf22d46": [
+    "Al₂(SO₄)₃·xH₂O",
+    "aluminum sulfate"
+  ],
+  "kg-node-b7e78214bfc89d57fa79b5d20c485926": [
+    "cinchonidine",
+    "CD",
+    "(−)-cinchonidine"
+  ],
+  "kg-node-b8309190325acadeb7b93e5777993f8d": [
+    "CHCA",
+    "α-cyano-4-hydroxycinnamic acid"
+  ],
+  "kg-node-b831868524e15b18634f9563934ec837": [
+    "TPA（四丙基铵）",
+    "TPABr",
+    "TPAOH"
+  ],
+  "kg-node-b85061864ea313856214c59b359b6c56": [
+    "SnCl₂·2H₂O",
+    "SnCl₂"
+  ],
+  "kg-node-b872c3e09a5c2800876a8985f55d8eb2": [
+    "solid silica gel",
+    "silica source"
+  ],
+  "kg-node-b877b36f2d9ed2e5a63be1ae817ae289": [
+    "cis-3,5-dimethylpiperidinium",
+    "cis-3,5-OSDA"
+  ],
+  "kg-node-b8a8ea472f3f50456f93710cd42b5847": [
+    "cyclohexylamine (CHA)"
+  ],
+  "kg-node-b8dbce639263f2bfe7da680d0eba3cf5": [
+    "Pt(NH3)2(NO3)2"
+  ],
+  "kg-node-b93b2ad1bf925e4e2aa7107cb7ba7e48": [
+    "IrCl₃·xH₂O"
+  ],
+  "kg-node-b94279817bedec846d228fba8f7f2ece": [
+    "tetraethylorthotitanate (TEOTi)",
+    "TEOTi"
+  ],
+  "kg-node-b95c36bf60a76e15d69b30d2691827b2": [
+    "TMPTMS"
+  ],
+  "kg-node-b9fca9dddcfffad2595a3f07bd1aa1ca": [
+    "ZnCl2"
+  ],
+  "kg-node-ba1c6fbe8e28ec6db62aa786d4d9d652": [
+    "Na+-aluminosilicate gel"
+  ],
+  "kg-node-baa571606132a43c14cdda1d6e3e6fdd": [
+    "cyanosilane"
+  ],
+  "kg-node-bab427693ad9e62264315b0ee0cffffa": [
+    "N(16)-methylsparteinium (SDA I)",
+    "I"
+  ],
+  "kg-node-baf6c4b3c996de50870f60dd17e2e83d": [
+    "germanium",
+    "Ge"
+  ],
+  "kg-node-bb0f263d90fa546e68b0b07a82647a04": [
+    "TEA+ 与 TMA+ 有机铵结构导向剂",
+    "SDAs",
+    "organoammonium-type SDAs"
+  ],
+  "kg-node-bb36a1dddaa59da1155c4ec463c5d764": [
+    "Aerosil 300 (SiO2)"
+  ],
+  "kg-node-bb479a5e3420a77ae6c02ef12e11c667": [
+    "H3PO3",
+    "phosphorous acid"
+  ],
+  "kg-node-bb58e969ac9199c6549db2ed208f48d3": [
+    "methanol",
+    "methanol-d4"
+  ],
+  "kg-node-bba92059b5f14cbdbf0b0d422db41e3a": [
+    "tetrabutylphosphonium hydroxide",
+    "TBPOH"
+  ],
+  "kg-node-bbe9e60fe2020cd40765990037726565": [
+    "Al(OC2H5)3",
+    "aluminum ethoxide"
+  ],
+  "kg-node-bbf645528dc9b0f26eeecfdb6c9080c7": [
+    "potassium silicate"
+  ],
+  "kg-node-bc27ca0051aad82cfd537facc2a4e524": [
+    "Cab-O-Sil"
+  ],
+  "kg-node-bc63b70b34b077e97a18cbddd3c95153": [
+    "tetraethylammonium (TEA)",
+    "TEA"
+  ],
+  "kg-node-bc6649a93c877b5b7dd162fd46ba79cc": [
+    "trimethylgallium (Ga(CH3)3)"
+  ],
+  "kg-node-bc936520d393d5fe1db8a8ffedb0c69f": [
+    "BPM"
+  ],
+  "kg-node-bc9949e0702b7373d1160be2733f65c8": [
+    "TPACl"
+  ],
+  "kg-node-bc9cae09e9333de392ab948956282844": [
+    "TPA(OH) (tetrapropylammonium hydroxide)",
+    "TPA template"
+  ],
+  "kg-node-bca48c3cf66508343feca11315f7014f": [
+    "propellane"
+  ],
+  "kg-node-bcc803b89acddc8e56e94ab83270c7a8": [
+    "N,N'-diarylacetamidine ligand"
+  ],
+  "kg-node-bcdb9c1d257284136c7355988ca7fbbc": [
+    "APDMMS",
+    "aminopropyldimethylmethoxysilane"
+  ],
+  "kg-node-bcf14874e2bb12eb504ab2b98cec5b9b": [
+    "bagasse fly ash (BFA)",
+    "BFA"
+  ],
+  "kg-node-bd1bdd5ba5eee9c0443d0ed3e732ac9c": [
+    "N-methyljulolidinium hydroxide (MJulOH)",
+    "MJulOH"
+  ],
+  "kg-node-bd2a13741e9f7bf851ce99f66235563b": [
+    "F127"
+  ],
+  "kg-node-bd644326112267bc24c22e1f7347cf10": [
+    "N,N,N-Trimethyl-1-adamantylammonium hydroxide",
+    "TMAdaOH"
+  ],
+  "kg-node-bd7289392664dd0df63912d8738a6cd0": [
+    "clear solution (10TEOS:0.2FeCl3:3TPAOH:245H2O)"
+  ],
+  "kg-node-bdf658c70ec78eaf70867126ffaea147": [
+    "TPAOH/TEOS/TIP合成体系",
+    "TEOS",
+    "TPAOH",
+    "TIP",
+    "IPA"
+  ],
+  "kg-node-be03cac6880b4803af818557d6ded53d": [
+    "calcium nitrate (0.5M)"
+  ],
+  "kg-node-be2b1218ee226be33e84e90cb07a9a94": [
+    "MoO2(acac)2",
+    "bis(acetylacetonato)dioxomolybdenum(VI)"
+  ],
+  "kg-node-be2c53a40fd037f3e71630dd9f3217d9": [
+    "tri-isopropyl-methyl-phosphonium",
+    "TriIPMP"
+  ],
+  "kg-node-be43386b0b15d42ae9ec81b8a67cd668": [
+    "cetyl trimethylammonium bromide (CTAB)",
+    "CTAB"
+  ],
+  "kg-node-be4980fb7ea38524ece5e7b1aebea871": [
+    "THEEDA",
+    "N,N,N',N'-tetrakis(2-hydroxyethyl)ethylenediamine"
+  ],
+  "kg-node-be8e552724d209d57493869951c395a0": [
+    "HAuCl₄"
+  ],
+  "kg-node-be9c38aa0bf7fcd67dbfdcc4ac7d6281": [
+    "Ni(NO₃)₂"
+  ],
+  "kg-node-becaf9a95cabfeeb8d2d9f862994490e": [
+    "21-crown-7",
+    "CE",
+    "crown ether"
+  ],
+  "kg-node-bed8d6b47e9156bd600344b6a7df6826": [
+    "CBV2314 (NH4-ZSM-5)",
+    "NH4-form zeolite"
+  ],
+  "kg-node-befe84093f3d54062f233d7183dbf18b": [
+    "colloidal silica Zeosil"
+  ],
+  "kg-node-bf06289613599cebeab1e131992ca2a0": [
+    "triethylene tetramine",
+    "TETA"
+  ],
+  "kg-node-bf0adeba15184940943f685f9214150c": [
+    "Sodium metaaluminate"
+  ],
+  "kg-node-bf18623325bd8609ddb311be93a7d797": [
+    "Hexamethonium bromide (HMBr₂)",
+    "HM template"
+  ],
+  "kg-node-bf32ad7abbcf7bd252422ac76341e1cc": [
+    "C₁₈-N₂-C₁₈",
+    "C₁₈H₃₇-N⁺(CH₃)₂-C₆H₁₂-N⁺(CH₃)₂-C₁₈H₃₇"
+  ],
+  "kg-node-bfae4252b3b76ffc61d888bfbcb8fa9d": [
+    "silica sol (30 wt%)",
+    "NaOH",
+    "NaAlO₂"
+  ],
+  "kg-node-c02b021dd3b916a9fd3916a3c71e8d0e": [
+    "sodium aluminosilicate solution"
+  ],
+  "kg-node-c057778c2cd3ac255457bfa35dbe4272": [
+    "四丙基溴化铵 (TPABr)",
+    "tetrapropylammonium bromide"
+  ],
+  "kg-node-c0cf9439e12703276a6a43a12b754fa8": [
+    "NiSO₄·7H₂O",
+    "NiSO₄"
+  ],
+  "kg-node-c0f55a99e8839f78e57e991bf4fd62ab": [
+    "PEG800",
+    "polyethylene glycol 800"
+  ],
+  "kg-node-c12a26a2d476856b5a80a15011c2cede": [
+    "三乙烯四胺（TETA）",
+    "TETA",
+    "C6H18N4"
+  ],
+  "kg-node-c12e1a32ab17e4f4eca4bae2aff171c3": [
+    "submolten salt depolymerized kaolin (SMS-K)",
+    "SMS-K"
+  ],
+  "kg-node-c12f99fa17e6526e2e43b837afdd06dd": [
+    "acetic acid"
+  ],
+  "kg-node-c14259cc14d263a3b25dd6459346b075": [
+    "1,6-hexanediamine (HDA)",
+    "HDA"
+  ],
+  "kg-node-c15085b5b64bc71db5cf96b20fd19ae5": [
+    "ferrocene"
+  ],
+  "kg-node-c170f8fbdf3915eb11413d25d3dba81e": [
+    "TPE",
+    "N-[3-(trimethoxysilyl)propyl]ethylenediamine"
+  ],
+  "kg-node-c18fb90f36e187c83fc439f1bf78277d": [
+    "HMDSO",
+    "silane reagent"
+  ],
+  "kg-node-c1ebd0862f491c2fc91bcc5ce355cf76": [
+    "TMPA+I−"
+  ],
+  "kg-node-c2006cc8e025f878495e2cc95ca62343": [
+    "2E13DMI"
+  ],
+  "kg-node-c234810ccfdb85ddc1e2ef6936422a0a": [
+    "CTABr/CTAOH",
+    "cetyltrimethylammonium bromide",
+    "cetyltrimethylammonium hydroxide"
+  ],
+  "kg-node-c25b5c84593c72e918e0d6d369a14668": [
+    "C22-4-4Br₂",
+    "C22-4-4"
+  ],
+  "kg-node-c266dc725f5495c82672fbb0aaa88b88": [
+    "乙腈溶剂",
+    "CH3CN"
+  ],
+  "kg-node-c2ea85d81e485bef961a6960702411bc": [
+    "hexamethyleneimine (HMI)",
+    "HMI"
+  ],
+  "kg-node-c2f989904760bb325ff98e5796eced24": [
+    "fluoride anion (F⁻/HF)",
+    "HF",
+    "mineralizing agent"
+  ],
+  "kg-node-c2fa8bbb62a6228d048e8ffd9f981f6f": [
+    "sodium cations"
+  ],
+  "kg-node-c301f625c089222aa5c51ed138bf6ab3": [
+    "Ada-4-16",
+    "C₁₀H₁₅N⁺(CH₃)₂–C₄H₈–N⁺(CH₃)₂–C₁₆H₃₃"
+  ],
+  "kg-node-c3409e36dbf6e2ae8124cd77f0d63c79": [
+    "Na+ (NaF, Na2SO4)",
+    "NaF",
+    "Na2SO4"
+  ],
+  "kg-node-c359e4321bfe0442aeccc296cd7f4bfc": [
+    "D2O"
+  ],
+  "kg-node-c362f582c411a608fdd9c45cc68d1feb": [
+    "Cu(CH3COO)2"
+  ],
+  "kg-node-c377d4942c7a0ecda17438d7137b352a": [
+    "chitosan",
+    "biopolymer chitosan"
+  ],
+  "kg-node-c3a60a36871115f32f6ce6643ac10843": [
+    "aluminium sulfate"
+  ],
+  "kg-node-c3c1046eeb03ae51111c36f135cae45c": [
+    "cobalt nitrate hexahydrate"
+  ],
+  "kg-node-c3fac7d019d5a60c8ec6b3a608bda1b7": [
+    "hydrofluoric acid (HF)",
+    "F⁻ source"
+  ],
+  "kg-node-c406f21081e61fe7ff07b9c059f83a19": [
+    "LiF/HCl etchant"
+  ],
+  "kg-node-c40a69a80550b3f49e394f5e8d918505": [
+    "PDS"
+  ],
+  "kg-node-c41549a416f5285e41cea80ffdf50837": [
+    "MPPH",
+    "1,5-Bis-(methylpyrrolidinium)pentane"
+  ],
+  "kg-node-c42e0b51647baf7178dc3c43fa407299": [
+    "ZrCl4"
+  ],
+  "kg-node-c438ef02414f87c534dd003d98b281e7": [
+    "dodecyltrimethoxysilane",
+    "C15H34O3Si"
+  ],
+  "kg-node-c43b2bc75adc24ed4860010c9ca8c83c": [
+    "tetramethylammonium silicate",
+    "TMA silicate",
+    "(TMA)2O"
+  ],
+  "kg-node-c48a4e7889c6d72e315773dc1358e9e6": [
+    "diethylamine (DEA)",
+    "DEA"
+  ],
+  "kg-node-c4916e66cd51aa0e9f8fb2f2073a3968": [
+    "kaolin (kaolinite)",
+    "kaolinite"
+  ],
+  "kg-node-c4ac6ee4b99576072ea182d96b706fc3": [
+    "tetrapropylammonium hydroxide (TPAOH)",
+    "TPAOH"
+  ],
+  "kg-node-c4c05209724a1e9da5595757f94e8a30": [
+    "multiwalled carbon nanotubes",
+    "CNTs"
+  ],
+  "kg-node-c4c59bae7709bc8ffa37791359ba24d1": [
+    "glutaraldehyde (GA)"
+  ],
+  "kg-node-c4c89d6c195e1890768d9915d0c3d339": [
+    "anhydrous sodium carbonate",
+    "Na2CO3"
+  ],
+  "kg-node-c4daee77ab740e7b33573278e7318a87": [
+    "Aerosil 130 (SiO2 silica source)",
+    "SiO2"
+  ],
+  "kg-node-c4f4f22d7de8ae4e4fb8280a836d2d06": [
+    "TEAOH (tetraethylammonium hydroxide)",
+    "tetraethylammonium hydroxide"
+  ],
+  "kg-node-c5811deebe6d44fea4c705f78d04d8d5": [
+    "diquaternary-ammonium surfactant",
+    "diquaternary-ammonium structure-directing species"
+  ],
+  "kg-node-c586dacd09e3222aff8ac2f216d992df": [
+    "LiTFSI"
+  ],
+  "kg-node-c589d9b2d5e165affd04e2e7ea6a71ad": [
+    "hexamethylenimine (HMI)"
+  ],
+  "kg-node-c5a96819589b7877e7eeba0072ed793a": [
+    "silicalite-1 nanocrystals"
+  ],
+  "kg-node-c5b2b56d9c601ea34a2b5a2b06fd1376": [
+    "H2O2",
+    "hydrogen peroxide"
+  ],
+  "kg-node-c5bb97e2c1d3831e033e750052597dea": [
+    "zirconium isopropoxide"
+  ],
+  "kg-node-c5eefd7fa44f98cb81f731e33a454bef": [
+    "NaI"
+  ],
+  "kg-node-c606b038e9a1908e3df0757411e68db0": [
+    "Boehmite (Al2O3)",
+    "Al2O3"
+  ],
+  "kg-node-c629ba65e541916500aab05f4f6f2f49": [
+    "CBV500 (NH4-USY)",
+    "FAU Al source"
+  ],
+  "kg-node-c629cb60e89cb1eca989eae0c20f0fff": [
+    "[Fe(bpy)2]Cl2",
+    "[Fe(byp)2]Cl2",
+    "Fe-complex"
+  ],
+  "kg-node-c648ec4bce1f519987bad5603cf3d283": [
+    "quinuclidinium",
+    "quinucidinium"
+  ],
+  "kg-node-c67009881694a4308d8530ab607a775f": [
+    "Brazilian diatomite",
+    "diatomite"
+  ],
+  "kg-node-c680956341bb89af48d668e6d589c79a": [
+    "chlorosulfonic acid"
+  ],
+  "kg-node-c69625f5d9e2b987a8282cd7bd073949": [
+    "3-chloropropyltriethoxysilane"
+  ],
+  "kg-node-c69fac3bebaca87a2acaf58d787426db": [
+    "rice husk (RH)",
+    "RH"
+  ],
+  "kg-node-c6a029a1c641e630b7f2dc837081c2e7": [
+    "(6R,10S)-6,10-dimethyl-5-azoniaspro[4.5]decane hydroxide (SDA)",
+    "SDA"
+  ],
+  "kg-node-c6bffe1d2887b66d62adc96c0355cf94": [
+    "choline ions (Ch+)",
+    "(2-hydroxyethyl)-trimethylammonium"
+  ],
+  "kg-node-c716794d587ed275a520e2596bf9de50": [
+    "titanium (IV) isopropoxide"
+  ],
+  "kg-node-c72e71a54d1f7788ba71bfe8e3363a74": [
+    "copper nitrate (Cu(NO₃)₂·3H₂O)"
+  ],
+  "kg-node-c7397b79ab2914c97d1be6c524d20922": [
+    "CTAOH",
+    "CTA⁺ surfactant"
+  ],
+  "kg-node-c774a7b440c9b5f6ee11d568550ac579": [
+    "(NH4)2PdCl6",
+    "ammonium hexachloropalladate"
+  ],
+  "kg-node-c77af95bb562bf888327fd151a064be5": [
+    "diquaternary imidazolium OSDA",
+    "diquat"
+  ],
+  "kg-node-c7f0ecd2807870f0f895ec8430c44f09": [
+    "HAuCl4·3H2O",
+    "HAuCl4"
+  ],
+  "kg-node-c83da6b36dc0a485c8af23a035e74751": [
+    "L-lysine"
+  ],
+  "kg-node-c8d823f93693cf26107aaa8af7ae6418": [
+    "2,2'-bipyridine",
+    "2,2'-bipyridyl"
+  ],
+  "kg-node-c8d9870e1901d71d4f739d54b39aa7e4": [
+    "benzylpyrrolidine",
+    "bpyrr"
+  ],
+  "kg-node-c8fbaf3cfcd77882d7e27760915d4154": [
+    "Pt(NH3)4(NO3)2"
+  ],
+  "kg-node-c95646f6de5afbde88999d2bd97da0e0": [
+    "n-dipropylamine",
+    "n-Pr₂NH"
+  ],
+  "kg-node-c97c5cb46660bd1051369dce6bd146ce": [
+    "1,3,3,8,8-pentamethyl-3-azoniabicycle-(3,2,1)-octane hydroxide",
+    "SDA"
+  ],
+  "kg-node-c9fdb57e28c422a9502a6c69df94d3eb": [
+    "cetyltrimethylammonium bromide (CTABr)",
+    "CTABr",
+    "CTA⁺"
+  ],
+  "kg-node-ca04149f27dfa2a48808602bde1f7a3b": [
+    "rare-earth nitrate/chloride solutions",
+    "cerium(III) nitrate hexahydrate",
+    "holmium nitrate n-hydrate"
+  ],
+  "kg-node-ca6511caba069b2c7fe5f8234560736e": [
+    "TBAOH",
+    "tetrabutylammonium hydroxide"
+  ],
+  "kg-node-caab9ef84b44570641d8536dd5720a52": [
+    "n-pentane"
+  ],
+  "kg-node-cab8011fa1c18524543a827b5938eee3": [
+    "Tetrapropylammonium (TPA)",
+    "MFI_(TPA,F)"
+  ],
+  "kg-node-caf6da51700aed0ef650bfe7d2c452d2": [
+    "urea"
+  ],
+  "kg-node-cb1ccb01ae133cd4c3b2c0de7a841495": [
+    "organosilane (OS)",
+    "OS"
+  ],
+  "kg-node-cb835cefc60b76668274e16e6b5158c1": [
+    "terephthalodicarboxaldehyde (TPDA)",
+    "TPDA"
+  ],
+  "kg-node-cbea0e0835060e9d88187040fbcb7806": [
+    "zinc vapor"
+  ],
+  "kg-node-cbf37b8bfec595625f75257254df8429": [
+    "TMI+ (1,3,4-trimethylimidazolium)",
+    "TM1+",
+    "TMI⁺"
+  ],
+  "kg-node-cc0562f3dc6f1b8bcbd732a377225c74": [
+    "Allyltriethoxysilane"
+  ],
+  "kg-node-cc29b3db096fb2275bb2b103dab77184": [
+    "Ludox (30% SiO2)"
+  ],
+  "kg-node-cc3bb743b360d166c0bb84a7dc1f32dd": [
+    "germanium oxide (GeO2)"
+  ],
+  "kg-node-cc8f74df5c977191c01ac85bdc3c34f0": [
+    "ZnO particles (20 nm)"
+  ],
+  "kg-node-ccb6f7e99c6bdd53a2b880e7fc385c62": [
+    "NaOH溶液"
+  ],
+  "kg-node-cccfaf164e9efcc2459669ee837f99ef": [
+    "n-butyl amine (NBA)",
+    "NBA"
+  ],
+  "kg-node-cd31c9ee27236a9491170af30be2d3cb": [
+    "Mg(NO₃)₂·6H₂O"
+  ],
+  "kg-node-cd4bb14e73129644e0291251cd184c77": [
+    "phenol resin (PhenoCure)"
+  ],
+  "kg-node-cd946dbe9d3d86dcf6c1e44e626c57a9": [
+    "tmtact"
+  ],
+  "kg-node-cd95731cbda0a2a7dc665fe331b764fc": [
+    "γ-alumina (pseudo-boehmite)",
+    "pseudo-boehmite",
+    "AlOOH"
+  ],
+  "kg-node-cdcae57ee1d91621b188f150c827dd3c": [
+    "colloidal silica"
+  ],
+  "kg-node-cdcd4046bd4f19c204a618e0c1e1683c": [
+    "lignin"
+  ],
+  "kg-node-cdd20121d99577e89b6f1d6952326163": [
+    "NaCl",
+    "sodium chloride"
+  ],
+  "kg-node-cddffbb89b2de1c656204b82171da8b6": [
+    "13C-TEAOH",
+    "2-13C-Ethyltriethylammonium hydroxide",
+    "TEAOH-13CH3"
+  ],
+  "kg-node-ce048db46ef56ba5fa20a51139bec437": [
+    "聚苯胺(PANI)",
+    "polyaniline"
+  ],
+  "kg-node-ce0aa6535f3e80159d90543805239012": [
+    "diethylenetriamine",
+    "C₄N₃H₁₃"
+  ],
+  "kg-node-ce13d198d1f0fd49ca91979173327fc3": [
+    "ultra-stable Y-type zeolite (HSZ-390HUA)",
+    "Y-type zeolite",
+    "FAU-type zeolite"
+  ],
+  "kg-node-ce1b26f789198157d4b75949109d5b74": [
+    "Ludox硅溶胶",
+    "sodium silicate"
+  ],
+  "kg-node-ce47b18bb0b8f57948f3cb249bfe25fc": [
+    "TEOS / aluminium isopropoxide precursor mixture",
+    "Si(OC2H5)4",
+    "Al-(OC4H5)3"
+  ],
+  "kg-node-ced3a19a2d306bb423d06421581a142a": [
+    "Na+ cation"
+  ],
+  "kg-node-cede5cd217878a1d60842d1648b81136": [
+    "H3BO3"
+  ],
+  "kg-node-cee49ca0abe65d36303b6eb1cd5cc6a3": [
+    "四丙基氢氧化铵",
+    "TPAOH"
+  ],
+  "kg-node-cf01b13f721ee0df939f7b1b7d75df22": [
+    "Ga₂O₃ / Ga(NO₃)₃",
+    "Ga source"
+  ],
+  "kg-node-cf138df6c604502be53e6f429c547ee4": [
+    "Cd(NO3)2 / Cd(O2CCH3)2"
+  ],
+  "kg-node-cf3308414ff625dbb86bdec7d29bacf2": [
+    "PES",
+    "poly(ether sulfone)"
+  ],
+  "kg-node-cf79cbde3895d3a8b6101ff83cb31404": [
+    "Catapal D (alumina)",
+    "alumina binder"
+  ],
+  "kg-node-cf7df98dc4247265faa94843790fa208": [
+    "TPB-6",
+    "triply branched surfactant with C6 alkyl chain"
+  ],
+  "kg-node-cf99a74885269eb8d039a1eec2038cd1": [
+    "cetyltrimethylammonium bromide",
+    "CTAB"
+  ],
+  "kg-node-cfa195d6a72fa553ca9aed3e83bac3e6": [
+    "CuSO4 solution"
+  ],
+  "kg-node-cfa3b3d07ae7efecedf5fe3ba3b631b6": [
+    "dimethyldibenzylammonium",
+    "template"
+  ],
+  "kg-node-cfa9ef3780843814d2ac5336ff2fbe28": [
+    "ODS-modified silica",
+    "OSF"
+  ],
+  "kg-node-cfd84f46a7f2c04e97e220cb65fd8bba": [
+    "2-ethylimidazole",
+    "eIM"
+  ],
+  "kg-node-d0550cd28714dccca36c152d741e2797": [
+    "[Ru(NH3)6]3+"
+  ],
+  "kg-node-d0dcf48d932f21c56dedacdd2f000f02": [
+    "M₂TiO(C₂O₄)₂ titanium oxalate complexes",
+    "K₂TiO(C₂O₄)₂",
+    "ammonium titanium oxalate"
+  ],
+  "kg-node-d10b72b25f692c70b546037cc604a3c6": [
+    "CTAB (cetyltrimethylammonium bromide)",
+    "alkyltrimethylammonium cationic surfactant"
+  ],
+  "kg-node-d16027a23973af3620d00b8184f8c329": [
+    "shirasu glass",
+    "SRG5J3"
+  ],
+  "kg-node-d1b0bbbd383628e7247b7e9f1117cad0": [
+    "nickel acetate"
+  ],
+  "kg-node-d1cecef2b6bd8d11bacf5eb9c271dcea": [
+    "NaCl aqueous solution (1 M)"
+  ],
+  "kg-node-d1e9401a4c9dbd844da7d61e0c2402c2": [
+    "tetraethylammonium chloride",
+    "TEACl"
+  ],
+  "kg-node-d21c60b31012c846f906932b0adf761b": [
+    "C18-N3-C18",
+    "dual-porogenic surfactant"
+  ],
+  "kg-node-d23d005a36b2e54046bc9a4499092d7d": [
+    "RHA (rice husk ash)",
+    "RHA"
+  ],
+  "kg-node-d24361d4e78a0ee8532c392ead5c9e9a": [
+    "4-dimethylaminopyridine (DMAP)",
+    "DMAP"
+  ],
+  "kg-node-d2ac08aba1ef061b992f126bf9069af0": [
+    "Cu(NO3)2·2.5H2O"
+  ],
+  "kg-node-d2ad4d909dcf228701b408ef06df0303": [
+    "phenyltrimethoxysilane (PTMS)",
+    "PTMS"
+  ],
+  "kg-node-d31a5f888a14de1929c8b45eaeeb57f0": [
+    "PMI"
+  ],
+  "kg-node-d34f3cb1a20e4d52f81daa61be32f67b": [
+    "tetramethylammonium (TMA+)",
+    "TMA⁺",
+    "TMAOH"
+  ],
+  "kg-node-d364d343050dc2dd5bafffc69e386106": [
+    "sugarcane bagasse ash (SBA)"
+  ],
+  "kg-node-d382bc1454084719f6503d40db67e2cf": [
+    "C18−N2−C8−O−Bph−O−C8−N2−C18",
+    "C18-N2-C8-O-Bph-O-C8-N2-C18"
+  ],
+  "kg-node-d38ff18cbbb5894be4109eb23000005c": [
+    "spermine"
+  ],
+  "kg-node-d39346538ac924f5af1c72152ef2bcb1": [
+    "C_azo-m-6-6 双季铵盐表面活性剂",
+    "C_azo-6-6-6",
+    "C_azo-8-6-6",
+    "C_azo-10-6-6",
+    "C_azo-12-6-6"
+  ],
+  "kg-node-d39c6559eac842c6091da57a162ab446": [
+    "alkali fusion hydrothermal method"
+  ],
+  "kg-node-d3afd5fc89ecf586d1dd6d384d36dc9e": [
+    "tris(2-aminoethyl)amine"
+  ],
+  "kg-node-d3cfd77b5a39eaebf3b86462fc3603da": [
+    "DL-histidine",
+    "HA",
+    "A−"
+  ],
+  "kg-node-d3cfe492d9f834634d5ca05728cc6792": [
+    "HDTMA",
+    "hexadecyltrimethylammonium"
+  ],
+  "kg-node-d3e7fb8c72c37607441cfb0f943aa93a": [
+    "1,2-Bis(triethoxysilyl)-ethane (BTEE)",
+    "BTEE"
+  ],
+  "kg-node-d42914b79d6ffed384c1de4270cfe6f7": [
+    "DETA",
+    "diethylene-triamine",
+    "C₄N₃H₁₅"
+  ],
+  "kg-node-d482aeec97beb0281bcd1148c6f12070": [
+    "B80"
+  ],
+  "kg-node-d4b1471360e84dbd39a54835965f4f28": [
+    "carbon nanoparticles"
+  ],
+  "kg-node-d4c1d96b4e164d907d80f3a256a9b8df": [
+    "DEA"
+  ],
+  "kg-node-d4c6d75eaf6c77716005ef86029cb03f": [
+    "zinc powder"
+  ],
+  "kg-node-d4cecd4c35d372d3424b2e9eeba2d560": [
+    "1M2E3nPrIM",
+    "OSDAOH"
+  ],
+  "kg-node-d4d0fcf7ba8e3d620082eab9caa8a9a8": [
+    "123TEI"
+  ],
+  "kg-node-d4e8221298c7072c6b7d46272c390440": [
+    "1,4-diazabicyclo[2.2.2]octane (DAB)",
+    "DAB"
+  ],
+  "kg-node-d50adfba7040f4e14b73cf21274964ea": [
+    "thianthrene",
+    "Th"
+  ],
+  "kg-node-d52b5488a362f59b2b66bd1621fd642c": [
+    "C16TMA cation",
+    "C₁₆TMA"
+  ],
+  "kg-node-d5ac3975587c98ec0f11fc76f862fba7": [
+    "aluminum nitrate nonahydrate",
+    "Al(NO3)3·9H2O"
+  ],
+  "kg-node-d5be6f6ddffacddf1658f8ccece728b0": [
+    "bis-1,5(tripropyl ammonium) pentamethylene diiodide (dC5)",
+    "dC5"
+  ],
+  "kg-node-d5c7fc9756b0d46dc31398ba3b7108ef": [
+    "cationic polymer Eka ATC 4050"
+  ],
+  "kg-node-d5e93673565d1a061eadab6cbf40c438": [
+    "C18-TMS"
+  ],
+  "kg-node-d609d5690254131daef28e8f94091991": [
+    "triethanolamine",
+    "TEA"
+  ],
+  "kg-node-d64f4407dd161dd96269606a4fa3346d": [
+    "lithium carbonate",
+    "Li₂CO₃"
+  ],
+  "kg-node-d67526d2e18a42e39c87bac470599e92": [
+    "ZnCl₂",
+    "Zn source"
+  ],
+  "kg-node-d6df3ed427c6f9d6fc02ca6201ef8547": [
+    "fumed silica (SiO₂)",
+    "SiO₂"
+  ],
+  "kg-node-d716c3a9ca2d67d504cff9942c46c250": [
+    "dC5 (bis-1,5(tripropyl ammonium) pentamethylene diiodide)",
+    "bis-1,5(tripropyl ammonium) pentamethylene diiodide"
+  ],
+  "kg-node-d71762171bb095dd718a721be7f5814e": [
+    "H₂IrCl₆",
+    "hydrogen hexachloroiridate"
+  ],
+  "kg-node-d7695d728621344cb29bb6c6beecf3f2": [
+    "SDA 4 (C₁₂H₂₀N⁺)"
+  ],
+  "kg-node-d77196ad41bd19fb469c2a60eeaf4e44": [
+    "1,5-MPP",
+    "OSDA 1,5-MPP"
+  ],
+  "kg-node-d7b4f15a4adba09d3211f732c5f89fdb": [
+    "LTA晶种粉末",
+    "seed crystals"
+  ],
+  "kg-node-d7b635ee32984af7a672ddb295bf568b": [
+    "18C6",
+    "18-crown-6 ether"
+  ],
+  "kg-node-d7bd8df21656ee78737dec7d2e835ba9": [
+    "sodium hydroxide solution",
+    "NaOH"
+  ],
+  "kg-node-d7c81a7cf1c14f09cf3affc49e3a251b": [
+    "fly ash",
+    "calcined fly ash"
+  ],
+  "kg-node-d8377e2e8ea68d0d34ceb7aca1b9b872": [
+    "N,N,N-trimethyl-[1-(4-fluorophenyl)cyclopentyl]methylammonium (structure-directing agent)",
+    "structure-directing agent"
+  ],
+  "kg-node-d84dec52ebe54d94d4810441a955c817": [
+    "7-ethyl-6-azoniaspiro[5.5]undecane hydroxide",
+    "SDA"
+  ],
+  "kg-node-d856459ccec0a0dc8b7c2c555ced783e": [
+    "tetraethylammonium bromide (TEA-Br)",
+    "TEA-Br"
+  ],
+  "kg-node-d886d9d3c0d9cd60305389c7c71c6f67": [
+    "dextran"
+  ],
+  "kg-node-d88f469fd3d3af967f938d737cc9aa60": [
+    "Cab-O-Sil M5",
+    "silica source"
+  ],
+  "kg-node-d8bf159b5cc9b09b8d619619b755077a": [
+    "Epichlorohydrin (EPI)",
+    "EPI"
+  ],
+  "kg-node-d8c62ee3bb6629da4058041a1d33b5fc": [
+    "Pb(NO3)2"
+  ],
+  "kg-node-d8ce649bd529bdd8c28807034b5a9eb0": [
+    "N,N,N',N'-tetramethyl-1,6-hexanediamine (TMHDA)",
+    "TMHDA"
+  ],
+  "kg-node-d8dba09743742b4dac6b3b46686ae0b4": [
+    "Bis[triethoxysilyl]methane (BTESM)",
+    "BTESM"
+  ],
+  "kg-node-d900117edfebbfe1c6067c203950b2c9": [
+    "Ga(NO₃)₂"
+  ],
+  "kg-node-d9125ce5edb4df2ce9ffedcfff7654c6": [
+    "glycerol"
+  ],
+  "kg-node-d9399c90f3323fcc07da0cae5dac95a6": [
+    "nickel nitrate hexahydrate",
+    "Ni(NO3)2·6H2O"
+  ],
+  "kg-node-d9797ffc811a1004f794f1bf3c727dbc": [
+    "1-butyl-3-methylimidazolium (bmm/bmim) ionic liquid",
+    "bmm",
+    "bmim",
+    "IL"
+  ],
+  "kg-node-d9c48af05edad7baa1286b7e924df99c": [
+    "tetraethylammonium bromide",
+    "TEABr"
+  ],
+  "kg-node-db0847ef222618999a889f822b0028b9": [
+    "TEOS"
+  ],
+  "kg-node-db79be344695df17ad7114f89d8f63ed": [
+    "PB",
+    "polybrene"
+  ],
+  "kg-node-db91576be8273cd2df67a5dac857ce94": [
+    "BP 2000",
+    "carbon black BP 2000"
+  ],
+  "kg-node-dba6b03b6b5dc6528b770cac12a301a1": [
+    "tetrapropylammonium hydroxide (TPA)",
+    "monomer-TPA",
+    "SDA"
+  ],
+  "kg-node-dbbbd94027736546c85e7e9eb1d3be88": [
+    "aluminium hydroxide (Reheis F-2000)",
+    "Al(OH)3"
+  ],
+  "kg-node-dbd7e1268e80d1682736f4a70657951b": [
+    "N-methyl-(-)-sparteinium hydroxide",
+    "methylsparteinium",
+    "SDA"
+  ],
+  "kg-node-dbe2971eb91c3e444886bf5764ff1283": [
+    "tetrahydrofuran (THF)"
+  ],
+  "kg-node-dbe7f9556f38bced614d6ea3a932ac66": [
+    "Toluene"
+  ],
+  "kg-node-dc46c5077b83080d50937c0435bb0d30": [
+    "C18-2-8Br2",
+    "[C18H37(CH3)2N+(CH2)2N+(CH3)2C8H17][Br-]2"
+  ],
+  "kg-node-dc6ca063547ca3a0f4ec9bcc150935c1": [
+    "pyrrolidine (Pyr)",
+    "Pyr"
+  ],
+  "kg-node-dcccb8e23cbda31e58875fde2d7e7000": [
+    "Al(OPr)3",
+    "aluminum isopropoxide"
+  ],
+  "kg-node-dcef82de6c89577da9919cb4051cb217": [
+    "N,N,N-trimethyl-1-adamantammonium hydroxide",
+    "TMAdaOH"
+  ],
+  "kg-node-dd09672cdf911c1402414e5a9ebc3b0b": [
+    "N,N,N-trimethylcyclohexylammonium-d9",
+    "d9-TMC6"
+  ],
+  "kg-node-dd25500dc8ba8f2d59ccb55f7e5d7cbe": [
+    "C₂₂₋₆Br₂",
+    "di-quaternary ammonium surfactant"
+  ],
+  "kg-node-dd7e36fe829a54bd80b0a6da720f3a10": [
+    "BMAN2+"
+  ],
+  "kg-node-dda34f93d7c9cee6c89e18f4892b60b8": [
+    "C22-6-6 surfactant",
+    "[C22H45N+(CH3)2C6H12N+(CH3)2C6H13](Br-)2"
+  ],
+  "kg-node-dda4d95f1d692523798f469d3cef5fbf": [
+    "cerium nitrate"
+  ],
+  "kg-node-ddc2a70dcfb8bde104d8f7df2d3810b1": [
+    "ammonium heptamolybdate"
+  ],
+  "kg-node-ddcda9cedc06952e080669fa48aafd14": [
+    "1,2,4,5-tetramethylimidazole"
+  ],
+  "kg-node-de068b7ee2061f9fc47811fcf249caee": [
+    "CH3OH",
+    "methanol"
+  ],
+  "kg-node-de24a841f84401535738a692fa0ede0e": [
+    "67Zn(HCOO)2",
+    "zinc formate"
+  ],
+  "kg-node-de5e218d09e331396b87f8bd2d7082cc": [
+    "AlPO-11"
+  ],
+  "kg-node-de9f70b4fdabb8108edbb47691aeb104": [
+    "fly ash (class F)"
+  ],
+  "kg-node-dec723a800107641f38761a24e53e983": [
+    "sodium metasilicate nonahydrate",
+    "Na2SiO3·9H2O"
+  ],
+  "kg-node-dec9eba454f0c001f5d13f19f0c44f04": [
+    "agarose",
+    "AG",
+    "Sigma-Aldrich type I agarose"
+  ],
+  "kg-node-df0cf553b6a54f69971480e5cb22f0d8": [
+    "H₃PO₄"
+  ],
+  "kg-node-df0f98b873d5f83e37c28252a18578ec": [
+    "F−",
+    "HF",
+    "NH4F"
+  ],
+  "kg-node-df1f674f716e95df08cb1aa026e03629": [
+    "sodium metal silicate",
+    "sodium silicate"
+  ],
+  "kg-node-df37688775ed5b27aa089cc8ac40044b": [
+    "TMAA+"
+  ],
+  "kg-node-df4e8424eda805583e87447e1ce9f32c": [
+    "CHA合成凝胶"
+  ],
+  "kg-node-df5e3f919acbb47538c8bc2a0fb9ffd1": [
+    "NH₃"
+  ],
+  "kg-node-df62a4b22b88fe739d42da5daccf33ff": [
+    "decamethonium dihydroxide",
+    "DMDH"
+  ],
+  "kg-node-dfbb7a0678835000fbc44ac5645cdc4c": [
+    "gallium(III) nitrate hydrate",
+    "H2GaN3O10"
+  ],
+  "kg-node-dfd65ade3ae9d1eee334b6851644ba98": [
+    "AOT"
+  ],
+  "kg-node-dfe3ba6944956191480c739944a6b668": [
+    "OTMAC",
+    "octyltrimethylammonium chloride",
+    "OCTMA"
+  ],
+  "kg-node-dff39785ef65bed8a1745341fbc239c2": [
+    "Si(OH)4"
+  ],
+  "kg-node-e004e53f94050e9a01bd6ff11d1b13d2": [
+    "n-octyltrimethoxysilane (OTS)",
+    "OTS"
+  ],
+  "kg-node-e043f8b507d039988428002d31780bcb": [
+    "gadolinium chloride",
+    "GdCl3"
+  ],
+  "kg-node-e0737df72c8ca2b0a2223db8c1ac22a0": [
+    "poly(diallylmethylammonium hydroxide)",
+    "PDAC"
+  ],
+  "kg-node-e23e315c2a0554a0e387f1d9aa16cb0e": [
+    "Aluminum sulfate octadecahydrate",
+    "Al2(SO4)3·18H2O"
+  ],
+  "kg-node-e248380b5bce2fa16fea1c7357b0c349": [
+    "hexyltrimethoxysilane",
+    "C9H22O3Si"
+  ],
+  "kg-node-e2685ff8637e186be923c8052c44b747": [
+    "Silver nitrate",
+    "AgNO3"
+  ],
+  "kg-node-e27d4bff001fd6bd46772009e09bf865": [
+    "Fe0 powder"
+  ],
+  "kg-node-e2b25fcf56e62eb617d39921cffc9439": [
+    "IGEPAL CO-520",
+    "CO-520"
+  ],
+  "kg-node-e2ba85df22b2dc59e3d7d80da5554e80": [
+    "HFeCl4",
+    "FeCl3/HCl solution"
+  ],
+  "kg-node-e2d1b15e439e02f46914f4a27a866786": [
+    "FeSO4"
+  ],
+  "kg-node-e2edb6b77b9bacea7721fbbfc589895e": [
+    "NH4NO3 solution (0.1 M)"
+  ],
+  "kg-node-e32834d89c2e22254ad9d01d5c308336": [
+    "PEGS",
+    "poly(ethylene glycol) tailed sulfonate"
+  ],
+  "kg-node-e333580fcdd5f14d533ebb62bbf1c4fb": [
+    "Brij S10",
+    "polyethylene glycol octadecyl ether"
+  ],
+  "kg-node-e3356baf057e8768b4518182de49b6f7": [
+    "manganese(II) acetate dihydrate",
+    "Mn(OAc)₂"
+  ],
+  "kg-node-e34129a96f8f250d1f72372609ed5ea6": [
+    "水热合成凝胶"
+  ],
+  "kg-node-e350d9842e02c281a7684e64c547fb5d": [
+    "N,N'-diisopropyl-imidazolium SDA",
+    "SDA+ (MTT)"
+  ],
+  "kg-node-e353806527a72683f5e2ad72759b175b": [
+    "Ce(NO3)3·6H2O"
+  ],
+  "kg-node-e35ed661a92f7910da72bc701974ad1c": [
+    "NH4NO3 solution"
+  ],
+  "kg-node-e367fb8f7bbbd9b7cf9f36dd9a5753cf": [
+    "[Au(en)2]Cl3"
+  ],
+  "kg-node-e390b70d5ccce7b36b028ac8d10aa92b": [
+    "N,N,N-trimethyl-1-adamantammonium (TMAda)",
+    "TMAda"
+  ],
+  "kg-node-e3c69d74aaa57dd4a4dc1c1415bd5d21": [
+    "EDTA-Na₂",
+    "Na₂EDTA",
+    "EDTA⁴⁻",
+    "EDTA³⁻"
+  ],
+  "kg-node-e3d3b8c95bf0551998398058f40639dd": [
+    "niobium oxalate"
+  ],
+  "kg-node-e408b46d16f43d996bb51c67d8ea47c5": [
+    "TPBOH"
+  ],
+  "kg-node-e4193f54aafbc4c1770ab92c40dd6f36": [
+    "PdCl2"
+  ],
+  "kg-node-e479ef3a308e75b92cda146c3c7eb4ee": [
+    "NaBr"
+  ],
+  "kg-node-e4c78bd8a4a5a8c1e23c75e4e59f4d15": [
+    "Mordenite seeds (HSZ 600HOA)",
+    "HSZ 600HOA"
+  ],
+  "kg-node-e4df0c2f7c7a01aea887e738a7286ffe": [
+    "TMAda⁺"
+  ],
+  "kg-node-e4f1f3d006e1c8213729ca6cfc4c92bd": [
+    "HTS (hexadecyltrimethoxysilane)",
+    "HTS"
+  ],
+  "kg-node-e55230980d292bb72fe52449249bc206": [
+    "Cu(II) acetate"
+  ],
+  "kg-node-e56926b84f04fb20cdba3a2cec13b480": [
+    "BTC (1,3,5-benzenetricarboxylate)",
+    "trimesate"
+  ],
+  "kg-node-e589cb0783c27af6369f29ddbb1284ca": [
+    "Pd(NO3)2",
+    "palladium nitrate dihydrate"
+  ],
+  "kg-node-e58aa2cbb3ef16c4407ccb6809eb3b79": [
+    "GeO2",
+    "germanium dioxide"
+  ],
+  "kg-node-e5933e23bc282f3f69491003c17406b2": [
+    "tributylsulfonium hydroxide",
+    "TBS",
+    "tributylsulfonium iodide"
+  ],
+  "kg-node-e594cc988f872b32f6dab29075596b0c": [
+    "MnCl2·4H2O"
+  ],
+  "kg-node-e5dffa2544cda9f3d0cc979ecc9618be": [
+    "strontium nitrate"
+  ],
+  "kg-node-e5e488d08c4768f0d859c086ba97e9b1": [
+    "amorphous silica (Mizukasil P-707)",
+    "Mizukasil P-707"
+  ],
+  "kg-node-e5fe06c2fea2f58fd031ecc228c4d1ec": [
+    "Cs+ / Na+ alkali cations"
+  ],
+  "kg-node-e5fe0e19c18c8b6219471e5b112a399f": [
+    "Black Pearls 2000 (BP2000)",
+    "BP2000"
+  ],
+  "kg-node-e600ff6fa83b6b5f0fb71b32274a07f8": [
+    "[BenzMIM]Cl",
+    "1-benzyl-3-methylimidazolium chloride"
+  ],
+  "kg-node-e60278b22eae245ff606ce3aed57cbe4": [
+    "Methyltropinium iodide (MTI)"
+  ],
+  "kg-node-e60792bb5c3414be7ca211d59f8a5556": [
+    "TEAF"
+  ],
+  "kg-node-e6223e02e6438a956734db7a18418c98": [
+    "La(NO3)3"
+  ],
+  "kg-node-e62a6e09f399d4185e567e58485075bc": [
+    "HDA"
+  ],
+  "kg-node-e6306e36b333b911e585db1baaa53422": [
+    "4,4'-dipyridyl (44DP)",
+    "44DP"
+  ],
+  "kg-node-e637741f59575b60691fd5b70a14bb26": [
+    "fumed silica (Aerosil 200)",
+    "Aerosil 200"
+  ],
+  "kg-node-e65df599acc968de11bbc807af4ec615": [
+    "1,3,4-trimethylimidazolium cation (TMI)",
+    "TMI+"
+  ],
+  "kg-node-e665006181b0d0fa5c3bc6ad5d2c112a": [
+    "orthophosphoric acid (H3PO4)",
+    "H3PO4"
+  ],
+  "kg-node-e66536cd42153ddb0967f4d26ce2df8d": [
+    "crown ether"
+  ],
+  "kg-node-e6b39d77bae3ccb8097590046014f825": [
+    "Rice Husk Silica (RHS)"
+  ],
+  "kg-node-e6b925a2cd44cc3708053fb2194361d5": [
+    "Zn(NO3)2·6H2O",
+    "Zn(NO₃)₂"
+  ],
+  "kg-node-e6fd1c3b3b32762c0be0a4a49fb8467c": [
+    "C18-6,4Br2 multi-ammonium surfactant"
+  ],
+  "kg-node-e747aee455cc361c3e9c3b9df36ef139": [
+    "zinc acetate (Zn(CH3COO)2)",
+    "Zn(CH3COOH)2"
+  ],
+  "kg-node-e782a6ebc224a1bec394660ed50d7748": [
+    "PMI+",
+    "PMIOH"
+  ],
+  "kg-node-e796f7cff923c40aa23b97ac77c1692d": [
+    "DeAl-USY",
+    "dealuminated USY"
+  ],
+  "kg-node-e8a7f72726db3b2b3ca6815fa5396755": [
+    "N-(3-aminopropyl)-N-methylaniline (APMA)",
+    "APMA"
+  ],
+  "kg-node-e8defacd0aac2dad709cb70f21d0c172": [
+    "VOSO4"
+  ],
+  "kg-node-e9077ad3a5ca5116d4c58ffba4a3d3ea": [
+    "OS-12",
+    "OS-n"
+  ],
+  "kg-node-e917deed5068de11658ae47a0682919d": [
+    "CHA seeds (DeAl-SSZ-13)",
+    "Al-SSZ-13 seeds",
+    "DeAl-SSZ-13"
+  ],
+  "kg-node-e942cdbf261a2361dda1eb6802f8f6e2": [
+    "AlCl₃·6H₂O",
+    "aluminum chloride hexahydrate"
+  ],
+  "kg-node-e96ac90ef5eb0744d0f37a907fe5aa39": [
+    "[Rh(NH2CH2CH2NH2)3]Cl3",
+    "Rh(en)3Cl3"
+  ],
+  "kg-node-e96b3633e5e0bb20188b7bfcd14fd169": [
+    "cellulose",
+    "cellu"
+  ],
+  "kg-node-e9a4595f0dc889b17e9fc21765e375b9": [
+    "DACH (1,2-diaminocyclohexane)",
+    "diamine",
+    "H₂DACH²⁺"
+  ],
+  "kg-node-e9b677266b2d63ae3d2e2219e98faf35": [
+    "N,N-diisopropyl imidazolium",
+    "imidazolium SDA"
+  ],
+  "kg-node-e9fa112b7fc69e6b0ff9f2ef16158c60": [
+    "HMDS"
+  ],
+  "kg-node-ea2da3079b184777d20d8f70e4cdbfd7": [
+    "KCl"
+  ],
+  "kg-node-ea4d4ff6d73e480fcf875c3f6f6515c5": [
+    "TAPTS (bis(trimethoxysilylpropyl)amine)",
+    "CAS: 82985-35-1"
+  ],
+  "kg-node-ea57453bb1b55b2e9d45b09a77ff38b7": [
+    "CTAB"
+  ],
+  "kg-node-ea5ad392b26dca02a033eade3ee47efa": [
+    "12DM3(4MB)I"
+  ],
+  "kg-node-ea5f939aa2eaa293a17a56049fa08bb2": [
+    "t-Bu-P1 phosphazene",
+    "P1-phosphazene",
+    "tert-Butylimino-tris(dimethylamino)phosphorane"
+  ],
+  "kg-node-eacf32404ef21f329c7cbac1333651fc": [
+    "porous α-alumina support tube"
+  ],
+  "kg-node-eadc98094a54d337b595ed0ac7d63026": [
+    "coal gangue",
+    "CG",
+    "gangue"
+  ],
+  "kg-node-eb19ef75e5b1eaa723a61bbd34468f18": [
+    "OSDA1 (cationic oligomer)"
+  ],
+  "kg-node-eb3c98cfed8174d80ef9bf2e4e68817c": [
+    "TMAdOH",
+    "N,N,N-trimethyl-1-adamantanammonium hydroxide",
+    "TMAd"
+  ],
+  "kg-node-eb701c25a19e85e157f02ac4d7798f58": [
+    "N-benzylquinuclidinium hydroxide",
+    "SDA I"
+  ],
+  "kg-node-eb804fb0afb8b0ada74e5790d7ee4e0a": [
+    "dichloromethane (DCM)"
+  ],
+  "kg-node-ebbe5f20098465a5d099e95d0dbedd87": [
+    "ammonium persulfate (APS)"
+  ],
+  "kg-node-ebe5f2695b373a8524cec7a145bca223": [
+    "NH4NO3"
+  ],
+  "kg-node-ec3d2640d6af357fc20cffa94f852167": [
+    "phenylaminopropyl-trimethoxysilane",
+    "PHAPTMS"
+  ],
+  "kg-node-ec427cd39b9de66e37d87740ce9bbc46": [
+    "Pluronic P-123",
+    "EO20PO70EO20"
+  ],
+  "kg-node-ec6cbefa92468de2543750cb0273483e": [
+    "1,3,4-trimethylimidazolium hydroxide (TMIOH)",
+    "TMIOH"
+  ],
+  "kg-node-ecd844a30b9d20f505ca19548ca9d164": [
+    "glucose"
+  ],
+  "kg-node-ed10dc983756dfe3fefbd0d04ed326c6": [
+    "SLS",
+    "anionic emulsifier"
+  ],
+  "kg-node-ed1e83123d9aaa0b3f5d4fde16bb20a7": [
+    "Ca-, Cu-, Ni-, Zn-nitrates"
+  ],
+  "kg-node-ed28faa723002d50ec274d098c16d223": [
+    "3-butyl-1-methyl-3H-imidazol-1-ium"
+  ],
+  "kg-node-ed2d5a7af155648b44a99f573c117ce2": [
+    "TPA ligand",
+    "tris(pyridylmethyl)amine"
+  ],
+  "kg-node-ed6c6a1cad921753b68889b7f3689da0": [
+    "di-n-propylamine",
+    "DPA"
+  ],
+  "kg-node-ed6d0bf970f10c49dbab3cd62a4e707a": [
+    "TEA (structure-directing agent)",
+    "TEA"
+  ],
+  "kg-node-ed782beb11427926f29e57be90170a3b": [
+    "phosphoric acid",
+    "H3PO4"
+  ],
+  "kg-node-edef00411e33ada813af746f5b9c7c96": [
+    "SDA 1",
+    "C15NH23F cation"
+  ],
+  "kg-node-ee38e13d0a61a65295d07aaef9801128": [
+    "Cu(NO3)2·3H2O",
+    "Copper (II) nitrate trihydrate"
+  ],
+  "kg-node-ee7238b34ccae22ed225e4f47a55729e": [
+    "1-methylpyrrolidine",
+    "1-MP"
+  ],
+  "kg-node-ee94266ae966e4b7502a4f4bb19f3e22": [
+    "tetrapropylammonium cation (TPA⁺/TPAOH)",
+    "TPAOH"
+  ],
+  "kg-node-eebf93a035d3a1114010a8608fb36e34": [
+    "29SiO2-gel",
+    "29Si-enriched silica gel"
+  ],
+  "kg-node-ef213455d2735410fa2e29ef24860ca7": [
+    "MTES"
+  ],
+  "kg-node-ef2a1a9ed1d966293390cdf9d8caccd8": [
+    "RuCl3",
+    "Ruthenium (III) chloride hydrate"
+  ],
+  "kg-node-ef3a51e243a83d8012eafb8f5ec855a4": [
+    "bifunctional triquaternary ammonium-type surfactant"
+  ],
+  "kg-node-ef3cb0d65cfc19c918cca174ee7d730f": [
+    "sodium nitrate",
+    "NaNO₃"
+  ],
+  "kg-node-ef4880e8af1c3edb86ff7acce2001cae": [
+    "1,2,2,6,6-pentamethyl-piperidine (PMP)",
+    "PMP"
+  ],
+  "kg-node-ef6f1608248fe275be2694c6caa4eb03": [
+    "S4N4"
+  ],
+  "kg-node-ef7073181e24e74790f53eb349ec6c06": [
+    "growth solution S2"
+  ],
+  "kg-node-ef90b622d629de6b5e153eed5e5bc2c3": [
+    "In2O3"
+  ],
+  "kg-node-ef99ed87692240b445d98a678d0ad7bb": [
+    "DIPA",
+    "di-iso-propylamine"
+  ],
+  "kg-node-efa0961f06ddfb701448317ebd29ae5b": [
+    "copper(II) acetate monohydrate",
+    "Cu(CH3COO)2·H2O"
+  ],
+  "kg-node-efccd8396ab10bba4e261f9f262fc618": [
+    "TES-C16EO10",
+    "alkoxysilylated alkyl poly(oxyethylene ether)"
+  ],
+  "kg-node-efddc586a4fcec8e180ca27a9c5ef11d": [
+    "DOW Z-6040 (3-glycidoxy-propyltrimethylsilane)",
+    "Z-6040"
+  ],
+  "kg-node-effa6db8edd5abdf8d55ed14189eb6fa": [
+    "lithium hydroxide monohydrate",
+    "LiOH-H2O",
+    "Li+"
+  ],
+  "kg-node-f014f2d96457d2f8e00181e1886be3c9": [
+    "3DOm carbon template"
+  ],
+  "kg-node-f039fc319058c44a50d35b4680ac5f5f": [
+    "CuI salt"
+  ],
+  "kg-node-f0510f02ebbdf05912b73a68efd85066": [
+    "TPA"
+  ],
+  "kg-node-f06560e483ecf1615cd1368b7d1bdf5f": [
+    "SDA isomer III",
+    "isomer III"
+  ],
+  "kg-node-f0687493e6f208dd77feec9ef3da7e74": [
+    "chloropalladic acid"
+  ],
+  "kg-node-f06c8932c9ccf2df971acf09445c9b36": [
+    "boric acid",
+    "H3BO3"
+  ],
+  "kg-node-f0de04ccc437ad29f7968d4da2425282": [
+    "TMCS",
+    "trimethylchlorosilane"
+  ],
+  "kg-node-f0e432769972db18626a25a0e7375a2d": [
+    "5-Br-PADAP"
+  ],
+  "kg-node-f0e5df46ea5127c4c4cb097320cb55fb": [
+    "N,N-dimethyl-3,5-dimethylpiperidinium (OSDA)",
+    "OSDA"
+  ],
+  "kg-node-f0ed854fd8f7fceec77dc4fa5a63839a": [
+    "colloidal silica LUDOX HS-40",
+    "LUDOX HS-40"
+  ],
+  "kg-node-f1182403b7e17f891dcac74da00e8308": [
+    "3-phenylpropylamine (PPA)",
+    "PPA"
+  ],
+  "kg-node-f1a63902b7e0940feca887535fd616dc": [
+    "K222"
+  ],
+  "kg-node-f1c23b186d86860c41ea2a8ec1d6ffc6": [
+    "caesium hydroxide",
+    "CsOH"
+  ],
+  "kg-node-f1c4932fb72c3c2111abc84e3e821808": [
+    "tetramethoxysilane"
+  ],
+  "kg-node-f1c59b4097891299166752948d99a1dd": [
+    "LiNO3·3H2O",
+    "lithium nitrate"
+  ],
+  "kg-node-f1e39f33b823b4937627f1a6bc5ae3b2": [
+    "silica gel"
+  ],
+  "kg-node-f1e9f70f25c0a583254b38b33362c098": [
+    "ZSM-5 seeds"
+  ],
+  "kg-node-f1f976a51cea55be7cead5f17dd2782e": [
+    "HPBA"
+  ],
+  "kg-node-f2108d161994602395dbd3400f42e385": [
+    "Sr(NO3)2"
+  ],
+  "kg-node-f214b8b0afda0991675a76be0d12395b": [
+    "[edmim]Br",
+    "1-ethyl-2,3-dimethylimidazolium bromide"
+  ],
+  "kg-node-f25b8d1871dee0bcbd284cd5680bbc6c": [
+    "10BI",
+    "decamethylene dication"
+  ],
+  "kg-node-f2d6f863c4fabae89fa8e8ef683854b9": [
+    "nitric acid (6 M)",
+    "6M nitric acid"
+  ],
+  "kg-node-f2f8c7cc6f756534d7586ee8f922a371": [
+    "Pluronic F-127",
+    "PluronicF-127"
+  ],
+  "kg-node-f3161e5537873341f5bd1550699dc8bd": [
+    "hexamethyldisiloxane (HMDS)"
+  ],
+  "kg-node-f34d8afa7138f4b30a122625732e2b29": [
+    "1,3,3-trimethyl-2-methylene indoline"
+  ],
+  "kg-node-f393c63ba8a8ae597222789943e4c2d3": [
+    "1-ADA"
+  ],
+  "kg-node-f397db53828cfe478d56e84fe1f96f51": [
+    "N,N,N-trimethyl-1-adamantanammonium hydroxide",
+    "TMAdaOH",
+    "OSDA"
+  ],
+  "kg-node-f3f2e999f020acbe6ba28c7e30925467": [
+    "HNTs (halloysite nanotubes)"
+  ],
+  "kg-node-f3fe142d803e7ae5aae005130d0d50cd": [
+    "diethylamine hydrochloride (DEA·HCl)",
+    "DEA-HCl"
+  ],
+  "kg-node-f40b0ee60b4d7963d3756f5b08d3f03a": [
+    "Mn(II)"
+  ],
+  "kg-node-f4301c20ce0db164bc8778a4bc11359d": [
+    "NaY seeds (50 nm)",
+    "FAU seeds"
+  ],
+  "kg-node-f446cd7acbf0edef3e449acbeb940a90": [
+    "diethoxydimethylsilane"
+  ],
+  "kg-node-f4aca9b7d5d7017a9c102ae44d7b3895": [
+    "Al(NO3)3",
+    "aluminum nitrate"
+  ],
+  "kg-node-f4b2383544b12557416fdc2726ade96c": [
+    "Black Pearls 700 (BP700)",
+    "BP700"
+  ],
+  "kg-node-f5460e5b3e1c28ccd6452926adef0650": [
+    "δ-alumina"
+  ],
+  "kg-node-f55ea94bcea150d0865846f134b44a26": [
+    "(NH₄)₂SiF₆"
+  ],
+  "kg-node-f59eb434c07b4a11d416e2f27686754e": [
+    "Bu₆-diquat-m"
+  ],
+  "kg-node-f5f37e31381120b52384ba5ff6461629": [
+    "SDAOH (7-ethyl-6-azoniaspiro-[5.5]-undecane hydroxide)"
+  ],
+  "kg-node-f5fce23543c540364a47204619afccf9": [
+    "(1R,2S)-(-)-ephedrine",
+    "EPH"
+  ],
+  "kg-node-f61d42101e4524a5ed54bfd5cd0200ee": [
+    "(NH4)2SiF6"
+  ],
+  "kg-node-f645ff46479a6b619995fbf3538cf314": [
+    "succinic acid-choline chloride eutectic mixture",
+    "EU"
+  ],
+  "kg-node-f6470c15e14a13313bf1bdf3055685bc": [
+    "HTCC",
+    "N-(2-hydroxy)-propyl-3-trimethyl ammonium chitosan chloride"
+  ],
+  "kg-node-f6cb5e3da8c5a90e03553bfda84d0b7b": [
+    "iron ore tailings (IOT)",
+    "IOT"
+  ],
+  "kg-node-f716f0d2e5ff0428be16f92ce56b3632": [
+    "Choline hydroxide (ChOH)",
+    "Ch+",
+    "ChCl"
+  ],
+  "kg-node-f742193017940f36004bac3824684fc9": [
+    "TEA (triethanolamine template)",
+    "TEA"
+  ],
+  "kg-node-f756f9ecaabe8ed51b0a7ce69af6797a": [
+    "EMP",
+    "1-ethyl-1-methylpyrrolidinium"
+  ],
+  "kg-node-f75819750104b91f6a85d18afc4f7372": [
+    "Al-oxo-13 cluster",
+    "Al-oxo-13 cluster ions"
+  ],
+  "kg-node-f79374f0cf5e04d4477f892660168844": [
+    "煤矸石",
+    "coal gangue"
+  ],
+  "kg-node-f7ac94f19a0ae8fbd0879287045d0ae0": [
+    "La(NO3)3·9H2O",
+    "lanthanum nitrate"
+  ],
+  "kg-node-f7b029d53bee39d9585079484643b8ae": [
+    "(6R,10S)-6,10-dimethyl-5-azoniaspiro[4.5]decane hydroxide",
+    "SDA"
+  ],
+  "kg-node-f7b5e152077caaa2e18f36649270dc78": [
+    "1,5-bis(tetramethylimidazolium) bromide",
+    "OSDA",
+    "diimidazole salt",
+    "diquaternary OSDA"
+  ],
+  "kg-node-f7c3c75e0d86cd4c1be3794c70d723b1": [
+    "草酸根配体 (ox)",
+    "ox-ligand",
+    "oxalate"
+  ],
+  "kg-node-f800f4b1feaaf299a87aa3359313553b": [
+    "MgSO4"
+  ],
+  "kg-node-f82e4c9e7c7c15e54734871a1bb87518": [
+    "Na-aluminate",
+    "Na2AlO2",
+    "Na-AlO2"
+  ],
+  "kg-node-f83f0e3f782b24dd6830b2a0a20c6760": [
+    "[Co(Cp)2]OH",
+    "cobalticinium hydroxide"
+  ],
+  "kg-node-f8685323c179de60688a57955a2e5f9f": [
+    "KCl solution"
+  ],
+  "kg-node-f892989191454a721abf131bba7b2caa": [
+    "Aluminum residue from coal fly ash",
+    "alkali-washed aluminum residue"
+  ],
+  "kg-node-f8e217aa167532677240da1950709e07": [
+    "Al2(SO4)3·18H2O",
+    "aluminium sulfate octadecahydrate"
+  ],
+  "kg-node-f90807135469224bb085ca2a90473640": [
+    "silica (CabOSil M5)",
+    "CabOSil M5",
+    "SiO2"
+  ],
+  "kg-node-f9528b532df38f0746dcf92745f74a77": [
+    "tetrabutylammonium bromide (TBABr)",
+    "TBABr",
+    "(TBA)2O"
+  ],
+  "kg-node-f99c78f42c9f9a2b22b206d4416b5d27": [
+    "aluminum sulfate",
+    "Al2(SO4)3·18H2O"
+  ],
+  "kg-node-f9c3eb2640143355bdeed5a9eba6e810": [
+    "1-benzyl-2,3-dimethylimidazolium (1B23DMI)",
+    "1B23DMI"
+  ],
+  "kg-node-f9eedf90cce2edc1080e9d9768e39507": [
+    "Zn formate and Zn(NO3)2"
+  ],
+  "kg-node-f9f1bc0370e88be7f5285cf5c51b5db5": [
+    "[emim]⁺ cation",
+    "emim"
+  ],
+  "kg-node-f9f3d6d0447c032080f8b1b8858c03cf": [
+    "n-butanol"
+  ],
+  "kg-node-fa51c387ba028e3f341d8b98675e97df": [
+    "(Ti=O)K2(C2O4)·2H2O",
+    "potassium titanyl oxalate"
+  ],
+  "kg-node-fa580b3bdd8440fe65ce852810f19093": [
+    "polyethylenimine"
+  ],
+  "kg-node-fa6ae9cf5fa258d9d000d54ffe856607": [
+    "1,5-MPP OSDA",
+    "diquaternary ammonium OSDA"
+  ],
+  "kg-node-fa896ee95155a1ee8b9fb5f09e8e0ffa": [
+    "ZrOCl2·8H2O"
+  ],
+  "kg-node-faa5b5e97c46e8c7aee5f757a49a3875": [
+    "NH3 (ammonia solution)"
+  ],
+  "kg-node-fb3566ea7112fe1ef7de7c1d7704c78d": [
+    "colloidal silica sol (BegoSol K)",
+    "BegoSol K"
+  ],
+  "kg-node-fb46701fb0f28d1ad794c89d90ab3241": [
+    "tetraethylphosphonium hydroxide (TEPOH)",
+    "TEP cations"
+  ],
+  "kg-node-fb6a0364480604c6f6085c90abc888c8": [
+    "GeO₂"
+  ],
+  "kg-node-fb7ba2315d68943cebd8c7c0acaec7da": [
+    "tetrachloroauric acid",
+    "HAuCl4"
+  ],
+  "kg-node-fb7eeedaa650c18d53a7e9e3c81e8041": [
+    "BMPPAOH",
+    "1,5-bis(methylpiperidine)pentylammonium hydroxide"
+  ],
+  "kg-node-fbab553ba80c83f4486ee02d36684cd9": [
+    "SDA22"
+  ],
+  "kg-node-fbb7b1104309870de34c39c40da83cf7": [
+    "Linde-type A (zeolite 4A)",
+    "zeolite 4A"
+  ],
+  "kg-node-fbbacc5e8b56f606f49976cc18168fba": [
+    "piranha solution (H2SO4/H2O2)"
+  ],
+  "kg-node-fbe8a84bdd75e65ac8d22643e2afd820": [
+    "ammonia",
+    "NH3"
+  ],
+  "kg-node-fc0929de0645273717d62420d4bed9e9": [
+    "硼酸",
+    "H3BO3",
+    "B源"
+  ],
+  "kg-node-fc0a6350e294ed2c2234ea1f6f39531b": [
+    "butylamine (A4)",
+    "A4"
+  ],
+  "kg-node-fc10bc02dd48162c0da24f9abf014489": [
+    "C18-6-6 diammonium surfactant",
+    "C18-6"
+  ],
+  "kg-node-fc15379386eb78179ca372abc44c8d43": [
+    "ZSM-5 seed (CBV 3024E)",
+    "bulk MFI zeolite seed"
+  ],
+  "kg-node-fc1537b612c0ff943ef936d167dc066f": [
+    "sodium hydroxide (NaOH)"
+  ],
+  "kg-node-fc22a60ef2da65eb97af16a883894065": [
+    "hexamethyleneimine",
+    "HMI"
+  ],
+  "kg-node-fc521ccd874e9fe67e6262dd15b4bc12": [
+    "silica sol"
+  ],
+  "kg-node-fc845cb759ec380fadd621168fb06ff7": [
+    "tetraorthosilicate (TEOS)",
+    "TEOS"
+  ],
+  "kg-node-fcaa6d476b7b7c34be109c13255de125": [
+    "TPAF",
+    "tetrapropylammonium fluoride"
+  ],
+  "kg-node-fcaf336be694dc8a96ff40045846ca1c": [
+    "benzaldehyde"
+  ],
+  "kg-node-fd06bf1d61ed613d83a14ffbbf5df4ec": [
+    "CsOH"
+  ],
+  "kg-node-fd0b067d89e20c7a0056c52163bebeae": [
+    "4-DMAP"
+  ],
+  "kg-node-fd218e7f798c71124bfd4ceaaf0b51f7": [
+    "SSZ-51",
+    "AlPO SSZ-51"
+  ],
+  "kg-node-fd472c0adce70271d4bc3671547a8d03": [
+    "MTBBP",
+    "methyltriphenylphosphonium bromide"
+  ],
+  "kg-node-fd496f83acef9a24f819742a6b955729": [
+    "1,4-diisocyanatobutane (DICB)",
+    "DICB"
+  ],
+  "kg-node-fd4d6ff910e060e054ca7c504155693c": [
+    "SnO2"
+  ],
+  "kg-node-fda3f04a9690ad47b539d70f68f7baad": [
+    "L-carnitine"
+  ],
+  "kg-node-fda589ee17f16d27993871c18aeca393": [
+    "[bdmim]Cl",
+    "ionic liquid",
+    "[bdmim]+"
+  ],
+  "kg-node-fdc23fcf3a18456e8ed30538a9a67b8d": [
+    "ferrofluid (EFH Series FER-01)",
+    "EFH Series FER-01"
+  ],
+  "kg-node-fdd1b40c23a3bd1256c46d8090e8ed75": [
+    "dodecylsulfate"
+  ],
+  "kg-node-fde4acf11acbc67c84e0e7192cf20841": [
+    "potassium acetate buffer (CH₃COOK/CH₃COOH)"
+  ],
+  "kg-node-fdfc2f17fc10de65cb16f38f4463592a": [
+    "ammonium hexafluorosilicate (AHFS)",
+    "AHFS"
+  ],
+  "kg-node-fe08252f99723be6aa9e0a8dea21b6a7": [
+    "1,8-diaminooctane",
+    "DAO"
+  ],
+  "kg-node-fe2324da4f435c174497ea18475d076c": [
+    "SnCl2·2H2O"
+  ],
+  "kg-node-fe249a47d6eca6469eee336111547810": [
+    "SPEEK",
+    "sulfonated poly(ether ether ketone)"
+  ],
+  "kg-node-fe40c4a9b821be25dfc6315209c9e7a0": [
+    "hydroxyl-terminated PDMS (OH-PDMS)",
+    "OH-PDMS"
+  ],
+  "kg-node-fe416521f579980c0f31d969cb1c2eda": [
+    "HMB",
+    "Hexamethonium bromide"
+  ],
+  "kg-node-fe5f9bf686bd862e2e3c1509fd2d45e8": [
+    "TMTBA",
+    "N,N,N-trimethyl-tert-butylammonium"
+  ],
+  "kg-node-fe6956a15a17d87e5770e7be41b1977d": [
+    "4-methoxybenzene diazonium"
+  ],
+  "kg-node-fe94890f440d997f4e7fef567cf8ba92": [
+    "2-methylimidazole",
+    "mIM"
+  ],
+  "kg-node-fee21a1bfa7031d8787cb8d8edd7d4e0": [
+    "Bn-mn (binaphthyl bolaform OSDA)",
+    "B10"
+  ],
+  "kg-node-fee45c473f17ca9a3771f59ef93eac2a": [
+    "di-n-butylamine (DBA)",
+    "DBA"
+  ],
+  "kg-node-ff04a756df8616227d01821fbf659b68": [
+    "copper(II) nitrate trihydrate"
+  ],
+  "kg-node-ff113e020ac24a8cb67fa02314328556": [
+    "Ethyl silicate-40 (ES-40)",
+    "ES-40"
+  ],
+  "kg-node-ff2b8d51f22d7cd0ca8ae09b06ad93b7": [
+    "poly(acrylic acid) (PAA)",
+    "PAA"
+  ],
+  "kg-node-ff716604df5c5c4837fef9f0fc3745b2": [
+    "CTABr",
+    "cationic emulsifier"
+  ],
+  "kg-node-fff0a561a0aa3490ce212220b862281d": [
+    "DABCO",
+    "1,4-diazabicyclo[2.2.2]octane"
+  ]
+}

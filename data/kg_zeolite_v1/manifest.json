@@ -1,0 +1,45 @@
+{
+  "counts": {
+    "distinct_linked_osdas": 141,
+    "link_methods": {
+      "alias": 56,
+      "opsin": 211
+    },
+    "linked_reagent_entities": 267,
+    "papers": 3074,
+    "reagent_entities": 1727,
+    "records_with_linked_osda": 1014,
+    "synthesis_records": 4656
+  },
+  "files": {
+    "framework_names.json": "d36093c572c7127d4782e21de79b73e412baec6930037b6a243cbba6402eb028",
+    "framework_vocabulary.json": "b6dd47e5f8bed5337b183acfc40aa86f14dbb3cf99b4e903db9fe63e23d30cbd",
+    "opsin_name_cache.json": "f5243f323013c0ee85e43eaa241704b0f20e7d9fa2c3755c138130fb063fdae5",
+    "osda_display.json": "1a1c8d79a946fc2324387eb9a124993a782d0290d132bebe4d74cf4ac1a7d720",
+    "osda_links.json": "167faf636e61c2c2660a5f9bfca6cb2790d07c8c776ebb83b3b63043d2ea6aaf",
+    "pubchem_name_cache.json": "cbbe7747c66777f9fb2d70e7478dcc53d71474d0b6d3cae0ea856e53bf575574",
+    "reagent_names.json": "c616cbcf6155bdc3cff084a68e1d3f94ebe60dea52fbf29993f842161332a5ae",
+    "synthesis_records.jsonl.gz": "e3de4a77222cf7c3fafceccecbc614888427fd7f8b2887d6facdb78f243d758e"
+  },
+  "rules": {
+    "osda_link": "alias (ZeoSyn names, IUPAC, synonyms; curated abbreviations) or identical structure (largest organic fragment, uncharged, stereo removed) via OPSIN or cached PubChem",
+    "synthesis_experiment": "experiment type matches synthesis/hydrothermal/crystallization/... or objective starts with synthesis/preparation; >=1 sample entity with a framework code"
+  },
+  "schema": "zeosyn_kg_synthesis.v1",
+  "source_kg": {
+    "edge_count": 701204,
+    "node_count": 312461,
+    "snapshot_content_hash": "07925455449dfe13cc78b9b958dd71d5e4d77aee2ad54fcd8a312ce4f1bf9f43",
+    "snapshot_id": "Small-KG-zeolite-v1"
+  },
+  "tools": {
+    "opsin": "2.8.0",
+    "pubchem_mode": "cache",
+    "rdkit": "2026.03.6"
+  },
+  "zeosyn_sha256": {
+    "ZEOSYN.xlsx": "95f9b8f5d1464fc3d577d93f9551e40cc984b5b475a49ddc8177f598c3c1987c",
+    "osda_descriptors.csv": "d6677fd3cf6f120405bbd14867aed6b1b9b8f5e788532a948fe1042f1b1f77ba",
+    "osda_rdkit_features.csv": "b73efa856176c10bfdc3bcb92d20c4b14f40b9eb87dd2dd000ecc7f28c0d2881"
+  }
+}

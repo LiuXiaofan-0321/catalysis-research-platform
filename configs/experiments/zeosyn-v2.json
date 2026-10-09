@@ -1,0 +1,66 @@
+{
+  "profile": "zeosyn-v2",
+  "benchmark": "ZeoSyn (Pan et al., ACS Cent. Sci. 2024, DOI 10.1021/acscentsci.3c01615; MIT license)",
+  "plan": "docs/experiments/ZEOSYN_V2_PLAN.md",
+  "model": "glm-5.3-flash",
+  "thinking": "enabled",
+  "reasoning_effort": "high",
+  "temperature": 0.2,
+  "api_timeout_seconds": 1800,
+  "modes": ["agent", "rag", "kg", "kg_shuffled"],
+  "optional_modes_available": ["kg_flat"],
+  "replicates_per_mode": 10,
+  "rounds": 3,
+  "proposals_per_round": 1,
+  "technical_repair_attempts": 1,
+  "label_feedback": false,
+  "max_queries": 2,
+  "evidence_token_budget": 3000,
+  "generation": {"max_tokens": 32768, "max_tokens_on_truncation": 65536},
+  "split": {
+    "kind": "doi_grouped",
+    "test_fraction": 0.2,
+    "seed": 20261007,
+    "dev_fraction": 0.2,
+    "dev_seed": 1,
+    "note": "test = the V1 outer split; dev = an inner DOI-grouped split of the outer training rows. Evaluation papers are removed from RAG, KG facts and KG features; during development the test papers are removed as well."
+  },
+  "kg": {
+    "artifacts": "data/kg_zeolite_v1",
+    "shuffle_seed": 20261009,
+    "main_variant": "own paper and evaluation papers excluded",
+    "sensitivity_variants": ["temporal (only earlier papers)", "external (all ZeoSyn papers removed from the KG)"]
+  },
+  "rag": {
+    "base_config": "configs/retrieval/small-kg-hybrid-v1.json",
+    "allowlist": "data/kg_zeolite_v1/rag_synthesis_allowlist.txt.gz",
+    "candidate_limit": 30,
+    "item_limit": 10,
+    "context_token_budget": 4000,
+    "max_items_per_paper": 3,
+    "tokenizer_id": "unicode_lexical_v1"
+  },
+  "evaluation": {
+    "model": "RandomForestClassifier(n_estimators=100, max_depth=None) as in the source notebook",
+    "n_estimators": 100,
+    "fit_seeds": [3, 7, 11, 17, 23],
+    "primary_metric": "accuracy",
+    "secondary_metrics": ["macro_f1", "balanced_accuracy"],
+    "sensitivity_predictor": {"kind": "hgb", "max_iter": 100, "learning_rate": 0.1, "seeds": [3]}
+  },
+  "analysis": {
+    "unit": "generation trajectory; fit seeds averaged within",
+    "primary_contrast": "kg - agent",
+    "decision_rule": "H2 supported if the 95% bootstrap interval of mean(kg) - mean(agent) excludes 0 from above (lower bound > 0)",
+    "secondary_contrasts": ["agent - d0 (H1)", "kg - rag (H3)", "kg - kg_shuffled", "kg_shuffled - agent"],
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 20261009
+  },
+  "protocol": {
+    "prereg": "docs/experiments/ZEOSYN_V2_PREREG.md",
+    "prereg_sha256": null,
+    "frozen": false,
+    "dev_iteration_limit": 3,
+    "iteration_log": "docs/experiments/ZEOSYN_V2_ITERATIONS.md"
+  }
+}
