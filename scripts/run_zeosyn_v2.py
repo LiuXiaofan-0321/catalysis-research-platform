@@ -8,8 +8,14 @@
   generate        LLM trajectories (threads; resumable; RAG loaded once per process)
   evaluate        RandomForest (and optional HGB) scores; --split test needs the frozen protocol
   summarize       statistics, contrasts, mechanism and sensitivity analyses
+  prepare-rag     retrieval config for a prepared split (evaluation papers excluded, allowlist applied)
   audit-retrieval relevance of RAG/KG evidence for the planned queries (GLM judge)
   direct-answer-audit  how often the KG's top framework equals the label (dev only before freezing)
+  status          progress of a run
+  collect         copy a run into results/<name>/ with an artifact hash list
+  freeze          record the pre-registration hash in the config (required before any test evaluation)
+
+The full desktop procedure is in docs/experiments/ZEOSYN_V2_RUNBOOK.md.
 """
 from __future__ import annotations
 
@@ -332,6 +338,8 @@ def load_split(run, *, check=True):
         for f, h in man['files'].items():
             if sha(p / f) != h:
                 raise SystemExit(f'{p / f} changed after prepare')
+        if sha(KG_ARTIFACTS / 'manifest.json') != man['kg_artifacts_manifest_sha256']:
+            raise SystemExit('the KG layer (data/kg_zeolite_v1) changed after this split was prepared; run prepare again')
     m = z.load_matrices(p / 'matrices.npz')
     s = np.load(p / 'split.npz')
     with np.load(p / 'kg_tables.npz') as t:
@@ -661,6 +669,34 @@ def cmd_status(args):
                       'missing_generation': [n for n in names if n not in gen]}, indent=1))
 
 
+def cmd_collect(args):
+    """Copy a run into results/<name>/ (prepared inputs, generations, evaluations, audits, summary, logs)."""
+    import shutil
+    run, p = run_paths(args.run_dir)
+    dest = ROOT / 'results' / args.name
+    if dest.exists():
+        raise SystemExit(f'{dest} exists; choose another --name')
+    if not (run / 'summary.json').exists() and not args.partial:
+        raise SystemExit('summary.json missing; use --partial to collect anyway')
+    shutil.copytree(p, dest / 'prepared')
+    for sub in ('generation', 'evaluation', 'logs'):
+        if (run / sub).exists():
+            shutil.copytree(run / sub, dest / sub)
+    for f in run.glob('*.json'):
+        shutil.copy2(f, dest / f.name)
+    key = os.environ.get('ZHIPU_API_KEY', '')
+    for f in dest.rglob('*'):
+        if f.is_file() and f.suffix in ('.json', '.log', '.txt', '.md'):
+            text = f.read_text(encoding='utf-8', errors='ignore')
+            if (key and key in text) or 'Bearer ' in text:
+                shutil.rmtree(dest)
+                raise SystemExit(f'credential-like text in {f.name}; nothing collected')
+    (dest / '.gitattributes').write_text('* binary\n', encoding='utf-8')  # keep exact bytes so hashes survive cloning
+    save(dest / 'ARTIFACTS.json', {str(f.relative_to(dest)): sha(f) for f in sorted(dest.rglob('*'))
+                                   if f.is_file() and f.name != 'ARTIFACTS.json'})
+    print(f'collected {dest}; commit it with git add results/{args.name}')
+
+
 def cmd_freeze(args):
     """Record the pre-registration hash in the config and mark the protocol frozen (commit the result)."""
     cfg_path = Path(args.config)
@@ -728,6 +764,10 @@ def main(argv=None):
     for name in ('summarize', 'direct-answer-audit', 'status'):
         s = sub.add_parser(name)
         s.add_argument('--run-dir', required=True)
+    s = sub.add_parser('collect')
+    s.add_argument('--run-dir', required=True)
+    s.add_argument('--name', required=True, help='folder name under results/, e.g. zeosyn_v2_dev_1')
+    s.add_argument('--partial', action='store_true')
     s = sub.add_parser('freeze')
     s.add_argument('--config', default=str(ROOT / 'configs/experiments/zeosyn-v2.json'))
     args = ap.parse_args(argv)

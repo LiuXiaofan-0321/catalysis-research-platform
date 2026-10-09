@@ -83,6 +83,10 @@ class KgFactEngine:
             for term in _query_terms(name):
                 self.osda_terms[k].add(term)
         self.codes = set(self.by_framework)
+        # An abbreviation that is also an IZA code (cyclohexylamine "CHA") never identifies an OSDA in a query.
+        iza = {c.lstrip('*-').upper() for c in self.codes} | {c.upper() for c in self.codes}
+        for k in self.osda_terms:
+            self.osda_terms[k] = {t for t in self.osda_terms[k] if t.islower() or t.upper() not in iza}
         # Material names that may identify a framework in a query: KG names containing a digit (SSZ-39, ZSM-5,
         # SAPO-34) and common mineral names. Generic words ("zeolite") never link.
         names = {n: c for n, c in (framework_names or {}).items() if re.search(r'\d', n) and 3 <= len(n) <= 20}

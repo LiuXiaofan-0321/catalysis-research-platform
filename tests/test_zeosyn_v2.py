@@ -187,6 +187,16 @@ def test_query_linking_and_rendering():
     assert 'kg-node' not in out['context']
 
 
+def test_abbreviation_equal_to_an_iza_code_does_not_link_an_osda():
+    e = _engine()
+    e2 = KgFactEngine(records=_records(), links={**LINKS, 'C': ('KEY_C', 'alias')},
+                      reagent_names={'A': ['TMAdaOH (TMAda+)'], 'B': ['TPAOH'], 'C': ['cyclohexylamine (CHA)']},
+                      osda_display={'KEY_C': 'cyclohexylamine'}, framework_names={})
+    assert e2.link_query('CHA synthesis') == ([], ['CHA'], [])
+    assert e2.link_query('cyclohexylamine template')[0] == ['KEY_C']
+    assert e.link_query('TMAdaOH')[0] == ['KEY_A']
+
+
 def test_facts_exclude_evaluation_papers_and_respect_budget():
     e = _engine(excluded_dois={'d1', 'd2'})
     text = e.evidence(['TMAda+'], token_budget=500)['context']
@@ -353,3 +363,23 @@ def test_allowlist_rule():
     assert r.synthesis_score('Acknowledgements', body) == -1
     assert r.synthesis_score('Results', '<img src="imgs/a.jpg"> synthesis gel ' * 5) == -1
     assert r.synthesis_score('Results', 'Catalytic conversion of methanol over H-ZSM-5 at 450 C. ' * 5) < 2
+
+
+def test_collect_copies_run_and_refuses_credentials(tmp_path, monkeypatch):
+    import run_zeosyn_v2 as r
+    monkeypatch.setattr(r, 'ROOT', tmp_path)
+    run = tmp_path / 'run'
+    (run / 'prepared').mkdir(parents=True)
+    (run / 'prepared' / 'config.json').write_text('{}')
+    (run / 'generation').mkdir()
+    (run / 'generation' / 'kg-replicate-1.json').write_text('{"ok": 1}')
+    (run / 'summary.json').write_text('{}')
+    args = type('A', (), {'run_dir': str(run), 'name': 'res1', 'partial': False})
+    r.cmd_collect(args)
+    arts = json.loads((tmp_path / 'results' / 'res1' / 'ARTIFACTS.json').read_text())
+    assert 'generation/kg-replicate-1.json' in arts and 'summary.json' in arts
+    (run / 'generation' / 'kg-replicate-2.json').write_text('{"h": "Bearer abc"}')
+    args.name = 'res2'
+    with pytest.raises(SystemExit, match='credential'):
+        r.cmd_collect(args)
+    assert not (tmp_path / 'results' / 'res2').exists()

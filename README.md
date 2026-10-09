@@ -13,12 +13,13 @@ src/catalysis_research/
   knowledge/     冻结的知识库：KG 快照校验、科学归一化 overlay、同预算 RAG / KG+RAG 检索
   llm/           GLM 客户端
   benchmarks/    benchmark 数据适配（当前：ZeoSyn）
-  discovery/     公式 DSL、无标签直接加入的生成循环、评估与统计
+  discovery/     公式 DSL、生成循环（V1 直接加入；V2 自主检索 + KG 信息通道）、评估与统计
 literature_pipeline/   文献 PDF 结构化抽取与 RAG 索引构建（建 Medium/Large KG 时使用）
-scripts/       run_zeosyn.py（实验各阶段）、knowledge.py（overlay、检索、检索审计）
+scripts/       run_zeosyn.py（V1）、run_zeosyn_v2.py（V2 全部阶段）、knowledge.py（overlay、检索、检索审计）
 jobs/zeosyn/   集群一键提交 launch.sh、结果回收 collect.sh、Slurm 作业脚本
 configs/       实验、检索与归一化配置
 data/zeosyn/   ZeoSyn 原始文件（MIT 许可证，逐字节保存）
+data/kg_zeolite_v1/  从 Small KG 构建的合成知识层（合成实验、OSDA 链接、RAG 合成白名单）
 results/       正式运行结果（由 collect.sh 写入）
 tests/         单元测试
 docs/          研究问题、进展、历史、实验协议、基础设施说明
@@ -26,7 +27,9 @@ docs/          研究问题、进展、历史、实验协议、基础设施说�
 
 ## 运行
 
-服务器（华东师大集群 login02）上的运行规则见 [AGENTS.md](AGENTS.md)：
+**V2（当前）在台式机上运行**，步骤见 [docs/experiments/ZEOSYN_V2_RUNBOOK.md](docs/experiments/ZEOSYN_V2_RUNBOOK.md)。
+
+V1 在华东师大集群（login02）上的运行规则见 [AGENTS.md](AGENTS.md)：
 
 ```bash
 bash jobs/zeosyn/launch.sh --dry-run    # 只做检查

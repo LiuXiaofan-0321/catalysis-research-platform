@@ -1,6 +1,8 @@
-# Instructions for coding agents running experiments on the cluster
+# Instructions for coding agents running experiments
 
-These rules apply to Codex or any other agent operating this repository on the
+Two setups exist: the ZeoSyn V1 cluster workflow (below) and the ZeoSyn V2 desktop
+workflow (section "ZeoSyn V2 on the desktop" at the end). The rules apply to Codex or
+any other agent operating this repository, for V1 on the
 ECNU cluster (`/public/home/xiaohe/lxf/catalysis-rag`, login node `login2`,
 also reachable as login02 / 59.78.189.133). The agent's job is to
 **run and report**, not to change science.
@@ -65,3 +67,19 @@ If only some generation tasks are missing because of API/network errors
 
 When the run finishes, collect and push the results as in step 3, then report
 the commit hash and the `per_mode` block of `summary.json`.
+
+## ZeoSyn V2 on the desktop
+
+Follow `docs/experiments/ZEOSYN_V2_RUNBOOK.md` exactly; it lists every allowed
+command (`scripts/run_zeosyn_v2.py` prepare, prepare-rag, generate, evaluate,
+audit-retrieval, direct-answer-audit, summarize, status, collect) and the
+`git add/commit/push` of the collected `results/` folder. In addition to the rules above:
+
+- Development runs use `--split dev`. Never prepare, generate or evaluate
+  `--split test` unless the user says the protocol has been frozen; never pass
+  `--confirmatory` on your own.
+- Never run `build-kg`, `rag-allowlist` or `freeze`, and never edit
+  `docs/experiments/ZEOSYN_V2_PREREG.md` or `configs/experiments/zeosyn-v2.json`.
+- If `generate` stops with API/network errors, rerunning the same command is
+  allowed (it only fills in missing trajectories). Any other failure: stop and
+  report the command, its full output and `run_zeosyn_v2.py status --run-dir RUN`.
