@@ -1,0 +1,3 @@
+00:25:23 kg r3 round 1: [Gel alkalinity, encoded as the ratio of hydroxide ] OH / (Si + Ge + 1e-6)
+00:26:03 kg r3 round 2: [Inorganic cation loading per framework-forming T a] (Na + K + Li + Rb + Cs + Sr + Ba + Ca) / (Si + Ge + Al + P + 1e-6)
+00:26:29 kg r3 round 3: [Gel dilution: water per framework-forming T atom] H2O / (Si + Ge + Al + P + 1e-6)

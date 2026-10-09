@@ -1,0 +1,455 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "Si / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + Sn + Zr + V + W + 1e-6)",
+      "name": "framework_si_fraction"
+    },
+    {
+      "formula": "(Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (Na + K + Li + Rb + Cs + Ca + Sr + Ba + sda1 + 1e-6)",
+      "name": "inorganic_template_fraction"
+    },
+    {
+      "formula": "log((F + 1e-6) / (OH + 1e-6))",
+      "name": "fluoride_mineralizer_logratio"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 1,
+  "seconds": 197.02342319488525,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "8b580ecdb537eaad685e9eaf8ead5a9a67e706130abba5fc14ab4d26e034283f",
+          "raw_structured": {
+            "plan": {
+              "factor": "framework T-atom fraction of silicon: the ratio of the Si mole fraction to the sum of all tetrahedrally-coordinating framework-forming species (Si, Al, P, Ge, B, Ga, Ti, Zn, Be, Sn, Zr, V, W)",
+              "queries": [],
+              "why": "Phase selectivity in zeolite synthesis is governed far more by the composition of the framework-forming fraction (e.g., Si/(Si+Al), Si/Ge, Si/P balances) than by the absolute mole fractions of each species. The fixed RandomForest receives raw mole fractions, but because all gel species sum to 1, the raw Si column confounds the true framework composition with the total loading of water, OSDA, and mineralizers. A recipe diluted with extra water or OSDA at the same Si/Al ratio has a lower raw Si value, so single-column splits cannot separate 'high-silica gel' from 'dilute gel'. Since tree ensembles split on one column at a time, the model cannot reconstruct this ratio from D0, yet it is one of the strongest known discriminators between frameworks (e.g., low T-atom Si favoring Al/P-rich frameworks like AFI/AEL/AEI versus high T-atom Si favoring MFI/*BEA/MTW and fluoride-route phases). It transfers directly to unseen publications because it is computed from the normalized gel composition that every record reports."
+            }
+          },
+          "response_id": "202610100016543e10afcc23d84141",
+          "usage": {
+            "completion_tokens": 566,
+            "completion_tokens_details": {
+              "reasoning_tokens": 246
+            },
+            "prompt_tokens": 1465,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2031
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Be",
+              "Ga",
+              "Ge",
+              "P",
+              "Si",
+              "Sn",
+              "Ti",
+              "V",
+              "W",
+              "Zn",
+              "Zr"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes the listed 13 elements are the only plausible framework T-atom formers in the dataset and that each reported mole fraction of these species is actually incorporated or incorporable into the framework; W, Cu, and the alkali/alkaline-earth cations are treated as non-framework (mineralizer, charge-balancing, or occluded). Assumes normalized mole fractions are on the same oxide/mole basis for all species. The epsilon guards only against all-T-atom-zero gels (pure ionothermal/flux recipes), where the descriptor is uninformative by construction. It ignores the speciation state (e.g., B may leave the framework, Ge volatility) and OH/F mineralizer effects, which interact with this ratio but are left to other descriptors.",
+              "evidence_ids": [],
+              "expected_effect": "As framework_si_fraction increases toward 1: probability mass shifts from AlPO-type (AFI, AEL, AEI, AEN, LEV) and Ge-rich (BEC, ISV, UTL) products toward siliceous phases (MFI, *BEA, MTW, MEL, siliceous CHA) and high-silica gels that fail (dense quartz/mordenite or amorphous). As it decreases below ~0.5: shift toward AlPO and germanosilicate frameworks; near the middle range (Si with Al only), Al-rich gels with high water should trend toward Failed or low-silica phases (FAU, LTA, MOR).",
+              "falsification": "If held-out publications show that raw Si mole fraction alone already separates MFI/*BEA from AFI/AEL as well as or better than this descriptor (i.e., the ratio adds no split gain and phase boundaries align with absolute Si rather than framework composition), the hypothesis is contradicted. Likewise, if high-framework-Si gels with low water/OSDA loading do not trend toward siliceous frameworks but instead toward dense phases or Failed independent of this descriptor, the compositional driver is not the operative variable.",
+              "formula": "Si / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + Sn + Zr + V + W + 1e-6)",
+              "hypothesis": "The phase formed in a zeolite synthesis is determined primarily by the composition of the framework-forming (tetrahedral) species pool, not by the absolute mole fraction of Si in the whole gel. Because all gel species sum to 1, the raw Si column confounds the true framework Si content with the total loading of water, OSDA, hydroxide, and extra-framework cations (Na, K, Li, etc.). Two recipes with identical Si/Al ratios but different dilution have very different raw Si values, so a tree ensemble splitting one column at a time cannot distinguish 'high-silica framework gel' from 'dilute gel'. The framework silicon fraction Si/(Si+Al+P+Ge+B+Ga+Ti+Zn+Be+Sn+Zr+V+W) isolates the framework T-atom composition. As this fraction increases (silica-rich frameworks), the expected product should shift toward pure-silica or low-heteroatom phases such as MFI, *BEA, MTW, MEL, and siliceous CHA (especially fluoride media). As it decreases (heteroatom-rich gels: Al+P dominant, or Ge-rich), the expected product should shift toward AlPO-based frameworks (AFI, AEL, AEI, AEN, LEV) and Ge-rich phases (BEC, ISV, UTL, ITH-type germanosilicates), with very low values plus high water tending toward Failed/amorphous or dense-phase outcomes.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Framework topology in zeolites is dictated by the T-atom chemistry during nucleation: the relative rates of Si-O-Si, Si-O-Al, Al-O-P, and Ge-O-Ge/Si bond formation control which building units (4-rings, 3-rings, double 6-rings, etc.) are energetically accessible. Heteroatoms perturb local bond lengths (Ge favors small rings and double 4-ring/8-ring D4R units; Al/P alternation favors AlPO frameworks) and alter the negative framework charge density that OSDAs and inorganic cations must balance. A gel whose T-atom pool is nearly pure Si nucleates defect-poor siliceous frameworks stabilized by hydrophobic OSDA-van der Waals fitting (MFI, *BEA, MTW). A T-atom pool rich in Al+P nucleates charge-neutral AlPO frameworks (AFI, AEL, AEI). Germanosilicate chemistry shifts selectivity to D4R-containing phases (BEC, UTL). The descriptor captures exactly this driver, whereas the raw Si mole fraction captures it only confounded by dilution.",
+              "name": "framework_si_fraction",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "MFI",
+                "*BEA",
+                "MTW",
+                "MEL",
+                "CHA",
+                "AFI",
+                "AEL",
+                "AEI",
+                "AEN",
+                "LEV",
+                "BEC",
+                "ISV",
+                "UTL",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610100017073865f19719e3477b",
+          "usage": {
+            "completion_tokens": 1229,
+            "completion_tokens_details": {
+              "reasoning_tokens": 62
+            },
+            "prompt_tokens": 1892,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3121
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes the listed 13 elements are the only plausible framework T-atom formers in the dataset and that each reported mole fraction of these species is actually incorporated or incorporable into the framework; W, Cu, and the alkali/alkaline-earth cations are treated as non-framework (mineralizer, charge-balancing, or occluded). Assumes normalized mole fractions are on the same oxide/mole basis for all species. The epsilon guards only against all-T-atom-zero gels (pure ionothermal/flux recipes), where the descriptor is uninformative by construction. It ignores the speciation state (e.g., B may leave the framework, Ge volatility) and OH/F mineralizer effects, which interact with this ratio but are left to other descriptors.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As framework_si_fraction increases toward 1: probability mass shifts from AlPO-type (AFI, AEL, AEI, AEN, LEV) and Ge-rich (BEC, ISV, UTL) products toward siliceous phases (MFI, *BEA, MTW, MEL, siliceous CHA) and high-silica gels that fail (dense quartz/mordenite or amorphous). As it decreases below ~0.5: shift toward AlPO and germanosilicate frameworks; near the middle range (Si with Al only), Al-rich gels with high water should trend toward Failed or low-silica phases (FAU, LTA, MOR).",
+        "falsification": "If held-out publications show that raw Si mole fraction alone already separates MFI/*BEA from AFI/AEL as well as or better than this descriptor (i.e., the ratio adds no split gain and phase boundaries align with absolute Si rather than framework composition), the hypothesis is contradicted. Likewise, if high-framework-Si gels with low water/OSDA loading do not trend toward siliceous frameworks but instead toward dense phases or Failed independent of this descriptor, the compositional driver is not the operative variable.",
+        "formula": "Si / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + Sn + Zr + V + W + 1e-6)",
+        "hypothesis": "The phase formed in a zeolite synthesis is determined primarily by the composition of the framework-forming (tetrahedral) species pool, not by the absolute mole fraction of Si in the whole gel. Because all gel species sum to 1, the raw Si column confounds the true framework Si content with the total loading of water, OSDA, hydroxide, and extra-framework cations (Na, K, Li, etc.). Two recipes with identical Si/Al ratios but different dilution have very different raw Si values, so a tree ensemble splitting one column at a time cannot distinguish 'high-silica framework gel' from 'dilute gel'. The framework silicon fraction Si/(Si+Al+P+Ge+B+Ga+Ti+Zn+Be+Sn+Zr+V+W) isolates the framework T-atom composition. As this fraction increases (silica-rich frameworks), the expected product should shift toward pure-silica or low-heteroatom phases such as MFI, *BEA, MTW, MEL, and siliceous CHA (especially fluoride media). As it decreases (heteroatom-rich gels: Al+P dominant, or Ge-rich), the expected product should shift toward AlPO-based frameworks (AFI, AEL, AEI, AEN, LEV) and Ge-rich phases (BEC, ISV, UTL, ITH-type germanosilicates), with very low values plus high water tending toward Failed/amorphous or dense-phase outcomes.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Framework topology in zeolites is dictated by the T-atom chemistry during nucleation: the relative rates of Si-O-Si, Si-O-Al, Al-O-P, and Ge-O-Ge/Si bond formation control which building units (4-rings, 3-rings, double 6-rings, etc.) are energetically accessible. Heteroatoms perturb local bond lengths (Ge favors small rings and double 4-ring/8-ring D4R units; Al/P alternation favors AlPO frameworks) and alter the negative framework charge density that OSDAs and inorganic cations must balance. A gel whose T-atom pool is nearly pure Si nucleates defect-poor siliceous frameworks stabilized by hydrophobic OSDA-van der Waals fitting (MFI, *BEA, MTW). A T-atom pool rich in Al+P nucleates charge-neutral AlPO frameworks (AFI, AEL, AEI). Germanosilicate chemistry shifts selectivity to D4R-containing phases (BEC, UTL). The descriptor captures exactly this driver, whereas the raw Si mole fraction captures it only confounded by dilution.",
+        "name": "framework_si_fraction",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "MFI",
+          "*BEA",
+          "MTW",
+          "MEL",
+          "CHA",
+          "AFI",
+          "AEL",
+          "AEI",
+          "AEN",
+          "LEV",
+          "BEC",
+          "ISV",
+          "UTL",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "framework T-atom fraction of silicon: the ratio of the Si mole fraction to the sum of all tetrahedrally-coordinating framework-forming species (Si, Al, P, Ge, B, Ga, Ti, Zn, Be, Sn, Zr, V, W)",
+        "queries": [],
+        "why": "Phase selectivity in zeolite synthesis is governed far more by the composition of the framework-forming fraction (e.g., Si/(Si+Al), Si/Ge, Si/P balances) than by the absolute mole fractions of each species. The fixed RandomForest receives raw mole fractions, but because all gel species sum to 1, the raw Si column confounds the true framework composition with the total loading of water, OSDA, and mineralizers. A recipe diluted with extra water or OSDA at the same Si/Al ratio has a lower raw Si value, so single-column splits cannot separate 'high-silica gel' from 'dilute gel'. Since tree ensembles split on one column at a time, the model cannot reconstruct this ratio from D0, yet it is one of the strongest known discriminators between frameworks (e.g., low T-atom Si favoring Al/P-rich frameworks like AFI/AEL/AEI versus high T-atom Si favoring MFI/*BEA/MTW and fluoride-route phases). It transfers directly to unseen publications because it is computed from the normalized gel composition that every record reports."
+      },
+      "propose_prompt_sha256": "b72de670f425860029877980836372911e1d49f5327c5df8de232546da895df6",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "03e2976e92c779ceb751054b2daca68fc508cfceaf6bf759546a0233ee0fc58e",
+          "raw_structured": {
+            "plan": {
+              "factor": "inorganic-vs-organic structure-directing balance: fraction of the total 'template pool' contributed by inorganic alkali/alkaline-earth cations versus the organic OSDA",
+              "queries": [],
+              "why": "Tree ensembles split one column at a time, so they can never form the emergent contrast between 'inorganic-templated' and 'OSDA-templated' recipes, even though both the individual cation mole fractions and sda1 are present. A recipe with Na = 0.10 and sda1 = 0.001 behaves fundamentally differently from Na = 0.001 and sda1 = 0.10 at the same framework Si fraction, but no single D0 column captures this. The descriptor inorg = (Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (Na + K + Li + Rb + Cs + Ca + Sr + Ba + sda1 + 1e-6) measures which species actually carries the structure direction: values near 1 correspond to cation-mediated, OSDA-free routes that favor FAU, LTA, MOR, and dense/Failed outcomes, while values near 0 correspond to OSDA-directed syntheses typical of MFI, *BEA, CHA, MWW, and related phases. It is also largely orthogonal to framework_si_fraction (which encodes the T-atom pool, not the directing species), and it generalizes across unseen publications because it is a normalized ratio rather than an absolute loading, so it should transfer to held-out papers. The 1e-6 guard keeps all-zero-template (e.g., purely fluoride-mediated) recipes finite."
+            }
+          },
+          "response_id": "202610100017334f5e333ce32e45ac",
+          "usage": {
+            "completion_tokens": 950,
+            "completion_tokens_details": {
+              "reasoning_tokens": 583
+            },
+            "prompt_tokens": 1833,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2783
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Ba",
+              "Ca",
+              "Cs",
+              "K",
+              "Li",
+              "Na",
+              "Rb",
+              "Sr",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The descriptor treats all inorganic cations as interchangeable structure-directing agents, ignoring known cation-specific effects (e.g., Na vs K vs Cs favor different cages), and it weights cations purely by mole fraction rather than charge or hydration behavior. It assumes sda1 is the only organic directing species and ignores n_osda > 1 cases and fluoride-mediated, template-free routes where both pools are near zero (handled by the 1e-6 guard, which maps such recipes to ~0, i.e., toward the OSDA-like end — a known limitation). It also ignores Ca/Sr/Ba cases where the cation is a heteroatom or mineralizer rather than a template.",
+              "evidence_ids": [],
+              "expected_effect": "As inorganic_template_fraction increases toward 1 (cation-templated, OSDA-free gels), outcomes should shift toward FAU, LTA, MOR, and dense/amorphous Failed products. As it decreases toward 0 (OSDA-templated gels), outcomes should shift toward MFI, *BEA, CHA, MWW, MTW, AEI, and other OSDA-stabilized high-silica phases.",
+              "falsification": "The hypothesis is contradicted if OSDA-free, alkali-rich gels (inorg near 1) routinely yield OSDA-typical phases such as MFI or *BEA at similar framework Si fractions, or if OSDA-dominated gels (inorg near 0) yield FAU/LTA-type products in the same compositional region; equivalently, if the descriptor shows no separation of these outcome groups on held-out publications.",
+              "formula": "(Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (Na + K + Li + Rb + Cs + Ca + Sr + Ba + sda1 + 1e-6)",
+              "hypothesis": "The identity of the dominant structure-directing species — inorganic alkali/alkaline-earth cations versus a quaternary organic OSDA — is an emergent property of the ratio between the cation pool and the OSDA pool, not of either mole fraction alone. A recipe with Na = 0.10 and sda1 = 0.001 follows a fundamentally different crystallization route than Na = 0.001 and sda1 = 0.10 at the same framework Si fraction, yet a tree ensemble splitting one column at a time can never form this contrast. The descriptor inorg = (Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (Na + K + Li + Rb + Cs + Ca + Sr + Ba + sda1 + 1e-6) captures which species actually carries the structure direction. Values near 1 indicate cation-mediated, essentially OSDA-free routes; values near 0 indicate OSDA-directed syntheses; intermediate values indicate mixed inorganic/organic direction.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Alkali cations direct frameworks primarily by hydration-shell templating and by charge-compensating framework Al in low-silica, open frameworks (FAU, LTA, and related cage structures) and by stabilizing dense or layered intermediates that often recrystallize to amorphous or dense products. Bulky quaternary OSDAs instead occupy channel interiors and lock in larger-pore, often higher-silica frameworks (MFI, *BEA, CHA, MWW, MTW). Because the two templating regimes involve different nucleation barriers, different gel speciation (silicate oligomer distributions shift with cation identity and OSDA presence), and different framework charges, the cation-vs-OSDA balance shifts the competing crystallization pathways. The ratio is normalized, so it is insensitive to overall gel dilution and transfers to recipes from unseen publications.",
+              "name": "inorganic_template_fraction",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "MOR",
+                "Failed",
+                "MFI",
+                "CHA",
+                "*BEA",
+                "MWW",
+                "MTW",
+                "AEI"
+              ]
+            }
+          },
+          "response_id": "2026101000175366288577c78b403b",
+          "usage": {
+            "completion_tokens": 1133,
+            "completion_tokens_details": {
+              "reasoning_tokens": 220
+            },
+            "prompt_tokens": 2306,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3439
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The descriptor treats all inorganic cations as interchangeable structure-directing agents, ignoring known cation-specific effects (e.g., Na vs K vs Cs favor different cages), and it weights cations purely by mole fraction rather than charge or hydration behavior. It assumes sda1 is the only organic directing species and ignores n_osda > 1 cases and fluoride-mediated, template-free routes where both pools are near zero (handled by the 1e-6 guard, which maps such recipes to ~0, i.e., toward the OSDA-like end — a known limitation). It also ignores Ca/Sr/Ba cases where the cation is a heteroatom or mineralizer rather than a template.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As inorganic_template_fraction increases toward 1 (cation-templated, OSDA-free gels), outcomes should shift toward FAU, LTA, MOR, and dense/amorphous Failed products. As it decreases toward 0 (OSDA-templated gels), outcomes should shift toward MFI, *BEA, CHA, MWW, MTW, AEI, and other OSDA-stabilized high-silica phases.",
+        "falsification": "The hypothesis is contradicted if OSDA-free, alkali-rich gels (inorg near 1) routinely yield OSDA-typical phases such as MFI or *BEA at similar framework Si fractions, or if OSDA-dominated gels (inorg near 0) yield FAU/LTA-type products in the same compositional region; equivalently, if the descriptor shows no separation of these outcome groups on held-out publications.",
+        "formula": "(Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (Na + K + Li + Rb + Cs + Ca + Sr + Ba + sda1 + 1e-6)",
+        "hypothesis": "The identity of the dominant structure-directing species — inorganic alkali/alkaline-earth cations versus a quaternary organic OSDA — is an emergent property of the ratio between the cation pool and the OSDA pool, not of either mole fraction alone. A recipe with Na = 0.10 and sda1 = 0.001 follows a fundamentally different crystallization route than Na = 0.001 and sda1 = 0.10 at the same framework Si fraction, yet a tree ensemble splitting one column at a time can never form this contrast. The descriptor inorg = (Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (Na + K + Li + Rb + Cs + Ca + Sr + Ba + sda1 + 1e-6) captures which species actually carries the structure direction. Values near 1 indicate cation-mediated, essentially OSDA-free routes; values near 0 indicate OSDA-directed syntheses; intermediate values indicate mixed inorganic/organic direction.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Alkali cations direct frameworks primarily by hydration-shell templating and by charge-compensating framework Al in low-silica, open frameworks (FAU, LTA, and related cage structures) and by stabilizing dense or layered intermediates that often recrystallize to amorphous or dense products. Bulky quaternary OSDAs instead occupy channel interiors and lock in larger-pore, often higher-silica frameworks (MFI, *BEA, CHA, MWW, MTW). Because the two templating regimes involve different nucleation barriers, different gel speciation (silicate oligomer distributions shift with cation identity and OSDA presence), and different framework charges, the cation-vs-OSDA balance shifts the competing crystallization pathways. The ratio is normalized, so it is insensitive to overall gel dilution and transfers to recipes from unseen publications.",
+        "name": "inorganic_template_fraction",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "MOR",
+          "Failed",
+          "MFI",
+          "CHA",
+          "*BEA",
+          "MWW",
+          "MTW",
+          "AEI"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "inorganic-vs-organic structure-directing balance: fraction of the total 'template pool' contributed by inorganic alkali/alkaline-earth cations versus the organic OSDA",
+        "queries": [],
+        "why": "Tree ensembles split one column at a time, so they can never form the emergent contrast between 'inorganic-templated' and 'OSDA-templated' recipes, even though both the individual cation mole fractions and sda1 are present. A recipe with Na = 0.10 and sda1 = 0.001 behaves fundamentally differently from Na = 0.001 and sda1 = 0.10 at the same framework Si fraction, but no single D0 column captures this. The descriptor inorg = (Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (Na + K + Li + Rb + Cs + Ca + Sr + Ba + sda1 + 1e-6) measures which species actually carries the structure direction: values near 1 correspond to cation-mediated, OSDA-free routes that favor FAU, LTA, MOR, and dense/Failed outcomes, while values near 0 correspond to OSDA-directed syntheses typical of MFI, *BEA, CHA, MWW, and related phases. It is also largely orthogonal to framework_si_fraction (which encodes the T-atom pool, not the directing species), and it generalizes across unseen publications because it is a normalized ratio rather than an absolute loading, so it should transfer to held-out papers. The 1e-6 guard keeps all-zero-template (e.g., purely fluoride-mediated) recipes finite."
+      },
+      "propose_prompt_sha256": "9c79505e9766f56a585caf58427ae9d8baa87373448960c9e51992516fd2deb1",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "6eee23a094d7e865b1d500cbf1390755e008b326ac47d9612f9d9e2a12cae855",
+          "raw_structured": {
+            "plan": {
+              "factor": "mineralizing-agent identity: fluoride versus hydroxide share of the mineralizer pool",
+              "queries": [],
+              "why": "The two mineralizers drive qualitatively different crystallization routes: fluoride media operate near neutral pH, minimize charge-balancing defects, and are the canonical route to high-silica, large-pore, low-framework-density phases (e.g., siliceous CHA, MTW, MFI, *BEA polymorph-scale selectivity), while hydroxide media operate at high pH, promote defect formation and faster dissolution/reprecipitation, and are associated with lower-silica products and amorphization/dense phases when too concentrated. Each recipe's mineralizer regime is an emergent property of the ratio F/(F+OH), not of the raw F or OH columns: because all species sum to 1, a given raw OH value can mean a genuinely alkaline route or simply a dilute gel, and a small absolute F can still be the dominant mineralizer in an otherwise mineralizer-poor gel. A tree ensemble splitting one column at a time cannot form the 'fluoride-dominated vs hydroxide-dominated vs mixed' contrast, especially since the already-appended framework-silicon and template descriptors deliberately exclude F and OH. Adding fluoride fraction lets the model condition the framework-composition and template-direction signals on the mineralization regime, which should sharpen separation within high-silica outcomes (fluoride-route phases vs hydroxide-route phases) and help distinguish controlled crystallization from Failed/amorphous outcomes at extreme alkalinity or fluoride starvation."
+            }
+          },
+          "response_id": "20261010001815f7cef1197ccc4d5b",
+          "usage": {
+            "completion_tokens": 878,
+            "completion_tokens_details": {
+              "reasoning_tokens": 534
+            },
+            "prompt_tokens": 2104,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 2982
+          }
+        },
+        {
+          "error": "redundant: rank-equivalent to existing column F (|rho|=1.00000)",
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes F and OH enter the synthesis as the only mineralizing agents and that their mole fractions reflect the effective mineralization strength; it ignores acid routes (no mineralizer at fraction ~0 is treated like hydroxide-free but not distinguished from pure-fluoride-free alkaline), organic amines' own deprotonation contribution, and the actual pH of the crystallizing liquor. It also assumes NH4F or HF-derived fluoride behaves like alkali fluoride and that fluoride and hydroxide are roughly additive in defining the mineralizer pool. Boundary value: a recipe with F = OH = 0 maps to ~0, conflating 'no mineralizer' with 'pure hydroxide'; the tree can partially disambiguate this using the raw OH column alongside.",
+              "evidence_ids": [],
+              "expected_effect": "As fluoride_mineralizer_fraction increases, high-silica and low-framework-density phases (siliceous CHA, MTW, MFI, *BEA, MEL, UTL/germanosilicates) should become more probable and hydroxide-typical lower-silica phases (FAU, LTA, MOR at low Si) less probable. As it decreases toward 0, hydroxide-route phases become more probable, and near-total mineralizer absence (both F and OH ~0) or extreme alkalinity combined with low framework-Si fraction should increase the probability of Failed/amorphous or dense-phase outcomes.",
+              "falsification": "The hypothesis is contradicted if product identity does not condition on the fluoride fraction — for example, if the same framework phases appear across the full range of F/(F+OH) at fixed framework-Si fraction and template fraction, or if fluoride-dominated gels systematically produce the same low-silica phases as hydroxide-dominated gels, or if Failed outcomes show no association with the extreme ends of the fraction scale.",
+              "formula": "F / (F + OH + 1e-6)",
+              "hypothesis": "The mineralizing-agent regime of a synthesis — fluoride-dominated, hydroxide-dominated, or mixed — is an emergent property of the ratio between the fluoride pool and the hydroxide pool, not of either raw mole fraction alone. Because all gel species sum to 1, a given raw OH value can reflect a genuinely alkaline route or merely a dilute gel, and a small absolute F can still be the dominant mineralizer in an otherwise mineralizer-poor gel. A tree ensemble splitting one column at a time cannot form the contrast between fluoride-route and hydroxide-route crystallization, and the previously appended framework-composition and template-direction descriptors deliberately exclude F and OH. Adding the fluoride fraction F/(F+OH) lets the model condition the framework-Si and template signals on the mineralization regime: as the fraction increases, products should shift toward low-defect, high-silica, lower-framework-density phases crystallized near neutral pH (siliceous CHA, MTW, MFI, *BEA, MEL, UTL-type germanosilicates); as it decreases toward hydroxide domination, products should shift toward lower-silica phases, denser frameworks, and, at extreme alkalinity or with poor gel control, Failed/amorphous outcomes.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Fluoride and hydroxide mineralize silica and alumina through chemically distinct routes. Hydroxide operates at high pH: it rapidly deprotonates and dissolves framework-forming species, promotes nucleation of defect-rich frameworks, requires inorganic or organic cations to charge-balance the resulting framework negative charges (AlO4- and silanol defects), and therefore biases products toward lower framework Si/Al ratios and higher densities. Fluoride operates near neutral pH: it solubilizes silicon as SiF6(2-)/fluorosilicate species slowly, is itself incorporated in small cages or double-four-ring units rather than requiring defect charge balance, suppresses silanol-defect formation, and thus enables crystallization of pure-silica or near-pure-silica, low-framework-density open phases that are inaccessible in hydroxide media. The fraction F/(F+OH) places each recipe on a continuum between these two regimes; the 1e-6 term stabilizes recipes containing neither mineralizer (fraction ~0), which typically fail to crystallize.",
+              "name": "fluoride_mineralizer_fraction",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "CHA",
+                "MTW",
+                "MFI",
+                "*BEA",
+                "MEL",
+                "UTL",
+                "BEC",
+                "STF",
+                "FER",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010001835afa7e23e60c24413",
+          "usage": {
+            "completion_tokens": 1056,
+            "completion_tokens_details": {
+              "reasoning_tokens": 36
+            },
+            "prompt_tokens": 2554,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3610
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "technical_repair",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "F",
+              "OH"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes F and OH enter the synthesis as the only mineralizing agents and that their mole fractions reflect the effective mineralization strength; it ignores acid routes (a mineralizer-free gel maps to log(0.5), an intermediate value, rather than being flagged as 'no mineralizer'), organic amines' own deprotonation contribution, and the actual pH of the crystallizing liquor. It also assumes NH4F- or HF-derived fluoride behaves like alkali fluoride and that the 1e-6 pseudo-count is small compared with typical mineralizer mole fractions so that positive log-ratios order recipes essentially by F and negative ones essentially by -OH. The log scale is monotone in F within fixed OH and monotone in -OH within fixed F, but it is not a monotone transform of either single column across the full dataset, which is what makes the regime contrast available to a univariate tree split.",
+              "evidence_ids": [],
+              "expected_effect": "As fluoride_mineralizer_logratio increases, high-silica and low-framework-density phases (siliceous CHA, MTW, MFI, *BEA, MEL, UTL/germanosilicates) should become more probable and hydroxide-typical lower-silica phases (FAU, LTA, MOR at low Si) less probable. As it decreases toward strongly negative values, hydroxide-route phases become more probable, and very negative values (strong hydroxide at zero fluoride) combined with low framework-Si fraction should increase the probability of Failed/amorphous or dense-phase outcomes.",
+              "falsification": "The hypothesis is contradicted if product identity does not condition on the fluoride-to-hydroxide balance — for example, if the same framework phases appear across the full range of the log-ratio at fixed framework-Si fraction and template fraction, or if fluoride-dominated gels systematically produce the same low-silica phases as hydroxide-dominated gels, or if Failed outcomes show no association with the strongly negative (hydroxide-dominated) end of the scale.",
+              "formula": "log((F + 1e-6) / (OH + 1e-6))",
+              "hypothesis": "The mineralizing-agent regime of a synthesis — fluoride-dominated, hydroxide-dominated, or mixed — is an emergent property of the balance between the fluoride pool and the hydroxide pool, not of either raw mole fraction alone. Because all gel species sum to 1, a given raw OH value can reflect a genuinely alkaline route or merely a dilute gel, and a small absolute F can still be the dominant mineralizer in an otherwise mineralizer-poor gel. A tree ensemble splitting one column at a time cannot form the contrast between fluoride-route and hydroxide-route crystallization, and the previously appended framework-composition and template-direction descriptors deliberately exclude F and OH. Expressing the balance as the log-ratio log((F+1e-6)/(OH+1e-6)) places each recipe on a signed, order-of-magnitude scale: as it increases, products should shift toward low-defect, high-silica, lower-framework-density phases crystallized near neutral pH (siliceous CHA, MTW, MFI, *BEA, MEL, UTL-type germanosilicates); as it decreases toward hydroxide domination, products should shift toward lower-silica phases, denser frameworks, and, at extreme alkalinity or with poor gel control, Failed/amorphous outcomes. Unlike a bounded fluoride fraction, the log scale also spreads out hydroxide-dominated recipes by their alkalinity (more negative values = stronger hydroxide mineralization at zero fluoride), which is where Failed and low-silica outcomes concentrate.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Fluoride and hydroxide mineralize silica and alumina through chemically distinct routes. Hydroxide operates at high pH: it rapidly deprotonates and dissolves framework-forming species, promotes nucleation of defect-rich frameworks, requires inorganic or organic cations to charge-balance the resulting framework negative charges (AlO4- and silanol defects), and therefore biases products toward lower framework Si/Al ratios and higher framework densities. Fluoride operates near neutral pH: it solubilizes silicon as SiF6(2-)/fluorosilicate species slowly, is itself incorporated in small cages or double-four-ring units rather than requiring defect charge balance, suppresses silanol-defect formation, and thus enables crystallization of pure-silica or near-pure-silica, low-framework-density open phases that are inaccessible in hydroxide media. The log-ratio encodes the ratio of the two mineralizer pools on a multiplicative scale, which matches the orders-of-magnitude span of F and OH mole fractions across recipes; the 1e-6 terms keep the expression finite for fluoride-free, hydroxide-free, and mineralizer-free gels (the latter mapping to log(0.5), an intermediate value reflecting that neither mineralizer is present).",
+              "name": "fluoride_mineralizer_logratio",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "CHA",
+                "MTW",
+                "MFI",
+                "*BEA",
+                "MEL",
+                "UTL",
+                "BEC",
+                "STF",
+                "FER",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610100018574d3679b0f4994fce",
+          "usage": {
+            "completion_tokens": 4014,
+            "completion_tokens_details": {
+              "reasoning_tokens": 2848
+            },
+            "prompt_tokens": 3606,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 7620
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes F and OH enter the synthesis as the only mineralizing agents and that their mole fractions reflect the effective mineralization strength; it ignores acid routes (a mineralizer-free gel maps to log(0.5), an intermediate value, rather than being flagged as 'no mineralizer'), organic amines' own deprotonation contribution, and the actual pH of the crystallizing liquor. It also assumes NH4F- or HF-derived fluoride behaves like alkali fluoride and that the 1e-6 pseudo-count is small compared with typical mineralizer mole fractions so that positive log-ratios order recipes essentially by F and negative ones essentially by -OH. The log scale is monotone in F within fixed OH and monotone in -OH within fixed F, but it is not a monotone transform of either single column across the full dataset, which is what makes the regime contrast available to a univariate tree split.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As fluoride_mineralizer_logratio increases, high-silica and low-framework-density phases (siliceous CHA, MTW, MFI, *BEA, MEL, UTL/germanosilicates) should become more probable and hydroxide-typical lower-silica phases (FAU, LTA, MOR at low Si) less probable. As it decreases toward strongly negative values, hydroxide-route phases become more probable, and very negative values (strong hydroxide at zero fluoride) combined with low framework-Si fraction should increase the probability of Failed/amorphous or dense-phase outcomes.",
+        "falsification": "The hypothesis is contradicted if product identity does not condition on the fluoride-to-hydroxide balance — for example, if the same framework phases appear across the full range of the log-ratio at fixed framework-Si fraction and template fraction, or if fluoride-dominated gels systematically produce the same low-silica phases as hydroxide-dominated gels, or if Failed outcomes show no association with the strongly negative (hydroxide-dominated) end of the scale.",
+        "formula": "log((F + 1e-6) / (OH + 1e-6))",
+        "hypothesis": "The mineralizing-agent regime of a synthesis — fluoride-dominated, hydroxide-dominated, or mixed — is an emergent property of the balance between the fluoride pool and the hydroxide pool, not of either raw mole fraction alone. Because all gel species sum to 1, a given raw OH value can reflect a genuinely alkaline route or merely a dilute gel, and a small absolute F can still be the dominant mineralizer in an otherwise mineralizer-poor gel. A tree ensemble splitting one column at a time cannot form the contrast between fluoride-route and hydroxide-route crystallization, and the previously appended framework-composition and template-direction descriptors deliberately exclude F and OH. Expressing the balance as the log-ratio log((F+1e-6)/(OH+1e-6)) places each recipe on a signed, order-of-magnitude scale: as it increases, products should shift toward low-defect, high-silica, lower-framework-density phases crystallized near neutral pH (siliceous CHA, MTW, MFI, *BEA, MEL, UTL-type germanosilicates); as it decreases toward hydroxide domination, products should shift toward lower-silica phases, denser frameworks, and, at extreme alkalinity or with poor gel control, Failed/amorphous outcomes. Unlike a bounded fluoride fraction, the log scale also spreads out hydroxide-dominated recipes by their alkalinity (more negative values = stronger hydroxide mineralization at zero fluoride), which is where Failed and low-silica outcomes concentrate.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Fluoride and hydroxide mineralize silica and alumina through chemically distinct routes. Hydroxide operates at high pH: it rapidly deprotonates and dissolves framework-forming species, promotes nucleation of defect-rich frameworks, requires inorganic or organic cations to charge-balance the resulting framework negative charges (AlO4- and silanol defects), and therefore biases products toward lower framework Si/Al ratios and higher framework densities. Fluoride operates near neutral pH: it solubilizes silicon as SiF6(2-)/fluorosilicate species slowly, is itself incorporated in small cages or double-four-ring units rather than requiring defect charge balance, suppresses silanol-defect formation, and thus enables crystallization of pure-silica or near-pure-silica, low-framework-density open phases that are inaccessible in hydroxide media. The log-ratio encodes the ratio of the two mineralizer pools on a multiplicative scale, which matches the orders-of-magnitude span of F and OH mole fractions across recipes; the 1e-6 terms keep the expression finite for fluoride-free, hydroxide-free, and mineralizer-free gels (the latter mapping to log(0.5), an intermediate value reflecting that neither mineralizer is present).",
+        "name": "fluoride_mineralizer_logratio",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "CHA",
+          "MTW",
+          "MFI",
+          "*BEA",
+          "MEL",
+          "UTL",
+          "BEC",
+          "STF",
+          "FER",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "mineralizing-agent identity: fluoride versus hydroxide share of the mineralizer pool",
+        "queries": [],
+        "why": "The two mineralizers drive qualitatively different crystallization routes: fluoride media operate near neutral pH, minimize charge-balancing defects, and are the canonical route to high-silica, large-pore, low-framework-density phases (e.g., siliceous CHA, MTW, MFI, *BEA polymorph-scale selectivity), while hydroxide media operate at high pH, promote defect formation and faster dissolution/reprecipitation, and are associated with lower-silica products and amorphization/dense phases when too concentrated. Each recipe's mineralizer regime is an emergent property of the ratio F/(F+OH), not of the raw F or OH columns: because all species sum to 1, a given raw OH value can mean a genuinely alkaline route or simply a dilute gel, and a small absolute F can still be the dominant mineralizer in an otherwise mineralizer-poor gel. A tree ensemble splitting one column at a time cannot form the 'fluoride-dominated vs hydroxide-dominated vs mixed' contrast, especially since the already-appended framework-silicon and template descriptors deliberately exclude F and OH. Adding fluoride fraction lets the model condition the framework-composition and template-direction signals on the mineralization regime, which should sharpen separation within high-silica outcomes (fluoride-route phases vs hydroxide-route phases) and help distinguish controlled crystallization from Failed/amorphous outcomes at extreme alkalinity or fluoride starvation."
+      },
+      "propose_prompt_sha256": "8d2420f4fd31950b85250230ecead4882f3531ebca0cc89bbba7bbbd84e8a112",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}

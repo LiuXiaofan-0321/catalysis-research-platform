@@ -1,0 +1,3 @@
+00:25:03 kg r1 round 1: [alkalinity of the gel, encoded as the hydroxide-to] OH / (Si + 1e-6)
+00:25:34 kg r1 round 2: [gel dilution: water-to-framework-elements ratio] H2O / (Si + Al + P + 1e-6)
+00:26:16 kg r1 round 3: [OSDA charge density relative to framework-forming ] (osda_charge * sda1) / (Si + Al + P + 1e-6)

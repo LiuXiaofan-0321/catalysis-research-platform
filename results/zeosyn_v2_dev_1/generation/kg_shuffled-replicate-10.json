@@ -1,0 +1,607 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "Si / (Al + 1e-6)",
+      "name": "gel_si_al_ratio"
+    },
+    {
+      "formula": "OH / (Si + 1e-6)",
+      "name": "gel_alkalinity_oh_si"
+    },
+    {
+      "formula": "osda_charge / (osda_volume + 1e-6)",
+      "name": "osda_charge_density"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "kg_shuffled",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 10,
+  "seconds": 112.7296736240387,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "ac8c097cb70f72e32fca2b6e3a612e3658cd96b5655e8ac93c69742730bf0d50",
+          "raw_structured": {
+            "plan": {
+              "factor": "Gel Si/Al ratio, encoded as Si / (Al + 1e-6) (mole-fraction ratio of silica to alumina in the gel)",
+              "queries": [
+                "which frameworks form from Na gels with Si/Al below 2 versus above 10",
+                "typical gel Si/Al for MFI versus FAU versus CHA syntheses"
+              ],
+              "why": "D0 gives Si and Al only as individual mole fractions that share a common sum-to-1 normalization, so a tree split on either column mostly reflects overall gel concentration rather than composition. Si/Al is the single most classical zeolite-selectivity variable: low Si/Al with Na drives low-silica frameworks (FAU, LTA, CHA, MOR), intermediate values favor MFI, and very high or purely siliceous gels (often fluoride-mediated) favor MTW, *BEA, and high-silica phases. The classifier cannot form this ratio from one-column splits, and the existing KG feature (kg_osda_median_product_si_al) describes the OSDA's typical products elsewhere, not the actual gel of the current recipe. A ratio transfers directly to unseen papers because it is scale-free and not tied to the normalization convention of a specific publication."
+            }
+          },
+          "response_id": "2026101000301691d83180a9044863",
+          "usage": {
+            "completion_tokens": 768,
+            "completion_tokens_details": {
+              "reasoning_tokens": 481
+            },
+            "prompt_tokens": 2270,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3038
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes Al is the only framework-forming trivalent species considered; when Ga, B, Zn, or Ge substitute (Ga for Al chemistry, B/Zn/Ge for low-silica or large-pore phases), the raw Si/(Al) ratio understates the effective heteroatom loading. The 1e-6 constant makes the ratio explode for Al-free gels; trees handle this as an extreme-value region corresponding to siliceous syntheses, but it means the descriptor conflates 'trace Al' with 'zero Al'. It also assumes gel mole fractions reflect the reactive species (not occluded/insoluble alumina), and ignores OH/mineralizer effects on Al solubility.",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor increases from ~1 to very large values (Al-poor gels), the predicted outcome should shift from low-silica frameworks (FAU, LTA) through intermediate-pore aluminosilicates (CHA, MOR, MFI) toward high-silica/siliceous frameworks (MTW, *BEA, MWW) and silica polymorphs; extremely alumina-poor gels without OSDA/inorganic directing agents should more often map to dense or Failed outcomes rather than open frameworks.",
+              "falsification": "If held-out accuracy does not improve (or drops) when this ratio is added, or if tree importance for gel_si_al_ratio is negligible while e.g. kg_osda_top_framework already captures product identity, then gel Si/Al is not an independent selectivity variable in this dataset — e.g. because OSDA identity and alkali content dominate, or because the ratio is confounded with gel dilution (H2O) in a way single-column splits already exploit.",
+              "formula": "Si / (Al + 1e-6)",
+              "hypothesis": "The gel Si/Al mole-fraction ratio is a primary determinant of which framework crystallizes: low Si/Al (silica-poor, alumina-rich) alkaline gels favor low-silica frameworks such as FAU, LTA, and CHA; intermediate ratios (roughly 10-100 in conventional terms) favor medium-pore MFI and MEL; high ratios and purely siliceous gels (often fluoride-mediated) favor high-silica phases such as MTW, *BEA, and MWW. Since D0 only provides Si and Al as individually normalized mole fractions sharing a sum-to-1 constraint, a single-column split cannot express this composition ratio; appending it lets the fixed forest separate silica-rich from alumina-rich recipes.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Framework framework density and framework aluminum content are thermodynamically coupled: low-silica gels nucleate frameworks with high framework density and high Al site density (FAU, LTA) because AlO4- charges must be balanced by extra-framework cations that template those cages; as Si/Al rises, fewer anionic sites are needed and frameworks with lower Al content and larger, more hydrophobic pores (MFI, MTW, *BEA) become competitive. In near-neutral fluoride media, syntheses are typically siliceous, so a high ratio also flags the fluoride/OSDA route to high-silica polymorphs. The ratio is scale-free, so it transfers across papers with different normalization conventions.",
+              "name": "gel_si_al_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "CHA",
+                "MOR",
+                "MFI",
+                "MTW",
+                "*BEA",
+                "MWW"
+              ]
+            }
+          },
+          "response_id": "20261010003035ed5c9a0bdfc64a4e",
+          "usage": {
+            "completion_tokens": 993,
+            "completion_tokens_details": {
+              "reasoning_tokens": 189
+            },
+            "prompt_tokens": 2982,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3975
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes Al is the only framework-forming trivalent species considered; when Ga, B, Zn, or Ge substitute (Ga for Al chemistry, B/Zn/Ge for low-silica or large-pore phases), the raw Si/(Al) ratio understates the effective heteroatom loading. The 1e-6 constant makes the ratio explode for Al-free gels; trees handle this as an extreme-value region corresponding to siliceous syntheses, but it means the descriptor conflates 'trace Al' with 'zero Al'. It also assumes gel mole fractions reflect the reactive species (not occluded/insoluble alumina), and ignores OH/mineralizer effects on Al solubility.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor increases from ~1 to very large values (Al-poor gels), the predicted outcome should shift from low-silica frameworks (FAU, LTA) through intermediate-pore aluminosilicates (CHA, MOR, MFI) toward high-silica/siliceous frameworks (MTW, *BEA, MWW) and silica polymorphs; extremely alumina-poor gels without OSDA/inorganic directing agents should more often map to dense or Failed outcomes rather than open frameworks.",
+        "falsification": "If held-out accuracy does not improve (or drops) when this ratio is added, or if tree importance for gel_si_al_ratio is negligible while e.g. kg_osda_top_framework already captures product identity, then gel Si/Al is not an independent selectivity variable in this dataset — e.g. because OSDA identity and alkali content dominate, or because the ratio is confounded with gel dilution (H2O) in a way single-column splits already exploit.",
+        "formula": "Si / (Al + 1e-6)",
+        "hypothesis": "The gel Si/Al mole-fraction ratio is a primary determinant of which framework crystallizes: low Si/Al (silica-poor, alumina-rich) alkaline gels favor low-silica frameworks such as FAU, LTA, and CHA; intermediate ratios (roughly 10-100 in conventional terms) favor medium-pore MFI and MEL; high ratios and purely siliceous gels (often fluoride-mediated) favor high-silica phases such as MTW, *BEA, and MWW. Since D0 only provides Si and Al as individually normalized mole fractions sharing a sum-to-1 constraint, a single-column split cannot express this composition ratio; appending it lets the fixed forest separate silica-rich from alumina-rich recipes.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Framework framework density and framework aluminum content are thermodynamically coupled: low-silica gels nucleate frameworks with high framework density and high Al site density (FAU, LTA) because AlO4- charges must be balanced by extra-framework cations that template those cages; as Si/Al rises, fewer anionic sites are needed and frameworks with lower Al content and larger, more hydrophobic pores (MFI, MTW, *BEA) become competitive. In near-neutral fluoride media, syntheses are typically siliceous, so a high ratio also flags the fluoride/OSDA route to high-silica polymorphs. The ratio is scale-free, so it transfers across papers with different normalization conventions.",
+        "name": "gel_si_al_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "CHA",
+          "MOR",
+          "MFI",
+          "MTW",
+          "*BEA",
+          "MWW"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "f48d235f45af7253859a59e1adeec9bdbed4cea02ff000dafecef530ce139c74",
+        "items": [
+          {
+            "id": 1,
+            "key": "framework:CHA",
+            "tokens": 90
+          },
+          {
+            "id": 2,
+            "key": "framework:FAU",
+            "tokens": 96
+          },
+          {
+            "id": 3,
+            "key": "framework:MFI",
+            "tokens": 90
+          }
+        ],
+        "linking": [
+          {
+            "conditions": [],
+            "frameworks": [],
+            "osdas": [],
+            "query": "which frameworks form from Na gels with Si/Al below 2 versus above 10"
+          },
+          {
+            "conditions": [],
+            "frameworks": [
+              "CHA",
+              "FAU",
+              "MFI"
+            ],
+            "osdas": [],
+            "query": "typical gel Si/Al for MFI versus FAU versus CHA syntheses"
+          }
+        ],
+        "tokens": 276
+      },
+      "plan": {
+        "factor": "Gel Si/Al ratio, encoded as Si / (Al + 1e-6) (mole-fraction ratio of silica to alumina in the gel)",
+        "queries": [
+          "which frameworks form from Na gels with Si/Al below 2 versus above 10",
+          "typical gel Si/Al for MFI versus FAU versus CHA syntheses"
+        ],
+        "why": "D0 gives Si and Al only as individual mole fractions that share a common sum-to-1 normalization, so a tree split on either column mostly reflects overall gel concentration rather than composition. Si/Al is the single most classical zeolite-selectivity variable: low Si/Al with Na drives low-silica frameworks (FAU, LTA, CHA, MOR), intermediate values favor MFI, and very high or purely siliceous gels (often fluoride-mediated) favor MTW, *BEA, and high-silica phases. The classifier cannot form this ratio from one-column splits, and the existing KG feature (kg_osda_median_product_si_al) describes the OSDA's typical products elsewhere, not the actual gel of the current recipe. A ratio transfers directly to unseen papers because it is scale-free and not tied to the normalization convention of a specific publication."
+      },
+      "propose_prompt_sha256": "17c9d5fd7abb2802d2c8344e8ec72b17683506a75845f6e1e34d11fd2a9df6db",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "5f393862e481a540ed785cd44380f911a8fd3931632e4904c1d8fb4db394dcbc",
+          "raw_structured": {
+            "plan": {
+              "factor": "Gel alkalinity: the hydroxide-to-silica ratio (OH/Si), which sets the basicity of the crystallization medium",
+              "queries": [
+                "frameworks obtained from fluoride-medium versus hydroxide-medium high-silica syntheses (e.g. MTW, *BEA, MWW)",
+                "effect of high OH/Si alkalinity on crystallization of low-silica frameworks FAU, LTA, CHA and amorphous/Failed outcomes"
+              ],
+              "why": "Alkalinity is one of the strongest levers in zeolite synthesis, but D0 only contains OH and Si as separately normalized mole fractions constrained to sum to 1. A tree ensemble splitting on one column at a time cannot express their ratio, so the model cannot distinguish a concentrated alkaline gel from a dilute near-neutral gel at the same OH or Si mole fraction. Low alkalinity (small OH/Si, often fluoride-mediated) favors high-silica, defect-poor phases such as MTW, *BEA and MWW; intermediate alkalinity favors MFI and MEL; high alkalinity (large OH/Si) dissolves silica aggressively, accelerates nucleation, and favors low-silica, small or cage-containing phases such as FAU, LTA, CHA and SOD, as well as Failed (dense/amorphous) outcomes when extreme. Since Si/Al was already encoded in round 1, alkalinity adds an orthogonal and independent axis of the synthesis space that the fixed forest currently cannot access."
+            }
+          },
+          "response_id": "20261010003057f83f0eafad754fdf",
+          "usage": {
+            "completion_tokens": 585,
+            "completion_tokens_details": {
+              "reasoning_tokens": 244
+            },
+            "prompt_tokens": 2455,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3040
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "OH",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "OH mole fraction is taken as the total mineralizer (organic base from OSDA1 hydroxide or added NaOH/KOH not fully captured if the record uses other bases such as ammonia or amines, which this formula ignores). Fluoride is not included in the ratio, so a fluoride-mediated near-neutral gel and a genuinely mineralizer-poor gel share the same low value; the KG shows ~25-27% fluoride use for *BEA/MTW and ~1-3% for FAU/LTA (items 1, 2, 6, 7), so this conflation is mostly benign for the low-Si/Al end but limits resolution in the fluoride regime. Si here is the gel mole fraction, so the ratio is a composition-normalized alkalinity rather than a physical molarity; it cannot capture dilution effects (water content) or seed-mediated syntheses that override alkalinity effects.",
+              "evidence_ids": [
+                1,
+                2,
+                4,
+                6,
+                7
+              ],
+              "expected_effect": "As gel_alkalinity_oh_si increases: predictions should shift from high-silica phases (MTW, *BEA, MWW, often fluoride-mediated) through MFI/MEL at intermediate values toward low-silica cage phases (FAU, LTA, CHA, SOD-type outcomes) at high values; at extreme values the model should predict Failed (dense/amorphous) more often. In particular, recipes with low OH/Si and no fluoride should increasingly map to high-silica large-pore frameworks rather than Failed.",
+              "falsification": "If, after appending the descriptor, the forest's performance on held-out publications does not change, or if low-Si/Al and high-Si/Al gels at equal OH/Si nevertheless require the same alkalinity split (i.e., no OSM-specialization emerges), or if KG evidence showed that FAU/LTA-type low-silica products are obtained at the same OH/Si ratios as fluoride-mediated *BEA/MTW syntheses, the hypothesis would be contradicted. It would also be falsified if extreme OH/Si did not associate with Failed/dense outcomes but instead with specific crystalline frameworks consistently.",
+              "formula": "OH / (Si + 1e-6)",
+              "hypothesis": "Gel alkalinity, expressed as the hydroxide-to-silica mole-fraction ratio, is a primary control on which framework crystallizes: low OH/Si (near-neutral or fluoride-mediated gels) favors high-silica large/medium-pore phases such as *BEA, MTW and MWW; intermediate OH/Si favors MFI and MEL; high OH/Si aggressively dissolves silica and alumina species, accelerating nucleation and favoring low-silica cage-containing phases such as FAU, LTA and CHA, with extreme values driving dense or amorphous (Failed) products.",
+              "knowledge_source": "both",
+              "mechanism": "Hydroxide concentration sets the dissolution rate of the amorphous gel and the speciation of silicate (Qn distribution) and aluminate in solution. At low OH/Si, mineralizing power is weak and slow dissolution favors thermodynamically stable, defect-poor frameworks on thermodynamic-synthesis routes, which in practice are often fluoride-mediated: fluoride both supplies mineralizing capacity at low pH and stabilizes small D4R-containing silica-rich frameworks. KG data confirm this regime split: fluoride-medium syntheses produce *BEA and MFI as the dominant products (25% and 21% respectively, large-pore 41% and medium-pore 41%), while high-silica frameworks *BEA and MTW are prepared in fluoride medium in ~25-27% of cases (items 1, 2, 4), compared with only ~1-3% fluoride use for the low-silica hydroxide-route frameworks FAU (1%, median T 100 C) and LTA (3%, median T 90 C) (items 6, 7), which require strongly alkaline gels. At high OH/Si, rapid dissolution raises supersaturation of aluminosilicate oligomers, favoring the nucleation of low framework-density, low Si/Al cages phases (FAU, LTA, CHA/lev-type), and at extreme alkalinity metastable amorphous or dense phases dominate (Failed). Because D0 stores OH and Si only as separately normalized mole fractions under a sum-to-1 constraint, a single-column split in a tree ensemble cannot represent their ratio; appending it makes alkalinity directly splittable.",
+              "name": "gel_alkalinity_oh_si",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "CHA",
+                "*BEA",
+                "MTW",
+                "MWW",
+                "MFI",
+                "MEL",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010003109b484ba552143443c",
+          "usage": {
+            "completion_tokens": 1117,
+            "completion_tokens_details": {
+              "reasoning_tokens": 55
+            },
+            "prompt_tokens": 3659,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 4776
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "OH mole fraction is taken as the total mineralizer (organic base from OSDA1 hydroxide or added NaOH/KOH not fully captured if the record uses other bases such as ammonia or amines, which this formula ignores). Fluoride is not included in the ratio, so a fluoride-mediated near-neutral gel and a genuinely mineralizer-poor gel share the same low value; the KG shows ~25-27% fluoride use for *BEA/MTW and ~1-3% for FAU/LTA (items 1, 2, 6, 7), so this conflation is mostly benign for the low-Si/Al end but limits resolution in the fluoride regime. Si here is the gel mole fraction, so the ratio is a composition-normalized alkalinity rather than a physical molarity; it cannot capture dilution effects (water content) or seed-mediated syntheses that override alkalinity effects.",
+        "cited_evidence_keys": [
+          "framework:*BEA",
+          "framework:MTW",
+          "condition:fluoride medium",
+          "framework:FAU",
+          "framework:LTA"
+        ],
+        "evidence_ids": [
+          1,
+          2,
+          4,
+          6,
+          7
+        ],
+        "expected_effect": "As gel_alkalinity_oh_si increases: predictions should shift from high-silica phases (MTW, *BEA, MWW, often fluoride-mediated) through MFI/MEL at intermediate values toward low-silica cage phases (FAU, LTA, CHA, SOD-type outcomes) at high values; at extreme values the model should predict Failed (dense/amorphous) more often. In particular, recipes with low OH/Si and no fluoride should increasingly map to high-silica large-pore frameworks rather than Failed.",
+        "falsification": "If, after appending the descriptor, the forest's performance on held-out publications does not change, or if low-Si/Al and high-Si/Al gels at equal OH/Si nevertheless require the same alkalinity split (i.e., no OSM-specialization emerges), or if KG evidence showed that FAU/LTA-type low-silica products are obtained at the same OH/Si ratios as fluoride-mediated *BEA/MTW syntheses, the hypothesis would be contradicted. It would also be falsified if extreme OH/Si did not associate with Failed/dense outcomes but instead with specific crystalline frameworks consistently.",
+        "formula": "OH / (Si + 1e-6)",
+        "hypothesis": "Gel alkalinity, expressed as the hydroxide-to-silica mole-fraction ratio, is a primary control on which framework crystallizes: low OH/Si (near-neutral or fluoride-mediated gels) favors high-silica large/medium-pore phases such as *BEA, MTW and MWW; intermediate OH/Si favors MFI and MEL; high OH/Si aggressively dissolves silica and alumina species, accelerating nucleation and favoring low-silica cage-containing phases such as FAU, LTA and CHA, with extreme values driving dense or amorphous (Failed) products.",
+        "knowledge_source": "both",
+        "mechanism": "Hydroxide concentration sets the dissolution rate of the amorphous gel and the speciation of silicate (Qn distribution) and aluminate in solution. At low OH/Si, mineralizing power is weak and slow dissolution favors thermodynamically stable, defect-poor frameworks on thermodynamic-synthesis routes, which in practice are often fluoride-mediated: fluoride both supplies mineralizing capacity at low pH and stabilizes small D4R-containing silica-rich frameworks. KG data confirm this regime split: fluoride-medium syntheses produce *BEA and MFI as the dominant products (25% and 21% respectively, large-pore 41% and medium-pore 41%), while high-silica frameworks *BEA and MTW are prepared in fluoride medium in ~25-27% of cases (items 1, 2, 4), compared with only ~1-3% fluoride use for the low-silica hydroxide-route frameworks FAU (1%, median T 100 C) and LTA (3%, median T 90 C) (items 6, 7), which require strongly alkaline gels. At high OH/Si, rapid dissolution raises supersaturation of aluminosilicate oligomers, favoring the nucleation of low framework-density, low Si/Al cages phases (FAU, LTA, CHA/lev-type), and at extreme alkalinity metastable amorphous or dense phases dominate (Failed). Because D0 stores OH and Si only as separately normalized mole fractions under a sum-to-1 constraint, a single-column split in a tree ensemble cannot represent their ratio; appending it makes alkalinity directly splittable.",
+        "name": "gel_alkalinity_oh_si",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "CHA",
+          "*BEA",
+          "MTW",
+          "MWW",
+          "MFI",
+          "MEL",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "2964c8972a9dd763588217865b8701c5027c8958508df27ade11ea628acdd197",
+        "items": [
+          {
+            "id": 1,
+            "key": "framework:*BEA",
+            "tokens": 87
+          },
+          {
+            "id": 2,
+            "key": "framework:MTW",
+            "tokens": 84
+          },
+          {
+            "id": 3,
+            "key": "framework:MWW",
+            "tokens": 88
+          },
+          {
+            "id": 4,
+            "key": "condition:fluoride medium",
+            "tokens": 62
+          },
+          {
+            "id": 5,
+            "key": "framework:CHA",
+            "tokens": 90
+          },
+          {
+            "id": 6,
+            "key": "framework:FAU",
+            "tokens": 96
+          },
+          {
+            "id": 7,
+            "key": "framework:LTA",
+            "tokens": 90
+          }
+        ],
+        "linking": [
+          {
+            "conditions": [
+              "fluoride medium"
+            ],
+            "frameworks": [
+              "*BEA",
+              "MTW",
+              "MWW"
+            ],
+            "osdas": [],
+            "query": "frameworks obtained from fluoride-medium versus hydroxide-medium high-silica syntheses (e.g. MTW, *BEA, MWW)"
+          },
+          {
+            "conditions": [],
+            "frameworks": [
+              "CHA",
+              "FAU",
+              "LTA"
+            ],
+            "osdas": [],
+            "query": "effect of high OH/Si alkalinity on crystallization of low-silica frameworks FAU, LTA, CHA and amorphous/Failed outcomes"
+          }
+        ],
+        "tokens": 597
+      },
+      "plan": {
+        "factor": "Gel alkalinity: the hydroxide-to-silica ratio (OH/Si), which sets the basicity of the crystallization medium",
+        "queries": [
+          "frameworks obtained from fluoride-medium versus hydroxide-medium high-silica syntheses (e.g. MTW, *BEA, MWW)",
+          "effect of high OH/Si alkalinity on crystallization of low-silica frameworks FAU, LTA, CHA and amorphous/Failed outcomes"
+        ],
+        "why": "Alkalinity is one of the strongest levers in zeolite synthesis, but D0 only contains OH and Si as separately normalized mole fractions constrained to sum to 1. A tree ensemble splitting on one column at a time cannot express their ratio, so the model cannot distinguish a concentrated alkaline gel from a dilute near-neutral gel at the same OH or Si mole fraction. Low alkalinity (small OH/Si, often fluoride-mediated) favors high-silica, defect-poor phases such as MTW, *BEA and MWW; intermediate alkalinity favors MFI and MEL; high alkalinity (large OH/Si) dissolves silica aggressively, accelerates nucleation, and favors low-silica, small or cage-containing phases such as FAU, LTA, CHA and SOD, as well as Failed (dense/amorphous) outcomes when extreme. Since Si/Al was already encoded in round 1, alkalinity adds an orthogonal and independent axis of the synthesis space that the fixed forest currently cannot access."
+      },
+      "propose_prompt_sha256": "4ad64355aba75d69c10fef4b52dda0f093a890c08460dfaa00e2611287f42cfb",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "28df833b9c76f261e506356b23054e2fd36c2eacc67853a13b16711738520035",
+          "raw_structured": {
+            "plan": {
+              "factor": "OSDA charge density (formal charge per molecular volume)",
+              "queries": [
+                "TEA+ TPA+ charge density frameworks *BEA vs MFI",
+                "high charge density OSDA small-pore CHA AEI LTA"
+              ],
+              "why": "The charge density of an organic structure-directing agent (formal charge divided by its van der Waals volume) is a well-established determinant of which framework an OSDA directs: high charge-density cations stabilize small-pore, cage-containing frameworks (CHA, LTA, AEI, LEV) and require high OH- or F- content to balance them, whereas low charge-density bulky cations favor large-pore, lower-density frameworks (*BEA, MTW, MWW, UTL), and neutral molecules mainly act as space fillers for dense/siliceous phases (MFI, MEL, and many Failed outcomes). The classifier receives osda_charge and osda_volume as separate D0 columns, but a tree can only threshold one at a time; the physically meaningful quantity is their ratio, which cannot be expressed by any single-column split. It is also robust across unseen papers because it is an intrinsic OSDA property, independent of the specific gel ratios of the training publications, so it should transfer well under the held-out-publication evaluation."
+            }
+          },
+          "response_id": "2026101000313338189f0f0ec84a8b",
+          "usage": {
+            "completion_tokens": 727,
+            "completion_tokens_details": {
+              "reasoning_tokens": 433
+            },
+            "prompt_tokens": 2604,
+            "prompt_tokens_details": {
+              "cached_tokens": 320
+            },
+            "total_tokens": 3331
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "osda_charge",
+              "osda_volume"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Volume of a single conformer is taken as a proxy for the OSDA's effective steric bulk; formal charge is assumed to be fully delocalized over the molecule and to need balancing by gel OH-/F- (the gel-side charge balance is captured by the already-appended OH/Si descriptor, so this descriptor isolates the OSDA side). Molecules with no OSDA have osda_charge = 0 and osda_volume = 0, so the +1e-6 denominator gives a value of 0 rather than a division error; inorganic-only recipes (e.g., Na-directed FAU/LTA) will share charge density 0 with neutral-OSDA recipes, a known limitation the forest must resolve with other columns. The descriptor ignores charge distribution (e.g., two charges at one end vs. spread) and conformational flexibility.",
+              "evidence_ids": [
+                1,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+              ],
+              "expected_effect": "As osda_charge_density increases: probability mass shifts from *BEA, MTW, MWW, UTL, MFI, MEL and Failed toward CHA, LTA, AEI and LEV; zero charge density (neutral OSDAs) should concentrate on MFI, MEL and dense/Failed outcomes. Intermediate values should favor large-pore phases (*BEA, MTW).",
+              "falsification": "If high charge density (multi-quaternary, compact cations) still predominantly yields large-pore frameworks such as *BEA or MTW, or if neutral bulky OSDAs routinely give small-pore cage frameworks (CHA, LTA, AEI), the charge-density hypothesis is contradicted. Evidence check: triethylamine (compact, +1, small volume, thus high charge density) gives 45% small-pore products including LTA and AEI (item 4), whereas tetrapropylammonium (+1, large volume, low charge density) gives 52% medium-pore and 24% large-pore products dominated by MFI and *BEA (items 3, 5, 6); if this ordering reversed in held-out publications, the descriptor fails.",
+              "formula": "osda_charge / (osda_volume + 1e-6)",
+              "hypothesis": "The formal charge of the OSDA per unit of its van der Waals volume (charge density) steers which framework crystallizes: increasing charge density should shift outcomes from large-pore, low-framework-density phases (*BEA, MTW, MWW, UTL) and dense/siliceous phases (MFI, MEL, Failed) toward small-pore, cage-containing frameworks (CHA, LTA, AEI, LEV), with the highest charge densities favoring the cage frameworks and 'Failed'/dense products when charge density is extreme and cannot be accommodated.",
+              "knowledge_source": "both",
+              "mechanism": "A bulky monocation like tetrapropylammonium (one +1 charge spread over a large volume) fills pore space primarily by steric fit, templating large, low-density frameworks such as *BEA and MFI. A compact cation or a molecule bearing multiple quaternary centres (charge +2 or +3 in a modest volume) has high charge density; balancing its charge requires proportionally more OH- or F-, and the dense electrostatic interaction between the small cation and the anionic aluminosilicate or aluminophosphate framework stabilizes frameworks with small cages (CHA, LTA, AEI, LEV) where each cage traps one or a few highly charged cations. Neutral OSDAs (charge 0) act as passive space fillers and mostly give MFI/MEL-type or dense/failed products. D0 provides osda_charge and osda_volume as separate columns; a single-column threshold cannot express their ratio, so appending the ratio lets the forest split directly on the physically meaningful quantity. Because it is an intrinsic OSDA property independent of gel ratios of any particular publication, it should transfer to recipes from unseen papers.",
+              "name": "osda_charge_density",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "CHA",
+                "LTA",
+                "AEI",
+                "LEV",
+                "*BEA",
+                "MTW",
+                "MWW",
+                "UTL",
+                "MFI",
+                "MEL",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010003150927ef3e93c3b4890",
+          "usage": {
+            "completion_tokens": 991,
+            "completion_tokens_details": {
+              "reasoning_tokens": 39
+            },
+            "prompt_tokens": 3930,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 4921
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Volume of a single conformer is taken as a proxy for the OSDA's effective steric bulk; formal charge is assumed to be fully delocalized over the molecule and to need balancing by gel OH-/F- (the gel-side charge balance is captured by the already-appended OH/Si descriptor, so this descriptor isolates the OSDA side). Molecules with no OSDA have osda_charge = 0 and osda_volume = 0, so the +1e-6 denominator gives a value of 0 rather than a division error; inorganic-only recipes (e.g., Na-directed FAU/LTA) will share charge density 0 with neutral-OSDA recipes, a known limitation the forest must resolve with other columns. The descriptor ignores charge distribution (e.g., two charges at one end vs. spread) and conformational flexibility.",
+        "cited_evidence_keys": [
+          "osda:CBXCPBUEXACCNR-UHFFFAOYSA-N",
+          "osda:OSBSFAARYOCBHB-UHFFFAOYSA-N",
+          "osda:ZMANZCXQSJIPKH-UHFFFAOYSA-N",
+          "framework:*BEA",
+          "framework:MFI",
+          "framework:AEI",
+          "framework:CHA",
+          "framework:LTA"
+        ],
+        "evidence_ids": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "expected_effect": "As osda_charge_density increases: probability mass shifts from *BEA, MTW, MWW, UTL, MFI, MEL and Failed toward CHA, LTA, AEI and LEV; zero charge density (neutral OSDAs) should concentrate on MFI, MEL and dense/Failed outcomes. Intermediate values should favor large-pore phases (*BEA, MTW).",
+        "falsification": "If high charge density (multi-quaternary, compact cations) still predominantly yields large-pore frameworks such as *BEA or MTW, or if neutral bulky OSDAs routinely give small-pore cage frameworks (CHA, LTA, AEI), the charge-density hypothesis is contradicted. Evidence check: triethylamine (compact, +1, small volume, thus high charge density) gives 45% small-pore products including LTA and AEI (item 4), whereas tetrapropylammonium (+1, large volume, low charge density) gives 52% medium-pore and 24% large-pore products dominated by MFI and *BEA (items 3, 5, 6); if this ordering reversed in held-out publications, the descriptor fails.",
+        "formula": "osda_charge / (osda_volume + 1e-6)",
+        "hypothesis": "The formal charge of the OSDA per unit of its van der Waals volume (charge density) steers which framework crystallizes: increasing charge density should shift outcomes from large-pore, low-framework-density phases (*BEA, MTW, MWW, UTL) and dense/siliceous phases (MFI, MEL, Failed) toward small-pore, cage-containing frameworks (CHA, LTA, AEI, LEV), with the highest charge densities favoring the cage frameworks and 'Failed'/dense products when charge density is extreme and cannot be accommodated.",
+        "knowledge_source": "both",
+        "mechanism": "A bulky monocation like tetrapropylammonium (one +1 charge spread over a large volume) fills pore space primarily by steric fit, templating large, low-density frameworks such as *BEA and MFI. A compact cation or a molecule bearing multiple quaternary centres (charge +2 or +3 in a modest volume) has high charge density; balancing its charge requires proportionally more OH- or F-, and the dense electrostatic interaction between the small cation and the anionic aluminosilicate or aluminophosphate framework stabilizes frameworks with small cages (CHA, LTA, AEI, LEV) where each cage traps one or a few highly charged cations. Neutral OSDAs (charge 0) act as passive space fillers and mostly give MFI/MEL-type or dense/failed products. D0 provides osda_charge and osda_volume as separate columns; a single-column threshold cannot express their ratio, so appending the ratio lets the forest split directly on the physically meaningful quantity. Because it is an intrinsic OSDA property independent of gel ratios of any particular publication, it should transfer to recipes from unseen papers.",
+        "name": "osda_charge_density",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "CHA",
+          "LTA",
+          "AEI",
+          "LEV",
+          "*BEA",
+          "MTW",
+          "MWW",
+          "UTL",
+          "MFI",
+          "MEL",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "415514947c03fce3b1b33fafd8f52bbb0823002bfb808b076b531216cc390a1b",
+        "items": [
+          {
+            "id": 1,
+            "key": "osda:CBXCPBUEXACCNR-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 2,
+            "key": "osda:GSEJCLTVZPLZKY-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 3,
+            "key": "osda:OSBSFAARYOCBHB-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 4,
+            "key": "osda:ZMANZCXQSJIPKH-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 5,
+            "key": "framework:*BEA",
+            "tokens": 87
+          },
+          {
+            "id": 6,
+            "key": "framework:MFI",
+            "tokens": 90
+          },
+          {
+            "id": 7,
+            "key": "framework:AEI",
+            "tokens": 82
+          },
+          {
+            "id": 8,
+            "key": "framework:CHA",
+            "tokens": 90
+          },
+          {
+            "id": 9,
+            "key": "framework:LTA",
+            "tokens": 90
+          }
+        ],
+        "linking": [
+          {
+            "conditions": [],
+            "frameworks": [
+              "*BEA",
+              "MFI"
+            ],
+            "osdas": [
+              "CBXCPBUEXACCNR-UHFFFAOYSA-N",
+              "GSEJCLTVZPLZKY-UHFFFAOYSA-N",
+              "OSBSFAARYOCBHB-UHFFFAOYSA-N",
+              "ZMANZCXQSJIPKH-UHFFFAOYSA-N"
+            ],
+            "query": "TEA+ TPA+ charge density frameworks *BEA vs MFI"
+          },
+          {
+            "conditions": [],
+            "frameworks": [
+              "AEI",
+              "CHA",
+              "LTA"
+            ],
+            "osdas": [],
+            "query": "high charge density OSDA small-pore CHA AEI LTA"
+          }
+        ],
+        "tokens": 735
+      },
+      "plan": {
+        "factor": "OSDA charge density (formal charge per molecular volume)",
+        "queries": [
+          "TEA+ TPA+ charge density frameworks *BEA vs MFI",
+          "high charge density OSDA small-pore CHA AEI LTA"
+        ],
+        "why": "The charge density of an organic structure-directing agent (formal charge divided by its van der Waals volume) is a well-established determinant of which framework an OSDA directs: high charge-density cations stabilize small-pore, cage-containing frameworks (CHA, LTA, AEI, LEV) and require high OH- or F- content to balance them, whereas low charge-density bulky cations favor large-pore, lower-density frameworks (*BEA, MTW, MWW, UTL), and neutral molecules mainly act as space fillers for dense/siliceous phases (MFI, MEL, and many Failed outcomes). The classifier receives osda_charge and osda_volume as separate D0 columns, but a tree can only threshold one at a time; the physically meaningful quantity is their ratio, which cannot be expressed by any single-column split. It is also robust across unseen papers because it is an intrinsic OSDA property, independent of the specific gel ratios of the training publications, so it should transfer well under the held-out-publication evaluation."
+      },
+      "propose_prompt_sha256": "c45c459eead32ea51468ed257d5532f9dd2210755e45c7f7189782116d0942f8",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}

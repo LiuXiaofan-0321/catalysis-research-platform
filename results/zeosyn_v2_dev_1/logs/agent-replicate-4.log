@@ -1,0 +1,3 @@
+00:17:31 agent r4 round 1: [Gel alkalinity: hydroxide (and fluoride) content r] (OH + 0.5*F) / (Si + Al + P + Ge + B + 0.001)
+00:18:10 agent r4 round 2: [Inorganic cation charge balance relative to the an] (Li + Na + K + Rb + Cs + 2*(Mg + Ca + Sr + Ba)) / (Al + P + 0.001)
+00:18:55 agent r4 round 3: [organic charge balance: the formal charge delivere] (sda1 * maximum(osda_charge, 0)) / (sda1 * maximum(osda_charge, 0) + Li + Na + K + Rb + Cs + 2*(Mg + Ca + Sr + Ba) + F + 0.001)

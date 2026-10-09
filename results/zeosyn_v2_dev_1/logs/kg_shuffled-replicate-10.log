@@ -1,0 +1,3 @@
+00:30:57 kg_shuffled r10 round 1: [Gel Si/Al ratio, encoded as Si / (Al + 1e-6) (mole] Si / (Al + 1e-6)
+00:31:33 kg_shuffled r10 round 2: [Gel alkalinity: the hydroxide-to-silica ratio (OH/] OH / (Si + 1e-6)
+00:32:09 kg_shuffled r10 round 3: [OSDA charge density (formal charge per molecular v] osda_charge / (osda_volume + 1e-6)

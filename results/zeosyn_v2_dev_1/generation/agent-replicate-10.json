@@ -1,0 +1,391 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "OH / (Si + Al + P + Ge + B + 0.001)",
+      "name": "oh_to_framework_ratio"
+    },
+    {
+      "formula": "sda1 / (Si + Al + P + Ge + B + 0.001)",
+      "name": "osda_to_framework_ratio"
+    },
+    {
+      "formula": "H2O / (Si + Al + P + Ge + B + 0.001)",
+      "name": "h2o_to_framework_ratio"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 10,
+  "seconds": 73.32165145874023,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "8b580ecdb537eaad685e9eaf8ead5a9a67e706130abba5fc14ab4d26e034283f",
+          "raw_structured": {
+            "plan": {
+              "factor": "Effective alkalinity: hydroxide concentration relative to framework-forming cations (OH / (Si + Al + P + Ge + B + 0.001))",
+              "queries": [],
+              "why": "Alkalinity relative to the total framework-former (T) content is a central synthesis variable that no single D0 column captures: the gel mole fractions all sum to 1, so 'OH' and each T species are entangled by dilution, and a tree can only threshold them separately. The ratio encodes the classic OH-/T ratio that controls dissolution/nucleation rate, degree of depolymerization of the gel, and the well-known trend from dense/amorphous products at low alkalinity to low-framework-density or failed syntheses at very high alkalinity. Because it is normalized by gel composition, it transfers across papers that report recipes at different overall dilutions, which is exactly what held-out-publication evaluation requires."
+            }
+          },
+          "response_id": "20261010002011b4ed3e76c7a4454a",
+          "usage": {
+            "completion_tokens": 489,
+            "completion_tokens_details": {
+              "reasoning_tokens": 276
+            },
+            "prompt_tokens": 1465,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 1954
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ge",
+              "OH",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes that OH mole fraction is a faithful proxy for free hydroxide alkalinity (ignoring OH consumed by protonated OSDA, by amphoteric elements such as Zn, B, and Al in solution, and buffering by fluoride), and that the five T elements listed capture essentially all framework-forming species (ignoring minor Ga, Ti, etc.). The 0.001 constant only prevents division by zero for nominally T-free gels and does not otherwise affect the value. It also assumes gel-reported compositions reflect the effective crystallization liquor.",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor increases from very low values, outcomes should move from Failed/amorphous toward dense medium-pore frameworks (MFI, TON, FER, MOR); at intermediate values, ordered frameworks in general dominate; at high values, low-framework-density small-pore/open frameworks (CHA, AEI, LEV) become more likely, and at very high values Failed should again increase due to dissolution or suppressed crystallization.",
+              "falsification": "If product phase distributions are essentially invariant in OH/T ratio while varying strongly with the raw OH mole fraction alone, or if frameworks known to require high alkalinity (e.g., certain low-silica FAU or LTA batches) are predicted equally well by raw OH, then the ratio carries no additional information beyond D0 and the descriptor should be abandoned.",
+              "formula": "OH / (Si + Al + P + Ge + B + 0.001)",
+              "hypothesis": "The effective alkalinity per mole of framework-forming elements (Si, Al, P, Ge, B) is a primary control on which zeolite framework crystallizes: moderate OH/T ratios favor the condensation of dense, well-ordered frameworks (e.g., MFI, MOR, FER, TON), while very high OH/T ratios increase silicate/an phosphate depolymerization and dissolution, favoring low-framework-density open frameworks (e.g., CHA, AEI, LEV) or complete failure (amorphous or dense non-zeolitic products). Because the classifier already receives OH, Si, Al, P, Ge and B as separate columns and trees can only threshold one column at a time, this ratio is not directly available to the model and adds genuinely new decision structure.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Hydroxide concentration relative to the total framework-forming (T) atoms sets the degree of deprotonation and depolymerization of aluminosilicate/silicogermanate/aluminophosphate species in solution. Low OH/T leaves largely polymerized species that nucleate dense or non-porous phases or simply remain amorphous (Failed). Intermediate OH/T yields oligomeric species with the connectivity needed for medium-pore frameworks such as MFI, TON, FER and MOR. High OH/T over-depolymerizes the gel, stabilizing small, highly charged building units (D4R-containing, low-framework-density phases such as CHA, AEI, LEV, and fluoride-route phases when F is present), and at extremes dissolves or prevents nucleation of any framework, giving Failed outcomes. Normalizing by the sum of T species removes the trivial dilution effect inherent to mole-fraction normalization, so the descriptor is comparable across publications that report recipes at different water and filler contents.",
+              "name": "oh_to_framework_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "MFI",
+                "TON",
+                "FER",
+                "MOR",
+                "CHA",
+                "AEI",
+                "LEV",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610100020238673a80715a749e5",
+          "usage": {
+            "completion_tokens": 808,
+            "completion_tokens_details": {
+              "reasoning_tokens": 10
+            },
+            "prompt_tokens": 1784,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2592
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes that OH mole fraction is a faithful proxy for free hydroxide alkalinity (ignoring OH consumed by protonated OSDA, by amphoteric elements such as Zn, B, and Al in solution, and buffering by fluoride), and that the five T elements listed capture essentially all framework-forming species (ignoring minor Ga, Ti, etc.). The 0.001 constant only prevents division by zero for nominally T-free gels and does not otherwise affect the value. It also assumes gel-reported compositions reflect the effective crystallization liquor.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor increases from very low values, outcomes should move from Failed/amorphous toward dense medium-pore frameworks (MFI, TON, FER, MOR); at intermediate values, ordered frameworks in general dominate; at high values, low-framework-density small-pore/open frameworks (CHA, AEI, LEV) become more likely, and at very high values Failed should again increase due to dissolution or suppressed crystallization.",
+        "falsification": "If product phase distributions are essentially invariant in OH/T ratio while varying strongly with the raw OH mole fraction alone, or if frameworks known to require high alkalinity (e.g., certain low-silica FAU or LTA batches) are predicted equally well by raw OH, then the ratio carries no additional information beyond D0 and the descriptor should be abandoned.",
+        "formula": "OH / (Si + Al + P + Ge + B + 0.001)",
+        "hypothesis": "The effective alkalinity per mole of framework-forming elements (Si, Al, P, Ge, B) is a primary control on which zeolite framework crystallizes: moderate OH/T ratios favor the condensation of dense, well-ordered frameworks (e.g., MFI, MOR, FER, TON), while very high OH/T ratios increase silicate/an phosphate depolymerization and dissolution, favoring low-framework-density open frameworks (e.g., CHA, AEI, LEV) or complete failure (amorphous or dense non-zeolitic products). Because the classifier already receives OH, Si, Al, P, Ge and B as separate columns and trees can only threshold one column at a time, this ratio is not directly available to the model and adds genuinely new decision structure.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Hydroxide concentration relative to the total framework-forming (T) atoms sets the degree of deprotonation and depolymerization of aluminosilicate/silicogermanate/aluminophosphate species in solution. Low OH/T leaves largely polymerized species that nucleate dense or non-porous phases or simply remain amorphous (Failed). Intermediate OH/T yields oligomeric species with the connectivity needed for medium-pore frameworks such as MFI, TON, FER and MOR. High OH/T over-depolymerizes the gel, stabilizing small, highly charged building units (D4R-containing, low-framework-density phases such as CHA, AEI, LEV, and fluoride-route phases when F is present), and at extremes dissolves or prevents nucleation of any framework, giving Failed outcomes. Normalizing by the sum of T species removes the trivial dilution effect inherent to mole-fraction normalization, so the descriptor is comparable across publications that report recipes at different water and filler contents.",
+        "name": "oh_to_framework_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "MFI",
+          "TON",
+          "FER",
+          "MOR",
+          "CHA",
+          "AEI",
+          "LEV",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Effective alkalinity: hydroxide concentration relative to framework-forming cations (OH / (Si + Al + P + Ge + B + 0.001))",
+        "queries": [],
+        "why": "Alkalinity relative to the total framework-former (T) content is a central synthesis variable that no single D0 column captures: the gel mole fractions all sum to 1, so 'OH' and each T species are entangled by dilution, and a tree can only threshold them separately. The ratio encodes the classic OH-/T ratio that controls dissolution/nucleation rate, degree of depolymerization of the gel, and the well-known trend from dense/amorphous products at low alkalinity to low-framework-density or failed syntheses at very high alkalinity. Because it is normalized by gel composition, it transfers across papers that report recipes at different overall dilutions, which is exactly what held-out-publication evaluation requires."
+      },
+      "propose_prompt_sha256": "6c842c59a46e1bf258d1be4e4e9d7ac2c62c9899ac4fd06fa50ef689a302884a",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "8b73346810455cf514eadd4db276f3df9cacc8fa83dbe9db1f77a373b1548b0d",
+          "raw_structured": {
+            "plan": {
+              "factor": "OSDA loading per framework-forming T atom: sda1 / (Si + Al + P + Ge + B + 0.001)",
+              "queries": [],
+              "why": "The molar amount of OSDA relative to the framework-forming species (the 'OSDA/T ratio') is a decisive selectivity lever that is fundamentally different from the already-encoded alkalinity ratio: it controls how many structure-directing molecules are available per potential framework T site. Low OSDA/T favors inorganic-cation-directed, dense, or small-pore frameworks and 'Failed' outcomes, while high OSDA/T favors large-pore or low-framework-density phases whose pores must be filled by the OSDA (e.g., *BEA, ISV/BEC, UTL, MWW) and can also indicate overload leading to dense byproducts. Tree ensembles threshold one column at a time, so although the individual mole fractions sda1, Si, Al, P, Ge and B are all present in D0, this ratio is not directly available and its splits (e.g., 'OSDA/T > ~0.05 and OH/T low -> large-pore phase') create genuinely new decision structure. It also composes naturally with the already-present OSDA conformer descriptors: a large, bulky OSDA at high loading biases toward open frameworks with matching pore dimensions, whereas a small OSDA at the same loading behaves almost like a mineralizer — the ratio lets the model express interactions between OSDA size (osda_volume, osda_axis1) and dosage that neither family of columns can encode alone. It transfers across publications because it is a normalized gel-composition quantity, independent of absolute batch scale or paper-specific reporting conventions."
+            }
+          },
+          "response_id": "20261010002031ac7f50e4a3c4401d",
+          "usage": {
+            "completion_tokens": 562,
+            "completion_tokens_details": {
+              "reasoning_tokens": 191
+            },
+            "prompt_tokens": 1665,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2227
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ge",
+              "P",
+              "Si",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes OSDA1 is the dominant (or only) structure-directing agent and that framework T atoms come from Si, Al, P, Ge, and B; Ti, Ga, Zn and other heteroatom frameworks are ignored, and OSDA2/OSDA3 loadings (when n_osda > 1) are not counted. sda1 is a gel mole fraction, so the ratio is a normalized loading independent of batch scale; crystallization kinetics of OSDA decomposition or occlusion efficiency are not captured.",
+              "evidence_ids": [],
+              "expected_effect": "As osda_to_framework_ratio increases from low values, outcomes should shift from Failed/inorganic-cation-directed dense or small-pore phases (MFI, FER, TON, MOR) toward large-pore and low-framework-density OSDA-templated phases (*BEA, BEC/ISV, UTL, MWW); at very high values, overload effects may revert toward Failed or dense byproducts, so splits should appear at both extremes.",
+              "falsification": "If held-out publications show that OSDA-templated large-pore phases (*BEA, UTL, MWW) crystallize as well at very low OSDA/T (<0.02) as at moderate values, or that Failed outcomes are uncorrelated with extreme OSDA/T, the stoichiometric host-guest loading hypothesis is contradicted.",
+              "formula": "sda1 / (Si + Al + P + Ge + B + 0.001)",
+              "hypothesis": "The molar amount of OSDA relative to the framework-forming species (the 'OSDA/T ratio') is a decisive selectivity lever that is fundamentally different from the already-encoded alkalinity ratio: it controls how many structure-directing molecules are available per potential framework T site. Low OSDA/T favors inorganic-cation-directed, dense, or small-pore frameworks and 'Failed' outcomes, while high OSDA/T favors large-pore or low-framework-density phases whose pores must be filled by the OSDA (e.g., *BEA, ISV/BEC, UTL, MWW) and can also indicate overload leading to dense byproducts.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Structure direction is a stoichiometric host-guest effect: each OSDA molecule occupies and stabilizes a finite pore volume during nucleation and growth. When OSDA/T is low, inorganic cations (Na, K) and the inorganic matrix dominate organization, steering toward dense or cation-stabilized frameworks; when OSDA/T is high, the gel contains enough organic molecules to template open, low-framework-density architectures whose void volume matches the OSDA size (interacting with osda_volume, osda_axis1). Excessively high ratios indicate OSDA overload that can suppress crystallization or push toward dense phases. Tree ensembles threshold one column at a time, so although sda1, Si, Al, P, Ge and B are individually present in D0, this ratio is not directly available to the model and its splits create genuinely new decision structure.",
+              "name": "osda_to_framework_ratio",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "*BEA",
+                "BEC",
+                "ISV",
+                "UTL",
+                "MWW",
+                "MFI",
+                "CHA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "2026101000204530258929ab2742c5",
+          "usage": {
+            "completion_tokens": 878,
+            "completion_tokens_details": {
+              "reasoning_tokens": 146
+            },
+            "prompt_tokens": 2143,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3021
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes OSDA1 is the dominant (or only) structure-directing agent and that framework T atoms come from Si, Al, P, Ge, and B; Ti, Ga, Zn and other heteroatom frameworks are ignored, and OSDA2/OSDA3 loadings (when n_osda > 1) are not counted. sda1 is a gel mole fraction, so the ratio is a normalized loading independent of batch scale; crystallization kinetics of OSDA decomposition or occlusion efficiency are not captured.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As osda_to_framework_ratio increases from low values, outcomes should shift from Failed/inorganic-cation-directed dense or small-pore phases (MFI, FER, TON, MOR) toward large-pore and low-framework-density OSDA-templated phases (*BEA, BEC/ISV, UTL, MWW); at very high values, overload effects may revert toward Failed or dense byproducts, so splits should appear at both extremes.",
+        "falsification": "If held-out publications show that OSDA-templated large-pore phases (*BEA, UTL, MWW) crystallize as well at very low OSDA/T (<0.02) as at moderate values, or that Failed outcomes are uncorrelated with extreme OSDA/T, the stoichiometric host-guest loading hypothesis is contradicted.",
+        "formula": "sda1 / (Si + Al + P + Ge + B + 0.001)",
+        "hypothesis": "The molar amount of OSDA relative to the framework-forming species (the 'OSDA/T ratio') is a decisive selectivity lever that is fundamentally different from the already-encoded alkalinity ratio: it controls how many structure-directing molecules are available per potential framework T site. Low OSDA/T favors inorganic-cation-directed, dense, or small-pore frameworks and 'Failed' outcomes, while high OSDA/T favors large-pore or low-framework-density phases whose pores must be filled by the OSDA (e.g., *BEA, ISV/BEC, UTL, MWW) and can also indicate overload leading to dense byproducts.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Structure direction is a stoichiometric host-guest effect: each OSDA molecule occupies and stabilizes a finite pore volume during nucleation and growth. When OSDA/T is low, inorganic cations (Na, K) and the inorganic matrix dominate organization, steering toward dense or cation-stabilized frameworks; when OSDA/T is high, the gel contains enough organic molecules to template open, low-framework-density architectures whose void volume matches the OSDA size (interacting with osda_volume, osda_axis1). Excessively high ratios indicate OSDA overload that can suppress crystallization or push toward dense phases. Tree ensembles threshold one column at a time, so although sda1, Si, Al, P, Ge and B are individually present in D0, this ratio is not directly available to the model and its splits create genuinely new decision structure.",
+        "name": "osda_to_framework_ratio",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "*BEA",
+          "BEC",
+          "ISV",
+          "UTL",
+          "MWW",
+          "MFI",
+          "CHA",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "OSDA loading per framework-forming T atom: sda1 / (Si + Al + P + Ge + B + 0.001)",
+        "queries": [],
+        "why": "The molar amount of OSDA relative to the framework-forming species (the 'OSDA/T ratio') is a decisive selectivity lever that is fundamentally different from the already-encoded alkalinity ratio: it controls how many structure-directing molecules are available per potential framework T site. Low OSDA/T favors inorganic-cation-directed, dense, or small-pore frameworks and 'Failed' outcomes, while high OSDA/T favors large-pore or low-framework-density phases whose pores must be filled by the OSDA (e.g., *BEA, ISV/BEC, UTL, MWW) and can also indicate overload leading to dense byproducts. Tree ensembles threshold one column at a time, so although the individual mole fractions sda1, Si, Al, P, Ge and B are all present in D0, this ratio is not directly available and its splits (e.g., 'OSDA/T > ~0.05 and OH/T low -> large-pore phase') create genuinely new decision structure. It also composes naturally with the already-present OSDA conformer descriptors: a large, bulky OSDA at high loading biases toward open frameworks with matching pore dimensions, whereas a small OSDA at the same loading behaves almost like a mineralizer — the ratio lets the model express interactions between OSDA size (osda_volume, osda_axis1) and dosage that neither family of columns can encode alone. It transfers across publications because it is a normalized gel-composition quantity, independent of absolute batch scale or paper-specific reporting conventions."
+      },
+      "propose_prompt_sha256": "3950fcba6f5c1db6a5b3e6ef2b02746fb704c731693002fd91d5795681e373a0",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "63b22e435fa29bbbfe70deb19d0c0dc4b0f6b5b3a51ea4b5bbfce6d28ac95e45",
+          "raw_structured": {
+            "plan": {
+              "factor": "gel dilution: water per mole of framework-forming species, H2O / (Si + Al + P + Ge + B + 0.001)",
+              "queries": [],
+              "why": "The water-to-framework-species (H2O/T) ratio is a well-established synthesis knob that is distinct from the already-encoded alkalinity (OH/T) and OSDA/T ratios: it sets the concentration of all reactive species and thus governs nucleation versus dissolution kinetics. Very concentrated (low H2O/T) gels crystallize dense or small-pore phases and often fail by rapid precipitation, while very dilute gels slow nucleation, favor large-pore / low-framework-density phases or amorphous products, and shift cation/OSDA distribution equilibria. Trees receive H2O and each T element only as separate mole-fraction columns, so this ratio is genuinely new decision structure and remains well-defined for unseen publications where absolute batch sizes differ."
+            }
+          },
+          "response_id": "202610100021007b82762b6250430a",
+          "usage": {
+            "completion_tokens": 362,
+            "completion_tokens_details": {
+              "reasoning_tokens": 145
+            },
+            "prompt_tokens": 1826,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2188
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ge",
+              "H2O",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes all water in the normalized gel is free solvent available to set concentration, ignoring water bound in hydrates or consumed by hydrolysis, and assumes the sum of Si, Al, P, Ge, and B is a faithful proxy for total framework-forming T species (it excludes minor heteroatoms Ti, Ga, Zn, B-substitutes already counted, and Sn, Zr, V). The 0.001 constant protects against division by zero for gels with essentially no framework species. It is also a proxy for crystallization rate effects that interact with crystallization time and temperature, which are captured separately.",
+              "evidence_ids": [],
+              "expected_effect": "As h2o_to_framework_ratio increases from very low values, outcomes should shift from 'Failed'/dense and small-pore phases (MFI, MOR, FER, TON, LTA) toward open, low-framework-density phases (*BEA, CHA, AEI, MWW, UTL); at very high values, 'Failed' (amorphous) outcomes should reappear due to insufficient supersaturation, giving a non-monotonic optimum at intermediate dilution.",
+              "falsification": "If the classifier's error patterns on held-out publications are unchanged after appending this descriptor, or if phase boundaries in the training data show no systematic dependence on H2O/T once OH/T and OSDA/T are already accounted for (e.g., identical frameworks crystallize across an order of magnitude of H2O/T under otherwise matched alkalinity and OSDA/T), the hypothesis is contradicted.",
+              "formula": "H2O / (Si + Al + P + Ge + B + 0.001)",
+              "hypothesis": "The water-to-framework-species ratio (H2O/T) is an independent synthesis knob that controls the effective concentration of all reactive species in the gel, and therefore steers nucleation versus growth kinetics and, ultimately, which framework crystallizes. Gels with low H2O/T (concentrated) promote rapid precipitation of dense or small-pore frameworks and frequent amorphous 'Failed' outcomes, whereas highly dilute gels (high H2O/T) slow nucleation, favor open, low-framework-density phases (e.g., *BEA, CHA, AEI, MWW, UTL) or incomplete crystallization, and shift the distribution equilibria of inorganic cations and OSDA between solution and evolving framework. This ratio cannot be represented by a tree ensemble thresholding individual mole-fraction columns, so it adds genuinely new decision structure.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Water is both the solvent and the reaction medium: at fixed mole fractions of Si/Al/P/Ge/B and mineralizers, varying H2O/T changes the chemical potential and activity of dissolved silicate, aluminate, and phosphate oligomers. Concentrated gels raise supersaturation quickly, driving fast, poorly selective nucleation of dense or kinetically favored frameworks (MFI, MOR, FER, TON, LTA) or amorphous solids (Failed). Dilute gels lower supersaturation, allowing slower, more selective organization around OSDA and inorganic cations into open frameworks, but extreme dilution can suppress nucleation entirely and yield amorphous products. Because trees can only split on one column at a time, the ratio H2O / (sum of framework T elements) is a quantity that only emerges from combining inputs and is not directly available to the model.",
+              "name": "h2o_to_framework_ratio",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "MFI",
+                "MOR",
+                "FER",
+                "TON",
+                "LTA",
+                "*BEA",
+                "CHA",
+                "AEI",
+                "MWW",
+                "UTL",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "2026101000210827340d4a54ff427b",
+          "usage": {
+            "completion_tokens": 870,
+            "completion_tokens_details": {
+              "reasoning_tokens": 31
+            },
+            "prompt_tokens": 2150,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3020
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes all water in the normalized gel is free solvent available to set concentration, ignoring water bound in hydrates or consumed by hydrolysis, and assumes the sum of Si, Al, P, Ge, and B is a faithful proxy for total framework-forming T species (it excludes minor heteroatoms Ti, Ga, Zn, B-substitutes already counted, and Sn, Zr, V). The 0.001 constant protects against division by zero for gels with essentially no framework species. It is also a proxy for crystallization rate effects that interact with crystallization time and temperature, which are captured separately.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As h2o_to_framework_ratio increases from very low values, outcomes should shift from 'Failed'/dense and small-pore phases (MFI, MOR, FER, TON, LTA) toward open, low-framework-density phases (*BEA, CHA, AEI, MWW, UTL); at very high values, 'Failed' (amorphous) outcomes should reappear due to insufficient supersaturation, giving a non-monotonic optimum at intermediate dilution.",
+        "falsification": "If the classifier's error patterns on held-out publications are unchanged after appending this descriptor, or if phase boundaries in the training data show no systematic dependence on H2O/T once OH/T and OSDA/T are already accounted for (e.g., identical frameworks crystallize across an order of magnitude of H2O/T under otherwise matched alkalinity and OSDA/T), the hypothesis is contradicted.",
+        "formula": "H2O / (Si + Al + P + Ge + B + 0.001)",
+        "hypothesis": "The water-to-framework-species ratio (H2O/T) is an independent synthesis knob that controls the effective concentration of all reactive species in the gel, and therefore steers nucleation versus growth kinetics and, ultimately, which framework crystallizes. Gels with low H2O/T (concentrated) promote rapid precipitation of dense or small-pore frameworks and frequent amorphous 'Failed' outcomes, whereas highly dilute gels (high H2O/T) slow nucleation, favor open, low-framework-density phases (e.g., *BEA, CHA, AEI, MWW, UTL) or incomplete crystallization, and shift the distribution equilibria of inorganic cations and OSDA between solution and evolving framework. This ratio cannot be represented by a tree ensemble thresholding individual mole-fraction columns, so it adds genuinely new decision structure.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Water is both the solvent and the reaction medium: at fixed mole fractions of Si/Al/P/Ge/B and mineralizers, varying H2O/T changes the chemical potential and activity of dissolved silicate, aluminate, and phosphate oligomers. Concentrated gels raise supersaturation quickly, driving fast, poorly selective nucleation of dense or kinetically favored frameworks (MFI, MOR, FER, TON, LTA) or amorphous solids (Failed). Dilute gels lower supersaturation, allowing slower, more selective organization around OSDA and inorganic cations into open frameworks, but extreme dilution can suppress nucleation entirely and yield amorphous products. Because trees can only split on one column at a time, the ratio H2O / (sum of framework T elements) is a quantity that only emerges from combining inputs and is not directly available to the model.",
+        "name": "h2o_to_framework_ratio",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "MFI",
+          "MOR",
+          "FER",
+          "TON",
+          "LTA",
+          "*BEA",
+          "CHA",
+          "AEI",
+          "MWW",
+          "UTL",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "gel dilution: water per mole of framework-forming species, H2O / (Si + Al + P + Ge + B + 0.001)",
+        "queries": [],
+        "why": "The water-to-framework-species (H2O/T) ratio is a well-established synthesis knob that is distinct from the already-encoded alkalinity (OH/T) and OSDA/T ratios: it sets the concentration of all reactive species and thus governs nucleation versus dissolution kinetics. Very concentrated (low H2O/T) gels crystallize dense or small-pore phases and often fail by rapid precipitation, while very dilute gels slow nucleation, favor large-pore / low-framework-density phases or amorphous products, and shift cation/OSDA distribution equilibria. Trees receive H2O and each T element only as separate mole-fraction columns, so this ratio is genuinely new decision structure and remains well-defined for unseen publications where absolute batch sizes differ."
+      },
+      "propose_prompt_sha256": "20a38474c0538bd4cfa153ae67e0f52bce9dce3c583c92138f2aa932b9dbfb94",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}

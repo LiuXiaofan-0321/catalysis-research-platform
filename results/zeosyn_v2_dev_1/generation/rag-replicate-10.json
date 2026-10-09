@@ -1,0 +1,601 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "(Si + Ge) / (Al + P + B + 0.001)",
+      "name": "framework_t_atom_ratio"
+    },
+    {
+      "formula": "(OH + F) / (Si + Al + P + Ge + 0.001)",
+      "name": "mineralizer_to_t_ratio"
+    },
+    {
+      "formula": "sda1 / (Si + Al + P + Ge + 0.001)",
+      "name": "osda_per_framework_t"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "rag",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 10,
+  "seconds": 110.41394543647766,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "3ff4e17f983e42981dbbbef9fc85dc7b7d587d2e87907e1eb35de3b282ff009a",
+          "raw_structured": {
+            "plan": {
+              "factor": "Framework heteroatom (T-atom) ratio in the gel: (Si + Ge) / (Al + P + B), with a small constant in the denominator",
+              "queries": [
+                "gel Si/Al ratio effect on zeolite framework selectivity MFI FAU CHA",
+                "Ge/Si ratio germanosilicate framework type BEC ITH synthesis gel"
+              ],
+              "why": "The classifier receives Si, Al, P, Ge, and B only as individual normalized mole fractions, and a tree can only threshold one column at a time, so it cannot directly see the classic composition axes that zeolite chemists use to pick a framework: silica-to-alumina ratio (low-silica FAU/LTA/MOR vs. high-silica MFI/*BEA/MTW/TON), silicogermanate character (Ge drives BEC, ITH, UTL-type germanosilicates), and aluminophosphate vs. silicate regime (Si~0 with Al~P gives AFI/AEL/AEI aluminophosphates). A single ratio of framework-forming T atoms collapses these regimes into one ordered variable that trees can split on efficiently, e.g. ~0 for AlPO/SAPO gels, <1 for low-silica zeolites, and large values for high-silica or Ge-containing systems. It is computed purely from gel mole fractions, so it transfers identically to recipes from unseen papers and does not depend on OSDA conventions. (Note: 'Failed' also correlates with extreme ratios, since pure-Si gels without OSDA/mineralizer or heavily diluted aluminophosphate gels often crystallize poorly, so this feature should aid the Failed class as well.)"
+            }
+          },
+          "response_id": "202610100023158f1f3e7b9be5444e",
+          "usage": {
+            "completion_tokens": 1067,
+            "completion_tokens_details": {
+              "reasoning_tokens": 681
+            },
+            "prompt_tokens": 1525,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2592
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ge",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes gel mole fractions approximate the reactive T-atom availability (ignores differences in source reactivity, solubility, and dissolution of Al or Si from solid phases during crystallization). Treats P and B as fully framework-incorporating heteroatoms like Al, and weights Ge equally with Si, whereas actual incorporation efficiencies differ. The +0.001 constant only prevents division by zero for AlPO-only gels (where Si+Ge=0 gives ratio 0) and heteroatom-free gels (large ratio); the absolute scale depends on the normalization convention that all gel species sum to 1.",
+              "evidence_ids": [
+                3,
+                5,
+                6
+              ],
+              "expected_effect": "As the ratio increases from ~0 (aluminophosphate/SAPO regime): AFI, AEL, AEI should dominate at the lowest values; then FAU, LTA, low-silica MOR at small values (roughly 1-5); then MFI, *BEA, MTW, TON, high-silica CHA at intermediate-large values; and Ge-containing systems (BEC, UTL-type) at high values where Ge contributes. Failed should peak at extreme values (heteroatom-free pure-silica gels lacking compensating species, or very dilute AlPO gels).",
+              "falsification": "If held-out-paper predictions show that framework classes (e.g., FAU vs MFI vs AFI) are separated just as well by raw Si, Al, P, Ge, or B mole fractions alone, or if the ratio's ordering of regimes breaks down (e.g., low-silica frameworks appearing at high ratio values across many unseen papers), the descriptor adds no transferable information and the hypothesis is contradicted.",
+              "formula": "(Si + Ge) / (Al + P + B + 0.001)",
+              "hypothesis": "The ratio of framework-forming T atoms (Si + Ge) to trivalent/borate heteroatoms (Al + P + B) in the gel is a primary compositional axis that steers which zeolite framework (or failure) results: near-zero values select aluminophosphate frameworks (AFI/AEL/AEI), low values (<~5) select low-silica frameworks (FAU, LTA, MOR, GIS-type), intermediate-to-high values select high-silica zeolites (MFI, *BEA, MTW, TON, CHA), and large values driven by Ge select germanosilicate frameworks (BEC, ITH, UTL-type). Extreme values in either direction also increase the probability of Failed.",
+              "knowledge_source": "both",
+              "mechanism": "Framework Si/Al (or Si/(Al+P+B)) content determines the density of negative framework charge that must be balanced by inorganic cations or OSDAs, and the abundance of Al-rich vs Si-rich secondary building units in the gel. Low-silica frameworks tolerate high Al density (Löwenstein rule bounds Si/Al >= 1 for aluminosilicates), while high-silica and pure-silica frameworks require low heteroatom content, often with OSDA or fluoride charge compensation. Ge substitutes for Si and stabilizes double-4-ring and other low-density building units, favoring germanosilicate topologies (e.g., BEC) at high Ge/Si. Because a RandomForest splits on one column at a time, the model cannot perceive these combined T-atom regimes from the individual mole fractions; this ratio exposes them as a single ordered variable trees can threshold efficiently.",
+              "name": "framework_T_atom_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "MOR",
+                "MFI",
+                "*BEA",
+                "MTW",
+                "TON",
+                "CHA",
+                "AFI",
+                "AEL",
+                "AEI",
+                "BEC",
+                "UTL",
+                "LEV",
+                "FER",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010002344248026f0338340ba",
+          "usage": {
+            "completion_tokens": 918,
+            "completion_tokens_details": {
+              "reasoning_tokens": 57
+            },
+            "prompt_tokens": 5832,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 6750
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes gel mole fractions approximate the reactive T-atom availability (ignores differences in source reactivity, solubility, and dissolution of Al or Si from solid phases during crystallization). Treats P and B as fully framework-incorporating heteroatoms like Al, and weights Ge equally with Si, whereas actual incorporation efficiencies differ. The +0.001 constant only prevents division by zero for AlPO-only gels (where Si+Ge=0 gives ratio 0) and heteroatom-free gels (large ratio); the absolute scale depends on the normalization convention that all gel species sum to 1.",
+        "cited_evidence_keys": [
+          "chunk:3a047f7375db5dbec509bad2",
+          "chunk:5b737fa84d5d4b041633be2d",
+          "chunk:836270e7cde06cc74c6ff50a"
+        ],
+        "evidence_ids": [
+          3,
+          5,
+          6
+        ],
+        "expected_effect": "As the ratio increases from ~0 (aluminophosphate/SAPO regime): AFI, AEL, AEI should dominate at the lowest values; then FAU, LTA, low-silica MOR at small values (roughly 1-5); then MFI, *BEA, MTW, TON, high-silica CHA at intermediate-large values; and Ge-containing systems (BEC, UTL-type) at high values where Ge contributes. Failed should peak at extreme values (heteroatom-free pure-silica gels lacking compensating species, or very dilute AlPO gels).",
+        "falsification": "If held-out-paper predictions show that framework classes (e.g., FAU vs MFI vs AFI) are separated just as well by raw Si, Al, P, Ge, or B mole fractions alone, or if the ratio's ordering of regimes breaks down (e.g., low-silica frameworks appearing at high ratio values across many unseen papers), the descriptor adds no transferable information and the hypothesis is contradicted.",
+        "formula": "(Si + Ge) / (Al + P + B + 0.001)",
+        "hypothesis": "The ratio of framework-forming T atoms (Si + Ge) to trivalent/borate heteroatoms (Al + P + B) in the gel is a primary compositional axis that steers which zeolite framework (or failure) results: near-zero values select aluminophosphate frameworks (AFI/AEL/AEI), low values (<~5) select low-silica frameworks (FAU, LTA, MOR, GIS-type), intermediate-to-high values select high-silica zeolites (MFI, *BEA, MTW, TON, CHA), and large values driven by Ge select germanosilicate frameworks (BEC, ITH, UTL-type). Extreme values in either direction also increase the probability of Failed.",
+        "knowledge_source": "both",
+        "mechanism": "Framework Si/Al (or Si/(Al+P+B)) content determines the density of negative framework charge that must be balanced by inorganic cations or OSDAs, and the abundance of Al-rich vs Si-rich secondary building units in the gel. Low-silica frameworks tolerate high Al density (Löwenstein rule bounds Si/Al >= 1 for aluminosilicates), while high-silica and pure-silica frameworks require low heteroatom content, often with OSDA or fluoride charge compensation. Ge substitutes for Si and stabilizes double-4-ring and other low-density building units, favoring germanosilicate topologies (e.g., BEC) at high Ge/Si. Because a RandomForest splits on one column at a time, the model cannot perceive these combined T-atom regimes from the individual mole fractions; this ratio exposes them as a single ordered variable trees can threshold efficiently.",
+        "name": "framework_t_atom_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "MOR",
+          "MFI",
+          "*BEA",
+          "MTW",
+          "TON",
+          "CHA",
+          "AFI",
+          "AEL",
+          "AEI",
+          "BEC",
+          "UTL",
+          "LEV",
+          "FER",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "9b7553358d14695ca9fd8c4df58f789f86b791211e5084da7f5e0bf3b0fd8ec3",
+        "items": [
+          {
+            "id": 1,
+            "key": "chunk:14d2bf47952af0209af8486e",
+            "paper_id": "doi:10.1039/c5ra13760h",
+            "tokens": 234
+          },
+          {
+            "id": 2,
+            "key": "chunk:23fbe1ae1e4aeb70e9bc8eb4",
+            "paper_id": "doi:10.1039/d5mh00235d",
+            "tokens": 500
+          },
+          {
+            "id": 3,
+            "key": "chunk:3a047f7375db5dbec509bad2",
+            "paper_id": "pmc:pmc8347561",
+            "tokens": 248
+          },
+          {
+            "id": 4,
+            "key": "chunk:9d241cedf335848eef6a9e5e",
+            "paper_id": "doi:10.1039/d5cs00306g",
+            "tokens": 504
+          },
+          {
+            "id": 5,
+            "key": "chunk:5b737fa84d5d4b041633be2d",
+            "paper_id": "doi:10.1002/anie.201711422",
+            "tokens": 330
+          },
+          {
+            "id": 6,
+            "key": "chunk:836270e7cde06cc74c6ff50a",
+            "paper_id": "pmc:pmc9945477",
+            "tokens": 289
+          },
+          {
+            "id": 7,
+            "key": "chunk:022389eef1c8612bbb7be461",
+            "paper_id": "doi:10.1007/s10853-017-0769-3",
+            "tokens": 477
+          },
+          {
+            "id": 8,
+            "key": "chunk:1c59b108191b2dde506bb1d3",
+            "paper_id": "pmc:pmc8979236",
+            "tokens": 380
+          }
+        ],
+        "linking": null,
+        "tokens": 2962
+      },
+      "plan": {
+        "factor": "Framework heteroatom (T-atom) ratio in the gel: (Si + Ge) / (Al + P + B), with a small constant in the denominator",
+        "queries": [
+          "gel Si/Al ratio effect on zeolite framework selectivity MFI FAU CHA",
+          "Ge/Si ratio germanosilicate framework type BEC ITH synthesis gel"
+        ],
+        "why": "The classifier receives Si, Al, P, Ge, and B only as individual normalized mole fractions, and a tree can only threshold one column at a time, so it cannot directly see the classic composition axes that zeolite chemists use to pick a framework: silica-to-alumina ratio (low-silica FAU/LTA/MOR vs. high-silica MFI/*BEA/MTW/TON), silicogermanate character (Ge drives BEC, ITH, UTL-type germanosilicates), and aluminophosphate vs. silicate regime (Si~0 with Al~P gives AFI/AEL/AEI aluminophosphates). A single ratio of framework-forming T atoms collapses these regimes into one ordered variable that trees can split on efficiently, e.g. ~0 for AlPO/SAPO gels, <1 for low-silica zeolites, and large values for high-silica or Ge-containing systems. It is computed purely from gel mole fractions, so it transfers identically to recipes from unseen papers and does not depend on OSDA conventions. (Note: 'Failed' also correlates with extreme ratios, since pure-Si gels without OSDA/mineralizer or heavily diluted aluminophosphate gels often crystallize poorly, so this feature should aid the Failed class as well.)"
+      },
+      "propose_prompt_sha256": "a1fafc2b46716e16e32d2b9c67aef26790aebf027fd264f14d6d423f8ba0e572",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "0300240e846d886622f34abf74b3d62dd6c0212ac1f601d02bfed80f8f3fc1d5",
+          "raw_structured": {
+            "plan": {
+              "factor": "Mineralizer strength (alkalinity): combined hydroxide + fluoride charge relative to framework-forming T atoms in the gel",
+              "queries": [
+                "alkalinity OH SiO2 ratio zeolite phase selectivity framework",
+                "fluoride versus hydroxide mineralizer zeolite synthesis framework density"
+              ],
+              "why": "The classifier already sees each gel species separately, but alkalinity - the ratio of mineralizer (OH- plus F-, which acts as a ~1:1 mineralizing anion in fluoride routes) to the network-forming T atoms (Si, Al, P, Ge) - is a combined quantity a tree ensemble cannot form from single-column splits. Alkalinity is a first-order control knob in zeolite synthesis: low mineralizer-to-T ratios (near-neutral or fluoride media) favor high-silica, large-crystal, low-framework-density phases and slow crystallization, while high alkalinity accelerates dissolution/recrystallization and pushes toward low-silica, dense or thermodynamically favored phases, and very high alkalinity commonly yields Failed (dense phases or no product). Because evaluation is on held-out publications, a ratio that normalizes OH and F by the gel's T-atom content transfers across papers that use different absolute batch sizes and normalization conventions, unlike raw OH mole fraction whose scale is confounded by dilution (H2O) and batch composition."
+            }
+          },
+          "response_id": "20261010002401bb8e9868c28841b9",
+          "usage": {
+            "completion_tokens": 598,
+            "completion_tokens_details": {
+              "reasoning_tokens": 285
+            },
+            "prompt_tokens": 1716,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2314
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "F",
+              "Ge",
+              "OH",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Treats OH and F as interchangeable one-anion mineralizers with additive effect, ignoring that fluoride operates near neutral pH with a different mechanism (mineralizing/structure-directing) than hydroxide (base-catalyzed depolymerization). Assumes gel mole fractions reflect the effective alkalinity at crystallization (no pH measurement available; Na/K/etc. hydroxide vs. silicate-consumed base is not distinguished). Denominator uses all T atoms equally, ignoring that Al/P heteroatoms consume mineralizer differently than Si. Extreme dilution (very small T mole fractions) can inflate the ratio numerically; the +0.001 guards division by zero but does not fix spurious large values for nearly T-free gels.",
+              "evidence_ids": [
+                2,
+                4,
+                5
+              ],
+              "expected_effect": "As the ratio increases from ~0 (fluoride/near-neutral routes): selectivity moves from high-silica, low-framework-density phases (MFI, *BEA, MTW, TON, CHA, UTL-type germanosilicates) toward low-silica open frameworks (FAU, LTA, MOR) and dense phases; at the highest values, Failed (dense or amorphous product) becomes dominant, so both the lowest and highest bins should carry elevated Failed/misclassification risk with a non-monotone middle optimum.",
+              "falsification": "If held-out papers show that phase identity (or Failed rate) is essentially invariant across the descriptor range, while raw OH mole fraction or OH/H2O alone stratifies outcomes better, the T-normalized mineralizer ratio carries no transferable information and the hypothesis is contradicted.",
+              "formula": "(OH + F) / (Si + Al + P + Ge + 0.001)",
+              "hypothesis": "The ratio of mineralizing anions (hydroxide plus fluoride, each acting as a ~1:1 mineralizer of framework T atoms) to network-forming T atoms (Si, Al, P, Ge) is a first-order control knob for phase selection and failure that a tree ensemble cannot recover from single-column splits. Low mineralizer-to-T ratios (fluoride-dominated or near-neutral media) favor high-silica, low-framework-density phases (e.g., *BEA, MTW, TON, CHA, UTL, high-silica FAU) with slow crystallization, while increasing alkalinity accelerates dissolution/reprecipitation and shifts selectivity toward denser, thermodynamically favored low-silica phases (LTA, FAU, MOR, ANA-type) and, at very high values, toward Failed.",
+              "knowledge_source": "both",
+              "mechanism": "OH- and F- depolymerize/depolymerize-and-mineralize the silica/alumina/phosphate network: they increase the solubility of mobile silicate, aluminate, phosphate and germanate species, raising nucleation and growth rates. F- additionally acts as a structure-directing/mineralizing agent in fluoride media and enables low-water, high-silica crystallization near neutral pH, stabilizing open frameworks and D4R-containing germanosilicates. Excess alkalinity over-consumes the T-atom network relative to the mineralizer charge, favors dense phases (quartz/dense analogs, analcime-type) and amorphous or failed outcomes; the optimum alkalinity for nucleation is finite and system-specific (evidence: optimum (K2O+Na2O)/SiO2 of ~0.37 for zeolite L [2]; OH/Si ~0.5 disrupts high-silica MOR cooperative OSDA direction and promotes quartz impurity in strongly basic media [4]; alkalinity n(OH-)/n(SiO2) is a canonical factor in zeolite T synthesis [5]). Normalizing by total T atoms makes the descriptor scale-transferable across papers with different dilution and batch-size conventions, unlike raw OH mole fraction whose meaning depends on H2O and total batch composition.",
+              "name": "mineralizer_to_T_ratio",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "Failed",
+                "MFI",
+                "CHA",
+                "*BEA",
+                "MTW",
+                "TON",
+                "MOR",
+                "FAU",
+                "LTA",
+                "UTL",
+                "BEC"
+              ]
+            }
+          },
+          "response_id": "202610100024166ce99f9fa77e4515",
+          "usage": {
+            "completion_tokens": 1000,
+            "completion_tokens_details": {
+              "reasoning_tokens": 43
+            },
+            "prompt_tokens": 5727,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 6727
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Treats OH and F as interchangeable one-anion mineralizers with additive effect, ignoring that fluoride operates near neutral pH with a different mechanism (mineralizing/structure-directing) than hydroxide (base-catalyzed depolymerization). Assumes gel mole fractions reflect the effective alkalinity at crystallization (no pH measurement available; Na/K/etc. hydroxide vs. silicate-consumed base is not distinguished). Denominator uses all T atoms equally, ignoring that Al/P heteroatoms consume mineralizer differently than Si. Extreme dilution (very small T mole fractions) can inflate the ratio numerically; the +0.001 guards division by zero but does not fix spurious large values for nearly T-free gels.",
+        "cited_evidence_keys": [
+          "chunk:d9599468d6e868646f71a114",
+          "chunk:94ea4110a38b1aa238feb265",
+          "chunk:232be7ab4e7d1050ac4bbe5d"
+        ],
+        "evidence_ids": [
+          2,
+          4,
+          5
+        ],
+        "expected_effect": "As the ratio increases from ~0 (fluoride/near-neutral routes): selectivity moves from high-silica, low-framework-density phases (MFI, *BEA, MTW, TON, CHA, UTL-type germanosilicates) toward low-silica open frameworks (FAU, LTA, MOR) and dense phases; at the highest values, Failed (dense or amorphous product) becomes dominant, so both the lowest and highest bins should carry elevated Failed/misclassification risk with a non-monotone middle optimum.",
+        "falsification": "If held-out papers show that phase identity (or Failed rate) is essentially invariant across the descriptor range, while raw OH mole fraction or OH/H2O alone stratifies outcomes better, the T-normalized mineralizer ratio carries no transferable information and the hypothesis is contradicted.",
+        "formula": "(OH + F) / (Si + Al + P + Ge + 0.001)",
+        "hypothesis": "The ratio of mineralizing anions (hydroxide plus fluoride, each acting as a ~1:1 mineralizer of framework T atoms) to network-forming T atoms (Si, Al, P, Ge) is a first-order control knob for phase selection and failure that a tree ensemble cannot recover from single-column splits. Low mineralizer-to-T ratios (fluoride-dominated or near-neutral media) favor high-silica, low-framework-density phases (e.g., *BEA, MTW, TON, CHA, UTL, high-silica FAU) with slow crystallization, while increasing alkalinity accelerates dissolution/reprecipitation and shifts selectivity toward denser, thermodynamically favored low-silica phases (LTA, FAU, MOR, ANA-type) and, at very high values, toward Failed.",
+        "knowledge_source": "both",
+        "mechanism": "OH- and F- depolymerize/depolymerize-and-mineralize the silica/alumina/phosphate network: they increase the solubility of mobile silicate, aluminate, phosphate and germanate species, raising nucleation and growth rates. F- additionally acts as a structure-directing/mineralizing agent in fluoride media and enables low-water, high-silica crystallization near neutral pH, stabilizing open frameworks and D4R-containing germanosilicates. Excess alkalinity over-consumes the T-atom network relative to the mineralizer charge, favors dense phases (quartz/dense analogs, analcime-type) and amorphous or failed outcomes; the optimum alkalinity for nucleation is finite and system-specific (evidence: optimum (K2O+Na2O)/SiO2 of ~0.37 for zeolite L [2]; OH/Si ~0.5 disrupts high-silica MOR cooperative OSDA direction and promotes quartz impurity in strongly basic media [4]; alkalinity n(OH-)/n(SiO2) is a canonical factor in zeolite T synthesis [5]). Normalizing by total T atoms makes the descriptor scale-transferable across papers with different dilution and batch-size conventions, unlike raw OH mole fraction whose meaning depends on H2O and total batch composition.",
+        "name": "mineralizer_to_t_ratio",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "Failed",
+          "MFI",
+          "CHA",
+          "*BEA",
+          "MTW",
+          "TON",
+          "MOR",
+          "FAU",
+          "LTA",
+          "UTL",
+          "BEC"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "a37504c00c908171390122c907cd299fc2d0ed181ef6f0decd5714ee96e07cce",
+        "items": [
+          {
+            "id": 1,
+            "key": "chunk:8a34facfefffea470e548516",
+            "paper_id": "doi:10.1039/d5mh01044f",
+            "tokens": 484
+          },
+          {
+            "id": 2,
+            "key": "chunk:d9599468d6e868646f71a114",
+            "paper_id": "doi:10.1007/s11814-008-0254-4",
+            "tokens": 479
+          },
+          {
+            "id": 3,
+            "key": "chunk:0fe50e39a6cbf49217c1ff89",
+            "paper_id": "doi:10.1007/s11164-016-2550-7",
+            "tokens": 455
+          },
+          {
+            "id": 4,
+            "key": "chunk:94ea4110a38b1aa238feb265",
+            "paper_id": "doi:10.1039/d5mh00235d",
+            "tokens": 510
+          },
+          {
+            "id": 5,
+            "key": "chunk:232be7ab4e7d1050ac4bbe5d",
+            "paper_id": "doi:10.20944/preprints202101.0617.v1",
+            "tokens": 508
+          },
+          {
+            "id": 6,
+            "key": "chunk:dcbc45d218ab98452833d3ba",
+            "paper_id": "pmc:pmc10515482",
+            "tokens": 219
+          },
+          {
+            "id": 7,
+            "key": "chunk:08da38b0b60333110f07a8b2",
+            "paper_id": "doi:10.1021/acs.accounts.8b00057",
+            "tokens": 224
+          }
+        ],
+        "linking": null,
+        "tokens": 2879
+      },
+      "plan": {
+        "factor": "Mineralizer strength (alkalinity): combined hydroxide + fluoride charge relative to framework-forming T atoms in the gel",
+        "queries": [
+          "alkalinity OH SiO2 ratio zeolite phase selectivity framework",
+          "fluoride versus hydroxide mineralizer zeolite synthesis framework density"
+        ],
+        "why": "The classifier already sees each gel species separately, but alkalinity - the ratio of mineralizer (OH- plus F-, which acts as a ~1:1 mineralizing anion in fluoride routes) to the network-forming T atoms (Si, Al, P, Ge) - is a combined quantity a tree ensemble cannot form from single-column splits. Alkalinity is a first-order control knob in zeolite synthesis: low mineralizer-to-T ratios (near-neutral or fluoride media) favor high-silica, large-crystal, low-framework-density phases and slow crystallization, while high alkalinity accelerates dissolution/recrystallization and pushes toward low-silica, dense or thermodynamically favored phases, and very high alkalinity commonly yields Failed (dense phases or no product). Because evaluation is on held-out publications, a ratio that normalizes OH and F by the gel's T-atom content transfers across papers that use different absolute batch sizes and normalization conventions, unlike raw OH mole fraction whose scale is confounded by dilution (H2O) and batch composition."
+      },
+      "propose_prompt_sha256": "1ebe3d72e42e946ba54bb44f34ab0501dddf3eea2a1bad96d7d1b941d95d4e87",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "3b4fffe3fc38d0f15b4f67bdb66a70b5742ed92a420dd35b35069c09712dcc88",
+          "raw_structured": {
+            "plan": {
+              "factor": "OSDA loading per framework T atom (organic structure-directing agent concentration relative to the network-forming species)",
+              "queries": [
+                "OSDA/SiO2 ratio effect zeolite phase selectivity crystallization",
+                "template concentration low template amount dense phase amorphous zeolite synthesis"
+              ],
+              "why": "The two existing descriptors capture the T-atom chemistry and the mineralizer strength, but not the role of the organic template itself. Tree ensembles can split on sda1 alone, but the physically meaningful quantity is the amount of OSDA available per framework T atom (sda1 divided by Si+Al+P+Ge): low OSDA/T favors inorganic-templated or dense phases and Failed when the OSDA is insufficient to stabilize a pore system, while high OSDA/T selects OSDA-templated high-silica phases (*BEA, MFI, MTW, TON, AEI, ISV) whose framework charge density must be matched by OSDA charge. This ratio also interacts with osda_charge (charge compensation per T), which the model cannot combine from single-column splits. It transfers to unseen papers because it is a normalized gel quantity independent of absolute batch size."
+            }
+          },
+          "response_id": "20261010002437f9dcbc746e7c4218",
+          "usage": {
+            "completion_tokens": 396,
+            "completion_tokens_details": {
+              "reasoning_tokens": 129
+            },
+            "prompt_tokens": 1919,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 2315
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Ge",
+              "P",
+              "Si",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes sda1 is a molar fraction comparable in scale to the T-atom fractions, so their ratio approximates the conventional SDA/SiO2 (or SDA/T) synthesis ratio used in papers. Assumes OSDA incorporation scales with gel OSDA availability and that OSDA1 is the dominant template (n_osda > 1 cases are approximated by OSDA1 only). Small-osda or template-free routes, and seeded syntheses where occluded OSDA is decoupled from gel OSDA, are outside the model's validity. A 0.001 constant guards against zero T-atom fraction (all-OSDA gels).",
+              "evidence_ids": [
+                3,
+                1
+              ],
+              "expected_effect": "As the descriptor increases, the probability of OSDA-templated open-framework products (*BEA, MFI, MTW, TON, AEI, ISV, BEC, UTL-type) increases, while Failed and dense/inorganic-templated phases (MOR, LTA, ANA-type) become less likely; at very high values with mismatched OSDA size/charge, Failed may rise again because the excess organics cannot be accommodated.",
+              "falsification": "If phase outcomes are invariant with respect to OSDA/T at fixed framework_t_atom_ratio and mineralizer_to_t_ratio (e.g., the same product forms across a wide range of sda1 fractions at constant gel T-atom content), or if dense phases systematically appear at high OSDA/T and open frameworks at low OSDA/T, the hypothesis is contradicted.",
+              "formula": "sda1 / (Si + Al + P + Ge + 0.001)",
+              "hypothesis": "The amount of OSDA available per framework-forming T atom (Si, Al, P, Ge) is a first-order control on phase selection that a tree ensemble cannot recover, since it requires combining two gel columns. Low OSDA/T ratios favor inorganic-cation-templated or dense frameworks (LTA, FAU, MOR, ANA-type) and Failed when the organic template is insufficient to stabilize an open pore system. High OSDA/T ratios favor OSDA-templated, low-framework-density, high-silica phases (*BEA, MFI, MTW, TON, AEI, ISV, BEC, UTL-type germanosilicates), because these frameworks occlude a large concentration of organic cations (and associated fluoride) per unit cell.",
+              "knowledge_source": "both",
+              "mechanism": "Open, low-framework-density zeolites require substantial occluded organic (and fluoride) content for charge balance and pore stabilization; the OSDA must be present in the gel at a concentration commensurate with the amount that ends up inside the framework per framework T atom. When OSDA/T is low, the organic species is exhausted before an open framework can nucleate, so crystallization proceeds toward dense, inorganically stabilized phases or amorphous material. When OSDA/T is high, OSDA-silicate interactions dominate the precursor chemistry and direct crystallization toward the OSDA's preferred open framework. Literature support: phase selectivity 'strongly depends on the concentration of the SDA, favoring the less dense phase at higher SDA concentrations' [3], and germanosilicate ITQ-37/ITQ-43 syntheses are specified in SDA/T units (SDA/T = 0.3) showing this ratio is the natural synthesis variable [1].",
+              "name": "osda_per_framework_t",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "*BEA",
+                "MFI",
+                "MTW",
+                "TON",
+                "AEI",
+                "ISV",
+                "BEC",
+                "UTL",
+                "LEV",
+                "MOR",
+                "LTA",
+                "FAU",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010002447cb004d79a95b48cc",
+          "usage": {
+            "completion_tokens": 913,
+            "completion_tokens_details": {
+              "reasoning_tokens": 80
+            },
+            "prompt_tokens": 5997,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 6910
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes sda1 is a molar fraction comparable in scale to the T-atom fractions, so their ratio approximates the conventional SDA/SiO2 (or SDA/T) synthesis ratio used in papers. Assumes OSDA incorporation scales with gel OSDA availability and that OSDA1 is the dominant template (n_osda > 1 cases are approximated by OSDA1 only). Small-osda or template-free routes, and seeded syntheses where occluded OSDA is decoupled from gel OSDA, are outside the model's validity. A 0.001 constant guards against zero T-atom fraction (all-OSDA gels).",
+        "cited_evidence_keys": [
+          "chunk:0b5336e7a8f311525bc78c7c",
+          "chunk:0e2bc5577680882485dff804"
+        ],
+        "evidence_ids": [
+          1,
+          3
+        ],
+        "expected_effect": "As the descriptor increases, the probability of OSDA-templated open-framework products (*BEA, MFI, MTW, TON, AEI, ISV, BEC, UTL-type) increases, while Failed and dense/inorganic-templated phases (MOR, LTA, ANA-type) become less likely; at very high values with mismatched OSDA size/charge, Failed may rise again because the excess organics cannot be accommodated.",
+        "falsification": "If phase outcomes are invariant with respect to OSDA/T at fixed framework_t_atom_ratio and mineralizer_to_t_ratio (e.g., the same product forms across a wide range of sda1 fractions at constant gel T-atom content), or if dense phases systematically appear at high OSDA/T and open frameworks at low OSDA/T, the hypothesis is contradicted.",
+        "formula": "sda1 / (Si + Al + P + Ge + 0.001)",
+        "hypothesis": "The amount of OSDA available per framework-forming T atom (Si, Al, P, Ge) is a first-order control on phase selection that a tree ensemble cannot recover, since it requires combining two gel columns. Low OSDA/T ratios favor inorganic-cation-templated or dense frameworks (LTA, FAU, MOR, ANA-type) and Failed when the organic template is insufficient to stabilize an open pore system. High OSDA/T ratios favor OSDA-templated, low-framework-density, high-silica phases (*BEA, MFI, MTW, TON, AEI, ISV, BEC, UTL-type germanosilicates), because these frameworks occlude a large concentration of organic cations (and associated fluoride) per unit cell.",
+        "knowledge_source": "both",
+        "mechanism": "Open, low-framework-density zeolites require substantial occluded organic (and fluoride) content for charge balance and pore stabilization; the OSDA must be present in the gel at a concentration commensurate with the amount that ends up inside the framework per framework T atom. When OSDA/T is low, the organic species is exhausted before an open framework can nucleate, so crystallization proceeds toward dense, inorganically stabilized phases or amorphous material. When OSDA/T is high, OSDA-silicate interactions dominate the precursor chemistry and direct crystallization toward the OSDA's preferred open framework. Literature support: phase selectivity 'strongly depends on the concentration of the SDA, favoring the less dense phase at higher SDA concentrations' [3], and germanosilicate ITQ-37/ITQ-43 syntheses are specified in SDA/T units (SDA/T = 0.3) showing this ratio is the natural synthesis variable [1].",
+        "name": "osda_per_framework_t",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "*BEA",
+          "MFI",
+          "MTW",
+          "TON",
+          "AEI",
+          "ISV",
+          "BEC",
+          "UTL",
+          "LEV",
+          "MOR",
+          "LTA",
+          "FAU",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "122e184b5b7b6b0d625fe65e205f5b3d32e0d54bf9059697f7cb04367a4698fc",
+        "items": [
+          {
+            "id": 1,
+            "key": "chunk:0b5336e7a8f311525bc78c7c",
+            "paper_id": "doi:10.1039/c8cc08196d",
+            "tokens": 388
+          },
+          {
+            "id": 2,
+            "key": "chunk:ef6c943291e85596f921ac8d",
+            "paper_id": "doi:10.1039/d0dt01013h",
+            "tokens": 496
+          },
+          {
+            "id": 3,
+            "key": "chunk:0e2bc5577680882485dff804",
+            "paper_id": "doi:10.1039/b105273j",
+            "tokens": 467
+          },
+          {
+            "id": 4,
+            "key": "chunk:6f5929e8d2de1df8b3ce81f8",
+            "paper_id": "pmc:pmc9401568",
+            "tokens": 373
+          },
+          {
+            "id": 5,
+            "key": "chunk:0f96db78126e98f8a456e03b",
+            "paper_id": "doi:10.1039/c8cc06106h",
+            "tokens": 512
+          },
+          {
+            "id": 6,
+            "key": "chunk:5faa9d898ced0cb7aed671a0",
+            "paper_id": "pmc:pmc7254336",
+            "tokens": 490
+          },
+          {
+            "id": 7,
+            "key": "chunk:2050fab77273bf658566149e",
+            "paper_id": "pmc:pmc9077458",
+            "tokens": 214
+          }
+        ],
+        "linking": null,
+        "tokens": 2940
+      },
+      "plan": {
+        "factor": "OSDA loading per framework T atom (organic structure-directing agent concentration relative to the network-forming species)",
+        "queries": [
+          "OSDA/SiO2 ratio effect zeolite phase selectivity crystallization",
+          "template concentration low template amount dense phase amorphous zeolite synthesis"
+        ],
+        "why": "The two existing descriptors capture the T-atom chemistry and the mineralizer strength, but not the role of the organic template itself. Tree ensembles can split on sda1 alone, but the physically meaningful quantity is the amount of OSDA available per framework T atom (sda1 divided by Si+Al+P+Ge): low OSDA/T favors inorganic-templated or dense phases and Failed when the OSDA is insufficient to stabilize a pore system, while high OSDA/T selects OSDA-templated high-silica phases (*BEA, MFI, MTW, TON, AEI, ISV) whose framework charge density must be matched by OSDA charge. This ratio also interacts with osda_charge (charge compensation per T), which the model cannot combine from single-column splits. It transfers to unseen papers because it is a normalized gel quantity independent of absolute batch size."
+      },
+      "propose_prompt_sha256": "05e7e79b3b838ba3fac4dcfd92e5c655c625e4cdd64feba05aa22c3535196e35",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}

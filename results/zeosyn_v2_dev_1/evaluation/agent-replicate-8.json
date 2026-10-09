@@ -1,0 +1,130 @@
+{
+  "appended": 3,
+  "delta": {
+    "mean": {
+      "accuracy": 0.004208131930622694,
+      "balanced_accuracy": 0.004290207588988871,
+      "macro_f1": -0.0010083587300812157
+    },
+    "per_seed": [
+      {
+        "accuracy": 0.0019903326698891277,
+        "balanced_accuracy": -0.0039509706390113974,
+        "macro_f1": -0.012845735630891864,
+        "seed": 3
+      },
+      {
+        "accuracy": 0.012510662496445835,
+        "balanced_accuracy": 0.009858623221058738,
+        "macro_f1": 0.00535411935770691,
+        "seed": 7
+      },
+      {
+        "accuracy": 0.01592266135911291,
+        "balanced_accuracy": 0.0081471025616206,
+        "macro_f1": 0.008619147664684912,
+        "seed": 11
+      },
+      {
+        "accuracy": -0.009098663633778814,
+        "balanced_accuracy": 0.0008394313002354492,
+        "macro_f1": -0.0023882987310526183,
+        "seed": 17
+      },
+      {
+        "accuracy": -0.0002843332385555897,
+        "balanced_accuracy": 0.006556851501040961,
+        "macro_f1": -0.0037810263108534192,
+        "seed": 23
+      }
+    ]
+  },
+  "final_formulas": [
+    {
+      "formula": "Si / (Al + P + Ga + B + Ge + 1e-6)",
+      "name": "si_over_heteroatom_t_ratio"
+    },
+    {
+      "formula": "(OH + Na + K + Li + 1e-6) / (H2O + 1e-6)",
+      "name": "alkalinity_per_water"
+    },
+    {
+      "formula": "P / (Al + P + 1e-6)",
+      "name": "p_vs_al_fraction"
+    }
+  ],
+  "generation_sha256": "725e1be6d79f67255455b8fb0c84ac403af519043d4f97b4c26770c29ccf74e2",
+  "mode": "agent",
+  "per_seed": [
+    {
+      "accuracy": 0.48080750639749786,
+      "balanced_accuracy": 0.30496921123756104,
+      "macro_f1": 0.2743470736368605,
+      "macro_f1_report": 0.2502490198714606,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 3
+    },
+    {
+      "accuracy": 0.49189650270116575,
+      "balanced_accuracy": 0.3146148337286385,
+      "macro_f1": 0.2892378378839002,
+      "macro_f1_report": 0.2585901199624273,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 7
+    },
+    {
+      "accuracy": 0.48848450383849873,
+      "balanced_accuracy": 0.3121961316627605,
+      "macro_f1": 0.2886154469009558,
+      "macro_f1_report": 0.2687109333215795,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 11
+    },
+    {
+      "accuracy": 0.4802388399203867,
+      "balanced_accuracy": 0.30938490037220984,
+      "macro_f1": 0.28767139098400946,
+      "macro_f1_report": 0.26418801212817195,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 17
+    },
+    {
+      "accuracy": 0.4791015069661643,
+      "balanced_accuracy": 0.31474290912927994,
+      "macro_f1": 0.2840612496961665,
+      "macro_f1_report": 0.25737093093276825,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 23
+    }
+  ],
+  "replicate": 8,
+  "seconds": 2.542140007019043,
+  "split": "dev",
+  "strata": {
+    "kg_covered": {
+      "accuracy_delta": -0.0013043478260869267,
+      "n": 1840
+    },
+    "kg_not_covered": {
+      "accuracy_delta": 0.010256410256410253,
+      "n": 1677
+    },
+    "no_osda": {
+      "accuracy_delta": 0.024086021505376354,
+      "n": 465
+    },
+    "osda_common_in_training": {
+      "accuracy_delta": 0.001295097132284928,
+      "n": 2162
+    },
+    "osda_rare_in_training": {
+      "accuracy_delta": 0.0008988764044943753,
+      "n": 890
+    }
+  }
+}

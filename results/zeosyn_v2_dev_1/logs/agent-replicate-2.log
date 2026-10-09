@@ -1,0 +1,3 @@
+00:17:18 agent r2 round 1: [Alkalinity of the synthesis gel normalized to fram] OH / (Si + Al + P + Ge + B + Ga + 1e-6)
+00:17:51 agent r2 round 2: [Gel dilution: water content normalized to the tota] H2O / (Si + Al + P + Ge + B + Ga + 1e-6)
+00:19:51 agent r2 round 3: [Mineralizing-agent regime: the balance between flu] (F - OH) / (F + OH + Na + K + Li + Rb + Cs + Ca + Sr + Ba + 1e-6)

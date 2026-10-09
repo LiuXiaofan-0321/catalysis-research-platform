@@ -1,0 +1,130 @@
+{
+  "appended": 3,
+  "delta": {
+    "mean": {
+      "accuracy": -0.00011373329542221366,
+      "balanced_accuracy": 0.0014728624901711672,
+      "macro_f1": 0.0014553864256727444
+    },
+    "per_seed": [
+      {
+        "accuracy": 0.0031276656241114864,
+        "balanced_accuracy": -0.004924024253032067,
+        "macro_f1": -0.007178488592146759,
+        "seed": 3
+      },
+      {
+        "accuracy": -0.002274665908444662,
+        "balanced_accuracy": 0.0038706363639558483,
+        "macro_f1": 0.006868997367694585,
+        "seed": 7
+      },
+      {
+        "accuracy": 0.01705999431333527,
+        "balanced_accuracy": 0.017346366223507992,
+        "macro_f1": 0.02166114310368772,
+        "seed": 11
+      },
+      {
+        "accuracy": -0.014216661927779373,
+        "balanced_accuracy": -0.008903059172461814,
+        "macro_f1": -0.013151151765468105,
+        "seed": 17
+      },
+      {
+        "accuracy": -0.00426499857833379,
+        "balanced_accuracy": -2.560671111412338e-05,
+        "macro_f1": -0.0009235679854037171,
+        "seed": 23
+      }
+    ]
+  },
+  "final_formulas": [
+    {
+      "formula": "Si / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + Sn + Zr + V + W + 1e-6)",
+      "name": "framework_si_fraction"
+    },
+    {
+      "formula": "(Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (Na + K + Li + Rb + Cs + Ca + Sr + Ba + sda1 + 1e-6)",
+      "name": "inorganic_template_fraction"
+    },
+    {
+      "formula": "log((F + 1e-6) / (OH + 1e-6))",
+      "name": "fluoride_mineralizer_logratio"
+    }
+  ],
+  "generation_sha256": "b853e22cf1ee978049fc6d66090a2585da42e6167d2ec6e649f0ca87cdef83b0",
+  "mode": "agent",
+  "per_seed": [
+    {
+      "accuracy": 0.4819448393517202,
+      "balanced_accuracy": 0.3039961576235404,
+      "macro_f1": 0.2800143206756056,
+      "macro_f1_report": 0.2571560087837194,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 3
+    },
+    {
+      "accuracy": 0.47711117429627525,
+      "balanced_accuracy": 0.30862684687153563,
+      "macro_f1": 0.29075271589388785,
+      "macro_f1_report": 0.2652136259842896,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 7
+    },
+    {
+      "accuracy": 0.4896218367927211,
+      "balanced_accuracy": 0.3213953953246479,
+      "macro_f1": 0.3016574423399586,
+      "macro_f1_report": 0.27331379003955986,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 11
+    },
+    {
+      "accuracy": 0.4751208416263861,
+      "balanced_accuracy": 0.2996424098995126,
+      "macro_f1": 0.27690853794959397,
+      "macro_f1_report": 0.24921768415463455,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 17
+    },
+    {
+      "accuracy": 0.4751208416263861,
+      "balanced_accuracy": 0.30816045091712485,
+      "macro_f1": 0.2869187080216162,
+      "macro_f1_report": 0.2671312109166771,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 23
+    }
+  ],
+  "replicate": 1,
+  "seconds": 2.5727412700653076,
+  "split": "dev",
+  "strata": {
+    "kg_covered": {
+      "accuracy_delta": -0.003804347826086918,
+      "n": 1840
+    },
+    "kg_not_covered": {
+      "accuracy_delta": 0.003935599284436475,
+      "n": 1677
+    },
+    "no_osda": {
+      "accuracy_delta": 0.0008602150537634467,
+      "n": 465
+    },
+    "osda_common_in_training": {
+      "accuracy_delta": 0.002127659574468077,
+      "n": 2162
+    },
+    "osda_rare_in_training": {
+      "accuracy_delta": -0.0060674157303370665,
+      "n": 890
+    }
+  }
+}

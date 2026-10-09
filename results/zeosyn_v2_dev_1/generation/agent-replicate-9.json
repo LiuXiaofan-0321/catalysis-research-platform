@@ -1,0 +1,405 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "(Si + Ge) / (Al + B + Ga + 0.01)",
+      "name": "tetravalent_to_trivalent_ratio"
+    },
+    {
+      "formula": "(OH + 10*F) / (Si + 0.01)",
+      "name": "mineralizer_per_si"
+    },
+    {
+      "formula": "(Na + K + Li + Cs + Rb + osda_charge * sda1) / (Al + B + Ga + 0.01)",
+      "name": "cation_charge_per_trivalent"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 9,
+  "seconds": 92.09430146217346,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "8b580ecdb537eaad685e9eaf8ead5a9a67e706130abba5fc14ab4d26e034283f",
+          "raw_structured": {
+            "plan": {
+              "factor": "Framework heteroatom ratio: the molar ratio of framework-forming tetravalent species (Si, Ge) to trivalent/substituting species (Al, B, Ga) in the gel, e.g. (Si + Ge) / (Al + B + Ga + small constant)",
+              "queries": [],
+              "why": "The model sees Si, Al, Ge, B, and Ga only as separate absolute mole fractions, and tree ensembles split on one column at a time, so it cannot directly form the composition ratio that governs framework selection. Si/T (or Ge/T) ratio is arguably the strongest single determinant of which zeolite framework crystallizes: low ratios favor low-silica frameworks (FAU, LTA, MOR), intermediate ratios favor MFI/*BEA/FER-type products, and very high ratios plus Ge shift toward germanosilicate frameworks (BEC, ISV, UTL, ITH-type). Many of the most frequent labels in this dataset (MFI, CHA, *BEA, MTW, FAU, LTA) occupy distinct Si/Al windows, and 'Failed' outcomes are enriched at extreme ratios (either very Al-poor gels without a mineralizer/OSDA match, or Al-rich gels that stay amorphous or form dense phases). A ratio is not a monotone transform of any single D0 column, so it adds genuinely new splitting structure while remaining transferable across publications because it is normalized and scale-free."
+            }
+          },
+          "response_id": "20261010001951fa248f7c01b940fa",
+          "usage": {
+            "completion_tokens": 633,
+            "completion_tokens_details": {
+              "reasoning_tokens": 304
+            },
+            "prompt_tokens": 1465,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 2098
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ga",
+              "Ge",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes (1) gel mole fractions approximate the reactive species available for framework incorporation (i.e., negligible sequestration of Al into non-framework precipitates), (2) B and Ga substitute for framework T atoms analogously to Al (B is trigonal at calcination but tetrahedral in as-synthesized borosilicates), (3) the 0.01 constant only prevents division by zero for essentially heteroatom-free (pure-silica or fluoridesynthesized) gels and makes the ratio saturate near (Si+Ge)/0.01 for heteroatom-free gels, which is acceptable because those gels form a distinct regime. It ignores OH-, F-, and cation effects on heteroatom incorporation, which are handled by D0 columns.",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor increases from near zero: low values (heavily Al/B/Ga-rich gels) should shift outcomes toward Failed or dense/low-silica products; intermediate values should favor FAU, LTA, and MOR with inorganic cations; higher values should favor MFI, *BEA, CHA, MTW, FER, TON; and the highest values (with Ge in the gel) should favor germanosilicates BEC, ISV, UTL. Outcomes whose probability changes monotonically along this axis include MFI increasing and FAU/LTA decreasing with rising ratio.",
+              "falsification": "If held-out publications show that MFI and FAU (or other framework pairs known to occupy distinct Si/Al windows) occur over overlapping descriptor ranges, or if adding this ratio to D0 leaves held-out publication accuracy unchanged while a different composition descriptor clearly improves it, the hypothesis is contradicted. Likewise, if Failed outcomes do not concentrate at the extremes of the descriptor distribution.",
+              "formula": "(Si + Ge) / (Al + B + Ga + 0.01)",
+              "hypothesis": "The molar ratio of framework tetravalent species (Si, Ge) to trivalent/trigonal framework substituents (Al, B, Ga) in the gel is a primary determinant of which framework crystallizes. Low ratios favor low-silica, charge-balanced-by-inorganic-cation frameworks (FAU, LTA, MOR); intermediate ratios favor medium-pore and large-pore high-silica phases (MFI, *BEA, FER, TON, MTW); very high ratios, especially with Ge present, favor germanosilicate frameworks (BEC, ISV, UTL). Extreme ratios in either direction increase the probability of 'Failed' (amorphous or dense-phase) outcomes.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Framework crystallization is governed by the availability of T-O-T forming species and by charge balance: each AlO4- or BO4- (and GaO4-) incorporated into the framework must be compensated by an inorganic cation or an OSDA. The gel Si/T (or Ge/T) ratio sets the achievable framework heteroatom content, which in turn selects which framework topologies have compatible framework densities and cage/channel sizes for the available charge-balancing species. Tree ensembles receive Si, Al, Ge, B, and Ga only as separate absolute mole fractions (they all share the normalization sum), so the model cannot directly access the ratio; splitting on one column at a time cannot reconstruct the quotient that controls charge balance per framework T atom.",
+              "name": "tetravalent_to_trivalent_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "MOR",
+                "MFI",
+                "*BEA",
+                "MTW",
+                "FER",
+                "TON",
+                "CHA",
+                "BEC",
+                "ISV",
+                "UTL",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "2026101000200785fc68fe6e334307",
+          "usage": {
+            "completion_tokens": 866,
+            "completion_tokens_details": {
+              "reasoning_tokens": 32
+            },
+            "prompt_tokens": 1901,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2767
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes (1) gel mole fractions approximate the reactive species available for framework incorporation (i.e., negligible sequestration of Al into non-framework precipitates), (2) B and Ga substitute for framework T atoms analogously to Al (B is trigonal at calcination but tetrahedral in as-synthesized borosilicates), (3) the 0.01 constant only prevents division by zero for essentially heteroatom-free (pure-silica or fluoridesynthesized) gels and makes the ratio saturate near (Si+Ge)/0.01 for heteroatom-free gels, which is acceptable because those gels form a distinct regime. It ignores OH-, F-, and cation effects on heteroatom incorporation, which are handled by D0 columns.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor increases from near zero: low values (heavily Al/B/Ga-rich gels) should shift outcomes toward Failed or dense/low-silica products; intermediate values should favor FAU, LTA, and MOR with inorganic cations; higher values should favor MFI, *BEA, CHA, MTW, FER, TON; and the highest values (with Ge in the gel) should favor germanosilicates BEC, ISV, UTL. Outcomes whose probability changes monotonically along this axis include MFI increasing and FAU/LTA decreasing with rising ratio.",
+        "falsification": "If held-out publications show that MFI and FAU (or other framework pairs known to occupy distinct Si/Al windows) occur over overlapping descriptor ranges, or if adding this ratio to D0 leaves held-out publication accuracy unchanged while a different composition descriptor clearly improves it, the hypothesis is contradicted. Likewise, if Failed outcomes do not concentrate at the extremes of the descriptor distribution.",
+        "formula": "(Si + Ge) / (Al + B + Ga + 0.01)",
+        "hypothesis": "The molar ratio of framework tetravalent species (Si, Ge) to trivalent/trigonal framework substituents (Al, B, Ga) in the gel is a primary determinant of which framework crystallizes. Low ratios favor low-silica, charge-balanced-by-inorganic-cation frameworks (FAU, LTA, MOR); intermediate ratios favor medium-pore and large-pore high-silica phases (MFI, *BEA, FER, TON, MTW); very high ratios, especially with Ge present, favor germanosilicate frameworks (BEC, ISV, UTL). Extreme ratios in either direction increase the probability of 'Failed' (amorphous or dense-phase) outcomes.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Framework crystallization is governed by the availability of T-O-T forming species and by charge balance: each AlO4- or BO4- (and GaO4-) incorporated into the framework must be compensated by an inorganic cation or an OSDA. The gel Si/T (or Ge/T) ratio sets the achievable framework heteroatom content, which in turn selects which framework topologies have compatible framework densities and cage/channel sizes for the available charge-balancing species. Tree ensembles receive Si, Al, Ge, B, and Ga only as separate absolute mole fractions (they all share the normalization sum), so the model cannot directly access the ratio; splitting on one column at a time cannot reconstruct the quotient that controls charge balance per framework T atom.",
+        "name": "tetravalent_to_trivalent_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "MOR",
+          "MFI",
+          "*BEA",
+          "MTW",
+          "FER",
+          "TON",
+          "CHA",
+          "BEC",
+          "ISV",
+          "UTL",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Framework heteroatom ratio: the molar ratio of framework-forming tetravalent species (Si, Ge) to trivalent/substituting species (Al, B, Ga) in the gel, e.g. (Si + Ge) / (Al + B + Ga + small constant)",
+        "queries": [],
+        "why": "The model sees Si, Al, Ge, B, and Ga only as separate absolute mole fractions, and tree ensembles split on one column at a time, so it cannot directly form the composition ratio that governs framework selection. Si/T (or Ge/T) ratio is arguably the strongest single determinant of which zeolite framework crystallizes: low ratios favor low-silica frameworks (FAU, LTA, MOR), intermediate ratios favor MFI/*BEA/FER-type products, and very high ratios plus Ge shift toward germanosilicate frameworks (BEC, ISV, UTL, ITH-type). Many of the most frequent labels in this dataset (MFI, CHA, *BEA, MTW, FAU, LTA) occupy distinct Si/Al windows, and 'Failed' outcomes are enriched at extreme ratios (either very Al-poor gels without a mineralizer/OSDA match, or Al-rich gels that stay amorphous or form dense phases). A ratio is not a monotone transform of any single D0 column, so it adds genuinely new splitting structure while remaining transferable across publications because it is normalized and scale-free."
+      },
+      "propose_prompt_sha256": "e7a1141c777aaa0c6123d6360a230676e25080e7442fd9f3759c0850e3212951",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "4edccf376e70e744b5751a83824772fb9858922ed3e51db454f97d746479bfb8",
+          "raw_structured": {
+            "plan": {
+              "factor": "Mineralizer type and strength relative to the network-former content: a combined fluoride-plus-hydroxide basicity term normalized by gel Si, e.g. (OH + 10*F) / (Si + 0.01)",
+              "queries": [],
+              "why": "The model already sees OH and F as separate mole fractions, but a single tree split on raw OH cannot express the synthesis-relevant quantity: mineralizer strength per unit of silica. Fluoride and hydroxide act through very different chemistry (F- enables near-neutral, low-water, dense large-crystal high-silica phases and stabilizes D4R-containing germanosilicates; OH- drives alkaline dissolution and favors low-silica, cation-templated frameworks, while too much OH relative to Si dissolves the gel and gives 'Failed'). Scaling F strongly relative to OH reflects fluoride being used at ~1/10 the dose of OH for comparable mineralizing power, and normalizing by Si turns absolute dosages into the transferable, recipe-scale-invariant quantity that distinguishes, say, an OH-MFI recipe from a fluoride-*BEA recipe even when published conventions for reporting base differ across papers. This ratio is a nonlinear combination of columns, so tree ensembles cannot recover it from D0 alone."
+            }
+          },
+          "response_id": "20261010002015f8ce6d8860424b83",
+          "usage": {
+            "completion_tokens": 634,
+            "completion_tokens_details": {
+              "reasoning_tokens": 347
+            },
+            "prompt_tokens": 1655,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2289
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "F",
+              "OH",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes F- and OH- mineralizing power is commensurable and that a ~10x dosing ratio is an adequate exchange rate, which is a crude proxy: actual mineralizing efficacy depends on pH, counter-cations, water content, and temperature. Assumes Si is the dominant network former; for phosphate-based (AlPO) gels where Si is absent, the denominator collapses to 0.01 and the descriptor degenerates to mineralizer abundance, which may misrepresent those syntheses. Assumes reported gel compositions faithfully reflect the batch mineralizer content.",
+              "evidence_ids": [],
+              "expected_effect": "As mineralizer_per_si increases from near zero, outcomes shift from fluoride-type high-silica/D4R phases (*BEA, MTW, BEC, ISV, UTL) toward conventional alkaline products (MFI, CHA, MOR, FAU, LTA); at very high values the probability of 'Failed' (amorphous or dense products) rises due to excessive gel dissolution.",
+              "falsification": "If product distributions for low versus high values of (OH + 10*F)/(Si + 0.01) are statistically indistinguishable once raw OH, F, and Si mole fractions are accounted for, or if the 10x fluoride weighting performs no better than a simple OH/Si ratio (or any other weighting) on held-out publications, the hypothesis is falsified.",
+              "formula": "(OH + 10*F) / (Si + 0.01)",
+              "hypothesis": "The ratio of combined mineralizer strength (hydroxide plus fluoride, with F weighted ~10x because it is dosed at roughly one-tenth the hydroxide level for comparable mineralizing power) to the network-former content (Si) steers which framework crystallizes. Low ratios correspond to near-neutral or fluoride-mediated syntheses favoring high-silica large-pore phases (e.g., *BEA, MTW, MFI via F-) and D4R-containing germanosilicates; intermediate ratios correspond to conventional alkaline syntheses favoring cation-templated frameworks (MFI, MOR, FAU, LTA, CHA); very high ratios indicate over-alkalinization that dissolves the gel and drives 'Failed' or dense-phase outcomes.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Mineralizers control the rate of Si-O-Si bond breaking/reforming. OH- deprotonates silanols and dissolves the amorphous gel; moderate OH/Si keeps enough soluble aluminosilicate in equilibrium for zeolite nucleation under alkaline conditions, selecting low-silica frameworks charge-balanced by inorganic cations. F- complexes Si and framework cations at near-neutral pH, slowing dissolution, enabling dense low-water batches and stabilizing double-4-ring (D4R) units characteristic of fluoride-synthesized high-silica phases and germanosilicates. Because a tree ensemble splits on raw OH or F mole fractions one column at a time, it cannot express mineralizer strength per unit of network former; normalizing by Si also makes the descriptor scale-invariant across papers that report base dosages in different conventions, which is essential for transfer to held-out publications.",
+              "name": "mineralizer_per_si",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "*BEA",
+                "MTW",
+                "MFI",
+                "BEC",
+                "ISV",
+                "UTL",
+                "FAU",
+                "LTA",
+                "MOR",
+                "CHA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610100020319c3d0d91d31f488b",
+          "usage": {
+            "completion_tokens": 851,
+            "completion_tokens_details": {
+              "reasoning_tokens": 72
+            },
+            "prompt_tokens": 2049,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2900
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes F- and OH- mineralizing power is commensurable and that a ~10x dosing ratio is an adequate exchange rate, which is a crude proxy: actual mineralizing efficacy depends on pH, counter-cations, water content, and temperature. Assumes Si is the dominant network former; for phosphate-based (AlPO) gels where Si is absent, the denominator collapses to 0.01 and the descriptor degenerates to mineralizer abundance, which may misrepresent those syntheses. Assumes reported gel compositions faithfully reflect the batch mineralizer content.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As mineralizer_per_si increases from near zero, outcomes shift from fluoride-type high-silica/D4R phases (*BEA, MTW, BEC, ISV, UTL) toward conventional alkaline products (MFI, CHA, MOR, FAU, LTA); at very high values the probability of 'Failed' (amorphous or dense products) rises due to excessive gel dissolution.",
+        "falsification": "If product distributions for low versus high values of (OH + 10*F)/(Si + 0.01) are statistically indistinguishable once raw OH, F, and Si mole fractions are accounted for, or if the 10x fluoride weighting performs no better than a simple OH/Si ratio (or any other weighting) on held-out publications, the hypothesis is falsified.",
+        "formula": "(OH + 10*F) / (Si + 0.01)",
+        "hypothesis": "The ratio of combined mineralizer strength (hydroxide plus fluoride, with F weighted ~10x because it is dosed at roughly one-tenth the hydroxide level for comparable mineralizing power) to the network-former content (Si) steers which framework crystallizes. Low ratios correspond to near-neutral or fluoride-mediated syntheses favoring high-silica large-pore phases (e.g., *BEA, MTW, MFI via F-) and D4R-containing germanosilicates; intermediate ratios correspond to conventional alkaline syntheses favoring cation-templated frameworks (MFI, MOR, FAU, LTA, CHA); very high ratios indicate over-alkalinization that dissolves the gel and drives 'Failed' or dense-phase outcomes.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Mineralizers control the rate of Si-O-Si bond breaking/reforming. OH- deprotonates silanols and dissolves the amorphous gel; moderate OH/Si keeps enough soluble aluminosilicate in equilibrium for zeolite nucleation under alkaline conditions, selecting low-silica frameworks charge-balanced by inorganic cations. F- complexes Si and framework cations at near-neutral pH, slowing dissolution, enabling dense low-water batches and stabilizing double-4-ring (D4R) units characteristic of fluoride-synthesized high-silica phases and germanosilicates. Because a tree ensemble splits on raw OH or F mole fractions one column at a time, it cannot express mineralizer strength per unit of network former; normalizing by Si also makes the descriptor scale-invariant across papers that report base dosages in different conventions, which is essential for transfer to held-out publications.",
+        "name": "mineralizer_per_si",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "*BEA",
+          "MTW",
+          "MFI",
+          "BEC",
+          "ISV",
+          "UTL",
+          "FAU",
+          "LTA",
+          "MOR",
+          "CHA",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Mineralizer type and strength relative to the network-former content: a combined fluoride-plus-hydroxide basicity term normalized by gel Si, e.g. (OH + 10*F) / (Si + 0.01)",
+        "queries": [],
+        "why": "The model already sees OH and F as separate mole fractions, but a single tree split on raw OH cannot express the synthesis-relevant quantity: mineralizer strength per unit of silica. Fluoride and hydroxide act through very different chemistry (F- enables near-neutral, low-water, dense large-crystal high-silica phases and stabilizes D4R-containing germanosilicates; OH- drives alkaline dissolution and favors low-silica, cation-templated frameworks, while too much OH relative to Si dissolves the gel and gives 'Failed'). Scaling F strongly relative to OH reflects fluoride being used at ~1/10 the dose of OH for comparable mineralizing power, and normalizing by Si turns absolute dosages into the transferable, recipe-scale-invariant quantity that distinguishes, say, an OH-MFI recipe from a fluoride-*BEA recipe even when published conventions for reporting base differ across papers. This ratio is a nonlinear combination of columns, so tree ensembles cannot recover it from D0 alone."
+      },
+      "propose_prompt_sha256": "0a30aafb828d7a935b89efc997f92fa1c5aed08ba5aa5d172fe822c03f859f19",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "7ed8be5600e557a786705308f2bd863a85d96053318add573adf903b92c5653b",
+          "raw_structured": {
+            "plan": {
+              "factor": "Positive charge balance: total inorganic + organic cation charge per trivalent framework substituent",
+              "queries": [],
+              "why": "The two existing descriptors cover the network-former composition (Si/Ge vs Al/B/Ga) and mineralizer strength, but neither tells the model where the positive charge that balances framework [AlO2/2]-/[BO2/2]-/[GaO2/2]- sites comes from. Inorganic alkali cations (Na, K, Li, Cs, Rb) act as structure-directing charge balancers for low-silica frameworks (FAU, LTA, MOR, CHA, RHO-type), whereas OSDA charge (osda_charge * sda1) templating dominates high-silica phases (*BEA, MFI, TON, AEI). A ratio of (Na + K + Li + Cs + Rb + osda_charge*sda1) to (Al + B + Ga + 0.01) captures whether the gel is cation-rich relative to its negative-charge budget: ~1.0 is required for crystallization (deficit or large excess biases toward 'Failed'), values dominated by the inorganic term favor alkali-templated frameworks, and values where the OSDA term dominates favor OSDA-templated phases. Tree ensembles cannot form this cross-column ratio themselves, and it is orthogonal to both appended descriptors since it shares no column with tetravalent_to_trivalent_ratio beyond Al/B/Ga and only weakly with mineralizer_per_si. Being a composition ratio it transfers across publications without lab-specific normalization."
+            }
+          },
+          "response_id": "202610100020470574de8c4cc24d74",
+          "usage": {
+            "completion_tokens": 837,
+            "completion_tokens_details": {
+              "reasoning_tokens": 487
+            },
+            "prompt_tokens": 1839,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2676
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Cs",
+              "Ga",
+              "K",
+              "Li",
+              "Na",
+              "Rb",
+              "osda_charge",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Treats alkali mole fractions as fully ionized and available; assumes osda_charge (formal charge) times sda1 approximates the OSDA charge dose (ignores protonated amine equilibria, OH-deprotonation, and occluded species); counts only monovalent contributions (Ba, Ca, Sr, divalent cations are excluded and would need a factor of 2 if templating is relevant); ignores anion co-cations like halide pairing; the 0.01 denominator stabilizes near-zero trivalent gels, but in purely siliceous gels the ratio becomes very large and mostly reflects mineralizer/cation excess rather than charge balance, so its interpretation shifts in that regime; transfers across publications because it is a dimensionless composition ratio.",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor increases from charge deficit (<~0.5) toward charge balance (~1), Failed probability decreases and framework crystallization becomes likely; low values dominated by the inorganic term map to alkali-templated frameworks (FAU, LTA, CHA, MOR); intermediate-to-high values where the OSDA term dominates map to OSDA-templated high-silica frameworks (*BEA, MFI, TON, MTW, AEI); very large excesses (>~3-5) raise Failed and dense-phase probability again.",
+              "falsification": "If crystallization outcomes are uncorrelated with this ratio, e.g., high-silica phases crystallize routinely from strongly cation-deficient gels, low-silica frameworks crystallize without sufficient cation charge, or Failed outcomes show the same ratio distribution as successful crystallizations, the charge-balance hypothesis is contradicted.",
+              "formula": "(Na + K + Li + Cs + Rb + osda_charge * sda1) / (Al + B + Ga + 0.01)",
+              "hypothesis": "The ratio of total available positive charge (inorganic alkali cations plus OSDA formal charge weighted by its dose) to the negative framework charge budget (trivalent substituents Al, B, Ga) steers which framework crystallizes and whether anything crystallizes at all. Values near unity indicate a charge-balanced gel capable of crystallizing a framework; values dominated by inorganic cations favor alkali-templated low-silica frameworks (FAU, LTA, CHA, MOR), values dominated by the OSDA term favor OSDA-templated high-silica frameworks (*BEA, MFI, TON, AEI, MTW), and strong charge deficits or large cation excesses bias toward Failed (amorphous or dense-phase) outcomes.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Each framework AlO2/2-, BO2/2- or GaO2/2- site requires one unit of positive charge (inorganic cation, protonated OSDA, or quaternary OSDA center) located in pores or cages to be incorporated into the growing crystal. In gels where alkali cations carry the charge, the cation's hydration shell and size select specific cage and channel geometries (Na for LTA/FAU/CHA cages, K for MOR/ERI-type cages), while in gels where the OSDA carries the charge, the OSDA's size and shape lock in large-pore or medium-pore high-silica frameworks. If the cation supply falls far short of the trivalent site count, incorporation of heteroatoms is thermodynamically disfavored and the gel stays amorphous or forms dense phases; if it vastly exceeds it, excess cations push mineralizing equilibria toward dense silicates or outside crystallization windows. Tree ensembles receive Na, K, osda_charge and sda1 as separate columns and cannot form this charge-to-charge ratio through axis-aligned splits, so the descriptor supplies genuinely new combinatorial information.",
+              "name": "cation_charge_per_trivalent",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "CHA",
+                "MOR",
+                "*BEA",
+                "MFI",
+                "TON",
+                "MTW",
+                "AEI",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010002106311b09895f3b4af1",
+          "usage": {
+            "completion_tokens": 965,
+            "completion_tokens_details": {
+              "reasoning_tokens": 53
+            },
+            "prompt_tokens": 2298,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3263
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Treats alkali mole fractions as fully ionized and available; assumes osda_charge (formal charge) times sda1 approximates the OSDA charge dose (ignores protonated amine equilibria, OH-deprotonation, and occluded species); counts only monovalent contributions (Ba, Ca, Sr, divalent cations are excluded and would need a factor of 2 if templating is relevant); ignores anion co-cations like halide pairing; the 0.01 denominator stabilizes near-zero trivalent gels, but in purely siliceous gels the ratio becomes very large and mostly reflects mineralizer/cation excess rather than charge balance, so its interpretation shifts in that regime; transfers across publications because it is a dimensionless composition ratio.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor increases from charge deficit (<~0.5) toward charge balance (~1), Failed probability decreases and framework crystallization becomes likely; low values dominated by the inorganic term map to alkali-templated frameworks (FAU, LTA, CHA, MOR); intermediate-to-high values where the OSDA term dominates map to OSDA-templated high-silica frameworks (*BEA, MFI, TON, MTW, AEI); very large excesses (>~3-5) raise Failed and dense-phase probability again.",
+        "falsification": "If crystallization outcomes are uncorrelated with this ratio, e.g., high-silica phases crystallize routinely from strongly cation-deficient gels, low-silica frameworks crystallize without sufficient cation charge, or Failed outcomes show the same ratio distribution as successful crystallizations, the charge-balance hypothesis is contradicted.",
+        "formula": "(Na + K + Li + Cs + Rb + osda_charge * sda1) / (Al + B + Ga + 0.01)",
+        "hypothesis": "The ratio of total available positive charge (inorganic alkali cations plus OSDA formal charge weighted by its dose) to the negative framework charge budget (trivalent substituents Al, B, Ga) steers which framework crystallizes and whether anything crystallizes at all. Values near unity indicate a charge-balanced gel capable of crystallizing a framework; values dominated by inorganic cations favor alkali-templated low-silica frameworks (FAU, LTA, CHA, MOR), values dominated by the OSDA term favor OSDA-templated high-silica frameworks (*BEA, MFI, TON, AEI, MTW), and strong charge deficits or large cation excesses bias toward Failed (amorphous or dense-phase) outcomes.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Each framework AlO2/2-, BO2/2- or GaO2/2- site requires one unit of positive charge (inorganic cation, protonated OSDA, or quaternary OSDA center) located in pores or cages to be incorporated into the growing crystal. In gels where alkali cations carry the charge, the cation's hydration shell and size select specific cage and channel geometries (Na for LTA/FAU/CHA cages, K for MOR/ERI-type cages), while in gels where the OSDA carries the charge, the OSDA's size and shape lock in large-pore or medium-pore high-silica frameworks. If the cation supply falls far short of the trivalent site count, incorporation of heteroatoms is thermodynamically disfavored and the gel stays amorphous or forms dense phases; if it vastly exceeds it, excess cations push mineralizing equilibria toward dense silicates or outside crystallization windows. Tree ensembles receive Na, K, osda_charge and sda1 as separate columns and cannot form this charge-to-charge ratio through axis-aligned splits, so the descriptor supplies genuinely new combinatorial information.",
+        "name": "cation_charge_per_trivalent",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "CHA",
+          "MOR",
+          "*BEA",
+          "MFI",
+          "TON",
+          "MTW",
+          "AEI",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Positive charge balance: total inorganic + organic cation charge per trivalent framework substituent",
+        "queries": [],
+        "why": "The two existing descriptors cover the network-former composition (Si/Ge vs Al/B/Ga) and mineralizer strength, but neither tells the model where the positive charge that balances framework [AlO2/2]-/[BO2/2]-/[GaO2/2]- sites comes from. Inorganic alkali cations (Na, K, Li, Cs, Rb) act as structure-directing charge balancers for low-silica frameworks (FAU, LTA, MOR, CHA, RHO-type), whereas OSDA charge (osda_charge * sda1) templating dominates high-silica phases (*BEA, MFI, TON, AEI). A ratio of (Na + K + Li + Cs + Rb + osda_charge*sda1) to (Al + B + Ga + 0.01) captures whether the gel is cation-rich relative to its negative-charge budget: ~1.0 is required for crystallization (deficit or large excess biases toward 'Failed'), values dominated by the inorganic term favor alkali-templated frameworks, and values where the OSDA term dominates favor OSDA-templated phases. Tree ensembles cannot form this cross-column ratio themselves, and it is orthogonal to both appended descriptors since it shares no column with tetravalent_to_trivalent_ratio beyond Al/B/Ga and only weakly with mineralizer_per_si. Being a composition ratio it transfers across publications without lab-specific normalization."
+      },
+      "propose_prompt_sha256": "9233934c8dea2ce250817968b3085a66d30d43f4ffbf5d3627565ad22ffe6bba",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}

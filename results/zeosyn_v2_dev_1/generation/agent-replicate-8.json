@@ -1,0 +1,412 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "Si / (Al + P + Ga + B + Ge + 1e-6)",
+      "name": "si_over_heteroatom_t_ratio"
+    },
+    {
+      "formula": "(OH + Na + K + Li + 1e-6) / (H2O + 1e-6)",
+      "name": "alkalinity_per_water"
+    },
+    {
+      "formula": "P / (Al + P + 1e-6)",
+      "name": "p_vs_al_fraction"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 8,
+  "seconds": 131.5884747505188,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "8b580ecdb537eaad685e9eaf8ead5a9a67e706130abba5fc14ab4d26e034283f",
+          "raw_structured": {
+            "plan": {
+              "factor": "Framework T-atom composition ratio: the fraction of the framework-forming pool occupied by silicon versus heteroatoms, expressed as Si / (Al + P + Ga + B + Ge + 1e-6), with the denominator being the sum of all non-Si T-atoms (Al, P, Ga, B, Ge)",
+              "queries": [],
+              "why": "The framework topology a synthesis reaches is strongly governed by the composition of the tetrahedral-atom pool, not by the raw mole fractions: Si/Al-type ratios separate low-silica frameworks (FAU, LTA, AFX) from high-silica ones (MFI, MEL, TON), and Ge/(Si+Ge) drives D4R-containing frameworks (BEC, ISV, UTL), while P-dominated pools give AlPO-type frameworks (AFI, AEL, AEI, CHA). The model receives only individual normalized mole fractions, which conflate three different effects: (i) the true T-atom composition, (ii) dilution by water/OSDA/OH/mineralizer, and (iii) the charge-balancing cation content. Because mole fractions all sum to 1, a recipe with the same Si/Al ratio but a more OSDA- or water-rich gel gets systematically shifted raw values, so a split on the Al column means different things in different regions of the recipe space. A tree ensemble splitting one column at a time cannot reconstruct the ratio Si/(heteroatoms), yet this quantity is essentially scale-free with respect to gel dilution and therefore transfers robustly to recipes from unseen publications, which routinely use different absolute batch sizes and water/OSDA loadings. Encoding the T-atom pool ratio gives the classifier a direct handle on the most topology-determining chemical variable that no single existing column carries."
+            }
+          },
+          "response_id": "20261010001855480537d306784ead",
+          "usage": {
+            "completion_tokens": 1072,
+            "completion_tokens_details": {
+              "reasoning_tokens": 669
+            },
+            "prompt_tokens": 1465,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 2537
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ga",
+              "Ge",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes all listed heteroatoms (Al, P, Ga, B, Ge) that appear in the gel are incorporated as framework T-atoms or at least compete for framework sites, so a single pooled denominator is meaningful; assumes the framework Si/heteroatom ratio tracks the gel ratio (gel-to-framework composition transfer), which can fail when heteroatoms remain in the mother liquor or in dense side phases; treats B, Ga, Ge as interchangeable charge/size proxies with Al and P, which is a simplification; the 1e-6 constant prevents division by zero for purely heteroatom-free gels only in the sense of numerical safety, and yields a very large value for pure-SiO2 gels, which is chemically correct (infinite Si/heteroatom).",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor increases from ~1 toward infinity, the favored outcome should shift from AlPO-type frameworks (AFI, AEL, AEI) and low-silica zeolites (FAU, LTA, low-silica CHA/MOR) toward medium- and high-silica frameworks (MFI, MEL, TON, MTW, *BEA, BEC, UTL); extremely diluted gels whose T-atom pool is tiny (descriptor insensitive to absolute scale but the pool itself small) should increasingly map to Failed when crystallization is nutrient-limited.",
+              "falsification": "If the held-out-publication accuracy of the classifier does not change after appending this descriptor, or if splits on the new feature do not stratify AlPO/low-silica outcomes at low values and high-silica/silicogermanate outcomes at high values, the hypothesis is contradicted; likewise, if products appear whose topology is uncorrelated with Si/heteroatom ratio across unseen papers (e.g., FAU and MFI overlapping heavily in descriptor value), the ratio is not the operative variable.",
+              "formula": "Si / (Al + P + Ga + B + Ge + 1e-6)",
+              "hypothesis": "The ratio of silicon to the total heteroatom (non-Si tetrahedral-atom) pool in the gel is a primary determinant of which framework crystallizes: low Si/(Al+P) favors low-silica aluminosilicates and aluminophosphates, intermediate ratios favor mid-silica zeolites, and high ratios favor pure-silica or high-silica frameworks; Ge in the heteroatom denominator additionally signals double-four-ring-rich topologies.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Framework topology is set by the T-atom composition of the crystallizing phase: AlPO-n frameworks (AFI, AEL, AEI) form when P and Al dominate the T-atom pool with little Si; low-silica zeolites (FAU, LTA, MOR at low Si/Al) need Si/heteroatom ratios near 1-5; high-silica frameworks (MFI, MEL, TON, MTW, *BEA) form at Si/Al of tens to infinity. Because all gel species are normalized mole fractions summing to 1, raw Al or P columns conflate true T-atom chemistry with dilution by H2O, OSDA, OH, and charge-balancing cations (Na, K, etc.) and with F content. A ratio Si/(Al+P+Ga+B+Ge) is invariant to this dilution: multiplying all T-atom fractions by the same factor (i.e., changing water/OSDA loading) leaves the ratio unchanged. Tree ensembles split on one column at a time and cannot reconstruct this ratio from raw mole fractions, so providing it directly exposes the most topology-determining, publication-independent compositional variable. Trivalent/pentavalent heteroatoms (Al, B, Ga, and P in AlPO systems) create framework negative charge and require cation/OSDA charge balance, shifting crystallization toward frameworks whose channel/cage systems stabilize the available charge density; Ge chemistry (stabilizing D4R units in BEC, ISV, UTL) is captured because Ge enters the same heteroatom pool denominator, marking heteroatom-rich silicogermanate regimes.",
+              "name": "si_over_heteroatom_t_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "AFI",
+                "AEL",
+                "AEI",
+                "CHA",
+                "FAU",
+                "LTA",
+                "MOR",
+                "MFI",
+                "MEL",
+                "TON",
+                "MTW",
+                "*BEA",
+                "BEC",
+                "ISV",
+                "UTL",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010001922e3f97c5cd2f74170",
+          "usage": {
+            "completion_tokens": 1070,
+            "completion_tokens_details": {
+              "reasoning_tokens": 30
+            },
+            "prompt_tokens": 1972,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3042
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes all listed heteroatoms (Al, P, Ga, B, Ge) that appear in the gel are incorporated as framework T-atoms or at least compete for framework sites, so a single pooled denominator is meaningful; assumes the framework Si/heteroatom ratio tracks the gel ratio (gel-to-framework composition transfer), which can fail when heteroatoms remain in the mother liquor or in dense side phases; treats B, Ga, Ge as interchangeable charge/size proxies with Al and P, which is a simplification; the 1e-6 constant prevents division by zero for purely heteroatom-free gels only in the sense of numerical safety, and yields a very large value for pure-SiO2 gels, which is chemically correct (infinite Si/heteroatom).",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor increases from ~1 toward infinity, the favored outcome should shift from AlPO-type frameworks (AFI, AEL, AEI) and low-silica zeolites (FAU, LTA, low-silica CHA/MOR) toward medium- and high-silica frameworks (MFI, MEL, TON, MTW, *BEA, BEC, UTL); extremely diluted gels whose T-atom pool is tiny (descriptor insensitive to absolute scale but the pool itself small) should increasingly map to Failed when crystallization is nutrient-limited.",
+        "falsification": "If the held-out-publication accuracy of the classifier does not change after appending this descriptor, or if splits on the new feature do not stratify AlPO/low-silica outcomes at low values and high-silica/silicogermanate outcomes at high values, the hypothesis is contradicted; likewise, if products appear whose topology is uncorrelated with Si/heteroatom ratio across unseen papers (e.g., FAU and MFI overlapping heavily in descriptor value), the ratio is not the operative variable.",
+        "formula": "Si / (Al + P + Ga + B + Ge + 1e-6)",
+        "hypothesis": "The ratio of silicon to the total heteroatom (non-Si tetrahedral-atom) pool in the gel is a primary determinant of which framework crystallizes: low Si/(Al+P) favors low-silica aluminosilicates and aluminophosphates, intermediate ratios favor mid-silica zeolites, and high ratios favor pure-silica or high-silica frameworks; Ge in the heteroatom denominator additionally signals double-four-ring-rich topologies.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Framework topology is set by the T-atom composition of the crystallizing phase: AlPO-n frameworks (AFI, AEL, AEI) form when P and Al dominate the T-atom pool with little Si; low-silica zeolites (FAU, LTA, MOR at low Si/Al) need Si/heteroatom ratios near 1-5; high-silica frameworks (MFI, MEL, TON, MTW, *BEA) form at Si/Al of tens to infinity. Because all gel species are normalized mole fractions summing to 1, raw Al or P columns conflate true T-atom chemistry with dilution by H2O, OSDA, OH, and charge-balancing cations (Na, K, etc.) and with F content. A ratio Si/(Al+P+Ga+B+Ge) is invariant to this dilution: multiplying all T-atom fractions by the same factor (i.e., changing water/OSDA loading) leaves the ratio unchanged. Tree ensembles split on one column at a time and cannot reconstruct this ratio from raw mole fractions, so providing it directly exposes the most topology-determining, publication-independent compositional variable. Trivalent/pentavalent heteroatoms (Al, B, Ga, and P in AlPO systems) create framework negative charge and require cation/OSDA charge balance, shifting crystallization toward frameworks whose channel/cage systems stabilize the available charge density; Ge chemistry (stabilizing D4R units in BEC, ISV, UTL) is captured because Ge enters the same heteroatom pool denominator, marking heteroatom-rich silicogermanate regimes.",
+        "name": "si_over_heteroatom_t_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "AFI",
+          "AEL",
+          "AEI",
+          "CHA",
+          "FAU",
+          "LTA",
+          "MOR",
+          "MFI",
+          "MEL",
+          "TON",
+          "MTW",
+          "*BEA",
+          "BEC",
+          "ISV",
+          "UTL",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Framework T-atom composition ratio: the fraction of the framework-forming pool occupied by silicon versus heteroatoms, expressed as Si / (Al + P + Ga + B + Ge + 1e-6), with the denominator being the sum of all non-Si T-atoms (Al, P, Ga, B, Ge)",
+        "queries": [],
+        "why": "The framework topology a synthesis reaches is strongly governed by the composition of the tetrahedral-atom pool, not by the raw mole fractions: Si/Al-type ratios separate low-silica frameworks (FAU, LTA, AFX) from high-silica ones (MFI, MEL, TON), and Ge/(Si+Ge) drives D4R-containing frameworks (BEC, ISV, UTL), while P-dominated pools give AlPO-type frameworks (AFI, AEL, AEI, CHA). The model receives only individual normalized mole fractions, which conflate three different effects: (i) the true T-atom composition, (ii) dilution by water/OSDA/OH/mineralizer, and (iii) the charge-balancing cation content. Because mole fractions all sum to 1, a recipe with the same Si/Al ratio but a more OSDA- or water-rich gel gets systematically shifted raw values, so a split on the Al column means different things in different regions of the recipe space. A tree ensemble splitting one column at a time cannot reconstruct the ratio Si/(heteroatoms), yet this quantity is essentially scale-free with respect to gel dilution and therefore transfers robustly to recipes from unseen publications, which routinely use different absolute batch sizes and water/OSDA loadings. Encoding the T-atom pool ratio gives the classifier a direct handle on the most topology-determining chemical variable that no single existing column carries."
+      },
+      "propose_prompt_sha256": "8487a5d7f4fa08a91b9285a5c18efe8ed437216a264beb37b0bad066dd2ced70",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "df1d3b70fc3fbfef6030e126b2bb5f977c9d6191673f24a6b2e9f2bd9a90ff71",
+          "raw_structured": {
+            "plan": {
+              "factor": "Alkalinity / mineralizer strength of the synthesis gel, encoded as the hydroxide-to-water ratio with alkali contribution: (OH + Na + K + 1e-6) / (H2O + 1e-6)",
+              "queries": [],
+              "why": "The classifier sees OH, Na, K, and H2O only as independent mole-fraction columns, but tree ensembles split on one column at a time and cannot directly access the mineralizer concentration per unit water, which is the chemically operative quantity. Crystallization rate, nucleation density, framework densification, Si/Al ordering, and the Failed-versus-crystalline boundary all depend strongly on alkalinity normalized by water content: high OH/H2O accelerates dissolution and nucleation and pushes toward dense or metastable phases and Failed outcomes under high-silica conditions, while low alkalinity slows growth and favors OSDA-templated open frameworks or pure-silica phases (especially with fluoride, where OH is deliberately absent). The already-appended Si/heteroatom ratio captures the compositional axis but not the solvent/mineralizer axis, so this descriptor adds a genuinely new dimension of the synthesis record."
+            }
+          },
+          "response_id": "202610100019459de17532312e4326",
+          "usage": {
+            "completion_tokens": 355,
+            "completion_tokens_details": {
+              "reasoning_tokens": 84
+            },
+            "prompt_tokens": 1605,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 1960
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "H2O",
+              "K",
+              "Li",
+              "Na",
+              "OH"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula is a proxy: true alkalinity depends on hydroxide activity (not mole fraction), counterion identity, and buffering by the OSDA, so OH + Na + K + Li is only an upper-bound-like indicator of basicity (Na/K/Li are counted as full contributors even when present as silicate salts rather than free hydroxide). Fluoride-mediated syntheses, where F- mineralizes without high OH, are captured only implicitly (low numerator), and F itself is not included here to avoid conflating with a future fluoride descriptor. At very small water fractions the ratio can become large and noisy; the 1e-6 constants only prevent division by zero. Because gel mole fractions are normalized, the ratio is invariant to overall batch dilution, which is intended but means absolute concentration information is discarded.",
+              "evidence_ids": [],
+              "expected_effect": "As alkalinity_per_water increases: probability of low-silica aluminosilicates (LTA, FAU, SOD-type) and rapidly nucleating dense phases rises, and at very high values under high-silica conditions the probability of Failed (amorphous or dense byproducts) rises; as it decreases toward fluoride-regime values (OH ~ 0), probability of pure-silica and OSDA-templated open frameworks (MFI, *BEA, MTW, MWW, ISV/BEC, AFI) rises. Intermediate values favor mid-silica OSDA-directed phases (MFI, TON, FER, MWW).",
+              "falsification": "If held-out publication accuracy does not improve (or falls) relative to the model without this descriptor, or if permutation importance of alkalinity_per_water is negligible while OH and H2O alone already capture the same splits, then the ratio adds no information beyond its constituents and the hypothesis is falsified. Also falsified if product phase boundaries align with absolute OH mole fraction rather than OH/H2O across batches with different dilution.",
+              "formula": "(OH + Na + K + Li + 1e-6) / (H2O + 1e-6)",
+              "hypothesis": "The mineralizer concentration per unit water — not the individual OH, Na, K, or H2O mole fractions — is the chemically operative quantity controlling dissolution, nucleation rate, and framework selection, so encoding alkalinity normalized by water content will improve prediction of which framework crystallizes and whether the batch crystallizes at all. Low OH/H2O batches (especially fluoride-mediated, where OH is deliberately near-absent) favor OSDA-templated open, high-silica frameworks (MFI, *BEA, MTW, MWW, ISV/BEC) and pure-silica phases, whereas high OH/H2O batches favor low-silica frameworks (LTA, FAU, A, zeolite Na-X/P-type phases), faster-growing dense or metastable phases, and amorphous Failed outcomes when combined with high-silica gels. The already-appended Si/heteroatom ratio captures the framework-composition axis but not the solvent/mineralizer axis, so this descriptor adds a genuinely independent dimension.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Dissolved silicate and aluminate speciation depends on hydroxide activity: high [OH-] depolymerizes silicate oligomers to monomers, raises nucleation density, and accelerates crystal growth, which favors rapidly nucleating, dense or low-framework-density phases and can lock in metastable products; low [OH-] keeps the gel supersaturated only weakly, slowing nucleation so fewer, OSDA-directed nuclei grow into open frameworks. Water is the reaction medium and dilutes OH; the molar ratio OH/H2O approximates the alkalinity of the synthesis liquor far better than either mole fraction alone, because in a normalized gel both scale with the total batch size while their ratio does not. Alkali cations (Na, K, Li) additionally contribute basicity as charge-balancing species and act as inorganic structure directors (Na toward LTA/FAU/SOD-type, K toward ERI-type/merlinoite, Li toward AEL/analcime-type), so their inclusion provides a single monotone-ish axis of mineralizer strength that a tree can split on directly rather than having to approximate with separate, batch-size-dependent cuts.",
+              "name": "alkalinity_per_water",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "LTA",
+                "FAU",
+                "SOD",
+                "MFI",
+                "*BEA",
+                "MTW",
+                "MWW",
+                "ISV",
+                "BEC",
+                "AFI",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010001949580a8fedd0b641e1",
+          "usage": {
+            "completion_tokens": 1048,
+            "completion_tokens_details": {
+              "reasoning_tokens": 21
+            },
+            "prompt_tokens": 1981,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3029
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula is a proxy: true alkalinity depends on hydroxide activity (not mole fraction), counterion identity, and buffering by the OSDA, so OH + Na + K + Li is only an upper-bound-like indicator of basicity (Na/K/Li are counted as full contributors even when present as silicate salts rather than free hydroxide). Fluoride-mediated syntheses, where F- mineralizes without high OH, are captured only implicitly (low numerator), and F itself is not included here to avoid conflating with a future fluoride descriptor. At very small water fractions the ratio can become large and noisy; the 1e-6 constants only prevent division by zero. Because gel mole fractions are normalized, the ratio is invariant to overall batch dilution, which is intended but means absolute concentration information is discarded.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As alkalinity_per_water increases: probability of low-silica aluminosilicates (LTA, FAU, SOD-type) and rapidly nucleating dense phases rises, and at very high values under high-silica conditions the probability of Failed (amorphous or dense byproducts) rises; as it decreases toward fluoride-regime values (OH ~ 0), probability of pure-silica and OSDA-templated open frameworks (MFI, *BEA, MTW, MWW, ISV/BEC, AFI) rises. Intermediate values favor mid-silica OSDA-directed phases (MFI, TON, FER, MWW).",
+        "falsification": "If held-out publication accuracy does not improve (or falls) relative to the model without this descriptor, or if permutation importance of alkalinity_per_water is negligible while OH and H2O alone already capture the same splits, then the ratio adds no information beyond its constituents and the hypothesis is falsified. Also falsified if product phase boundaries align with absolute OH mole fraction rather than OH/H2O across batches with different dilution.",
+        "formula": "(OH + Na + K + Li + 1e-6) / (H2O + 1e-6)",
+        "hypothesis": "The mineralizer concentration per unit water — not the individual OH, Na, K, or H2O mole fractions — is the chemically operative quantity controlling dissolution, nucleation rate, and framework selection, so encoding alkalinity normalized by water content will improve prediction of which framework crystallizes and whether the batch crystallizes at all. Low OH/H2O batches (especially fluoride-mediated, where OH is deliberately near-absent) favor OSDA-templated open, high-silica frameworks (MFI, *BEA, MTW, MWW, ISV/BEC) and pure-silica phases, whereas high OH/H2O batches favor low-silica frameworks (LTA, FAU, A, zeolite Na-X/P-type phases), faster-growing dense or metastable phases, and amorphous Failed outcomes when combined with high-silica gels. The already-appended Si/heteroatom ratio captures the framework-composition axis but not the solvent/mineralizer axis, so this descriptor adds a genuinely independent dimension.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Dissolved silicate and aluminate speciation depends on hydroxide activity: high [OH-] depolymerizes silicate oligomers to monomers, raises nucleation density, and accelerates crystal growth, which favors rapidly nucleating, dense or low-framework-density phases and can lock in metastable products; low [OH-] keeps the gel supersaturated only weakly, slowing nucleation so fewer, OSDA-directed nuclei grow into open frameworks. Water is the reaction medium and dilutes OH; the molar ratio OH/H2O approximates the alkalinity of the synthesis liquor far better than either mole fraction alone, because in a normalized gel both scale with the total batch size while their ratio does not. Alkali cations (Na, K, Li) additionally contribute basicity as charge-balancing species and act as inorganic structure directors (Na toward LTA/FAU/SOD-type, K toward ERI-type/merlinoite, Li toward AEL/analcime-type), so their inclusion provides a single monotone-ish axis of mineralizer strength that a tree can split on directly rather than having to approximate with separate, batch-size-dependent cuts.",
+        "name": "alkalinity_per_water",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "LTA",
+          "FAU",
+          "SOD",
+          "MFI",
+          "*BEA",
+          "MTW",
+          "MWW",
+          "ISV",
+          "BEC",
+          "AFI",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Alkalinity / mineralizer strength of the synthesis gel, encoded as the hydroxide-to-water ratio with alkali contribution: (OH + Na + K + 1e-6) / (H2O + 1e-6)",
+        "queries": [],
+        "why": "The classifier sees OH, Na, K, and H2O only as independent mole-fraction columns, but tree ensembles split on one column at a time and cannot directly access the mineralizer concentration per unit water, which is the chemically operative quantity. Crystallization rate, nucleation density, framework densification, Si/Al ordering, and the Failed-versus-crystalline boundary all depend strongly on alkalinity normalized by water content: high OH/H2O accelerates dissolution and nucleation and pushes toward dense or metastable phases and Failed outcomes under high-silica conditions, while low alkalinity slows growth and favors OSDA-templated open frameworks or pure-silica phases (especially with fluoride, where OH is deliberately absent). The already-appended Si/heteroatom ratio captures the compositional axis but not the solvent/mineralizer axis, so this descriptor adds a genuinely new dimension of the synthesis record."
+      },
+      "propose_prompt_sha256": "636f19c558011eaa8a92b64e19dc228b3ad5e7f1843ccdd3cdb9032104d020f3",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "693821641f683bb2cbfb4b5f3b9b9bcba37b47991617ba475dabbd78161e786b",
+          "raw_structured": {
+            "plan": {
+              "factor": "Phosphorus-to-aluminum balance of the gel (P vs Al partition among the heteroatom pool)",
+              "queries": [],
+              "why": "The first descriptor, Si/(Al+P+Ga+B+Ge), collapses all heteroatoms into one pool and therefore cannot distinguish the chemically distinct families that sit at similar total-heteroatom levels: pure aluminophosphates (P~Al, Si~0: AFI, AEL, AEN, AEI), silicoaluminophosphates (P~Al with moderate Si: SAPO-34/CHA, SAPO-5/AFI, SAPO-11/AEL), purely aluminosilicate gels (P~0: FAU, LTA, MOR, MFI, *BEA), and heteroatom-substituted variants. Which of these families forms is governed by whether phosphate and aluminate are co-sourced into an AlPO network or whether one of them is absent, and the P/Al ratio also modulates framework charge density and the Si substitution mechanism (isomorphous Si-for-P in SAPOs vs Si-for-Al in aluminosilicates). A ratio like P/(Al+P+1e-6) is a two-column combination that a tree splitting on single D0 columns cannot express directly, and it is orthogonal to both the Si/heteroatom axis and the alkalinity-per-water axis already encoded, so it should sharpen the separation among AFI/AEL/AEI/AEN (AlPO), CHA/SAPO, and the aluminosilicate outcomes without duplicating any existing descriptor."
+            }
+          },
+          "response_id": "20261010002011b012150491594b29",
+          "usage": {
+            "completion_tokens": 759,
+            "completion_tokens_details": {
+              "reasoning_tokens": 398
+            },
+            "prompt_tokens": 1852,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2611
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "P"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes the recorded gel mole fractions reflect the reactive aluminate and phosphate pools, i.e., both sources are soluble and participating; it does not account for differences in Al/P source reactivity, chelating agents, or post-synthesis Si insertion. The 1e-6 constant only guards against division by zero when both Al and P are zero (pure-silica or heteroatom-free gels), in which case the descriptor is uninformative by construction.",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor approaches 0.5 with low Si, AlPO outcomes (AFI, AEL, AEN, AEI) become more likely; near 0.5 with moderate Si and existing alkalinity, SAPO-type CHA/AEL/AFI increase; as the descriptor decreases toward 0, aluminosilicate outcomes (FAU, LTA, MOR, MFI, *BEA) increase; extreme values (P >> Al or Al >> P with high Si) raise the probability of Failed or dense byproducts.",
+              "falsification": "If held-out publications show that AlPO frameworks (AFI, AEL, AEI) are predicted as well as aluminosilicates without this descriptor, or that P-rich gels with P/(Al+P) far from 0.5 still reliably yield the same frameworks as stoichiometric AlPO gels, then the P/Al balance is not an operative discriminant and this feature adds no transferable signal.",
+              "formula": "P / (Al + P + 1e-6)",
+              "hypothesis": "The fraction of the Al+P heteroatom pool supplied as phosphorus determines whether the batch follows the aluminophosphate/silicoaluminophosphate crystallization route (P≈Al, giving values near 0.5) or the aluminosilicate route (P≈0, values near 0), and therefore steers framework selection among AFI, AEL, AEI, AEN (AlPO), SAPO-type CHA/AEL/AFI, and purely aluminosilicate outcomes such as FAU, LTA, MOR, MFI, and *BEA.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "AlPO4 networks require near-stoichiometric co-assembly of AlO4- and PO4+ tetrahedra to satisfy charge neutrality, so batches with P/(Al+P) near 0.5 and low Si crystallize neutral AlPO frameworks (AFI, AEL, AEI, AEN). When Si is also present at P≈Al, Si substitutes preferentially for P (SM2/SM3 mechanisms), producing negatively charged SAPO frameworks (SAPO-34/CHA, SAPO-11/AEL, SAPO-5/AFI) whose pore architecture is dictated by the template charge balance. When P is absent (ratio near 0), charge compensation instead relies on framework Al with alkali or OSDA cations, and crystallization proceeds via aluminosilicate routes to FAU, LTA, MOR, MFI, *BEA, etc. Deviations from P≈Al leave unreacted phosphate or aluminate that shifts nucleation toward dense phases or amorphous Failed outcomes. Tree ensembles splitting on individual columns can threshold P or Al separately but cannot directly express the normalized balance between the two, making this a genuinely new single-column feature.",
+              "name": "p_vs_al_fraction",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "AFI",
+                "AEL",
+                "AEI",
+                "AEN",
+                "CHA",
+                "LEV",
+                "FAU",
+                "LTA",
+                "MOR",
+                "MFI",
+                "*BEA",
+                "MTW",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010002049d446777101d84914",
+          "usage": {
+            "completion_tokens": 864,
+            "completion_tokens_details": {
+              "reasoning_tokens": 21
+            },
+            "prompt_tokens": 2318,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3182
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes the recorded gel mole fractions reflect the reactive aluminate and phosphate pools, i.e., both sources are soluble and participating; it does not account for differences in Al/P source reactivity, chelating agents, or post-synthesis Si insertion. The 1e-6 constant only guards against division by zero when both Al and P are zero (pure-silica or heteroatom-free gels), in which case the descriptor is uninformative by construction.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor approaches 0.5 with low Si, AlPO outcomes (AFI, AEL, AEN, AEI) become more likely; near 0.5 with moderate Si and existing alkalinity, SAPO-type CHA/AEL/AFI increase; as the descriptor decreases toward 0, aluminosilicate outcomes (FAU, LTA, MOR, MFI, *BEA) increase; extreme values (P >> Al or Al >> P with high Si) raise the probability of Failed or dense byproducts.",
+        "falsification": "If held-out publications show that AlPO frameworks (AFI, AEL, AEI) are predicted as well as aluminosilicates without this descriptor, or that P-rich gels with P/(Al+P) far from 0.5 still reliably yield the same frameworks as stoichiometric AlPO gels, then the P/Al balance is not an operative discriminant and this feature adds no transferable signal.",
+        "formula": "P / (Al + P + 1e-6)",
+        "hypothesis": "The fraction of the Al+P heteroatom pool supplied as phosphorus determines whether the batch follows the aluminophosphate/silicoaluminophosphate crystallization route (P≈Al, giving values near 0.5) or the aluminosilicate route (P≈0, values near 0), and therefore steers framework selection among AFI, AEL, AEI, AEN (AlPO), SAPO-type CHA/AEL/AFI, and purely aluminosilicate outcomes such as FAU, LTA, MOR, MFI, and *BEA.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "AlPO4 networks require near-stoichiometric co-assembly of AlO4- and PO4+ tetrahedra to satisfy charge neutrality, so batches with P/(Al+P) near 0.5 and low Si crystallize neutral AlPO frameworks (AFI, AEL, AEI, AEN). When Si is also present at P≈Al, Si substitutes preferentially for P (SM2/SM3 mechanisms), producing negatively charged SAPO frameworks (SAPO-34/CHA, SAPO-11/AEL, SAPO-5/AFI) whose pore architecture is dictated by the template charge balance. When P is absent (ratio near 0), charge compensation instead relies on framework Al with alkali or OSDA cations, and crystallization proceeds via aluminosilicate routes to FAU, LTA, MOR, MFI, *BEA, etc. Deviations from P≈Al leave unreacted phosphate or aluminate that shifts nucleation toward dense phases or amorphous Failed outcomes. Tree ensembles splitting on individual columns can threshold P or Al separately but cannot directly express the normalized balance between the two, making this a genuinely new single-column feature.",
+        "name": "p_vs_al_fraction",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "AFI",
+          "AEL",
+          "AEI",
+          "AEN",
+          "CHA",
+          "LEV",
+          "FAU",
+          "LTA",
+          "MOR",
+          "MFI",
+          "*BEA",
+          "MTW",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Phosphorus-to-aluminum balance of the gel (P vs Al partition among the heteroatom pool)",
+        "queries": [],
+        "why": "The first descriptor, Si/(Al+P+Ga+B+Ge), collapses all heteroatoms into one pool and therefore cannot distinguish the chemically distinct families that sit at similar total-heteroatom levels: pure aluminophosphates (P~Al, Si~0: AFI, AEL, AEN, AEI), silicoaluminophosphates (P~Al with moderate Si: SAPO-34/CHA, SAPO-5/AFI, SAPO-11/AEL), purely aluminosilicate gels (P~0: FAU, LTA, MOR, MFI, *BEA), and heteroatom-substituted variants. Which of these families forms is governed by whether phosphate and aluminate are co-sourced into an AlPO network or whether one of them is absent, and the P/Al ratio also modulates framework charge density and the Si substitution mechanism (isomorphous Si-for-P in SAPOs vs Si-for-Al in aluminosilicates). A ratio like P/(Al+P+1e-6) is a two-column combination that a tree splitting on single D0 columns cannot express directly, and it is orthogonal to both the Si/heteroatom axis and the alkalinity-per-water axis already encoded, so it should sharpen the separation among AFI/AEL/AEI/AEN (AlPO), CHA/SAPO, and the aluminosilicate outcomes without duplicating any existing descriptor."
+      },
+      "propose_prompt_sha256": "ffafe0bdc3dd00e3d92b61da07f961bc33c71ac9cb5bf4500d378f3087dc3005",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}

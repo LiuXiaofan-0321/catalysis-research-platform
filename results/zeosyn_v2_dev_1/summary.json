@@ -1,0 +1,356 @@
+{
+  "contrasts": {
+    "kg-agent": {
+      "ci": [
+        -0.004646005117998295,
+        0.0011317884560705172
+      ],
+      "level": 0.95,
+      "mean": -0.0019050326983224345,
+      "n_a": 10,
+      "n_b": 10
+    },
+    "kg-kg_shuffled": {
+      "ci": [
+        -0.003139181120272956,
+        0.001962041512652825
+      ],
+      "level": 0.95,
+      "mean": -0.0006653397782200721,
+      "n_a": 10,
+      "n_b": 10
+    },
+    "kg-rag": {
+      "ci": [
+        -0.004941711686096103,
+        0.0013363662212112584
+      ],
+      "level": 0.95,
+      "mean": -0.0017685527438157515,
+      "n_a": 10,
+      "n_b": 10
+    },
+    "kg_shuffled-agent": {
+      "ci": [
+        -0.0036794142735285824,
+        0.0013875462041512611
+      ],
+      "level": 0.95,
+      "mean": -0.0012396929201023625,
+      "n_a": 10,
+      "n_b": 10
+    },
+    "rag-agent": {
+      "ci": [
+        -0.0031106056297981266,
+        0.003087858970713669
+      ],
+      "level": 0.95,
+      "mean": -0.000136479954506683,
+      "n_a": 10,
+      "n_b": 10
+    }
+  },
+  "d0": {
+    "accuracy": 0.4798976400341199,
+    "balanced_accuracy": 0.3068913896371011,
+    "macro_f1": 0.28579495855045967
+  },
+  "hypotheses": {
+    "H1_agent_vs_d0": {
+      "ci": [
+        -0.00015353994882000293,
+        0.0037874609041797097
+      ],
+      "level": 0.95,
+      "mean": 0.0019164060278646692,
+      "n": 10,
+      "supported": false
+    },
+    "H2_kg_vs_agent": {
+      "H2_supported": false,
+      "kg_minus_agent_ci_lower": -0.004646005117998295,
+      "rule": "H2 supported if the 95% bootstrap interval of mean(kg) - mean(agent) excludes 0 from above (lower bound > 0)"
+    },
+    "H3_kg_vs_rag": {
+      "ci": [
+        -0.004941711686096103,
+        0.0013363662212112584
+      ],
+      "level": 0.95,
+      "mean": -0.0017685527438157515,
+      "n_a": 10,
+      "n_b": 10
+    }
+  },
+  "library_only": {
+    "kg": {
+      "accuracy": -0.00028433323855557856,
+      "balanced_accuracy": -0.0011860557274797512,
+      "macro_f1": 0.0011432810321728604,
+      "strata": {
+        "kg_covered": {
+          "accuracy_delta": 0.005108695652173911,
+          "n": 1840
+        },
+        "kg_not_covered": {
+          "accuracy_delta": -0.006201550387596899,
+          "n": 1677
+        },
+        "no_osda": {
+          "accuracy_delta": -0.01806451612903225,
+          "n": 465
+        },
+        "osda_common_in_training": {
+          "accuracy_delta": 0.008695652173913038,
+          "n": 2162
+        },
+        "osda_rare_in_training": {
+          "accuracy_delta": -0.01280898876404495,
+          "n": 890
+        }
+      }
+    },
+    "kg_shuffled": {
+      "accuracy": 0.003355132214955936,
+      "balanced_accuracy": 0.00581738116634124,
+      "macro_f1": 0.0040695883014175375,
+      "strata": {
+        "kg_covered": {
+          "accuracy_delta": 0.010217391304347845,
+          "n": 1840
+        },
+        "kg_not_covered": {
+          "accuracy_delta": -0.004174120453190222,
+          "n": 1677
+        },
+        "no_osda": {
+          "accuracy_delta": -0.013763440860215036,
+          "n": 465
+        },
+        "osda_common_in_training": {
+          "accuracy_delta": 0.006660499537465281,
+          "n": 2162
+        },
+        "osda_rare_in_training": {
+          "accuracy_delta": 0.004269662921348316,
+          "n": 890
+        }
+      }
+    }
+  },
+  "missing": [],
+  "note": "Deltas are absolute metric differences versus D0 at the same fit seed. Failed slots, zero-append and negative trajectories are all included.",
+  "per_mode": {
+    "agent": {
+      "accuracy": {
+        "ci": [
+          -0.00015353994882000293,
+          0.0037874609041797097
+        ],
+        "level": 0.95,
+        "mean": 0.0019164060278646692,
+        "n": 10
+      },
+      "appended_slots": 30,
+      "balanced_accuracy": {
+        "ci": [
+          -0.009837246511316618,
+          -0.0022617196591235094
+        ],
+        "level": 0.95,
+        "mean": -0.0061065352716593736,
+        "n": 10
+      },
+      "macro_f1": {
+        "ci": [
+          -0.009232286762128176,
+          -0.0032722018581214578
+        ],
+        "level": 0.95,
+        "mean": -0.006324336077005133,
+        "n": 10
+      },
+      "negative_trajectories": 3,
+      "quality": {
+        "distinct_factors": 30,
+        "mean_evidence_items": 0.0,
+        "slots_citing_evidence": 0,
+        "slots_using_kg_inputs": 0
+      },
+      "slots": 30,
+      "strata_accuracy_delta": {
+        "kg_covered": -0.0009891304347825925,
+        "kg_not_covered": 0.005104353011329742,
+        "no_osda": 0.01544086021505377,
+        "osda_common_in_training": 0.0011933395004625224,
+        "osda_rare_in_training": -0.0033932584269662953
+      },
+      "trajectories_evaluated": 10,
+      "trajectories_expected": 10,
+      "zero_append_trajectories": 0
+    },
+    "kg": {
+      "accuracy": {
+        "ci": [
+          -0.0019220926926357541,
+          0.002195052601649141
+        ],
+        "level": 0.95,
+        "mean": 1.1373329542234715e-05,
+        "n": 10
+      },
+      "appended_slots": 30,
+      "balanced_accuracy": {
+        "ci": [
+          -0.009798005793959267,
+          -0.004939122735156346
+        ],
+        "level": 0.95,
+        "mean": -0.007471522742917294,
+        "n": 10
+      },
+      "macro_f1": {
+        "ci": [
+          -0.008898026037641307,
+          -0.004559086111421124
+        ],
+        "level": 0.95,
+        "mean": -0.006873296503229637,
+        "n": 10
+      },
+      "negative_trajectories": 6,
+      "quality": {
+        "distinct_factors": 30,
+        "mean_evidence_items": 2.966666666666667,
+        "slots_citing_evidence": 19,
+        "slots_using_kg_inputs": 0
+      },
+      "slots": 30,
+      "strata_accuracy_delta": {
+        "kg_covered": -0.006499999999999985,
+        "kg_not_covered": 0.007155635062611793,
+        "no_osda": 0.022967741935483878,
+        "osda_common_in_training": -0.0037650323774283236,
+        "osda_rare_in_training": -0.0028089887640449463
+      },
+      "trajectories_evaluated": 10,
+      "trajectories_expected": 10,
+      "zero_append_trajectories": 0
+    },
+    "kg_shuffled": {
+      "accuracy": {
+        "ci": [
+          -0.0008473130508956395,
+          0.0022917259027580407
+        ],
+        "level": 0.95,
+        "mean": 0.0006767131077623068,
+        "n": 10
+      },
+      "appended_slots": 30,
+      "balanced_accuracy": {
+        "ci": [
+          -0.010282597804304114,
+          -0.0038545375754235845
+        ],
+        "level": 0.95,
+        "mean": -0.007031488036540076,
+        "n": 10
+      },
+      "macro_f1": {
+        "ci": [
+          -0.009630719019852052,
+          -0.0032577579102977265
+        ],
+        "level": 0.95,
+        "mean": -0.006501422441226869,
+        "n": 10
+      },
+      "negative_trajectories": 4,
+      "quality": {
+        "distinct_factors": 30,
+        "mean_evidence_items": 3.7333333333333334,
+        "slots_citing_evidence": 23,
+        "slots_using_kg_inputs": 0
+      },
+      "slots": 30,
+      "strata_accuracy_delta": {
+        "kg_covered": -0.004347826086956508,
+        "kg_not_covered": 0.006189624329159203,
+        "no_osda": 0.019827956989247324,
+        "osda_common_in_training": -0.00257169287696579,
+        "osda_rare_in_training": -0.0014382022471910148
+      },
+      "trajectories_evaluated": 10,
+      "trajectories_expected": 10,
+      "zero_append_trajectories": 0
+    },
+    "rag": {
+      "accuracy": {
+        "ci": [
+          -0.00046644867785043025,
+          0.004344611885129381
+        ],
+        "level": 0.95,
+        "mean": 0.0017799260733579862,
+        "n": 10
+      },
+      "appended_slots": 30,
+      "balanced_accuracy": {
+        "ci": [
+          -0.008892478813875353,
+          -0.0056200301863772095
+        ],
+        "level": 0.95,
+        "mean": -0.007263302635476869,
+        "n": 10
+      },
+      "macro_f1": {
+        "ci": [
+          -0.007899076268262433,
+          -0.004978789473160651
+        ],
+        "level": 0.95,
+        "mean": -0.006475031284662448,
+        "n": 10
+      },
+      "negative_trajectories": 3,
+      "quality": {
+        "distinct_factors": 30,
+        "mean_evidence_items": 7.533333333333333,
+        "slots_citing_evidence": 30,
+        "slots_using_kg_inputs": 0
+      },
+      "slots": 30,
+      "strata_accuracy_delta": {
+        "kg_covered": -0.003304347826086949,
+        "kg_not_covered": 0.007358378056052462,
+        "no_osda": 0.029763440860215068,
+        "osda_common_in_training": -0.001794634597594842,
+        "osda_rare_in_training": -0.004157303370786521
+      },
+      "trajectories_evaluated": 10,
+      "trajectories_expected": 10,
+      "zero_append_trajectories": 0
+    }
+  },
+  "primary_metric": "accuracy",
+  "profile": "zeosyn-v2",
+  "sensitivity_hgb": {
+    "agent": -0.10307079897640034,
+    "kg": -0.11205572931475691,
+    "kg_shuffled": -0.10810349729883421,
+    "rag": -0.07836224054591982
+  },
+  "sensitivity_kg": {
+    "external": 1.7059994313346455e-05,
+    "temporal": 1.7059994313346455e-05
+  },
+  "split": "dev",
+  "unit": "generation trajectory; fit seeds averaged within",
+  "usage": {
+    "completion_tokens": 211444,
+    "prompt_tokens": 694413
+  }
+}

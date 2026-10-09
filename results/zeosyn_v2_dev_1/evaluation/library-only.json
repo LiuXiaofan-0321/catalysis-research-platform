@@ -1,0 +1,222 @@
+{
+  "kg": {
+    "delta": {
+      "mean": {
+        "accuracy": -0.00028433323855557856,
+        "balanced_accuracy": -0.0011860557274797512,
+        "macro_f1": 0.0011432810321728604
+      },
+      "per_seed": [
+        {
+          "accuracy": 0.0014216661927779484,
+          "balanced_accuracy": -0.0037999377450764205,
+          "macro_f1": -0.00029593694180524155,
+          "seed": 3
+        },
+        {
+          "accuracy": -0.0002843332385555897,
+          "balanced_accuracy": -0.00576044436075368,
+          "macro_f1": -0.003271556799855413,
+          "seed": 7
+        },
+        {
+          "accuracy": 0.0036963321012226658,
+          "balanced_accuracy": 0.004102047759677763,
+          "macro_f1": 0.006238678694136746,
+          "seed": 11
+        },
+        {
+          "accuracy": -0.007392664202445276,
+          "balanced_accuracy": -0.003285426427436844,
+          "macro_f1": 0.0015913843299990016,
+          "seed": 17
+        },
+        {
+          "accuracy": 0.0011373329542223587,
+          "balanced_accuracy": 0.002813482136190426,
+          "macro_f1": 0.0014538358783892091,
+          "seed": 23
+        }
+      ]
+    },
+    "per_seed": [
+      {
+        "accuracy": 0.4802388399203867,
+        "balanced_accuracy": 0.305120244131496,
+        "macro_f1": 0.2868968723259471,
+        "macro_f1_report": 0.2616964713783977,
+        "n": 3517,
+        "n_classes_present": 135,
+        "seed": 3
+      },
+      {
+        "accuracy": 0.4791015069661643,
+        "balanced_accuracy": 0.2989957661468261,
+        "macro_f1": 0.28061216172633785,
+        "macro_f1_report": 0.2559637961692947,
+        "n": 3517,
+        "n_classes_present": 135,
+        "seed": 7
+      },
+      {
+        "accuracy": 0.4762581745806085,
+        "balanced_accuracy": 0.30815107686081766,
+        "macro_f1": 0.28623497793040764,
+        "macro_f1_report": 0.26109271635543935,
+        "n": 3517,
+        "n_classes_present": 135,
+        "seed": 11
+      },
+      {
+        "accuracy": 0.4819448393517202,
+        "balanced_accuracy": 0.30526004264453754,
+        "macro_f1": 0.2916510740450611,
+        "macro_f1_report": 0.2660330742978598,
+        "n": 3517,
+        "n_classes_present": 135,
+        "seed": 17
+      },
+      {
+        "accuracy": 0.4805231731589423,
+        "balanced_accuracy": 0.3109995397644294,
+        "macro_f1": 0.2892961118854091,
+        "macro_f1_report": 0.2603665006968682,
+        "n": 3517,
+        "n_classes_present": 135,
+        "seed": 23
+      }
+    ],
+    "strata": {
+      "kg_covered": {
+        "accuracy_delta": 0.005108695652173911,
+        "n": 1840
+      },
+      "kg_not_covered": {
+        "accuracy_delta": -0.006201550387596899,
+        "n": 1677
+      },
+      "no_osda": {
+        "accuracy_delta": -0.01806451612903225,
+        "n": 465
+      },
+      "osda_common_in_training": {
+        "accuracy_delta": 0.008695652173913038,
+        "n": 2162
+      },
+      "osda_rare_in_training": {
+        "accuracy_delta": -0.01280898876404495,
+        "n": 890
+      }
+    }
+  },
+  "kg_shuffled": {
+    "delta": {
+      "mean": {
+        "accuracy": 0.003355132214955936,
+        "balanced_accuracy": 0.00581738116634124,
+        "macro_f1": 0.0040695883014175375
+      },
+      "per_seed": [
+        {
+          "accuracy": 0.0036963321012226658,
+          "balanced_accuracy": -0.0005747720916005061,
+          "macro_f1": -0.003073310337393831,
+          "seed": 3
+        },
+        {
+          "accuracy": 0.005970998009667328,
+          "balanced_accuracy": 0.0033962772801373053,
+          "macro_f1": 0.00023645937500271774,
+          "seed": 7
+        },
+        {
+          "accuracy": 0.007108330963889686,
+          "balanced_accuracy": 0.014021717876775752,
+          "macro_f1": 0.019074221023979432,
+          "seed": 11
+        },
+        {
+          "accuracy": -0.005117998294000559,
+          "balanced_accuracy": 0.005041049551095189,
+          "macro_f1": 0.003372945615129852,
+          "seed": 17
+        },
+        {
+          "accuracy": 0.005117998294000559,
+          "balanced_accuracy": 0.00720263321529846,
+          "macro_f1": 0.0007376258303695149,
+          "seed": 23
+        }
+      ]
+    },
+    "per_seed": [
+      {
+        "accuracy": 0.4825135058288314,
+        "balanced_accuracy": 0.30834540978497194,
+        "macro_f1": 0.28411949893035854,
+        "macro_f1_report": 0.25742370708455303,
+        "n": 3517,
+        "n_classes_present": 135,
+        "seed": 3
+      },
+      {
+        "accuracy": 0.48535683821438724,
+        "balanced_accuracy": 0.3081524877877171,
+        "macro_f1": 0.284120177901196,
+        "macro_f1_report": 0.26271386312781825,
+        "n": 3517,
+        "n_classes_present": 135,
+        "seed": 7
+      },
+      {
+        "accuracy": 0.4796701734432755,
+        "balanced_accuracy": 0.31807074697791565,
+        "macro_f1": 0.2990705202602503,
+        "macro_f1_report": 0.26916346823422527,
+        "n": 3517,
+        "n_classes_present": 135,
+        "seed": 11
+      },
+      {
+        "accuracy": 0.48421950526016494,
+        "balanced_accuracy": 0.3135865186230696,
+        "macro_f1": 0.2934326353301919,
+        "macro_f1_report": 0.2713246970518898,
+        "n": 3517,
+        "n_classes_present": 135,
+        "seed": 17
+      },
+      {
+        "accuracy": 0.4845038384987205,
+        "balanced_accuracy": 0.31538869084353743,
+        "macro_f1": 0.2885799018373894,
+        "macro_f1_report": 0.2632316672165376,
+        "n": 3517,
+        "n_classes_present": 135,
+        "seed": 23
+      }
+    ],
+    "strata": {
+      "kg_covered": {
+        "accuracy_delta": 0.010217391304347845,
+        "n": 1840
+      },
+      "kg_not_covered": {
+        "accuracy_delta": -0.004174120453190222,
+        "n": 1677
+      },
+      "no_osda": {
+        "accuracy_delta": -0.013763440860215036,
+        "n": 465
+      },
+      "osda_common_in_training": {
+        "accuracy_delta": 0.006660499537465281,
+        "n": 2162
+      },
+      "osda_rare_in_training": {
+        "accuracy_delta": 0.004269662921348316,
+        "n": 890
+      }
+    }
+  }
+}

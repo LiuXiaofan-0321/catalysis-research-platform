@@ -1,0 +1,520 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "OH / (Si + 1e-6)",
+      "name": "oh_to_si_ratio"
+    },
+    {
+      "formula": "(Na + K + Li + Rb + Cs + sda1 * abs(osda_charge)) / (Al + 1e-6)",
+      "name": "cation_charge_to_al_ratio"
+    },
+    {
+      "formula": "F / (Si + 1e-6)",
+      "name": "fluoride_to_si_ratio"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "kg",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 9,
+  "seconds": 120.6471815109253,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "ac8c097cb70f72e32fca2b6e3a612e3658cd96b5655e8ac93c69742730bf0d50",
+          "raw_structured": {
+            "plan": {
+              "factor": "gel alkalinity, encoded as the hydroxide-to-silica ratio OH / (Si + 1e-6)",
+              "queries": [
+                "which frameworks are obtained in fluoride medium versus hydroxide medium for the same OSDA",
+                "typical crystallization outcomes (framework or dense phase) at very high OH/Si alkalinity"
+              ],
+              "why": "OH and Si are each already given as separate mole-fraction columns, but a tree ensemble can only threshold them one at a time; the physically meaningful quantity — alkalinity relative to the silica source — only emerges from their combination. Alkalinity is one of the strongest levers in zeolite synthesis: it controls silicate/gallate dissolution rate, nucleation density, the si/al incorporation level, phase selectivity (e.g. low-OH fluoride routes toward large-pore, defect-poor frameworks vs. high-OH routes toward dense phases like sodalite or Failed outcomes), and it interacts with OSDA charge. Since evaluation is on held-out publications, an absolute OH column is confounded by paper-specific normalization habits, whereas the ratio transfers much better across labs. The classifier currently has no way to express 'how caustic is this gel relative to its silica content', and this round-1 descriptor supplies exactly that missing axis."
+            }
+          },
+          "response_id": "20261010002639daae14f036254e3e",
+          "usage": {
+            "completion_tokens": 667,
+            "completion_tokens_details": {
+              "reasoning_tokens": 375
+            },
+            "prompt_tokens": 2270,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2937
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "OH",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "OH mole fraction is a faithful proxy for actual base content (assumes OH is reported as the added mineralizer, not just charge-balancing OH from OSDA; some records may embed OSDA charge in OH, inflating the ratio for high-charge OSDAs). Si mole fraction as proxy for total silica assumes all Si sources are reactive and normalization conventions are consistent across papers; 1e-6 guards against zero-silica gels (e.g. aluminophosphate syntheses where Si=0 and the ratio saturates — such records are effectively pure-PO4 chemistry where alkalinity relative to P would matter instead). The ratio ignores the moderating effect of F-, which neutralizes OH chemically; a fluoride-containing gel with the same nominal OH is effectively less caustic, so this descriptor is a partial proxy for true alkalinity.",
+              "evidence_ids": [
+                1
+              ],
+              "expected_effect": "As the descriptor increases from ~0 to ~1+, outcomes should shift: very low OH/Si → more Failed (insufficient dissolution) and large-pore phases (*BEA, MTW); intermediate OH/Si → open frameworks such as *BEA, MFI, MWW; high OH/Si → small-pore or dense phases (LTA, SOD-like, MOR) and more Failed at the extreme. Recipes with the same OH but different Si should now separate correctly, which is impossible for the current model.",
+              "falsification": "If product phase distribution is flat or random with respect to OH/Si within fixed OSDA, temperature and time bins — e.g. if high-alkalinity gels still yield *BEA/MTW as often as low-alkalinity gels for the same OSDA — the hypothesis is contradicted. Also falsified if the ratio performs no better than the raw OH column alone, implying papers normalize Si in a way that makes the absolute OH fraction already equivalent.",
+              "formula": "OH / (Si + 1e-6)",
+              "hypothesis": "Gel alkalinity relative to the silica source — not the absolute hydroxide mole fraction — is the quantity that governs phase selectivity in zeolite crystallization. As OH/Si increases, silicate speciation shifts from Q3/Q4 condensed species toward depolymerized Q0/Q1 monomers, raising nucleation density and dissolution kinetics; this steers outcomes away from large-pore, defect-poor frameworks obtained under near-neutral (fluoride-like) conditions and toward small-pore frameworks (e.g. SOD-family, LTA), dense phases, or Failed (amorphous) products. At very low OH/Si, dissolution is rate-limiting and crystallization tends toward Failed or low-nucleation-density large-pore phases such as *BEA and MTW.",
+              "knowledge_source": "both",
+              "mechanism": "Hydroxide deprotonates and hydrolyzes Si–O–Si bridges, controlling the concentration of reactive silicate anions and hence the supersaturation at the crystallization temperature. High OH/Si accelerates dissolution of amorphous precursor and increases nucleation density, favoring thermodynamically dense or small-pore phases (sodalite-like, LTA, Failed). Low OH/Si (as in fluoride media, where mineralizers act differently and pH is mild) slows dissolution and favors open, large-pore frameworks — consistent with KG evidence that fluoride-medium syntheses with the same OSDAs yield predominantly *BEA (25%), MFI (21%), CHA (7%) and large/medium-pore products (~41% each) rather than dense phases. Trees can threshold Si and OH separately, but the ratio — the physically meaningful alkalinity axis — only becomes available as an explicit column, and it normalizes away paper-specific gel normalization habits, aiding transfer to held-out publications.",
+              "name": "oh_to_si_ratio",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "Failed",
+                "SOD",
+                "LTA",
+                "*BEA",
+                "MFI",
+                "MTW",
+                "MOR",
+                "FAU"
+              ]
+            }
+          },
+          "response_id": "20261010002655d8788ce144f449ce",
+          "usage": {
+            "completion_tokens": 1023,
+            "completion_tokens_details": {
+              "reasoning_tokens": 123
+            },
+            "prompt_tokens": 2676,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3699
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "OH mole fraction is a faithful proxy for actual base content (assumes OH is reported as the added mineralizer, not just charge-balancing OH from OSDA; some records may embed OSDA charge in OH, inflating the ratio for high-charge OSDAs). Si mole fraction as proxy for total silica assumes all Si sources are reactive and normalization conventions are consistent across papers; 1e-6 guards against zero-silica gels (e.g. aluminophosphate syntheses where Si=0 and the ratio saturates — such records are effectively pure-PO4 chemistry where alkalinity relative to P would matter instead). The ratio ignores the moderating effect of F-, which neutralizes OH chemically; a fluoride-containing gel with the same nominal OH is effectively less caustic, so this descriptor is a partial proxy for true alkalinity.",
+        "cited_evidence_keys": [
+          "condition:fluoride medium"
+        ],
+        "evidence_ids": [
+          1
+        ],
+        "expected_effect": "As the descriptor increases from ~0 to ~1+, outcomes should shift: very low OH/Si → more Failed (insufficient dissolution) and large-pore phases (*BEA, MTW); intermediate OH/Si → open frameworks such as *BEA, MFI, MWW; high OH/Si → small-pore or dense phases (LTA, SOD-like, MOR) and more Failed at the extreme. Recipes with the same OH but different Si should now separate correctly, which is impossible for the current model.",
+        "falsification": "If product phase distribution is flat or random with respect to OH/Si within fixed OSDA, temperature and time bins — e.g. if high-alkalinity gels still yield *BEA/MTW as often as low-alkalinity gels for the same OSDA — the hypothesis is contradicted. Also falsified if the ratio performs no better than the raw OH column alone, implying papers normalize Si in a way that makes the absolute OH fraction already equivalent.",
+        "formula": "OH / (Si + 1e-6)",
+        "hypothesis": "Gel alkalinity relative to the silica source — not the absolute hydroxide mole fraction — is the quantity that governs phase selectivity in zeolite crystallization. As OH/Si increases, silicate speciation shifts from Q3/Q4 condensed species toward depolymerized Q0/Q1 monomers, raising nucleation density and dissolution kinetics; this steers outcomes away from large-pore, defect-poor frameworks obtained under near-neutral (fluoride-like) conditions and toward small-pore frameworks (e.g. SOD-family, LTA), dense phases, or Failed (amorphous) products. At very low OH/Si, dissolution is rate-limiting and crystallization tends toward Failed or low-nucleation-density large-pore phases such as *BEA and MTW.",
+        "knowledge_source": "both",
+        "mechanism": "Hydroxide deprotonates and hydrolyzes Si–O–Si bridges, controlling the concentration of reactive silicate anions and hence the supersaturation at the crystallization temperature. High OH/Si accelerates dissolution of amorphous precursor and increases nucleation density, favoring thermodynamically dense or small-pore phases (sodalite-like, LTA, Failed). Low OH/Si (as in fluoride media, where mineralizers act differently and pH is mild) slows dissolution and favors open, large-pore frameworks — consistent with KG evidence that fluoride-medium syntheses with the same OSDAs yield predominantly *BEA (25%), MFI (21%), CHA (7%) and large/medium-pore products (~41% each) rather than dense phases. Trees can threshold Si and OH separately, but the ratio — the physically meaningful alkalinity axis — only becomes available as an explicit column, and it normalizes away paper-specific gel normalization habits, aiding transfer to held-out publications.",
+        "name": "oh_to_si_ratio",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "Failed",
+          "SOD",
+          "LTA",
+          "*BEA",
+          "MFI",
+          "MTW",
+          "MOR",
+          "FAU"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "658dc6ae896cf2e1a8c022bb9efc53184f1833047cc4e1f188774f50a3a05c29",
+        "items": [
+          {
+            "id": 1,
+            "key": "condition:fluoride medium",
+            "tokens": 62
+          }
+        ],
+        "linking": [
+          {
+            "conditions": [
+              "fluoride medium"
+            ],
+            "frameworks": [],
+            "osdas": [],
+            "query": "which frameworks are obtained in fluoride medium versus hydroxide medium for the same OSDA"
+          },
+          {
+            "conditions": [],
+            "frameworks": [],
+            "osdas": [],
+            "query": "typical crystallization outcomes (framework or dense phase) at very high OH/Si alkalinity"
+          }
+        ],
+        "tokens": 62
+      },
+      "plan": {
+        "factor": "gel alkalinity, encoded as the hydroxide-to-silica ratio OH / (Si + 1e-6)",
+        "queries": [
+          "which frameworks are obtained in fluoride medium versus hydroxide medium for the same OSDA",
+          "typical crystallization outcomes (framework or dense phase) at very high OH/Si alkalinity"
+        ],
+        "why": "OH and Si are each already given as separate mole-fraction columns, but a tree ensemble can only threshold them one at a time; the physically meaningful quantity — alkalinity relative to the silica source — only emerges from their combination. Alkalinity is one of the strongest levers in zeolite synthesis: it controls silicate/gallate dissolution rate, nucleation density, the si/al incorporation level, phase selectivity (e.g. low-OH fluoride routes toward large-pore, defect-poor frameworks vs. high-OH routes toward dense phases like sodalite or Failed outcomes), and it interacts with OSDA charge. Since evaluation is on held-out publications, an absolute OH column is confounded by paper-specific normalization habits, whereas the ratio transfers much better across labs. The classifier currently has no way to express 'how caustic is this gel relative to its silica content', and this round-1 descriptor supplies exactly that missing axis."
+      },
+      "propose_prompt_sha256": "ef24acab6e418ba912e9693a4cf8b6dec995872caadcc57f8a73a179996c3549",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "eb52a6c61beff687030ab831ec53edb6b257e637e5c6b9b845559ef16ecf5e91",
+          "raw_structured": {
+            "plan": {
+              "factor": "Cation charge balance: total positive charge from inorganic alkali cations plus the OSDA charge contribution, normalized by framework-forming Al in the gel",
+              "queries": [
+                "frameworks obtained from OSDA-free sodium silicoaluminate gels (Na-only syntheses)",
+                "frameworks reported when an OSDA is used together with NaOH versus OSDA alone"
+              ],
+              "why": "D0 provides individual mole fractions (Na, K, Li, sda1, osda_charge, Al), but a tree ensemble splits on one column at a time and cannot form the charge-balance ratio (Na + K + Li + Rb + Cs + sda1*abs(osda_charge)) / (Al + eps). This ratio encodes whether the synthesis has enough inorganic cation charge to fully compensate framework Al (Na-rich, OSDA-lean gels, which favor FAU, LTA, SOD, MER-type and dense phases) versus gels where the OSDA must carry most of the charge balancing (which forces OSDA-templated frameworks such as CHA, *BEA, MWW, AEI and often pushes Si/Al higher). It also distinguishes cation-starved, charge-imbalanced gels that tend to give Failed or amorphous products. Because it combines four otherwise-separate columns, it is a quantity the classifier currently cannot access, and it transfers across publications since it is a dimensionless, recipe-intrinsic ratio rather than an absolute mole fraction."
+            }
+          },
+          "response_id": "202610100027189840fd6cb765471e",
+          "usage": {
+            "completion_tokens": 1147,
+            "completion_tokens_details": {
+              "reasoning_tokens": 812
+            },
+            "prompt_tokens": 2461,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3608
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Cs",
+              "K",
+              "Li",
+              "Na",
+              "Rb",
+              "osda_charge",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "(1) All inorganic alkali cations listed are incorporated in or available to the solid phase; Sr, Ba, Ca, Rb, Cs, Li are included but alkaline-earth divalent charges are not weighted by 2, so divalent-cation-rich gels underestimate true charge. (2) sda1 mole fraction times |osda_charge| is a lower bound on OSDA charge available for balancing; actual occlusion levels differ from gel stoichiometry. (3) OH- and F- counterions, and non-framework Al (extra-framework species), are ignored — the ratio assumes most Al ends up in the framework. (4) The 1e-6 denominator makes the descriptor unbounded for Al-free gels; trees can still threshold on it but the numeric magnitude there is meaningless. (5) Other charge carriers (H3O+, protonated amines beyond the formal charge) are neglected.",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor decreases toward 1 (inorganic cations just sufficient or slightly in excess of Al), outcomes should shift toward FAU, LTA, SOD, MER-type and dense/Failed products. As it increases well above the stoichiometric Al-balancing value while remaining OSDA-dominated (large sda1*|charge| contribution relative to alkali contribution), outcomes should shift toward OSDA-templated frameworks such as CHA, *BEA, MWW, AEI and higher-Si/Al phases like MFI and TON. Gels with total charge far below Al demand (both alkali and OSDA charge small relative to Al) should show elevated Failed rates. For purely siliceous gels (Al≈0), the denominator saturates at the 1e-6 constant and the descriptor becomes very large, which the trees can use as an 'Al-free / fluoride-route' indicator rather than a charge-deficit indicator.",
+              "falsification": "The hypothesis is contradicted if, in held-out publications, product phase is predicted as well or better from the individual columns Na, K, Al, sda1, osda_charge alone (i.e., the ratio adds no split gain), or if Na-rich OSDA-lean gels frequently yield OSDA-templated frameworks like CHA or *BEA at low Si/Al, or if high cation_charge_to_al_ratio gels systematically give FAU/LTA/SOD.",
+              "formula": "(Na + K + Li + Rb + Cs + sda1 * abs(osda_charge)) / (Al + 1e-6)",
+              "hypothesis": "The ratio of total available positive charge (inorganic alkali cations plus the OSDA's formal charge weighted by its mole fraction) to the aluminum content of the gel controls which species balance framework negative charge and therefore which framework crystallizes. Gels where inorganic cations alone can fully balance Al (high inorganic share, low descriptor) should favor cation-directed, low-Si/Al frameworks (FAU, LTA, SOD, MER, ANA-type phases and dense phases), while gels where the OSDA must supply most of the balancing charge (descriptor dominated by the sda1*|osda_charge| term) should force OSDA-templated, typically higher-Si/Al frameworks (CHA, *BEA, MWW, AEI, MFI, TON). Extremely low total charge relative to Al indicates a charge-imbalanced gel prone to Failed or amorphous products.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Every framework T-site occupied by Al carries one unit of negative charge that must be compensated in the as-made material. Alkali cations sit at Charge-Balancing sites non-specifically and act as structure-directors only through their hydration/size preferences, so Na/K-rich charge balance favors small, dense or low-frame-density frameworks (SOD, LTA, FAU, GIS/ANA families) and commonly the sodalite/cancrinite byproducts. When the inorganic cation charge is insufficient relative to Al, crystallization can only proceed if the OSDA is occluded, so synthesis success requires matching the OSDA size/shape to a pore system that can accommodate it — this selects OSDA-templated open frameworks and pushes the gel toward higher Si/Al (fewer framework charges to balance per OSDA molecule). Trees can compare individual mole fractions but cannot form this ratio: a gel with Na=0.02, Al=0.005 and a gel with Na=0.2, Al=0.05 have identical Na mole-fraction splits yet opposite charge-balance regimes (ratio 4000 vs 4). The dimensionless ratio is recipe-intrinsic, so it should transfer to unseen publications better than absolute mole fractions.",
+              "name": "cation_charge_to_al_ratio",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "SOD",
+                "MER",
+                "ANA",
+                "CHA",
+                "*BEA",
+                "MWW",
+                "AEI",
+                "MFI",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010002730ee21dc1bb6c64ebe",
+          "usage": {
+            "completion_tokens": 1159,
+            "completion_tokens_details": {
+              "reasoning_tokens": 62
+            },
+            "prompt_tokens": 2834,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3993
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "(1) All inorganic alkali cations listed are incorporated in or available to the solid phase; Sr, Ba, Ca, Rb, Cs, Li are included but alkaline-earth divalent charges are not weighted by 2, so divalent-cation-rich gels underestimate true charge. (2) sda1 mole fraction times |osda_charge| is a lower bound on OSDA charge available for balancing; actual occlusion levels differ from gel stoichiometry. (3) OH- and F- counterions, and non-framework Al (extra-framework species), are ignored — the ratio assumes most Al ends up in the framework. (4) The 1e-6 denominator makes the descriptor unbounded for Al-free gels; trees can still threshold on it but the numeric magnitude there is meaningless. (5) Other charge carriers (H3O+, protonated amines beyond the formal charge) are neglected.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor decreases toward 1 (inorganic cations just sufficient or slightly in excess of Al), outcomes should shift toward FAU, LTA, SOD, MER-type and dense/Failed products. As it increases well above the stoichiometric Al-balancing value while remaining OSDA-dominated (large sda1*|charge| contribution relative to alkali contribution), outcomes should shift toward OSDA-templated frameworks such as CHA, *BEA, MWW, AEI and higher-Si/Al phases like MFI and TON. Gels with total charge far below Al demand (both alkali and OSDA charge small relative to Al) should show elevated Failed rates. For purely siliceous gels (Al≈0), the denominator saturates at the 1e-6 constant and the descriptor becomes very large, which the trees can use as an 'Al-free / fluoride-route' indicator rather than a charge-deficit indicator.",
+        "falsification": "The hypothesis is contradicted if, in held-out publications, product phase is predicted as well or better from the individual columns Na, K, Al, sda1, osda_charge alone (i.e., the ratio adds no split gain), or if Na-rich OSDA-lean gels frequently yield OSDA-templated frameworks like CHA or *BEA at low Si/Al, or if high cation_charge_to_al_ratio gels systematically give FAU/LTA/SOD.",
+        "formula": "(Na + K + Li + Rb + Cs + sda1 * abs(osda_charge)) / (Al + 1e-6)",
+        "hypothesis": "The ratio of total available positive charge (inorganic alkali cations plus the OSDA's formal charge weighted by its mole fraction) to the aluminum content of the gel controls which species balance framework negative charge and therefore which framework crystallizes. Gels where inorganic cations alone can fully balance Al (high inorganic share, low descriptor) should favor cation-directed, low-Si/Al frameworks (FAU, LTA, SOD, MER, ANA-type phases and dense phases), while gels where the OSDA must supply most of the balancing charge (descriptor dominated by the sda1*|osda_charge| term) should force OSDA-templated, typically higher-Si/Al frameworks (CHA, *BEA, MWW, AEI, MFI, TON). Extremely low total charge relative to Al indicates a charge-imbalanced gel prone to Failed or amorphous products.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Every framework T-site occupied by Al carries one unit of negative charge that must be compensated in the as-made material. Alkali cations sit at Charge-Balancing sites non-specifically and act as structure-directors only through their hydration/size preferences, so Na/K-rich charge balance favors small, dense or low-frame-density frameworks (SOD, LTA, FAU, GIS/ANA families) and commonly the sodalite/cancrinite byproducts. When the inorganic cation charge is insufficient relative to Al, crystallization can only proceed if the OSDA is occluded, so synthesis success requires matching the OSDA size/shape to a pore system that can accommodate it — this selects OSDA-templated open frameworks and pushes the gel toward higher Si/Al (fewer framework charges to balance per OSDA molecule). Trees can compare individual mole fractions but cannot form this ratio: a gel with Na=0.02, Al=0.005 and a gel with Na=0.2, Al=0.05 have identical Na mole-fraction splits yet opposite charge-balance regimes (ratio 4000 vs 4). The dimensionless ratio is recipe-intrinsic, so it should transfer to unseen publications better than absolute mole fractions.",
+        "name": "cation_charge_to_al_ratio",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "SOD",
+          "MER",
+          "ANA",
+          "CHA",
+          "*BEA",
+          "MWW",
+          "AEI",
+          "MFI",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": [
+          {
+            "conditions": [],
+            "frameworks": [],
+            "osdas": [],
+            "query": "frameworks obtained from OSDA-free sodium silicoaluminate gels (Na-only syntheses)"
+          },
+          {
+            "conditions": [],
+            "frameworks": [],
+            "osdas": [],
+            "query": "frameworks reported when an OSDA is used together with NaOH versus OSDA alone"
+          }
+        ],
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Cation charge balance: total positive charge from inorganic alkali cations plus the OSDA charge contribution, normalized by framework-forming Al in the gel",
+        "queries": [
+          "frameworks obtained from OSDA-free sodium silicoaluminate gels (Na-only syntheses)",
+          "frameworks reported when an OSDA is used together with NaOH versus OSDA alone"
+        ],
+        "why": "D0 provides individual mole fractions (Na, K, Li, sda1, osda_charge, Al), but a tree ensemble splits on one column at a time and cannot form the charge-balance ratio (Na + K + Li + Rb + Cs + sda1*abs(osda_charge)) / (Al + eps). This ratio encodes whether the synthesis has enough inorganic cation charge to fully compensate framework Al (Na-rich, OSDA-lean gels, which favor FAU, LTA, SOD, MER-type and dense phases) versus gels where the OSDA must carry most of the charge balancing (which forces OSDA-templated frameworks such as CHA, *BEA, MWW, AEI and often pushes Si/Al higher). It also distinguishes cation-starved, charge-imbalanced gels that tend to give Failed or amorphous products. Because it combines four otherwise-separate columns, it is a quantity the classifier currently cannot access, and it transfers across publications since it is a dimensionless, recipe-intrinsic ratio rather than an absolute mole fraction."
+      },
+      "propose_prompt_sha256": "3a4e2485b6c8f2d5cf81e32033c364e3037de3abefeb7b9ace16a97c65b8f75b",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "e4f2f67e813fbad3accb6210523f33e2acd986be8e3b2ad60bf3d99e47899e9e",
+          "raw_structured": {
+            "plan": {
+              "factor": "Fluoride-to-silica ratio: F / (Si + 1e-6) — the amount of fluoride mineralizer relative to the silica source",
+              "queries": [
+                "frameworks obtained in fluoride medium with Ge in the gel (BEC, ITH, UTL, ISV)",
+                "which OSDA-framework combinations are reported specifically in fluoride vs hydroxide media"
+              ],
+              "why": "Rounds 1 and 2 encoded alkalinity (OH/Si) and charge balance, but the classifier cannot compute how much fluoride is present per unit of silica. Fluoride mineralization is one of the strongest known phase-directing levers in zeolite synthesis: it proceeds via near-neutral pH (so Si dissolution is slow and nucleation sparse), favors defect-free, high-silica frameworks with double-4-ring or double-6-ring building units (*BEA, MTW, ISV/BEC, ITH, UTL, AST), and acts synergistically with Ge in the gel. Trees see F and Si as separate columns, so a split on the raw F mole fraction confounds 'fluoride medium' with 'dilute or concentrated gel'; the ratio isolates the mineralization regime itself. High F/Si should push predictions toward fluoride-typical frameworks and low-Si/Al products, while F/Si near zero indicates conventional hydroxide or no mineralizer chemistry. This is a genuine cross-column interaction, not a transform of any single D0 column, and transfers to unseen papers because it is computed per-recipe from raw inputs."
+            }
+          },
+          "response_id": "2026101000275423c6b467abcb48cb",
+          "usage": {
+            "completion_tokens": 900,
+            "completion_tokens_details": {
+              "reasoning_tokens": 550
+            },
+            "prompt_tokens": 2688,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3588
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "F",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes the recorded F mole fraction reflects the mineralizing fluoride actually available to the gel (not fluoride locked in insoluble salts) and that Si captures the T-site pool over which fluoride acts; in germanosilicates a Ge-weighted denominator might be more physical, but Ge-specific corrections are deferred. The 1e-6 constant only guards division by zero for Si-free (aluminophosphate) gels, where the ratio degenerates to a large value whose interpretation as 'fluoride per silica' is not meaningful. F does not distinguish HF-added from NH4F/fluoride-salt sources, and the ratio ignores the OH/F competition for the same mineralizing role, which is only partially captured by oh_to_si_ratio.",
+              "evidence_ids": [
+                1,
+                2,
+                5,
+                6
+              ],
+              "expected_effect": "As fluoride_to_si_ratio increases from ~0 to ~1, probability mass should move from hydroxide/alkali-directed and low-Si/Al or amorphous outcomes (FAU, LTA, SOD-type, Failed) toward high-silica, defect-poor phases: *BEA and MFI first (the most common fluoride products), then D4R-containing frameworks — BEC/ISV/ITH and UTL/IWR/STW when Ge in the gel is high — plus MTW. At F/Si near zero the descriptor should be inert and hydroxide chemistry (captured by oh_to_si_ratio) dominates. Very high F/Si with negligible OH may also surface dense fluoride-containing phases or Failed if mineralization is too slow for the given cryst_time.",
+              "falsification": "If held-out predictions for high F/Si gels do not concentrate on *BEA/MFI/CHA/D4R-germanosilicates but instead track the same phases as low F/Si gels at matched OH/Si and Ge, or if raw F alone (which the model already has) yields the same feature importance once this ratio is added, the ratio adds no phase-selective information beyond what F or OH/Si carries and should be rejected. A further contradiction would be high-F/Si gels systematically yielding low-Si/Al cation-directed phases (FAU, LTA) at the same rate as hydroxide gels.",
+              "formula": "F / (Si + 1e-6)",
+              "hypothesis": "The fluoride-to-silica ratio isolates the mineralization regime per unit of silica and is a genuine cross-column interaction unavailable to a tree that sees F and Si separately. As F/Si increases toward the near-stoichiometric fluoride regime (~0.5-1.0, matching the SiF6-/F- mineralizing strengths used in fluoride routes), predictions should shift toward defect-free, high-silica frameworks crystallized at low nucleation density — especially *BEA, MFI, CHA, STW and the germanosilicates BEC/ISV/ITH when Ge is also present — and away from the hydroxide-route outcomes (FAU, LTA, SOD-type low-Si/Al phases, and amorphous Failed products) that dominate high OH/Si gels. Because fluoride mineralization is near-neutral pH, high F/Si combined with low OH/Si identifies the classic fluoride route; the same F mole fraction in a very dilute gel (low F/Si) carries almost no mineralizing information.",
+              "knowledge_source": "both",
+              "mechanism": "In fluoride media, silica dissolution proceeds through slow fluoride-promoted Si-O-Si hydrolysis at pH near neutrality, generating far fewer dissolved silicate anions and far lower nucleation density than hydroxide mineralization. Crystals therefore grow from few nuclei into well-ordered, defect-poor frameworks, and fluoride can reside in small double-4-ring (D4R) cages, stabilizing D4R-containing frameworks (*BEA, BEC/ISV, ITH) and, with Ge preferentially occupying D4R sites, germanosilicates such as UTL, IWR, STW and BEC. The KG confirms this partitioning: fluoride-medium experiments produce mostly medium- and large-pore high-silica phases (*BEA 25%, MFI 21%, CHA 7%) [5], while BEC (35% fluoride, 45% Ge) [1] and ISV (60% fluoride, 20% Ge) [2] sit squarely in the high-F/Si germanosilicate corner. The ratio also disambiguates gel concentration: a bare F split cannot distinguish a fluoride-rich concentrated gel from a trace of F in a dilute one.",
+              "name": "fluoride_to_si_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "*BEA",
+                "BEC",
+                "ISV",
+                "ITH",
+                "UTL",
+                "MFI",
+                "CHA",
+                "MTW",
+                "STW",
+                "FAU",
+                "LTA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "2026101000281519fee8348d474cc4",
+          "usage": {
+            "completion_tokens": 1163,
+            "completion_tokens_details": {
+              "reasoning_tokens": 67
+            },
+            "prompt_tokens": 3629,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 4792
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes the recorded F mole fraction reflects the mineralizing fluoride actually available to the gel (not fluoride locked in insoluble salts) and that Si captures the T-site pool over which fluoride acts; in germanosilicates a Ge-weighted denominator might be more physical, but Ge-specific corrections are deferred. The 1e-6 constant only guards division by zero for Si-free (aluminophosphate) gels, where the ratio degenerates to a large value whose interpretation as 'fluoride per silica' is not meaningful. F does not distinguish HF-added from NH4F/fluoride-salt sources, and the ratio ignores the OH/F competition for the same mineralizing role, which is only partially captured by oh_to_si_ratio.",
+        "cited_evidence_keys": [
+          "framework:BEC",
+          "framework:ISV",
+          "condition:fluoride medium",
+          "condition:germanium in the gel"
+        ],
+        "evidence_ids": [
+          1,
+          2,
+          5,
+          6
+        ],
+        "expected_effect": "As fluoride_to_si_ratio increases from ~0 to ~1, probability mass should move from hydroxide/alkali-directed and low-Si/Al or amorphous outcomes (FAU, LTA, SOD-type, Failed) toward high-silica, defect-poor phases: *BEA and MFI first (the most common fluoride products), then D4R-containing frameworks — BEC/ISV/ITH and UTL/IWR/STW when Ge in the gel is high — plus MTW. At F/Si near zero the descriptor should be inert and hydroxide chemistry (captured by oh_to_si_ratio) dominates. Very high F/Si with negligible OH may also surface dense fluoride-containing phases or Failed if mineralization is too slow for the given cryst_time.",
+        "falsification": "If held-out predictions for high F/Si gels do not concentrate on *BEA/MFI/CHA/D4R-germanosilicates but instead track the same phases as low F/Si gels at matched OH/Si and Ge, or if raw F alone (which the model already has) yields the same feature importance once this ratio is added, the ratio adds no phase-selective information beyond what F or OH/Si carries and should be rejected. A further contradiction would be high-F/Si gels systematically yielding low-Si/Al cation-directed phases (FAU, LTA) at the same rate as hydroxide gels.",
+        "formula": "F / (Si + 1e-6)",
+        "hypothesis": "The fluoride-to-silica ratio isolates the mineralization regime per unit of silica and is a genuine cross-column interaction unavailable to a tree that sees F and Si separately. As F/Si increases toward the near-stoichiometric fluoride regime (~0.5-1.0, matching the SiF6-/F- mineralizing strengths used in fluoride routes), predictions should shift toward defect-free, high-silica frameworks crystallized at low nucleation density — especially *BEA, MFI, CHA, STW and the germanosilicates BEC/ISV/ITH when Ge is also present — and away from the hydroxide-route outcomes (FAU, LTA, SOD-type low-Si/Al phases, and amorphous Failed products) that dominate high OH/Si gels. Because fluoride mineralization is near-neutral pH, high F/Si combined with low OH/Si identifies the classic fluoride route; the same F mole fraction in a very dilute gel (low F/Si) carries almost no mineralizing information.",
+        "knowledge_source": "both",
+        "mechanism": "In fluoride media, silica dissolution proceeds through slow fluoride-promoted Si-O-Si hydrolysis at pH near neutrality, generating far fewer dissolved silicate anions and far lower nucleation density than hydroxide mineralization. Crystals therefore grow from few nuclei into well-ordered, defect-poor frameworks, and fluoride can reside in small double-4-ring (D4R) cages, stabilizing D4R-containing frameworks (*BEA, BEC/ISV, ITH) and, with Ge preferentially occupying D4R sites, germanosilicates such as UTL, IWR, STW and BEC. The KG confirms this partitioning: fluoride-medium experiments produce mostly medium- and large-pore high-silica phases (*BEA 25%, MFI 21%, CHA 7%) [5], while BEC (35% fluoride, 45% Ge) [1] and ISV (60% fluoride, 20% Ge) [2] sit squarely in the high-F/Si germanosilicate corner. The ratio also disambiguates gel concentration: a bare F split cannot distinguish a fluoride-rich concentrated gel from a trace of F in a dilute one.",
+        "name": "fluoride_to_si_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "*BEA",
+          "BEC",
+          "ISV",
+          "ITH",
+          "UTL",
+          "MFI",
+          "CHA",
+          "MTW",
+          "STW",
+          "FAU",
+          "LTA",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "d6f2735382aba8ad56c552e2b59b644e386b2f1021bb805714afce702e74296d",
+        "items": [
+          {
+            "id": 1,
+            "key": "framework:BEC",
+            "tokens": 68
+          },
+          {
+            "id": 2,
+            "key": "framework:ISV",
+            "tokens": 77
+          },
+          {
+            "id": 3,
+            "key": "framework:ITH",
+            "tokens": 58
+          },
+          {
+            "id": 4,
+            "key": "framework:UTL",
+            "tokens": 92
+          },
+          {
+            "id": 5,
+            "key": "condition:fluoride medium",
+            "tokens": 62
+          },
+          {
+            "id": 6,
+            "key": "condition:germanium in the gel",
+            "tokens": 64
+          }
+        ],
+        "linking": [
+          {
+            "conditions": [
+              "fluoride medium",
+              "germanium in the gel"
+            ],
+            "frameworks": [
+              "BEC",
+              "ISV",
+              "ITH",
+              "UTL"
+            ],
+            "osdas": [],
+            "query": "frameworks obtained in fluoride medium with Ge in the gel (BEC, ITH, UTL, ISV)"
+          },
+          {
+            "conditions": [
+              "fluoride medium"
+            ],
+            "frameworks": [],
+            "osdas": [],
+            "query": "which OSDA-framework combinations are reported specifically in fluoride vs hydroxide media"
+          }
+        ],
+        "tokens": 421
+      },
+      "plan": {
+        "factor": "Fluoride-to-silica ratio: F / (Si + 1e-6) — the amount of fluoride mineralizer relative to the silica source",
+        "queries": [
+          "frameworks obtained in fluoride medium with Ge in the gel (BEC, ITH, UTL, ISV)",
+          "which OSDA-framework combinations are reported specifically in fluoride vs hydroxide media"
+        ],
+        "why": "Rounds 1 and 2 encoded alkalinity (OH/Si) and charge balance, but the classifier cannot compute how much fluoride is present per unit of silica. Fluoride mineralization is one of the strongest known phase-directing levers in zeolite synthesis: it proceeds via near-neutral pH (so Si dissolution is slow and nucleation sparse), favors defect-free, high-silica frameworks with double-4-ring or double-6-ring building units (*BEA, MTW, ISV/BEC, ITH, UTL, AST), and acts synergistically with Ge in the gel. Trees see F and Si as separate columns, so a split on the raw F mole fraction confounds 'fluoride medium' with 'dilute or concentrated gel'; the ratio isolates the mineralization regime itself. High F/Si should push predictions toward fluoride-typical frameworks and low-Si/Al products, while F/Si near zero indicates conventional hydroxide or no mineralizer chemistry. This is a genuine cross-column interaction, not a transform of any single D0 column, and transfers to unseen papers because it is computed per-recipe from raw inputs."
+      },
+      "propose_prompt_sha256": "2403ec90e6062743c30093534c1ee63a9ab837216ae0c10ae906300129f62e73",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}

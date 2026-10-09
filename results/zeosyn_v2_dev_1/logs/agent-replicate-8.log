@@ -1,0 +1,3 @@
+00:19:45 agent r8 round 1: [Framework T-atom composition ratio: the fraction o] Si / (Al + P + Ga + B + Ge + 1e-6)
+00:20:11 agent r8 round 2: [Alkalinity / mineralizer strength of the synthesis] (OH + Na + K + Li + 1e-6) / (H2O + 1e-6)
+00:21:07 agent r8 round 3: [Phosphorus-to-aluminum balance of the gel (P vs Al] P / (Al + P + 1e-6)

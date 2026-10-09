@@ -1,0 +1,46 @@
+{
+  "eval_rows": 3517,
+  "excluded_dois": 1068,
+  "files": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "excluded_dois.json": "14b188097ba4403405e4cac189f8fcb771c550a298fc2bc2668052647d12c8c7",
+    "kg_tables.npz": "6395870c56eb2d372cfed68c1e128779e6a5ee62232c3d4ff49d91b658fd11c8",
+    "matrices.npz": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+    "osda_keys.json": "fcc7fa3991e0b2500c159d31cda583524aff2dd14e40b5b60493cd583d59b4dd",
+    "split.npz": "4933c6f597e92f4727cd482dfa2bb18b1ceabdd787e4f0e30e48e24054a5a46f",
+    "tasks.json": "2be10db4a07e5dc455d21b6c3086d13e12cc8a936152129ee4e9a3794eb5b3b9"
+  },
+  "kg_artifacts_manifest_sha256": "c42a440a8fab3c14e010f58fa2a55b92d5c262c5708ad7b436f1d485b8598dce",
+  "kg_coverage": {
+    "external": {
+      "eval": 0.37475120841626386,
+      "train": 0.40733096085409254
+    },
+    "kg": {
+      "eval": 0.5231731589422803,
+      "train": 0.5214946619217082
+    },
+    "kg_shuffled": {
+      "eval": 0.5629798123400626,
+      "train": 0.5274733096085409
+    },
+    "temporal": {
+      "eval": 0.38157520614159796,
+      "train": 0.39907473309608543
+    }
+  },
+  "matrix": {
+    "matrix_sha256": "3a16244998fe595b8a6d9a1b6263278968068b55513e935322060028fde3c52f",
+    "source_hashes": {
+      "ZEOSYN.xlsx": "95f9b8f5d1464fc3d577d93f9551e40cc984b5b475a49ddc8177f598c3c1987c",
+      "osda_descriptors.csv": "d6677fd3cf6f120405bbd14867aed6b1b9b8f5e788532a948fe1042f1b1f77ba",
+      "osda_rdkit_features.csv": "b73efa856176c10bfdc3bcb92d20c4b14f40b9eb87dd2dd000ecc7f28c0d2881"
+    },
+    "split_seed": 20261007,
+    "test_fraction": 0.2
+  },
+  "note": "Coverage uses no labels. Imputation is fitted on the outer training rows (features only).",
+  "rows": 21972,
+  "split": "dev",
+  "train_rows": 14050
+}

@@ -1,0 +1,478 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "OH / (Si + Al + P + Ge + B + Ga + Ti + 0.001)",
+      "name": "oh_per_t_atom"
+    },
+    {
+      "formula": "sda1 / (Si + Al + P + Ge + B + Ga + Ti + 0.001)",
+      "name": "sda_per_t_atom"
+    },
+    {
+      "formula": "H2O / (Si + Al + P + Ge + B + Ga + Ti + 0.001)",
+      "name": "h2o_per_t_atom"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "kg_shuffled",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 7,
+  "seconds": 107.83553695678711,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "ac8c097cb70f72e32fca2b6e3a612e3658cd96b5655e8ac93c69742730bf0d50",
+          "raw_structured": {
+            "plan": {
+              "factor": "Gel alkalinity / mineralization strength per framework-forming T atom (OH normalized by total tetrahedral species Si+Al+P+Ge+...)",
+              "queries": [
+                "which frameworks are obtained in fluoride medium versus hydroxide medium for the same OSDA (e.g., TPA or TEA)",
+                "frameworks reported with high water content (dilute) gels using quaternary ammonium OSDAs"
+              ],
+              "why": "Tree ensembles split on single raw columns, so ratios like OH/Si or OH/(Si+Al+P) are invisible to the model, yet alkalinity per T atom is the single most influential synthesis variable for phase selectivity: it controls silicate/aluminate dissolution rate, nucleation density, and the silica-to-framework polymerization regime. Two gels with identical mole fractions of Si and OH but different absolute concentrations (e.g., 0.02 vs 0.1 OH fraction) sit at very different points on the fast-nucleation (dense/small-pore, Failed) vs slow-crystallization (large-pore, high-Si) axis. A ratio-based descriptor transfers across unseen papers because it is dimensionless and paper-independent, unlike absolute mole fractions which papers set differently by convention."
+            }
+          },
+          "response_id": "20261010002946770c963215064b92",
+          "usage": {
+            "completion_tokens": 746,
+            "completion_tokens_details": {
+              "reasoning_tokens": 463
+            },
+            "prompt_tokens": 2270,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3016
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ga",
+              "Ge",
+              "OH",
+              "P",
+              "Si",
+              "Ti"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes hydroxide is the dominant basic mineralizer and that fluoride's role is captured implicitly as 'low OH per T atom' rather than explicitly (a F-containing term could be added in a later round). It treats all T atoms (Si, Al, P, Ge, B, Ga, Ti) as equivalent consumers of hydroxide, which is only a first-order approximation since aluminate and phosphate consume OH differently than silicate. The +0.001 constant guards against division by zero for T-free gels but makes the descriptor meaningless there. Crystallization temperature also modulates mineralization and is not included in this ratio.",
+              "evidence_ids": [
+                5,
+                1,
+                3
+              ],
+              "expected_effect": "As oh_per_t_atom increases: probability of low-silica small-pore or dense phases (LTA, FAU, SOD-type products) and of Failed should rise at the expense of high-silica large-pore phases; *BEA, MTW, and high-Si MFI should be favored at low values of the descriptor, consistent with the fluoride-dominated low-OH regime. Intermediate values should correspond to CHA/MWW-type phases.",
+              "falsification": "If, within a fixed gel recipe family, the product framework is unchanged over a wide range of OH/(T-atom) values (e.g., the same phase from OH/T spanning 0.1 to 2), or if absolute OH mole fraction alone splits the held-out publications better than this ratio, the per-T-atom normalization adds nothing and the descriptor is falsified. Likewise, if fluoride-medium gels with low OH/T do not skew toward *BEA/MFI-type large/medium-pore products in held-out data, the low-alkalinity interpretation is wrong.",
+              "formula": "OH / (Si + Al + P + Ge + B + Ga + Ti + 0.001)",
+              "hypothesis": "The mineralization strength per framework-forming T atom, OH/(Si+Al+P+Ge+B+Ga+Ti), is a key steering variable for phase selectivity that is invisible to a tree ensemble splitting on individual mole-fraction columns. Gels with high alkalinity per T atom favor fast dissolution of amorphous gel, high nucleation density, and low-Si frameworks (LTA, FAU, SOD-type dense phases, or Failed via rapid unselective precipitation), while low alkalinity per T atom (especially fluoride-mediated near-neutral synthesis) favors slow crystallization of high-Si, large-pore frameworks (*BEA, MTW, MFI) and defect-free crystals. Because hydroxide and fluoride are competing mineralizers, this ratio also separates the hydroxide route from the fluoride route, which evidence shows produces systematically different phase distributions.",
+              "knowledge_source": "both",
+              "mechanism": "OH- depolymerizes silicate and aluminate species; the dissolution rate of the amorphous precursor scales with hydroxide activity relative to the amount of T atoms to be dissolved. At high OH/T, monomeric silicate/aluminate concentrations rise quickly, nucleation is prolific, and thermodynamically dense or low-framework-density phases (LTA, SOD, sodalite-like, or amorphous Failed products) win kinetically. At low OH/T, oligomeric silicate species persist, nucleation is sparse, and open, high-silica frameworks crystallize slowly. Fluoride performs the same mineralizing role at near-neutral pH without depolymerizing the gel, so a low OH/T value in a fluoride-containing gel correctly flags the fluoride regime associated with large-pore high-Si phases rather than implying strongly basic conditions. A dimensionless ratio also transfers across papers that differ only in dilution convention, unlike the absolute OH mole fraction.",
+              "name": "oh_per_t_atom",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "*BEA",
+                "MFI",
+                "MTW",
+                "FAU",
+                "LTA",
+                "CHA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010003004e5355db730af4431",
+          "usage": {
+            "completion_tokens": 1167,
+            "completion_tokens_details": {
+              "reasoning_tokens": 286
+            },
+            "prompt_tokens": 3052,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 4219
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes hydroxide is the dominant basic mineralizer and that fluoride's role is captured implicitly as 'low OH per T atom' rather than explicitly (a F-containing term could be added in a later round). It treats all T atoms (Si, Al, P, Ge, B, Ga, Ti) as equivalent consumers of hydroxide, which is only a first-order approximation since aluminate and phosphate consume OH differently than silicate. The +0.001 constant guards against division by zero for T-free gels but makes the descriptor meaningless there. Crystallization temperature also modulates mineralization and is not included in this ratio.",
+        "cited_evidence_keys": [
+          "osda:CBXCPBUEXACCNR-UHFFFAOYSA-N",
+          "osda:OSBSFAARYOCBHB-UHFFFAOYSA-N",
+          "condition:fluoride medium"
+        ],
+        "evidence_ids": [
+          1,
+          3,
+          5
+        ],
+        "expected_effect": "As oh_per_t_atom increases: probability of low-silica small-pore or dense phases (LTA, FAU, SOD-type products) and of Failed should rise at the expense of high-silica large-pore phases; *BEA, MTW, and high-Si MFI should be favored at low values of the descriptor, consistent with the fluoride-dominated low-OH regime. Intermediate values should correspond to CHA/MWW-type phases.",
+        "falsification": "If, within a fixed gel recipe family, the product framework is unchanged over a wide range of OH/(T-atom) values (e.g., the same phase from OH/T spanning 0.1 to 2), or if absolute OH mole fraction alone splits the held-out publications better than this ratio, the per-T-atom normalization adds nothing and the descriptor is falsified. Likewise, if fluoride-medium gels with low OH/T do not skew toward *BEA/MFI-type large/medium-pore products in held-out data, the low-alkalinity interpretation is wrong.",
+        "formula": "OH / (Si + Al + P + Ge + B + Ga + Ti + 0.001)",
+        "hypothesis": "The mineralization strength per framework-forming T atom, OH/(Si+Al+P+Ge+B+Ga+Ti), is a key steering variable for phase selectivity that is invisible to a tree ensemble splitting on individual mole-fraction columns. Gels with high alkalinity per T atom favor fast dissolution of amorphous gel, high nucleation density, and low-Si frameworks (LTA, FAU, SOD-type dense phases, or Failed via rapid unselective precipitation), while low alkalinity per T atom (especially fluoride-mediated near-neutral synthesis) favors slow crystallization of high-Si, large-pore frameworks (*BEA, MTW, MFI) and defect-free crystals. Because hydroxide and fluoride are competing mineralizers, this ratio also separates the hydroxide route from the fluoride route, which evidence shows produces systematically different phase distributions.",
+        "knowledge_source": "both",
+        "mechanism": "OH- depolymerizes silicate and aluminate species; the dissolution rate of the amorphous precursor scales with hydroxide activity relative to the amount of T atoms to be dissolved. At high OH/T, monomeric silicate/aluminate concentrations rise quickly, nucleation is prolific, and thermodynamically dense or low-framework-density phases (LTA, SOD, sodalite-like, or amorphous Failed products) win kinetically. At low OH/T, oligomeric silicate species persist, nucleation is sparse, and open, high-silica frameworks crystallize slowly. Fluoride performs the same mineralizing role at near-neutral pH without depolymerizing the gel, so a low OH/T value in a fluoride-containing gel correctly flags the fluoride regime associated with large-pore high-Si phases rather than implying strongly basic conditions. A dimensionless ratio also transfers across papers that differ only in dilution convention, unlike the absolute OH mole fraction.",
+        "name": "oh_per_t_atom",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "*BEA",
+          "MFI",
+          "MTW",
+          "FAU",
+          "LTA",
+          "CHA",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "b25ff1ff9bb14d3385d93360179e6e8bda8c9a9591ecd4213de640794d1feb8c",
+        "items": [
+          {
+            "id": 1,
+            "key": "osda:CBXCPBUEXACCNR-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 2,
+            "key": "osda:GSEJCLTVZPLZKY-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 3,
+            "key": "osda:OSBSFAARYOCBHB-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 4,
+            "key": "osda:ZMANZCXQSJIPKH-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 5,
+            "key": "condition:fluoride medium",
+            "tokens": 62
+          }
+        ],
+        "linking": [
+          {
+            "conditions": [
+              "fluoride medium"
+            ],
+            "frameworks": [],
+            "osdas": [
+              "CBXCPBUEXACCNR-UHFFFAOYSA-N",
+              "GSEJCLTVZPLZKY-UHFFFAOYSA-N",
+              "OSBSFAARYOCBHB-UHFFFAOYSA-N",
+              "ZMANZCXQSJIPKH-UHFFFAOYSA-N"
+            ],
+            "query": "which frameworks are obtained in fluoride medium versus hydroxide medium for the same OSDA (e.g., TPA or TEA)"
+          },
+          {
+            "conditions": [],
+            "frameworks": [],
+            "osdas": [],
+            "query": "frameworks reported with high water content (dilute) gels using quaternary ammonium OSDAs"
+          }
+        ],
+        "tokens": 358
+      },
+      "plan": {
+        "factor": "Gel alkalinity / mineralization strength per framework-forming T atom (OH normalized by total tetrahedral species Si+Al+P+Ge+...)",
+        "queries": [
+          "which frameworks are obtained in fluoride medium versus hydroxide medium for the same OSDA (e.g., TPA or TEA)",
+          "frameworks reported with high water content (dilute) gels using quaternary ammonium OSDAs"
+        ],
+        "why": "Tree ensembles split on single raw columns, so ratios like OH/Si or OH/(Si+Al+P) are invisible to the model, yet alkalinity per T atom is the single most influential synthesis variable for phase selectivity: it controls silicate/aluminate dissolution rate, nucleation density, and the silica-to-framework polymerization regime. Two gels with identical mole fractions of Si and OH but different absolute concentrations (e.g., 0.02 vs 0.1 OH fraction) sit at very different points on the fast-nucleation (dense/small-pore, Failed) vs slow-crystallization (large-pore, high-Si) axis. A ratio-based descriptor transfers across unseen papers because it is dimensionless and paper-independent, unlike absolute mole fractions which papers set differently by convention."
+      },
+      "propose_prompt_sha256": "409673f6de77680a1e5e3b6440aa6eacabe17c74b9be4f310b0bd3f83e07babe",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "53409610ea899b1c8f472d828ee668a7bb984cef3e712a3dcd7631a61896eec3",
+          "raw_structured": {
+            "plan": {
+              "factor": "OSDA loading per framework-forming T atom (structure-directing agent concentration ratio)",
+              "queries": [
+                "effect of OSDA/SiO2 molar ratio on zeolite phase selectivity (e.g., SSZ-13 vs other phases with TMAda+)",
+                "which frameworks are obtained at low OSDA loading inorganic vs organic-templated synthesis"
+              ],
+              "why": "The classifier receives the OSDA1 mole fraction (sda1) and the individual T-atom mole fractions as separate columns, but a tree ensemble splitting on one column at a time can never form the ratio OSDA1/(Si+Al+P+Ge+B+Ga+Ti), which is the true measure of how much structure-directing agent is available per framework-forming T atom. This ratio is a classic steering variable in zeolite synthesis: high OSDA/T loadings favor OSDA-templated, often high-Si or unusual frameworks (and can lock the system into the OSDA-directed phase or leave it Failed if the OSDA is a poor match), while near-zero OSDA/T (inorganic routes) shifts selectivity toward alkali-templated phases (LTA, FAU, SOD-like dense phases) or Failed. It also separates OSDA-starved gels from OSDA-rich gels at identical Si fractions, information that transfers across unseen papers because it is a normalized intensive quantity rather than a paper-specific absolute concentration."
+            }
+          },
+          "response_id": "20261010003028afb4198247f341bb",
+          "usage": {
+            "completion_tokens": 543,
+            "completion_tokens_details": {
+              "reasoning_tokens": 224
+            },
+            "prompt_tokens": 2486,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3029
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ga",
+              "Ge",
+              "P",
+              "Si",
+              "Ti",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "sda1 is the mole fraction of OSDA1 in the normalized gel and is taken as a one-OSDA-per-molecule count (charge state ignored, so divalent/dicationic OSDAs are undercounted by a factor of 2); framework-forming T atoms are approximated as Si+Al+P+Ge+B+Ga+Ti, excluding minor heteroatoms (Zn, Mg, etc.) that can occasionally enter frameworks; the +0.001 guard only prevents division by zero for pure-OSDA gels and adds a large constant value there. The descriptor ignores OSDA size (a large molecule and a small one are counted equally per T atom), so it measures amount-based, not volume-based, loading.",
+              "evidence_ids": [
+                1,
+                2
+              ],
+              "expected_effect": "As sda_per_t_atom increases: gels whose OSDA1 matches a specific cage/pore geometry lock into that OSDA-directed framework (e.g., TMAda+ -> CHA rather than MFI/*BEA), and very high loadings with mismatched OSDAs trend toward Failed or OSDA-stabilized dense phases. As it decreases toward zero: outcomes shift to inorganic-templated products (LTA, FAU, SOD-type dense phases, MOR) and Failed, independent of which OSDA1 is nominally listed.",
+              "falsification": "If, within a fixed OSDA1 and fixed T-atom composition, phase outcome is unchanged across a wide range of OSDA/T ratios (e.g., TMAda+ gels giving CHA at both 0.02 and 0.2 OSDA/T, or MFI dominating at all loadings), the ratio carries no steering information and the descriptor will not improve held-out-publication accuracy.",
+              "formula": "sda1 / (Si + Al + P + Ge + B + Ga + Ti + 0.001)",
+              "hypothesis": "The molar ratio of OSDA1 to framework-forming T atoms is a primary steering variable for phase selectivity that is invisible to a tree ensemble splitting on individual mole-fraction columns. At high OSDA/T loading, the OSDA can fill and template the pore system of its matched framework, so OSDA-directed phases dominate: for bulky quaternary ammonium OSDAs such as N,N,N-trimethyl-L-adamantammonium this means small-pore CHA (or AEI/LEV-type cages) at high loading, shifting toward medium-pore MFI or *BEA (or Failed) when the OSDA is too scarce to template its preferred framework or is a poor geometric match. At near-zero OSDA/T (inorganic routes), selectivity shifts to alkali-templated phases (LTA, FAU, SOD-like dense phases, MOR with Na/K) or Failed because no organic structure direction is available.",
+              "knowledge_source": "both",
+              "mechanism": "Zeolite crystallization requires either inorganic cation templating or occlusion of organic cations to stabilize a given framework's charged framework density. Each OSDA molecule stabilizes a finite volume/cage of framework; the OSDA/T mole fraction is the intensive variable that determines whether enough directing agent is present per T atom to nucleate and grow the OSDA-templated phase before competing alkali-templated or dense phases crystallize. A tree ensemble receives sda1 and each T-atom mole fraction as separate columns, but the physically meaningful competition is between OSDA abundance and total framework-forming T supply, which only emerges as their ratio. Because it is normalized by the gel composition (not by absolute concentrations that differ between papers), it transfers to unseen publications. High OSDA/T also raises the ionic strength and reduces water/activity available per T atom, slowing dissolution of dense competing phases; low OSDA/T leaves excess T atoms to be directed by Na+/K+ toward low-Si, high-framework-density phases or amorphous gel (Failed).",
+              "name": "sda_per_t_atom",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "CHA",
+                "AEI",
+                "LEV",
+                "MFI",
+                "*BEA",
+                "LTA",
+                "FAU",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610100030401eee662077fa4eb0",
+          "usage": {
+            "completion_tokens": 1004,
+            "completion_tokens_details": {
+              "reasoning_tokens": 80
+            },
+            "prompt_tokens": 3072,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 4076
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "sda1 is the mole fraction of OSDA1 in the normalized gel and is taken as a one-OSDA-per-molecule count (charge state ignored, so divalent/dicationic OSDAs are undercounted by a factor of 2); framework-forming T atoms are approximated as Si+Al+P+Ge+B+Ga+Ti, excluding minor heteroatoms (Zn, Mg, etc.) that can occasionally enter frameworks; the +0.001 guard only prevents division by zero for pure-OSDA gels and adds a large constant value there. The descriptor ignores OSDA size (a large molecule and a small one are counted equally per T atom), so it measures amount-based, not volume-based, loading.",
+        "cited_evidence_keys": [
+          "osda:KKXBPUAYFJQMLN-UHFFFAOYSA-N",
+          "framework:CHA"
+        ],
+        "evidence_ids": [
+          1,
+          2
+        ],
+        "expected_effect": "As sda_per_t_atom increases: gels whose OSDA1 matches a specific cage/pore geometry lock into that OSDA-directed framework (e.g., TMAda+ -> CHA rather than MFI/*BEA), and very high loadings with mismatched OSDAs trend toward Failed or OSDA-stabilized dense phases. As it decreases toward zero: outcomes shift to inorganic-templated products (LTA, FAU, SOD-type dense phases, MOR) and Failed, independent of which OSDA1 is nominally listed.",
+        "falsification": "If, within a fixed OSDA1 and fixed T-atom composition, phase outcome is unchanged across a wide range of OSDA/T ratios (e.g., TMAda+ gels giving CHA at both 0.02 and 0.2 OSDA/T, or MFI dominating at all loadings), the ratio carries no steering information and the descriptor will not improve held-out-publication accuracy.",
+        "formula": "sda1 / (Si + Al + P + Ge + B + Ga + Ti + 0.001)",
+        "hypothesis": "The molar ratio of OSDA1 to framework-forming T atoms is a primary steering variable for phase selectivity that is invisible to a tree ensemble splitting on individual mole-fraction columns. At high OSDA/T loading, the OSDA can fill and template the pore system of its matched framework, so OSDA-directed phases dominate: for bulky quaternary ammonium OSDAs such as N,N,N-trimethyl-L-adamantammonium this means small-pore CHA (or AEI/LEV-type cages) at high loading, shifting toward medium-pore MFI or *BEA (or Failed) when the OSDA is too scarce to template its preferred framework or is a poor geometric match. At near-zero OSDA/T (inorganic routes), selectivity shifts to alkali-templated phases (LTA, FAU, SOD-like dense phases, MOR with Na/K) or Failed because no organic structure direction is available.",
+        "knowledge_source": "both",
+        "mechanism": "Zeolite crystallization requires either inorganic cation templating or occlusion of organic cations to stabilize a given framework's charged framework density. Each OSDA molecule stabilizes a finite volume/cage of framework; the OSDA/T mole fraction is the intensive variable that determines whether enough directing agent is present per T atom to nucleate and grow the OSDA-templated phase before competing alkali-templated or dense phases crystallize. A tree ensemble receives sda1 and each T-atom mole fraction as separate columns, but the physically meaningful competition is between OSDA abundance and total framework-forming T supply, which only emerges as their ratio. Because it is normalized by the gel composition (not by absolute concentrations that differ between papers), it transfers to unseen publications. High OSDA/T also raises the ionic strength and reduces water/activity available per T atom, slowing dissolution of dense competing phases; low OSDA/T leaves excess T atoms to be directed by Na+/K+ toward low-Si, high-framework-density phases or amorphous gel (Failed).",
+        "name": "sda_per_t_atom",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "CHA",
+          "AEI",
+          "LEV",
+          "MFI",
+          "*BEA",
+          "LTA",
+          "FAU",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "b6c8edb6d245e14f983e859523882931c4000af6fa7dec8654ee6999b89023f9",
+        "items": [
+          {
+            "id": 1,
+            "key": "osda:KKXBPUAYFJQMLN-UHFFFAOYSA-N",
+            "tokens": 78
+          },
+          {
+            "id": 2,
+            "key": "framework:CHA",
+            "tokens": 90
+          }
+        ],
+        "linking": [
+          {
+            "conditions": [],
+            "frameworks": [
+              "CHA"
+            ],
+            "osdas": [
+              "KKXBPUAYFJQMLN-UHFFFAOYSA-N"
+            ],
+            "query": "effect of OSDA/SiO2 molar ratio on zeolite phase selectivity (e.g., SSZ-13 vs other phases with TMAda+)"
+          },
+          {
+            "conditions": [],
+            "frameworks": [],
+            "osdas": [],
+            "query": "which frameworks are obtained at low OSDA loading inorganic vs organic-templated synthesis"
+          }
+        ],
+        "tokens": 168
+      },
+      "plan": {
+        "factor": "OSDA loading per framework-forming T atom (structure-directing agent concentration ratio)",
+        "queries": [
+          "effect of OSDA/SiO2 molar ratio on zeolite phase selectivity (e.g., SSZ-13 vs other phases with TMAda+)",
+          "which frameworks are obtained at low OSDA loading inorganic vs organic-templated synthesis"
+        ],
+        "why": "The classifier receives the OSDA1 mole fraction (sda1) and the individual T-atom mole fractions as separate columns, but a tree ensemble splitting on one column at a time can never form the ratio OSDA1/(Si+Al+P+Ge+B+Ga+Ti), which is the true measure of how much structure-directing agent is available per framework-forming T atom. This ratio is a classic steering variable in zeolite synthesis: high OSDA/T loadings favor OSDA-templated, often high-Si or unusual frameworks (and can lock the system into the OSDA-directed phase or leave it Failed if the OSDA is a poor match), while near-zero OSDA/T (inorganic routes) shifts selectivity toward alkali-templated phases (LTA, FAU, SOD-like dense phases) or Failed. It also separates OSDA-starved gels from OSDA-rich gels at identical Si fractions, information that transfers across unseen papers because it is a normalized intensive quantity rather than a paper-specific absolute concentration."
+      },
+      "propose_prompt_sha256": "9235cd984121cc3e6a3a7408dc65f5a777d06a06cc7a5adc12375abeeb4c707b",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "22c21725ed599d2c78a3383d71a4b806e3ae480bb21b941aef5cf45f026362ad",
+          "raw_structured": {
+            "plan": {
+              "factor": "gel dilution: water content per framework-forming T atom (H2O/(Si+Al+P+Ge+B+Ga+Ti+0.001))",
+              "queries": [],
+              "why": "Water content is a classic steering variable of zeolite phase selectivity, yet the classifier only receives the raw H2O mole fraction and each other mole fraction as separate columns; a tree ensemble splits one column at a time, so the physically meaningful H2O/T dilution ratio is not directly available. The same H2O mole fraction means very different things in a nearly pure-silica fluoride gel versus a highly alkaline aluminophosphate gel. High dilution (large H2O/T) lowers supersaturation, slows nucleation and crystal growth, favors thermodynamic (dense or large-pore, often lower-silica) products, and increases the chance of Failed or dense phases like SOD/ANA when kinetics are too slow; low H2O/T (concentrated gels) gives high supersaturation, fast nucleation, and favors metastable open frameworks and OSDA-templated high-silica phases. Dilution also interacts with the already-provided OH/T and SDA/T ratios to determine whether enough liquid phase remains to transport nutrients. This ratio completes the trio of mineralizer-per-T, OSDA-per-T, and water-per-T that spans the dominant steering variables of hydrothermal synthesis, and it transfers across unseen papers because it is a normalized intensive quantity rather than a lab-specific recipe value."
+            }
+          },
+          "response_id": "20261010003049a21814ab2ea4469f",
+          "usage": {
+            "completion_tokens": 998,
+            "completion_tokens_details": {
+              "reasoning_tokens": 661
+            },
+            "prompt_tokens": 2712,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3710
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ga",
+              "Ge",
+              "H2O",
+              "P",
+              "Si",
+              "Ti"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes H2O in the gel record reflects the actual synthesis water content and that all gel species share the same normalization so their ratios are meaningful. It treats T atoms as only Si, Al, P, Ge, B, Ga, Ti, ignoring minor heteroatoms (Zn, Mg, Be, etc.) and any solid T sources not captured in the gel fractions. It assumes dilution effects are monotone in the tails and does not capture non-water solvents, vapor-assisted routes where free water differs from nominal H2O, or filler/gel solids that change the effective solvent-to-solid ratio at fixed H2O/T. Like OH/T and sda1/T, it is a ratio whose behavior at very low T-atom content (e.g., pure-silica aluminophosphate gels without Si or Al, where the denominator approaches the 0.001 constant) can be large and should be interpreted jointly with those previously appended ratios.",
+              "evidence_ids": [],
+              "expected_effect": "As h2o_per_t_atom increases, outcomes should shift from concentrated-gel, OSDA-templated open frameworks and high-silica phases (MFI, *BEA, MTW, MWW, and OSDA-caged small-pore frameworks) toward Failed, dense byproducts, and slow-grown thermodynamic phases; very low H2O/T can also cause Failed via uncontrolled rapid precipitation or insufficient liquid phase for transport, so the strongest selectivity is expected at intermediate dilution, with the tails favoring dense/Failed.",
+              "falsification": "The hypothesis is contradicted if phase outcomes show no systematic dependence on H2O/T once OH/T and sda1/T are already accounted for, or if the same framework classes appear with equal frequency across the full H2O/T range within fixed gel chemistry, indicating that water content in these records is not a discriminating variable beyond the raw H2O fraction the model already receives.",
+              "formula": "H2O / (Si + Al + P + Ge + B + Ga + Ti + 0.001)",
+              "hypothesis": "Gel dilution, expressed as water per framework-forming T atom, is a steering variable for phase selectivity that the fixed RandomForest cannot access because it only sees the raw H2O mole fraction as a standalone column. The same H2O mole fraction corresponds to very different dilution regimes depending on the total T-atom content: a concentrated near-pure-silica fluoride gel and a dilute aluminophosphate gel differ by orders of magnitude in H2O/T even at identical H2O fractions. Increasing H2O/T should shift selectivity away from metastable open frameworks crystallized from concentrated, highly supersaturated gels and toward thermodynamically denser products, slower-grown high-silica phases, or Failed/dense outcomes when supersaturation and nutrient transport become limiting.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Water sets the solvent volume per mole of framework-forming species and therefore the supersaturation at any given temperature: at low H2O/T the concentrations of Si, Al, P, mineralizer, and OSDA are all high, giving high nucleation density and fast crystallization that can trap metastable, OSDA-templated open frameworks (e.g., *BEA, MWW, MFI, and OSDA-caged small-pore phases) before the thermodynamic phase nucleates. At high H2O/T, lowered supersaturation slows both nucleation and growth; fewer nuclei share the same nutrient pool, crystals grow larger and closer to the thermodynamic minimum, which favors dense phases (SOD-, ANA-, or MER-like) or amorphous/Failed outcomes when the synthesis window is missed. Water also controls the effective alkalinity (OH and F are diluted together with the T atoms, so OH-per-water drops as H2O/T rises), modulating dissolution rates, and it determines whether enough liquid phase remains to transport nutrients between dissolving gel and growing crystals. Because it is an intensive, normalized ratio of two gel mole fractions, it transfers across papers with different absolute batch sizes and normalization conventions.",
+              "name": "h2o_per_t_atom",
+              "novelty": "known_relation",
+              "target_frameworks": []
+            }
+          },
+          "response_id": "20261010003113db421b52707841ce",
+          "usage": {
+            "completion_tokens": 939,
+            "completion_tokens_details": {
+              "reasoning_tokens": 17
+            },
+            "prompt_tokens": 3092,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 4031
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes H2O in the gel record reflects the actual synthesis water content and that all gel species share the same normalization so their ratios are meaningful. It treats T atoms as only Si, Al, P, Ge, B, Ga, Ti, ignoring minor heteroatoms (Zn, Mg, Be, etc.) and any solid T sources not captured in the gel fractions. It assumes dilution effects are monotone in the tails and does not capture non-water solvents, vapor-assisted routes where free water differs from nominal H2O, or filler/gel solids that change the effective solvent-to-solid ratio at fixed H2O/T. Like OH/T and sda1/T, it is a ratio whose behavior at very low T-atom content (e.g., pure-silica aluminophosphate gels without Si or Al, where the denominator approaches the 0.001 constant) can be large and should be interpreted jointly with those previously appended ratios.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As h2o_per_t_atom increases, outcomes should shift from concentrated-gel, OSDA-templated open frameworks and high-silica phases (MFI, *BEA, MTW, MWW, and OSDA-caged small-pore frameworks) toward Failed, dense byproducts, and slow-grown thermodynamic phases; very low H2O/T can also cause Failed via uncontrolled rapid precipitation or insufficient liquid phase for transport, so the strongest selectivity is expected at intermediate dilution, with the tails favoring dense/Failed.",
+        "falsification": "The hypothesis is contradicted if phase outcomes show no systematic dependence on H2O/T once OH/T and sda1/T are already accounted for, or if the same framework classes appear with equal frequency across the full H2O/T range within fixed gel chemistry, indicating that water content in these records is not a discriminating variable beyond the raw H2O fraction the model already receives.",
+        "formula": "H2O / (Si + Al + P + Ge + B + Ga + Ti + 0.001)",
+        "hypothesis": "Gel dilution, expressed as water per framework-forming T atom, is a steering variable for phase selectivity that the fixed RandomForest cannot access because it only sees the raw H2O mole fraction as a standalone column. The same H2O mole fraction corresponds to very different dilution regimes depending on the total T-atom content: a concentrated near-pure-silica fluoride gel and a dilute aluminophosphate gel differ by orders of magnitude in H2O/T even at identical H2O fractions. Increasing H2O/T should shift selectivity away from metastable open frameworks crystallized from concentrated, highly supersaturated gels and toward thermodynamically denser products, slower-grown high-silica phases, or Failed/dense outcomes when supersaturation and nutrient transport become limiting.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Water sets the solvent volume per mole of framework-forming species and therefore the supersaturation at any given temperature: at low H2O/T the concentrations of Si, Al, P, mineralizer, and OSDA are all high, giving high nucleation density and fast crystallization that can trap metastable, OSDA-templated open frameworks (e.g., *BEA, MWW, MFI, and OSDA-caged small-pore phases) before the thermodynamic phase nucleates. At high H2O/T, lowered supersaturation slows both nucleation and growth; fewer nuclei share the same nutrient pool, crystals grow larger and closer to the thermodynamic minimum, which favors dense phases (SOD-, ANA-, or MER-like) or amorphous/Failed outcomes when the synthesis window is missed. Water also controls the effective alkalinity (OH and F are diluted together with the T atoms, so OH-per-water drops as H2O/T rises), modulating dissolution rates, and it determines whether enough liquid phase remains to transport nutrients between dissolving gel and growing crystals. Because it is an intensive, normalized ratio of two gel mole fractions, it transfers across papers with different absolute batch sizes and normalization conventions.",
+        "name": "h2o_per_t_atom",
+        "novelty": "known_relation",
+        "target_frameworks": [],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "gel dilution: water content per framework-forming T atom (H2O/(Si+Al+P+Ge+B+Ga+Ti+0.001))",
+        "queries": [],
+        "why": "Water content is a classic steering variable of zeolite phase selectivity, yet the classifier only receives the raw H2O mole fraction and each other mole fraction as separate columns; a tree ensemble splits one column at a time, so the physically meaningful H2O/T dilution ratio is not directly available. The same H2O mole fraction means very different things in a nearly pure-silica fluoride gel versus a highly alkaline aluminophosphate gel. High dilution (large H2O/T) lowers supersaturation, slows nucleation and crystal growth, favors thermodynamic (dense or large-pore, often lower-silica) products, and increases the chance of Failed or dense phases like SOD/ANA when kinetics are too slow; low H2O/T (concentrated gels) gives high supersaturation, fast nucleation, and favors metastable open frameworks and OSDA-templated high-silica phases. Dilution also interacts with the already-provided OH/T and SDA/T ratios to determine whether enough liquid phase remains to transport nutrients. This ratio completes the trio of mineralizer-per-T, OSDA-per-T, and water-per-T that spans the dominant steering variables of hydrothermal synthesis, and it transfers across unseen papers because it is a normalized intensive quantity rather than a lab-specific recipe value."
+      },
+      "propose_prompt_sha256": "32518c982b04d363a8631ac26cf60cbae4d8c04a2599f4890d16eefff5be71f8",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}

@@ -1,0 +1,130 @@
+{
+  "appended": 3,
+  "delta": {
+    "mean": {
+      "accuracy": 0.001592266135911291,
+      "balanced_accuracy": -0.011911398099661385,
+      "macro_f1": -0.010931744163333413
+    },
+    "per_seed": [
+      {
+        "accuracy": -0.004833665055444969,
+        "balanced_accuracy": -0.023743125886181216,
+        "macro_f1": -0.026928479340456002,
+        "seed": 3
+      },
+      {
+        "accuracy": -0.001990332669889072,
+        "balanced_accuracy": -0.00687116471608501,
+        "macro_f1": 0.002872535964904166,
+        "seed": 7
+      },
+      {
+        "accuracy": 0.012510662496445835,
+        "balanced_accuracy": -0.009768236279027953,
+        "macro_f1": 0.00019357165087219297,
+        "seed": 11
+      },
+      {
+        "accuracy": -0.003980665339778255,
+        "balanced_accuracy": -0.007666036563617029,
+        "macro_f1": -0.01060758867681827,
+        "seed": 17
+      },
+      {
+        "accuracy": 0.006255331248222917,
+        "balanced_accuracy": -0.01150842705339572,
+        "macro_f1": -0.02018876041516915,
+        "seed": 23
+      }
+    ]
+  },
+  "final_formulas": [
+    {
+      "formula": "(OH + F) / (Si + Al + P + Ge + 0.001)",
+      "name": "mineralizer_per_t_atom"
+    },
+    {
+      "formula": "sda1 / (Si + Al + P + Ge + 0.001)",
+      "name": "osda_per_t_atom"
+    },
+    {
+      "formula": "H2O / (Si + Al + P + Ge + 0.001)",
+      "name": "water_per_t_atom"
+    }
+  ],
+  "generation_sha256": "b828f9422d2973edde5a28d07e05ceba248df839e6bda9980d49d71e9903ac95",
+  "mode": "kg_shuffled",
+  "per_seed": [
+    {
+      "accuracy": 0.47398350867216377,
+      "balanced_accuracy": 0.2851770559903912,
+      "macro_f1": 0.26026432992729637,
+      "macro_f1_report": 0.237403273920169,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 3
+    },
+    {
+      "accuracy": 0.47739550753483084,
+      "balanced_accuracy": 0.2978850457914948,
+      "macro_f1": 0.28675625449109743,
+      "macro_f1_report": 0.2633475806550894,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 7
+    },
+    {
+      "accuracy": 0.48507250497583165,
+      "balanced_accuracy": 0.29428079282211195,
+      "macro_f1": 0.2801898708871431,
+      "macro_f1_report": 0.26086643151561595,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 11
+    },
+    {
+      "accuracy": 0.48535683821438724,
+      "balanced_accuracy": 0.30087943250835736,
+      "macro_f1": 0.2794521010382438,
+      "macro_f1_report": 0.2566396846269586,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 17
+    },
+    {
+      "accuracy": 0.48564117145294283,
+      "balanced_accuracy": 0.29667763057484325,
+      "macro_f1": 0.26765351559185074,
+      "macro_f1_report": 0.24580424901292416,
+      "n": 3517,
+      "n_classes_present": 135,
+      "seed": 23
+    }
+  ],
+  "replicate": 6,
+  "seconds": 2.634664297103882,
+  "split": "dev",
+  "strata": {
+    "kg_covered": {
+      "accuracy_delta": -0.001413043478260856,
+      "n": 1840
+    },
+    "kg_not_covered": {
+      "accuracy_delta": 0.004889683959451385,
+      "n": 1677
+    },
+    "no_osda": {
+      "accuracy_delta": 0.022365591397849473,
+      "n": 465
+    },
+    "osda_common_in_training": {
+      "accuracy_delta": -0.0013876040703052705,
+      "n": 2162
+    },
+    "osda_rare_in_training": {
+      "accuracy_delta": -0.0020224719101123558,
+      "n": 890
+    }
+  }
+}

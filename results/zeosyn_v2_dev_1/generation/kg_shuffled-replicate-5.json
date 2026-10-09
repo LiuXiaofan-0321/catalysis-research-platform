@@ -1,0 +1,577 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "OH / (Si + 0.001)",
+      "name": "oh_to_si_ratio"
+    },
+    {
+      "formula": "H2O / (Si + 0.001)",
+      "name": "water_to_si_ratio"
+    },
+    {
+      "formula": "P / (Si + Al + P + 0.001)",
+      "name": "p_fraction_of_t_atoms"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "kg_shuffled",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 5,
+  "seconds": 96.4117865562439,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "ac8c097cb70f72e32fca2b6e3a612e3658cd96b5655e8ac93c69742730bf0d50",
+          "raw_structured": {
+            "plan": {
+              "factor": "Gel alkalinity expressed as the OH/Si molar ratio",
+              "queries": [
+                "which frameworks are obtained with tetrapropylammonium as OSDA in hydroxide vs fluoride medium",
+                "how often is FAU or LTA reported in fluoride-free high-hydroxide gels compared to fluoride media"
+              ],
+              "why": "The model receives OH and Si only as separate absolute mole fractions, and a tree can split on one column at a time, so the ratio OH/Si - the single most cited synthesis variable in zeolite literature - is unavailable to it. Alkalinity controls silicate/aluminate speciation, dissolution and nucleation rates, and mineralizing strength. It systematically shifts selectivity: high OH/Si favors low-silica, nucleation-easy frameworks (FAU, LTA, sodalite-like products, more Failed) while low OH/Si (and fluoride media) favors high-silica phases (MFI, MTW, *BEA, SSZ-type frameworks). Because it is a normalized ratio, it transfers across papers with different concentration conventions, unlike raw mole fractions which depend on how the authors normalized the batch."
+            }
+          },
+          "response_id": "20261010002840d64eae87334e4028",
+          "usage": {
+            "completion_tokens": 857,
+            "completion_tokens_details": {
+              "reasoning_tokens": 591
+            },
+            "prompt_tokens": 2270,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3127
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "OH",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes OH mole fraction captures total mineralizing base (organic hydroxide and inorganic alkali combined) and that Si mole fraction approximates total framework-forming silica; it ignores buffering by aluminate, phosphate and fluoride (F- partially replaces OH- as mineralizer, so a low-OH fluoride gel is misread as 'low alkalinity' rather than 'alternative mineralizer'), and it assumes the authors normalized OH faithfully. The +0.001 constant only guards against Si=0 phosphate gels; on such gels the value is uninterpretable.",
+              "evidence_ids": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "expected_effect": "As oh_to_si_ratio increases, the probability of FAU, LTA and other low-silica small/large-pore phases (and Failed at the extreme) should rise, while MFI, *BEA, MTW and other high-silica phases should become less likely; the classifier splits at intermediate ratios should separate fluoride-type chemistries from hydroxide-type chemistries.",
+              "falsification": "If held-out papers show FAU/LTA outcomes concentrated at low OH/Si values, or MFI/*BEA outcomes at high OH/Si values comparable to or higher than FAU's, the descriptor's predicted direction is wrong; likewise if appending the ratio leaves the held-out accuracy unchanged and tree importances for it are near zero, the ratio carries no information beyond the raw OH and Si columns.",
+              "formula": "OH / (Si + 0.001)",
+              "hypothesis": "Gel alkalinity expressed as the OH/Si molar ratio steers framework selectivity: increasing OH/Si shifts products from dense or Failed mixtures and high-silica phases toward low-silica, nucleation-easy frameworks such as FAU and LTA, whereas very low OH/Si (often fluoride-mediated) favors high-silica phases such as *BEA, MFI and MTW.",
+              "knowledge_source": "both",
+              "mechanism": "Hydroxide concentration relative to silica sets the speciation of dissolved silicate and aluminate: high OH/Si increases deprotonated silicate monomers and aluminate, raising nucleation rates and favoring low-framework-density, aluminum-rich open frameworks (FAU, LTA) but also gel dissolution toward amorphous material if extreme; low OH/Si keeps silicate condensation slow and, together with fluoride complexing Si and raising Si speciation toward Q3/Q4 units, favors high-silica, high-framework-density phases. Trees can only split on OH or Si separately; because both are normalized mole fractions summing to 1 with other species, neither alone encodes the mineralizing strength per Si, so the ratio adds a genuinely new interaction axis.",
+              "name": "oh_to_si_ratio",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "MFI",
+                "*BEA",
+                "MTW",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010002859a330deb14c474cd7",
+          "usage": {
+            "completion_tokens": 841,
+            "completion_tokens_details": {
+              "reasoning_tokens": 165
+            },
+            "prompt_tokens": 3011,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3852
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes OH mole fraction captures total mineralizing base (organic hydroxide and inorganic alkali combined) and that Si mole fraction approximates total framework-forming silica; it ignores buffering by aluminate, phosphate and fluoride (F- partially replaces OH- as mineralizer, so a low-OH fluoride gel is misread as 'low alkalinity' rather than 'alternative mineralizer'), and it assumes the authors normalized OH faithfully. The +0.001 constant only guards against Si=0 phosphate gels; on such gels the value is uninterpretable.",
+        "cited_evidence_keys": [
+          "osda:OSBSFAARYOCBHB-UHFFFAOYSA-N",
+          "condition:fluoride medium",
+          "framework:FAU",
+          "framework:LTA"
+        ],
+        "evidence_ids": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "expected_effect": "As oh_to_si_ratio increases, the probability of FAU, LTA and other low-silica small/large-pore phases (and Failed at the extreme) should rise, while MFI, *BEA, MTW and other high-silica phases should become less likely; the classifier splits at intermediate ratios should separate fluoride-type chemistries from hydroxide-type chemistries.",
+        "falsification": "If held-out papers show FAU/LTA outcomes concentrated at low OH/Si values, or MFI/*BEA outcomes at high OH/Si values comparable to or higher than FAU's, the descriptor's predicted direction is wrong; likewise if appending the ratio leaves the held-out accuracy unchanged and tree importances for it are near zero, the ratio carries no information beyond the raw OH and Si columns.",
+        "formula": "OH / (Si + 0.001)",
+        "hypothesis": "Gel alkalinity expressed as the OH/Si molar ratio steers framework selectivity: increasing OH/Si shifts products from dense or Failed mixtures and high-silica phases toward low-silica, nucleation-easy frameworks such as FAU and LTA, whereas very low OH/Si (often fluoride-mediated) favors high-silica phases such as *BEA, MFI and MTW.",
+        "knowledge_source": "both",
+        "mechanism": "Hydroxide concentration relative to silica sets the speciation of dissolved silicate and aluminate: high OH/Si increases deprotonated silicate monomers and aluminate, raising nucleation rates and favoring low-framework-density, aluminum-rich open frameworks (FAU, LTA) but also gel dissolution toward amorphous material if extreme; low OH/Si keeps silicate condensation slow and, together with fluoride complexing Si and raising Si speciation toward Q3/Q4 units, favors high-silica, high-framework-density phases. Trees can only split on OH or Si separately; because both are normalized mole fractions summing to 1 with other species, neither alone encodes the mineralizing strength per Si, so the ratio adds a genuinely new interaction axis.",
+        "name": "oh_to_si_ratio",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "MFI",
+          "*BEA",
+          "MTW",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "529dc49a49c8b331e374df475a9d972452f471c310c25b2338c213acb86e0103",
+        "items": [
+          {
+            "id": 1,
+            "key": "osda:OSBSFAARYOCBHB-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 2,
+            "key": "condition:fluoride medium",
+            "tokens": 62
+          },
+          {
+            "id": 3,
+            "key": "framework:FAU",
+            "tokens": 96
+          },
+          {
+            "id": 4,
+            "key": "framework:LTA",
+            "tokens": 90
+          }
+        ],
+        "linking": [
+          {
+            "conditions": [
+              "fluoride medium"
+            ],
+            "frameworks": [],
+            "osdas": [
+              "OSBSFAARYOCBHB-UHFFFAOYSA-N"
+            ],
+            "query": "which frameworks are obtained with tetrapropylammonium as OSDA in hydroxide vs fluoride medium"
+          },
+          {
+            "conditions": [
+              "fluoride medium"
+            ],
+            "frameworks": [
+              "FAU",
+              "LTA"
+            ],
+            "osdas": [],
+            "query": "how often is FAU or LTA reported in fluoride-free high-hydroxide gels compared to fluoride media"
+          }
+        ],
+        "tokens": 322
+      },
+      "plan": {
+        "factor": "Gel alkalinity expressed as the OH/Si molar ratio",
+        "queries": [
+          "which frameworks are obtained with tetrapropylammonium as OSDA in hydroxide vs fluoride medium",
+          "how often is FAU or LTA reported in fluoride-free high-hydroxide gels compared to fluoride media"
+        ],
+        "why": "The model receives OH and Si only as separate absolute mole fractions, and a tree can split on one column at a time, so the ratio OH/Si - the single most cited synthesis variable in zeolite literature - is unavailable to it. Alkalinity controls silicate/aluminate speciation, dissolution and nucleation rates, and mineralizing strength. It systematically shifts selectivity: high OH/Si favors low-silica, nucleation-easy frameworks (FAU, LTA, sodalite-like products, more Failed) while low OH/Si (and fluoride media) favors high-silica phases (MFI, MTW, *BEA, SSZ-type frameworks). Because it is a normalized ratio, it transfers across papers with different concentration conventions, unlike raw mole fractions which depend on how the authors normalized the batch."
+      },
+      "propose_prompt_sha256": "3d208e059624463d24aac6023f13778016bd842770f36afd7aafcc0e9f0c9c36",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "acf29eae2b7e90a0cca88caced4701507e9f4e1a285e760ef53ecc9988060978",
+          "raw_structured": {
+            "plan": {
+              "factor": "Gel dilution: the water-to-silica molar ratio H2O / (Si + 0.001)",
+              "queries": [
+                "frameworks obtained in fluoride media with bulky OSDAs (e.g. TEA, DABCO) versus OH-media for the same OSDA",
+                "syntheses of *BEA and MTW: typical OSDAs and gel dilution conditions reported"
+              ],
+              "why": "Both H2O and Si mole fractions are already in D0, but a tree ensemble splits on one column at a time, so the physically meaningful quantity (dilution, H2O/Si) is invisible to the model. Dilution is a first-order synthesis variable: concentrated (low H2O/Si) gels crystallize fast and favor dense/small-pore phases or Failed runs, while highly diluted gels slow nucleation and favor large-pore, high-silica frameworks (e.g., *BEA, MTW, MFI) and are typical of fluoride routes. Since OH/Si was already added, H2O/Si is the complementary ratio most likely to add transferable, publication-independent information."
+            }
+          },
+          "response_id": "20261010002915dc340a0c6b0f43c8",
+          "usage": {
+            "completion_tokens": 426,
+            "completion_tokens_details": {
+              "reasoning_tokens": 170
+            },
+            "prompt_tokens": 2381,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2807
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "H2O",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes water and silica contents dominate dilution effects and ignores the role of other gel species (Al, F, OSDA) in setting effective solution volume; Si can be 0 in phosphorate systems (AlPO syntheses), so the +0.001 constant guards division but makes the descriptor explode to ~10^3-10^4 there, which the tree can isolate as its own region; mole fractions are per-record normalized, so H2O/Si is the genuine molar ratio; the relation is assumed monotone over the practically observed range, though real selectivity windows are non-monotone at extremes.",
+              "evidence_ids": [
+                6,
+                7,
+                8
+              ],
+              "expected_effect": "As water_to_si_ratio increases, the probability of large-pore high-silica frameworks (*BEA, MTW, MFI) and of clean, well-crystallized products should rise, while the probability of Failed runs and of dense or small-pore phases (e.g., SOD-like or analcime-type products) obtained from concentrated gels should decrease. Very low values (concentrated gels) should skew predictions toward Failed or dense phases.",
+              "falsification": "The descriptor would be falsified if products show no systematic shift with H2O/Si (e.g., *BEA and MTW obtained equally from highly concentrated gels, or Failed runs equally frequent at high dilution), or if within a fixed OH/Si and OSDA class the product distribution is invariant to dilution. It would also be weakened if the split simply reproduces the OH/Si effect (high rank correlation with oh_to_si_ratio and no added predictive value).",
+              "formula": "H2O / (Si + 0.001)",
+              "hypothesis": "Gel dilution, expressed as the molar water-to-silica ratio, is a first-order steering variable for zeolite phase selectivity that is invisible to a tree ensemble because it requires combining two D0 columns. As H2O/Si increases, nucleation and crystal growth slow, silicate speciation shifts toward less condensed anions, and the product distribution moves from dense phases and Failed runs (concentrated gels) toward open, high-silica, large-pore frameworks such as *BEA, MTW and MFI. Very dilute gels are also characteristic of fluoride-mediated routes, which predominantly yield *BEA and MFI.",
+              "knowledge_source": "both",
+              "mechanism": "Water acts as both solvent and diluent: at low H2O/Si the gel is concentrated, supersaturation and collision frequency are high, nucleation is rapid, and amorphous or dense phases (and runs recorded as Failed) dominate; at high H2O/Si the chemical potentials of dissolved silicate and aluminosilicate species drop, nucleation barriers rise, and only frameworks that grow slowly and stabilize large pore volumes under near-equilibrium, fluoride-mineralizing conditions (e.g., *BEA, MTW, MFI) can crystallize. Dilution also modulates the effective OH- activity, interacting with the already-added OH/Si descriptor but carrying independent information about mass transport and supersaturation. KG statistics are consistent with this: fluoride-medium experiments, which are typically dilute, yield *BEA (25%) and MFI (21%) with a strong large-pore share (41%), and *BEA/MTW syntheses are dominated by bulky tetraalkylammonium OSDAs in near-neutral dilute media [6,7,8].",
+              "name": "water_to_si_ratio",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "*BEA",
+                "MTW",
+                "MFI",
+                "Failed",
+                "FAU",
+                "LTA"
+              ]
+            }
+          },
+          "response_id": "202610100029258dad547964a44c08",
+          "usage": {
+            "completion_tokens": 890,
+            "completion_tokens_details": {
+              "reasoning_tokens": 58
+            },
+            "prompt_tokens": 3467,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 4357
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes water and silica contents dominate dilution effects and ignores the role of other gel species (Al, F, OSDA) in setting effective solution volume; Si can be 0 in phosphorate systems (AlPO syntheses), so the +0.001 constant guards division but makes the descriptor explode to ~10^3-10^4 there, which the tree can isolate as its own region; mole fractions are per-record normalized, so H2O/Si is the genuine molar ratio; the relation is assumed monotone over the practically observed range, though real selectivity windows are non-monotone at extremes.",
+        "cited_evidence_keys": [
+          "condition:fluoride medium",
+          "framework:*BEA",
+          "framework:MTW"
+        ],
+        "evidence_ids": [
+          6,
+          7,
+          8
+        ],
+        "expected_effect": "As water_to_si_ratio increases, the probability of large-pore high-silica frameworks (*BEA, MTW, MFI) and of clean, well-crystallized products should rise, while the probability of Failed runs and of dense or small-pore phases (e.g., SOD-like or analcime-type products) obtained from concentrated gels should decrease. Very low values (concentrated gels) should skew predictions toward Failed or dense phases.",
+        "falsification": "The descriptor would be falsified if products show no systematic shift with H2O/Si (e.g., *BEA and MTW obtained equally from highly concentrated gels, or Failed runs equally frequent at high dilution), or if within a fixed OH/Si and OSDA class the product distribution is invariant to dilution. It would also be weakened if the split simply reproduces the OH/Si effect (high rank correlation with oh_to_si_ratio and no added predictive value).",
+        "formula": "H2O / (Si + 0.001)",
+        "hypothesis": "Gel dilution, expressed as the molar water-to-silica ratio, is a first-order steering variable for zeolite phase selectivity that is invisible to a tree ensemble because it requires combining two D0 columns. As H2O/Si increases, nucleation and crystal growth slow, silicate speciation shifts toward less condensed anions, and the product distribution moves from dense phases and Failed runs (concentrated gels) toward open, high-silica, large-pore frameworks such as *BEA, MTW and MFI. Very dilute gels are also characteristic of fluoride-mediated routes, which predominantly yield *BEA and MFI.",
+        "knowledge_source": "both",
+        "mechanism": "Water acts as both solvent and diluent: at low H2O/Si the gel is concentrated, supersaturation and collision frequency are high, nucleation is rapid, and amorphous or dense phases (and runs recorded as Failed) dominate; at high H2O/Si the chemical potentials of dissolved silicate and aluminosilicate species drop, nucleation barriers rise, and only frameworks that grow slowly and stabilize large pore volumes under near-equilibrium, fluoride-mineralizing conditions (e.g., *BEA, MTW, MFI) can crystallize. Dilution also modulates the effective OH- activity, interacting with the already-added OH/Si descriptor but carrying independent information about mass transport and supersaturation. KG statistics are consistent with this: fluoride-medium experiments, which are typically dilute, yield *BEA (25%) and MFI (21%) with a strong large-pore share (41%), and *BEA/MTW syntheses are dominated by bulky tetraalkylammonium OSDAs in near-neutral dilute media [6,7,8].",
+        "name": "water_to_si_ratio",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "*BEA",
+          "MTW",
+          "MFI",
+          "Failed",
+          "FAU",
+          "LTA"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "42bfb61fc0344122779796276f47fb1e6a65910dbbaea661046bd327d78ce950",
+        "items": [
+          {
+            "id": 1,
+            "key": "osda:CBXCPBUEXACCNR-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 2,
+            "key": "osda:GSEJCLTVZPLZKY-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 3,
+            "key": "osda:IMNIMPAHZVJRPE-UHFFFAOYSA-N",
+            "tokens": 73
+          },
+          {
+            "id": 4,
+            "key": "osda:OSBSFAARYOCBHB-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 5,
+            "key": "osda:ZMANZCXQSJIPKH-UHFFFAOYSA-N",
+            "tokens": 74
+          },
+          {
+            "id": 6,
+            "key": "condition:fluoride medium",
+            "tokens": 62
+          },
+          {
+            "id": 7,
+            "key": "framework:*BEA",
+            "tokens": 87
+          },
+          {
+            "id": 8,
+            "key": "framework:MTW",
+            "tokens": 84
+          }
+        ],
+        "linking": [
+          {
+            "conditions": [
+              "fluoride medium"
+            ],
+            "frameworks": [],
+            "osdas": [
+              "CBXCPBUEXACCNR-UHFFFAOYSA-N",
+              "GSEJCLTVZPLZKY-UHFFFAOYSA-N",
+              "IMNIMPAHZVJRPE-UHFFFAOYSA-N",
+              "OSBSFAARYOCBHB-UHFFFAOYSA-N",
+              "ZMANZCXQSJIPKH-UHFFFAOYSA-N"
+            ],
+            "query": "frameworks obtained in fluoride media with bulky OSDAs (e.g. TEA, DABCO) versus OH-media for the same OSDA"
+          },
+          {
+            "conditions": [],
+            "frameworks": [
+              "*BEA",
+              "MTW"
+            ],
+            "osdas": [],
+            "query": "syntheses of *BEA and MTW: typical OSDAs and gel dilution conditions reported"
+          }
+        ],
+        "tokens": 602
+      },
+      "plan": {
+        "factor": "Gel dilution: the water-to-silica molar ratio H2O / (Si + 0.001)",
+        "queries": [
+          "frameworks obtained in fluoride media with bulky OSDAs (e.g. TEA, DABCO) versus OH-media for the same OSDA",
+          "syntheses of *BEA and MTW: typical OSDAs and gel dilution conditions reported"
+        ],
+        "why": "Both H2O and Si mole fractions are already in D0, but a tree ensemble splits on one column at a time, so the physically meaningful quantity (dilution, H2O/Si) is invisible to the model. Dilution is a first-order synthesis variable: concentrated (low H2O/Si) gels crystallize fast and favor dense/small-pore phases or Failed runs, while highly diluted gels slow nucleation and favor large-pore, high-silica frameworks (e.g., *BEA, MTW, MFI) and are typical of fluoride routes. Since OH/Si was already added, H2O/Si is the complementary ratio most likely to add transferable, publication-independent information."
+      },
+      "propose_prompt_sha256": "68c60b083a26ebc06712ccf029f9faf4d5b3b7c694dcffed533a201e42a6c392",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "94fd8b632a5f0de7173475d7113949735a13bdab1d63282629693212577a1119",
+          "raw_structured": {
+            "plan": {
+              "factor": "framework T-atom composition: the phosphorus fraction among framework-forming T atoms, P / (Si + Al + P + 0.001)",
+              "queries": [
+                "which frameworks are obtained when P is in the gel but Si is absent (AlPO4 syntheses)",
+                "SAPO CHA and AEI synthesis gel composition P Al Si ratio"
+              ],
+              "why": "Trees can only split on single columns, so they cannot tell a purely aluminophosphate gel (P present, Si absent) from a silicoaluminophosphate or an aluminosilicate gel when P and Si mole fractions are similar in magnitude. The P/(Si+Al+P) ratio cleanly separates the AlPO4/SAPO family (AFI, AEL, AEI, CHA via SAPO routes, LEV, AEN) from zeolites (MFI, *BEA, MOR, FAU): the product field flips almost completely as this ratio goes from 0 to ~0.5. This composition axis is orthogonal to the alkalinity and dilution descriptors already appended, carries no redundancy with the OSDA descriptors, and transfers across papers because the normalized gel composition is reported identically everywhere."
+            }
+          },
+          "response_id": "2026101000294453bbb1aad313452b",
+          "usage": {
+            "completion_tokens": 593,
+            "completion_tokens_details": {
+              "reasoning_tokens": 320
+            },
+            "prompt_tokens": 2536,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3129
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes the gel mole fractions of P, Si and Al approximate the framework T-atom inventory: it ignores that some P stays in solution or that heteroatoms (Ge, B, Zn, Ti, Mg) can occupy T-sites, so it is a proxy for framework chemistry rather than the true product composition. It also assumes the normalized gel composition is reported consistently across papers (it is by construction of the dataset). The descriptor cannot distinguish AlPO (Si=0) from SAPO (Si small) at fixed P/(Si+Al+P) close to 1 unless Si is read jointly by the trees, which is fine since Si remains a D0 column.",
+              "evidence_ids": [
+                1,
+                2,
+                3
+              ],
+              "expected_effect": "As the descriptor increases from 0: zeolite outcomes (MFI, *BEA, MOR, FAU, MTW) and Failed should become less likely; at intermediate values (~0.3-0.6) SAPO-type small-pore products (CHA, AEI, LEV) become more likely; at high values (>0.6, low Si) neutral AlPO4 frameworks (AFI, AEL, AEN) become more likely. MFI at intermediate values reflects silicoaluminophosphate gels where residual Si enters the framework, consistent with KG evidence.",
+              "falsification": "If the product distribution does not depend on this ratio - e.g. zeolites such as MFI or *BEA are obtained as often at high P fraction (pure AlPO-type gels) as at zero P, or AlPO frameworks such as AFI/AEL appear regularly in gels with P/(Si+Al+P) near 0 - then phosphorus fraction does not steer phase selectivity and the descriptor adds no information beyond the raw Si, Al, P columns.",
+              "formula": "P / (Si + Al + P + 0.001)",
+              "hypothesis": "The fraction of phosphorus among the framework-forming T atoms (Si, Al, P) in the gel determines whether the synthesis follows an aluminophosphate chemistry or a zeolite (silicate) chemistry, and therefore flips the accessible product field: near 0 the outcome space is zeolites and dense silicates; near 1 (AlPO) or around 0.5 (SAPO) the outcome space is AlPO4/SAPO frameworks such as AFI, AEL, AEI, AEN, LEV and SAPO-CHA.",
+              "knowledge_source": "both",
+              "mechanism": "In AlPO/SAPO crystallization, phosphorus and aluminium condense into alternating AlO4/PO4 frameworks (AlPO4-n family), and the periodicity, pore geometry and charge balance of these frameworks differ fundamentally from aluminosilicate frameworks built from SiO4/AlO4 tetrahedra. A tree ensemble sees Si, Al and P mole fractions only as separate columns; because the normalized mole fractions are small numbers of comparable magnitude, the ratio P/(Si+Al+P) - which distinguishes 'P present, Si absent' from 'P and Si both present' - cannot be recovered from a single split. As this ratio rises from 0, the gel transitions from pure aluminosilicate (zeolite products: MFI, *BEA, MOR, FAU, MTW, MWW) through silicoaluminophosphate compositions (SAPO-34/CHA, SAPO-5/AFI, SAPO-11/AEL, SAPO-18/AEI, SAPO-34-type LEV) toward pure aluminophosphate (AFI, AEL, AEN). The KG condition 'phosphorus (AlPO/SAPO) gel' confirms the shifted product distribution: CHA 27%, MFI 15%, AFI 10%, AEL 8%, AEI 7%, i.e. a mix dominated by small-pore AlPO/SAPO phases (56%) that coexists with a residual MFI branch when trace Si is present. The descriptor is dimensionless and computed identically from normalized gel compositions in every paper, so it transfers across held-out publications.",
+              "name": "p_fraction_of_t_atoms",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "AFI",
+                "AEL",
+                "AEI",
+                "AEN",
+                "LEV",
+                "CHA",
+                "MFI",
+                "*BEA",
+                "MOR",
+                "FAU",
+                "MTW",
+                "MWW",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010002957be6c9ef698f741f6",
+          "usage": {
+            "completion_tokens": 1012,
+            "completion_tokens_details": {
+              "reasoning_tokens": 24
+            },
+            "prompt_tokens": 3172,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 4184
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes the gel mole fractions of P, Si and Al approximate the framework T-atom inventory: it ignores that some P stays in solution or that heteroatoms (Ge, B, Zn, Ti, Mg) can occupy T-sites, so it is a proxy for framework chemistry rather than the true product composition. It also assumes the normalized gel composition is reported consistently across papers (it is by construction of the dataset). The descriptor cannot distinguish AlPO (Si=0) from SAPO (Si small) at fixed P/(Si+Al+P) close to 1 unless Si is read jointly by the trees, which is fine since Si remains a D0 column.",
+        "cited_evidence_keys": [
+          "condition:phosphorus (AlPO/SAPO) gel",
+          "framework:AEI",
+          "framework:CHA"
+        ],
+        "evidence_ids": [
+          1,
+          2,
+          3
+        ],
+        "expected_effect": "As the descriptor increases from 0: zeolite outcomes (MFI, *BEA, MOR, FAU, MTW) and Failed should become less likely; at intermediate values (~0.3-0.6) SAPO-type small-pore products (CHA, AEI, LEV) become more likely; at high values (>0.6, low Si) neutral AlPO4 frameworks (AFI, AEL, AEN) become more likely. MFI at intermediate values reflects silicoaluminophosphate gels where residual Si enters the framework, consistent with KG evidence.",
+        "falsification": "If the product distribution does not depend on this ratio - e.g. zeolites such as MFI or *BEA are obtained as often at high P fraction (pure AlPO-type gels) as at zero P, or AlPO frameworks such as AFI/AEL appear regularly in gels with P/(Si+Al+P) near 0 - then phosphorus fraction does not steer phase selectivity and the descriptor adds no information beyond the raw Si, Al, P columns.",
+        "formula": "P / (Si + Al + P + 0.001)",
+        "hypothesis": "The fraction of phosphorus among the framework-forming T atoms (Si, Al, P) in the gel determines whether the synthesis follows an aluminophosphate chemistry or a zeolite (silicate) chemistry, and therefore flips the accessible product field: near 0 the outcome space is zeolites and dense silicates; near 1 (AlPO) or around 0.5 (SAPO) the outcome space is AlPO4/SAPO frameworks such as AFI, AEL, AEI, AEN, LEV and SAPO-CHA.",
+        "knowledge_source": "both",
+        "mechanism": "In AlPO/SAPO crystallization, phosphorus and aluminium condense into alternating AlO4/PO4 frameworks (AlPO4-n family), and the periodicity, pore geometry and charge balance of these frameworks differ fundamentally from aluminosilicate frameworks built from SiO4/AlO4 tetrahedra. A tree ensemble sees Si, Al and P mole fractions only as separate columns; because the normalized mole fractions are small numbers of comparable magnitude, the ratio P/(Si+Al+P) - which distinguishes 'P present, Si absent' from 'P and Si both present' - cannot be recovered from a single split. As this ratio rises from 0, the gel transitions from pure aluminosilicate (zeolite products: MFI, *BEA, MOR, FAU, MTW, MWW) through silicoaluminophosphate compositions (SAPO-34/CHA, SAPO-5/AFI, SAPO-11/AEL, SAPO-18/AEI, SAPO-34-type LEV) toward pure aluminophosphate (AFI, AEL, AEN). The KG condition 'phosphorus (AlPO/SAPO) gel' confirms the shifted product distribution: CHA 27%, MFI 15%, AFI 10%, AEL 8%, AEI 7%, i.e. a mix dominated by small-pore AlPO/SAPO phases (56%) that coexists with a residual MFI branch when trace Si is present. The descriptor is dimensionless and computed identically from normalized gel compositions in every paper, so it transfers across held-out publications.",
+        "name": "p_fraction_of_t_atoms",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "AFI",
+          "AEL",
+          "AEI",
+          "AEN",
+          "LEV",
+          "CHA",
+          "MFI",
+          "*BEA",
+          "MOR",
+          "FAU",
+          "MTW",
+          "MWW",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "04b9fe13affae4b112a0e161b080e112b7cb788d1fad52686ad9a5761bfcf569",
+        "items": [
+          {
+            "id": 1,
+            "key": "condition:phosphorus (AlPO/SAPO) gel",
+            "tokens": 66
+          },
+          {
+            "id": 2,
+            "key": "framework:AEI",
+            "tokens": 82
+          },
+          {
+            "id": 3,
+            "key": "framework:CHA",
+            "tokens": 90
+          }
+        ],
+        "linking": [
+          {
+            "conditions": [
+              "phosphorus (AlPO/SAPO) gel"
+            ],
+            "frameworks": [],
+            "osdas": [],
+            "query": "which frameworks are obtained when P is in the gel but Si is absent (AlPO4 syntheses)"
+          },
+          {
+            "conditions": [
+              "phosphorus (AlPO/SAPO) gel"
+            ],
+            "frameworks": [
+              "AEI",
+              "CHA"
+            ],
+            "osdas": [],
+            "query": "SAPO CHA and AEI synthesis gel composition P Al Si ratio"
+          }
+        ],
+        "tokens": 238
+      },
+      "plan": {
+        "factor": "framework T-atom composition: the phosphorus fraction among framework-forming T atoms, P / (Si + Al + P + 0.001)",
+        "queries": [
+          "which frameworks are obtained when P is in the gel but Si is absent (AlPO4 syntheses)",
+          "SAPO CHA and AEI synthesis gel composition P Al Si ratio"
+        ],
+        "why": "Trees can only split on single columns, so they cannot tell a purely aluminophosphate gel (P present, Si absent) from a silicoaluminophosphate or an aluminosilicate gel when P and Si mole fractions are similar in magnitude. The P/(Si+Al+P) ratio cleanly separates the AlPO4/SAPO family (AFI, AEL, AEI, CHA via SAPO routes, LEV, AEN) from zeolites (MFI, *BEA, MOR, FAU): the product field flips almost completely as this ratio goes from 0 to ~0.5. This composition axis is orthogonal to the alkalinity and dilution descriptors already appended, carries no redundancy with the OSDA descriptors, and transfers across papers because the normalized gel composition is reported identically everywhere."
+      },
+      "propose_prompt_sha256": "cabbd5883139c34dcb13aba900eca97575d16e319a1d2475b218e3ad3c1db192",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}

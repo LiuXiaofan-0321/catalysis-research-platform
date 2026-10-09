@@ -1,0 +1,3 @@
+00:18:55 agent r6 round 1: [Gel alkalinity, i.e. hydroxide mineralizing streng] OH / (Si + Al + P + 1e-6)
+00:19:35 agent r6 round 2: [Gel dilution: water-to-framework-forming ratio] H2O / (Si + Al + P + 1e-6)
+00:20:44 agent r6 round 3: [mineralizer identity: fluoride-to-hydroxide balanc] (F - OH) / (Si + Al + P + 1e-6)

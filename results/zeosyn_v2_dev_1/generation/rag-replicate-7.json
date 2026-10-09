@@ -1,0 +1,622 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "OH / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + 0.001)",
+      "name": "oh_per_framework_t"
+    },
+    {
+      "formula": "H2O / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + 0.001)",
+      "name": "h2o_per_framework_t"
+    },
+    {
+      "formula": "Si / (Al + P + 0.001)",
+      "name": "si_per_al_p"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "rag",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 7,
+  "seconds": 111.07549214363098,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "3ff4e17f983e42981dbbbef9fc85dc7b7d587d2e87907e1eb35de3b282ff009a",
+          "raw_structured": {
+            "plan": {
+              "factor": "Gel alkalinity: hydroxide concentration relative to the total framework-forming T atoms (Si + Al + P + Ge + B + Ga + Ti + Zn + Be), i.e. an OH/(sum of T-atom mole fractions) ratio",
+              "queries": [
+                "effect of gel alkalinity OH/SiO2 ratio on zeolite phase selectivity framework density",
+                "fluoride medium low alkalinity synthesis high-silica zeolites *BEA MTW UTL"
+              ],
+              "why": "D0 provides the raw OH mole fraction and raw Si/Al/P fractions, but a RandomForest splits on single columns only, so it cannot perceive alkalinity - the single most classical control variable in zeolite synthesis. Alkalinity governs silicate/germanate dissolution, nucleation rate, and framework density: high OH/(T) pushes toward low-density or dense phases and accelerates dissolution (often yielding Failed/less-selective products), while low alkalinity (especially paired with fluoride, where OH is nearly absent) is required for large-pore high-silica frameworks like *BEA, MTW, UTL, and pure-silica phases. The same absolute OH value means completely different chemistry at Si=0.05 versus Si=0.5, so this combination is invisible to the current feature set but transfers across publications because it is a dimensionless gel property rather than a lab-specific scale. Unlike a raw column, it is a genuine cross-feature interaction the model cannot synthesize from one split."
+            }
+          },
+          "response_id": "20261010002243e94e38795dcb4781",
+          "usage": {
+            "completion_tokens": 583,
+            "completion_tokens_details": {
+              "reasoning_tokens": 241
+            },
+            "prompt_tokens": 1525,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2108
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Be",
+              "Ga",
+              "Ge",
+              "OH",
+              "P",
+              "Si",
+              "Ti",
+              "Zn"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes total OH mole fraction is a valid proxy for effective alkalinity (ignores protonation state, fluoride complexation of Si/Ge which removes OH equivalents, and cation-associated basicity); assumes the normalized mole fraction of each T atom scales with total framework T available, so P-bearing gels (SAPO/AlPO, where OH is a complexing agent rather than a mineralizer) fall near zero and are distinguished from OH-rich aluminosilicate gels. Also assumes crystallization-time-dependent effects are captured by D0 already.",
+              "evidence_ids": [
+                4,
+                5,
+                3,
+                8,
+                6
+              ],
+              "expected_effect": "As oh_per_framework_T increases beyond a moderate optimum, yields should shift from large-pore/high-silica frameworks (*BEA, MTW, MWW, UTL) toward lower-Si/Al dense phases (MOR, ANA-type, LTA, FAU) or Failed (amorphous/dissolved or quartz-like impurities); at very low values crystallization may slow so much that Failed also becomes more likely for OH-only systems, giving an intermediate optimum (cf. optimum (K2O+Na2O)/SiO2 for zeolite L).",
+              "falsification": "If, within a single publication series, the product phase distribution is invariant when OH is varied while Si, Al, P are held fixed (i.e., the ratio changes but labels do not), or if the same ratio maps to systematically different phases across labs (no transferability on held-out papers), the descriptor's claimed steering power is contradicted.",
+              "formula": "OH / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + 0.001)",
+              "hypothesis": "The hydroxide-to-framework-T-atom ratio (gel alkalinity per mole of framework-forming species) is a primary control on zeolite phase selectivity and on success vs. failure. As this ratio increases, dissolution of the amorphous gel accelerates and nucleation shifts toward denser, more highly charged aluminosilicate frameworks or toward complete dissolution (Failed), whereas low values (especially under fluoride conditions where OH is nearly absent) favor large-pore, high-silica frameworks such as *BEA, MTW, MWW, TON and pure-silica phases.",
+              "knowledge_source": "both",
+              "mechanism": "Hydroxide depolymerizes silica and alumina species and controls the concentration of soluble anionic building units; higher OH/(T) increases nucleation rate and promotes metastable, denser frameworks (e.g., anaconda of Ostwald ripening toward higher framework density phases) or, at extreme values, dissolves the nuclei entirely so crystallization fails. Low alkalinity minimizes framework dissolution and allows bulky, defect-poor frameworks to crystallize slowly, which is why fluoride routes (OH≈0) yield high-silica large-pore zeolites. Because the ratio is normalized by the total T-atom content, it is a dimensionless gel property rather than a lab-specific scale, so it should transfer across publications; a RandomForest splitting on one column at a time cannot form this interaction from raw OH and raw Si/Al/P fractions.",
+              "name": "oh_per_framework_T",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "*BEA",
+                "MTW",
+                "MWW",
+                "UTL",
+                "TON",
+                "MOR",
+                "FAU",
+                "LTA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610100023009e95eaf139564f61",
+          "usage": {
+            "completion_tokens": 821,
+            "completion_tokens_details": {
+              "reasoning_tokens": 52
+            },
+            "prompt_tokens": 5727,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 6548
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes total OH mole fraction is a valid proxy for effective alkalinity (ignores protonation state, fluoride complexation of Si/Ge which removes OH equivalents, and cation-associated basicity); assumes the normalized mole fraction of each T atom scales with total framework T available, so P-bearing gels (SAPO/AlPO, where OH is a complexing agent rather than a mineralizer) fall near zero and are distinguished from OH-rich aluminosilicate gels. Also assumes crystallization-time-dependent effects are captured by D0 already.",
+        "cited_evidence_keys": [
+          "chunk:94ea4110a38b1aa238feb265",
+          "chunk:d9599468d6e868646f71a114",
+          "chunk:60057d2d62944b822f74720a",
+          "chunk:9432e734cc9018747486eff4",
+          "chunk:bc869d2257b872bfa4c13110"
+        ],
+        "evidence_ids": [
+          3,
+          4,
+          5,
+          6,
+          8
+        ],
+        "expected_effect": "As oh_per_framework_T increases beyond a moderate optimum, yields should shift from large-pore/high-silica frameworks (*BEA, MTW, MWW, UTL) toward lower-Si/Al dense phases (MOR, ANA-type, LTA, FAU) or Failed (amorphous/dissolved or quartz-like impurities); at very low values crystallization may slow so much that Failed also becomes more likely for OH-only systems, giving an intermediate optimum (cf. optimum (K2O+Na2O)/SiO2 for zeolite L).",
+        "falsification": "If, within a single publication series, the product phase distribution is invariant when OH is varied while Si, Al, P are held fixed (i.e., the ratio changes but labels do not), or if the same ratio maps to systematically different phases across labs (no transferability on held-out papers), the descriptor's claimed steering power is contradicted.",
+        "formula": "OH / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + 0.001)",
+        "hypothesis": "The hydroxide-to-framework-T-atom ratio (gel alkalinity per mole of framework-forming species) is a primary control on zeolite phase selectivity and on success vs. failure. As this ratio increases, dissolution of the amorphous gel accelerates and nucleation shifts toward denser, more highly charged aluminosilicate frameworks or toward complete dissolution (Failed), whereas low values (especially under fluoride conditions where OH is nearly absent) favor large-pore, high-silica frameworks such as *BEA, MTW, MWW, TON and pure-silica phases.",
+        "knowledge_source": "both",
+        "mechanism": "Hydroxide depolymerizes silica and alumina species and controls the concentration of soluble anionic building units; higher OH/(T) increases nucleation rate and promotes metastable, denser frameworks (e.g., anaconda of Ostwald ripening toward higher framework density phases) or, at extreme values, dissolves the nuclei entirely so crystallization fails. Low alkalinity minimizes framework dissolution and allows bulky, defect-poor frameworks to crystallize slowly, which is why fluoride routes (OH≈0) yield high-silica large-pore zeolites. Because the ratio is normalized by the total T-atom content, it is a dimensionless gel property rather than a lab-specific scale, so it should transfer across publications; a RandomForest splitting on one column at a time cannot form this interaction from raw OH and raw Si/Al/P fractions.",
+        "name": "oh_per_framework_t",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "*BEA",
+          "MTW",
+          "MWW",
+          "UTL",
+          "TON",
+          "MOR",
+          "FAU",
+          "LTA",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "3cfcc2ebd19c16c6659992be726b1e2508907e0ad688db2f9f668dd027b32c45",
+        "items": [
+          {
+            "id": 1,
+            "key": "chunk:7a8ab17d1e21ff64ddc9e78b",
+            "paper_id": "doi:10.1007/s10853-019-03433-8",
+            "tokens": 164
+          },
+          {
+            "id": 2,
+            "key": "chunk:8a34facfefffea470e548516",
+            "paper_id": "doi:10.1039/d5mh01044f",
+            "tokens": 484
+          },
+          {
+            "id": 3,
+            "key": "chunk:94ea4110a38b1aa238feb265",
+            "paper_id": "doi:10.1039/d5mh00235d",
+            "tokens": 510
+          },
+          {
+            "id": 4,
+            "key": "chunk:d9599468d6e868646f71a114",
+            "paper_id": "doi:10.1007/s11814-008-0254-4",
+            "tokens": 479
+          },
+          {
+            "id": 5,
+            "key": "chunk:60057d2d62944b822f74720a",
+            "paper_id": "doi:10.1021/jacs.4c07414",
+            "tokens": 427
+          },
+          {
+            "id": 6,
+            "key": "chunk:9432e734cc9018747486eff4",
+            "paper_id": "pmc:pmc8310756",
+            "tokens": 390
+          },
+          {
+            "id": 7,
+            "key": "chunk:601ea545df38d6f401ee1d1c",
+            "paper_id": "doi:10.1002/chem.201705805",
+            "tokens": 366
+          },
+          {
+            "id": 8,
+            "key": "chunk:bc869d2257b872bfa4c13110",
+            "paper_id": "pmc:pmc7435978",
+            "tokens": 119
+          }
+        ],
+        "linking": null,
+        "tokens": 2939
+      },
+      "plan": {
+        "factor": "Gel alkalinity: hydroxide concentration relative to the total framework-forming T atoms (Si + Al + P + Ge + B + Ga + Ti + Zn + Be), i.e. an OH/(sum of T-atom mole fractions) ratio",
+        "queries": [
+          "effect of gel alkalinity OH/SiO2 ratio on zeolite phase selectivity framework density",
+          "fluoride medium low alkalinity synthesis high-silica zeolites *BEA MTW UTL"
+        ],
+        "why": "D0 provides the raw OH mole fraction and raw Si/Al/P fractions, but a RandomForest splits on single columns only, so it cannot perceive alkalinity - the single most classical control variable in zeolite synthesis. Alkalinity governs silicate/germanate dissolution, nucleation rate, and framework density: high OH/(T) pushes toward low-density or dense phases and accelerates dissolution (often yielding Failed/less-selective products), while low alkalinity (especially paired with fluoride, where OH is nearly absent) is required for large-pore high-silica frameworks like *BEA, MTW, UTL, and pure-silica phases. The same absolute OH value means completely different chemistry at Si=0.05 versus Si=0.5, so this combination is invisible to the current feature set but transfers across publications because it is a dimensionless gel property rather than a lab-specific scale. Unlike a raw column, it is a genuine cross-feature interaction the model cannot synthesize from one split."
+      },
+      "propose_prompt_sha256": "e1faac144002a362daec840a187ebb0566a923c3c27caebb937cf49765db0137",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "94750a0204db63ff4109a13b96eea446e86130180799d48d63169154414f63d9",
+          "raw_structured": {
+            "plan": {
+              "factor": "gel dilution: water-to-framework-T ratio",
+              "queries": [
+                "water content gel dilution effect zeolite framework phase selectivity",
+                "H2O/SiO2 ratio crystallization field zeolite synthesis"
+              ],
+              "why": "Round 1 encoded alkalinity (OH per T-atom), but the other half of the classical crystallization-field diagram is water content. H2O/T (gel dilution) is a strong, paper-transferable control on phase selectivity that a tree cannot recover by splitting on the single H2O column: it only emerges from dividing water by the framework-forming species (Si+Al+P+Ge+B+Ga+Ti+Zn+Be). Concentrated gels (low H2O/T) raise supersaturation, accelerate nucleation, and favor small-pore or metastable phases and dense/Failed outcomes, while dilute gels slow nucleation, enlarge crystals, and stabilize open frameworks (e.g., *BEA, MWW, FAU) and high-silica fluoride-synthesized phases. Since H2O mole fractions vary over orders of magnitude across recipes while the OH/T axis is already covered, dilution adds a largely orthogonal, physically interpretable axis of the synthesis space and should help generalize to unseen publications."
+            }
+          },
+          "response_id": "202610100023185dddbe8f08f44cf9",
+          "usage": {
+            "completion_tokens": 696,
+            "completion_tokens_details": {
+              "reasoning_tokens": 405
+            },
+            "prompt_tokens": 1692,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2388
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Be",
+              "Ga",
+              "Ge",
+              "H2O",
+              "P",
+              "Si",
+              "Ti",
+              "Zn"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes framework-forming T atoms are Si, Al, P, Ge, B, Ga, Ti, Zn, Be and that water is the only solvent diluent; assumes the liquid-phase concentration of OSDA and mineralizer scales with 1/(H2O/T) as in Camblor's interpretation; the small constant 0.001 only guards against division by zero for (near-)water-free or T-free records, where the descriptor becomes an unphysically large value that trees can isolate as a separate branch.",
+              "evidence_ids": [
+                2,
+                4,
+                6,
+                9
+              ],
+              "expected_effect": "As h2o_per_framework_t increases (more dilute gels), selectivity should shift toward denser frameworks (e.g., MFI, FER, TON, MTW at high silica; SOD-like dense phases in alkaline systems) and toward higher framework density outcomes; as it decreases (concentrated gels), more open, OSDA-rich low-density frameworks (e.g., *BEA, MWW, FAU, BEC/ISV) become favored, and extreme concentration may increase Failed. In fluoride high-silica systems, low water/Si should specifically promote less dense phases such as *BEA over IFR/MTW-type products.",
+              "falsification": "If, within a fixed OSDA/alkalinity regime, phase identity changes systematically in the opposite direction with H2O/T (denser phases appearing as the gel is made more dilute), or if phase boundaries in held-out papers are better explained by the raw H2O mole fraction alone than by H2O/T, the hypothesis is contradicted.",
+              "formula": "H2O / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + 0.001)",
+              "hypothesis": "Gel dilution, expressed as the water-to-framework-T-atom ratio, is an independent axis of the crystallization field that steers phase selectivity between frameworks of different framework density and between success and failure. Because trees can only split on the single H2O mole-fraction column (which conflates dilution with overall gel normalization), this ratio is not directly available to the model and complements the alkalinity descriptor already appended.",
+              "knowledge_source": "both",
+              "mechanism": "Water content sets the concentration of all reactive and structure-directing species in the liquid phase. Concentrated gels (low H2O/T) raise the concentrations of dissolved silicate and OSDA cations, increasing supersaturation and nucleation rates and favoring phases that can incorporate more OSDA per framework T-atom, i.e., lower-framework-density, more open structures; very concentrated gels can also gelate and lock in amorphous or dense phases (Failed). Dilute gels (high H2O/T) lower supersaturation and slow nucleation, favoring the thermodynamically denser, higher-FD phases and shifting selectivity accordingly (e.g., toward Beta over less dense phases in fluoride media, and changing FAU/LTA/GIS/SOD outcome fields in alkaline systems). This is the classical water/SiO2 axis of synthesis diagrams, largely orthogonal to the OH/T alkalinity axis and transferable across papers because it is a composition ratio, not a paper-specific normalization.",
+              "name": "h2o_per_framework_t",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "MFI",
+                "CHA",
+                "*BEA",
+                "MTW",
+                "MWW",
+                "FAU",
+                "LTA",
+                "MOR",
+                "TON",
+                "FER",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010002335f23b47e0c7e147a8",
+          "usage": {
+            "completion_tokens": 879,
+            "completion_tokens_details": {
+              "reasoning_tokens": 88
+            },
+            "prompt_tokens": 5689,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 6568
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes framework-forming T atoms are Si, Al, P, Ge, B, Ga, Ti, Zn, Be and that water is the only solvent diluent; assumes the liquid-phase concentration of OSDA and mineralizer scales with 1/(H2O/T) as in Camblor's interpretation; the small constant 0.001 only guards against division by zero for (near-)water-free or T-free records, where the descriptor becomes an unphysically large value that trees can isolate as a separate branch.",
+        "cited_evidence_keys": [
+          "chunk:2dbd8740307071802553f64c",
+          "chunk:1be4d194cc35fcdfa95b4784",
+          "chunk:4bc95d4dd7bd543cdbdd4504",
+          "chunk:8a49cb35633e0965e0ade007"
+        ],
+        "evidence_ids": [
+          2,
+          4,
+          6,
+          9
+        ],
+        "expected_effect": "As h2o_per_framework_t increases (more dilute gels), selectivity should shift toward denser frameworks (e.g., MFI, FER, TON, MTW at high silica; SOD-like dense phases in alkaline systems) and toward higher framework density outcomes; as it decreases (concentrated gels), more open, OSDA-rich low-density frameworks (e.g., *BEA, MWW, FAU, BEC/ISV) become favored, and extreme concentration may increase Failed. In fluoride high-silica systems, low water/Si should specifically promote less dense phases such as *BEA over IFR/MTW-type products.",
+        "falsification": "If, within a fixed OSDA/alkalinity regime, phase identity changes systematically in the opposite direction with H2O/T (denser phases appearing as the gel is made more dilute), or if phase boundaries in held-out papers are better explained by the raw H2O mole fraction alone than by H2O/T, the hypothesis is contradicted.",
+        "formula": "H2O / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + 0.001)",
+        "hypothesis": "Gel dilution, expressed as the water-to-framework-T-atom ratio, is an independent axis of the crystallization field that steers phase selectivity between frameworks of different framework density and between success and failure. Because trees can only split on the single H2O mole-fraction column (which conflates dilution with overall gel normalization), this ratio is not directly available to the model and complements the alkalinity descriptor already appended.",
+        "knowledge_source": "both",
+        "mechanism": "Water content sets the concentration of all reactive and structure-directing species in the liquid phase. Concentrated gels (low H2O/T) raise the concentrations of dissolved silicate and OSDA cations, increasing supersaturation and nucleation rates and favoring phases that can incorporate more OSDA per framework T-atom, i.e., lower-framework-density, more open structures; very concentrated gels can also gelate and lock in amorphous or dense phases (Failed). Dilute gels (high H2O/T) lower supersaturation and slow nucleation, favoring the thermodynamically denser, higher-FD phases and shifting selectivity accordingly (e.g., toward Beta over less dense phases in fluoride media, and changing FAU/LTA/GIS/SOD outcome fields in alkaline systems). This is the classical water/SiO2 axis of synthesis diagrams, largely orthogonal to the OH/T alkalinity axis and transferable across papers because it is a composition ratio, not a paper-specific normalization.",
+        "name": "h2o_per_framework_t",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "MFI",
+          "CHA",
+          "*BEA",
+          "MTW",
+          "MWW",
+          "FAU",
+          "LTA",
+          "MOR",
+          "TON",
+          "FER",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "c0a5805ddec8242105f91ab2bbdd985f9074526ca0e3f5c5863cdde3b6ddac51",
+        "items": [
+          {
+            "id": 1,
+            "key": "chunk:74e75b631df23b2a088bf74d",
+            "paper_id": "doi:10.1007/s10934-020-00923-y",
+            "tokens": 375
+          },
+          {
+            "id": 2,
+            "key": "chunk:2dbd8740307071802553f64c",
+            "paper_id": "doi:10.1039/b105273j",
+            "tokens": 313
+          },
+          {
+            "id": 3,
+            "key": "chunk:f3a72a14672a14cf71ea5226",
+            "paper_id": "doi:10.1021/ja3105939",
+            "tokens": 236
+          },
+          {
+            "id": 4,
+            "key": "chunk:1be4d194cc35fcdfa95b4784",
+            "paper_id": "doi:10.1021/cm001180e",
+            "tokens": 335
+          },
+          {
+            "id": 5,
+            "key": "chunk:258c877eaaad653111b5edbb",
+            "paper_id": "doi:10.1002/tcr.202000062",
+            "tokens": 184
+          },
+          {
+            "id": 6,
+            "key": "chunk:4bc95d4dd7bd543cdbdd4504",
+            "paper_id": "doi:10.1039/d5cs00306g",
+            "tokens": 446
+          },
+          {
+            "id": 7,
+            "key": "chunk:f76b30482baab434c7b5763b",
+            "paper_id": "doi:10.1021/acs.langmuir.8b03738",
+            "tokens": 294
+          },
+          {
+            "id": 8,
+            "key": "chunk:4bc792e94b876c3f2559d4d9",
+            "paper_id": "pmc:pmc9059882",
+            "tokens": 345
+          },
+          {
+            "id": 9,
+            "key": "chunk:8a49cb35633e0965e0ade007",
+            "paper_id": "doi:10.1021/cm001180e",
+            "tokens": 388
+          }
+        ],
+        "linking": null,
+        "tokens": 2916
+      },
+      "plan": {
+        "factor": "gel dilution: water-to-framework-T ratio",
+        "queries": [
+          "water content gel dilution effect zeolite framework phase selectivity",
+          "H2O/SiO2 ratio crystallization field zeolite synthesis"
+        ],
+        "why": "Round 1 encoded alkalinity (OH per T-atom), but the other half of the classical crystallization-field diagram is water content. H2O/T (gel dilution) is a strong, paper-transferable control on phase selectivity that a tree cannot recover by splitting on the single H2O column: it only emerges from dividing water by the framework-forming species (Si+Al+P+Ge+B+Ga+Ti+Zn+Be). Concentrated gels (low H2O/T) raise supersaturation, accelerate nucleation, and favor small-pore or metastable phases and dense/Failed outcomes, while dilute gels slow nucleation, enlarge crystals, and stabilize open frameworks (e.g., *BEA, MWW, FAU) and high-silica fluoride-synthesized phases. Since H2O mole fractions vary over orders of magnitude across recipes while the OH/T axis is already covered, dilution adds a largely orthogonal, physically interpretable axis of the synthesis space and should help generalize to unseen publications."
+      },
+      "propose_prompt_sha256": "975676a8361fa7de7dc57fc95ebbf3db09556745cf1d0a4701d1befb8959dca4",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "54824f9e49b7dd72d5d0cba49e73711f4a4dbbc84c9ee92d25bf77bbdb00dcca",
+          "raw_structured": {
+            "plan": {
+              "factor": "Framework composition ratio: Si relative to the trivalent/heteroatom content of the gel (Si / (Al + P + 0.001))",
+              "queries": [
+                "effect of gel Si/Al ratio on zeolite phase selectivity CHA FAU MFI",
+                "Si/Al ratio high silica versus aluminophosphate framework crystallization field"
+              ],
+              "why": "The Si-to-(Al+P) ratio is the single most classical determinant of zeolite phase selectivity, yet a tree ensemble can only split on the Si, Al, and P mole-fraction columns separately, and because all gel species sum to 1 these columns conflate composition with overall gel normalization. The ratio cleanly separates three chemical regimes that map onto different framework families: pure-silica/high-silica gels (large-pore high-silica frameworks like *BEA, MTW, TON, and fluoride-synthesized phases), intermediate-Si aluminosilicate gels (CHA, FAU, MOR, LTA, FER), and P-bearing gels (AlPO/SAPO regimes favoring AFI, AEL, AEI, CHA). It is a ratio of two D0 columns, not a monotone transform of any single column, so it is not available to the model and is complementary to the already-appended alkalinity and dilution descriptors, which both use the total framework-T denominator. Being a normalized ratio, it also transfers across publications that normalize their gel recipes differently."
+            }
+          },
+          "response_id": "20261010002353fd7298b973864edc",
+          "usage": {
+            "completion_tokens": 943,
+            "completion_tokens_details": {
+              "reasoning_tokens": 607
+            },
+            "prompt_tokens": 1817,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2760
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula treats all trivalent/heteroatom framework-forming species (Al and P) as a single charge-regulating pool and ignores heteroatoms such as B, Ga, Ge, Ti, Zn, which play analogous roles in other chemistries (e.g., Ge drives d4r-containing frameworks); those interactions are left to other descriptors. It assumes the gel mole fractions reflect the reactive, not just the weighed, composition (no sequestration into unreactive phases) and that OSDA charge balance does not override the compositional effect. Because the ratio is unbounded and heavy-tailed, tree splits will concentrate on its low/intermediate range.",
+              "evidence_ids": [
+                3,
+                5,
+                7
+              ],
+              "expected_effect": "Low values (Si-poor, Al/P-rich gels) should increase the probability of low-silica aluminosilicates (FAU, LTA, MOR, CHA), aluminophosphate-related phases (AFI, AEL, AEI, with P dominant), and Failed outcomes when the charge-balancing regime is inconsistent. High values (Si-rich gels) should increase the probability of high-silica/pure-silica frameworks (MFI, *BEA, MTW, TON, MWW) and fluoride-route phases. Intermediate values should favor intermediate-Si frameworks (FER, MFI, CHA).",
+              "falsification": "If held-out publications show that phase outcome is essentially independent of the Si/(Al+P) ratio once alkalinity, dilution, OSDA descriptors, and crystallization conditions are fixed (i.e., the appended descriptor contributes no split gain and predictions do not change when it is ablated), or if the same framework appears across the full range of the ratio with no systematic ordering, the hypothesis is contradicted.",
+              "formula": "Si / (Al + P + 0.001)",
+              "hypothesis": "The gel Si-to-(Al+P) ratio is a primary determinant of which framework family crystallizes. As this ratio increases, phase selectivity shifts from low-silica aluminosilicates and aluminophosphates toward high-silica and pure-silica frameworks; as it decreases (Al- or P-dominated gels), products shift toward low-silica aluminosilicates (FAU, LTA, GIS-like dense phases) or AlPO/SAPO frameworks (AFI, AEL, AEI, CHA), and very Al-rich gels with insufficient Si tend toward Failed or dense phases.",
+              "knowledge_source": "both",
+              "mechanism": "The Si/(Al+P) ratio sets the framework composition achievable during crystallization: trivalent T atoms (Al, P-substituted aluminosilicate chemistry) impose negative framework charge that must be balanced by inorganic or organic cations, favoring low-framework-density, cation-rich frameworks at low ratios, while near-absence of trivalent atoms allows neutral, all-silica frameworks (e.g., *BEA, MTW, TON, MFI) stabilized under fluoride or low-mineralizer conditions. Because all gel species sum to 1, the individual Si, Al, and P mole fractions conflate composition with gel normalization; the ratio isolates the compositional axis so trees can split directly on the classical Si/Al and Si/P crystallization-field boundaries. Literature confirms that Si/Al gel ratio systematically partitions phase fields: at Si/Al >= 15 different phases appear than at Si/Al = 6 under identical OSDA/cation conditions, and gel mol-ratio sweeps change zeolite phase selectivity (ZSM-4, mordenite, ZSM-35 windows).",
+              "name": "si_per_al_p",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "MFI",
+                "*BEA",
+                "MTW",
+                "TON",
+                "MWW",
+                "CHA",
+                "FAU",
+                "MOR",
+                "LTA",
+                "AFI",
+                "AEL",
+                "AEI",
+                "LEV",
+                "FER",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010002415e543bf0286394bb2",
+          "usage": {
+            "completion_tokens": 985,
+            "completion_tokens_details": {
+              "reasoning_tokens": 103
+            },
+            "prompt_tokens": 6112,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 7097
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula treats all trivalent/heteroatom framework-forming species (Al and P) as a single charge-regulating pool and ignores heteroatoms such as B, Ga, Ge, Ti, Zn, which play analogous roles in other chemistries (e.g., Ge drives d4r-containing frameworks); those interactions are left to other descriptors. It assumes the gel mole fractions reflect the reactive, not just the weighed, composition (no sequestration into unreactive phases) and that OSDA charge balance does not override the compositional effect. Because the ratio is unbounded and heavy-tailed, tree splits will concentrate on its low/intermediate range.",
+        "cited_evidence_keys": [
+          "chunk:7a8ab17d1e21ff64ddc9e78b",
+          "chunk:8929231b24fa8dc15e7d73f2",
+          "chunk:9d241cedf335848eef6a9e5e"
+        ],
+        "evidence_ids": [
+          3,
+          5,
+          7
+        ],
+        "expected_effect": "Low values (Si-poor, Al/P-rich gels) should increase the probability of low-silica aluminosilicates (FAU, LTA, MOR, CHA), aluminophosphate-related phases (AFI, AEL, AEI, with P dominant), and Failed outcomes when the charge-balancing regime is inconsistent. High values (Si-rich gels) should increase the probability of high-silica/pure-silica frameworks (MFI, *BEA, MTW, TON, MWW) and fluoride-route phases. Intermediate values should favor intermediate-Si frameworks (FER, MFI, CHA).",
+        "falsification": "If held-out publications show that phase outcome is essentially independent of the Si/(Al+P) ratio once alkalinity, dilution, OSDA descriptors, and crystallization conditions are fixed (i.e., the appended descriptor contributes no split gain and predictions do not change when it is ablated), or if the same framework appears across the full range of the ratio with no systematic ordering, the hypothesis is contradicted.",
+        "formula": "Si / (Al + P + 0.001)",
+        "hypothesis": "The gel Si-to-(Al+P) ratio is a primary determinant of which framework family crystallizes. As this ratio increases, phase selectivity shifts from low-silica aluminosilicates and aluminophosphates toward high-silica and pure-silica frameworks; as it decreases (Al- or P-dominated gels), products shift toward low-silica aluminosilicates (FAU, LTA, GIS-like dense phases) or AlPO/SAPO frameworks (AFI, AEL, AEI, CHA), and very Al-rich gels with insufficient Si tend toward Failed or dense phases.",
+        "knowledge_source": "both",
+        "mechanism": "The Si/(Al+P) ratio sets the framework composition achievable during crystallization: trivalent T atoms (Al, P-substituted aluminosilicate chemistry) impose negative framework charge that must be balanced by inorganic or organic cations, favoring low-framework-density, cation-rich frameworks at low ratios, while near-absence of trivalent atoms allows neutral, all-silica frameworks (e.g., *BEA, MTW, TON, MFI) stabilized under fluoride or low-mineralizer conditions. Because all gel species sum to 1, the individual Si, Al, and P mole fractions conflate composition with gel normalization; the ratio isolates the compositional axis so trees can split directly on the classical Si/Al and Si/P crystallization-field boundaries. Literature confirms that Si/Al gel ratio systematically partitions phase fields: at Si/Al >= 15 different phases appear than at Si/Al = 6 under identical OSDA/cation conditions, and gel mol-ratio sweeps change zeolite phase selectivity (ZSM-4, mordenite, ZSM-35 windows).",
+        "name": "si_per_al_p",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "MFI",
+          "*BEA",
+          "MTW",
+          "TON",
+          "MWW",
+          "CHA",
+          "FAU",
+          "MOR",
+          "LTA",
+          "AFI",
+          "AEL",
+          "AEI",
+          "LEV",
+          "FER",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "533f56a31132cb9fe6160c68d157b2d0108a4afc237f91013ab5c9661c18695e",
+        "items": [
+          {
+            "id": 1,
+            "key": "chunk:07cfd36f2534ac1fbf2aafd0",
+            "paper_id": "doi:10.1039/b100975n",
+            "tokens": 509
+          },
+          {
+            "id": 2,
+            "key": "chunk:23fbe1ae1e4aeb70e9bc8eb4",
+            "paper_id": "doi:10.1039/d5mh00235d",
+            "tokens": 500
+          },
+          {
+            "id": 3,
+            "key": "chunk:7a8ab17d1e21ff64ddc9e78b",
+            "paper_id": "doi:10.1007/s10853-019-03433-8",
+            "tokens": 164
+          },
+          {
+            "id": 4,
+            "key": "chunk:6bbef611348e65e985a32fcd",
+            "paper_id": "pmc:pmc5791108",
+            "tokens": 476
+          },
+          {
+            "id": 5,
+            "key": "chunk:8929231b24fa8dc15e7d73f2",
+            "paper_id": "pmc:pmc6327177",
+            "tokens": 456
+          },
+          {
+            "id": 6,
+            "key": "chunk:14d2bf47952af0209af8486e",
+            "paper_id": "doi:10.1039/c5ra13760h",
+            "tokens": 234
+          },
+          {
+            "id": 7,
+            "key": "chunk:9d241cedf335848eef6a9e5e",
+            "paper_id": "doi:10.1039/d5cs00306g",
+            "tokens": 504
+          }
+        ],
+        "linking": null,
+        "tokens": 2843
+      },
+      "plan": {
+        "factor": "Framework composition ratio: Si relative to the trivalent/heteroatom content of the gel (Si / (Al + P + 0.001))",
+        "queries": [
+          "effect of gel Si/Al ratio on zeolite phase selectivity CHA FAU MFI",
+          "Si/Al ratio high silica versus aluminophosphate framework crystallization field"
+        ],
+        "why": "The Si-to-(Al+P) ratio is the single most classical determinant of zeolite phase selectivity, yet a tree ensemble can only split on the Si, Al, and P mole-fraction columns separately, and because all gel species sum to 1 these columns conflate composition with overall gel normalization. The ratio cleanly separates three chemical regimes that map onto different framework families: pure-silica/high-silica gels (large-pore high-silica frameworks like *BEA, MTW, TON, and fluoride-synthesized phases), intermediate-Si aluminosilicate gels (CHA, FAU, MOR, LTA, FER), and P-bearing gels (AlPO/SAPO regimes favoring AFI, AEL, AEI, CHA). It is a ratio of two D0 columns, not a monotone transform of any single column, so it is not available to the model and is complementary to the already-appended alkalinity and dilution descriptors, which both use the total framework-T denominator. Being a normalized ratio, it also transfers across publications that normalize their gel recipes differently."
+      },
+      "propose_prompt_sha256": "51cee63693359359e8ac0e50ced0efa1e91a96a639bbfeb5f2854b060935ab4b",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}

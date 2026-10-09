@@ -1,0 +1,439 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "OH / (Si + Al + P + Ge + B + Ga + 1e-6)",
+      "name": "alkalinity_per_t"
+    },
+    {
+      "formula": "H2O / (Si + Al + P + Ge + B + Ga + 1e-6)",
+      "name": "water_per_tatom"
+    },
+    {
+      "formula": "(F - OH) / (F + OH + Na + K + Li + Rb + Cs + Ca + Sr + Ba + 1e-6)",
+      "name": "fluoride_mineralizer_balance"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 2,
+  "seconds": 177.39680218696594,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "8b580ecdb537eaad685e9eaf8ead5a9a67e706130abba5fc14ab4d26e034283f",
+          "raw_structured": {
+            "plan": {
+              "factor": "Alkalinity of the synthesis gel normalized to framework-forming T atoms, i.e., the hydroxide-to-(Si+Al+P+Ge+B+Ga) mole ratio",
+              "queries": [],
+              "why": "Individual mole fractions (OH, Si, Al, P, ...) are already in D0, but their ratio is not: a RandomForest splits on one column at a time, so it cannot directly see alkalinity, which emerges only from combining OH with the tetrahedral-atom content. Alkalinity governs silicate/germanate speciation (monomer vs. oligomer), dissolution and nucleation rates, and thus strongly discriminates between frameworks (e.g., low-alkalinity fluoride media favoring low-density frameworks like *BEA/UTL/ISV vs. high-alkalinity media favoring dense small-pore phases or failure). It also transfers across papers because it is a normalized quantity rather than an absolute mole fraction, making it robust to the different recipe-batching conventions of unseen authors."
+            }
+          },
+          "response_id": "20261010001654e440588efc7847d4",
+          "usage": {
+            "completion_tokens": 336,
+            "completion_tokens_details": {
+              "reasoning_tokens": 102
+            },
+            "prompt_tokens": 1465,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 1801
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ga",
+              "Ge",
+              "OH",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes OH captures all alkalinity contributions (ignoring carbonate/fluoride basicity and the buffering by Al/P dissolution) and that Si, Al, P, Ge, B, Ga are the only framework-forming T atoms (Ti, Zn, Be, Mg etc. may enter frameworks but are rarer); the small constant guards against zero-denominator gels with no T atoms. It also assumes the normalized mole fractions are reported consistently across papers, which the normalization to sum 1 partially guarantees.",
+              "evidence_ids": [],
+              "expected_effect": "As alkalinity_per_T increases, the probability of low-density frameworks (*BEA, UTL, ISV/BEC) should decrease while the probability of dense frameworks (MFI, MOR, TON, AEN) and 'Failed' (at the extreme, via excessive dissolution or dense-phase crystallization) should increase; at very low values approaching the fluoride/OH crossover, low-density phases and Failed (slow kinetics) are expected.",
+              "falsification": "If held-out predictions show that MFI, CHA, *BEA, etc. occur across the full range of alkalinity_per_T with no systematic ordering, or if the descriptor's permutation importance is near zero once D0 columns are available, the hypothesis is contradicted. Similarly, if Failed records are concentrated at intermediate rather than extreme alkalinity, the mechanism is wrong.",
+              "formula": "OH / (Si + Al + P + Ge + B + Ga + 1e-6)",
+              "hypothesis": "The hydroxide-to-tetrahedral-atom ratio (alkalinity normalized to the framework-forming T atoms) is a key determinant of which zeolite framework crystallizes: low alkalinity (often fluoride-mediated or OSDA-rich gels) favors low-density, multi-dimensional frameworks such as *BEA, UTL, ISV/BEC and CHA, whereas high alkalinity favors denser frameworks, small-pore phases, or complete dissolution/amorphization (Failed) when excessive.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "OH- concentration per framework-forming T atom sets the speciation of silicate/germanate/aluminate in solution: at low alkalinity, silicate species are highly condensed (oligomeric Q3/Q4 species) and nucleation is slow, permitting the formation of open, low-framework-density structures stabilized by OSDAs or fluoride; at high alkalinity, monomeric silicate dominates, dissolution and nucleation are fast, and thermodynamically denser frameworks or non-zeolitic dense phases form. Alkalinity also controls the charge balance with OSDA cations and inorganic cations, determining which structure-directing regime is operative. Because individual mole fractions are already given to the model but their ratio is not, and tree ensembles split on one column at a time, this emergent quantity is currently invisible to the classifier.",
+              "name": "alkalinity_per_T",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "*BEA",
+                "BEC",
+                "UTL",
+                "ISV",
+                "CHA",
+                "MFI",
+                "FAU",
+                "LTA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "20261010001703887311514cc243f0",
+          "usage": {
+            "completion_tokens": 741,
+            "completion_tokens_details": {
+              "reasoning_tokens": 31
+            },
+            "prompt_tokens": 1805,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 2546
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes OH captures all alkalinity contributions (ignoring carbonate/fluoride basicity and the buffering by Al/P dissolution) and that Si, Al, P, Ge, B, Ga are the only framework-forming T atoms (Ti, Zn, Be, Mg etc. may enter frameworks but are rarer); the small constant guards against zero-denominator gels with no T atoms. It also assumes the normalized mole fractions are reported consistently across papers, which the normalization to sum 1 partially guarantees.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As alkalinity_per_T increases, the probability of low-density frameworks (*BEA, UTL, ISV/BEC) should decrease while the probability of dense frameworks (MFI, MOR, TON, AEN) and 'Failed' (at the extreme, via excessive dissolution or dense-phase crystallization) should increase; at very low values approaching the fluoride/OH crossover, low-density phases and Failed (slow kinetics) are expected.",
+        "falsification": "If held-out predictions show that MFI, CHA, *BEA, etc. occur across the full range of alkalinity_per_T with no systematic ordering, or if the descriptor's permutation importance is near zero once D0 columns are available, the hypothesis is contradicted. Similarly, if Failed records are concentrated at intermediate rather than extreme alkalinity, the mechanism is wrong.",
+        "formula": "OH / (Si + Al + P + Ge + B + Ga + 1e-6)",
+        "hypothesis": "The hydroxide-to-tetrahedral-atom ratio (alkalinity normalized to the framework-forming T atoms) is a key determinant of which zeolite framework crystallizes: low alkalinity (often fluoride-mediated or OSDA-rich gels) favors low-density, multi-dimensional frameworks such as *BEA, UTL, ISV/BEC and CHA, whereas high alkalinity favors denser frameworks, small-pore phases, or complete dissolution/amorphization (Failed) when excessive.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "OH- concentration per framework-forming T atom sets the speciation of silicate/germanate/aluminate in solution: at low alkalinity, silicate species are highly condensed (oligomeric Q3/Q4 species) and nucleation is slow, permitting the formation of open, low-framework-density structures stabilized by OSDAs or fluoride; at high alkalinity, monomeric silicate dominates, dissolution and nucleation are fast, and thermodynamically denser frameworks or non-zeolitic dense phases form. Alkalinity also controls the charge balance with OSDA cations and inorganic cations, determining which structure-directing regime is operative. Because individual mole fractions are already given to the model but their ratio is not, and tree ensembles split on one column at a time, this emergent quantity is currently invisible to the classifier.",
+        "name": "alkalinity_per_t",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "*BEA",
+          "BEC",
+          "UTL",
+          "ISV",
+          "CHA",
+          "MFI",
+          "FAU",
+          "LTA",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Alkalinity of the synthesis gel normalized to framework-forming T atoms, i.e., the hydroxide-to-(Si+Al+P+Ge+B+Ga) mole ratio",
+        "queries": [],
+        "why": "Individual mole fractions (OH, Si, Al, P, ...) are already in D0, but their ratio is not: a RandomForest splits on one column at a time, so it cannot directly see alkalinity, which emerges only from combining OH with the tetrahedral-atom content. Alkalinity governs silicate/germanate speciation (monomer vs. oligomer), dissolution and nucleation rates, and thus strongly discriminates between frameworks (e.g., low-alkalinity fluoride media favoring low-density frameworks like *BEA/UTL/ISV vs. high-alkalinity media favoring dense small-pore phases or failure). It also transfers across papers because it is a normalized quantity rather than an absolute mole fraction, making it robust to the different recipe-batching conventions of unseen authors."
+      },
+      "propose_prompt_sha256": "d70c8c801659f72de7a38edd9184715f90313e672fd05101263a4e2447ca3d24",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "51cda3eccd7f7a3f9ca528497ca7261cb94dfc9fdb5cc8f4e23f80f7db247127",
+          "raw_structured": {
+            "plan": {
+              "factor": "Gel dilution: water content normalized to the total framework-forming T atoms (H2O / (Si + Al + P + Ge + B + Ga + 1e-6))",
+              "queries": [],
+              "why": "The gel mole fractions in D0 only give water as an absolute fraction, and tree ensembles cannot form the ratio of water to the tetrahedral-atom content, so the physical concentration of the synthesis gel is invisible to the model. Water-to-T ratio (gel dilution) is a first-order control in zeolite synthesis: concentrated (low-H2O/T) gels crystallize faster and favor dense, small-pore frameworks and often better yields, while dilute gels slow nucleation, change the relative stability of competing phases, and at extremes push syntheses toward amorphous products (Failed) or shifted phase selectivity (e.g., more open frameworks under fluoride-rich, dilute conditions). It is also a known confounder of alkalinity effects, so it carries information orthogonal to the already-appended OH/T descriptor, and being a ratio of gel species it transfers across publications with different absolute batching conventions."
+            }
+          },
+          "response_id": "20261010001718d61ce3d3b3044f2a",
+          "usage": {
+            "completion_tokens": 672,
+            "completion_tokens_details": {
+              "reasoning_tokens": 413
+            },
+            "prompt_tokens": 1605,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2277
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "Ga",
+              "Ge",
+              "H2O",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes H2O mole fraction in the normalized gel is a faithful proxy for batched water (i.e., the dataset normalizes over all gel species including water, so H2O/T is the true batch water-to-T ratio); it neglects water released by hydroxide salts or hydrated precursors and treats all listed T atoms (Si, Al, P, Ge, B, Ga) as equally framework-relevant, ignoring their very different incorporation probabilities. It also assumes crystallization time/temperature are recorded independently of dilution, so dilution effects are not already absorbed by those columns.",
+              "evidence_ids": [],
+              "expected_effect": "As water_per_tatom increases, the probability of dense small-pore phases (MFI, FER, TON, MOR) and of Failed should first rise at the very dilute extreme (crystallization suppressed), while intermediate-to-high dilution favors open frameworks (*BEA, CHA, MTW, UTL, BEC); as it decreases (concentrated gels), dense frameworks and successful crystallization dominate. Thus the descriptor should show a non-monotone association with Failed and a systematic shift among framework classes across its range.",
+              "falsification": "If held-out publication predictions show no change in phase distribution when water_per_tatom varies over a wide range at fixed alkalinity_per_t (the already-appended descriptor), or if the split patterns attributed to dilution are fully explained by the OH/T descriptor (no orthogonal information gain), the hypothesis is contradicted. Likewise, if dense frameworks rather than open ones systematically appear at high H2O/T, the proposed direction of the effect is wrong.",
+              "formula": "H2O / (Si + Al + P + Ge + B + Ga + 1e-6)",
+              "hypothesis": "Gel dilution, expressed as water per framework-forming tetrahedral atom (H2O/T), steers phase selectivity independently of alkalinity: concentrated gels (low H2O/T) promote rapid nucleation and crystallization of dense, small-pore frameworks (e.g., MFI, FER, TON, MOR) and raise yield, whereas dilute gels (high H2O/T) slow nucleation, favor more open, low-framework-density phases (e.g., *BEA, CHA, UTL, ISV/BEC, MTW) under OSDA- or fluoride-mediated conditions, and at extreme dilution suppress crystallization entirely, pushing outcomes toward Failed (amorphous or dense byproducts).",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Water content sets the effective supersaturation and the chemical potential of water in the synthesis gel. At low H2O/T, high T-atom concentration increases the frequency of T-O-T condensation events, shortens induction time, and favors kinetically accessible dense frameworks; it also concentrates OH- and mineralizer species, amplifying dissolution-reprecipitation. At high H2O/T, the lower supersaturation slows both nucleation and growth, thermodynamically stabilizing lower-density open frameworks stabilized by OSDA-water co-structuring (notably in fluoride media, where low water activity and near-neutral pH allow large low-density cages), while excessive dilution leaves the gel below the nucleation threshold within the crystallization window, yielding amorphous products. Because trees split on one column at a time, this concentration ratio is otherwise invisible to the classifier.",
+              "name": "water_per_tatom",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "Failed",
+                "MFI",
+                "FER",
+                "TON",
+                "MOR",
+                "*BEA",
+                "CHA",
+                "UTL",
+                "BEC",
+                "MTW"
+              ]
+            }
+          },
+          "response_id": "202610100017343b6a2af085cf4e91",
+          "usage": {
+            "completion_tokens": 826,
+            "completion_tokens_details": {
+              "reasoning_tokens": 6
+            },
+            "prompt_tokens": 1968,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 2794
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes H2O mole fraction in the normalized gel is a faithful proxy for batched water (i.e., the dataset normalizes over all gel species including water, so H2O/T is the true batch water-to-T ratio); it neglects water released by hydroxide salts or hydrated precursors and treats all listed T atoms (Si, Al, P, Ge, B, Ga) as equally framework-relevant, ignoring their very different incorporation probabilities. It also assumes crystallization time/temperature are recorded independently of dilution, so dilution effects are not already absorbed by those columns.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As water_per_tatom increases, the probability of dense small-pore phases (MFI, FER, TON, MOR) and of Failed should first rise at the very dilute extreme (crystallization suppressed), while intermediate-to-high dilution favors open frameworks (*BEA, CHA, MTW, UTL, BEC); as it decreases (concentrated gels), dense frameworks and successful crystallization dominate. Thus the descriptor should show a non-monotone association with Failed and a systematic shift among framework classes across its range.",
+        "falsification": "If held-out publication predictions show no change in phase distribution when water_per_tatom varies over a wide range at fixed alkalinity_per_t (the already-appended descriptor), or if the split patterns attributed to dilution are fully explained by the OH/T descriptor (no orthogonal information gain), the hypothesis is contradicted. Likewise, if dense frameworks rather than open ones systematically appear at high H2O/T, the proposed direction of the effect is wrong.",
+        "formula": "H2O / (Si + Al + P + Ge + B + Ga + 1e-6)",
+        "hypothesis": "Gel dilution, expressed as water per framework-forming tetrahedral atom (H2O/T), steers phase selectivity independently of alkalinity: concentrated gels (low H2O/T) promote rapid nucleation and crystallization of dense, small-pore frameworks (e.g., MFI, FER, TON, MOR) and raise yield, whereas dilute gels (high H2O/T) slow nucleation, favor more open, low-framework-density phases (e.g., *BEA, CHA, UTL, ISV/BEC, MTW) under OSDA- or fluoride-mediated conditions, and at extreme dilution suppress crystallization entirely, pushing outcomes toward Failed (amorphous or dense byproducts).",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Water content sets the effective supersaturation and the chemical potential of water in the synthesis gel. At low H2O/T, high T-atom concentration increases the frequency of T-O-T condensation events, shortens induction time, and favors kinetically accessible dense frameworks; it also concentrates OH- and mineralizer species, amplifying dissolution-reprecipitation. At high H2O/T, the lower supersaturation slows both nucleation and growth, thermodynamically stabilizing lower-density open frameworks stabilized by OSDA-water co-structuring (notably in fluoride media, where low water activity and near-neutral pH allow large low-density cages), while excessive dilution leaves the gel below the nucleation threshold within the crystallization window, yielding amorphous products. Because trees split on one column at a time, this concentration ratio is otherwise invisible to the classifier.",
+        "name": "water_per_tatom",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "Failed",
+          "MFI",
+          "FER",
+          "TON",
+          "MOR",
+          "*BEA",
+          "CHA",
+          "UTL",
+          "BEC",
+          "MTW"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Gel dilution: water content normalized to the total framework-forming T atoms (H2O / (Si + Al + P + Ge + B + Ga + 1e-6))",
+        "queries": [],
+        "why": "The gel mole fractions in D0 only give water as an absolute fraction, and tree ensembles cannot form the ratio of water to the tetrahedral-atom content, so the physical concentration of the synthesis gel is invisible to the model. Water-to-T ratio (gel dilution) is a first-order control in zeolite synthesis: concentrated (low-H2O/T) gels crystallize faster and favor dense, small-pore frameworks and often better yields, while dilute gels slow nucleation, change the relative stability of competing phases, and at extremes push syntheses toward amorphous products (Failed) or shifted phase selectivity (e.g., more open frameworks under fluoride-rich, dilute conditions). It is also a known confounder of alkalinity effects, so it carries information orthogonal to the already-appended OH/T descriptor, and being a ratio of gel species it transfers across publications with different absolute batching conventions."
+      },
+      "propose_prompt_sha256": "06b1cc920c0973851fb9be1db94b5a8b188372f1cff9394da88189f63710cead",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "e712c51811a0b07a3c97c19d66b0b6acc74c1b27cbd629f01ee86c2019eb3cf7",
+          "raw_structured": {
+            "plan": {
+              "factor": "Mineralizing-agent regime: the balance between fluoride and hydroxide mineralizers, including the presence of alkali/alkaline-earth cations that pair with them",
+              "queries": [],
+              "why": "The two appended descriptors (alkalinity per T, water per T) both implicitly lean on OH, but the classifier cannot yet distinguish a fluoride-mediated synthesis from a purely hydroxide-mediated one. Fluoride-mediated gels (often with little or no OH, frequently in combination with alkali cations like Na, K or divalent cations) are known to produce low-framework-density, large-pore or multi-dimensional frameworks (e.g., *BEA, UTL, ISV/BEC, MTW, chabazite-type phases) with different phase boundaries than the same gel chemistry under OH mineralization, and they also suppress Failed outcomes at high Si/alkalinity ratios. Because tree ensembles split on single columns, a combined fluoride-vs-hydroxide signal (F relative to OH, gated by whether inorganic cations are present) is not derivable from D0 columns alone and is orthogonal to the two existing descriptors. It should transfer across publications since the mineralizer regime is a deliberate, paper-level synthesis choice rather than a lab-specific detail."
+            }
+          },
+          "response_id": "202610100017510e7a3fc718f04ebb",
+          "usage": {
+            "completion_tokens": 357,
+            "completion_tokens_details": {
+              "reasoning_tokens": 73
+            },
+            "prompt_tokens": 1787,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2144
+          }
+        },
+        {
+          "error": "redundant: rank-equivalent to existing column F (|rho|=1.00000)",
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes F and OH mole fractions are the dominant mineralizer species recorded and that their relative proportion (not their absolute amount, already proxied by alkalinity_per_t) is the phase-determining variable; assumes fluoride chemistry effects transfer across OSDA systems and that unpublished F- speciation or seeding differences do not dominate. The 1e-6 constant guards against zero denominators; when F + OH is negligible the descriptor is uninformative, which is acceptable since such gels are rare.",
+              "evidence_ids": [],
+              "expected_effect": "As fluoride_mineralizer_fraction increases, predicted outcomes should shift from Failed and dense small-pore phases (MFI, TON, FER, MOR) toward low-framework-density large-pore/multi-dimensional frameworks (*BEA, UTL, ISV/BEC, MTW) and high-silica CHA; at values near 0, the existing alkalinity_per_t descriptor fully controls the outcome.",
+              "falsification": "If fluoride-mediated recipes in held-out publications yield the same phase distribution as hydroxide-mediated recipes matched on alkalinity_per_t and water_per_tatom (i.e., the classifier gains no accuracy and F/(F+OH) is unused in splits), or if fluoride gels systematically produce Failed or dense phases instead of the predicted open frameworks, the hypothesis is contradicted.",
+              "formula": "F / (F + OH + 1e-6)",
+              "hypothesis": "The fraction of total mineralizer supplied as fluoride rather than hydroxide is a deliberate, paper-level synthesis choice that shifts phase selectivity: as fluoride_mineralizer_fraction increases from 0 (pure OH route) toward 1 (pure F route), outcomes should move away from dense small-pore phases and Failed outcomes toward low-framework-density, large-pore or multi-dimensional frameworks, especially *BEA, UTL, ISV/BEC, MTW, CHA and AFI-type products crystallized under near-neutral conditions.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Fluoride mineralizes silica differently from hydroxide: it complexes Si(IV) (and Ge(IV), B(III)) as fluoro-silicate/fluoro-germanate species, enabling dissolution and transport of framework-formers at near-neutral pH. This suppresses excessive framework deprotection and dissolution, allows crystallization of low-density, defect-poor frameworks with high double-ring (D4R/D6R) content (which preferentially incorporate F- inside the cages), and stabilizes gels that would otherwise fail under high hydroxide alkalinity. Because tree ensembles split on single columns, neither F alone nor OH alone separates 'F-mediated near-neutral gel' from 'OH-mediated high-alkalinity gel with the same F or OH value'; the ratio isolates the mineralizer identity from the mineralizer amount already captured by alkalinity_per_t.",
+              "name": "fluoride_mineralizer_fraction",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "*BEA",
+                "UTL",
+                "ISV/BEC",
+                "BEC",
+                "MTW",
+                "CHA",
+                "MFI",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610100017554b7f4c83054a409c",
+          "usage": {
+            "completion_tokens": 806,
+            "completion_tokens_details": {
+              "reasoning_tokens": 102
+            },
+            "prompt_tokens": 2175,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2981
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "technical_repair",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Ba",
+              "Ca",
+              "Cs",
+              "F",
+              "K",
+              "Li",
+              "Na",
+              "OH",
+              "Rb",
+              "Sr"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "Assumes F and OH mole fractions are the dominant mineralizer species recorded and that the signed fluoride-vs-hydroxide balance relative to the inorganic cation pool (not the absolute amount, already proxied by alkalinity_per_t) is the phase-determining variable; assumes fluoride chemistry effects transfer across OSDA systems and that unpublished F- speciation or seeding differences do not dominate. The descriptor spans roughly -1 to +1: it is 0 for gels with neither F nor OH nor inorganic cations (treated as neutral rather than fluoride-like), negative for OH/alkali-rich gels, and approaches +1 for F-rich, cation-poor gels. The 1e-6 constant guards against zero denominators.",
+              "evidence_ids": [],
+              "expected_effect": "As fluoride_mineralizer_balance increases, predicted outcomes should shift from Failed and dense small-pore phases (MFI, TON, FER, MOR) toward low-framework-density large-pore/multi-dimensional frameworks (*BEA, UTL, ISV/BEC, MTW) and high-silica CHA; at strongly negative values (OH/alkali-dominated gels), the existing alkalinity_per_t descriptor fully controls the outcome.",
+              "falsification": "If fluoride-mediated recipes in held-out publications yield the same phase distribution as hydroxide-mediated recipes matched on alkalinity_per_t and water_per_tatom (i.e., the classifier gains no accuracy and the balance column is unused in splits), or if fluoride gels systematically produce Failed or dense phases instead of the predicted open frameworks, the hypothesis is contradicted.",
+              "formula": "(F - OH) / (F + OH + Na + K + Li + Rb + Cs + Ca + Sr + Ba + 1e-6)",
+              "hypothesis": "The balance between fluoride and hydroxide mineralization, relative to the pool of inorganic cations that accompany them, is a deliberate, paper-level synthesis choice that shifts phase selectivity: as fluoride_mineralizer_balance increases from negative values (OH-dominated gels with substantial alkali/alkaline-earth cations) toward positive values (fluoride-dominated gels with little accompanying OH or inorganic cation), outcomes should move away from dense small-pore phases and Failed outcomes toward low-framework-density, large-pore or multi-dimensional frameworks, especially *BEA, UTL, ISV/BEC, MTW, CHA and AFI-type products crystallized under near-neutral, fluoride-mediated conditions.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Fluoride mineralizes silica differently from hydroxide: it complexes Si(IV) (and Ge(IV), B(III)) as fluoro-silicate/fluoro-germanate species, enabling dissolution and transport of framework-formers at near-neutral pH. This suppresses excessive framework deprotection and dissolution, allows crystallization of low-density, defect-poor frameworks with high double-ring (D4R/D6R) content (which preferentially incorporate F- inside the cages), and stabilizes gels that would otherwise fail under high hydroxide alkalinity. The inorganic-cation term in the denominator gates the signal: gels rich in Na/K/etc. are typically hydroxide-route gels whose phase behaviour is governed by alkalinity, whereas fluoride gels carry little OH and often little alkali. Because tree ensembles split on single columns, neither F alone nor OH alone separates 'F-mediated near-neutral gel' from 'OH-mediated high-alkalinity gel with the same F or OH value'; the signed balance isolates mineralizer identity (and its cation coupling) from mineralizer amount already captured by alkalinity_per_t. Unlike a simple F/(F+OH) ratio, the signed form stays finite and well-defined even when F, OH and all cations are simultaneously absent (returns 0), and it is not a monotone transform of F, OH, or alkalinity_per_t because the cation pool reorders F-free recipes.",
+              "name": "fluoride_mineralizer_balance",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "*BEA",
+                "UTL",
+                "ISV/BEC",
+                "BEC",
+                "MTW",
+                "CHA",
+                "MFI",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610100018134f5f8c3b25824916",
+          "usage": {
+            "completion_tokens": 4925,
+            "completion_tokens_details": {
+              "reasoning_tokens": 3995
+            },
+            "prompt_tokens": 2914,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 7839
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "Assumes F and OH mole fractions are the dominant mineralizer species recorded and that the signed fluoride-vs-hydroxide balance relative to the inorganic cation pool (not the absolute amount, already proxied by alkalinity_per_t) is the phase-determining variable; assumes fluoride chemistry effects transfer across OSDA systems and that unpublished F- speciation or seeding differences do not dominate. The descriptor spans roughly -1 to +1: it is 0 for gels with neither F nor OH nor inorganic cations (treated as neutral rather than fluoride-like), negative for OH/alkali-rich gels, and approaches +1 for F-rich, cation-poor gels. The 1e-6 constant guards against zero denominators.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As fluoride_mineralizer_balance increases, predicted outcomes should shift from Failed and dense small-pore phases (MFI, TON, FER, MOR) toward low-framework-density large-pore/multi-dimensional frameworks (*BEA, UTL, ISV/BEC, MTW) and high-silica CHA; at strongly negative values (OH/alkali-dominated gels), the existing alkalinity_per_t descriptor fully controls the outcome.",
+        "falsification": "If fluoride-mediated recipes in held-out publications yield the same phase distribution as hydroxide-mediated recipes matched on alkalinity_per_t and water_per_tatom (i.e., the classifier gains no accuracy and the balance column is unused in splits), or if fluoride gels systematically produce Failed or dense phases instead of the predicted open frameworks, the hypothesis is contradicted.",
+        "formula": "(F - OH) / (F + OH + Na + K + Li + Rb + Cs + Ca + Sr + Ba + 1e-6)",
+        "hypothesis": "The balance between fluoride and hydroxide mineralization, relative to the pool of inorganic cations that accompany them, is a deliberate, paper-level synthesis choice that shifts phase selectivity: as fluoride_mineralizer_balance increases from negative values (OH-dominated gels with substantial alkali/alkaline-earth cations) toward positive values (fluoride-dominated gels with little accompanying OH or inorganic cation), outcomes should move away from dense small-pore phases and Failed outcomes toward low-framework-density, large-pore or multi-dimensional frameworks, especially *BEA, UTL, ISV/BEC, MTW, CHA and AFI-type products crystallized under near-neutral, fluoride-mediated conditions.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Fluoride mineralizes silica differently from hydroxide: it complexes Si(IV) (and Ge(IV), B(III)) as fluoro-silicate/fluoro-germanate species, enabling dissolution and transport of framework-formers at near-neutral pH. This suppresses excessive framework deprotection and dissolution, allows crystallization of low-density, defect-poor frameworks with high double-ring (D4R/D6R) content (which preferentially incorporate F- inside the cages), and stabilizes gels that would otherwise fail under high hydroxide alkalinity. The inorganic-cation term in the denominator gates the signal: gels rich in Na/K/etc. are typically hydroxide-route gels whose phase behaviour is governed by alkalinity, whereas fluoride gels carry little OH and often little alkali. Because tree ensembles split on single columns, neither F alone nor OH alone separates 'F-mediated near-neutral gel' from 'OH-mediated high-alkalinity gel with the same F or OH value'; the signed balance isolates mineralizer identity (and its cation coupling) from mineralizer amount already captured by alkalinity_per_t. Unlike a simple F/(F+OH) ratio, the signed form stays finite and well-defined even when F, OH and all cations are simultaneously absent (returns 0), and it is not a monotone transform of F, OH, or alkalinity_per_t because the cation pool reorders F-free recipes.",
+        "name": "fluoride_mineralizer_balance",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "*BEA",
+          "UTL",
+          "ISV/BEC",
+          "BEC",
+          "MTW",
+          "CHA",
+          "MFI",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Mineralizing-agent regime: the balance between fluoride and hydroxide mineralizers, including the presence of alkali/alkaline-earth cations that pair with them",
+        "queries": [],
+        "why": "The two appended descriptors (alkalinity per T, water per T) both implicitly lean on OH, but the classifier cannot yet distinguish a fluoride-mediated synthesis from a purely hydroxide-mediated one. Fluoride-mediated gels (often with little or no OH, frequently in combination with alkali cations like Na, K or divalent cations) are known to produce low-framework-density, large-pore or multi-dimensional frameworks (e.g., *BEA, UTL, ISV/BEC, MTW, chabazite-type phases) with different phase boundaries than the same gel chemistry under OH mineralization, and they also suppress Failed outcomes at high Si/alkalinity ratios. Because tree ensembles split on single columns, a combined fluoride-vs-hydroxide signal (F relative to OH, gated by whether inorganic cations are present) is not derivable from D0 columns alone and is orthogonal to the two existing descriptors. It should transfer across publications since the mineralizer regime is a deliberate, paper-level synthesis choice rather than a lab-specific detail."
+      },
+      "propose_prompt_sha256": "f3f69eea84378abe32ccfea0d1351739aeda412760bf0054b1f2f5ea96b6fe32",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}

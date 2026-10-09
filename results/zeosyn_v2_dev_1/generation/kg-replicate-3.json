@@ -1,0 +1,455 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "OH / (Si + Ge + 1e-6)",
+      "name": "oh_per_t_atom"
+    },
+    {
+      "formula": "(Na + K + Li + Rb + Cs + Sr + Ba + Ca) / (Si + Ge + Al + P + 1e-6)",
+      "name": "inorg_cation_per_t_atom"
+    },
+    {
+      "formula": "H2O / (Si + Ge + Al + P + 1e-6)",
+      "name": "h2o_per_t_atom"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "kg",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 3,
+  "seconds": 93.36138796806335,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "ac8c097cb70f72e32fca2b6e3a612e3658cd96b5655e8ac93c69742730bf0d50",
+          "raw_structured": {
+            "plan": {
+              "factor": "Gel alkalinity, encoded as the ratio of hydroxide to the silica + germanium content of the gel (OH / (Si + Ge + small constant))",
+              "queries": [
+                "SSZ-13 CHA synthesis OH/Si ratio hydroxide vs fluoride medium",
+                "which frameworks form at low alkalinity fluoride medium versus high OH/Si"
+              ],
+              "why": "Alkalinity (mineralizer strength per framework-forming T atom) is one of the strongest known levers in zeolite synthesis: high OH/Si dissolves and transforms dense phases, favors low-density frameworks and alkali-bearing phases (LTA, FAU, SOD), while low alkalinity (often fluoride media) favors high-silica, defect-free frameworks (MFI, MTW, *BEA, UTL, CHA). The fixed RandomForest can only split on single columns, so it cannot see this ratio from the individual mole fractions alone; a precomputed ratio gives it direct access to a physically meaningful combination of Si, Ge and OH that D0 lacks."
+            }
+          },
+          "response_id": "20261010002455fca4b833e12e44ee",
+          "usage": {
+            "completion_tokens": 493,
+            "completion_tokens_details": {
+              "reasoning_tokens": 248
+            },
+            "prompt_tokens": 2270,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2763
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Ge",
+              "OH",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "OH mole fraction is a proxy for true gel alkalinity (buffering by OSDA hydroxide salts, alkali hydroxide speciation and fluoride are not modeled); fluoride's mineralizing role is not captured, so fluoride recipes with moderate OH may be misranked; seed crystals, aging and Na/K content (interactions the forest sees separately) mediate the effect, so this descriptor alone is neither necessary nor sufficient. The 1e-6 constant only guards zero division; the descriptor is undefined in meaning for OH = 0 (all values collapse to 0, correctly flagging fluoride/neutral routes).",
+              "evidence_ids": [
+                1,
+                2
+              ],
+              "expected_effect": "As oh_per_t_atom increases: probability shifts from high-silica, defect-poor frameworks (MFI, MTW, *BEA, CHA via fluoride, UTL) toward alkali-bearing small-pore and low-density frameworks (LTA, FAU, SOD) and Failed/dense phases at the extreme. As it decreases toward 0: probability shifts toward high-silica medium/large-pore frameworks.",
+              "falsification": "If the KG or held-out data show that MFI/*BEA/CHA occur commonly at high OH/Si (>0.3) without fluoride, or that LTA/FAU/SOD are routinely obtained at very low OH/T, then alkalinity per T atom is not steering these phases as hypothesized and the descriptor should show no stable split points separating these label groups.",
+              "formula": "OH / (Si + Ge + 1e-6)",
+              "hypothesis": "Gel alkalinity per framework-forming T atom (Si, Ge) is a primary control on which framework crystallizes: high hydroxide-to-silica ratios favor dense, alkali-bearing small-pore phases (SOD, LTA, FAU, Failed sodalite-like products), while low alkalinity — typically fluoride media or near-stoichiometric OH — favors high-silica, defect-free frameworks such as MFI, MTW, *BEA, STW, CHA and UTL. Precomputing this ratio lets the fixed RandomForest split directly on a chemically meaningful combination (OH, Si, Ge) that no single D0 column encodes.",
+              "knowledge_source": "both",
+              "mechanism": "Hydroxide concentration controls the dissolution rate of the aluminosilicate/germanosilicate network and the supersaturation of soluble silicate oligomers. High OH/T raises the solubility of dense phases, keeps Si in monomeric/low-order anionic species, accelerates nucleation of low-framework-density, cation-stabilized structures (LTA, FAU, SOD), and promotes dissolution-recrystallization of metastable phases into Failed or dense products. Low OH/T (e.g., F- media, where fluoride both mineralizes and coordinates Si) permits neutral, highly cross-linked frameworks with low defect density — the regime where MFI, *BEA, MTW, CHA (fluoride route) and UTL form. Ge behaves like Si in the T-atom denominator because germanosilicate recipes (e.g., for UTL, ISV, BEC) follow the same alkalinity logic, so dividing by (Si + Ge) keeps the descriptor comparable across pure-silica, aluminosilicate and germanosilicate recipes.",
+              "name": "oh_per_t_atom",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "MFI",
+                "*BEA",
+                "MTW",
+                "CHA",
+                "UTL",
+                "LTA",
+                "FAU",
+                "SOD",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610100025079ea091ce3568452a",
+          "usage": {
+            "completion_tokens": 838,
+            "completion_tokens_details": {
+              "reasoning_tokens": 15
+            },
+            "prompt_tokens": 2748,
+            "prompt_tokens_details": {
+              "cached_tokens": 320
+            },
+            "total_tokens": 3586
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "OH mole fraction is a proxy for true gel alkalinity (buffering by OSDA hydroxide salts, alkali hydroxide speciation and fluoride are not modeled); fluoride's mineralizing role is not captured, so fluoride recipes with moderate OH may be misranked; seed crystals, aging and Na/K content (interactions the forest sees separately) mediate the effect, so this descriptor alone is neither necessary nor sufficient. The 1e-6 constant only guards zero division; the descriptor is undefined in meaning for OH = 0 (all values collapse to 0, correctly flagging fluoride/neutral routes).",
+        "cited_evidence_keys": [
+          "framework:CHA",
+          "condition:fluoride medium"
+        ],
+        "evidence_ids": [
+          1,
+          2
+        ],
+        "expected_effect": "As oh_per_t_atom increases: probability shifts from high-silica, defect-poor frameworks (MFI, MTW, *BEA, CHA via fluoride, UTL) toward alkali-bearing small-pore and low-density frameworks (LTA, FAU, SOD) and Failed/dense phases at the extreme. As it decreases toward 0: probability shifts toward high-silica medium/large-pore frameworks.",
+        "falsification": "If the KG or held-out data show that MFI/*BEA/CHA occur commonly at high OH/Si (>0.3) without fluoride, or that LTA/FAU/SOD are routinely obtained at very low OH/T, then alkalinity per T atom is not steering these phases as hypothesized and the descriptor should show no stable split points separating these label groups.",
+        "formula": "OH / (Si + Ge + 1e-6)",
+        "hypothesis": "Gel alkalinity per framework-forming T atom (Si, Ge) is a primary control on which framework crystallizes: high hydroxide-to-silica ratios favor dense, alkali-bearing small-pore phases (SOD, LTA, FAU, Failed sodalite-like products), while low alkalinity — typically fluoride media or near-stoichiometric OH — favors high-silica, defect-free frameworks such as MFI, MTW, *BEA, STW, CHA and UTL. Precomputing this ratio lets the fixed RandomForest split directly on a chemically meaningful combination (OH, Si, Ge) that no single D0 column encodes.",
+        "knowledge_source": "both",
+        "mechanism": "Hydroxide concentration controls the dissolution rate of the aluminosilicate/germanosilicate network and the supersaturation of soluble silicate oligomers. High OH/T raises the solubility of dense phases, keeps Si in monomeric/low-order anionic species, accelerates nucleation of low-framework-density, cation-stabilized structures (LTA, FAU, SOD), and promotes dissolution-recrystallization of metastable phases into Failed or dense products. Low OH/T (e.g., F- media, where fluoride both mineralizes and coordinates Si) permits neutral, highly cross-linked frameworks with low defect density — the regime where MFI, *BEA, MTW, CHA (fluoride route) and UTL form. Ge behaves like Si in the T-atom denominator because germanosilicate recipes (e.g., for UTL, ISV, BEC) follow the same alkalinity logic, so dividing by (Si + Ge) keeps the descriptor comparable across pure-silica, aluminosilicate and germanosilicate recipes.",
+        "name": "oh_per_t_atom",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "MFI",
+          "*BEA",
+          "MTW",
+          "CHA",
+          "UTL",
+          "LTA",
+          "FAU",
+          "SOD",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "18ba5447affd03169894af8a6639c6dac1d94dc3e1932a9b4c3645c100918018",
+        "items": [
+          {
+            "id": 1,
+            "key": "framework:CHA",
+            "tokens": 90
+          },
+          {
+            "id": 2,
+            "key": "condition:fluoride medium",
+            "tokens": 62
+          }
+        ],
+        "linking": [
+          {
+            "conditions": [
+              "fluoride medium"
+            ],
+            "frameworks": [
+              "CHA"
+            ],
+            "osdas": [],
+            "query": "SSZ-13 CHA synthesis OH/Si ratio hydroxide vs fluoride medium"
+          },
+          {
+            "conditions": [
+              "fluoride medium"
+            ],
+            "frameworks": [],
+            "osdas": [],
+            "query": "which frameworks form at low alkalinity fluoride medium versus high OH/Si"
+          }
+        ],
+        "tokens": 152
+      },
+      "plan": {
+        "factor": "Gel alkalinity, encoded as the ratio of hydroxide to the silica + germanium content of the gel (OH / (Si + Ge + small constant))",
+        "queries": [
+          "SSZ-13 CHA synthesis OH/Si ratio hydroxide vs fluoride medium",
+          "which frameworks form at low alkalinity fluoride medium versus high OH/Si"
+        ],
+        "why": "Alkalinity (mineralizer strength per framework-forming T atom) is one of the strongest known levers in zeolite synthesis: high OH/Si dissolves and transforms dense phases, favors low-density frameworks and alkali-bearing phases (LTA, FAU, SOD), while low alkalinity (often fluoride media) favors high-silica, defect-free frameworks (MFI, MTW, *BEA, UTL, CHA). The fixed RandomForest can only split on single columns, so it cannot see this ratio from the individual mole fractions alone; a precomputed ratio gives it direct access to a physically meaningful combination of Si, Ge and OH that D0 lacks."
+      },
+      "propose_prompt_sha256": "ae0246de7a92cc47fc81a1b6ebedfce5a7c0dfbc137a8f750a02465efdcb1052",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "217282a77bc14ed6f9d503055e00624d0061a23dda352aba986ef14a5963e856",
+          "raw_structured": {
+            "plan": {
+              "factor": "Inorganic cation loading per framework-forming T atom: (Na + K + Li + Rb + Cs + Sr + Ba + Ca) / (Si + Ge + Al + P + 1e-6)",
+              "queries": [
+                "frameworks obtained from OSDA-free gels with Na as the only cation",
+                "which frameworks crystallize with K vs Na as inorganic cation"
+              ],
+              "why": "Alkalinity (already encoded) captures mineralizer strength, but the inorganic cation dose is a separate, orthogonal lever: alkali-templated syntheses (Na-rich, OSDA-free or OSDA-lean gels) strongly bias toward small-pore, low-silica frameworks (LTA, FAU, SOD, GIS, zeolite P) and toward 'Failed' dense phases, whereas organic-OSDA-directed high-silica recipes (MFI, *BEA, MTW, STW) have near-zero inorganic cation charge. The per-T-atom normalization also distinguishes a genuinely cation-rich gel from one that is simply silica-lean, which no single mole-fraction column can express — a RandomForest splits one column at a time and cannot compute this sum/sum ratio itself. It partially proxies the OSDA-vs-inorganic templating balance that determines whether the inorganic cation or the OSDA sets the pore architecture."
+            }
+          },
+          "response_id": "20261010002523bc70ae0f0e6245b6",
+          "usage": {
+            "completion_tokens": 817,
+            "completion_tokens_details": {
+              "reasoning_tokens": 505
+            },
+            "prompt_tokens": 2439,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3256
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Ba",
+              "Ca",
+              "Cs",
+              "Ge",
+              "K",
+              "Li",
+              "Na",
+              "P",
+              "Rb",
+              "Si",
+              "Sr"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes all listed cations act equivalently as monovalent-equivalent charge balancers/templating species; Sr, Ba, Ca are divalent and their per-charge influence is underestimated by a 1:1 count. It assumes framework-forming T atoms are Si, Ge, Al, P only and ignores B, Zn, Ga as framework formers. Mole-fraction normalization means this ratio partially duplicates gel dilution patterns (e.g., large H2O or F fractions suppress both numerator and denominator), so it is a proxy for cation loading, not an absolute stoichiometric dose. Values are bounded and skewed toward small values; a tree handles this via threshold splits.",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor increases: probability of low-silica, cation-stabilized products (LTA, FAU, SOD-like dense products, 'Failed') rises; probability of high-silica organic-directed frameworks (MFI, *BEA, MTW, MWW) falls. Intermediate values favor mixed-cation/OSDA frameworks such as CHA and MOR.",
+              "falsification": "If the classifier's error analysis (or a direct ablation) shows no change in performance on LTA/FAU versus MFI/*BEA/MTW predictions when this column is added, or if recipes with identical descriptor values but high vs low cation loading in reality (e.g., varying Na at fixed normalized composition) systematically yield different framework classes, the cation-loading hypothesis is contradicted. Also falsified if high descriptor values correlate with successful high-silica OSDA frameworks as often as low values.",
+              "formula": "(Na + K + Li + Rb + Cs + Sr + Ba + Ca) / (Si + Ge + Al + P + 1e-6)",
+              "hypothesis": "The inorganic cation dose per framework-forming T atom is an orthogonal control on product identity beyond gel alkalinity: cation-rich gels (high descriptor) are directed toward low-silica, small-pore and cage-based frameworks where alkali ions sit as charge-compensating/templating species (LTA, FAU, SOD-like dense products, GIS, ANA, and often 'Failed'), while near-zero cation loading corresponds to organic- or fluoride-directed high-silica syntheses (MFI, *BEA, MTW, MWW, high-silica CHA, UTL). Intermediate values should favor mixed inorganic/organic regimes (e.g., FAU and LTA grown with Na plus an OSDA, or CHA with mixed templates).",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Inorganic cations have two roles: they balance framework charge from Al/Ga and they act as pore-filling/templating species in small cages (sodalite and d6r cages of LTA/FAU/CHA). Because each framework charge site demands roughly one monovalent cation, the cation-to-T-atom ratio directly controls whether the gel can nucleate the low-silica frameworks that require abundant extra-framework cations. High cation loading also suppresses OSDA-inorganic co-templating competition and raises effective ionic strength, promoting dense or sodalitic phases (Failed, SOD). Conversely, high-silica OSDA-directed crystallizations need essentially no inorganic cation (near-zero Si/Al with organic charge balance), so low descriptor values isolate the organic-templated branch of phase space. A tree model cannot form this sum/sum ratio from individual mole-fraction columns; only the precomputed ratio makes the cation loading per framework atom available as a single split variable.",
+              "name": "inorg_cation_per_t_atom",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "LTA",
+                "FAU",
+                "SOD",
+                "MOR",
+                "MFI",
+                "*BEA",
+                "MTW",
+                "MWW",
+                "CHA",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "2026101000254310e108622d1d4676",
+          "usage": {
+            "completion_tokens": 909,
+            "completion_tokens_details": {
+              "reasoning_tokens": 28
+            },
+            "prompt_tokens": 2791,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3700
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes all listed cations act equivalently as monovalent-equivalent charge balancers/templating species; Sr, Ba, Ca are divalent and their per-charge influence is underestimated by a 1:1 count. It assumes framework-forming T atoms are Si, Ge, Al, P only and ignores B, Zn, Ga as framework formers. Mole-fraction normalization means this ratio partially duplicates gel dilution patterns (e.g., large H2O or F fractions suppress both numerator and denominator), so it is a proxy for cation loading, not an absolute stoichiometric dose. Values are bounded and skewed toward small values; a tree handles this via threshold splits.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor increases: probability of low-silica, cation-stabilized products (LTA, FAU, SOD-like dense products, 'Failed') rises; probability of high-silica organic-directed frameworks (MFI, *BEA, MTW, MWW) falls. Intermediate values favor mixed-cation/OSDA frameworks such as CHA and MOR.",
+        "falsification": "If the classifier's error analysis (or a direct ablation) shows no change in performance on LTA/FAU versus MFI/*BEA/MTW predictions when this column is added, or if recipes with identical descriptor values but high vs low cation loading in reality (e.g., varying Na at fixed normalized composition) systematically yield different framework classes, the cation-loading hypothesis is contradicted. Also falsified if high descriptor values correlate with successful high-silica OSDA frameworks as often as low values.",
+        "formula": "(Na + K + Li + Rb + Cs + Sr + Ba + Ca) / (Si + Ge + Al + P + 1e-6)",
+        "hypothesis": "The inorganic cation dose per framework-forming T atom is an orthogonal control on product identity beyond gel alkalinity: cation-rich gels (high descriptor) are directed toward low-silica, small-pore and cage-based frameworks where alkali ions sit as charge-compensating/templating species (LTA, FAU, SOD-like dense products, GIS, ANA, and often 'Failed'), while near-zero cation loading corresponds to organic- or fluoride-directed high-silica syntheses (MFI, *BEA, MTW, MWW, high-silica CHA, UTL). Intermediate values should favor mixed inorganic/organic regimes (e.g., FAU and LTA grown with Na plus an OSDA, or CHA with mixed templates).",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Inorganic cations have two roles: they balance framework charge from Al/Ga and they act as pore-filling/templating species in small cages (sodalite and d6r cages of LTA/FAU/CHA). Because each framework charge site demands roughly one monovalent cation, the cation-to-T-atom ratio directly controls whether the gel can nucleate the low-silica frameworks that require abundant extra-framework cations. High cation loading also suppresses OSDA-inorganic co-templating competition and raises effective ionic strength, promoting dense or sodalitic phases (Failed, SOD). Conversely, high-silica OSDA-directed crystallizations need essentially no inorganic cation (near-zero Si/Al with organic charge balance), so low descriptor values isolate the organic-templated branch of phase space. A tree model cannot form this sum/sum ratio from individual mole-fraction columns; only the precomputed ratio makes the cation loading per framework atom available as a single split variable.",
+        "name": "inorg_cation_per_t_atom",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "LTA",
+          "FAU",
+          "SOD",
+          "MOR",
+          "MFI",
+          "*BEA",
+          "MTW",
+          "MWW",
+          "CHA",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": [
+          {
+            "conditions": [],
+            "frameworks": [],
+            "osdas": [],
+            "query": "frameworks obtained from OSDA-free gels with Na as the only cation"
+          },
+          {
+            "conditions": [],
+            "frameworks": [],
+            "osdas": [],
+            "query": "which frameworks crystallize with K vs Na as inorganic cation"
+          }
+        ],
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Inorganic cation loading per framework-forming T atom: (Na + K + Li + Rb + Cs + Sr + Ba + Ca) / (Si + Ge + Al + P + 1e-6)",
+        "queries": [
+          "frameworks obtained from OSDA-free gels with Na as the only cation",
+          "which frameworks crystallize with K vs Na as inorganic cation"
+        ],
+        "why": "Alkalinity (already encoded) captures mineralizer strength, but the inorganic cation dose is a separate, orthogonal lever: alkali-templated syntheses (Na-rich, OSDA-free or OSDA-lean gels) strongly bias toward small-pore, low-silica frameworks (LTA, FAU, SOD, GIS, zeolite P) and toward 'Failed' dense phases, whereas organic-OSDA-directed high-silica recipes (MFI, *BEA, MTW, STW) have near-zero inorganic cation charge. The per-T-atom normalization also distinguishes a genuinely cation-rich gel from one that is simply silica-lean, which no single mole-fraction column can express — a RandomForest splits one column at a time and cannot compute this sum/sum ratio itself. It partially proxies the OSDA-vs-inorganic templating balance that determines whether the inorganic cation or the OSDA sets the pore architecture."
+      },
+      "propose_prompt_sha256": "dd5998490870a80e5ad39318f07a5ebc060525f02535f425e8be58e1726eedfb",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "5d1fea013579f931d2b34265aa65344fcadbbc8cd1a8480e38c9ed1ec3822dd6",
+          "raw_structured": {
+            "plan": {
+              "factor": "Gel dilution: water per framework-forming T atom",
+              "queries": [],
+              "why": "Water-to-solid ratio (H2O relative to Si+Al+P+Ge) is a classic, independent lever in zeolite synthesis that D0 cannot express via any single column: dilute gels slow nucleation and favor large-crystal, often lower-nucleation-density frameworks (e.g., large crystals of MFI, MTW, beta polymorphs) and change OSDA/cation effective concentration, whereas concentrated gels promote dense phases and fast nucleating frameworks and often 'Failed' runs. Together with the already-appended alkalinity and cation-per-T descriptors, this completes the core triad of hydrothermal synthesis control (alkalinity, inorganic cation dose, dilution) as single-column splits available to the fixed RandomForest."
+            }
+          },
+          "response_id": "20261010002603afdd968d7fe14ed2",
+          "usage": {
+            "completion_tokens": 499,
+            "completion_tokens_details": {
+              "reasoning_tokens": 301
+            },
+            "prompt_tokens": 2645,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3144
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Ge",
+              "H2O",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The gel mole fractions are a faithful proxy for the actual crystallization liquor composition (no post-adjustment of water); Al and P are included as framework-forming T atoms so that aluminophosphate systems are not systematically assigned near-zero dilution; the 1e-6 constant only guards against division by zero for OSDA-free or T-atom-free records. It assumes nucleation-density effects on framework selection transfer across unseen publications.",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor increases (more dilute gels), outcomes should shift toward slowly nucleating, OSDA-directed high-silica frameworks (MFI, MTW, *BEA, MWW) and large crystals; as it decreases (concentrated gels), outcomes should shift toward fast-nucleating small-pore/cage frameworks (LTA, FAU, SOD-like dense products) and amorphous or 'Failed' records.",
+              "falsification": "If held-out publications show that product identity is essentially unchanged across a wide range of H2O/(Si+Ge+Al+P) at fixed alkalinity and cation dose, or if concentrated gels systematically yield the OSDA-directed open frameworks rather than dense/small-pore phases, the hypothesis is contradicted.",
+              "formula": "H2O / (Si + Ge + Al + P + 1e-6)",
+              "hypothesis": "The water-to-framework-forming-T-atom ratio is an independent synthesis lever that no single D0 column encodes: dilute gels (high descriptor) lower the effective concentration of silica, cations and OSDA, slowing nucleation and favoring few-nuclei, large-crystal or OSDA-stabilized open frameworks (e.g., MFI, MTW, *BEA, MWW), while concentrated gels (low descriptor) raise supersaturation, increase nucleation density, and push toward rapidly nucleating small-pore or dense phases (LTA, FAU, SOD-like products) as well as 'Failed' runs.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Gel dilution controls supersaturation and hence the balance between nucleation and crystal growth. At high water content, chemical potentials of all dissolved species drop, homogeneous nucleation is suppressed, and growth on fewer nuclei plus the relative importance of OSDA/framework interactions increases, favoring frameworks whose formation is kinetically slow and structure-directed (high-silica, OSDA-templated phases). At low water content, high ionic strength and supersaturation promote dense, cation-stabilized or amorphous (Failed) products. Dilution also modulates the effective concentrations already captured by oh_per_t_atom and inorg_cation_per_t_atom, so this descriptor adds the third orthogonal axis of the classic alkalinity–cation-dose–dilution triad as a single-column split for the tree ensemble.",
+              "name": "h2o_per_t_atom",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "MFI",
+                "MTW",
+                "*BEA",
+                "MWW",
+                "LTA",
+                "FAU",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "2026101000261577cb0b46e11f488f",
+          "usage": {
+            "completion_tokens": 723,
+            "completion_tokens_details": {
+              "reasoning_tokens": 26
+            },
+            "prompt_tokens": 2886,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3609
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The gel mole fractions are a faithful proxy for the actual crystallization liquor composition (no post-adjustment of water); Al and P are included as framework-forming T atoms so that aluminophosphate systems are not systematically assigned near-zero dilution; the 1e-6 constant only guards against division by zero for OSDA-free or T-atom-free records. It assumes nucleation-density effects on framework selection transfer across unseen publications.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor increases (more dilute gels), outcomes should shift toward slowly nucleating, OSDA-directed high-silica frameworks (MFI, MTW, *BEA, MWW) and large crystals; as it decreases (concentrated gels), outcomes should shift toward fast-nucleating small-pore/cage frameworks (LTA, FAU, SOD-like dense products) and amorphous or 'Failed' records.",
+        "falsification": "If held-out publications show that product identity is essentially unchanged across a wide range of H2O/(Si+Ge+Al+P) at fixed alkalinity and cation dose, or if concentrated gels systematically yield the OSDA-directed open frameworks rather than dense/small-pore phases, the hypothesis is contradicted.",
+        "formula": "H2O / (Si + Ge + Al + P + 1e-6)",
+        "hypothesis": "The water-to-framework-forming-T-atom ratio is an independent synthesis lever that no single D0 column encodes: dilute gels (high descriptor) lower the effective concentration of silica, cations and OSDA, slowing nucleation and favoring few-nuclei, large-crystal or OSDA-stabilized open frameworks (e.g., MFI, MTW, *BEA, MWW), while concentrated gels (low descriptor) raise supersaturation, increase nucleation density, and push toward rapidly nucleating small-pore or dense phases (LTA, FAU, SOD-like products) as well as 'Failed' runs.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Gel dilution controls supersaturation and hence the balance between nucleation and crystal growth. At high water content, chemical potentials of all dissolved species drop, homogeneous nucleation is suppressed, and growth on fewer nuclei plus the relative importance of OSDA/framework interactions increases, favoring frameworks whose formation is kinetically slow and structure-directed (high-silica, OSDA-templated phases). At low water content, high ionic strength and supersaturation promote dense, cation-stabilized or amorphous (Failed) products. Dilution also modulates the effective concentrations already captured by oh_per_t_atom and inorg_cation_per_t_atom, so this descriptor adds the third orthogonal axis of the classic alkalinity–cation-dose–dilution triad as a single-column split for the tree ensemble.",
+        "name": "h2o_per_t_atom",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "MFI",
+          "MTW",
+          "*BEA",
+          "MWW",
+          "LTA",
+          "FAU",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Gel dilution: water per framework-forming T atom",
+        "queries": [],
+        "why": "Water-to-solid ratio (H2O relative to Si+Al+P+Ge) is a classic, independent lever in zeolite synthesis that D0 cannot express via any single column: dilute gels slow nucleation and favor large-crystal, often lower-nucleation-density frameworks (e.g., large crystals of MFI, MTW, beta polymorphs) and change OSDA/cation effective concentration, whereas concentrated gels promote dense phases and fast nucleating frameworks and often 'Failed' runs. Together with the already-appended alkalinity and cation-per-T descriptors, this completes the core triad of hydrothermal synthesis control (alkalinity, inorganic cation dose, dilution) as single-column splits available to the fixed RandomForest."
+      },
+      "propose_prompt_sha256": "9d97855b4c3c2a5efc39de7dc8e39e1fdbc091915647b7b2ad5fb97ef7e3e2fb",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}

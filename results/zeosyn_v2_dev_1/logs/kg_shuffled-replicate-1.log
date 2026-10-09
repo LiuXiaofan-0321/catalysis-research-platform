@@ -1,0 +1,3 @@
+00:28:32 kg_shuffled r1 round 1: [Gel alkalinity / mineralizing-agent strength, i.e.] (OH - F) / (Si + Al + P + Ge + B + 1e-6)
+00:29:05 kg_shuffled r1 round 2: [gel dilution: water per framework-forming T atom] H2O / (Si + Al + P + Ge + B + 1e-6)
+00:29:41 kg_shuffled r1 round 3: [heteroatom fraction of the framework-forming T ato] (Al + P + Ge + B + Ga + Ti + Sn + Zn + Zr + V + Be + W + Cu + Mg + 1e-6) / (Si + Al + P + Ge + B + Ga + Ti + Sn + Zn + Zr + V + Be + W + Cu + Mg + 1e-6)

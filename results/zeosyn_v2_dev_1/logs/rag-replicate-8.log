@@ -1,0 +1,3 @@
+00:23:42 rag r8 round 1: [gel alkalinity: the ratio of hydroxide to the netw] OH / (Si + Al + P + Ge + B + Ga + Ti + Sn + Zr + V + Zn + Be + W + Mg + 1e-6)
+00:24:20 rag r8 round 2: [inorganic cation charge balance: alkali/alkaline-e] (Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / (Al + Ga + 1e-6)
+00:24:55 rag r8 round 3: [gel dilution: water content per framework-forming ] H2O / (Si + Al + P + Ge + B + Ga + Ti + Sn + Zr + V + Zn + Be + W + Mg + 1e-6)

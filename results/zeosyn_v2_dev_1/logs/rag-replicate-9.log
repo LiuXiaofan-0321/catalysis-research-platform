@@ -1,0 +1,3 @@
+00:23:42 rag r9 round 1: [Gel alkalinity, i.e. the hydroxide concentration r] OH / (Si + Al + P + Ge + B + Ga + Be + Ti + Zn + Sn + Zr + V + Mg + W + 1e-6)
+00:24:21 rag r9 round 2: [Tetravalent-to-framework-heteroatom ratio in the g] (Si + Ge) / (Al + P + B + Ga + Zn + Be + 1e-6)
+00:24:57 rag r9 round 3: [water content of the gel relative to framework T a] H2O / (Si + Al + P + Ge + B + Ga + Be + Ti + Zn + Sn + Zr + V + Mg + W + 1e-6)

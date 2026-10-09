@@ -1,0 +1,3 @@
+00:19:13 agent r7 round 1: [Gel alkalinity / mineralizer strength, i.e. the ef] OH / (Si + Al + P + Ge + B + Ga + 0.005) + OH / (H2O + 0.005)
+00:19:48 agent r7 round 2: [Fluoride mineralization intensity — the amount of ] F / (Si + Al + P + Ge + B + Ga + 0.005)
+00:20:18 agent r7 round 3: [Inorganic cation loading per framework-forming T-a] (Na + K + Li + Cs + Rb + Sr + Ba + Ca) / (Si + Al + P + Ge + B + Ga + 0.005)

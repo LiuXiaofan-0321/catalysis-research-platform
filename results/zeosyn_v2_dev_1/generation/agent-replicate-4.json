@@ -1,0 +1,425 @@
+{
+  "appended": 3,
+  "final_formulas": [
+    {
+      "formula": "(OH + 0.5*F) / (Si + Al + P + Ge + B + 0.001)",
+      "name": "effective_alkalinity_per_t"
+    },
+    {
+      "formula": "(Li + Na + K + Rb + Cs + 2*(Mg + Ca + Sr + Ba)) / (Al + P + 0.001)",
+      "name": "inorganic_cation_charge_per_charged_t"
+    },
+    {
+      "formula": "(sda1 * maximum(osda_charge, 0)) / (sda1 * maximum(osda_charge, 0) + Li + Na + K + Rb + Cs + 2*(Mg + Ca + Sr + Ba) + F + 0.001)",
+      "name": "osda_charge_share_of_extraframework_charge"
+    }
+  ],
+  "label_feedback": false,
+  "mode": "agent",
+  "model": "glm-5.3-flash",
+  "prepared_sha256": {
+    "config.json": "dc030371020cbf69074516d3ede30c84d1bbfdd6f962f42c61f2011386b24315",
+    "data-manifest.json": "facd6735891d68c8ac2adaeeda473782a7208d33752a0125067185c9167e2dfc"
+  },
+  "profile": "zeosyn-v2",
+  "reasoning_effort": "high",
+  "replicate": 4,
+  "seconds": 121.39082169532776,
+  "slots": [
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "8b580ecdb537eaad685e9eaf8ead5a9a67e706130abba5fc14ab4d26e034283f",
+          "raw_structured": {
+            "plan": {
+              "factor": "Gel alkalinity: hydroxide (and fluoride) content relative to network-forming T-atoms (Si, Al, P, Ge, B), i.e., a combined OH/T and F/T mineralization balance of the gel",
+              "queries": [],
+              "why": "D0 gives the model only raw mole fractions, and tree ensembles split one column at a time, so the model can never represent the ratio of mineralizer to silica/alumina/phosphate that every synthesis chemist uses to describe a gel. Alkalinity governs silicate speciation, dissolution rate, nucleation density, and whether a batch stays amorphous or crystallizes, and it disambiguates regimes where identical raw OH mole fractions mean very different things at different silica loadings. Fluoride partially substitutes for hydroxide as mineralizer (and favors low-water, fluoride-media phases), so a combined OH-minus-F per T-atom descriptor captures the effective alkalinity that individual D0 columns cannot."
+            }
+          },
+          "response_id": "202610100016546a0a6b5d7d084c85",
+          "usage": {
+            "completion_tokens": 477,
+            "completion_tokens_details": {
+              "reasoning_tokens": 253
+            },
+            "prompt_tokens": 1465,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 1942
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "B",
+              "F",
+              "Ge",
+              "OH",
+              "P",
+              "Si"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes (i) mole fractions of OH and F are reasonable proxies for mineralizing activity, (ii) fluoride contributes roughly half the mineralizing power of hydroxide per mole (an arbitrary but order-correct weighting; F also acts by complexation rather than deprotonation, so the linear 0.5 weighting is a crude mean-field approximation), and (iii) all five network formers Si, Al, P, Ge, B count equally as T-atoms, although their susceptibility to OH/F attack differs (e.g., P-O bonds in aluminophosphate gels respond differently than Si-O). It ignores Na/K alkalinity contributions and water activity, which modulate the same chemistry, and the 0.001 constant only guards against division by zero for T-free gels (which are physically meaningless but may appear in records).",
+              "evidence_ids": [],
+              "expected_effect": "As the descriptor increases from ~0 upward: first Failed (undissolved gels) should decrease and high-silica/OSDA-templated frameworks (MFI, MTW, MWW, CHA, *BEA, TON) should become more likely; at still higher values low-silica cation-templated phases (FAU, LTA) and dense phases should take over, and beyond a threshold Failed should rise again from over-alkaline dissolution; fluoride-dominated low-water batches (where the term is carried by F) should map onto the dense/high-silica fluoride-route phases rather than the OH-rich low-silica regimes.",
+              "falsification": "If held-out publications show that product phase distributions are essentially invariant across the range of (OH + 0.5F)/T within fixed OSDA and cation classes, or that raw OH or F mole fractions alone already separate the phase regimes as well as or better than the ratio, the mineralizer-per-T hypothesis is falsified for this dataset. Likewise, if Failed batches cluster at intermediate rather than extreme values of the descriptor, the assumed dissolution/nucleation balance is wrong.",
+              "formula": "(OH + 0.5*F) / (Si + Al + P + Ge + B + 0.001)",
+              "hypothesis": "The effective mineralizer load per network-forming T-atom, treating fluoride as a partial hydroxide surrogate, controls whether a gel crystallizes into an open framework, a dense phase, or stays amorphous. Low effective alkalinity per T (dilute mineralizer, often fluoride-media or near-neutral gels) favors dense or high-silica phases such as MFI, MTW, MWW and FER, or 'Failed' amorphous batches; moderate values favor OSDA-templated open frameworks such as CHA, *BEA, AEI and levic-like phases; very high values favor low-silica phases stabilized by inorganic cations (FAU, LTA, A, GIS-type) and dense phases, and increase the rate of amorphization/dissolution of metastable frameworks.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Hydroxide and fluoride catalyze the depolymerization and repolymerization of Si-, Al-, P-, Ge- and B-containing species: OH deprotonates silanols and breaks Si-O-Si bridges, raising the concentration of soluble oligomers available for nucleation, while F forms strong Si-F and B-F complexes that dissolve and transport framework species at low pH, typically in low-water gels. The ratio of mineralizer to T-atoms sets the gel supersaturation and the speciation (Q^n distribution) of silicate and aluminate anions: at low mineralizer/T the gel is poorly dissolved and nucleation is slow or absent (Failed); at intermediate values framework nucleation is templated by the OSDA and cations; at high values the ionized, depolymerized gel favors the thermodynamically densest or cation-stabilized phases and dissolves metastable open frameworks. Trees cannot form this ratio from separate OH, F, Si, Al, P columns because they split one feature at a time, so the model currently sees identical raw OH mole fractions in gels with very different silica loadings and cannot express the classical 'alkalinity' variable used by synthesis chemists.",
+              "name": "effective_alkalinity_per_T",
+              "novelty": "known_relation",
+              "target_frameworks": [
+                "Failed",
+                "FAU",
+                "LTA",
+                "MFI",
+                "MTW",
+                "MWW",
+                "CHA",
+                "*BEA"
+              ]
+            }
+          },
+          "response_id": "20261010001706ce3f2d2d5997401f",
+          "usage": {
+            "completion_tokens": 1039,
+            "completion_tokens_details": {
+              "reasoning_tokens": 39
+            },
+            "prompt_tokens": 1795,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2834
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes (i) mole fractions of OH and F are reasonable proxies for mineralizing activity, (ii) fluoride contributes roughly half the mineralizing power of hydroxide per mole (an arbitrary but order-correct weighting; F also acts by complexation rather than deprotonation, so the linear 0.5 weighting is a crude mean-field approximation), and (iii) all five network formers Si, Al, P, Ge, B count equally as T-atoms, although their susceptibility to OH/F attack differs (e.g., P-O bonds in aluminophosphate gels respond differently than Si-O). It ignores Na/K alkalinity contributions and water activity, which modulate the same chemistry, and the 0.001 constant only guards against division by zero for T-free gels (which are physically meaningless but may appear in records).",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As the descriptor increases from ~0 upward: first Failed (undissolved gels) should decrease and high-silica/OSDA-templated frameworks (MFI, MTW, MWW, CHA, *BEA, TON) should become more likely; at still higher values low-silica cation-templated phases (FAU, LTA) and dense phases should take over, and beyond a threshold Failed should rise again from over-alkaline dissolution; fluoride-dominated low-water batches (where the term is carried by F) should map onto the dense/high-silica fluoride-route phases rather than the OH-rich low-silica regimes.",
+        "falsification": "If held-out publications show that product phase distributions are essentially invariant across the range of (OH + 0.5F)/T within fixed OSDA and cation classes, or that raw OH or F mole fractions alone already separate the phase regimes as well as or better than the ratio, the mineralizer-per-T hypothesis is falsified for this dataset. Likewise, if Failed batches cluster at intermediate rather than extreme values of the descriptor, the assumed dissolution/nucleation balance is wrong.",
+        "formula": "(OH + 0.5*F) / (Si + Al + P + Ge + B + 0.001)",
+        "hypothesis": "The effective mineralizer load per network-forming T-atom, treating fluoride as a partial hydroxide surrogate, controls whether a gel crystallizes into an open framework, a dense phase, or stays amorphous. Low effective alkalinity per T (dilute mineralizer, often fluoride-media or near-neutral gels) favors dense or high-silica phases such as MFI, MTW, MWW and FER, or 'Failed' amorphous batches; moderate values favor OSDA-templated open frameworks such as CHA, *BEA, AEI and levic-like phases; very high values favor low-silica phases stabilized by inorganic cations (FAU, LTA, A, GIS-type) and dense phases, and increase the rate of amorphization/dissolution of metastable frameworks.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Hydroxide and fluoride catalyze the depolymerization and repolymerization of Si-, Al-, P-, Ge- and B-containing species: OH deprotonates silanols and breaks Si-O-Si bridges, raising the concentration of soluble oligomers available for nucleation, while F forms strong Si-F and B-F complexes that dissolve and transport framework species at low pH, typically in low-water gels. The ratio of mineralizer to T-atoms sets the gel supersaturation and the speciation (Q^n distribution) of silicate and aluminate anions: at low mineralizer/T the gel is poorly dissolved and nucleation is slow or absent (Failed); at intermediate values framework nucleation is templated by the OSDA and cations; at high values the ionized, depolymerized gel favors the thermodynamically densest or cation-stabilized phases and dissolves metastable open frameworks. Trees cannot form this ratio from separate OH, F, Si, Al, P columns because they split one feature at a time, so the model currently sees identical raw OH mole fractions in gels with very different silica loadings and cannot express the classical 'alkalinity' variable used by synthesis chemists.",
+        "name": "effective_alkalinity_per_t",
+        "novelty": "known_relation",
+        "target_frameworks": [
+          "Failed",
+          "FAU",
+          "LTA",
+          "MFI",
+          "MTW",
+          "MWW",
+          "CHA",
+          "*BEA"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Gel alkalinity: hydroxide (and fluoride) content relative to network-forming T-atoms (Si, Al, P, Ge, B), i.e., a combined OH/T and F/T mineralization balance of the gel",
+        "queries": [],
+        "why": "D0 gives the model only raw mole fractions, and tree ensembles split one column at a time, so the model can never represent the ratio of mineralizer to silica/alumina/phosphate that every synthesis chemist uses to describe a gel. Alkalinity governs silicate speciation, dissolution rate, nucleation density, and whether a batch stays amorphous or crystallizes, and it disambiguates regimes where identical raw OH mole fractions mean very different things at different silica loadings. Fluoride partially substitutes for hydroxide as mineralizer (and favors low-water, fluoride-media phases), so a combined OH-minus-F per T-atom descriptor captures the effective alkalinity that individual D0 columns cannot."
+      },
+      "propose_prompt_sha256": "a5053512dbad743159066a05d698eb50ea95be87f22b50720c9fa07f5bee5c18",
+      "round": 1,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "b76e6557f77762aec05b0298e7c6b5befb8ef0c8c07b16c58cefc382c8725d52",
+          "raw_structured": {
+            "plan": {
+              "factor": "Inorganic cation charge balance relative to the anionic framework-forming species (alkali + alkaline-earth charge per mole of Al, P and other trivalent/charged T-sources)",
+              "queries": [],
+              "why": "The classifier sees each cation mole fraction separately, but what governs phase selection is whether the inorganic cation pool can balance the framework negative charge (from Al, P-poor/Al-rich gels) or not. Low cation-to-charge ratios leave the charge to be compensated by OSDA or fluoride, favoring all-silica or OSDA-templated high-silica phases (MFI, *BEA, MTW, STW-type); high ratios indicate inorganic cation templating of low-silica open frameworks (FAU, LTA, GIS, CHA in alkali media) and dense phases (analogue sodalite, cancrinite-like), and distinguish Mg/Ca/Sr fluoride routes (e.g., AFI, AEL, AEN mineral analogues). This is a genuine multi-input quantity that a tree splitting on single columns cannot access, and it is complementary to the already-encoded alkalinity per T: two gels with identical alkalinity can differ completely in whether Na or OSDA provides the charge balance, which changes the product framework. Normalizing by the charged T-species (with a small constant guard) makes the descriptor transferable across papers with different dilution conventions."
+            }
+          },
+          "response_id": "20261010001731a7983b9b26a3425b",
+          "usage": {
+            "completion_tokens": 646,
+            "completion_tokens_details": {
+              "reasoning_tokens": 323
+            },
+            "prompt_tokens": 1683,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 2329
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Al",
+              "Ba",
+              "Ca",
+              "Cs",
+              "K",
+              "Li",
+              "Mg",
+              "Na",
+              "P",
+              "Rb",
+              "Sr"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "(1) Formal charges are used: all Al counts as one negative charge per mole and P as a chargeable species proxy for aluminophosphate gels; the formula does not distinguish Al/P stoichiometry within the phosphate system. (2) All monovalent cations are treated as fully available for framework balancing; no correction for hydroxide complexation or ion pairing with F-. (3) Transition-metal heteroatoms (Ti, Zn, B, Ga, Ge) are excluded from the denominator, which is exact for silicates and approximate for metalloaluminophosphates. (4) The +0.001 guard prevents division blowup for pure-silica gels where Al and P are both ~0, collapsing the descriptor to a very large value; this conflates 'no chargeable T' with 'cation excess', which is acceptable since both regimes exclude Al-rich cation-templated phases.",
+              "evidence_ids": [],
+              "expected_effect": "At low values (OSDA/F- balanced charge): higher probability of MFI, *BEA, MTW, MWW, FER and all-silica polymorphs, and of 'Failed' when OSDA charge is also insufficient. At intermediate values: OSDA-templated open frameworks remain accessible but alkali-stabilized CHA and TON appear. At high values: increasing probability of FAU, LTA, GIS, SOD-type and dense amorphous-to-cryptocrystalline 'Failed' outcomes from over-alkalinization. Alkaline-earth-dominated gels with moderate values bias toward AFI, AEL, AEN.",
+              "falsification": "If held-out publications show that low-silica frameworks like FAU and LTA are routinely obtained at near-zero inorganic cation charge ratios (i.e., OSDA alone balances Al-rich gels), or that high-silica MFI/*BEA requires large alkali loads, the charge-balance hypothesis is contradicted. Likewise, if this descriptor does not split FAU/LTA vs MFI/*BEA in single-variable decision paths when added, its purported steering power is absent.",
+              "formula": "(Li + Na + K + Rb + Cs + 2*(Mg + Ca + Sr + Ba)) / (Al + P + 0.001)",
+              "hypothesis": "The ratio of inorganic cation charge to the chargeable framework T-atoms (Al in silicates, and P/Al in aluminophosphates) determines whether the product framework is inorganically templated, OSDA-templated, or all-silica/fluoride-balanced. As this descriptor increases, products shift from OSDA- or fluoride-charge-balanced high-silica frameworks (MFI, *BEA, MTW, STW-type, FER) toward alkali-templated low-silica open frameworks (FAU, LTA, GIS, CHA in alkali media) and dense alkali phases (sodalite, cancrinite analogues), while intermediate values with alkaline-earth cations favor small-pore aluminophosphate/mineral-analogue frameworks (AFI, AEL, AEN).",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Framework negative charge must be compensated. In silicate gels every AlO4- introduces one negative charge; in aluminophosphate gels the Al/P ratio modulates net framework charge. If the inorganic cation pool (monovalent alkalis contributing 1 charge, divalent alkaline earths contributing 2) is small relative to the chargeable T-atoms, charge compensation must come from OSDA cations or F- pairing with Si, pushing synthesis toward high-silica or purely siliceous frameworks where the OSDA acts as the true structure-directing agent. If the inorganic cation pool is large, alkali cations occupy and template cation sites in low-silica open frameworks (faujasite supercages, LTA cages, gismondine 8-rings) and at extreme ratios promote dense alkali silicates. Alkaline-earth cations with fluoride route toward phosphate mineral analogues (AFI/AlPO4-5, AEL/AlPO4-11, AEN/AlPO4-17-like), since Mg/Ca/Sr fluorophosphates direct specific small-pore topologies.",
+              "name": "inorganic_cation_charge_per_charged_T",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "FAU",
+                "LTA",
+                "GIS",
+                "CHA",
+                "MFI",
+                "*BEA",
+                "MTW",
+                "FER",
+                "AFI",
+                "AEL",
+                "AEN",
+                "SOD",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610100017469e373998117d4a17",
+          "usage": {
+            "completion_tokens": 1110,
+            "completion_tokens_details": {
+              "reasoning_tokens": 74
+            },
+            "prompt_tokens": 2111,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 3221
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "(1) Formal charges are used: all Al counts as one negative charge per mole and P as a chargeable species proxy for aluminophosphate gels; the formula does not distinguish Al/P stoichiometry within the phosphate system. (2) All monovalent cations are treated as fully available for framework balancing; no correction for hydroxide complexation or ion pairing with F-. (3) Transition-metal heteroatoms (Ti, Zn, B, Ga, Ge) are excluded from the denominator, which is exact for silicates and approximate for metalloaluminophosphates. (4) The +0.001 guard prevents division blowup for pure-silica gels where Al and P are both ~0, collapsing the descriptor to a very large value; this conflates 'no chargeable T' with 'cation excess', which is acceptable since both regimes exclude Al-rich cation-templated phases.",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "At low values (OSDA/F- balanced charge): higher probability of MFI, *BEA, MTW, MWW, FER and all-silica polymorphs, and of 'Failed' when OSDA charge is also insufficient. At intermediate values: OSDA-templated open frameworks remain accessible but alkali-stabilized CHA and TON appear. At high values: increasing probability of FAU, LTA, GIS, SOD-type and dense amorphous-to-cryptocrystalline 'Failed' outcomes from over-alkalinization. Alkaline-earth-dominated gels with moderate values bias toward AFI, AEL, AEN.",
+        "falsification": "If held-out publications show that low-silica frameworks like FAU and LTA are routinely obtained at near-zero inorganic cation charge ratios (i.e., OSDA alone balances Al-rich gels), or that high-silica MFI/*BEA requires large alkali loads, the charge-balance hypothesis is contradicted. Likewise, if this descriptor does not split FAU/LTA vs MFI/*BEA in single-variable decision paths when added, its purported steering power is absent.",
+        "formula": "(Li + Na + K + Rb + Cs + 2*(Mg + Ca + Sr + Ba)) / (Al + P + 0.001)",
+        "hypothesis": "The ratio of inorganic cation charge to the chargeable framework T-atoms (Al in silicates, and P/Al in aluminophosphates) determines whether the product framework is inorganically templated, OSDA-templated, or all-silica/fluoride-balanced. As this descriptor increases, products shift from OSDA- or fluoride-charge-balanced high-silica frameworks (MFI, *BEA, MTW, STW-type, FER) toward alkali-templated low-silica open frameworks (FAU, LTA, GIS, CHA in alkali media) and dense alkali phases (sodalite, cancrinite analogues), while intermediate values with alkaline-earth cations favor small-pore aluminophosphate/mineral-analogue frameworks (AFI, AEL, AEN).",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Framework negative charge must be compensated. In silicate gels every AlO4- introduces one negative charge; in aluminophosphate gels the Al/P ratio modulates net framework charge. If the inorganic cation pool (monovalent alkalis contributing 1 charge, divalent alkaline earths contributing 2) is small relative to the chargeable T-atoms, charge compensation must come from OSDA cations or F- pairing with Si, pushing synthesis toward high-silica or purely siliceous frameworks where the OSDA acts as the true structure-directing agent. If the inorganic cation pool is large, alkali cations occupy and template cation sites in low-silica open frameworks (faujasite supercages, LTA cages, gismondine 8-rings) and at extreme ratios promote dense alkali silicates. Alkaline-earth cations with fluoride route toward phosphate mineral analogues (AFI/AlPO4-5, AEL/AlPO4-11, AEN/AlPO4-17-like), since Mg/Ca/Sr fluorophosphates direct specific small-pore topologies.",
+        "name": "inorganic_cation_charge_per_charged_t",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "FAU",
+          "LTA",
+          "GIS",
+          "CHA",
+          "MFI",
+          "*BEA",
+          "MTW",
+          "FER",
+          "AFI",
+          "AEL",
+          "AEN",
+          "SOD",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "Inorganic cation charge balance relative to the anionic framework-forming species (alkali + alkaline-earth charge per mole of Al, P and other trivalent/charged T-sources)",
+        "queries": [],
+        "why": "The classifier sees each cation mole fraction separately, but what governs phase selection is whether the inorganic cation pool can balance the framework negative charge (from Al, P-poor/Al-rich gels) or not. Low cation-to-charge ratios leave the charge to be compensated by OSDA or fluoride, favoring all-silica or OSDA-templated high-silica phases (MFI, *BEA, MTW, STW-type); high ratios indicate inorganic cation templating of low-silica open frameworks (FAU, LTA, GIS, CHA in alkali media) and dense phases (analogue sodalite, cancrinite-like), and distinguish Mg/Ca/Sr fluoride routes (e.g., AFI, AEL, AEN mineral analogues). This is a genuine multi-input quantity that a tree splitting on single columns cannot access, and it is complementary to the already-encoded alkalinity per T: two gels with identical alkalinity can differ completely in whether Na or OSDA provides the charge balance, which changes the product framework. Normalizing by the charged T-species (with a small constant guard) makes the descriptor transferable across papers with different dilution conventions."
+      },
+      "propose_prompt_sha256": "a8abf16855d398e4733297511ce57eedfe9fd91e9ab80fd90728c8e77106ea2f",
+      "round": 2,
+      "status": "appended"
+    },
+    {
+      "attempts": [
+        {
+          "kind": "plan",
+          "prompt_sha256": "e648fa08536ee447c34e1323fa323632947ebf764964f6c08a779b88bab60795",
+          "raw_structured": {
+            "plan": {
+              "factor": "organic charge balance: the formal charge delivered by OSDA1 per chargeable framework T-atom, relative to the inorganic cation and hydroxide/fluoride charge already present in the gel",
+              "queries": [],
+              "why": "The two descriptors already appended cover the mineralizer load per T-atom and the inorganic cation charge per chargeable T-atom, but the model still cannot see the organic side of the charge ledger. Framework frameworks formed around OSDAs (CHA, *BEA, AEI, MWW, UTL, ISV/BEC, LEV) need their framework negative charge balanced by quaternary OSDA cations, whereas all-silica fluoride syntheses and inorganically templated gels (FAU, LTA, AFI, AEL) do not. A tree ensemble cannot combine osda_charge, sda1, Al, P, and the cation columns in one split, so the ratio 'how much of the required charge balancing is delegated to the OSDA versus left to inorganic cations or fluoride' is invisible to D0. This ratio separates OSDA-templated open frameworks (moderate organic charge per chargeable T, small inorganic share), all-silica or fluoride-rich products (near-zero organic charge share), and low-silica alkali phases (organic charge swamped by inorganic charge), which is exactly the axis the existing two descriptors leave uncovered. It also generalizes across publications because it is a composition-normalized ratio, not a paper-specific recipe detail."
+            }
+          },
+          "response_id": "20261010001810d5d4143b743d4212",
+          "usage": {
+            "completion_tokens": 674,
+            "completion_tokens_details": {
+              "reasoning_tokens": 334
+            },
+            "prompt_tokens": 1909,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 2583
+          }
+        },
+        {
+          "finish_reason": "stop",
+          "kind": "proposal",
+          "model": "glm-5.3-flash",
+          "normalization_notes": [],
+          "precheck": {
+            "train_nonfinite_fraction": 0.0,
+            "used_inputs": [
+              "Ba",
+              "Ca",
+              "Cs",
+              "F",
+              "K",
+              "Li",
+              "Mg",
+              "Na",
+              "Rb",
+              "Sr",
+              "osda_charge",
+              "sda1"
+            ]
+          },
+          "raw_structured": {
+            "descriptor": {
+              "assumptions": "The formula assumes (1) osda_charge is a positive formal charge for cationic OSDAs and the molecule is monocationic per sda1 mole-fraction unit, so multi-charge or zwitterionic OSDAs are under-/over-counted; (2) sda1 multiplied by osda_charge is a valid proxy for molar organic cation charge (ignores whether the OSDA is fully incorporated or partially decomposed); (3) F is counted as an anionic charge pool comparable to cationic charge, which is a crude treatment of fluoride-mediated all-silica syntheses; (4) anions other than F and OH (e.g., sulfate, chloride) are not in the ledger; (5) doubly charged cations are weighted by 2, ignoring possible partial ion exchange; (6) the 0.001 constant makes the ratio undefined-but-bounded for gels with no charge carriers at all (pure oxide-water systems).",
+              "evidence_ids": [],
+              "expected_effect": "As osda_charge_share_of_extraframework_charge increases from ~0 to ~1: near 0, products shift toward all-silica/fluoride-mediated dense high-silica phases (MFI, MTW, FER) or 'Failed' amorphous batches; in the intermediate-to-high regime, OSDA-templated open frameworks dominate (CHA, *BEA, AEI, MWW, UTL, ISV/BEC, LEV); returning toward 0 from the high side (i.e., a genuine inorganic-dominated share near 1 for low-silica gels) favors alkali-templated FAU/LTA/GIS-type products and alkali-stabilized AlPO/mineral-analogue frameworks (AFI, AEL, AEN). The non-monotone, regime-dependent response is exactly what a single-threshold tree split on the share can capture piecewise.",
+              "falsification": "If OSDA-templated frameworks (CHA, *BEA, AEI, UTL) are obtained with the same frequency at very low organic charge share (e.g., < 0.2) as at high share, or if FAU/LTA frequently appear at high organic charge share with negligible inorganic cation charge, the charge-delegation hypothesis is contradicted. Likewise, if products are already perfectly separated by the two previously appended descriptors plus D0 columns (i.e., the new share adds no split gain on held-out papers), the descriptor is redundant and should be discarded.",
+              "formula": "(sda1 * maximum(osda_charge, 0)) / (sda1 * maximum(osda_charge, 0) + Li + Na + K + Rb + Cs + 2*(Mg + Ca + Sr + Ba) + F + 0.001)",
+              "hypothesis": "The fraction of the total available extra-framework positive charge (OSDA formal charge plus inorganic cation charge, with fluoride counted as the charge-neutralizing anion pool in non-alkaline media) that is supplied by the OSDA determines which charge-balancing regime the crystallizing framework adopts: OSDA-dominated gels crystallize OSDA-templated open frameworks, inorganic-dominated gels crystallize alkali-templated low-silica frameworks or dense phases, and near-zero-share gels either form all-silica/fluoride phases or fail.",
+              "knowledge_source": "prior_knowledge",
+              "mechanism": "Framework formation requires every framework negative charge (from AlO4- or, in aluminophosphates, from the Al/P framework charge distribution) to be balanced by an extra-framework cation or by occluded fluoride/HF2-. The OSDA cation acts as a structure-directing agent only when it is the dominant charge carrier in the gel, because then it is co-crystallized inside the pores and imposes its size and shape on the framework. When inorganic cations dominate the charge ledger, they preferentially balance framework charge themselves, the OSDA becomes a spectator pore-filler or stays in solution, and the product is governed by alkali/alkaline-earth templating (FAU, LTA, GIS-type, dense sodalite/cancrinite) or by alkaline-earth-stabilized AlPO frameworks. When no cationic species is present at meaningful levels (all-silica fluoride media), near-neutral F- mediated syntheses give dense high-silica phases (MFI, MTW, FER) or amorphous 'Failed' products. Because the descriptor is a normalized charge share computed only from gel composition and the OSDA molecule, it is comparable across papers with very different absolute batch sizes and OSDA loadings.",
+              "name": "osda_charge_share_of_extraframework_charge",
+              "novelty": "new_combination",
+              "target_frameworks": [
+                "CHA",
+                "*BEA",
+                "AEI",
+                "MWW",
+                "UTL",
+                "ISV",
+                "BEC",
+                "LEV",
+                "MFI",
+                "MTW",
+                "FER",
+                "FAU",
+                "LTA",
+                "AFI",
+                "AEL",
+                "AEN",
+                "Failed"
+              ]
+            }
+          },
+          "response_id": "202610100018258e81fdc86c0b4922",
+          "usage": {
+            "completion_tokens": 1526,
+            "completion_tokens_details": {
+              "reasoning_tokens": 418
+            },
+            "prompt_tokens": 2355,
+            "prompt_tokens_details": {
+              "cached_tokens": 64
+            },
+            "total_tokens": 3881
+          }
+        }
+      ],
+      "candidate": {
+        "assumptions": "The formula assumes (1) osda_charge is a positive formal charge for cationic OSDAs and the molecule is monocationic per sda1 mole-fraction unit, so multi-charge or zwitterionic OSDAs are under-/over-counted; (2) sda1 multiplied by osda_charge is a valid proxy for molar organic cation charge (ignores whether the OSDA is fully incorporated or partially decomposed); (3) F is counted as an anionic charge pool comparable to cationic charge, which is a crude treatment of fluoride-mediated all-silica syntheses; (4) anions other than F and OH (e.g., sulfate, chloride) are not in the ledger; (5) doubly charged cations are weighted by 2, ignoring possible partial ion exchange; (6) the 0.001 constant makes the ratio undefined-but-bounded for gels with no charge carriers at all (pure oxide-water systems).",
+        "cited_evidence_keys": [],
+        "evidence_ids": [],
+        "expected_effect": "As osda_charge_share_of_extraframework_charge increases from ~0 to ~1: near 0, products shift toward all-silica/fluoride-mediated dense high-silica phases (MFI, MTW, FER) or 'Failed' amorphous batches; in the intermediate-to-high regime, OSDA-templated open frameworks dominate (CHA, *BEA, AEI, MWW, UTL, ISV/BEC, LEV); returning toward 0 from the high side (i.e., a genuine inorganic-dominated share near 1 for low-silica gels) favors alkali-templated FAU/LTA/GIS-type products and alkali-stabilized AlPO/mineral-analogue frameworks (AFI, AEL, AEN). The non-monotone, regime-dependent response is exactly what a single-threshold tree split on the share can capture piecewise.",
+        "falsification": "If OSDA-templated frameworks (CHA, *BEA, AEI, UTL) are obtained with the same frequency at very low organic charge share (e.g., < 0.2) as at high share, or if FAU/LTA frequently appear at high organic charge share with negligible inorganic cation charge, the charge-delegation hypothesis is contradicted. Likewise, if products are already perfectly separated by the two previously appended descriptors plus D0 columns (i.e., the new share adds no split gain on held-out papers), the descriptor is redundant and should be discarded.",
+        "formula": "(sda1 * maximum(osda_charge, 0)) / (sda1 * maximum(osda_charge, 0) + Li + Na + K + Rb + Cs + 2*(Mg + Ca + Sr + Ba) + F + 0.001)",
+        "hypothesis": "The fraction of the total available extra-framework positive charge (OSDA formal charge plus inorganic cation charge, with fluoride counted as the charge-neutralizing anion pool in non-alkaline media) that is supplied by the OSDA determines which charge-balancing regime the crystallizing framework adopts: OSDA-dominated gels crystallize OSDA-templated open frameworks, inorganic-dominated gels crystallize alkali-templated low-silica frameworks or dense phases, and near-zero-share gels either form all-silica/fluoride phases or fail.",
+        "knowledge_source": "prior_knowledge",
+        "mechanism": "Framework formation requires every framework negative charge (from AlO4- or, in aluminophosphates, from the Al/P framework charge distribution) to be balanced by an extra-framework cation or by occluded fluoride/HF2-. The OSDA cation acts as a structure-directing agent only when it is the dominant charge carrier in the gel, because then it is co-crystallized inside the pores and imposes its size and shape on the framework. When inorganic cations dominate the charge ledger, they preferentially balance framework charge themselves, the OSDA becomes a spectator pore-filler or stays in solution, and the product is governed by alkali/alkaline-earth templating (FAU, LTA, GIS-type, dense sodalite/cancrinite) or by alkaline-earth-stabilized AlPO frameworks. When no cationic species is present at meaningful levels (all-silica fluoride media), near-neutral F- mediated syntheses give dense high-silica phases (MFI, MTW, FER) or amorphous 'Failed' products. Because the descriptor is a normalized charge share computed only from gel composition and the OSDA molecule, it is comparable across papers with very different absolute batch sizes and OSDA loadings.",
+        "name": "osda_charge_share_of_extraframework_charge",
+        "novelty": "new_combination",
+        "target_frameworks": [
+          "CHA",
+          "*BEA",
+          "AEI",
+          "MWW",
+          "UTL",
+          "ISV",
+          "BEC",
+          "LEV",
+          "MFI",
+          "MTW",
+          "FER",
+          "FAU",
+          "LTA",
+          "AFI",
+          "AEL",
+          "AEN",
+          "Failed"
+        ],
+        "uses_kg_inputs": []
+      },
+      "evidence": {
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "items": [],
+        "linking": null,
+        "tokens": 0
+      },
+      "plan": {
+        "factor": "organic charge balance: the formal charge delivered by OSDA1 per chargeable framework T-atom, relative to the inorganic cation and hydroxide/fluoride charge already present in the gel",
+        "queries": [],
+        "why": "The two descriptors already appended cover the mineralizer load per T-atom and the inorganic cation charge per chargeable T-atom, but the model still cannot see the organic side of the charge ledger. Framework frameworks formed around OSDAs (CHA, *BEA, AEI, MWW, UTL, ISV/BEC, LEV) need their framework negative charge balanced by quaternary OSDA cations, whereas all-silica fluoride syntheses and inorganically templated gels (FAU, LTA, AFI, AEL) do not. A tree ensemble cannot combine osda_charge, sda1, Al, P, and the cation columns in one split, so the ratio 'how much of the required charge balancing is delegated to the OSDA versus left to inorganic cations or fluoride' is invisible to D0. This ratio separates OSDA-templated open frameworks (moderate organic charge per chargeable T, small inorganic share), all-silica or fluoride-rich products (near-zero organic charge share), and low-silica alkali phases (organic charge swamped by inorganic charge), which is exactly the axis the existing two descriptors leave uncovered. It also generalizes across publications because it is a composition-normalized ratio, not a paper-specific recipe detail."
+      },
+      "propose_prompt_sha256": "764cc609eae7af36ee1478d3c40faf734e656bd9f5d700f7b3ad433c54f9857c",
+      "round": 3,
+      "status": "appended"
+    }
+  ],
+  "split": "dev"
+}
