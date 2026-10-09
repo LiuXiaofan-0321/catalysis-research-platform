@@ -602,6 +602,50 @@ def cmd_summarize(args):
 AUDIT_SYSTEM = 'You judge retrieval quality for zeolite synthesis research. Return one JSON object only.'
 
 
+class RetrievalAuditFormatError(ValueError):
+    def __init__(self, attempts):
+        super().__init__('Retrieval judgement remained invalid after one format repair')
+        self.attempts = attempts
+
+
+def judge_retrieval_item(client, *, model, query, text):
+    """Keep malformed replies and allow one format-only repair, without choosing a label."""
+    from catalysis_research.llm.glm import GlmMalformedJson, GlmOutputTruncated
+    prompt = (f'Query: {query}\n\nRetrieved item:\n{text}\n\nIs this item relevant evidence for '
+              'the query about zeolite synthesis (it states facts that bear on the query)? '
+              'Return {"relevant": true or false}.')
+    attempts = []
+    for number in range(2):
+        record = {'kind': 'judge' if number == 0 else 'format_repair'}
+        user = prompt if number == 0 else prompt + (
+            '\n\nYour previous response was not one valid JSON object with a boolean relevant field. '
+            'Return exactly one JSON object, without additional objects or prose. Keep the same judgement task.')
+        try:
+            response = client.chat_json(model=model, system=AUDIT_SYSTEM, max_tokens=2048,
+                                        thinking='enabled', reasoning_effort='low', user=user)
+        except (GlmMalformedJson, GlmOutputTruncated) as exc:
+            record.update(error=type(exc).__name__, raw=exc.raw, usage=exc.usage)
+            attempts.append(record)
+            continue
+        record.update(response_id=response.raw.get('id'), usage=response.usage,
+                      raw_structured=response.structured)
+        relevant = response.structured.get('relevant')
+        if not isinstance(relevant, bool):
+            record['error'] = 'relevant must be a JSON boolean'
+            attempts.append(record)
+            continue
+        attempts.append(record)
+        return {'relevant': relevant, 'attempts': attempts}
+    raise RetrievalAuditFormatError(attempts)
+
+
+def save_audit_checkpoint(path, value):
+    path = Path(path)
+    temp = path.with_name(path.name + '.checkpoint-tmp')
+    save(temp, value)
+    temp.replace(path)
+
+
 def cmd_audit_retrieval(args):
     """D3: share of returned items a GLM judge rates relevant to the query (same queries for every source)."""
     import random
@@ -618,27 +662,60 @@ def cmd_audit_retrieval(args):
         queries = sorted(set(queries))
         random.Random(0).shuffle(queries)
         queries = queries[:args.max_queries]
-    providers = evidence_providers(args.modes, split, cfg, run=run, rag_index=args.rag_index,
+    identity = {'config_sha256': sha(p / 'config.json'), 'data_manifest_sha256': sha(p / 'data-manifest.json'),
+                'retrieval_config_sha256': sha(p / 'retrieval-config.json'), 'modes': list(args.modes)}
+    output = Path(args.output)
+    if output.exists():
+        out = read(output)
+        if out.get('run_identity') != identity or out.get('queries') != queries:
+            raise SystemExit('retrieval audit checkpoint has different inputs or queries; refusing to mix judgements')
+        if any(m.get('pending_error') for m in out['modes'].values()):
+            raise SystemExit('audit item already exhausted its single format repair; inspect the saved pending_error')
+    else:
+        out = {'schema': 'zeosyn_retrieval_audit.v2', 'queries': queries, 'run_identity': identity, 'modes': {}}
+    remaining = [m for m in args.modes if not out['modes'].get(m, {}).get('complete')]
+    if not remaining:
+        print('retrieval audit already complete; keeping existing judgements', flush=True)
+        return
+    providers = evidence_providers(remaining, split, cfg, run=run, rag_index=args.rag_index,
                                    snapshot=args.snapshot, overlay=args.overlay)
     client = GlmClient(timeout_seconds=600)
-    out = {'queries': queries, 'modes': {}}
     for mode in args.modes:
-        judged, empty = [], 0
+        if mode not in remaining:
+            continue
+        state = out['modes'].setdefault(mode, {'items': 0, 'relevant_rate': None, 'target': 0.70,
+                                              'passed': False, 'empty_queries': 0, 'judgements': [],
+                                              'completed_queries': [], 'complete': False})
+        judged = state['judgements']
+        known = {(j['query'], j['key']) for j in judged}
         for q in queries:
+            if q in state['completed_queries']:
+                continue
             evd = providers[mode]([q])
-            empty += not evd['items']
             for it in evd['items']:
+                if (q, it['key']) in known:
+                    continue
                 text = evd['context'].split(f'[{it["id"]}] ', 1)[-1].split('\n[')[0][:1500]
-                r = client.chat_json(model=cfg['model'], system=AUDIT_SYSTEM, max_tokens=2048, thinking='enabled', reasoning_effort='low',
-                                     user=f'Query: {q}\n\nRetrieved item:\n{text}\n\nIs this item relevant evidence for '
-                                          'the query about zeolite synthesis (it states facts that bear on the query)? '
-                                          'Return {"relevant": true or false}.')
-                judged.append({'query': q, 'key': it['key'], 'relevant': bool(r.structured.get('relevant'))})
-        rate = sum(j['relevant'] for j in judged) / max(1, len(judged))
-        out['modes'][mode] = {'items': len(judged), 'relevant_rate': rate, 'target': 0.70, 'passed': rate >= 0.70,
-                              'empty_queries': empty, 'judgements': judged}
-        print(mode, json.dumps({k: v for k, v in out['modes'][mode].items() if k != 'judgements'}), flush=True)
-    save(Path(args.output), out)
+                try:
+                    result = judge_retrieval_item(client, model=cfg['model'], query=q, text=text)
+                except RetrievalAuditFormatError as exc:
+                    state['pending_error'] = {'query': q, 'key': it['key'], 'attempts': exc.attempts}
+                    save_audit_checkpoint(output, out)
+                    raise
+                judged.append({'query': q, 'key': it['key'], **result})
+                known.add((q, it['key']))
+                state.update(items=len(judged), relevant_rate=sum(j['relevant'] for j in judged) / len(judged))
+                state['passed'] = state['relevant_rate'] >= state['target']
+                save_audit_checkpoint(output, out)
+            state['empty_queries'] += not evd['items']
+            state['completed_queries'].append(q)
+            save_audit_checkpoint(output, out)
+            print(f'audit {mode}: {len(state["completed_queries"])}/{len(queries)} queries, '
+                  f'{len(judged)} judgements saved', flush=True)
+        state.update(complete=True, relevant_rate=sum(j['relevant'] for j in judged) / max(1, len(judged)))
+        state['passed'] = state['relevant_rate'] >= state['target']
+        save_audit_checkpoint(output, out)
+        print(mode, json.dumps({k: state[k] for k in ('items', 'relevant_rate', 'passed', 'empty_queries', 'complete')}), flush=True)
 
 
 def cmd_direct_answer_audit(args):

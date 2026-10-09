@@ -333,6 +333,90 @@ def test_paired_strata_and_decision_rule():
 
 # ---------------------------------------------------------------- protocol
 
+
+class AuditClient(FakeClient):
+    def chat_json(self, **kw):
+        if isinstance(self.replies[0], Exception):
+            self.prompts.append(kw['user'])
+            raise self.replies.pop(0)
+        return super().chat_json(**kw)
+
+
+def test_retrieval_audit_repairs_once_and_keeps_malformed_response():
+    import run_zeosyn_v2 as r
+    from catalysis_research.llm.glm import GlmMalformedJson
+    raw = {'choices': [{'message': {'content': '{"relevant": false} {}'}}], 'usage': {'completion_tokens': 9}}
+    client = AuditClient([GlmMalformedJson(raw, 'extra data'), {'relevant': False}])
+    result = r.judge_retrieval_item(client, model='fake', query='q', text='fact')
+    assert result['relevant'] is False and len(client.prompts) == 2
+    assert result['attempts'][0]['raw'] == raw
+    assert result['attempts'][1]['kind'] == 'format_repair'
+
+
+def test_retrieval_audit_rejects_string_booleans_and_bounds_repair():
+    import run_zeosyn_v2 as r
+    client = AuditClient([{'relevant': 'false'}, {'relevant': 0}, {'relevant': True}])
+    with pytest.raises(r.RetrievalAuditFormatError) as caught:
+        r.judge_retrieval_item(client, model='fake', query='q', text='fact')
+    assert len(client.prompts) == 2
+    assert len(caught.value.attempts) == 2
+    assert caught.value.attempts[0]['raw_structured'] == {'relevant': 'false'}
+
+
+def _audit_setup(tmp_path, monkeypatch, replies):
+    import run_zeosyn_v2 as r
+    from types import SimpleNamespace
+    from catalysis_research.llm import glm
+    prepared = tmp_path / 'prepared'
+    prepared.mkdir()
+    for name in ('config', 'data-manifest', 'retrieval-config'):
+        r.save(prepared / (name + '.json'), v2.load_config(CONFIG) if name == 'config' else {})
+    r.save(tmp_path / 'queries.json', {'queries': ['q', 'empty']})
+    monkeypatch.setattr(r, 'load_split', lambda run: {})
+    def evidence(queries):
+        return {'items': [] if queries == ['empty'] else [{'id': 1, 'key': 'a'}, {'id': 2, 'key': 'b'}],
+                'context': '[1] first\n[2] second'}
+    monkeypatch.setattr(r, 'evidence_providers', lambda *a, **kw: {'kg': evidence})
+    client = AuditClient(replies)
+    monkeypatch.setattr(glm, 'GlmClient', lambda **kw: client)
+    args = SimpleNamespace(run_dir=str(tmp_path), queries=str(tmp_path / 'queries.json'),
+                           output=str(tmp_path / 'audit.json'), modes=['kg'], max_queries=30,
+                           rag_index=None, snapshot=None, overlay=None)
+    return r, args, client
+
+
+def test_retrieval_audit_checkpoints_and_resumes_without_rejudging(tmp_path, monkeypatch):
+    from catalysis_research.llm.glm import GlmError
+    r, args, client = _audit_setup(tmp_path, monkeypatch,
+                                   [{'relevant': True}, GlmError('network interrupted')])
+    with pytest.raises(GlmError, match='network interrupted'):
+        r.cmd_audit_retrieval(args)
+    checkpoint = r.read(args.output)['modes']['kg']
+    assert checkpoint['items'] == 1 and checkpoint['completed_queries'] == []
+    client.replies = [{'relevant': False}]
+    r.cmd_audit_retrieval(args)
+    state = r.read(args.output)['modes']['kg']
+    assert [j['key'] for j in state['judgements']] == ['a', 'b']
+    assert state['complete'] and state['empty_queries'] == 1
+    assert state['relevant_rate'] == 0.5 and not state['passed']
+    assert len(client.prompts) == 3
+    r.cmd_audit_retrieval(args)
+    assert len(client.prompts) == 3
+    r.save(tmp_path / 'prepared' / 'retrieval-config.json', {'changed': True})
+    with pytest.raises(SystemExit, match='different inputs'):
+        r.cmd_audit_retrieval(args)
+
+
+def test_retrieval_audit_preserves_exhausted_failure_and_refuses_more_retries(tmp_path, monkeypatch):
+    r, args, client = _audit_setup(tmp_path, monkeypatch, [{'relevant': 'yes'}, {}])
+    with pytest.raises(r.RetrievalAuditFormatError):
+        r.cmd_audit_retrieval(args)
+    pending = r.read(args.output)['modes']['kg']['pending_error']
+    assert pending['query'] == 'q' and pending['key'] == 'a' and len(pending['attempts']) == 2
+    with pytest.raises(SystemExit, match='exhausted'):
+        r.cmd_audit_retrieval(args)
+    assert len(client.prompts) == 2
+
 def test_test_split_needs_a_frozen_matching_preregistration(tmp_path, monkeypatch):
     import run_zeosyn_v2 as r
     doc = tmp_path / 'prereg.md'
