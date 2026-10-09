@@ -428,7 +428,9 @@ def candidate_names(names):
                 out.append(exp)
     out = list(dict.fromkeys(out))
     norms = {c: normalize_name(c) for c in out}
-    return [c for c in out if len(norms[c]) < 4 or not any(norms[c] != o and norms[c] in o for o in norms.values())]
+    # "X (alias)" strings contain X by construction, so they never count as a more specific name.
+    containers = [norms[c] for c in out if not re.search(r'\s\([^()]+\)\s*$', c)]
+    return [c for c in out if len(norms[c]) < 4 or not any(norms[c] != o and norms[c] in o for o in containers)]
 
 
 def _long_form(name):

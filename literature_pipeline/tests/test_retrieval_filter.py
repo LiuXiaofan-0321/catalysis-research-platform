@@ -222,3 +222,26 @@ class RetrievalFilterTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RetrievalAllowlistTests(unittest.TestCase):
+    def test_allowlist_restricts_records_after_exclusion_counts(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            index = _prepare_index(Path(temporary))
+            retriever = PortableRetriever(
+                index,
+                expected_retained_chunks=2,
+                allowed_record_ids=["chunk:allowed"],
+            )
+            rows = retriever.retrieve_candidates(query="exclusive-search-marker", limit=5)
+        self.assertEqual({row["record_id"] for row in rows}, {"chunk:allowed"})
+        self.assertEqual(retriever.filter_summary["retained_chunks"], 2)
+        self.assertEqual(retriever.filter_summary["retained_after_allowlist"], 1)
+        self.assertEqual(len(retriever.vectors), 1)
+
+    def test_without_allowlist_behaviour_is_unchanged(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            index = _prepare_index(Path(temporary))
+            retriever = PortableRetriever(index)
+        self.assertIsNone(retriever.filter_summary["allowlist_records"])
+        self.assertEqual(len(retriever.rows), 2)

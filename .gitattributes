@@ -3,3 +3,6 @@
 *.yml text eol=lf
 *.yaml text eol=lf
 data/zeosyn/* binary
+data/kg_zeolite_v1/* binary
+configs/** text eol=lf
+docs/experiments/*.md text eol=lf

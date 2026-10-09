@@ -60,6 +60,7 @@ class KnowledgeModeRetriever:
         config = json.loads(config_path.read_text(encoding="utf-8"))
         rag_config = config["rag"]
         excluded_paper_ids = frozenset(rag_config["excluded_paper_ids"])
+        allowed = cls._allowlist(config_path, rag_config)
         rag = PortableRetriever(
             rag_index_directory,
             excluded_paper_ids=excluded_paper_ids,
@@ -72,6 +73,7 @@ class KnowledgeModeRetriever:
                 rag_config["expected_retained_documents"]
             ),
             expected_retained_chunks=int(rag_config["expected_retained_chunks"]),
+            allowed_record_ids=allowed,
         )
         if rag.manifest["index_id"] != rag_config["base_index_id"]:
             raise EvidenceContractError("Unexpected base RAG index ID")
@@ -116,6 +118,55 @@ class KnowledgeModeRetriever:
             },
             excluded_paper_ids=excluded_paper_ids,
         )
+
+    @classmethod
+    def rag_only_from_directories(cls, *, config_path, rag_index_directory, normalization_overlay_directory):
+        """Same RAG and overlay checks as from_directories, without loading the KG snapshot (rag_agent only)."""
+        try:
+            from catalysis_literature.retrieval import PortableRetriever
+        except ImportError as error:
+            raise EvidenceContractError("catalysis-literature-pipeline must be installed for RAG retrieval") from error
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+        rag_config = config["rag"]
+        excluded_paper_ids = frozenset(rag_config["excluded_paper_ids"])
+        allowed = cls._allowlist(config_path, rag_config)
+        rag = PortableRetriever(
+            rag_index_directory, excluded_paper_ids=excluded_paper_ids,
+            expected_excluded_documents=int(rag_config["expected_excluded_documents"]),
+            expected_excluded_records=int(rag_config["expected_excluded_records"]),
+            expected_retained_papers=int(rag_config["expected_retained_papers"]),
+            expected_retained_documents=int(rag_config["expected_retained_documents"]),
+            expected_retained_chunks=int(rag_config["expected_retained_chunks"]),
+            allowed_record_ids=allowed)
+        if rag.manifest["index_id"] != rag_config["base_index_id"] or \
+                rag.manifest["logical_content_hash"] != rag_config["base_index_hash"]:
+            raise EvidenceContractError("Unexpected base RAG index")
+        overlay = ScientificNormalizationOverlay(
+            normalization_overlay_directory, minimum_confidence=float(config["normalization"]["minimum_confidence"]))
+        oc = config["normalization"]
+        if overlay.manifest["overlay_id"] != oc["overlay_id"] or overlay.manifest["overlay_content_hash"] != oc["overlay_content_hash"]:
+            raise EvidenceContractError("Unexpected normalization overlay")
+        return cls(rag_retriever=rag, kg_retriever=None, normalization_overlay=overlay,
+                   source_identities={"rag": {"index_id": rag.manifest["index_id"],
+                                              "index_hash": rag.manifest["logical_content_hash"],
+                                              "corpus_filter": rag.filter_summary},
+                                      "normalization": overlay.identity,
+                                      "benchmark_exclusion": config.get("benchmark_exclusion")},
+                   excluded_paper_ids=excluded_paper_ids)
+
+    @staticmethod
+    def _allowlist(config_path, rag_config):
+        if not rag_config.get("allowlist"):
+            return None
+        import gzip
+        import hashlib
+        path = Path(rag_config["allowlist"])
+        if not path.is_absolute():
+            path = config_path.resolve().parents[0] / path
+        raw = path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != rag_config["allowlist_sha256"]:
+            raise EvidenceContractError("RAG allowlist hash mismatch")
+        return [line for line in gzip.decompress(raw).decode("utf-8").split("\n") if line]
 
     def retrieve(
         self,

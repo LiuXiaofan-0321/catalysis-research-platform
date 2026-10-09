@@ -76,7 +76,10 @@ class PortableRetriever:
         expected_retained_papers: int | None = None,
         expected_retained_documents: int | None = None,
         expected_retained_chunks: int | None = None,
+        allowed_record_ids: Iterable[str] | None = None,
     ):
+        """``allowed_record_ids`` (optional) restricts retrieval to a frozen subset of records. It is
+        applied after the exclusion counts are verified, so those expectations keep their meaning."""
         self.index_directory = index_directory.resolve()
         report = verify_index(self.index_directory)
         if not report["valid"]:
@@ -149,6 +152,13 @@ class PortableRetriever:
             for row in all_evidence_rows
             if str(row["paper_id"]) not in excluded
         ]
+        retained_chunk_count = len(self.chunk_rows)
+        retained_evidence_count = len(self.evidence_rows)
+        allowed = None if allowed_record_ids is None else frozenset(str(v) for v in allowed_record_ids)
+        if allowed is not None:
+            retained_indexes = [index for index in retained_indexes if str(all_rows[index]["record_id"]) in allowed]
+            self.chunk_rows = [row for row in self.chunk_rows if str(row["record_id"]) in allowed]
+            self.evidence_rows = [row for row in self.evidence_rows if str(row["record_id"]) in allowed]
         self.rows = self.chunk_rows + self.evidence_rows
         self.vectors = all_vectors[retained_indexes]
         self.row_index_by_id = {
@@ -163,8 +173,10 @@ class PortableRetriever:
             "excluded_records": excluded_record_count,
             "retained_papers": len(indexed_paper_ids - excluded),
             "retained_documents": len(document_rows) - len(excluded_documents),
-            "retained_chunks": len(self.chunk_rows),
-            "retained_evidence_records": len(self.evidence_rows),
+            "retained_chunks": retained_chunk_count,
+            "retained_evidence_records": retained_evidence_count,
+            "allowlist_records": None if allowed is None else len(allowed),
+            "retained_after_allowlist": None if allowed is None else len(self.rows),
             "retained_records": len(self.rows),
             "base_index_id": self.manifest["index_id"],
             "base_index_hash": self.manifest["logical_content_hash"],

@@ -32,6 +32,15 @@ _HETERO_FOR_CONDITION = {'germanium in the gel': 'Ge', 'boron in the gel': 'B', 
 assert set(_HETERO_FOR_CONDITION.values()) <= set(HETEROATOMS)
 
 
+MINERAL_NAMES = {
+    'beta': '*BEA', 'zeolite beta': '*BEA', 'mordenite': 'MOR', 'chabazite': 'CHA', 'faujasite': 'FAU',
+    'zeolite Y': 'FAU', 'zeolite X': 'FAU', 'zeolite A': 'LTA', 'ferrierite': 'FER', 'sodalite': 'SOD',
+    'analcime': 'ANA', 'erionite': 'ERI', 'offretite': 'OFF', 'mazzite': 'MAZ', 'gismondine': 'GIS',
+    'levyne': 'LEV', 'gmelinite': 'GME', 'merlinoite': 'MER', 'phillipsite': 'PHI', 'natrolite': 'NAT',
+    'heulandite': 'HEU', 'clinoptilolite': 'HEU', 'stilbite': 'STI', 'laumontite': 'LAU', 'edingtonite': 'EDI',
+}
+
+
 def _pct(c, total):
     return f'{100 * c / total:.0f}%'
 
@@ -73,17 +82,24 @@ class KgFactEngine:
         for k, name in osda_display.items():
             for term in _query_terms(name):
                 self.osda_terms[k].add(term)
-        self.framework_names = {normalize_name(n): c for n, c in (framework_names or {}).items() if len(normalize_name(n)) >= 4}
         self.codes = set(self.by_framework)
+        # Material names that may identify a framework in a query: KG names containing a digit (SSZ-39, ZSM-5,
+        # SAPO-34) and common mineral names. Generic words ("zeolite") never link.
+        names = {n: c for n, c in (framework_names or {}).items() if re.search(r'\d', n) and 3 <= len(n) <= 20}
+        names.update(MINERAL_NAMES)
+        self.framework_patterns = [(re.compile(r'(?<![A-Za-z0-9])' + re.escape(n) + r'(?![A-Za-z0-9])', re.I), c)
+                                   for n, c in sorted(names.items()) if c in self.codes]
 
     # ------------------------------------------------------------ query linking
     def link_query(self, query):
         norm = normalize_name(query)
-        tokens = set(re.findall(r'[\w*+-]+', query))
+        raw = re.findall(r'[\w*+⁺-]+', query)
+        tokens = set(raw) | {re.sub(r'(OH)?[+⁺]*$', '', t) for t in raw}
+        # long names match inside the normalized query; abbreviations (>= 2 capitals) must be whole tokens
         osdas = {k for k, terms in self.osda_terms.items()
-                 if any((len(t) >= 6 and t in norm) or (t.isupper() and t in tokens) for t in terms)}
+                 if any((len(t) >= 6 and t.islower() and t in norm) or (not t.islower() and t in tokens) for t in terms)}
         frameworks = {c for c in self.codes if c in tokens or c.lstrip('*-') in tokens}
-        frameworks |= {c for n, c in self.framework_names.items() if n in norm and c in self.codes}
+        frameworks |= {c for rx, c in self.framework_patterns if rx.search(query)}
         conditions = {c for c, rx in CONDITION_PATTERNS.items() if rx.search(query) and c in self.by_condition}
         if 'high temperature (>=170 C)' in conditions and not re.search(r'high|elevated', query, re.I):
             conditions.discard('high temperature (>=170 C)')

@@ -1,27 +1,27 @@
 {
-  "coverage_among_training_rows_with_osda": 0.5762936753648827,
+  "coverage_among_training_rows_with_osda": 0.5977759524862577,
   "distinct_training_osdas": 643,
-  "distinct_training_osdas_with_kg_evidence": 105,
+  "distinct_training_osdas_with_kg_evidence": 122,
   "gate": {
     "passed": true,
     "rule": "share of TRAINING recipes whose OSDA1 has KG synthesis evidence from another paper (test papers removed from the KG) >= 0.40",
     "threshold": 0.4,
-    "training_coverage": 0.5192121591620652
+    "training_coverage": 0.5385666306142198
   },
   "kg_manifest_counts": {
-    "distinct_linked_osdas": 141,
+    "distinct_linked_osdas": 161,
     "link_methods": {
-      "alias": 56,
-      "opsin": 211
+      "alias": 70,
+      "opsin": 317
     },
-    "linked_reagent_entities": 267,
+    "linked_reagent_entities": 387,
     "papers": 3074,
     "reagent_entities": 1727,
-    "records_with_linked_osda": 1014,
+    "records_with_linked_osda": 1234,
     "synthesis_records": 4656
   },
   "note": "Uses no labels. Test-row coverage is not reported before the protocol is frozen.",
   "training_rows": 17567,
-  "training_rows_whose_osda_is_linked_at_all": 0.5506916377298343,
+  "training_rows_whose_osda_is_linked_at_all": 0.5694768600216314,
   "training_rows_with_osda": 15827
 }

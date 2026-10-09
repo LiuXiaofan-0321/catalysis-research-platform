@@ -1,25 +1,26 @@
 {
   "counts": {
-    "distinct_linked_osdas": 141,
+    "distinct_linked_osdas": 161,
     "link_methods": {
-      "alias": 56,
-      "opsin": 211
+      "alias": 70,
+      "opsin": 317
     },
-    "linked_reagent_entities": 267,
+    "linked_reagent_entities": 387,
     "papers": 3074,
     "reagent_entities": 1727,
-    "records_with_linked_osda": 1014,
+    "records_with_linked_osda": 1234,
     "synthesis_records": 4656
   },
   "files": {
     "framework_names.json": "d36093c572c7127d4782e21de79b73e412baec6930037b6a243cbba6402eb028",
     "framework_vocabulary.json": "b6dd47e5f8bed5337b183acfc40aa86f14dbb3cf99b4e903db9fe63e23d30cbd",
-    "opsin_name_cache.json": "f5243f323013c0ee85e43eaa241704b0f20e7d9fa2c3755c138130fb063fdae5",
-    "osda_display.json": "1a1c8d79a946fc2324387eb9a124993a782d0290d132bebe4d74cf4ac1a7d720",
-    "osda_links.json": "167faf636e61c2c2660a5f9bfca6cb2790d07c8c776ebb83b3b63043d2ea6aaf",
+    "opsin_name_cache.json": "b463d5080d19c31633bc7a2a6394abfd6fcc153e4c22f17dcf34a800f2bd9eb6",
+    "osda_display.json": "f8207db1fa9ad4577fb6d9c55b283b9daf86edf81f2c9d37d31e95af375fe86a",
+    "osda_links.json": "05a999756d775666b6bfe6e834250d9608f0f8fdec411d83381d68c9fc3c6183",
     "pubchem_name_cache.json": "cbbe7747c66777f9fb2d70e7478dcc53d71474d0b6d3cae0ea856e53bf575574",
     "reagent_names.json": "c616cbcf6155bdc3cff084a68e1d3f94ebe60dea52fbf29993f842161332a5ae",
-    "synthesis_records.jsonl.gz": "e3de4a77222cf7c3fafceccecbc614888427fd7f8b2887d6facdb78f243d758e"
+    "synthesis_records.jsonl.gz": "e3de4a77222cf7c3fafceccecbc614888427fd7f8b2887d6facdb78f243d758e",
+    "zeosyn_osda_keys.json": "5311365df3bbb1b0780bb42f166f03f9da95a8621d1cfa9319aeee8a6b796ea8"
   },
   "rules": {
     "osda_link": "alias (ZeoSyn names, IUPAC, synonyms; curated abbreviations) or identical structure (largest organic fragment, uncharged, stereo removed) via OPSIN or cached PubChem",

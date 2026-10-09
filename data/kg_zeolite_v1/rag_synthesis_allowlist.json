@@ -1,0 +1,33 @@
+{
+  "chunks": 365662,
+  "index_hash": "7da20ce475e04c185fdc27e271d417883c81525ca3cd527b67b7477670bbcf16",
+  "index_id": "full-rag-v1-index",
+  "kept": 47440,
+  "kept_fraction": 0.12973729837937767,
+  "rule": "keep a chunk with >= 2 distinct synthesis terms; a synthesis/experimental section counts as one; acknowledgement/reference/author/coordinate sections and chunks with < 200 letters outside markup are never kept",
+  "sha256": "a947226b467bc1d23b6f37fa8225245335a04a9b24b57a610c6a0670543c563f",
+  "terms": [
+    "synthes",
+    "hydrothermal",
+    "crystalliz",
+    "crystallis",
+    "autoclave",
+    " gel",
+    "molar composition",
+    "structure-directing",
+    "structure directing",
+    "osda",
+    " sda",
+    "template",
+    "teflon",
+    "calcin",
+    " aging",
+    " aged",
+    "seed",
+    "mineraliz",
+    "fluoride",
+    "phase selectiv",
+    "competing phase",
+    "interzeolite"
+  ]
+}

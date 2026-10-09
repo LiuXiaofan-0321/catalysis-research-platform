@@ -26,6 +26,15 @@ PROFILE = 'zeosyn-v2'
 MODES = ('agent', 'rag', 'kg', 'kg_shuffled')
 OPTIONAL_MODES = ('kg_flat',)
 KG_MODES = ('kg', 'kg_shuffled', 'kg_flat')
+# What each knowledge source can answer (tool documentation shown to the model; accurate, not prescriptive).
+SOURCE_SCOPE = {
+    'rag': 'It returns passages from zeolite papers that match your query text.',
+    'kg': ('It answers questions about named OSDAs, frameworks (IZA codes or material names such as SSZ-13, ZSM-5) '
+           'and gel conditions (fluoride medium; Ge, B, Ti, Sn, Ga, Zn or P in the gel): which frameworks were '
+           'obtained, with which OSDAs, how often and in how many papers. It does not contain gel ratios such as '
+           'OH/Si or H2O/Si.'),
+}
+SOURCE_SCOPE['kg_shuffled'] = SOURCE_SCOPE['kg_flat'] = SOURCE_SCOPE['kg']
 SOURCE_NAME = {'rag': 'a full-text retrieval index of 6,691 zeolite papers',
                'kg': 'a knowledge graph of zeolite synthesis experiments from 6,691 papers',
                'kg_shuffled': 'a knowledge graph of zeolite synthesis experiments from 6,691 papers',
@@ -81,9 +90,11 @@ def _common_header(*, config, mode, round_no, history, frequent_labels):
         v1.input_catalog(),
     ]
     if mode in KG_MODES:
-        parts.append('Literature-prior inputs from the knowledge graph, computed for each recipe from OTHER '
-                     'publications about the same OSDA1 (0, -1 or NaN when the OSDA is absent from the graph). '
-                     'They are allowed inputs too:\n' + kg_catalog())
+        parts.append('Literature-prior inputs from the knowledge graph. For each recipe they summarise the synthesis '
+                     'experiments that OTHER publications report with the same OSDA1 (aggregated from thousands of '
+                     'experiments), so they carry information that D0 does not contain, such as which frameworks this '
+                     'OSDA has produced elsewhere. Values are 0 or -1 when the OSDA is absent from the graph. They are '
+                     'allowed inputs too:\n' + kg_catalog())
     parts.append('Formula rules: one Python-style arithmetic expression over the allowed inputs and numeric '
                  'constants. Operators + - * / ** and functions log, log10, log2, exp, sqrt, abs, floor, ceil, '
                  'minimum(a,b), maximum(a,b). Add a small constant where a denominator can be zero. Do not reproduce '
@@ -109,7 +120,7 @@ def plan_prompt(*, config, mode, round_no, history, frequent_labels):
     if mode == 'agent':
         parts.append('No external knowledge source is available in this condition; set "queries" to [].')
     else:
-        parts.append(f'Before proposing the descriptor you may consult {SOURCE_NAME[mode]}. Write up to '
+        parts.append(f'Before proposing the descriptor you may consult {SOURCE_NAME[mode]}. {SOURCE_SCOPE[mode]} Write up to '
                      f'{config["max_queries"]} short, specific search queries about what you want to check '
                      '(for example an OSDA, a framework, or a gel condition). Write [] if you do not need it.')
     template = json.loads(json.dumps(PLAN_TEMPLATE).replace('up to N', f'up to {config["max_queries"]}'))
