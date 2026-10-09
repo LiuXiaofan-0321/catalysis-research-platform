@@ -692,7 +692,7 @@ def cmd_collect(args):
                 shutil.rmtree(dest)
                 raise SystemExit(f'credential-like text in {f.name}; nothing collected')
     (dest / '.gitattributes').write_text('* binary\n', encoding='utf-8')  # keep exact bytes so hashes survive cloning
-    save(dest / 'ARTIFACTS.json', {str(f.relative_to(dest)): sha(f) for f in sorted(dest.rglob('*'))
+    save(dest / 'ARTIFACTS.json', {f.relative_to(dest).as_posix(): sha(f) for f in sorted(dest.rglob('*'))
                                    if f.is_file() and f.name != 'ARTIFACTS.json'})
     print(f'collected {dest}; commit it with git add results/{args.name}')
 
