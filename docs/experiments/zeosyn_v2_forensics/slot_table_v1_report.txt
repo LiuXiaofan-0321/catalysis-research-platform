@@ -1,0 +1,129 @@
+wrote 90 rows to slots_v1.csv; statuses Counter({'accepted': 87, 'repaired': 3})
+
+=== V1 SLOTS (group traj round | family | formula | cites | traj d-acc) ===
+agent              r1  R1 | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ga + 1e-6)                                     | cite=-            | +0.65
+agent              r1  R2 | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + Ga + 1e-6)                                    | cite=-            | +0.65
+agent              r1  R3 | OSDA_molecular_property_combo  | osda_charge / (osda_volume + 1e-6)                                          | cite=-            | +0.65
+agent              r10 R1 | ALKALINITY_OH_per_T            | (OH + F) / (Si + Al + Ge + 0.001)                                           | cite=-            | +1.06
+agent              r10 R2 | KINETIC_time_temp              | cryst_time * exp(-7500.0 / (cryst_temp + 273.15))                           | cite=-            | +1.06
+agent              r10 R3 | OSDA_molecular_property_combo  | abs(osda_charge) / (osda_volume + 1.0)                                      | cite=-            | +1.06
+agent              r2  R1 | ALKALINITY_OH_per_T            | OH / (H2O + 0.001)                                                          | cite=-            | +0.42
+agent              r2  R2 | SI_AL_P_composition            | Si / (Al + 0.001)                                                           | cite=-            | +0.42
+agent              r2  R3 | HETEROATOM_fraction            | Ge / (Si + Al + P + Ge + 0.001)                                             | cite=-            | +0.42
+agent              r3  R1 | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + 0.001)                                             | cite=-            | +0.44
+agent              r3  R2 | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + 0.001)                                            | cite=-            | +0.44
+agent              r3  R3 | OSDA_molecular_property_combo  | osda_charge / (osda_volume + 0.001)                                         | cite=-            | +0.44
+agent              r4  R1 | ALKALINITY_OH_per_T            | OH / (H2O + 0.005)                                                          | cite=-            | +0.87
+agent              r4  R2 | SI_AL_P_composition            | log10((Si + 0.001) / (Al + P + 0.001))                                      | cite=-            | +0.87
+agent              r4  R3 | OSDA_molecular_property_combo  | osda_charge / (osda_volume + 1.0)                                           | cite=-            | +0.87
+agent              r5  R1 | FLUORIDE_vs_OH                 | (F - OH) / (F + OH + Na + K + 1e-6)                                         | cite=-            | +0.20
+agent              r5  R2 | SI_AL_P_composition            | Si / (Si + Al + P + 1e-6)                                                   | cite=-            | +0.20
+agent              r5  R3 | HETEROATOM_fraction            | (Ge + Ti + B + Zn + Sn + Ga) / (Si + Al + P + Ge + Ti + B + Zn + Sn + Ga +  | cite=-            | +0.20
+agent              r6  R1 | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ga + 0.005)                                    | cite=-            | +0.15
+agent              r6  R2 | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + Ga + 0.005)                                   | cite=-            | +0.15
+agent              r6  R3 | FLUORIDE_per_T                 | F / (Si + Al + P + Ge + B + Ga + 0.005)                                     | cite=-            | +0.15
+agent              r7  R1 | OSDA_molecular_property_combo  | osda_charge / (osda_volume + 1.0)                                           | cite=-            | +0.62
+agent              r7  R2 | FLUORIDE_per_T                 | F / (H2O + F + 0.001)                                                       | cite=-            | +0.62
+agent              r7  R3 | ALKALINITY_OH_per_T            | OH / (Si + Al + P + 0.001)                                                  | cite=-            | +0.62
+agent              r8  R1 | ALKALINITY_OH_per_T            | OH / (Si + 1e-6)                                                            | cite=-            | +0.60
+agent              r8  R2 | OSDA_molecular_property_combo  | osda_charge / (osda_volume + 1e-6)                                          | cite=-            | +0.60
+agent              r8  R3 | DILUTION_H2O_per_T             | (Si + Al + P + Ge + Ga + B + 1e-6) / (H2O + 1e-6)                           | cite=-            | +0.60
+agent              r9  R1 | ALKALINITY_OH_per_T            | OH / (H2O + 0.001)                                                          | cite=-            | +0.39
+agent              r9  R2 | OSDA_molecular_property_combo  | (osda_charge + 0.0) / (osda_volume + 0.001)                                 | cite=-            | +0.39
+agent              r9  R3 | ALKALINITY_OH_per_T            | (OH + F) / (Si + Ge + 0.001)                                                | cite=-            | +0.39
+rag_agent          r1  R1 | SI_AL_P_composition            | log10(Si / (Al + 1e-6))                                                     | cite=1 2 3 4      | +0.16
+rag_agent          r1  R2 | FLUORIDE_per_OSDA              | log10((F + 1e-6) / (sda1 + 1e-6))                                           | cite=2 3          | +0.16
+rag_agent          r1  R3 | DILUTION_H2O_per_T             | log10((H2O + 1e-6) / (Si + Ge + Al + P + 1e-6))                             | cite=7 8 10       | +0.16
+rag_agent          r10 R1 | OSDA_charge_per_T              | (sda1 * (osda_charge + 0.0)) / (Al + 0.005)                                 | cite=1 3 4 6      | +0.04
+rag_agent          r10 R2 | FLUORIDE_per_OSDA              | (F + 0.0) / (sda1 + 0.001)                                                  | cite=2 3          | +0.04
+rag_agent          r10 R3 | DILUTION_H2O_per_T             | H2O / (Si + Ge + Al + P + 0.01)                                             | cite=2 6 10       | +0.04
+rag_agent          r2  R1 | OSDA_charge_per_T              | (osda_charge * sda1) / (Al + 0.001)                                         | cite=1 3 4 6      | +0.13
+rag_agent          r2  R2 | FLUORIDE_per_OSDA              | F / (sda1 + 0.001)                                                          | cite=2 3          | +0.13
+rag_agent          r2  R3 | KINETIC_time_temp              | cryst_time * exp(-9000.0 * (1.0/(cryst_temp + 273.15) - 1.0/423.15))        | cite=4 7 8 10     | +0.13
+rag_agent          r3  R1 | OSDA_charge_per_T              | (Na + K + Li + Rb + Cs + 2*Ca + 2*Sr + 2*Ba + sda1*maximum(osda_charge, 0)) | cite=1 3 4 5 6    | -0.40
+rag_agent          r3  R2 | FLUORIDE_per_OSDA              | F / (sda1 * maximum(osda_charge, 0) + 0.001)                                | cite=2 3          | -0.40
+rag_agent          r3  R3 | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + 0.001)                                            | cite=10           | -0.40
+rag_agent          r4  R1 | INORGANIC_cation_per_Al_or_T   | (Na + K + Li + Rb + Cs + 2*Ca + 2*Sr + 2*Ba) / (Al + 0.001)                 | cite=2 4 5 8      | +0.06
+rag_agent          r4  R2 | FLUORIDE_per_OSDA              | F / (sda1 + 0.001)                                                          | cite=2 3          | +0.06
+rag_agent          r4  R3 | KINETIC_time_temp              | log10(cryst_time + 0.1) - 4000 / (cryst_temp + 273.15)                      | cite=3 4 6 7 8 10 | +0.06
+rag_agent          r5  R1 | OSDA_charge_per_T              | (sda1 * osda_charge) / (Al + 0.0001)                                        | cite=1 3 4 6      | -0.07
+rag_agent          r5  R2 | FLUORIDE_per_OSDA              | (F + 0.0001) / (sda1 + 0.0001)                                              | cite=2 3 7        | -0.07
+rag_agent          r5  R3 | KINETIC_time_temp              | (H2O / (Si + 0.0001)) * (cryst_temp / 373.0) * log10(cryst_time + 1.0)      | cite=3 7 8 9 10   | -0.07
+rag_agent          r6  R1 | OSDA_molecular_property_combo  | osda_charge / (osda_volume + 1e-6)                                          | cite=1 3 6        | +0.66
+rag_agent          r6  R2 | FLUORIDE_per_OSDA              | F / (sda1 + 1e-6)                                                           | cite=2 3          | +0.66
+rag_agent          r6  R3 | KINETIC_time_temp              | cryst_time * exp(-8314.0 / (1.987 * (cryst_temp + 273.15)))                 | cite=3 6 7 8 9 10 | +0.66
+rag_agent          r7  R1 | CHARGE_organic_vs_inorganic    | (Na + K + Li + Rb + Cs) / (sda1 * abs(osda_charge) + 0.01)                  | cite=2 3 4 5 6    | +0.06
+rag_agent          r7  R2 | FLUORIDE_per_T                 | F / (Al + B + Ga + Zn + 0.01)                                               | cite=2 3 7        | +0.06
+rag_agent          r7  R3 | DILUTION_H2O_per_T             | H2O / (Si + Al + P + B + Ge + Ga + 0.01)                                    | cite=10           | +0.06
+rag_agent          r8  R1 | OSDA_charge_per_T              | (Na + K + Li + Rb + Cs + 2 * (Ca + Sr + Ba) + sda1 * abs(osda_charge) + 1e- | cite=1 2 3 4 5 6  | +0.11
+rag_agent          r8  R2 | FLUORIDE_per_OSDA              | (F + 1e-6) / (sda1 * abs(osda_charge) + Na + K + Li + Rb + Cs + 1e-6)       | cite=2 3 7        | +0.11
+rag_agent          r8  R3 | KINETIC_time_temp              | cryst_time * exp(-60000.0 / (8.314 * (cryst_temp + 273.15)))                | cite=3 7 8 10     | +0.11
+rag_agent          r9  R1 | INORGANIC_cation_per_Al_or_T   | (Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / (Al + 0.0001)                  | cite=2 3 4 5 6 8  | +0.28
+rag_agent          r9  R2 | FLUORIDE_per_OSDA              | F / (sda1 + 0.0001)                                                         | cite=2 3 7        | +0.28
+rag_agent          r9  R3 | KINETIC_time_temp              | cryst_time * exp(-9000.0 / (cryst_temp + 273.15) + 9000.0 / 423.15)         | cite=4 6 7 8 10   | +0.28
+small_kg_rag_agent r1  R1 | CHARGE_organic_vs_inorganic    | (Na + K + Li + Rb + Cs) / (sda1 + 0.001)                                    | cite=2 3 5 6 7    | +0.28
+small_kg_rag_agent r1  R2 | FLUORIDE_per_OSDA              | F / (sda1 + 0.001)                                                          | cite=3 5 7        | +0.28
+small_kg_rag_agent r1  R3 | KINETIC_time_temp              | cryst_time * exp(-80000/(8.314*(cryst_temp + 273.15)))                      | cite=1 5 7        | +0.28
+small_kg_rag_agent r10 R1 | CHARGE_organic_vs_inorganic    | (Na + K + Li + Rb + Cs + 2*Ca + 2*Sr + 2*Ba) / (abs(osda_charge) * sda1 + 0 | cite=1 2 3 5 6 7  | +0.34
+small_kg_rag_agent r10 R2 | FLUORIDE_per_OSDA              | F / (sda1 + 0.01)                                                           | cite=3 4 5        | +0.34
+small_kg_rag_agent r10 R3 | KINETIC_time_temp              | cryst_time * exp(-80000.0 / (8.314 * (cryst_temp + 273.15)))                | cite=1 5 7 10     | +0.34
+small_kg_rag_agent r2  R1 | CHARGE_organic_vs_inorganic    | (Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (abs(osda_charge) * sda1 + 0.001)  | cite=1 5 6 7 9    | -0.29
+small_kg_rag_agent r2  R2 | FLUORIDE_per_OSDA              | F / (abs(osda_charge) * sda1 + 0.001)                                       | cite=3 4 5        | -0.29
+small_kg_rag_agent r2  R3 | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + 0.001)                                             | cite=5 7 8 10     | -0.29
+small_kg_rag_agent r3  R1 | CHARGE_organic_vs_inorganic    | (Na + K + Li + Rb + Cs + 2*Ba + 2*Ca + 2*Sr + 2*Mg) / (abs(osda_charge) * s | cite=1 2 5 6 7 9  | +0.38
+small_kg_rag_agent r3  R2 | FLUORIDE_per_OSDA              | F / (sda1 + Al + B + Ga + 0.002)                                            | cite=3 5          | +0.38
+small_kg_rag_agent r3  R3 | KINETIC_time_temp              | cryst_temp * log10(cryst_time + 1.0)                                        | cite=1 5 7        | +0.38
+small_kg_rag_agent r4  R1 | OSDA_charge_per_T              | (osda_charge * sda1) / (Al + 0.005)                                         | cite=1 5 6 7      | +0.52
+small_kg_rag_agent r4  R2 | FLUORIDE_per_OSDA              | F / (sda1 + 0.005)                                                          | cite=3 5          | +0.52
+small_kg_rag_agent r4  R3 | KINETIC_time_temp              | cryst_time * exp(12000/373.15 - 12000/(cryst_temp + 273.15))                | cite=2 5 7        | +0.52
+small_kg_rag_agent r5  R1 | CHARGE_organic_vs_inorganic    | (Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / (abs(osda_charge) * sda1 + 0.0 | cite=1 2 5 6 7    | -0.15
+small_kg_rag_agent r5  R2 | FLUORIDE_per_OSDA              | F / (abs(osda_charge) * sda1 + 0.001)                                       | cite=3 4 5        | -0.15
+small_kg_rag_agent r5  R3 | KINETIC_time_temp              | cryst_time * exp(-15000.0 / (1.987 * (cryst_temp + 273.15)))                | cite=1 5 7 10     | -0.15
+small_kg_rag_agent r6  R1 | CHARGE_organic_vs_inorganic    | log10((Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / (sda1 * abs(osda_charge) | cite=1 2 3 5 6 7  | -0.11
+small_kg_rag_agent r6  R2 | FLUORIDE_per_OSDA              | log10((F + 0.001) / (sda1 + 0.001) + 1.0)                                   | cite=3 5          | -0.11
+small_kg_rag_agent r6  R3 | DILUTION_H2O_per_T             | log10((H2O + 0.001) / (Si + Al + P + Ge + B + Ga + Ti + Sn + Zr + Zn + Be + | cite=3 5 7        | -0.11
+small_kg_rag_agent r7  R1 | OSDA_charge_per_T              | sda1 * abs(osda_charge) / (Al + 0.001)                                      | cite=1 5 6 7      | +0.42
+small_kg_rag_agent r7  R2 | FLUORIDE_per_OSDA              | F / (sda1 * abs(osda_charge) + 0.001)                                       | cite=3 5 7        | +0.42
+small_kg_rag_agent r7  R3 | KINETIC_time_temp              | (cryst_time + 0.01) * exp(-6000.0 / (cryst_temp + 273.15 + 1.0))            | cite=1 5 7        | +0.42
+small_kg_rag_agent r8  R1 | CHARGE_organic_vs_inorganic    | (Na + K + Li + Rb + Cs) / (abs(osda_charge) * sda1 + 0.01)                  | cite=2 3 5 6 7 9  | +0.42
+small_kg_rag_agent r8  R2 | FLUORIDE_per_OSDA              | F / (sda1 + 0.01)                                                           | cite=3 5          | +0.42
+small_kg_rag_agent r8  R3 | KINETIC_time_temp              | cryst_time * exp(-6000.0 / (cryst_temp + 273.15))                           | cite=1 2 5 7 10   | +0.42
+small_kg_rag_agent r9  R1 | CHARGE_organic_vs_inorganic    | (Na + K + Li + Rb + Cs + 2*Ca + 2*Sr + 2*Ba) / (abs(osda_charge) * sda1 + 0 | cite=2 5 6 7      | -0.12
+small_kg_rag_agent r9  R2 | FLUORIDE_per_OSDA              | F / (abs(osda_charge) * sda1 + 0.01)                                        | cite=3 5          | -0.12
+small_kg_rag_agent r9  R3 | KINETIC_time_temp              | cryst_time * exp(-90000 / (8.314 * (cryst_temp + 273.15) + 0.001))          | cite=2 5 7 10     | -0.12
+
+=== V1 FAMILY COUNTS BY GROUP ===
+family                                         agent           rag_agent  small_kg_rag_agent   total
+ALKALINITY_OH_per_T                               10                   0                   1      11
+CHARGE_organic_vs_inorganic                        0                   1                   8       9
+DILUTION_H2O_per_T                                 4                   4                   1       9
+FLUORIDE_per_OSDA                                  0                   9                  10      19
+FLUORIDE_per_T                                     2                   1                   0       3
+FLUORIDE_vs_OH                                     1                   0                   0       1
+HETEROATOM_fraction                                2                   0                   0       2
+INORGANIC_cation_per_Al_or_T                       0                   2                   0       2
+KINETIC_time_temp                                  1                   6                   8      15
+OSDA_charge_per_T                                  0                   5                   2       7
+OSDA_molecular_property_combo                      7                   1                   0       8
+SI_AL_P_composition                                3                   1                   0       4
+
+=== V1 FAMILY BY ROUND ===
+1 agent {'ALKALINITY_OH_per_T': 8, 'FLUORIDE_vs_OH': 1, 'OSDA_molecular_property_combo': 1}
+1 rag_agent {'OSDA_charge_per_T': 5, 'INORGANIC_cation_per_Al_or_T': 2, 'SI_AL_P_composition': 1, 'OSDA_molecular_property_combo': 1, 'CHARGE_organic_vs_inorganic': 1}
+1 small_kg_rag_agent {'CHARGE_organic_vs_inorganic': 8, 'OSDA_charge_per_T': 2}
+2 agent {'DILUTION_H2O_per_T': 3, 'SI_AL_P_composition': 3, 'OSDA_molecular_property_combo': 2, 'KINETIC_time_temp': 1, 'FLUORIDE_per_T': 1}
+2 rag_agent {'FLUORIDE_per_OSDA': 9, 'FLUORIDE_per_T': 1}
+2 small_kg_rag_agent {'FLUORIDE_per_OSDA': 10}
+3 agent {'OSDA_molecular_property_combo': 4, 'HETEROATOM_fraction': 2, 'ALKALINITY_OH_per_T': 2, 'FLUORIDE_per_T': 1, 'DILUTION_H2O_per_T': 1}
+3 rag_agent {'KINETIC_time_temp': 6, 'DILUTION_H2O_per_T': 4}
+3 small_kg_rag_agent {'KINETIC_time_temp': 8, 'ALKALINITY_OH_per_T': 1, 'DILUTION_H2O_per_T': 1}
+
+=== V1 PER-TRAJECTORY DELTAS ===
+agent +0.65 +0.42 +0.44 +0.87 +0.20 +0.15 +0.62 +0.60 +0.39 +1.06 | mean +0.540 sd 0.282
+rag_agent +0.16 +0.13 -0.40 +0.06 -0.07 +0.66 +0.06 +0.11 +0.28 +0.04 | mean +0.105 sd 0.267
+small_kg_rag_agent +0.28 -0.30 +0.38 +0.52 -0.15 -0.11 +0.42 +0.42 -0.12 +0.35 | mean +0.168 sd 0.302
+
+=== V1 knowledge_source / novelty by group ===
+agent {'prior_knowledge': 30} {'known_relation': 21, 'new_combination': 9} citing 0
+rag_agent {'both': 30} {'known_relation': 12, 'new_combination': 18} citing 30
+small_kg_rag_agent {'both': 30} {'new_combination': 20, 'known_relation': 10} citing 30
