@@ -1,0 +1,635 @@
+##### kg r1 round 1 | ctx_match=True prompt_match=True
+factor: alkalinity of the gel, encoded as the hydroxide-to-silicon molar ratio (OH / (Si + 1e-6))
+queries: ['which frameworks are obtained with tetraethylammonium in fluoride medium vs hydroxide medium']
+linking: [{'query': 'which frameworks are obtained with tetraethylammonium in fluoride medium vs hydroxide medium', 'osdas': ['CBXCPBUEXACCNR-UHFFFAOYSA-N'], 'frameworks': [], 'conditions': ['fluoride medium']}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "tetraethylammonium" --used in--> 130 KG synthesis experiments from 107 papers --produced--> *BEA 54%, CHA 17%, MFI 8%, AEI 5%, MOR 3% [small-pore 24%, medium-pore 10%, large-pore 65%, xlarge-pore 1%]; fluoride medium in 22%; median crystallization temperature 150 C.
+[2] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+--- formula: OH / (Si + 1e-6) | cites [1] | source both
+
+##### kg r1 round 2 | ctx_match=True prompt_match=True
+factor: gel dilution: water-to-framework-elements ratio
+queries: ['frameworks obtained from highly dilute versus concentrated silica gels', 'effect of water content on crystallization of FAU versus dense phases']
+linking: [{'query': 'frameworks obtained from highly dilute versus concentrated silica gels', 'osdas': [], 'frameworks': [], 'conditions': []}, {'query': 'effect of water content on crystallization of FAU versus dense phases', 'osdas': [], 'frameworks': ['FAU'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "hexadecyltrimethylammonium" (16), "tetrabutylammonium" (8), "tetramethylammonium" (7), "N,N-dimethyl-3,5- dimethylpiperidinium" (6), "choline" (4); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+--- formula: H2O / (Si + Al + P + 1e-6) | cites [] | source prior_knowledge
+
+##### kg r1 round 3 | ctx_match=True prompt_match=True
+factor: OSDA charge density relative to framework-forming T atoms
+queries: ['frameworks obtained with divalent dicationic OSDAs versus monocationic OSDAs at similar gel Si/Al', 'pure-silica zeolites crystallized in fluoride medium: which OSDAs and frameworks reported']
+linking: [{'query': 'frameworks obtained with divalent dicationic OSDAs versus monocationic OSDAs at similar gel Si/Al', 'osdas': [], 'frameworks': [], 'conditions': []}, {'query': 'pure-silica zeolites crystallized in fluoride medium: which OSDAs and frameworks reported', 'osdas': [], 'frameworks': [], 'conditions': ['fluoride medium']}]
+--- EVIDENCE AS SHOWN ---
+[1] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+--- formula: (osda_charge * sda1) / (Si + Al + P + 1e-6) | cites [1] | source both
+
+##### kg r10 round 1 | ctx_match=True prompt_match=True
+factor: Gel alkalinity, i.e. the OH-to-Si ratio (OH / (Si + small constant))
+queries: ['frameworks obtained at low hydroxide / fluoride medium versus high OH/Si for MFI and *BEA syntheses', 'how often FAU, LTA or SOD are reported with high hydroxide gels using the same OSDA']
+linking: [{'query': 'frameworks obtained at low hydroxide / fluoride medium versus high OH/Si for MFI and *BEA syntheses', 'osdas': [], 'frameworks': ['*BEA', 'MFI'], 'conditions': ['fluoride medium']}, {'query': 'how often FAU, LTA or SOD are reported with high hydroxide gels using the same OSDA', 'osdas': [], 'frameworks': ['FAU', 'LTA', 'SOD'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetraethylammonium" (73), "hexadecyltrimethylammonium" (5), "N-methyl-2-pyrrolidone" (2), "N,N,N-trimethyl-L-adamantammonium" (2), "tetrapropylammonium" (2); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+[2] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (390), "hexadecyltrimethylammonium" (27), "tetraethylammonium" (11), "urea" (8), "ethylenediamine" (8); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[3] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+[4] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "hexadecyltrimethylammonium" (16), "tetrabutylammonium" (8), "tetramethylammonium" (7), "N,N-dimethyl-3,5- dimethylpiperidinium" (6), "choline" (4); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[5] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetramethylammonium" (12), "triethanolamine" (4), "morpholine" (4), "trimethylamine" (3), "1-benzyl-3-methylimidazolium" (3); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+[6] Framework SOD <--produced by-- 56 KG synthesis experiments from 42 papers; most frequent linked OSDAs: "tetramethylammonium" (2), "pyrrolidine" (2), "tetraethylammonium" (1), "tetrapropylammonium" (1); fluoride medium in 0%; heteroatoms: P 5%, Zn 2%; median temperature 100 C.
+--- formula: OH / (Si + 0.01) | cites [1, 2, 3, 4, 5, 6] | source both
+
+##### kg r10 round 2 | ctx_match=True prompt_match=True
+factor: gel dilution: water-to-T-atom ratio (H2O relative to framework-forming tetrahedral atoms)
+queries: []
+linking: None
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: log((H2O + 0.01) / (Si + Al + P + Ge + B + Ti + Ga + Zn + Be + Sn + Zr + V + 0.01)) | cites [] | source prior_knowledge
+
+##### kg r10 round 3 | ctx_match=True prompt_match=True
+factor: Framework-forming silicon-to-aluminum ratio of the gel, log(Si / (Al + 0.01)), the single most classical compositional determinant of framework type and framework Si/Al
+queries: ['how does gel Si/Al ratio control framework type FAU LTA CHA MFI BEA', 'pure silica and borosilicate gels with Al absent frameworks MFI MTW UTL']
+linking: [{'query': 'how does gel Si/Al ratio control framework type FAU LTA CHA MFI BEA', 'osdas': [], 'frameworks': ['*BEA', 'CHA', 'FAU', 'LTA', 'MFI'], 'conditions': []}, {'query': 'pure silica and borosilicate gels with Al absent frameworks MFI MTW UTL', 'osdas': [], 'frameworks': ['MFI', 'MTW', 'UTL'], 'conditions': ['boron in the gel']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetraethylammonium" (73), "hexadecyltrimethylammonium" (5), "N-methyl-2-pyrrolidone" (2), "N,N,N-trimethyl-L-adamantammonium" (2), "tetrapropylammonium" (2); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+[2] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "N,N,N-trimethyl-L-adamantammonium" (67), "tetraethylammonium" (23), "morpholine" (10), "triethylamine" (8), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+[3] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "hexadecyltrimethylammonium" (16), "tetrabutylammonium" (8), "tetramethylammonium" (7), "N,N-dimethyl-3,5- dimethylpiperidinium" (6), "choline" (4); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[4] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetramethylammonium" (12), "triethanolamine" (4), "morpholine" (4), "trimethylamine" (3), "1-benzyl-3-methylimidazolium" (3); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+[5] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (390), "hexadecyltrimethylammonium" (27), "tetraethylammonium" (11), "urea" (8), "ethylenediamine" (8); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[6] Framework MTW <--produced by-- 33 KG synthesis experiments from 25 papers; most frequent linked OSDAs: "[(CH3O)3SiC3H6N(CH3)2C16H37]Cl" (2), "tetrapropylammonium" (2), "SOM-1" (1), "Cy6-C5-Cy5" (1), "tetraethylammonium" (1); fluoride medium in 27%; heteroatoms: Ge 3%, Sn 3%, Ti 3%; median temperature 160 C.
+[7] Framework UTL <--produced by-- 52 KG synthesis experiments from 33 papers; most frequent linked OSDAs: "(6R,10S)‐6,10‐dimethyl‐5‐azoniaspiro[4.5] decane" (2), "7-ethyl-6-azoniaspiro[5.5]undecane" (1), "1,8-diazabicyclo[5.4.0]undec-7-ene" (1); fluoride medium in 6%; heteroatoms: Ge 65%, B 2%; median temperature 175 C.
+[8] Condition "boron in the gel" --in--> 28 KG synthesis experiments from 25 papers --produced--> MFI 25%, MWW 21%, *BEA 7%, FAU 7%, IWR 7% [small-pore 14%, medium-pore 50%, large-pore 32%, xlarge-pore 4%].
+--- formula: log((Si + 0.0001) / (Al + 0.01)) | cites [1, 2, 3, 4, 5, 6, 7, 8] | source both
+
+##### kg r2 round 1 | ctx_match=True prompt_match=True
+factor: Alkalinity: the hydroxide-to-lattice-former ratio, OH / (Si + Al + P + Ge + B + 1e-6)
+queries: ['frameworks obtained in fluoride medium versus hydroxide medium for the same OSDA (e.g. TEA, TPA, choline)', 'which frameworks are reported from highly alkaline gels with alkali cations but no OSDA']
+linking: [{'query': 'frameworks obtained in fluoride medium versus hydroxide medium for the same OSDA (e.g. TEA, TPA, choline)', 'osdas': ['CBXCPBUEXACCNR-UHFFFAOYSA-N', 'GSEJCLTVZPLZKY-UHFFFAOYSA-N', 'OEYIOHPDSNJKLS-UHFFFAOYSA-N', 'OSBSFAARYOCBHB-UHFFFAOYSA-N', 'ZMANZCXQSJIPKH-UHFFFAOYSA-N'], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'which frameworks are reported from highly alkaline gels with alkali cations but no OSDA', 'osdas': [], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "tetraethylammonium" --used in--> 130 KG synthesis experiments from 107 papers --produced--> *BEA 54%, CHA 17%, MFI 8%, AEI 5%, MOR 3% [small-pore 24%, medium-pore 10%, large-pore 65%, xlarge-pore 1%]; fluoride medium in 22%; median crystallization temperature 150 C.
+[2] OSDA "triethanolamine" --used in--> 9 KG synthesis experiments from 9 papers --produced--> LTA 40%, MFI 30%, FAU 20%, GIS 10% [small-pore 50%, medium-pore 30%, large-pore 20%, xlarge-pore 0%]; fluoride medium in 0%; median crystallization temperature 100 C.
+[3] OSDA "choline" --used in--> 10 KG synthesis experiments from 7 papers --produced--> FAU 21%, FER 16%, LEV 16%, PHI 16%, MAZ 11% [small-pore 42%, medium-pore 16%, large-pore 42%, xlarge-pore 0%]; fluoride medium in 10%; median crystallization temperature 150 C.
+[4] OSDA "tetrapropylammonium" --used in--> 401 KG synthesis experiments from 296 papers --produced--> MFI 96%, MEL 1%, *BEA 0%, ERI 0%, MTW 0% [small-pore 1%, medium-pore 97%, large-pore 2%, xlarge-pore 0%]; fluoride medium in 6%; median crystallization temperature 160 C.
+[5] OSDA "triethylamine" --used in--> 14 KG synthesis experiments from 11 papers --produced--> CHA 50%, AFI 38%, EMT 6%, MOR 6% [small-pore 50%, medium-pore 0%, large-pore 50%, xlarge-pore 0%]; fluoride medium in 21%; median crystallization temperature 180 C.
+[6] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+--- formula: OH / (Si + Al + P + Ge + B + 1e-6) | cites [1, 4, 6] | source both
+
+##### kg r2 round 2 | ctx_match=True prompt_match=True
+factor: Gel dilution: the water-to-lattice-former-atom ratio, H2O / (Si + Al + P + Ge + B + 1e-6)
+queries: []
+linking: None
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: H2O / (Si + Al + P + Ge + B + 1e-6) | cites [] | source prior_knowledge
+
+##### kg r2 round 3 | ctx_match=True prompt_match=True
+factor: germanium substitution fraction among tetravalent framework-forming atoms
+queries: ['which frameworks are obtained from germanosilicate gels (Ge in gel): UTL, BEC, ITH, ITR frequency', 'how does adding Ge change the framework obtained with the same OSDA (e.g., TEA+ giving *BEA vs BEC)']
+linking: [{'query': 'which frameworks are obtained from germanosilicate gels (Ge in gel): UTL, BEC, ITH, ITR frequency', 'osdas': [], 'frameworks': ['BEC', 'ITH', 'UTL'], 'conditions': ['germanium in the gel']}, {'query': 'how does adding Ge change the framework obtained with the same OSDA (e.g., TEA+ giving *BEA vs BEC)', 'osdas': ['CBXCPBUEXACCNR-UHFFFAOYSA-N', 'GSEJCLTVZPLZKY-UHFFFAOYSA-N', 'OSBSFAARYOCBHB-UHFFFAOYSA-N', 'ZMANZCXQSJIPKH-UHFFFAOYSA-N'], 'frameworks': ['*BEA', 'BEC'], 'conditions': ['germanium in the gel']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework BEC <--produced by-- 20 KG synthesis experiments from 16 papers; most frequent linked OSDAs: "tetraethylammonium" (1), "triethylenediamine" (1), "hexamethonium" (1); fluoride medium in 35%; heteroatoms: Ge 45%, Sn 10%, Ti 5%; median temperature 170 C.
+[2] Framework ITH <--produced by-- 8 KG synthesis experiments from 6 papers; most frequent linked OSDAs: "N,N,N',N'-tetramethyl-1,6-hexanediamine" (1); fluoride medium in 38%; heteroatoms: Ge 25%; median temperature 160 C.
+[3] Framework UTL <--produced by-- 52 KG synthesis experiments from 33 papers; most frequent linked OSDAs: "(6R,10S)‐6,10‐dimethyl‐5‐azoniaspiro[4.5] decane" (2), "7-ethyl-6-azoniaspiro[5.5]undecane" (1), "1,8-diazabicyclo[5.4.0]undec-7-ene" (1); fluoride medium in 6%; heteroatoms: Ge 65%, B 2%; median temperature 175 C.
+[4] Condition "germanium in the gel" --in--> 112 KG synthesis experiments from 81 papers --produced--> UTL 27%, IWR 8%, STW 8%, BEC 7%, *BEA 6% [small-pore 6%, medium-pore 23%, large-pore 39%, xlarge-pore 31%].
+[5] OSDA "tetraethylammonium" --used in--> 130 KG synthesis experiments from 107 papers --produced--> *BEA 54%, CHA 17%, MFI 8%, AEI 5%, MOR 3% [small-pore 24%, medium-pore 10%, large-pore 65%, xlarge-pore 1%]; fluoride medium in 22%; median crystallization temperature 150 C.
+[6] OSDA "triethanolamine" --used in--> 9 KG synthesis experiments from 9 papers --produced--> LTA 40%, MFI 30%, FAU 20%, GIS 10% [small-pore 50%, medium-pore 30%, large-pore 20%, xlarge-pore 0%]; fluoride medium in 0%; median crystallization temperature 100 C.
+[7] OSDA "tetrapropylammonium" --used in--> 401 KG synthesis experiments from 296 papers --produced--> MFI 96%, MEL 1%, *BEA 0%, ERI 0%, MTW 0% [small-pore 1%, medium-pore 97%, large-pore 2%, xlarge-pore 0%]; fluoride medium in 6%; median crystallization temperature 160 C.
+[8] OSDA "triethylamine" --used in--> 14 KG synthesis experiments from 11 papers --produced--> CHA 50%, AFI 38%, EMT 6%, MOR 6% [small-pore 50%, medium-pore 0%, large-pore 50%, xlarge-pore 0%]; fluoride medium in 21%; median crystallization temperature 180 C.
+[9] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetraethylammonium" (73), "hexadecyltrimethylammonium" (5), "N-methyl-2-pyrrolidone" (2), "N,N,N-trimethyl-L-adamantammonium" (2), "tetrapropylammonium" (2); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+--- formula: Ge / (Si + Ge + 1e-6) | cites [1, 3, 4, 5, 9] | source both
+
+##### kg r3 round 1 | ctx_match=True prompt_match=True
+factor: Gel alkalinity, encoded as the ratio of hydroxide to the silica + germanium content of the gel (OH / (Si + Ge + small constant))
+queries: ['SSZ-13 CHA synthesis OH/Si ratio hydroxide vs fluoride medium', 'which frameworks form at low alkalinity fluoride medium versus high OH/Si']
+linking: [{'query': 'SSZ-13 CHA synthesis OH/Si ratio hydroxide vs fluoride medium', 'osdas': [], 'frameworks': ['CHA'], 'conditions': ['fluoride medium']}, {'query': 'which frameworks form at low alkalinity fluoride medium versus high OH/Si', 'osdas': [], 'frameworks': [], 'conditions': ['fluoride medium']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "N,N,N-trimethyl-L-adamantammonium" (67), "tetraethylammonium" (23), "morpholine" (10), "triethylamine" (8), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+[2] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+--- formula: OH / (Si + Ge + 1e-6) | cites [1, 2] | source both
+
+##### kg r3 round 2 | ctx_match=True prompt_match=True
+factor: Inorganic cation loading per framework-forming T atom: (Na + K + Li + Rb + Cs + Sr + Ba + Ca) / (Si + Ge + Al + P + 1e-6)
+queries: ['frameworks obtained from OSDA-free gels with Na as the only cation', 'which frameworks crystallize with K vs Na as inorganic cation']
+linking: [{'query': 'frameworks obtained from OSDA-free gels with Na as the only cation', 'osdas': [], 'frameworks': [], 'conditions': []}, {'query': 'which frameworks crystallize with K vs Na as inorganic cation', 'osdas': [], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: (Na + K + Li + Rb + Cs + Sr + Ba + Ca) / (Si + Ge + Al + P + 1e-6) | cites [] | source prior_knowledge
+
+##### kg r3 round 3 | ctx_match=True prompt_match=True
+factor: Gel dilution: water per framework-forming T atom
+queries: []
+linking: None
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: H2O / (Si + Ge + Al + P + 1e-6) | cites [] | source prior_knowledge
+
+##### kg r4 round 1 | ctx_match=True prompt_match=True
+factor: Silicon-to-aluminium ratio of the gel, Si/(Al + small constant)
+queries: ['product Si/Al ranges reported for FAU and LTA syntheses versus ZSM-5 (MFI) syntheses', 'how gel Si/Al ratio controls framework selection low-silica FAU LTA versus high-silica MFI BEA']
+linking: [{'query': 'product Si/Al ranges reported for FAU and LTA syntheses versus ZSM-5 (MFI) syntheses', 'osdas': [], 'frameworks': ['FAU', 'LTA', 'MFI'], 'conditions': []}, {'query': 'how gel Si/Al ratio controls framework selection low-silica FAU LTA versus high-silica MFI BEA', 'osdas': [], 'frameworks': ['*BEA', 'FAU', 'LTA', 'MFI'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "hexadecyltrimethylammonium" (16), "tetrabutylammonium" (8), "tetramethylammonium" (7), "N,N-dimethyl-3,5- dimethylpiperidinium" (6), "choline" (4); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[2] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetramethylammonium" (12), "triethanolamine" (4), "morpholine" (4), "trimethylamine" (3), "1-benzyl-3-methylimidazolium" (3); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+[3] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (390), "hexadecyltrimethylammonium" (27), "tetraethylammonium" (11), "urea" (8), "ethylenediamine" (8); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[4] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetraethylammonium" (73), "hexadecyltrimethylammonium" (5), "N-methyl-2-pyrrolidone" (2), "N,N,N-trimethyl-L-adamantammonium" (2), "tetrapropylammonium" (2); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+--- formula: Si / (Al + 0.001) | cites [1, 2, 3, 4] | source both
+
+##### kg r4 round 2 | ctx_match=True prompt_match=True
+factor: gel alkalinity (OH/Si molar ratio)
+queries: ['OH/Si alkalinity ranges for fluoride-mediated beta BEC UTL syntheses vs hydroxide MFI FAU']
+linking: [{'query': 'OH/Si alkalinity ranges for fluoride-mediated beta BEC UTL syntheses vs hydroxide MFI FAU', 'osdas': [], 'frameworks': ['*BEA', 'BEC', 'FAU', 'MFI', 'UTL'], 'conditions': ['fluoride medium']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetraethylammonium" (73), "hexadecyltrimethylammonium" (5), "N-methyl-2-pyrrolidone" (2), "N,N,N-trimethyl-L-adamantammonium" (2), "tetrapropylammonium" (2); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+[2] Framework BEC <--produced by-- 20 KG synthesis experiments from 16 papers; most frequent linked OSDAs: "tetraethylammonium" (1), "triethylenediamine" (1), "hexamethonium" (1); fluoride medium in 35%; heteroatoms: Ge 45%, Sn 10%, Ti 5%; median temperature 170 C.
+[3] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "hexadecyltrimethylammonium" (16), "tetrabutylammonium" (8), "tetramethylammonium" (7), "N,N-dimethyl-3,5- dimethylpiperidinium" (6), "choline" (4); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[4] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (390), "hexadecyltrimethylammonium" (27), "tetraethylammonium" (11), "urea" (8), "ethylenediamine" (8); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[5] Framework UTL <--produced by-- 52 KG synthesis experiments from 33 papers; most frequent linked OSDAs: "(6R,10S)‐6,10‐dimethyl‐5‐azoniaspiro[4.5] decane" (2), "7-ethyl-6-azoniaspiro[5.5]undecane" (1), "1,8-diazabicyclo[5.4.0]undec-7-ene" (1); fluoride medium in 6%; heteroatoms: Ge 65%, B 2%; median temperature 175 C.
+[6] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+--- formula: OH / (Si + 0.001) | cites [2, 3, 4, 5, 6] | source both
+
+##### kg r4 round 3 | ctx_match=True prompt_match=True
+factor: Gel dilution: water-to-(Si+Al+P) molar ratio (crystallization solvent loading)
+queries: ['frameworks obtained in dilute vs concentrated gels (water-to-silica ratio) for MFI and *BEA', 'fluoride-mediated high-silica zeolite syntheses typical water/framework-mole ratios']
+linking: [{'query': 'frameworks obtained in dilute vs concentrated gels (water-to-silica ratio) for MFI and *BEA', 'osdas': [], 'frameworks': ['*BEA', 'MFI'], 'conditions': []}, {'query': 'fluoride-mediated high-silica zeolite syntheses typical water/framework-mole ratios', 'osdas': [], 'frameworks': [], 'conditions': ['fluoride medium']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetraethylammonium" (73), "hexadecyltrimethylammonium" (5), "N-methyl-2-pyrrolidone" (2), "N,N,N-trimethyl-L-adamantammonium" (2), "tetrapropylammonium" (2); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+[2] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (390), "hexadecyltrimethylammonium" (27), "tetraethylammonium" (11), "urea" (8), "ethylenediamine" (8); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[3] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+--- formula: H2O / (Si + Al + P + 0.001) | cites [1, 2, 3] | source both
+
+##### kg r5 round 1 | ctx_match=True prompt_match=True
+factor: Gel alkalinity: the hydroxide-to-framework-forming-T-atom ratio, OH / (Si + Al + P + Ge + B + Ga + 1e-6)
+queries: []
+linking: None
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: OH / (Si + Al + P + Ge + B + Ga + 1e-6) | cites [] | source prior_knowledge
+
+##### kg r5 round 2 | ctx_match=True prompt_match=True
+factor: gel dilution: water-to-framework-T-atom ratio (H2O / (Si+Al+P+Ge+B+Ga+1e-6))
+queries: ['effect of water content H2O/SiO2 ratio on zeolite framework selectivity MFI MTW crystallization', 'gel dilution influence on nucleation and product phase zeolite synthesis']
+linking: [{'query': 'effect of water content H2O/SiO2 ratio on zeolite framework selectivity MFI MTW crystallization', 'osdas': [], 'frameworks': ['MFI', 'MTW'], 'conditions': []}, {'query': 'gel dilution influence on nucleation and product phase zeolite synthesis', 'osdas': [], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (390), "hexadecyltrimethylammonium" (27), "tetraethylammonium" (11), "urea" (8), "ethylenediamine" (8); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[2] Framework MTW <--produced by-- 33 KG synthesis experiments from 25 papers; most frequent linked OSDAs: "[(CH3O)3SiC3H6N(CH3)2C16H37]Cl" (2), "tetrapropylammonium" (2), "SOM-1" (1), "Cy6-C5-Cy5" (1), "tetraethylammonium" (1); fluoride medium in 27%; heteroatoms: Ge 3%, Sn 3%, Ti 3%; median temperature 160 C.
+--- formula: H2O / (Si + Al + P + Ge + B + Ga + 1e-6) | cites [] | source prior_knowledge
+
+##### kg r5 round 3 | ctx_match=True prompt_match=True
+factor: fluoride mineralizer intensity: fluoride per framework-forming T atom
+queries: ['which frameworks are most often obtained in fluoride-medium syntheses', 'frameworks obtained from Ge-containing gels in fluoride route']
+linking: [{'query': 'which frameworks are most often obtained in fluoride-medium syntheses', 'osdas': [], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'frameworks obtained from Ge-containing gels in fluoride route', 'osdas': [], 'frameworks': [], 'conditions': ['fluoride medium', 'germanium in the gel']}]
+--- EVIDENCE AS SHOWN ---
+[1] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+[2] Condition "germanium in the gel" --in--> 112 KG synthesis experiments from 81 papers --produced--> UTL 27%, IWR 8%, STW 8%, BEC 7%, *BEA 6% [small-pore 6%, medium-pore 23%, large-pore 39%, xlarge-pore 31%].
+--- formula: F / (Si + Al + P + Ge + B + Ga + 1e-6) | cites [1, 2] | source both
+
+##### kg r6 round 1 | ctx_match=True prompt_match=True
+factor: gel alkalinity: hydroxide-to-T-atom ratio OH / (Si + Ge + Al + P + other T atoms), i.e. OH/(Si+Ge+Al+P+Ti+B+Ga+Zn+Sn+Zr+V+Be+W+Cu + 0.0001)
+queries: ['frameworks most frequently obtained in fluoride medium versus hydroxide medium', 'frameworks reported from low-silica alkaline gels (SOD, LTA, FAU) versus high-silica gels (MFI, MTW, *BEA)']
+linking: [{'query': 'frameworks most frequently obtained in fluoride medium versus hydroxide medium', 'osdas': [], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'frameworks reported from low-silica alkaline gels (SOD, LTA, FAU) versus high-silica gels (MFI, MTW, *BEA)', 'osdas': [], 'frameworks': ['*BEA', 'FAU', 'LTA', 'MFI', 'MTW', 'SOD'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+[2] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetraethylammonium" (73), "hexadecyltrimethylammonium" (5), "N-methyl-2-pyrrolidone" (2), "N,N,N-trimethyl-L-adamantammonium" (2), "tetrapropylammonium" (2); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+[3] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "hexadecyltrimethylammonium" (16), "tetrabutylammonium" (8), "tetramethylammonium" (7), "N,N-dimethyl-3,5- dimethylpiperidinium" (6), "choline" (4); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[4] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetramethylammonium" (12), "triethanolamine" (4), "morpholine" (4), "trimethylamine" (3), "1-benzyl-3-methylimidazolium" (3); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+[5] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (390), "hexadecyltrimethylammonium" (27), "tetraethylammonium" (11), "urea" (8), "ethylenediamine" (8); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[6] Framework MTW <--produced by-- 33 KG synthesis experiments from 25 papers; most frequent linked OSDAs: "[(CH3O)3SiC3H6N(CH3)2C16H37]Cl" (2), "tetrapropylammonium" (2), "SOM-1" (1), "Cy6-C5-Cy5" (1), "tetraethylammonium" (1); fluoride medium in 27%; heteroatoms: Ge 3%, Sn 3%, Ti 3%; median temperature 160 C.
+[7] Framework SOD <--produced by-- 56 KG synthesis experiments from 42 papers; most frequent linked OSDAs: "tetramethylammonium" (2), "pyrrolidine" (2), "tetraethylammonium" (1), "tetrapropylammonium" (1); fluoride medium in 0%; heteroatoms: P 5%, Zn 2%; median temperature 100 C.
+--- formula: OH / (Si + Ge + Al + P + Ti + B + Ga + Zn + Sn + Zr + V + Be + W + Cu + 0.0001) | cites [1, 3, 4, 5, 7] | source both
+
+##### kg r6 round 2 | ctx_match=True prompt_match=True
+factor: Framework T-atom composition: the fraction of framework-forming T atoms (Si, Al, P, Ge, Ti, B, Ga, Zn, Sn, Zr, V, Be, W, Cu) that is silicon, i.e. Si/(sum of T-atom mole fractions)
+queries: ['frameworks obtained from gels containing Ge as framework T atom', 'frameworks obtained from aluminophosphate gels (Al and P present, no Si)']
+linking: [{'query': 'frameworks obtained from gels containing Ge as framework T atom', 'osdas': [], 'frameworks': [], 'conditions': ['germanium in the gel']}, {'query': 'frameworks obtained from aluminophosphate gels (Al and P present, no Si)', 'osdas': [], 'frameworks': [], 'conditions': ['phosphorus (AlPO/SAPO) gel']}]
+--- EVIDENCE AS SHOWN ---
+[1] Condition "germanium in the gel" --in--> 112 KG synthesis experiments from 81 papers --produced--> UTL 27%, IWR 8%, STW 8%, BEC 7%, *BEA 6% [small-pore 6%, medium-pore 23%, large-pore 39%, xlarge-pore 31%].
+[2] Condition "phosphorus (AlPO/SAPO) gel" --in--> 52 KG synthesis experiments from 42 papers --produced--> CHA 27%, MFI 15%, AFI 10%, AEL 8%, AEI 7% [small-pore 56%, medium-pore 24%, large-pore 19%, xlarge-pore 2%].
+--- formula: Si / (Si + Al + P + Ge + Ti + B + Ga + Zn + Sn + Zr + V + Be + W + Cu + 0.0001) | cites [1, 2] | source both
+
+##### kg r6 round 3 | ctx_match=True prompt_match=True
+factor: Fluoride mineralization pathway: fluoride loading per framework T atom, distinguishing the fluoride route from the hydroxide route
+queries: ['which frameworks are obtained in fluoride medium vs hydroxide for the same OSDA (e.g. TEA+, TPA+)', 'fluoride medium syntheses of pure-silica large-pore frameworks MFI MTW BEC UTL']
+linking: [{'query': 'which frameworks are obtained in fluoride medium vs hydroxide for the same OSDA (e.g. TEA+, TPA+)', 'osdas': ['CBXCPBUEXACCNR-UHFFFAOYSA-N', 'GSEJCLTVZPLZKY-UHFFFAOYSA-N', 'OSBSFAARYOCBHB-UHFFFAOYSA-N', 'ZMANZCXQSJIPKH-UHFFFAOYSA-N'], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'fluoride medium syntheses of pure-silica large-pore frameworks MFI MTW BEC UTL', 'osdas': [], 'frameworks': ['BEC', 'MFI', 'MTW', 'UTL'], 'conditions': ['fluoride medium']}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "tetraethylammonium" --used in--> 130 KG synthesis experiments from 107 papers --produced--> *BEA 54%, CHA 17%, MFI 8%, AEI 5%, MOR 3% [small-pore 24%, medium-pore 10%, large-pore 65%, xlarge-pore 1%]; fluoride medium in 22%; median crystallization temperature 150 C.
+[2] OSDA "triethanolamine" --used in--> 9 KG synthesis experiments from 9 papers --produced--> LTA 40%, MFI 30%, FAU 20%, GIS 10% [small-pore 50%, medium-pore 30%, large-pore 20%, xlarge-pore 0%]; fluoride medium in 0%; median crystallization temperature 100 C.
+[3] OSDA "tetrapropylammonium" --used in--> 401 KG synthesis experiments from 296 papers --produced--> MFI 96%, MEL 1%, *BEA 0%, ERI 0%, MTW 0% [small-pore 1%, medium-pore 97%, large-pore 2%, xlarge-pore 0%]; fluoride medium in 6%; median crystallization temperature 160 C.
+[4] OSDA "triethylamine" --used in--> 14 KG synthesis experiments from 11 papers --produced--> CHA 50%, AFI 38%, EMT 6%, MOR 6% [small-pore 50%, medium-pore 0%, large-pore 50%, xlarge-pore 0%]; fluoride medium in 21%; median crystallization temperature 180 C.
+[5] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+[6] Framework BEC <--produced by-- 20 KG synthesis experiments from 16 papers; most frequent linked OSDAs: "tetraethylammonium" (1), "triethylenediamine" (1), "hexamethonium" (1); fluoride medium in 35%; heteroatoms: Ge 45%, Sn 10%, Ti 5%; median temperature 170 C.
+[7] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (390), "hexadecyltrimethylammonium" (27), "tetraethylammonium" (11), "urea" (8), "ethylenediamine" (8); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[8] Framework MTW <--produced by-- 33 KG synthesis experiments from 25 papers; most frequent linked OSDAs: "[(CH3O)3SiC3H6N(CH3)2C16H37]Cl" (2), "tetrapropylammonium" (2), "SOM-1" (1), "Cy6-C5-Cy5" (1), "tetraethylammonium" (1); fluoride medium in 27%; heteroatoms: Ge 3%, Sn 3%, Ti 3%; median temperature 160 C.
+[9] Framework UTL <--produced by-- 52 KG synthesis experiments from 33 papers; most frequent linked OSDAs: "(6R,10S)‐6,10‐dimethyl‐5‐azoniaspiro[4.5] decane" (2), "7-ethyl-6-azoniaspiro[5.5]undecane" (1), "1,8-diazabicyclo[5.4.0]undec-7-ene" (1); fluoride medium in 6%; heteroatoms: Ge 65%, B 2%; median temperature 175 C.
+--- formula: F / (Si + Ge + Al + P + Ti + B + Ga + Zn + Sn + Zr + V + Be + W + Cu + 0.0001) | cites [1, 3, 5, 6, 7, 8, 9] | source both
+
+##### kg r7 round 1 | ctx_match=True prompt_match=True
+factor: Framework-forming heteroatom ratio of the gel, encoded as Si divided by the sum of Al and P (Si / (Al + P + 1e-6))
+queries: ['typical Si/Al gel ranges for FAU LTA versus MFI *BEA synthesis', 'AlPO AFI AEL synthesis gel P/Al ratio and absence of Si']
+linking: [{'query': 'typical Si/Al gel ranges for FAU LTA versus MFI *BEA synthesis', 'osdas': [], 'frameworks': ['*BEA', 'FAU', 'LTA', 'MFI'], 'conditions': []}, {'query': 'AlPO AFI AEL synthesis gel P/Al ratio and absence of Si', 'osdas': [], 'frameworks': ['AEL', 'AFI'], 'conditions': ['phosphorus (AlPO/SAPO) gel']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetraethylammonium" (73), "hexadecyltrimethylammonium" (5), "N-methyl-2-pyrrolidone" (2), "N,N,N-trimethyl-L-adamantammonium" (2), "tetrapropylammonium" (2); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+[2] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "hexadecyltrimethylammonium" (16), "tetrabutylammonium" (8), "tetramethylammonium" (7), "N,N-dimethyl-3,5- dimethylpiperidinium" (6), "choline" (4); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[3] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetramethylammonium" (12), "triethanolamine" (4), "morpholine" (4), "trimethylamine" (3), "1-benzyl-3-methylimidazolium" (3); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+[4] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (390), "hexadecyltrimethylammonium" (27), "tetraethylammonium" (11), "urea" (8), "ethylenediamine" (8); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[5] Framework AEL <--produced by-- 17 KG synthesis experiments from 14 papers; most frequent linked OSDAs: "di-n-propylamine" (8), "1-ethyl-3-methylimidazolate" (3), "3-butyl-1-methylimidazolium" (2), "1-methyl-3-ethylimidazolium " (1), "morpholine" (1); fluoride medium in 24%; heteroatoms: P 29%; median temperature 180 C.
+[6] Framework AFI <--produced by-- 49 KG synthesis experiments from 39 papers; most frequent linked OSDAs: "triethylamine" (6), "tetraethylammonium" (2), "di-n-propylamine" (2), "N,N,N-trimethyl-L-adamantammonium" (2), "(1R,2S)-(−)-ephedrine" (1); fluoride medium in 10%; heteroatoms: P 12%, Ti 4%; median temperature 175 C.
+[7] Condition "phosphorus (AlPO/SAPO) gel" --in--> 52 KG synthesis experiments from 42 papers --produced--> CHA 27%, MFI 15%, AFI 10%, AEL 8%, AEI 7% [small-pore 56%, medium-pore 24%, large-pore 19%, xlarge-pore 2%].
+--- formula: Si / (Al + P + 1e-6) | cites [1, 2, 3, 4, 5, 6, 7] | source both
+
+##### kg r7 round 2 | ctx_match=True prompt_match=True
+factor: gel alkalinity, the hydroxide-to-framework-former ratio OH/(Si + Al + P + 1e-6)
+queries: []
+linking: None
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: OH / (Si + Al + P + 1e-6) | cites [] | source prior_knowledge
+
+##### kg r7 round 3 | ctx_match=True prompt_match=True
+factor: Gel dilution: water per framework-forming T atom, H2O / (Si + Al + P + 1e-6)
+queries: []
+linking: None
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: H2O / (Si + Al + P + 1e-6) | cites [] | source prior_knowledge
+
+##### kg r8 round 1 | ctx_match=True prompt_match=True
+factor: gel alkalinity / mineralizer strength, encoded as the hydroxide-to-T-atom ratio OH / (Si + Al + P + Ge + B + Ti + Sn + Ga + Zn + Be + V + W + Cu + Zr)
+queries: ['typical OH/SiO2 alkalinity ranges reported for CHA (SSZ-13) versus MFI (ZSM-5) syntheses', 'framework outcomes of OSDA syntheses in fluoride medium versus hydroxide medium']
+linking: [{'query': 'typical OH/SiO2 alkalinity ranges reported for CHA (SSZ-13) versus MFI (ZSM-5) syntheses', 'osdas': [], 'frameworks': ['CHA', 'MFI'], 'conditions': []}, {'query': 'framework outcomes of OSDA syntheses in fluoride medium versus hydroxide medium', 'osdas': [], 'frameworks': [], 'conditions': ['fluoride medium']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "N,N,N-trimethyl-L-adamantammonium" (67), "tetraethylammonium" (23), "morpholine" (10), "triethylamine" (8), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+[2] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (390), "hexadecyltrimethylammonium" (27), "tetraethylammonium" (11), "urea" (8), "ethylenediamine" (8); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[3] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+--- formula: OH / (Si + Al + P + Ge + B + Ti + Sn + Ga + Zn + Be + V + W + Cu + Zr + 1e-6) | cites [1, 2, 3] | source both
+
+##### kg r8 round 2 | ctx_match=True prompt_match=True
+factor: Gel dilution: water-to-framework-T-atom ratio
+queries: []
+linking: None
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: H2O / (Si + Al + P + Ge + B + Ti + Sn + Ga + Zn + Be + V + W + Cu + Zr + 1e-6) | cites [] | source prior_knowledge
+
+##### kg r8 round 3 | ctx_match=True prompt_match=True
+factor: Heteroatom dilution of the framework T-sites: Si/(Al + P + B + Ga + Ge + Zn + Ti + Sn + 1e-6), i.e. the effective gel Si:heteroatom-T ratio
+queries: ['frameworks obtained from gels containing P (aluminophosphate syntheses)', 'frameworks obtained from borosilicate or gallosilicate gels with common OSDAs']
+linking: [{'query': 'frameworks obtained from gels containing P (aluminophosphate syntheses)', 'osdas': [], 'frameworks': [], 'conditions': ['phosphorus (AlPO/SAPO) gel']}, {'query': 'frameworks obtained from borosilicate or gallosilicate gels with common OSDAs', 'osdas': [], 'frameworks': [], 'conditions': ['boron in the gel']}]
+--- EVIDENCE AS SHOWN ---
+[1] Condition "phosphorus (AlPO/SAPO) gel" --in--> 52 KG synthesis experiments from 42 papers --produced--> CHA 27%, MFI 15%, AFI 10%, AEL 8%, AEI 7% [small-pore 56%, medium-pore 24%, large-pore 19%, xlarge-pore 2%].
+[2] Condition "boron in the gel" --in--> 28 KG synthesis experiments from 25 papers --produced--> MFI 25%, MWW 21%, *BEA 7%, FAU 7%, IWR 7% [small-pore 14%, medium-pore 50%, large-pore 32%, xlarge-pore 4%].
+--- formula: Si / (Al + P + B + Ga + Ge + Zn + Ti + Sn + 1e-6) | cites [1, 2] | source both
+
+##### kg r9 round 1 | ctx_match=True prompt_match=True
+factor: gel alkalinity, encoded as the hydroxide-to-silica ratio OH / (Si + 1e-6)
+queries: ['which frameworks are obtained in fluoride medium versus hydroxide medium for the same OSDA', 'typical crystallization outcomes (framework or dense phase) at very high OH/Si alkalinity']
+linking: [{'query': 'which frameworks are obtained in fluoride medium versus hydroxide medium for the same OSDA', 'osdas': [], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'typical crystallization outcomes (framework or dense phase) at very high OH/Si alkalinity', 'osdas': [], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+--- formula: OH / (Si + 1e-6) | cites [1] | source both
+
+##### kg r9 round 2 | ctx_match=True prompt_match=True
+factor: Cation charge balance: total positive charge from inorganic alkali cations plus the OSDA charge contribution, normalized by framework-forming Al in the gel
+queries: ['frameworks obtained from OSDA-free sodium silicoaluminate gels (Na-only syntheses)', 'frameworks reported when an OSDA is used together with NaOH versus OSDA alone']
+linking: [{'query': 'frameworks obtained from OSDA-free sodium silicoaluminate gels (Na-only syntheses)', 'osdas': [], 'frameworks': [], 'conditions': []}, {'query': 'frameworks reported when an OSDA is used together with NaOH versus OSDA alone', 'osdas': [], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: (Na + K + Li + Rb + Cs + sda1 * abs(osda_charge)) / (Al + 1e-6) | cites [] | source prior_knowledge
+
+##### kg r9 round 3 | ctx_match=True prompt_match=True
+factor: Fluoride-to-silica ratio: F / (Si + 1e-6) — the amount of fluoride mineralizer relative to the silica source
+queries: ['frameworks obtained in fluoride medium with Ge in the gel (BEC, ITH, UTL, ISV)', 'which OSDA-framework combinations are reported specifically in fluoride vs hydroxide media']
+linking: [{'query': 'frameworks obtained in fluoride medium with Ge in the gel (BEC, ITH, UTL, ISV)', 'osdas': [], 'frameworks': ['BEC', 'ISV', 'ITH', 'UTL'], 'conditions': ['fluoride medium', 'germanium in the gel']}, {'query': 'which OSDA-framework combinations are reported specifically in fluoride vs hydroxide media', 'osdas': [], 'frameworks': [], 'conditions': ['fluoride medium']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework BEC <--produced by-- 20 KG synthesis experiments from 16 papers; most frequent linked OSDAs: "tetraethylammonium" (1), "triethylenediamine" (1), "hexamethonium" (1); fluoride medium in 35%; heteroatoms: Ge 45%, Sn 10%, Ti 5%; median temperature 170 C.
+[2] Framework ISV <--produced by-- 10 KG synthesis experiments from 8 papers; most frequent linked OSDAs: "1,3,3-trimethylspiro[6-azoniabicyclo[3.2.1]]octane-6,1′-piperidinium" (1), "tetraethylammonium" (1); fluoride medium in 60%; heteroatoms: Ge 20%, Ti 10%, B 10%; median temperature 160 C.
+[3] Framework ITH <--produced by-- 8 KG synthesis experiments from 6 papers; most frequent linked OSDAs: "N,N,N',N'-tetramethyl-1,6-hexanediamine" (1); fluoride medium in 38%; heteroatoms: Ge 25%; median temperature 160 C.
+[4] Framework UTL <--produced by-- 52 KG synthesis experiments from 33 papers; most frequent linked OSDAs: "(6R,10S)‐6,10‐dimethyl‐5‐azoniaspiro[4.5] decane" (2), "7-ethyl-6-azoniaspiro[5.5]undecane" (1), "1,8-diazabicyclo[5.4.0]undec-7-ene" (1); fluoride medium in 6%; heteroatoms: Ge 65%, B 2%; median temperature 175 C.
+[5] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+[6] Condition "germanium in the gel" --in--> 112 KG synthesis experiments from 81 papers --produced--> UTL 27%, IWR 8%, STW 8%, BEC 7%, *BEA 6% [small-pore 6%, medium-pore 23%, large-pore 39%, xlarge-pore 31%].
+--- formula: F / (Si + 1e-6) | cites [1, 2, 5, 6] | source both
+
+##### kg_shuffled r1 round 1 | ctx_match=True prompt_match=True
+factor: Gel alkalinity / mineralizing-agent strength, i.e. the hydroxide-to-silica ratio (OH relative to the network-forming T atoms Si, and its balance against fluoride)
+queries: ['effect of OH/Si ratio alkalinity on zeolite phase selectivity MFI FAU CHA synthesis', 'fluoride versus hydroxide mineralizer zeolite synthesis frameworks obtained']
+linking: [{'query': 'effect of OH/Si ratio alkalinity on zeolite phase selectivity MFI FAU CHA synthesis', 'osdas': [], 'frameworks': ['CHA', 'FAU', 'MFI'], 'conditions': []}, {'query': 'fluoride versus hydroxide mineralizer zeolite synthesis frameworks obtained', 'osdas': [], 'frameworks': [], 'conditions': ['fluoride medium']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "tetrapropylammonium" (50), "tetraethylammonium" (19), "N,N,N-trimethyl-L-adamantammonium" (11), "tetramethylammonium" (4), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+[2] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "tetrapropylammonium" (27), "tetraethylammonium" (8), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (2), "N,N-dimethyl-3,5- dimethylpiperidinium" (2); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[3] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (162), "tetraethylammonium" (58), "N,N,N-trimethyl-L-adamantammonium" (27), "hexadecyltrimethylammonium" (27), "tetramethylammonium" (15); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[4] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+--- formula: (OH - F) / (Si + Al + P + Ge + B + 1e-6) | cites [2, 4] | source both
+
+##### kg_shuffled r1 round 2 | ctx_match=True prompt_match=True
+factor: gel dilution: water per framework-forming T atom
+queries: ['water-to-silica ratio effect on phase selectivity FAU LTA sodalite vs dense phases', 'gel dilution influence on crystallization of high-silica zeolites and Ge frameworks']
+linking: [{'query': 'water-to-silica ratio effect on phase selectivity FAU LTA sodalite vs dense phases', 'osdas': [], 'frameworks': ['FAU', 'LTA', 'SOD'], 'conditions': []}, {'query': 'gel dilution influence on crystallization of high-silica zeolites and Ge frameworks', 'osdas': [], 'frameworks': [], 'conditions': ['germanium in the gel']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "tetrapropylammonium" (27), "tetraethylammonium" (8), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (2), "N,N-dimethyl-3,5- dimethylpiperidinium" (2); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[2] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetrapropylammonium" (11), "tetraethylammonium" (4), "triethylamine" (3), "hexadecyltrimethylammonium" (2), "N,N,N-trimethyl-L-adamantammonium" (2); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+[3] Framework SOD <--produced by-- 56 KG synthesis experiments from 42 papers; most frequent linked OSDAs: "tetrapropylammonium" (2), "diethylenetriamine" (1), "N,N,N',N'-tetramethylethylenediamine" (1), "methyltropinium" (1), "morpholine" (1); fluoride medium in 0%; heteroatoms: P 5%, Zn 2%; median temperature 100 C.
+[4] Condition "germanium in the gel" --in--> 112 KG synthesis experiments from 81 papers --produced--> UTL 27%, IWR 8%, STW 8%, BEC 7%, *BEA 6% [small-pore 6%, medium-pore 23%, large-pore 39%, xlarge-pore 31%].
+--- formula: H2O / (Si + Al + P + Ge + B + 1e-6) | cites [1, 2, 3, 4] | source both
+
+##### kg_shuffled r1 round 3 | ctx_match=True prompt_match=True
+factor: heteroatom fraction of the framework-forming T atoms (share of Si that is substituted by Al, Ge, P, B, Ga, Ti, Sn, Zn, etc.)
+queries: ['frameworks obtained from gels with high Ge/Si ratio (BEC, UTL, AST)', 'framework selectivity as a function of Al fraction and P in aluminophosphate gels (AFI, AEL, AEI, CHA)']
+linking: [{'query': 'frameworks obtained from gels with high Ge/Si ratio (BEC, UTL, AST)', 'osdas': [], 'frameworks': ['AST', 'BEC', 'UTL'], 'conditions': ['germanium in the gel']}, {'query': 'framework selectivity as a function of Al fraction and P in aluminophosphate gels (AFI, AEL, AEI, CHA)', 'osdas': [], 'frameworks': ['AEI', 'AEL', 'AFI', 'CHA'], 'conditions': ['phosphorus (AlPO/SAPO) gel']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework AST <--produced by-- 7 KG synthesis experiments from 5 papers; most frequent linked OSDAs: "tetrapropylammonium" (2), "di-n-propylamine" (1), "N,N,N-trimethyl-L-adamantammonium" (1); fluoride medium in 29%; heteroatoms: Ge 29%, P 14%; median temperature 180 C.
+[2] Framework BEC <--produced by-- 20 KG synthesis experiments from 16 papers; most frequent linked OSDAs: "1,3,5-tris(1,2-dimethylimidazolium) benzene" (1), "1,3-propanediamine" (1), "tert-Butylamine" (1); fluoride medium in 35%; heteroatoms: Ge 45%, Sn 10%, Ti 5%; median temperature 170 C.
+[3] Framework UTL <--produced by-- 52 KG synthesis experiments from 33 papers; most frequent linked OSDAs: "N,N,N-trimethyl-L-adamantammonium" (2), "Hexamethyleneimine" (1), "tetrapropylammonium" (1); fluoride medium in 6%; heteroatoms: Ge 65%, B 2%; median temperature 175 C.
+[4] Condition "germanium in the gel" --in--> 112 KG synthesis experiments from 81 papers --produced--> UTL 27%, IWR 8%, STW 8%, BEC 7%, *BEA 6% [small-pore 6%, medium-pore 23%, large-pore 39%, xlarge-pore 31%].
+[5] Framework AEI <--produced by-- 56 KG synthesis experiments from 35 papers; most frequent linked OSDAs: "tetrapropylammonium" (7), "triethylamine" (3), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (1), "hexadecyltrimethylammonium" (1); fluoride medium in 0%; heteroatoms: P 7%, Ge 2%; median temperature 160 C.
+[6] Framework AEL <--produced by-- 17 KG synthesis experiments from 14 papers; most frequent linked OSDAs: "tetraethylammonium" (2), "tetrapropylammonium" (2), "N,N,N-trimethyl-L-adamantammonium" (2), "123TMI+" (1), "[(CH3O)3SiC3H6N(CH3)2C16H37]Cl" (1); fluoride medium in 24%; heteroatoms: P 29%; median temperature 180 C.
+[7] Framework AFI <--produced by-- 49 KG synthesis experiments from 39 papers; most frequent linked OSDAs: "tetrapropylammonium" (4), "N,N,N-trimethyl-L-adamantammonium" (3), "Hexamethyleneimine" (2), "tetraethylammonium" (2), "hexamethonium" (1); fluoride medium in 10%; heteroatoms: P 12%, Ti 4%; median temperature 175 C.
+[8] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "tetrapropylammonium" (50), "tetraethylammonium" (19), "N,N,N-trimethyl-L-adamantammonium" (11), "tetramethylammonium" (4), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+[9] Condition "phosphorus (AlPO/SAPO) gel" --in--> 52 KG synthesis experiments from 42 papers --produced--> CHA 27%, MFI 15%, AFI 10%, AEL 8%, AEI 7% [small-pore 56%, medium-pore 24%, large-pore 19%, xlarge-pore 2%].
+--- formula: (Al + P + Ge + B + Ga + Ti + Sn + Zn + Zr + V + Be + W + Cu + Mg + 1e-6) / (Si + Al + P + Ge + B + Ga + Ti + Sn + Zn + Zr + V + Be + W + Cu + Mg + 1e-6) | cites [2, 3, 4, 5, 6, 7, 8, 9] | source both
+
+##### kg_shuffled r10 round 1 | ctx_match=True prompt_match=True
+factor: Gel Si/Al ratio, encoded as Si / (Al + 1e-6) (mole-fraction ratio of silica to alumina in the gel)
+queries: ['which frameworks form from Na gels with Si/Al below 2 versus above 10', 'typical gel Si/Al for MFI versus FAU versus CHA syntheses']
+linking: [{'query': 'which frameworks form from Na gels with Si/Al below 2 versus above 10', 'osdas': [], 'frameworks': [], 'conditions': []}, {'query': 'typical gel Si/Al for MFI versus FAU versus CHA syntheses', 'osdas': [], 'frameworks': ['CHA', 'FAU', 'MFI'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "tetrapropylammonium" (50), "tetraethylammonium" (19), "N,N,N-trimethyl-L-adamantammonium" (11), "tetramethylammonium" (4), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+[2] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "tetrapropylammonium" (27), "tetraethylammonium" (8), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (2), "N,N-dimethyl-3,5- dimethylpiperidinium" (2); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[3] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (162), "tetraethylammonium" (58), "N,N,N-trimethyl-L-adamantammonium" (27), "hexadecyltrimethylammonium" (27), "tetramethylammonium" (15); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+--- formula: Si / (Al + 1e-6) | cites [] | source prior_knowledge
+
+##### kg_shuffled r10 round 2 | ctx_match=True prompt_match=True
+factor: Gel alkalinity: the hydroxide-to-silica ratio (OH/Si), which sets the basicity of the crystallization medium
+queries: ['frameworks obtained from fluoride-medium versus hydroxide-medium high-silica syntheses (e.g. MTW, *BEA, MWW)', 'effect of high OH/Si alkalinity on crystallization of low-silica frameworks FAU, LTA, CHA and amorphous/Failed outcomes']
+linking: [{'query': 'frameworks obtained from fluoride-medium versus hydroxide-medium high-silica syntheses (e.g. MTW, *BEA, MWW)', 'osdas': [], 'frameworks': ['*BEA', 'MTW', 'MWW'], 'conditions': ['fluoride medium']}, {'query': 'effect of high OH/Si alkalinity on crystallization of low-silica frameworks FAU, LTA, CHA and amorphous/Failed outcomes', 'osdas': [], 'frameworks': ['CHA', 'FAU', 'LTA'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetrapropylammonium" (32), "tetraethylammonium" (16), "tetramethylammonium" (5), "hexadecyltrimethylammonium" (5), "triethylamine" (3); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+[2] Framework MTW <--produced by-- 33 KG synthesis experiments from 25 papers; most frequent linked OSDAs: "tetrapropylammonium" (2), "tetraethylammonium" (2), "di-n-propylamine" (1), "triethylamine" (1), "N,N-diisopropylethylamine" (1); fluoride medium in 27%; heteroatoms: Ge 3%, Sn 3%, Ti 3%; median temperature 160 C.
+[3] Framework MWW <--produced by-- 95 KG synthesis experiments from 72 papers; most frequent linked OSDAs: "tetrapropylammonium" (12), "tetraethylammonium" (8), "1-ethyl-3-methylimidazolate" (5), "hexadecyltrimethylammonium" (4), "N,N-dimethyl-3,5- dimethylpiperidinium" (2); fluoride medium in 7%; heteroatoms: B 6%, Ti 6%, Zn 2%; median temperature 150 C.
+[4] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+[5] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "tetrapropylammonium" (50), "tetraethylammonium" (19), "N,N,N-trimethyl-L-adamantammonium" (11), "tetramethylammonium" (4), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+[6] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "tetrapropylammonium" (27), "tetraethylammonium" (8), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (2), "N,N-dimethyl-3,5- dimethylpiperidinium" (2); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[7] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetrapropylammonium" (11), "tetraethylammonium" (4), "triethylamine" (3), "hexadecyltrimethylammonium" (2), "N,N,N-trimethyl-L-adamantammonium" (2); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+--- formula: OH / (Si + 1e-6) | cites [1, 2, 4, 6, 7] | source both
+
+##### kg_shuffled r10 round 3 | ctx_match=True prompt_match=True
+factor: OSDA charge density (formal charge per molecular volume)
+queries: ['TEA+ TPA+ charge density frameworks *BEA vs MFI', 'high charge density OSDA small-pore CHA AEI LTA']
+linking: [{'query': 'TEA+ TPA+ charge density frameworks *BEA vs MFI', 'osdas': ['CBXCPBUEXACCNR-UHFFFAOYSA-N', 'GSEJCLTVZPLZKY-UHFFFAOYSA-N', 'OSBSFAARYOCBHB-UHFFFAOYSA-N', 'ZMANZCXQSJIPKH-UHFFFAOYSA-N'], 'frameworks': ['*BEA', 'MFI'], 'conditions': []}, {'query': 'high charge density OSDA small-pore CHA AEI LTA', 'osdas': [], 'frameworks': ['AEI', 'CHA', 'LTA'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "tetraethylammonium" --used in--> 138 KG synthesis experiments from 132 papers --produced--> MFI 38%, CHA 12%, *BEA 11%, FAU 5%, MWW 5% [small-pore 19%, medium-pore 53%, large-pore 26%, xlarge-pore 1%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[2] OSDA "triethanolamine" --used in--> 11 KG synthesis experiments from 11 papers --produced--> MFI 46%, *BEA 15%, ATS 8%, FER 8%, MWW 8% [small-pore 15%, medium-pore 62%, large-pore 23%, xlarge-pore 0%]; fluoride medium in 9%; median crystallization temperature 150 C.
+[3] OSDA "tetrapropylammonium" --used in--> 365 KG synthesis experiments from 326 papers --produced--> MFI 41%, CHA 13%, *BEA 8%, FAU 7%, MWW 3% [small-pore 24%, medium-pore 52%, large-pore 24%, xlarge-pore 1%]; fluoride medium in 12%; median crystallization temperature 160 C.
+[4] OSDA "triethylamine" --used in--> 22 KG synthesis experiments from 22 papers --produced--> MFI 27%, *BEA 14%, AEI 14%, LTA 14%, CHA 9% [small-pore 45%, medium-pore 27%, large-pore 27%, xlarge-pore 0%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[5] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetrapropylammonium" (32), "tetraethylammonium" (16), "tetramethylammonium" (5), "hexadecyltrimethylammonium" (5), "triethylamine" (3); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+[6] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (162), "tetraethylammonium" (58), "N,N,N-trimethyl-L-adamantammonium" (27), "hexadecyltrimethylammonium" (27), "tetramethylammonium" (15); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[7] Framework AEI <--produced by-- 56 KG synthesis experiments from 35 papers; most frequent linked OSDAs: "tetrapropylammonium" (7), "triethylamine" (3), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (1), "hexadecyltrimethylammonium" (1); fluoride medium in 0%; heteroatoms: P 7%, Ge 2%; median temperature 160 C.
+[8] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "tetrapropylammonium" (50), "tetraethylammonium" (19), "N,N,N-trimethyl-L-adamantammonium" (11), "tetramethylammonium" (4), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+[9] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetrapropylammonium" (11), "tetraethylammonium" (4), "triethylamine" (3), "hexadecyltrimethylammonium" (2), "N,N,N-trimethyl-L-adamantammonium" (2); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+--- formula: osda_charge / (osda_volume + 1e-6) | cites [1, 3, 4, 5, 6, 7, 8, 9] | source both
+
+##### kg_shuffled r2 round 1 | ctx_match=True prompt_match=True
+factor: Alkalinity of the gel, encoded as the hydroxide-to-tetrahedral-former ratio OH / (Si + Al + P + Ge + B + Ga + 0.001)
+queries: []
+linking: None
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: OH / (Si + Al + P + Ge + B + Ga + 0.001) | cites [] | source prior_knowledge
+
+##### kg_shuffled r2 round 2 | ctx_match=True prompt_match=True
+factor: gel dilution: water-to-tetrahedral-atom ratio
+queries: ['frameworks obtained from concentrated (low water) high-silica gels', 'frameworks crystallized from dilute gels such as FAU and LTA']
+linking: [{'query': 'frameworks obtained from concentrated (low water) high-silica gels', 'osdas': [], 'frameworks': [], 'conditions': []}, {'query': 'frameworks crystallized from dilute gels such as FAU and LTA', 'osdas': [], 'frameworks': ['FAU', 'LTA'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "tetrapropylammonium" (27), "tetraethylammonium" (8), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (2), "N,N-dimethyl-3,5- dimethylpiperidinium" (2); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[2] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetrapropylammonium" (11), "tetraethylammonium" (4), "triethylamine" (3), "hexadecyltrimethylammonium" (2), "N,N,N-trimethyl-L-adamantammonium" (2); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+--- formula: H2O / (Si + Al + P + Ge + B + Ga + 0.001) | cites [1, 2] | source both
+
+##### kg_shuffled r2 round 3 | ctx_match=True prompt_match=True
+factor: tatom_heteroatom_ratio: (Si + Ge + 0.001) / (Al + P + B + Ga)
+queries: ['frameworks obtained from gels containing P (AlPO4 / SAPO) versus P-free gels', 'frameworks obtained from Ge-containing gels versus pure-silica gels']
+linking: [{'query': 'frameworks obtained from gels containing P (AlPO4 / SAPO) versus P-free gels', 'osdas': [], 'frameworks': [], 'conditions': ['phosphorus (AlPO/SAPO) gel']}, {'query': 'frameworks obtained from Ge-containing gels versus pure-silica gels', 'osdas': [], 'frameworks': [], 'conditions': ['germanium in the gel']}]
+--- EVIDENCE AS SHOWN ---
+[1] Condition "phosphorus (AlPO/SAPO) gel" --in--> 52 KG synthesis experiments from 42 papers --produced--> CHA 27%, MFI 15%, AFI 10%, AEL 8%, AEI 7% [small-pore 56%, medium-pore 24%, large-pore 19%, xlarge-pore 2%].
+[2] Condition "germanium in the gel" --in--> 112 KG synthesis experiments from 81 papers --produced--> UTL 27%, IWR 8%, STW 8%, BEC 7%, *BEA 6% [small-pore 6%, medium-pore 23%, large-pore 39%, xlarge-pore 31%].
+--- formula: (Si + Ge + 0.001) / (Al + P + B + Ga + 0.001) | cites [1, 2] | source both
+
+##### kg_shuffled r3 round 1 | ctx_match=True prompt_match=True
+factor: Gel alkalinity, encoded as the hydroxide-to-tetrahedral-framework-atom ratio OH / (Si + Al + P + Ge + B + 1e-6)
+queries: ['frameworks obtained with fluoride medium vs hydroxide medium for tetraethylammonium OSDA', 'effect of high OH/Si alkalinity on phase selectivity and failed (amorphous or dense) products in zeolite synthesis']
+linking: [{'query': 'frameworks obtained with fluoride medium vs hydroxide medium for tetraethylammonium OSDA', 'osdas': ['CBXCPBUEXACCNR-UHFFFAOYSA-N'], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'effect of high OH/Si alkalinity on phase selectivity and failed (amorphous or dense) products in zeolite synthesis', 'osdas': [], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "tetraethylammonium" --used in--> 138 KG synthesis experiments from 132 papers --produced--> MFI 38%, CHA 12%, *BEA 11%, FAU 5%, MWW 5% [small-pore 19%, medium-pore 53%, large-pore 26%, xlarge-pore 1%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[2] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+--- formula: OH / (Si + Al + P + Ge + B + 1e-6) | cites [1, 2] | source both
+
+##### kg_shuffled r3 round 2 | ctx_match=True prompt_match=True
+factor: OSDA charge density (formal charge per OSDA molecular volume)
+queries: ['bulky monovalent quaternary ammonium OSDA frameworks obtained (e.g. TEA+, TBA+)', 'small charge-dense OSDA (e.g. choline, dimethylammonium) product frameworks']
+linking: [{'query': 'bulky monovalent quaternary ammonium OSDA frameworks obtained (e.g. TEA+, TBA+)', 'osdas': ['CBXCPBUEXACCNR-UHFFFAOYSA-N', 'DZLFLBLQUQXARW-UHFFFAOYSA-N', 'GSEJCLTVZPLZKY-UHFFFAOYSA-N', 'OSBSFAARYOCBHB-UHFFFAOYSA-N', 'ZMANZCXQSJIPKH-UHFFFAOYSA-N'], 'frameworks': [], 'conditions': []}, {'query': 'small charge-dense OSDA (e.g. choline, dimethylammonium) product frameworks', 'osdas': ['OEYIOHPDSNJKLS-UHFFFAOYSA-N'], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "tetraethylammonium" --used in--> 138 KG synthesis experiments from 132 papers --produced--> MFI 38%, CHA 12%, *BEA 11%, FAU 5%, MWW 5% [small-pore 19%, medium-pore 53%, large-pore 26%, xlarge-pore 1%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[2] OSDA "tetrabutylammonium" --used in--> 19 KG synthesis experiments from 19 papers --produced--> MFI 43%, *BEA 10%, AEI 5%, AEL 5%, ATO 5% [small-pore 19%, medium-pore 62%, large-pore 19%, xlarge-pore 0%]; fluoride medium in 16%; median crystallization temperature 170 C.
+[3] OSDA "triethanolamine" --used in--> 11 KG synthesis experiments from 11 papers --produced--> MFI 46%, *BEA 15%, ATS 8%, FER 8%, MWW 8% [small-pore 15%, medium-pore 62%, large-pore 23%, xlarge-pore 0%]; fluoride medium in 9%; median crystallization temperature 150 C.
+[4] OSDA "tetrapropylammonium" --used in--> 365 KG synthesis experiments from 326 papers --produced--> MFI 41%, CHA 13%, *BEA 8%, FAU 7%, MWW 3% [small-pore 24%, medium-pore 52%, large-pore 24%, xlarge-pore 1%]; fluoride medium in 12%; median crystallization temperature 160 C.
+[5] OSDA "triethylamine" --used in--> 22 KG synthesis experiments from 22 papers --produced--> MFI 27%, *BEA 14%, AEI 14%, LTA 14%, CHA 9% [small-pore 45%, medium-pore 27%, large-pore 27%, xlarge-pore 0%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[6] OSDA "choline" --used in--> 8 KG synthesis experiments from 8 papers --produced--> MFI 42%, CHA 8%, EMT 8%, FAU 8%, KFI 8% [small-pore 33%, medium-pore 50%, large-pore 17%, xlarge-pore 0%]; fluoride medium in 12%; median crystallization temperature 160 C.
+--- formula: osda_charge / (osda_volume + 1e-6) | cites [1, 2, 4, 5, 6] | source both
+
+##### kg_shuffled r3 round 3 | ctx_match=True prompt_match=True
+factor: gel dilution (water-to-framework-atom ratio)
+queries: ['effect of water content dilution H2O/Si ratio on zeolite phase selectivity CHA MFI FAU crystallization', 'dry gel conversion versus hydrothermal synthesis water amount phase outcomes']
+linking: [{'query': 'effect of water content dilution H2O/Si ratio on zeolite phase selectivity CHA MFI FAU crystallization', 'osdas': [], 'frameworks': ['CHA', 'FAU', 'MFI'], 'conditions': []}, {'query': 'dry gel conversion versus hydrothermal synthesis water amount phase outcomes', 'osdas': [], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "tetrapropylammonium" (50), "tetraethylammonium" (19), "N,N,N-trimethyl-L-adamantammonium" (11), "tetramethylammonium" (4), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+[2] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "tetrapropylammonium" (27), "tetraethylammonium" (8), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (2), "N,N-dimethyl-3,5- dimethylpiperidinium" (2); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[3] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (162), "tetraethylammonium" (58), "N,N,N-trimethyl-L-adamantammonium" (27), "hexadecyltrimethylammonium" (27), "tetramethylammonium" (15); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+--- formula: H2O / (Si + Al + P + Ge + 1e-6) | cites [] | source prior_knowledge
+
+##### kg_shuffled r4 round 1 | ctx_match=True prompt_match=True
+factor: Alkalinity of the synthesis gel, encoded as the hydroxide-to-silica ratio OH/Si (with a small constant in the denominator)
+queries: ['which frameworks are obtained with TPAOH in fluoride medium versus hydroxide medium', 'effect of low versus high alkalinity on zeolite phase selectivity CHA FAU LTA SOD']
+linking: [{'query': 'which frameworks are obtained with TPAOH in fluoride medium versus hydroxide medium', 'osdas': ['OSBSFAARYOCBHB-UHFFFAOYSA-N'], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'effect of low versus high alkalinity on zeolite phase selectivity CHA FAU LTA SOD', 'osdas': [], 'frameworks': ['CHA', 'FAU', 'LTA', 'SOD'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "tetrapropylammonium" --used in--> 365 KG synthesis experiments from 326 papers --produced--> MFI 41%, CHA 13%, *BEA 8%, FAU 7%, MWW 3% [small-pore 24%, medium-pore 52%, large-pore 24%, xlarge-pore 1%]; fluoride medium in 12%; median crystallization temperature 160 C.
+[2] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+[3] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "tetrapropylammonium" (50), "tetraethylammonium" (19), "N,N,N-trimethyl-L-adamantammonium" (11), "tetramethylammonium" (4), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+[4] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "tetrapropylammonium" (27), "tetraethylammonium" (8), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (2), "N,N-dimethyl-3,5- dimethylpiperidinium" (2); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[5] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetrapropylammonium" (11), "tetraethylammonium" (4), "triethylamine" (3), "hexadecyltrimethylammonium" (2), "N,N,N-trimethyl-L-adamantammonium" (2); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+[6] Framework SOD <--produced by-- 56 KG synthesis experiments from 42 papers; most frequent linked OSDAs: "tetrapropylammonium" (2), "diethylenetriamine" (1), "N,N,N',N'-tetramethylethylenediamine" (1), "methyltropinium" (1), "morpholine" (1); fluoride medium in 0%; heteroatoms: P 5%, Zn 2%; median temperature 100 C.
+--- formula: OH / (Si + 1e-6) | cites [1, 2, 4, 5, 6] | source both
+
+##### kg_shuffled r4 round 2 | ctx_match=True prompt_match=True
+factor: water-to-silica ratio (gel dilution)
+queries: []
+linking: None
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: H2O / (Si + 1e-6) | cites [] | source prior_knowledge
+
+##### kg_shuffled r4 round 3 | ctx_match=True prompt_match=True
+factor: silica-to-alumina gel ratio: Si / (Al + 1e-6)
+queries: ['frameworks obtained from all-silica (Al-free) gels with fluoride medium', 'how often FAU vs MFI vs *BEA reported at low vs high gel Si/Al']
+linking: [{'query': 'frameworks obtained from all-silica (Al-free) gels with fluoride medium', 'osdas': [], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'how often FAU vs MFI vs *BEA reported at low vs high gel Si/Al', 'osdas': [], 'frameworks': ['*BEA', 'FAU', 'MFI'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+[2] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetrapropylammonium" (32), "tetraethylammonium" (16), "tetramethylammonium" (5), "hexadecyltrimethylammonium" (5), "triethylamine" (3); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+[3] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "tetrapropylammonium" (27), "tetraethylammonium" (8), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (2), "N,N-dimethyl-3,5- dimethylpiperidinium" (2); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[4] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (162), "tetraethylammonium" (58), "N,N,N-trimethyl-L-adamantammonium" (27), "hexadecyltrimethylammonium" (27), "tetramethylammonium" (15); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+--- formula: Si / (Al + 1e-6) | cites [1, 2, 3, 4] | source both
+
+##### kg_shuffled r5 round 1 | ctx_match=True prompt_match=True
+factor: Gel alkalinity expressed as the OH/Si molar ratio
+queries: ['which frameworks are obtained with tetrapropylammonium as OSDA in hydroxide vs fluoride medium', 'how often is FAU or LTA reported in fluoride-free high-hydroxide gels compared to fluoride media']
+linking: [{'query': 'which frameworks are obtained with tetrapropylammonium as OSDA in hydroxide vs fluoride medium', 'osdas': ['OSBSFAARYOCBHB-UHFFFAOYSA-N'], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'how often is FAU or LTA reported in fluoride-free high-hydroxide gels compared to fluoride media', 'osdas': [], 'frameworks': ['FAU', 'LTA'], 'conditions': ['fluoride medium']}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "tetrapropylammonium" --used in--> 365 KG synthesis experiments from 326 papers --produced--> MFI 41%, CHA 13%, *BEA 8%, FAU 7%, MWW 3% [small-pore 24%, medium-pore 52%, large-pore 24%, xlarge-pore 1%]; fluoride medium in 12%; median crystallization temperature 160 C.
+[2] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+[3] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "tetrapropylammonium" (27), "tetraethylammonium" (8), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (2), "N,N-dimethyl-3,5- dimethylpiperidinium" (2); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[4] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetrapropylammonium" (11), "tetraethylammonium" (4), "triethylamine" (3), "hexadecyltrimethylammonium" (2), "N,N,N-trimethyl-L-adamantammonium" (2); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+--- formula: OH / (Si + 0.001) | cites [1, 2, 3, 4] | source both
+
+##### kg_shuffled r5 round 2 | ctx_match=True prompt_match=True
+factor: Gel dilution: the water-to-silica molar ratio H2O / (Si + 0.001)
+queries: ['frameworks obtained in fluoride media with bulky OSDAs (e.g. TEA, DABCO) versus OH-media for the same OSDA', 'syntheses of *BEA and MTW: typical OSDAs and gel dilution conditions reported']
+linking: [{'query': 'frameworks obtained in fluoride media with bulky OSDAs (e.g. TEA, DABCO) versus OH-media for the same OSDA', 'osdas': ['CBXCPBUEXACCNR-UHFFFAOYSA-N', 'GSEJCLTVZPLZKY-UHFFFAOYSA-N', 'IMNIMPAHZVJRPE-UHFFFAOYSA-N', 'OSBSFAARYOCBHB-UHFFFAOYSA-N', 'ZMANZCXQSJIPKH-UHFFFAOYSA-N'], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'syntheses of *BEA and MTW: typical OSDAs and gel dilution conditions reported', 'osdas': [], 'frameworks': ['*BEA', 'MTW'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "tetraethylammonium" --used in--> 138 KG synthesis experiments from 132 papers --produced--> MFI 38%, CHA 12%, *BEA 11%, FAU 5%, MWW 5% [small-pore 19%, medium-pore 53%, large-pore 26%, xlarge-pore 1%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[2] OSDA "triethanolamine" --used in--> 11 KG synthesis experiments from 11 papers --produced--> MFI 46%, *BEA 15%, ATS 8%, FER 8%, MWW 8% [small-pore 15%, medium-pore 62%, large-pore 23%, xlarge-pore 0%]; fluoride medium in 9%; median crystallization temperature 150 C.
+[3] OSDA "triethylenediamine" --used in--> 5 KG synthesis experiments from 5 papers --produced--> FAU 25%, MFI 25%, AEI 12%, ITW 12%, MOR 12% [small-pore 25%, medium-pore 38%, large-pore 38%, xlarge-pore 0%]; fluoride medium in 20%; median crystallization temperature 170 C.
+[4] OSDA "tetrapropylammonium" --used in--> 365 KG synthesis experiments from 326 papers --produced--> MFI 41%, CHA 13%, *BEA 8%, FAU 7%, MWW 3% [small-pore 24%, medium-pore 52%, large-pore 24%, xlarge-pore 1%]; fluoride medium in 12%; median crystallization temperature 160 C.
+[5] OSDA "triethylamine" --used in--> 22 KG synthesis experiments from 22 papers --produced--> MFI 27%, *BEA 14%, AEI 14%, LTA 14%, CHA 9% [small-pore 45%, medium-pore 27%, large-pore 27%, xlarge-pore 0%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[6] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+[7] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetrapropylammonium" (32), "tetraethylammonium" (16), "tetramethylammonium" (5), "hexadecyltrimethylammonium" (5), "triethylamine" (3); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+[8] Framework MTW <--produced by-- 33 KG synthesis experiments from 25 papers; most frequent linked OSDAs: "tetrapropylammonium" (2), "tetraethylammonium" (2), "di-n-propylamine" (1), "triethylamine" (1), "N,N-diisopropylethylamine" (1); fluoride medium in 27%; heteroatoms: Ge 3%, Sn 3%, Ti 3%; median temperature 160 C.
+--- formula: H2O / (Si + 0.001) | cites [6, 7, 8] | source both
+
+##### kg_shuffled r5 round 3 | ctx_match=True prompt_match=True
+factor: framework T-atom composition: the phosphorus fraction among framework-forming T atoms, P / (Si + Al + P + 0.001)
+queries: ['which frameworks are obtained when P is in the gel but Si is absent (AlPO4 syntheses)', 'SAPO CHA and AEI synthesis gel composition P Al Si ratio']
+linking: [{'query': 'which frameworks are obtained when P is in the gel but Si is absent (AlPO4 syntheses)', 'osdas': [], 'frameworks': [], 'conditions': ['phosphorus (AlPO/SAPO) gel']}, {'query': 'SAPO CHA and AEI synthesis gel composition P Al Si ratio', 'osdas': [], 'frameworks': ['AEI', 'CHA'], 'conditions': ['phosphorus (AlPO/SAPO) gel']}]
+--- EVIDENCE AS SHOWN ---
+[1] Condition "phosphorus (AlPO/SAPO) gel" --in--> 52 KG synthesis experiments from 42 papers --produced--> CHA 27%, MFI 15%, AFI 10%, AEL 8%, AEI 7% [small-pore 56%, medium-pore 24%, large-pore 19%, xlarge-pore 2%].
+[2] Framework AEI <--produced by-- 56 KG synthesis experiments from 35 papers; most frequent linked OSDAs: "tetrapropylammonium" (7), "triethylamine" (3), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (1), "hexadecyltrimethylammonium" (1); fluoride medium in 0%; heteroatoms: P 7%, Ge 2%; median temperature 160 C.
+[3] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "tetrapropylammonium" (50), "tetraethylammonium" (19), "N,N,N-trimethyl-L-adamantammonium" (11), "tetramethylammonium" (4), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+--- formula: P / (Si + Al + P + 0.001) | cites [1, 2, 3] | source both
+
+##### kg_shuffled r6 round 1 | ctx_match=True prompt_match=True
+factor: Gel mineralizer intensity: total mineralizer (OH + F) normalized per framework-forming T atom (Si+Al+P+Ge), i.e. (OH + F) / (Si + Al + P + Ge + 0.001)
+queries: ['SSZ-13 CHA synthesis OH/Si ratio vs fluoride route', 'framework selectivity MFI MTW BEA fluoride versus hydroxide medium']
+linking: [{'query': 'SSZ-13 CHA synthesis OH/Si ratio vs fluoride route', 'osdas': [], 'frameworks': ['CHA'], 'conditions': ['fluoride medium']}, {'query': 'framework selectivity MFI MTW BEA fluoride versus hydroxide medium', 'osdas': [], 'frameworks': ['*BEA', 'MFI', 'MTW'], 'conditions': ['fluoride medium']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "tetrapropylammonium" (50), "tetraethylammonium" (19), "N,N,N-trimethyl-L-adamantammonium" (11), "tetramethylammonium" (4), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+[2] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+[3] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetrapropylammonium" (32), "tetraethylammonium" (16), "tetramethylammonium" (5), "hexadecyltrimethylammonium" (5), "triethylamine" (3); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+[4] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (162), "tetraethylammonium" (58), "N,N,N-trimethyl-L-adamantammonium" (27), "hexadecyltrimethylammonium" (27), "tetramethylammonium" (15); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+[5] Framework MTW <--produced by-- 33 KG synthesis experiments from 25 papers; most frequent linked OSDAs: "tetrapropylammonium" (2), "tetraethylammonium" (2), "di-n-propylamine" (1), "triethylamine" (1), "N,N-diisopropylethylamine" (1); fluoride medium in 27%; heteroatoms: Ge 3%, Sn 3%, Ti 3%; median temperature 160 C.
+--- formula: (OH + F) / (Si + Al + P + Ge + 0.001) | cites [2, 3, 5] | source both
+
+##### kg_shuffled r6 round 2 | ctx_match=True prompt_match=True
+factor: OSDA1 loading per framework T-atom: sda1 / (Si + Al + P + Ge + 0.001)
+queries: ['TEAOH amount per SiO2 effect on BEA vs MFI vs ZSM-11 phase selectivity', 'OSDA to silica ratio influence on zeolite crystallization outcome and failure']
+linking: [{'query': 'TEAOH amount per SiO2 effect on BEA vs MFI vs ZSM-11 phase selectivity', 'osdas': ['CBXCPBUEXACCNR-UHFFFAOYSA-N', 'GSEJCLTVZPLZKY-UHFFFAOYSA-N', 'OSBSFAARYOCBHB-UHFFFAOYSA-N', 'ZMANZCXQSJIPKH-UHFFFAOYSA-N'], 'frameworks': ['*BEA', 'MEL', 'MFI'], 'conditions': []}, {'query': 'OSDA to silica ratio influence on zeolite crystallization outcome and failure', 'osdas': [], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "tetraethylammonium" --used in--> 138 KG synthesis experiments from 132 papers --produced--> MFI 38%, CHA 12%, *BEA 11%, FAU 5%, MWW 5% [small-pore 19%, medium-pore 53%, large-pore 26%, xlarge-pore 1%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[2] OSDA "triethanolamine" --used in--> 11 KG synthesis experiments from 11 papers --produced--> MFI 46%, *BEA 15%, ATS 8%, FER 8%, MWW 8% [small-pore 15%, medium-pore 62%, large-pore 23%, xlarge-pore 0%]; fluoride medium in 9%; median crystallization temperature 150 C.
+[3] OSDA "tetrapropylammonium" --used in--> 365 KG synthesis experiments from 326 papers --produced--> MFI 41%, CHA 13%, *BEA 8%, FAU 7%, MWW 3% [small-pore 24%, medium-pore 52%, large-pore 24%, xlarge-pore 1%]; fluoride medium in 12%; median crystallization temperature 160 C.
+[4] OSDA "triethylamine" --used in--> 22 KG synthesis experiments from 22 papers --produced--> MFI 27%, *BEA 14%, AEI 14%, LTA 14%, CHA 9% [small-pore 45%, medium-pore 27%, large-pore 27%, xlarge-pore 0%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[5] Framework *BEA <--produced by-- 361 KG synthesis experiments from 259 papers; most frequent linked OSDAs: "tetrapropylammonium" (32), "tetraethylammonium" (16), "tetramethylammonium" (5), "hexadecyltrimethylammonium" (5), "triethylamine" (3); fluoride medium in 25%; heteroatoms: Sn 11%, Ti 4%, Zn 4%, Ge 2%; median temperature 140 C.
+[6] Framework MEL <--produced by-- 52 KG synthesis experiments from 37 papers; most frequent linked OSDAs: "tetrapropylammonium" (5), "tetraethylammonium" (5), "morpholine" (3), "4-methyl-2,3,6,7-tetrahydro-1H,5H-pyrido [3.2.1-ij] quinolinium " (1), "hexadecyltrimethoxysilane" (1); fluoride medium in 0%; heteroatoms: Ge 4%, Ti 2%; median temperature 150 C.
+[7] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (162), "tetraethylammonium" (58), "N,N,N-trimethyl-L-adamantammonium" (27), "hexadecyltrimethylammonium" (27), "tetramethylammonium" (15); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+--- formula: sda1 / (Si + Al + P + Ge + 0.001) | cites [1, 3, 5, 7] | source both
+
+##### kg_shuffled r6 round 3 | ctx_match=True prompt_match=True
+factor: water per T atom (gel dilution / crystallization intensity)
+queries: []
+linking: None
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: H2O / (Si + Al + P + Ge + 0.001) | cites [] | source prior_knowledge
+
+##### kg_shuffled r7 round 1 | ctx_match=True prompt_match=True
+factor: Gel alkalinity / mineralization strength per framework-forming T atom (OH normalized by total tetrahedral species Si+Al+P+Ge+...)
+queries: ['which frameworks are obtained in fluoride medium versus hydroxide medium for the same OSDA (e.g., TPA or TEA)', 'frameworks reported with high water content (dilute) gels using quaternary ammonium OSDAs']
+linking: [{'query': 'which frameworks are obtained in fluoride medium versus hydroxide medium for the same OSDA (e.g., TPA or TEA)', 'osdas': ['CBXCPBUEXACCNR-UHFFFAOYSA-N', 'GSEJCLTVZPLZKY-UHFFFAOYSA-N', 'OSBSFAARYOCBHB-UHFFFAOYSA-N', 'ZMANZCXQSJIPKH-UHFFFAOYSA-N'], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'frameworks reported with high water content (dilute) gels using quaternary ammonium OSDAs', 'osdas': [], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "tetraethylammonium" --used in--> 138 KG synthesis experiments from 132 papers --produced--> MFI 38%, CHA 12%, *BEA 11%, FAU 5%, MWW 5% [small-pore 19%, medium-pore 53%, large-pore 26%, xlarge-pore 1%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[2] OSDA "triethanolamine" --used in--> 11 KG synthesis experiments from 11 papers --produced--> MFI 46%, *BEA 15%, ATS 8%, FER 8%, MWW 8% [small-pore 15%, medium-pore 62%, large-pore 23%, xlarge-pore 0%]; fluoride medium in 9%; median crystallization temperature 150 C.
+[3] OSDA "tetrapropylammonium" --used in--> 365 KG synthesis experiments from 326 papers --produced--> MFI 41%, CHA 13%, *BEA 8%, FAU 7%, MWW 3% [small-pore 24%, medium-pore 52%, large-pore 24%, xlarge-pore 1%]; fluoride medium in 12%; median crystallization temperature 160 C.
+[4] OSDA "triethylamine" --used in--> 22 KG synthesis experiments from 22 papers --produced--> MFI 27%, *BEA 14%, AEI 14%, LTA 14%, CHA 9% [small-pore 45%, medium-pore 27%, large-pore 27%, xlarge-pore 0%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[5] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+--- formula: OH / (Si + Al + P + Ge + B + Ga + Ti + 0.001) | cites [1, 3, 5] | source both
+
+##### kg_shuffled r7 round 2 | ctx_match=True prompt_match=True
+factor: OSDA loading per framework-forming T atom (structure-directing agent concentration ratio)
+queries: ['effect of OSDA/SiO2 molar ratio on zeolite phase selectivity (e.g., SSZ-13 vs other phases with TMAda+)', 'which frameworks are obtained at low OSDA loading inorganic vs organic-templated synthesis']
+linking: [{'query': 'effect of OSDA/SiO2 molar ratio on zeolite phase selectivity (e.g., SSZ-13 vs other phases with TMAda+)', 'osdas': ['KKXBPUAYFJQMLN-UHFFFAOYSA-N'], 'frameworks': ['CHA'], 'conditions': []}, {'query': 'which frameworks are obtained at low OSDA loading inorganic vs organic-templated synthesis', 'osdas': [], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "N,N,N-trimethyl-L-adamantammonium" --used in--> 59 KG synthesis experiments from 58 papers --produced--> MFI 42%, CHA 17%, *BEA 5%, AEI 5%, AFI 5% [small-pore 32%, medium-pore 46%, large-pore 15%, xlarge-pore 6%]; fluoride medium in 7%; median crystallization temperature 170 C.
+[2] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "tetrapropylammonium" (50), "tetraethylammonium" (19), "N,N,N-trimethyl-L-adamantammonium" (11), "tetramethylammonium" (4), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+--- formula: sda1 / (Si + Al + P + Ge + B + Ga + Ti + 0.001) | cites [1, 2] | source both
+
+##### kg_shuffled r7 round 3 | ctx_match=True prompt_match=True
+factor: gel dilution: water content per framework-forming T atom (H2O/(Si+Al+P+Ge+B+Ga+Ti+0.001))
+queries: []
+linking: None
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: H2O / (Si + Al + P + Ge + B + Ga + Ti + 0.001) | cites [] | source prior_knowledge
+
+##### kg_shuffled r8 round 1 | ctx_match=True prompt_match=True
+factor: gel alkalinity, i.e. the hydroxide-to-silica ratio OH/Si (with a small constant in the denominator to handle zero-silica gels)
+queries: ['which frameworks are obtained with TEAOH in fluoride medium versus hydroxide medium', 'SSZ-13 CHA synthesis conditions OSDA and mineralizer type']
+linking: [{'query': 'which frameworks are obtained with TEAOH in fluoride medium versus hydroxide medium', 'osdas': ['CBXCPBUEXACCNR-UHFFFAOYSA-N', 'GSEJCLTVZPLZKY-UHFFFAOYSA-N', 'OSBSFAARYOCBHB-UHFFFAOYSA-N', 'ZMANZCXQSJIPKH-UHFFFAOYSA-N'], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'SSZ-13 CHA synthesis conditions OSDA and mineralizer type', 'osdas': [], 'frameworks': ['CHA'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] OSDA "tetraethylammonium" --used in--> 138 KG synthesis experiments from 132 papers --produced--> MFI 38%, CHA 12%, *BEA 11%, FAU 5%, MWW 5% [small-pore 19%, medium-pore 53%, large-pore 26%, xlarge-pore 1%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[2] OSDA "triethanolamine" --used in--> 11 KG synthesis experiments from 11 papers --produced--> MFI 46%, *BEA 15%, ATS 8%, FER 8%, MWW 8% [small-pore 15%, medium-pore 62%, large-pore 23%, xlarge-pore 0%]; fluoride medium in 9%; median crystallization temperature 150 C.
+[3] OSDA "tetrapropylammonium" --used in--> 365 KG synthesis experiments from 326 papers --produced--> MFI 41%, CHA 13%, *BEA 8%, FAU 7%, MWW 3% [small-pore 24%, medium-pore 52%, large-pore 24%, xlarge-pore 1%]; fluoride medium in 12%; median crystallization temperature 160 C.
+[4] OSDA "triethylamine" --used in--> 22 KG synthesis experiments from 22 papers --produced--> MFI 27%, *BEA 14%, AEI 14%, LTA 14%, CHA 9% [small-pore 45%, medium-pore 27%, large-pore 27%, xlarge-pore 0%]; fluoride medium in 14%; median crystallization temperature 160 C.
+[5] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+[6] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "tetrapropylammonium" (50), "tetraethylammonium" (19), "N,N,N-trimethyl-L-adamantammonium" (11), "tetramethylammonium" (4), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+--- formula: OH / (Si + 1e-6) | cites [1, 3, 5] | source both
+
+##### kg_shuffled r8 round 2 | ctx_match=True prompt_match=True
+factor: gel dilution: water-to-framework-former ratio, H2O / (Si + Al + P + Ge + 1e-6)
+queries: []
+linking: None
+--- EVIDENCE AS SHOWN ---
+(nothing matched the queries)
+--- formula: H2O / (Si + Al + P + Ge + 1e-6) | cites [] | source prior_knowledge
+
+##### kg_shuffled r8 round 3 | ctx_match=True prompt_match=True
+factor: Inorganic cation loading relative to framework-forming T atoms: (Na + K + Li + Cs + Rb + Ca + Sr + Ba) / (Si + Al + P + Ge + 1e-6)
+queries: ['Which frameworks are obtained in OSDA-free alkali (Na, K) gels, e.g. FAU, LTA, SOD, and at what Na/Si or Na/Al levels', 'Ge-containing germanosilicate frameworks (UTL, ITH, FER-type) synthesized with quaternary ammonium OSDAs and minimal inorganic cation']
+linking: [{'query': 'Which frameworks are obtained in OSDA-free alkali (Na, K) gels, e.g. FAU, LTA, SOD, and at what Na/Si or Na/Al levels', 'osdas': [], 'frameworks': ['FAU', 'LTA', 'SOD'], 'conditions': []}, {'query': 'Ge-containing germanosilicate frameworks (UTL, ITH, FER-type) synthesized with quaternary ammonium OSDAs and minimal inorganic cation', 'osdas': [], 'frameworks': ['ITH', 'UTL'], 'conditions': ['germanium in the gel']}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "tetrapropylammonium" (27), "tetraethylammonium" (8), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (2), "N,N-dimethyl-3,5- dimethylpiperidinium" (2); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[2] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetrapropylammonium" (11), "tetraethylammonium" (4), "triethylamine" (3), "hexadecyltrimethylammonium" (2), "N,N,N-trimethyl-L-adamantammonium" (2); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+[3] Framework SOD <--produced by-- 56 KG synthesis experiments from 42 papers; most frequent linked OSDAs: "tetrapropylammonium" (2), "diethylenetriamine" (1), "N,N,N',N'-tetramethylethylenediamine" (1), "methyltropinium" (1), "morpholine" (1); fluoride medium in 0%; heteroatoms: P 5%, Zn 2%; median temperature 100 C.
+[4] Framework ITH <--produced by-- 8 KG synthesis experiments from 6 papers; most frequent linked OSDAs: "morpholine" (1); fluoride medium in 38%; heteroatoms: Ge 25%; median temperature 160 C.
+[5] Framework UTL <--produced by-- 52 KG synthesis experiments from 33 papers; most frequent linked OSDAs: "N,N,N-trimethyl-L-adamantammonium" (2), "Hexamethyleneimine" (1), "tetrapropylammonium" (1); fluoride medium in 6%; heteroatoms: Ge 65%, B 2%; median temperature 175 C.
+[6] Condition "germanium in the gel" --in--> 112 KG synthesis experiments from 81 papers --produced--> UTL 27%, IWR 8%, STW 8%, BEC 7%, *BEA 6% [small-pore 6%, medium-pore 23%, large-pore 39%, xlarge-pore 31%].
+--- formula: (Na + K + Li + Cs + Rb + Ca + Sr + Ba) / (Si + Al + P + Ge + 1e-6) | cites [1, 2, 3, 5, 6] | source both
+
+##### kg_shuffled r9 round 1 | ctx_match=True prompt_match=True
+factor: Gel silicon-to-aluminum ratio (Si/Al), encoded as Si/(Al + small constant)
+queries: ['which frameworks are most frequently obtained from low Si/Al aluminosilicate gels', 'SSZ-13 CHA syntheses typical gel Si/Al ratio and OSDA']
+linking: [{'query': 'which frameworks are most frequently obtained from low Si/Al aluminosilicate gels', 'osdas': [], 'frameworks': [], 'conditions': []}, {'query': 'SSZ-13 CHA syntheses typical gel Si/Al ratio and OSDA', 'osdas': [], 'frameworks': ['CHA'], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework CHA <--produced by-- 426 KG synthesis experiments from 269 papers; most frequent linked OSDAs: "tetrapropylammonium" (50), "tetraethylammonium" (19), "N,N,N-trimethyl-L-adamantammonium" (11), "tetramethylammonium" (4), "hexadecyltrimethylammonium" (4); fluoride medium in 6%; heteroatoms: P 4%, Zn 2%, Sn 0%, Ga 0%; median temperature 160 C.
+--- formula: Si / (Al + 0.005) | cites [1] | source both
+
+##### kg_shuffled r9 round 2 | ctx_match=True prompt_match=True
+factor: gel alkalinity: hydroxide-to-silicon ratio, OH / (Si + 0.005)
+queries: ['which frameworks are obtained with the same OSDA in fluoride medium versus hydroxide medium', 'syntheses with very high OH content: which frameworks or failures reported with high alkalinity gels']
+linking: [{'query': 'which frameworks are obtained with the same OSDA in fluoride medium versus hydroxide medium', 'osdas': [], 'frameworks': [], 'conditions': ['fluoride medium']}, {'query': 'syntheses with very high OH content: which frameworks or failures reported with high alkalinity gels', 'osdas': [], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+--- formula: OH / (Si + 0.005) | cites [1] | source both
+
+##### kg_shuffled r9 round 3 | ctx_match=True prompt_match=True
+factor: gel water-to-silicon dilution ratio (H2O/Si)
+queries: ['effect of water content H2O/Si ratio on zeolite phase selectivity FAU LTA MFI', 'dilute versus concentrated gel zeolite crystallization nucleation dense phase']
+linking: [{'query': 'effect of water content H2O/Si ratio on zeolite phase selectivity FAU LTA MFI', 'osdas': [], 'frameworks': ['FAU', 'LTA', 'MFI'], 'conditions': []}, {'query': 'dilute versus concentrated gel zeolite crystallization nucleation dense phase', 'osdas': [], 'frameworks': [], 'conditions': []}]
+--- EVIDENCE AS SHOWN ---
+[1] Framework FAU <--produced by-- 695 KG synthesis experiments from 519 papers; most frequent linked OSDAs: "tetrapropylammonium" (27), "tetraethylammonium" (8), "N,N,N-trimethyl-L-adamantammonium" (3), "triethylenediamine" (2), "N,N-dimethyl-3,5- dimethylpiperidinium" (2); fluoride medium in 1%; heteroatoms: Zn 3%, Ti 1%, Sn 0%, P 0%; median temperature 100 C.
+[2] Framework LTA <--produced by-- 331 KG synthesis experiments from 248 papers; most frequent linked OSDAs: "tetrapropylammonium" (11), "tetraethylammonium" (4), "triethylamine" (3), "hexadecyltrimethylammonium" (2), "N,N,N-trimethyl-L-adamantammonium" (2); fluoride medium in 3%; heteroatoms: Zn 2%, P 1%, Ti 0%, B 0%; median temperature 90 C.
+[3] Framework MFI <--produced by-- 1469 KG synthesis experiments from 1004 papers; most frequent linked OSDAs: "tetrapropylammonium" (162), "tetraethylammonium" (58), "N,N,N-trimethyl-L-adamantammonium" (27), "hexadecyltrimethylammonium" (27), "tetramethylammonium" (15); fluoride medium in 5%; heteroatoms: Ti 4%, Zn 3%, Ga 1%, Sn 1%; median temperature 160 C.
+--- formula: H2O / (Si + 0.005) | cites [1, 2, 3] | source both
+

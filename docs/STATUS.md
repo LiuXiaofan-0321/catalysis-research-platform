@@ -30,6 +30,8 @@
 
 开发集第 1 轮之后暂停，测试集未评估，预注册未冻结。
 
+2026-10-10 完成了对整个框架的诊断和 V3 方案：[experiments/ZEOSYN_V3_PLAN.md](experiments/ZEOSYN_V3_PLAN.md)（上限分析见 [experiments/zeosyn_v3_ceiling/REPORT.md](experiments/zeosyn_v3_ceiling/REPORT.md)）。核心判断：公式再表达通道的上限约 0.5 pp；按 OSDA 留出并以“合成记录 KG × 原生 RF”合并，可达 +11 到 +14 pp；KG 需按合成记录重建。
+
 ## 运行环境
 
 - 台式机（R7-9700X）：V1、V2 都在这里运行。凡是需要载入 KG 或 RAG 的步骤都在这里做。
