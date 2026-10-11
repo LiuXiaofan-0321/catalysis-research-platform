@@ -17,3 +17,6 @@ literature_pipeline/**/cache/
 literature_pipeline/**/extractions/
 runs/
 results/*.tar.gz
+
+# cache of the diagnostic ceiling analysis
+docs/experiments/zeosyn_v3_ceiling/cache/

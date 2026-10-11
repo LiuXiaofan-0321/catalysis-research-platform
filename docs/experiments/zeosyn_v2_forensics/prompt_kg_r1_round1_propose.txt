@@ -1,0 +1,137 @@
+Task: a fixed RandomForest classifier predicts the main product of a zeolite hydrothermal synthesis (the IZA framework code, or "Failed" for amorphous/dense products) from the synthesis record. Evaluation uses held-out publications, so descriptors must transfer to recipes from unseen papers.
+
+The classifier already receives D0: every gel mole fraction listed below, crystallization time and temperature, and 14 OSDA1 conformer descriptors (asphericity, two principal axes, formal charge, SASA, molecular weight, NPR1, NPR2, rotatable bonds, PMI1-3, sphericity, volume). Tree ensembles split on one column at a time, so quantities that only emerge from combining inputs are not directly available to the model.
+
+Most frequent training outcomes (labels only, no statistics by feature): Failed, MFI, CHA, *BEA, AFI, MTW, MWW, MOR, FAU, LTA, AEL, TON, AEI, ISV/BEC, LEV, AEN, BEC, FER, UTL, MEL.
+
+Round 1 of 3. One descriptor will be appended per round without any intermediate scoring; you will not see any results.
+
+Allowed raw inputs (use these exact names; no other names exist):
+
+- Gel composition (normalized mole fractions; all gel species sum to 1):
+  Si (mole fraction of the normalized gel (all gel species sum to 1))
+  Al (mole fraction of the normalized gel (all gel species sum to 1))
+  P (mole fraction of the normalized gel (all gel species sum to 1))
+  Na (mole fraction of the normalized gel (all gel species sum to 1))
+  K (mole fraction of the normalized gel (all gel species sum to 1))
+  Li (mole fraction of the normalized gel (all gel species sum to 1))
+  Sr (mole fraction of the normalized gel (all gel species sum to 1))
+  Rb (mole fraction of the normalized gel (all gel species sum to 1))
+  Cs (mole fraction of the normalized gel (all gel species sum to 1))
+  Ba (mole fraction of the normalized gel (all gel species sum to 1))
+  Ca (mole fraction of the normalized gel (all gel species sum to 1))
+  F (fluoride; mole fraction of the normalized gel (all gel species sum to 1))
+  Ge (mole fraction of the normalized gel (all gel species sum to 1))
+  Ti (mole fraction of the normalized gel (all gel species sum to 1))
+  B (mole fraction of the normalized gel (all gel species sum to 1))
+  Mg (mole fraction of the normalized gel (all gel species sum to 1))
+  Ga (mole fraction of the normalized gel (all gel species sum to 1))
+  Zn (mole fraction of the normalized gel (all gel species sum to 1))
+  Be (mole fraction of the normalized gel (all gel species sum to 1))
+  W (mole fraction of the normalized gel (all gel species sum to 1))
+  Cu (mole fraction of the normalized gel (all gel species sum to 1))
+  Sn (mole fraction of the normalized gel (all gel species sum to 1))
+  Zr (mole fraction of the normalized gel (all gel species sum to 1))
+  V (mole fraction of the normalized gel (all gel species sum to 1))
+  H2O (water; mole fraction of the normalized gel (all gel species sum to 1))
+  sda1 (OSDA1 amount; mole fraction of OSDA1 in the normalized gel)
+  OH (hydroxide; mole fraction of the normalized gel (all gel species sum to 1))
+- Reaction conditions:
+  cryst_time (hours)
+  cryst_temp (degrees Celsius)
+- OSDA1 conformer descriptors from the dataset authors (0 when no OSDA):
+  osda_asphericity
+  osda_axis1 (angstrom)
+  osda_axis2 (angstrom)
+  osda_bertz_ct
+  osda_eccentricity
+  osda_charge (formal charge (e))
+  osda_sasa (angstrom^2)
+  osda_gyration_radius (angstrom)
+  osda_inertial_shape_factor
+  osda_mol_weight (g/mol)
+  osda_npr1
+  osda_npr2
+  osda_num_bonds
+  osda_rot_bonds
+  osda_pmi1 (amu*angstrom^2)
+  osda_pmi2 (amu*angstrom^2)
+  osda_pmi3 (amu*angstrom^2)
+  osda_sphericity
+  osda_volume (angstrom^3)
+- OSDA1 composition from its SMILES (0 when no OSDA):
+  osda_nC
+  osda_nN
+  osda_nN_quaternary (number of quaternary ammonium/phosphonium centres)
+  osda_nO
+  osda_nP
+  osda_nHeavy
+  osda_nRings
+  osda_nAromaticRings
+  osda_fraction_sp3 (fraction of sp3 carbons)
+  osda_logP (Crippen logP)
+  osda_tpsa (angstrom^2)
+- Other:
+  n_osda (number of distinct OSDAs recorded (0-3))
+
+Literature-prior inputs from the knowledge graph. For each recipe they summarise the synthesis experiments that OTHER publications report with the same OSDA1 (aggregated from thousands of experiments), so they carry information that D0 does not contain, such as which frameworks this OSDA has produced elsewhere. Values are 0 or -1 when the OSDA is absent from the graph. They are allowed inputs too:
+  kg_osda_known (OSDA1 appears in at least one KG synthesis experiment from another paper (1/0))
+  kg_osda_n_experiments (number of KG synthesis experiments using this OSDA)
+  kg_osda_n_papers (number of distinct papers reporting syntheses with this OSDA)
+  kg_osda_top_framework (framework most often obtained with this OSDA, as an index into kg_framework_vocabulary (-1 if none))
+  kg_osda_top_share (fraction of this OSDA's reported products that are its most frequent framework)
+  kg_osda_entropy (Shannon entropy (bits) of the frameworks reported with this OSDA; high = promiscuous OSDA)
+  kg_osda_n_frameworks (number of distinct frameworks reported with this OSDA)
+  kg_osda_share_small_pore (fraction of this OSDA's reported products that are small-pore frameworks)
+  kg_osda_share_medium_pore (fraction of this OSDA's reported products that are medium-pore frameworks)
+  kg_osda_share_large_pore (fraction of this OSDA's reported products that are large-pore frameworks)
+  kg_osda_share_xlarge_pore (fraction of this OSDA's reported products that are xlarge-pore frameworks)
+  kg_osda_share_MFI (fraction of this OSDA's reported products that are MFI)
+  kg_osda_share_FAU (fraction of this OSDA's reported products that are FAU)
+  kg_osda_share_CHA (fraction of this OSDA's reported products that are CHA)
+  kg_osda_share_BEA (fraction of this OSDA's reported products that are *BEA)
+  kg_osda_share_LTA (fraction of this OSDA's reported products that are LTA)
+  kg_osda_share_MOR (fraction of this OSDA's reported products that are MOR)
+  kg_osda_share_MWW (fraction of this OSDA's reported products that are MWW)
+  kg_osda_share_AFI (fraction of this OSDA's reported products that are AFI)
+  kg_osda_share_LTL (fraction of this OSDA's reported products that are LTL)
+  kg_osda_share_AEI (fraction of this OSDA's reported products that are AEI)
+  kg_osda_share_FER (fraction of this OSDA's reported products that are FER)
+  kg_osda_share_SOD (fraction of this OSDA's reported products that are SOD)
+  kg_osda_fluoride_share (fraction of this OSDA's KG syntheses that use a fluoride medium)
+  kg_osda_median_temperature_c (median crystallization temperature (C) reported with this OSDA (-1 if none))
+  kg_osda_median_product_si_al (median product Si/Al reported with this OSDA (-1 if none))
+
+Formula rules: one Python-style arithmetic expression over the allowed inputs and numeric constants. Operators + - * / ** and functions log, log10, log2, exp, sqrt, abs, floor, ceil, minimum(a,b), maximum(a,b). Add a small constant where a denominator can be zero. Do not reproduce a D0 column or a monotone transform of a single D0 column; other allowed inputs may be used directly.
+
+No descriptor has been appended yet.
+
+Step 2 of 2. Your plan for this round: factor = 'alkalinity of the gel, encoded as the hydroxide-to-silicon molar ratio (OH / (Si + 1e-6))'; reason = "D0 contains only mole fractions, and a tree ensemble splits on single columns, so it cannot see ratios. Alkalinity (OH/Si) is the single most influential synthesis variable after temperature: low OH/Si favors dense or low-silica phases (e.g., FAU, LTA, MER-like products fail toward 'Failed'), while high OH/Si accelerates dissolution and drives high-silica phases (MFI, MEL, TON, *BEA) and also increases dissolution/crystallization rate, interacting with crystallization time. The same OSDA can give different frameworks at different OH/Si, and this factor is publication-independent, so it should transfer to held-out papers.".
+
+Your queries: ["which frameworks are obtained with tetraethylammonium in fluoride medium vs hydroxide medium"]. Results from a knowledge graph of zeolite synthesis experiments from 6,691 papers are numbered below. Use them only where they add information beyond your own knowledge; do not build a descriptor merely because an item mentions a quantity, and ignore items that are irrelevant. Cite the items you actually rely on in evidence_ids (possibly []), and set knowledge_source to "evidence", "prior_knowledge" or "both".
+
+EVIDENCE START
+[1] OSDA "tetraethylammonium" --used in--> 130 KG synthesis experiments from 107 papers --produced--> *BEA 54%, CHA 17%, MFI 8%, AEI 5%, MOR 3% [small-pore 24%, medium-pore 10%, large-pore 65%, xlarge-pore 1%]; fluoride medium in 22%; median crystallization temperature 150 C.
+[2] Condition "fluoride medium" --in--> 318 KG synthesis experiments from 244 papers --produced--> *BEA 25%, MFI 21%, CHA 7%, STW 6%, FER 3% [small-pore 17%, medium-pore 41%, large-pore 41%, xlarge-pore 2%].
+EVIDENCE END
+
+Propose exactly ONE new descriptor. Return JSON exactly in this shape (values are instructions):
+{
+ "descriptor": {
+  "name": "short_snake_case_identifier",
+  "formula": "one expression using only the listed raw input names",
+  "hypothesis": "falsifiable synthesis hypothesis explaining why this quantity steers the product phase",
+  "mechanism": "chemical or physical mechanism behind the hypothesis",
+  "target_frameworks": [
+   "IZA codes or Failed most affected; [] if general"
+  ],
+  "expected_effect": "which outcomes should change as the descriptor increases",
+  "falsification": "observation that would contradict the hypothesis",
+  "assumptions": "proxy assumptions and limits of the formula",
+  "evidence_ids": [
+   1
+  ],
+  "knowledge_source": "evidence|prior_knowledge|both",
+  "novelty": "known_relation|new_combination|uncertain"
+ }
+}

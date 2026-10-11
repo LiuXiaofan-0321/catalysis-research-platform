@@ -1,0 +1,3660 @@
+{
+  "A": {
+    "class_top20": [
+      {
+        "class": "Failed",
+        "n": 5406,
+        "share": 0.2460404150737302
+      },
+      {
+        "class": "MFI",
+        "n": 2182,
+        "share": 0.0993082104496632
+      },
+      {
+        "class": "CHA",
+        "n": 1354,
+        "share": 0.06162388494447479
+      },
+      {
+        "class": "*BEA",
+        "n": 1125,
+        "share": 0.05120152921900601
+      },
+      {
+        "class": "AFI",
+        "n": 901,
+        "share": 0.0410067358456217
+      },
+      {
+        "class": "MTW",
+        "n": 561,
+        "share": 0.025532495903877662
+      },
+      {
+        "class": "FAU",
+        "n": 539,
+        "share": 0.02453122155470599
+      },
+      {
+        "class": "LTA",
+        "n": 506,
+        "share": 0.02302931003094848
+      },
+      {
+        "class": "MOR",
+        "n": 466,
+        "share": 0.02120881121427271
+      },
+      {
+        "class": "MWW",
+        "n": 459,
+        "share": 0.02089022392135445
+      },
+      {
+        "class": "AEL",
+        "n": 331,
+        "share": 0.01506462770799199
+      },
+      {
+        "class": "TON",
+        "n": 304,
+        "share": 0.013835791006735846
+      },
+      {
+        "class": "FER",
+        "n": 294,
+        "share": 0.013380666302566903
+      },
+      {
+        "class": "AEI",
+        "n": 230,
+        "share": 0.010467868195885672
+      },
+      {
+        "class": "MTT",
+        "n": 225,
+        "share": 0.0102403058438012
+      },
+      {
+        "class": "BEC",
+        "n": 218,
+        "share": 0.009921718550882941
+      },
+      {
+        "class": "ANA",
+        "n": 215,
+        "share": 0.00978518113963226
+      },
+      {
+        "class": "LEV",
+        "n": 211,
+        "share": 0.009603131257964682
+      },
+      {
+        "class": "SOD",
+        "n": 208,
+        "share": 0.009466593846714
+      },
+      {
+        "class": "AEN",
+        "n": 206,
+        "share": 0.009375568905880212
+      }
+    ],
+    "determinism": {
+      "osda": {
+        "in_sample_modal_accuracy_ge_min": 0.5012333762333763,
+        "in_sample_modal_share_unweighted_mean_ge_min": 0.591330245075247,
+        "label": "OSDA key",
+        "lopo_accuracy_over_all_osda_recipes_uncovered_as_wrong": 0.3359524424915999,
+        "lopo_coverage_all_share_of_osda_recipes": 0.8511760144740242,
+        "lopo_covered_all": 16466,
+        "lopo_covered_ge_min": 16350,
+        "lopo_modal_accuracy_all_covered": 0.39469209279727924,
+        "lopo_modal_accuracy_ge_min": 0.3940672782874618,
+        "min_count": 5,
+        "n_groups": 746,
+        "n_groups_ge_min": 400,
+        "recipes_in_groups_ge_min": 18648,
+        "share_recipes_in_groups_ge_min": 0.9639700180925304
+      },
+      "osda_min2": {
+        "in_sample_modal_accuracy_ge_min": 0.5087271401031626,
+        "in_sample_modal_share_unweighted_mean_ge_min": 0.6490439360776075,
+        "label": "OSDA key (groups >=2)",
+        "lopo_accuracy_over_all_osda_recipes_uncovered_as_wrong": 0.3359524424915999,
+        "lopo_coverage_all_share_of_osda_recipes": 0.8511760144740242,
+        "lopo_covered_all": 16466,
+        "lopo_covered_ge_min": 16466,
+        "lopo_modal_accuracy_all_covered": 0.39469209279727924,
+        "lopo_modal_accuracy_ge_min": 0.39469209279727924,
+        "min_count": 2,
+        "n_groups": 746,
+        "n_groups_ge_min": 594,
+        "recipes_in_groups_ge_min": 19193,
+        "share_recipes_in_groups_ge_min": 0.9921426725252003
+      },
+      "osda_sial": {
+        "in_sample_modal_accuracy_ge_min": 0.58567085412723,
+        "in_sample_modal_share_unweighted_mean_ge_min": 0.6271765621868824,
+        "label": "OSDA + Si/Al bin",
+        "lopo_accuracy_over_all_osda_recipes_uncovered_as_wrong": 0.3504264667872835,
+        "lopo_coverage_all_share_of_osda_recipes": 0.7650555699147067,
+        "lopo_covered_all": 14800,
+        "lopo_covered_ge_min": 14392,
+        "lopo_modal_accuracy_all_covered": 0.45804054054054055,
+        "lopo_modal_accuracy_ge_min": 0.45740689271817675,
+        "min_count": 5,
+        "n_groups": 1686,
+        "n_groups_ge_min": 620,
+        "recipes_in_groups_ge_min": 17433,
+        "share_recipes_in_groups_ge_min": 0.901163091238046
+      },
+      "osda_sial_F_het": {
+        "in_sample_modal_accuracy_ge_min": 0.621904761904762,
+        "in_sample_modal_share_unweighted_mean_ge_min": 0.6685331892271175,
+        "label": "OSDA + Si/Al bin + F + heteroatom",
+        "lopo_accuracy_over_all_osda_recipes_uncovered_as_wrong": 0.34194882398552595,
+        "lopo_coverage_all_share_of_osda_recipes": 0.6970276557249936,
+        "lopo_covered_all": 13484,
+        "lopo_covered_ge_min": 12937,
+        "lopo_modal_accuracy_all_covered": 0.49058142984277664,
+        "lopo_modal_accuracy_ge_min": 0.49084022570920616,
+        "min_count": 5,
+        "n_groups": 2212,
+        "n_groups_ge_min": 746,
+        "recipes_in_groups_ge_min": 16800,
+        "share_recipes_in_groups_ge_min": 0.8684414577410183
+      },
+      "osda_sial_F_het_min2": {
+        "in_sample_modal_accuracy_ge_min": 0.6366923948831436,
+        "in_sample_modal_share_unweighted_mean_ge_min": 0.7199132657796005,
+        "label": "OSDA + Si/Al bin + F + heteroatom (groups >=2)",
+        "lopo_accuracy_over_all_osda_recipes_uncovered_as_wrong": 0.34194882398552595,
+        "lopo_coverage_all_share_of_osda_recipes": 0.6970276557249936,
+        "lopo_covered_all": 13484,
+        "lopo_covered_ge_min": 13484,
+        "lopo_modal_accuracy_all_covered": 0.49058142984277664,
+        "lopo_modal_accuracy_ge_min": 0.49058142984277664,
+        "min_count": 2,
+        "n_groups": 2212,
+        "n_groups_ge_min": 1394,
+        "recipes_in_groups_ge_min": 18527,
+        "share_recipes_in_groups_ge_min": 0.9577151718790385
+      }
+    },
+    "f_present_counts": {
+      "F": 5060,
+      "noF": 16912
+    },
+    "hetero_elements": [
+      "P",
+      "Ge",
+      "Ti",
+      "B",
+      "Ga",
+      "Zn",
+      "Sn",
+      "Zr",
+      "V",
+      "Be",
+      "W",
+      "Cu"
+    ],
+    "hetero_present_counts": {
+      "het": 8617,
+      "nohet": 13355
+    },
+    "in_sample_modal_per_osda_accuracy_all_rows_incl_no_osda_group": 0.484070635354087,
+    "n_classes_incl_failed": 226,
+    "n_classes_lt10": 104,
+    "n_classes_lt5": 65,
+    "n_distinct_osda1_keys": 746,
+    "n_distinct_osda1_smiles": 795,
+    "n_failed": 5406,
+    "n_no_osda": 2627,
+    "n_osda_in_single_paper": 448,
+    "n_papers_with_doi": 3036,
+    "n_recipes": 21972,
+    "n_rows_without_doi": 0,
+    "no_osda_class_top10": [
+      [
+        "Failed",
+        720
+      ],
+      [
+        "FAU",
+        291
+      ],
+      [
+        "CHA",
+        165
+      ],
+      [
+        "MOR",
+        157
+      ],
+      [
+        "LTA",
+        149
+      ],
+      [
+        "MFI",
+        123
+      ],
+      [
+        "GIS",
+        99
+      ],
+      [
+        "SOD",
+        94
+      ],
+      [
+        "*BEA",
+        86
+      ],
+      [
+        "LTL",
+        83
+      ]
+    ],
+    "osda_top20": [
+      {
+        "dominant_framework": "*BEA",
+        "dominant_share": 0.24866023579849947,
+        "n_frameworks": 43,
+        "n_papers": 424,
+        "n_recipes": 1866,
+        "name": "tetraethylammonium",
+        "osda_key": "CBXCPBUEXACCNR-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "MFI",
+        "dominant_share": 0.8579272477693891,
+        "n_frameworks": 17,
+        "n_papers": 528,
+        "n_recipes": 1457,
+        "name": "tetrapropylammonium",
+        "osda_key": "OSBSFAARYOCBHB-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "Failed",
+        "dominant_share": 0.23462783171521034,
+        "n_frameworks": 40,
+        "n_papers": 163,
+        "n_recipes": 618,
+        "name": "tetramethylammonium",
+        "osda_key": "QEMXHQIAXOOASZ-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "MWW",
+        "dominant_share": 0.44871794871794873,
+        "n_frameworks": 21,
+        "n_papers": 114,
+        "n_recipes": 546,
+        "name": "hexamethyleneimine",
+        "osda_key": "ZSIQJIWKELUFRJ-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "AEL",
+        "dominant_share": 0.4692622950819672,
+        "n_frameworks": 19,
+        "n_papers": 133,
+        "n_recipes": 488,
+        "name": "di-n-propylamine",
+        "osda_key": "WEHWNAOGRSTTBQ-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "CHA",
+        "dominant_share": 0.5374732334047109,
+        "n_frameworks": 9,
+        "n_papers": 99,
+        "n_recipes": 467,
+        "name": "N,N,N-trimethyl-1-adamantammonium",
+        "osda_key": "KKXBPUAYFJQMLN-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "AFI",
+        "dominant_share": 0.5373831775700935,
+        "n_frameworks": 14,
+        "n_papers": 127,
+        "n_recipes": 428,
+        "name": "triethylamine",
+        "osda_key": "ZMANZCXQSJIPKH-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "Failed",
+        "dominant_share": 0.37404580152671757,
+        "n_frameworks": 24,
+        "n_papers": 32,
+        "n_recipes": 393,
+        "name": "choline",
+        "osda_key": "OEYIOHPDSNJKLS-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "Failed",
+        "dominant_share": 0.39072847682119205,
+        "n_frameworks": 6,
+        "n_papers": 26,
+        "n_recipes": 302,
+        "name": "N-methyl-sparteinium",
+        "osda_key": "STKWQVDROHCHEU-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "AFI",
+        "dominant_share": 0.5719424460431655,
+        "n_frameworks": 3,
+        "n_papers": 4,
+        "n_recipes": 278,
+        "name": "ephedrine",
+        "osda_key": "KWGRBVOPPLSCSI-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "Failed",
+        "dominant_share": 0.3148148148148148,
+        "n_frameworks": 19,
+        "n_papers": 47,
+        "n_recipes": 216,
+        "name": "ethylenediamine",
+        "osda_key": "PIICEJLVQHRZGT-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "TON",
+        "dominant_share": 0.2583732057416268,
+        "n_frameworks": 14,
+        "n_papers": 45,
+        "n_recipes": 209,
+        "name": "1,6-diaminohexane",
+        "osda_key": "NAQMVNRVTILPCV-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "Failed",
+        "dominant_share": 0.58,
+        "n_frameworks": 8,
+        "n_papers": 4,
+        "n_recipes": 200,
+        "name": "C[C@@H]1CCC[C@H](C)[N+]12Cc3ccccc3C2",
+        "osda_key": "LTIPBSLSBJCPDB-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "TON",
+        "dominant_share": 0.23076923076923078,
+        "n_frameworks": 13,
+        "n_papers": 43,
+        "n_recipes": 182,
+        "name": "diethylamine",
+        "osda_key": "HPNMFZURTQLUMO-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "Failed",
+        "dominant_share": 0.632183908045977,
+        "n_frameworks": 5,
+        "n_papers": 2,
+        "n_recipes": 174,
+        "name": "3',4'-dihydro-1'H-spiro[isoindoline-2,2'-isoquinolin]-2-ium",
+        "osda_key": "CIBXAPXGAVZHTG-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "AEI",
+        "dominant_share": 0.46875,
+        "n_frameworks": 12,
+        "n_papers": 15,
+        "n_recipes": 160,
+        "name": "1,1,3,5-tetramethylpiperidinium",
+        "osda_key": "HGACHMQVWWZPCX-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "MEL",
+        "dominant_share": 0.5286624203821656,
+        "n_frameworks": 14,
+        "n_papers": 55,
+        "n_recipes": 157,
+        "name": "tetrabutylammonium",
+        "osda_key": "DZLFLBLQUQXARW-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "Failed",
+        "dominant_share": 0.5974025974025974,
+        "n_frameworks": 3,
+        "n_papers": 4,
+        "n_recipes": 154,
+        "name": "4,4,10,10-tetraethyl-1,14-dimethyl-4,10-diazoniatetracyclo[5.5.2.02,6.08,12]tetradec-13-ene",
+        "osda_key": "INIPYDYWLAJLDC-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "UTL",
+        "dominant_share": 0.6923076923076923,
+        "n_frameworks": 6,
+        "n_papers": 10,
+        "n_recipes": 143,
+        "name": "7-ethyl-6-azoniaspiro[5.5]undecane",
+        "osda_key": "AKLZASLFLGDNMF-UHFFFAOYSA-N"
+      },
+      {
+        "dominant_framework": "FER",
+        "dominant_share": 0.3669064748201439,
+        "n_frameworks": 9,
+        "n_papers": 41,
+        "n_recipes": 139,
+        "name": "pyrrolidine",
+        "osda_key": "RWRDLPDLKQPQOW-UHFFFAOYSA-N"
+      }
+    ],
+    "recipes_per_osda": {
+      "max": 1866,
+      "mean": 25.931635388739945,
+      "median": 5.0,
+      "n_osda_eq1": 152,
+      "n_osda_ge20": 171,
+      "n_osda_ge5": 400,
+      "n_osda_lt5": 346,
+      "p90": 56.0,
+      "share_recipes_in_osda_ge20": 0.8457482553631429,
+      "share_recipes_in_osda_ge5": 0.9639700180925304,
+      "share_recipes_in_top20_osda": 0.44337037994313777
+    },
+    "share_no_osda": 0.11956125978518115,
+    "share_osda_recipes_whose_osda_appears_in_single_paper": 0.1488239855259757,
+    "si_al_bin_counts": {
+      "15-50": 3881,
+      "2-5": 1090,
+      "5-15": 2477,
+      "50-200": 1423,
+      "<=2": 4981,
+      ">200": 727,
+      "Al=0": 6564,
+      "Si=0,Al=0": 829
+    }
+  },
+  "B1": {
+    "global_modal_accuracy": 0.20022701475595914,
+    "global_modal_class_train": "Failed",
+    "n_estimators": 60,
+    "nn1_d0_standardized": {
+      "accuracy": 0.3618615209988649,
+      "balanced_accuracy": 0.3251248400254487,
+      "macro_f1": 0.2605001457223929,
+      "macro_f1_report": 0.20609188743860193,
+      "n": 4405,
+      "n_classes_present": 125
+    },
+    "rf_d0": {
+      "mean": {
+        "accuracy": 0.436322360953462,
+        "balanced_accuracy": 0.35483879649152383,
+        "macro_f1": 0.3101405089036864
+      },
+      "per_seed": [
+        {
+          "accuracy": 0.4345062429057889,
+          "balanced_accuracy": 0.3530807550032357,
+          "macro_f1": 0.3092377092503951,
+          "macro_f1_report": 0.28215119457152843,
+          "n": 4405,
+          "n_classes_present": 125,
+          "seed": 3
+        },
+        {
+          "accuracy": 0.43813847900113506,
+          "balanced_accuracy": 0.3565968379798119,
+          "macro_f1": 0.3110433085569776,
+          "macro_f1_report": 0.2858853938942809,
+          "n": 4405,
+          "n_classes_present": 125,
+          "seed": 7
+        }
+      ]
+    },
+    "seeds": [
+      3,
+      7
+    ],
+    "test_rows": 4405,
+    "train_rows": 17567,
+    "trivial_train_modal_per_osda": {
+      "accuracy": 0.28649262202043135,
+      "accuracy_on_seen_osda_rows": 0.34966216216216217,
+      "accuracy_on_unseen_or_no_osda_rows": 0.15709342560553632,
+      "balanced_accuracy": 0.16724622806202893,
+      "macro_f1": 0.134972005317936,
+      "macro_f1_report": 0.12978077434416924,
+      "n": 4405,
+      "n_classes_present": 125,
+      "rf_d0_accuracy_on_seen_osda_rows_mean": 0.5011824324324324,
+      "rf_d0_accuracy_on_unseen_or_no_osda_rows_mean": 0.30346020761245673,
+      "share_test_rows_with_osda": 0.7986379114642451,
+      "share_test_rows_with_osda_seen_in_train": 0.6719636776390465,
+      "test_rows_with_osda_seen_in_train": 2960
+    }
+  },
+  "B_osda": {
+    "eps_grid": [
+      0.01,
+      0.05,
+      0.2,
+      1.0
+    ],
+    "folds": {
+      "0": {
+        "global_modal_accuracy": 0.28042121684867394,
+        "global_modal_class": "Failed",
+        "imputation": "fit on this fold's training rows",
+        "nn1_osda_desc30": {
+          "accuracy": 0.13962558502340094,
+          "balanced_accuracy": 0.07576551751411871,
+          "dims_used": 30,
+          "macro_f1": 0.04802541435397192,
+          "macro_f1_report": 0.04522781740131336,
+          "n": 2564,
+          "n_classes_present": 97
+        },
+        "nn1_osda_desc_full": {
+          "accuracy": 0.20982839313572543,
+          "balanced_accuracy": 0.06810951188329102,
+          "dims_used": 455,
+          "macro_f1": 0.05073353028199669,
+          "macro_f1_report": 0.046868118450987414,
+          "n": 2564,
+          "n_classes_present": 97
+        },
+        "oracle": {
+          "coverage": 0.7363494539781591,
+          "coverage_ge3": 0.6977379095163807,
+          "covered_osdas": 47,
+          "covered_rows": 1888,
+          "covered_rows_ge3": 1789,
+          "knn5_gel": {
+            "acc_covered": 0.3808262711864407,
+            "acc_covered_ge3": 0.3728339854667412,
+            "acc_covered_support_1_2": 0.5252525252525253,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.38494539781591264,
+              "balanced_accuracy": 0.213436161807591,
+              "macro_f1": 0.19705993252600734
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.37382995319812795,
+              "balanced_accuracy": 0.17702967440132855,
+              "macro_f1": 0.16452199657038427
+            }
+          },
+          "knn5_gel_plus_conditions": {
+            "acc_covered": 0.3855932203389831,
+            "acc_covered_ge3": 0.37842370039128004,
+            "acc_covered_support_1_2": 0.5151515151515151,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.3884555382215289,
+              "balanced_accuracy": 0.21792055247173522,
+              "macro_f1": 0.20338231690358527
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.37773010920436817,
+              "balanced_accuracy": 0.18169181124392997,
+              "macro_f1": 0.1708527742668326
+            }
+          },
+          "modal": {
+            "acc_covered": 0.3268008474576271,
+            "acc_covered_ge3": 0.31637786472889884,
+            "acc_covered_support_1_2": 0.5151515151515151,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.3451638065522621,
+              "balanced_accuracy": 0.16409110263660565,
+              "macro_f1": 0.15717057123002545
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.3344383775351014,
+              "balanced_accuracy": 0.12713238671864086,
+              "macro_f1": 0.12364868579380742
+            }
+          },
+          "nn1_gel": {
+            "acc_covered": 0.3983050847457627,
+            "acc_covered_ge3": 0.3912800447177194,
+            "acc_covered_support_1_2": 0.5252525252525253,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.3978159126365055,
+              "balanced_accuracy": 0.279299266054995,
+              "macro_f1": 0.25392810667016574
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.38670046801872077,
+              "balanced_accuracy": 0.2428927786487326,
+              "macro_f1": 0.22151571988555602
+            }
+          },
+          "nn1_gel_plus_conditions": {
+            "acc_covered": 0.4120762711864407,
+            "acc_covered_ge3": 0.40637227501397427,
+            "acc_covered_support_1_2": 0.5151515151515151,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.40795631825273015,
+              "balanced_accuracy": 0.2664931215165081,
+              "macro_f1": 0.24195833413128803
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.39723088923556943,
+              "balanced_accuracy": 0.23026438028870283,
+              "macro_f1": 0.2097545316900253
+            }
+          },
+          "support_quantiles": {
+            "10": 6.0,
+            "25": 25.0,
+            "50": 66.0,
+            "75": 136.0,
+            "90": 182.0
+          },
+          "test_rows_with_osda": 2564,
+          "true_class_in_other_paper_support_share_covered": 0.8146186440677966,
+          "true_class_in_other_paper_support_share_covered_ge3": 0.8289547233091112
+        },
+        "prior_block": {
+          "test_rows_covered_share": 0.7363494539781591,
+          "top_classes": [
+            "Failed",
+            "MFI",
+            "CHA",
+            "*BEA",
+            "AFI",
+            "FAU",
+            "MTW",
+            "LTA",
+            "MWW",
+            "MOR"
+          ],
+          "train_rows_covered_share": 0.7511335531739489
+        },
+        "product_rule": {
+          "distribution_prior_eps0.01": {
+            "acc_covered": 0.3659957627118644,
+            "acc_uncovered": 0.39644970414201186,
+            "accuracy": 0.37402496099843996,
+            "balanced_accuracy": 0.11704129849807786,
+            "macro_f1": 0.12117804218633701
+          },
+          "distribution_prior_eps0.05": {
+            "acc_covered": 0.36308262711864403,
+            "acc_uncovered": 0.39644970414201186,
+            "accuracy": 0.37187987519500776,
+            "balanced_accuracy": 0.11806317781028924,
+            "macro_f1": 0.12273829285598442
+          },
+          "distribution_prior_eps0.2": {
+            "acc_covered": 0.34375,
+            "acc_uncovered": 0.39644970414201186,
+            "accuracy": 0.3576443057722309,
+            "balanced_accuracy": 0.11592945902144074,
+            "macro_f1": 0.12293214902654578
+          },
+          "distribution_prior_eps1.0": {
+            "acc_covered": 0.3042902542372881,
+            "acc_uncovered": 0.39644970414201186,
+            "accuracy": 0.32858814352574106,
+            "balanced_accuracy": 0.10369897537258152,
+            "macro_f1": 0.10940850156104207
+          },
+          "knn5_gel_prior_eps0.01": {
+            "acc_covered": 0.3776483050847458,
+            "acc_uncovered": 0.39644970414201186,
+            "accuracy": 0.3826053042121685,
+            "balanced_accuracy": 0.16330123589343504,
+            "macro_f1": 0.15923482816218482
+          },
+          "knn5_gel_prior_eps0.05": {
+            "acc_covered": 0.3789724576271186,
+            "acc_uncovered": 0.39644970414201186,
+            "accuracy": 0.3835803432137286,
+            "balanced_accuracy": 0.16236520652651049,
+            "macro_f1": 0.15908850912613692
+          },
+          "knn5_gel_prior_eps0.2": {
+            "acc_covered": 0.3641419491525424,
+            "acc_uncovered": 0.39644970414201186,
+            "accuracy": 0.37265990639625585,
+            "balanced_accuracy": 0.14501307975929434,
+            "macro_f1": 0.15155171973253923
+          },
+          "knn5_gel_prior_eps1.0": {
+            "acc_covered": 0.3156779661016949,
+            "acc_uncovered": 0.39644970414201186,
+            "accuracy": 0.3369734789391576,
+            "balanced_accuracy": 0.11379979216301814,
+            "macro_f1": 0.1201540193424847
+          }
+        },
+        "rf_d0": {
+          "mean": {
+            "accuracy": 0.3161076443057722,
+            "balanced_accuracy": 0.1039652833488804,
+            "macro_f1": 0.10944544089282228
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.32293291731669266,
+              "balanced_accuracy": 0.11316056095741875,
+              "macro_f1": 0.1206874437381395,
+              "macro_f1_report": 0.11149220992951935,
+              "n": 2564,
+              "n_classes_present": 97,
+              "seed": 3
+            },
+            {
+              "accuracy": 0.3092823712948518,
+              "balanced_accuracy": 0.09477000574034206,
+              "macro_f1": 0.09820343804750506,
+              "macro_f1_report": 0.09072127133912375,
+              "n": 2564,
+              "n_classes_present": 97,
+              "seed": 7
+            }
+          ]
+        },
+        "rf_d0_acc_covered": 0.2873411016949153,
+        "rf_d0_acc_covered_ge3": 0.29010620458356623,
+        "rf_d0_acc_uncovered": 0.39644970414201186,
+        "rf_d0_plus_prior": {
+          "acc_covered": 0.3050847457627119,
+          "acc_uncovered": 0.39718934911242604,
+          "delta_vs_d0": {
+            "accuracy": 0.013260530421216887,
+            "balanced_accuracy": -0.006197118831902229,
+            "macro_f1": -0.0019851046886198292
+          },
+          "mean": {
+            "accuracy": 0.3293681747269891,
+            "balanced_accuracy": 0.09776816451697817,
+            "macro_f1": 0.10746033620420245
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.3237129485179407,
+              "balanced_accuracy": 0.09212920583120321,
+              "macro_f1": 0.0982780840804007,
+              "macro_f1_report": 0.09166321303652758,
+              "n": 2564,
+              "n_classes_present": 97,
+              "seed": 3
+            },
+            {
+              "accuracy": 0.33502340093603744,
+              "balanced_accuracy": 0.10340712320275314,
+              "macro_f1": 0.1166425883280042,
+              "macro_f1_report": 0.10775553397920387,
+              "n": 2564,
+              "n_classes_present": 97,
+              "seed": 7
+            }
+          ]
+        },
+        "rf_prior_block_only": {
+          "mean": {
+            "accuracy": 0.2581903276131045,
+            "balanced_accuracy": 0.021072075597712736,
+            "macro_f1": 0.020756172392241277
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.2581903276131045,
+              "balanced_accuracy": 0.021072075597712736,
+              "macro_f1": 0.020756172392241277,
+              "macro_f1_report": 0.018993855868371726,
+              "n": 2564,
+              "n_classes_present": 97,
+              "seed": 3
+            }
+          ]
+        },
+        "test_classes_unseen_in_train_rows": 71,
+        "test_osdas": 150,
+        "test_rows": 2564,
+        "train_rows": 19408
+      },
+      "1": {
+        "global_modal_accuracy": 0.2274011299435028,
+        "global_modal_class": "Failed",
+        "imputation": "fit on this fold's training rows",
+        "nn1_osda_desc30": {
+          "accuracy": 0.07223567393058919,
+          "balanced_accuracy": 0.05454807371706706,
+          "dims_used": 30,
+          "macro_f1": 0.03099467556952224,
+          "macro_f1_report": 0.02733388711642906,
+          "n": 4956,
+          "n_classes_present": 112
+        },
+        "nn1_osda_desc_full": {
+          "accuracy": 0.10411622276029056,
+          "balanced_accuracy": 0.0812128675734198,
+          "dims_used": 455,
+          "macro_f1": 0.04990374187563503,
+          "macro_f1_report": 0.045074347500573576,
+          "n": 4956,
+          "n_classes_present": 112
+        },
+        "oracle": {
+          "coverage": 0.8652138821630347,
+          "coverage_ge3": 0.8256658595641646,
+          "covered_osdas": 58,
+          "covered_rows": 4288,
+          "covered_rows_ge3": 4092,
+          "knn5_gel": {
+            "acc_covered": 0.457089552238806,
+            "acc_covered_ge3": 0.46065493646138805,
+            "acc_covered_support_1_2": 0.3826530612244898,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.4528853914447135,
+              "balanced_accuracy": 0.1691676643427955,
+              "macro_f1": 0.1636662762827722
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.4530871670702179,
+              "balanced_accuracy": 0.1745656810818386,
+              "macro_f1": 0.17119193675013367
+            }
+          },
+          "knn5_gel_plus_conditions": {
+            "acc_covered": 0.44846082089552236,
+            "acc_covered_ge3": 0.4513685239491691,
+            "acc_covered_support_1_2": 0.3877551020408163,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.44541969330104925,
+              "balanced_accuracy": 0.16953638332517845,
+              "macro_f1": 0.16028703409687742
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.44541969330104925,
+              "balanced_accuracy": 0.17446447525219144,
+              "macro_f1": 0.16405734825217919
+            }
+          },
+          "modal": {
+            "acc_covered": 0.3668376865671642,
+            "acc_covered_ge3": 0.36608015640273706,
+            "acc_covered_support_1_2": 0.3826530612244898,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.37479822437449556,
+              "balanced_accuracy": 0.11591415240622624,
+              "macro_f1": 0.10952239524457236
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.375,
+              "balanced_accuracy": 0.12094455118650738,
+              "macro_f1": 0.11507292166705113
+            }
+          },
+          "nn1_gel": {
+            "acc_covered": 0.47411380597014924,
+            "acc_covered_ge3": 0.478494623655914,
+            "acc_covered_support_1_2": 0.3826530612244898,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.46761501210653755,
+              "balanced_accuracy": 0.24668879615219924,
+              "macro_f1": 0.22745979275954561
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.46781678773204194,
+              "balanced_accuracy": 0.2520868128912423,
+              "macro_f1": 0.2348795031663539
+            }
+          },
+          "nn1_gel_plus_conditions": {
+            "acc_covered": 0.4699160447761194,
+            "acc_covered_ge3": 0.4738514173998045,
+            "acc_covered_support_1_2": 0.3877551020408163,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.4639830508474576,
+              "balanced_accuracy": 0.23132166371136287,
+              "macro_f1": 0.20930042676201868
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.4639830508474576,
+              "balanced_accuracy": 0.23624975563837586,
+              "macro_f1": 0.21494370466682194
+            }
+          },
+          "support_quantiles": {
+            "10": 10.0,
+            "25": 63.0,
+            "50": 530.5,
+            "75": 1850.0,
+            "90": 1862.0
+          },
+          "test_rows_with_osda": 4956,
+          "true_class_in_other_paper_support_share_covered": 0.8973880597014925,
+          "true_class_in_other_paper_support_share_covered_ge3": 0.9210654936461388
+        },
+        "prior_block": {
+          "test_rows_covered_share": 0.8652138821630347,
+          "top_classes": [
+            "Failed",
+            "MFI",
+            "CHA",
+            "AFI",
+            "*BEA",
+            "FAU",
+            "LTA",
+            "MTW",
+            "MOR",
+            "TON"
+          ],
+          "train_rows_covered_share": 0.7156793606017866
+        },
+        "product_rule": {
+          "distribution_prior_eps0.01": {
+            "acc_covered": 0.2933768656716418,
+            "acc_uncovered": 0.4258982035928144,
+            "accuracy": 0.31123890234059726,
+            "balanced_accuracy": 0.0949740148851515,
+            "macro_f1": 0.09825521334987516
+          },
+          "distribution_prior_eps0.05": {
+            "acc_covered": 0.28638059701492535,
+            "acc_uncovered": 0.4258982035928144,
+            "accuracy": 0.3051856335754641,
+            "balanced_accuracy": 0.09449636162179617,
+            "macro_f1": 0.09843070619526106
+          },
+          "distribution_prior_eps0.2": {
+            "acc_covered": 0.2548973880597015,
+            "acc_uncovered": 0.4258982035928144,
+            "accuracy": 0.2779459241323648,
+            "balanced_accuracy": 0.09625354418616267,
+            "macro_f1": 0.10076970617013918
+          },
+          "distribution_prior_eps1.0": {
+            "acc_covered": 0.22877798507462688,
+            "acc_uncovered": 0.4258982035928144,
+            "accuracy": 0.25534705407586766,
+            "balanced_accuracy": 0.09130369812746975,
+            "macro_f1": 0.09321129301088266
+          },
+          "knn5_gel_prior_eps0.01": {
+            "acc_covered": 0.3831623134328358,
+            "acc_uncovered": 0.4258982035928144,
+            "accuracy": 0.3889225181598063,
+            "balanced_accuracy": 0.14228433622181602,
+            "macro_f1": 0.137872003620499
+          },
+          "knn5_gel_prior_eps0.05": {
+            "acc_covered": 0.36847014925373134,
+            "acc_uncovered": 0.4258982035928144,
+            "accuracy": 0.37621065375302665,
+            "balanced_accuracy": 0.1357763417547658,
+            "macro_f1": 0.13382266061199438
+          },
+          "knn5_gel_prior_eps0.2": {
+            "acc_covered": 0.285214552238806,
+            "acc_uncovered": 0.4258982035928144,
+            "accuracy": 0.30417675544794187,
+            "balanced_accuracy": 0.12082069469422405,
+            "macro_f1": 0.12175592163471641
+          },
+          "knn5_gel_prior_eps1.0": {
+            "acc_covered": 0.2322761194029851,
+            "acc_uncovered": 0.4258982035928144,
+            "accuracy": 0.2583736884584342,
+            "balanced_accuracy": 0.09382364779976582,
+            "macro_f1": 0.09698624285105287
+          }
+        },
+        "rf_d0": {
+          "mean": {
+            "accuracy": 0.2380952380952381,
+            "balanced_accuracy": 0.08819493910554764,
+            "macro_f1": 0.08895257693366292
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.25161420500403553,
+              "balanced_accuracy": 0.08470745928092484,
+              "macro_f1": 0.08546777296848071,
+              "macro_f1_report": 0.07911066588818048,
+              "n": 4956,
+              "n_classes_present": 112,
+              "seed": 3
+            },
+            {
+              "accuracy": 0.2245762711864407,
+              "balanced_accuracy": 0.09168241893017044,
+              "macro_f1": 0.09243738089884512,
+              "macro_f1_report": 0.08556187322868307,
+              "n": 4956,
+              "n_classes_present": 112,
+              "seed": 7
+            }
+          ]
+        },
+        "rf_d0_acc_covered": 0.2088386194029851,
+        "rf_d0_acc_covered_ge3": 0.20026881720430106,
+        "rf_d0_acc_uncovered": 0.4258982035928144,
+        "rf_d0_plus_prior": {
+          "acc_covered": 0.18959888059701493,
+          "acc_uncovered": 0.437874251497006,
+          "delta_vs_d0": {
+            "accuracy": -0.015032284100080728,
+            "balanced_accuracy": -0.020419188459812596,
+            "macro_f1": -0.018602912987099915
+          },
+          "mean": {
+            "accuracy": 0.22306295399515738,
+            "balanced_accuracy": 0.06777575064573504,
+            "macro_f1": 0.070349663946563
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.21529459241323648,
+              "balanced_accuracy": 0.07242526208206726,
+              "macro_f1": 0.07283789768188612,
+              "macro_f1_report": 0.06913427576585801,
+              "n": 4956,
+              "n_classes_present": 112,
+              "seed": 3
+            },
+            {
+              "accuracy": 0.23083131557707828,
+              "balanced_accuracy": 0.06312623920940284,
+              "macro_f1": 0.06786143021123987,
+              "macro_f1_report": 0.06386958137528459,
+              "n": 4956,
+              "n_classes_present": 112,
+              "seed": 7
+            }
+          ]
+        },
+        "rf_prior_block_only": {
+          "mean": {
+            "accuracy": 0.15758676351896692,
+            "balanced_accuracy": 0.026331899040663735,
+            "macro_f1": 0.021852060010184155
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.15758676351896692,
+              "balanced_accuracy": 0.026331899040663735,
+              "macro_f1": 0.021852060010184155,
+              "macro_f1_report": 0.021098540699488154,
+              "n": 4956,
+              "n_classes_present": 112,
+              "seed": 3
+            }
+          ]
+        },
+        "test_classes_unseen_in_train_rows": 136,
+        "test_osdas": 149,
+        "test_rows": 4956,
+        "train_rows": 17016
+      },
+      "2": {
+        "global_modal_accuracy": 0.24882038376848065,
+        "global_modal_class": "Failed",
+        "imputation": "fit on this fold's training rows",
+        "nn1_osda_desc30": {
+          "accuracy": 0.18402013211701793,
+          "balanced_accuracy": 0.07242032016270919,
+          "dims_used": 30,
+          "macro_f1": 0.054065750423651145,
+          "macro_f1_report": 0.050937979737985375,
+          "n": 3179,
+          "n_classes_present": 114
+        },
+        "nn1_osda_desc_full": {
+          "accuracy": 0.15885498584460522,
+          "balanced_accuracy": 0.08112611336056105,
+          "dims_used": 455,
+          "macro_f1": 0.06320001013592552,
+          "macro_f1_report": 0.05954381120244222,
+          "n": 3179,
+          "n_classes_present": 114
+        },
+        "oracle": {
+          "coverage": 0.8483799937087134,
+          "coverage_ge3": 0.799937087134319,
+          "covered_osdas": 58,
+          "covered_rows": 2697,
+          "covered_rows_ge3": 2543,
+          "knn5_gel": {
+            "acc_covered": 0.3882091212458287,
+            "acc_covered_ge3": 0.40070782540306726,
+            "acc_covered_support_1_2": 0.18181818181818182,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.3908461780434099,
+              "balanced_accuracy": 0.20588248110103982,
+              "macro_f1": 0.18309255757223913
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.4040578798364266,
+              "balanced_accuracy": 0.19567600755017928,
+              "macro_f1": 0.17876528022541688
+            }
+          },
+          "knn5_gel_plus_conditions": {
+            "acc_covered": 0.4078605858361142,
+            "acc_covered_ge3": 0.42272906016515926,
+            "acc_covered_support_1_2": 0.16233766233766234,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.4075180874488833,
+              "balanced_accuracy": 0.23273546764924358,
+              "macro_f1": 0.19969880573284465
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.4216734822271154,
+              "balanced_accuracy": 0.22256226311162403,
+              "macro_f1": 0.1956527900183581
+            }
+          },
+          "modal": {
+            "acc_covered": 0.378568780126066,
+            "acc_covered_ge3": 0.39048368069209594,
+            "acc_covered_support_1_2": 0.18181818181818182,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.3826675055048757,
+              "balanced_accuracy": 0.16333507219907578,
+              "macro_f1": 0.14310046895258632
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.3958792072978924,
+              "balanced_accuracy": 0.15312859864821518,
+              "macro_f1": 0.13888753749545496
+            }
+          },
+          "nn1_gel": {
+            "acc_covered": 0.3681868743047831,
+            "acc_covered_ge3": 0.37947306331104996,
+            "acc_covered_support_1_2": 0.18181818181818182,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.3738597043095313,
+              "balanced_accuracy": 0.23199661360126486,
+              "macro_f1": 0.20871463238256216
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.387071406102548,
+              "balanced_accuracy": 0.22179014005040426,
+              "macro_f1": 0.20466968921576476
+            }
+          },
+          "nn1_gel_plus_conditions": {
+            "acc_covered": 0.39599555061179087,
+            "acc_covered_ge3": 0.41014549744396384,
+            "acc_covered_support_1_2": 0.16233766233766234,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.3974520289399182,
+              "balanced_accuracy": 0.27015784573158086,
+              "macro_f1": 0.2320345205351375
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.4116074237181504,
+              "balanced_accuracy": 0.25998464119396136,
+              "macro_f1": 0.2276495233050499
+            }
+          },
+          "support_quantiles": {
+            "10": 7.0,
+            "25": 23.0,
+            "50": 79.0,
+            "75": 208.0,
+            "90": 418.0
+          },
+          "test_rows_with_osda": 3179,
+          "true_class_in_other_paper_support_share_covered": 0.7849462365591398,
+          "true_class_in_other_paper_support_share_covered_ge3": 0.8214707038930397
+        },
+        "prior_block": {
+          "test_rows_covered_share": 0.8483799937087134,
+          "top_classes": [
+            "Failed",
+            "MFI",
+            "CHA",
+            "*BEA",
+            "AFI",
+            "FAU",
+            "LTA",
+            "MTW",
+            "MWW",
+            "MOR"
+          ],
+          "train_rows_covered_share": 0.732666418347257
+        },
+        "product_rule": {
+          "distribution_prior_eps0.01": {
+            "acc_covered": 0.3939562476826103,
+            "acc_uncovered": 0.40560165975103735,
+            "accuracy": 0.39572192513368987,
+            "balanced_accuracy": 0.12856742134514362,
+            "macro_f1": 0.12913725877609103
+          },
+          "distribution_prior_eps0.05": {
+            "acc_covered": 0.3846866889136077,
+            "acc_uncovered": 0.40560165975103735,
+            "accuracy": 0.38785781692356086,
+            "balanced_accuracy": 0.12031004157587766,
+            "macro_f1": 0.12275483398084744
+          },
+          "distribution_prior_eps0.2": {
+            "acc_covered": 0.35724879495736006,
+            "acc_uncovered": 0.40560165975103735,
+            "accuracy": 0.3645800566215791,
+            "balanced_accuracy": 0.11232084454336069,
+            "macro_f1": 0.11589546011540544
+          },
+          "distribution_prior_eps1.0": {
+            "acc_covered": 0.2990359658880237,
+            "acc_uncovered": 0.40560165975103735,
+            "accuracy": 0.3151934570619692,
+            "balanced_accuracy": 0.11088927733633565,
+            "macro_f1": 0.11380491293444044
+          },
+          "knn5_gel_prior_eps0.01": {
+            "acc_covered": 0.39117538005190955,
+            "acc_uncovered": 0.40560165975103735,
+            "accuracy": 0.39336269267065116,
+            "balanced_accuracy": 0.1488781381179723,
+            "macro_f1": 0.15037884921008066
+          },
+          "knn5_gel_prior_eps0.05": {
+            "acc_covered": 0.3976640711902113,
+            "acc_uncovered": 0.40560165975103735,
+            "accuracy": 0.3988675684177414,
+            "balanced_accuracy": 0.13919985414700303,
+            "macro_f1": 0.14186727382836267
+          },
+          "knn5_gel_prior_eps0.2": {
+            "acc_covered": 0.3839451242120875,
+            "acc_uncovered": 0.40560165975103735,
+            "accuracy": 0.38722868826675055,
+            "balanced_accuracy": 0.12678544823173724,
+            "macro_f1": 0.1310661981261281
+          },
+          "knn5_gel_prior_eps1.0": {
+            "acc_covered": 0.3134964775676678,
+            "acc_uncovered": 0.40560165975103735,
+            "accuracy": 0.3274614658697704,
+            "balanced_accuracy": 0.11819784780055026,
+            "macro_f1": 0.1199477541894044
+          }
+        },
+        "rf_d0": {
+          "mean": {
+            "accuracy": 0.29915067631330605,
+            "balanced_accuracy": 0.12040155533023639,
+            "macro_f1": 0.11509179609178094
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.29223026108839256,
+              "balanced_accuracy": 0.11897678932797029,
+              "macro_f1": 0.11252246898879788,
+              "macro_f1_report": 0.10428911759937366,
+              "n": 3179,
+              "n_classes_present": 114,
+              "seed": 3
+            },
+            {
+              "accuracy": 0.30607109153821954,
+              "balanced_accuracy": 0.12182632133250249,
+              "macro_f1": 0.117661123194764,
+              "macro_f1_report": 0.11085428135705039,
+              "n": 3179,
+              "n_classes_present": 114,
+              "seed": 7
+            }
+          ]
+        },
+        "rf_d0_acc_covered": 0.28012606599925843,
+        "rf_d0_acc_covered_ge3": 0.26956350766810855,
+        "rf_d0_acc_uncovered": 0.40560165975103735,
+        "rf_d0_plus_prior": {
+          "acc_covered": 0.3096032628846867,
+          "acc_uncovered": 0.4211618257261411,
+          "delta_vs_d0": {
+            "accuracy": 0.027367096571248806,
+            "balanced_accuracy": -0.030922730619019068,
+            "macro_f1": -0.026157963253209612
+          },
+          "mean": {
+            "accuracy": 0.32651777288455486,
+            "balanced_accuracy": 0.08947882471121732,
+            "macro_f1": 0.08893383283857133
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.31078955646429696,
+              "balanced_accuracy": 0.08719881462812885,
+              "macro_f1": 0.08672807565965653,
+              "macro_f1_report": 0.08308403886723399,
+              "n": 3179,
+              "n_classes_present": 114,
+              "seed": 3
+            },
+            {
+              "accuracy": 0.3422459893048128,
+              "balanced_accuracy": 0.09175883479430579,
+              "macro_f1": 0.09113959001748613,
+              "macro_f1_report": 0.08658261051661184,
+              "n": 3179,
+              "n_classes_present": 114,
+              "seed": 7
+            }
+          ]
+        },
+        "rf_prior_block_only": {
+          "mean": {
+            "accuracy": 0.2639194715319283,
+            "balanced_accuracy": 0.032332848518738674,
+            "macro_f1": 0.031145392971260788
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.2639194715319283,
+              "balanced_accuracy": 0.032332848518738674,
+              "macro_f1": 0.031145392971260788,
+              "macro_f1_report": 0.029103072120686312,
+              "n": 3179,
+              "n_classes_present": 114,
+              "seed": 3
+            }
+          ]
+        },
+        "test_classes_unseen_in_train_rows": 148,
+        "test_osdas": 149,
+        "test_rows": 3179,
+        "train_rows": 18793
+      },
+      "3": {
+        "global_modal_accuracy": 0.2676056338028169,
+        "global_modal_class": "Failed",
+        "imputation": "fit on this fold's training rows",
+        "nn1_osda_desc30": {
+          "accuracy": 0.2085010060362173,
+          "balanced_accuracy": 0.09360184743047466,
+          "dims_used": 30,
+          "macro_f1": 0.05762102933073336,
+          "macro_f1_report": 0.05423155701716081,
+          "n": 3976,
+          "n_classes_present": 112
+        },
+        "nn1_osda_desc_full": {
+          "accuracy": 0.20774647887323944,
+          "balanced_accuracy": 0.10674882160321499,
+          "dims_used": 455,
+          "macro_f1": 0.07657020707433282,
+          "macro_f1_report": 0.0739298551062524,
+          "n": 3976,
+          "n_classes_present": 112
+        },
+        "oracle": {
+          "coverage": 0.8586519114688129,
+          "coverage_ge3": 0.829225352112676,
+          "covered_osdas": 74,
+          "covered_rows": 3414,
+          "covered_rows_ge3": 3297,
+          "knn5_gel": {
+            "acc_covered": 0.46016403046280024,
+            "acc_covered_ge3": 0.45738550197148925,
+            "acc_covered_support_1_2": 0.5384615384615384,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.4478118712273642,
+              "balanced_accuracy": 0.26357872636642754,
+              "macro_f1": 0.24405785613626624
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.4480633802816901,
+              "balanced_accuracy": 0.23272624641403494,
+              "macro_f1": 0.21910403908003795
+            }
+          },
+          "knn5_gel_plus_conditions": {
+            "acc_covered": 0.4727592267135325,
+            "acc_covered_ge3": 0.47042766151046406,
+            "acc_covered_support_1_2": 0.5384615384615384,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.45862676056338025,
+              "balanced_accuracy": 0.24996927176093997,
+              "macro_f1": 0.23545524110623783
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.4588782696177062,
+              "balanced_accuracy": 0.21911679180854737,
+              "macro_f1": 0.2117456924629506
+            }
+          },
+          "modal": {
+            "acc_covered": 0.36203866432337434,
+            "acc_covered_ge3": 0.35577797998180166,
+            "acc_covered_support_1_2": 0.5384615384615384,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.363556338028169,
+              "balanced_accuracy": 0.18006138395163213,
+              "macro_f1": 0.15909113812553138
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.363807847082495,
+              "balanced_accuracy": 0.14920890399923947,
+              "macro_f1": 0.13419968447141428
+            }
+          },
+          "nn1_gel": {
+            "acc_covered": 0.4794961921499707,
+            "acc_covered_ge3": 0.47740370033363666,
+            "acc_covered_support_1_2": 0.5384615384615384,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.46441146881287726,
+              "balanced_accuracy": 0.28600759733212106,
+              "macro_f1": 0.26677188862088247
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.46466297786720323,
+              "balanced_accuracy": 0.25515511737972846,
+              "macro_f1": 0.24113451048183393
+            }
+          },
+          "nn1_gel_plus_conditions": {
+            "acc_covered": 0.48857644991212656,
+            "acc_covered_ge3": 0.48680618744313015,
+            "acc_covered_support_1_2": 0.5384615384615384,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.4722082494969819,
+              "balanced_accuracy": 0.2848773631617332,
+              "macro_f1": 0.2656179003313476
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.47245975855130784,
+              "balanced_accuracy": 0.2540248832093406,
+              "macro_f1": 0.242915184999692
+            }
+          },
+          "support_quantiles": {
+            "10": 9.0,
+            "25": 35.0,
+            "50": 95.0,
+            "75": 157.0,
+            "90": 425.0
+          },
+          "test_rows_with_osda": 3976,
+          "true_class_in_other_paper_support_share_covered": 0.8617457527826596,
+          "true_class_in_other_paper_support_share_covered_ge3": 0.872914771003943
+        },
+        "prior_block": {
+          "test_rows_covered_share": 0.8586519114688129,
+          "top_classes": [
+            "Failed",
+            "MFI",
+            "*BEA",
+            "CHA",
+            "AFI",
+            "LTA",
+            "FAU",
+            "MTW",
+            "MOR",
+            "MWW"
+          ],
+          "train_rows_covered_share": 0.7252722827294954
+        },
+        "product_rule": {
+          "distribution_prior_eps0.01": {
+            "acc_covered": 0.38415348564733454,
+            "acc_uncovered": 0.37277580071174377,
+            "accuracy": 0.3825452716297787,
+            "balanced_accuracy": 0.12746062922193574,
+            "macro_f1": 0.13534959693439638
+          },
+          "distribution_prior_eps0.05": {
+            "acc_covered": 0.37609841827768015,
+            "acc_uncovered": 0.37277580071174377,
+            "accuracy": 0.3756287726358149,
+            "balanced_accuracy": 0.1236002471537235,
+            "macro_f1": 0.13407099541652678
+          },
+          "distribution_prior_eps0.2": {
+            "acc_covered": 0.3563268892794376,
+            "acc_uncovered": 0.37277580071174377,
+            "accuracy": 0.3586519114688129,
+            "balanced_accuracy": 0.11834960019080776,
+            "macro_f1": 0.12785938653272333
+          },
+          "distribution_prior_eps1.0": {
+            "acc_covered": 0.3339191564147628,
+            "acc_uncovered": 0.37277580071174377,
+            "accuracy": 0.33941146881287726,
+            "balanced_accuracy": 0.11550146454796298,
+            "macro_f1": 0.12308027297442208
+          },
+          "knn5_gel_prior_eps0.01": {
+            "acc_covered": 0.4383421206795548,
+            "acc_uncovered": 0.37277580071174377,
+            "accuracy": 0.4290744466800805,
+            "balanced_accuracy": 0.1726633285053942,
+            "macro_f1": 0.17809511695373847
+          },
+          "knn5_gel_prior_eps0.05": {
+            "acc_covered": 0.4389279437609842,
+            "acc_uncovered": 0.37277580071174377,
+            "accuracy": 0.4295774647887324,
+            "balanced_accuracy": 0.16875208460632718,
+            "macro_f1": 0.17586402643289595
+          },
+          "knn5_gel_prior_eps0.2": {
+            "acc_covered": 0.4100761570005858,
+            "acc_uncovered": 0.37277580071174377,
+            "accuracy": 0.40480382293762573,
+            "balanced_accuracy": 0.14852902032612958,
+            "macro_f1": 0.15457258619269407
+          },
+          "knn5_gel_prior_eps1.0": {
+            "acc_covered": 0.3526654950205038,
+            "acc_uncovered": 0.37277580071174377,
+            "accuracy": 0.3555080482897384,
+            "balanced_accuracy": 0.127282929891898,
+            "macro_f1": 0.13424169037816153
+          }
+        },
+        "rf_d0": {
+          "mean": {
+            "accuracy": 0.3314889336016097,
+            "balanced_accuracy": 0.11297325940572571,
+            "macro_f1": 0.11835865829378572
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.33702213279678067,
+              "balanced_accuracy": 0.10996628848524452,
+              "macro_f1": 0.11522622256918155,
+              "macro_f1_report": 0.10665567708882918,
+              "n": 3976,
+              "n_classes_present": 112,
+              "seed": 3
+            },
+            {
+              "accuracy": 0.32595573440643866,
+              "balanced_accuracy": 0.1159802303262069,
+              "macro_f1": 0.12149109401838991,
+              "macro_f1_report": 0.10973389137144895,
+              "n": 3976,
+              "n_classes_present": 112,
+              "seed": 7
+            }
+          ]
+        },
+        "rf_d0_acc_covered": 0.3246924428822496,
+        "rf_d0_acc_covered_ge3": 0.31680315438277223,
+        "rf_d0_acc_uncovered": 0.37277580071174377,
+        "rf_d0_plus_prior": {
+          "acc_covered": 0.33933801991798473,
+          "acc_uncovered": 0.3638790035587188,
+          "delta_vs_d0": {
+            "accuracy": 0.011317907444667985,
+            "balanced_accuracy": -0.013017651664992635,
+            "macro_f1": -0.01214152870709001
+          },
+          "mean": {
+            "accuracy": 0.3428068410462777,
+            "balanced_accuracy": 0.09995560774073307,
+            "macro_f1": 0.10621712958669571
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.3365191146881288,
+              "balanced_accuracy": 0.09139620768675846,
+              "macro_f1": 0.09666663578903215,
+              "macro_f1_report": 0.09022219340309667,
+              "n": 3976,
+              "n_classes_present": 112,
+              "seed": 3
+            },
+            {
+              "accuracy": 0.34909456740442657,
+              "balanced_accuracy": 0.10851500779470769,
+              "macro_f1": 0.1157676233843593,
+              "macro_f1_report": 0.108049781825402,
+              "n": 3976,
+              "n_classes_present": 112,
+              "seed": 7
+            }
+          ]
+        },
+        "rf_prior_block_only": {
+          "mean": {
+            "accuracy": 0.25528169014084506,
+            "balanced_accuracy": 0.028094323290819342,
+            "macro_f1": 0.021957998430457402
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.25528169014084506,
+              "balanced_accuracy": 0.028094323290819342,
+              "macro_f1": 0.021957998430457402,
+              "macro_f1_report": 0.020841490035688384,
+              "n": 3976,
+              "n_classes_present": 112,
+              "seed": 3
+            }
+          ]
+        },
+        "test_classes_unseen_in_train_rows": 146,
+        "test_osdas": 149,
+        "test_rows": 3976,
+        "train_rows": 17996
+      },
+      "4": {
+        "global_modal_accuracy": 0.21092077087794434,
+        "global_modal_class": "Failed",
+        "imputation": "fit on this fold's training rows",
+        "nn1_osda_desc30": {
+          "accuracy": 0.1006423982869379,
+          "balanced_accuracy": 0.067929506782396,
+          "dims_used": 30,
+          "macro_f1": 0.04217071574483155,
+          "macro_f1_report": 0.03879705848524502,
+          "n": 4670,
+          "n_classes_present": 115
+        },
+        "nn1_osda_desc_full": {
+          "accuracy": 0.09293361884368308,
+          "balanced_accuracy": 0.05775264081365106,
+          "dims_used": 455,
+          "macro_f1": 0.03696059320941607,
+          "macro_f1_report": 0.03346825369356573,
+          "n": 4670,
+          "n_classes_present": 115
+        },
+        "oracle": {
+          "coverage": 0.8948608137044968,
+          "coverage_ge3": 0.8306209850107067,
+          "covered_osdas": 61,
+          "covered_rows": 4179,
+          "covered_rows_ge3": 3879,
+          "knn5_gel": {
+            "acc_covered": 0.5439100263220866,
+            "acc_covered_ge3": 0.5764372260891982,
+            "acc_covered_support_1_2": 0.12333333333333334,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.5231263383297644,
+              "balanced_accuracy": 0.1641609371831025,
+              "macro_f1": 0.14154072017843755
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.5502141327623127,
+              "balanced_accuracy": 0.16672058976092782,
+              "macro_f1": 0.15013604906265773
+            }
+          },
+          "knn5_gel_plus_conditions": {
+            "acc_covered": 0.5379277339076334,
+            "acc_covered_ge3": 0.568703274039701,
+            "acc_covered_support_1_2": 0.14,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.5177730192719486,
+              "balanced_accuracy": 0.16811420009773909,
+              "macro_f1": 0.1479182119554141
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.5437901498929336,
+              "balanced_accuracy": 0.16907593368634105,
+              "macro_f1": 0.1519436907719664
+            }
+          },
+          "modal": {
+            "acc_covered": 0.4910265613783202,
+            "acc_covered_ge3": 0.5192059809229183,
+            "acc_covered_support_1_2": 0.12666666666666668,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.4758029978586724,
+              "balanced_accuracy": 0.09957081712142207,
+              "macro_f1": 0.09867614106244688
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.5026766595289079,
+              "balanced_accuracy": 0.10634303008572082,
+              "macro_f1": 0.10279657898394143
+            }
+          },
+          "nn1_gel": {
+            "acc_covered": 0.5384063173007897,
+            "acc_covered_ge3": 0.5705078628512503,
+            "acc_covered_support_1_2": 0.12333333333333334,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.5182012847965739,
+              "balanced_accuracy": 0.1817216953356566,
+              "macro_f1": 0.15948141633934731
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.5452890792291221,
+              "balanced_accuracy": 0.18428134791348194,
+              "macro_f1": 0.16943568088727423
+            }
+          },
+          "nn1_gel_plus_conditions": {
+            "acc_covered": 0.5415171093563054,
+            "acc_covered_ge3": 0.5725702500644496,
+            "acc_covered_support_1_2": 0.14,
+            "overall_oracle_where_covered_else_rf_d0": {
+              "accuracy": 0.520985010706638,
+              "balanced_accuracy": 0.18627548329163746,
+              "macro_f1": 0.16364548481777863
+            },
+            "overall_oracle_where_support_ge3_else_rf_d0": {
+              "accuracy": 0.5470021413276231,
+              "balanced_accuracy": 0.18723721688023942,
+              "macro_f1": 0.16860832027646874
+            }
+          },
+          "support_quantiles": {
+            "10": 6.0,
+            "25": 39.0,
+            "50": 155.0,
+            "75": 1443.0,
+            "90": 1455.0
+          },
+          "test_rows_with_osda": 4670,
+          "true_class_in_other_paper_support_share_covered": 0.8368030629337162,
+          "true_class_in_other_paper_support_share_covered_ge3": 0.8888888888888888
+        },
+        "prior_block": {
+          "test_rows_covered_share": 0.8948608137044968,
+          "top_classes": [
+            "Failed",
+            "CHA",
+            "*BEA",
+            "AFI",
+            "MFI",
+            "MWW",
+            "MTW",
+            "FAU",
+            "MOR",
+            "AEL"
+          ],
+          "train_rows_covered_share": 0.7101491157091666
+        },
+        "product_rule": {
+          "distribution_prior_eps0.01": {
+            "acc_covered": 0.5649676956209619,
+            "acc_uncovered": 0.34623217922606925,
+            "accuracy": 0.5419700214132762,
+            "balanced_accuracy": 0.10431659934614983,
+            "macro_f1": 0.10104961707200671
+          },
+          "distribution_prior_eps0.05": {
+            "acc_covered": 0.5574300071787509,
+            "acc_uncovered": 0.34623217922606925,
+            "accuracy": 0.5352248394004282,
+            "balanced_accuracy": 0.10335927532020796,
+            "macro_f1": 0.10049824545512061
+          },
+          "distribution_prior_eps0.2": {
+            "acc_covered": 0.49042833213687487,
+            "acc_uncovered": 0.34623217922606925,
+            "accuracy": 0.4752676659528908,
+            "balanced_accuracy": 0.10299975313825735,
+            "macro_f1": 0.10022429315952901
+          },
+          "distribution_prior_eps1.0": {
+            "acc_covered": 0.3539124192390524,
+            "acc_uncovered": 0.34623217922606925,
+            "accuracy": 0.3531049250535332,
+            "balanced_accuracy": 0.10826518552309675,
+            "macro_f1": 0.09975957817506229
+          },
+          "knn5_gel_prior_eps0.01": {
+            "acc_covered": 0.5678391959798994,
+            "acc_uncovered": 0.34623217922606925,
+            "accuracy": 0.5445396145610278,
+            "balanced_accuracy": 0.13963969604197624,
+            "macro_f1": 0.13180176688864564
+          },
+          "knn5_gel_prior_eps0.05": {
+            "acc_covered": 0.5690356544627901,
+            "acc_uncovered": 0.34623217922606925,
+            "accuracy": 0.5456102783725909,
+            "balanced_accuracy": 0.14151328981759592,
+            "macro_f1": 0.1340166135296663
+          },
+          "knn5_gel_prior_eps0.2": {
+            "acc_covered": 0.5041876046901173,
+            "acc_uncovered": 0.34623217922606925,
+            "accuracy": 0.48758029978586725,
+            "balanced_accuracy": 0.13038282920519104,
+            "macro_f1": 0.12355322492545069
+          },
+          "knn5_gel_prior_eps1.0": {
+            "acc_covered": 0.36491983728164634,
+            "acc_uncovered": 0.34623217922606925,
+            "accuracy": 0.36295503211991437,
+            "balanced_accuracy": 0.11620508545082953,
+            "macro_f1": 0.10744999813694872
+          }
+        },
+        "rf_d0": {
+          "mean": {
+            "accuracy": 0.26477516059957173,
+            "balanced_accuracy": 0.10721959758009045,
+            "macro_f1": 0.09295701417477227
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.26595289079229123,
+              "balanced_accuracy": 0.11306853656086133,
+              "macro_f1": 0.0984934955358218,
+              "macro_f1_report": 0.09134477408564118,
+              "n": 4670,
+              "n_classes_present": 115,
+              "seed": 3
+            },
+            {
+              "accuracy": 0.26359743040685224,
+              "balanced_accuracy": 0.10137065859931958,
+              "macro_f1": 0.08742053281372274,
+              "macro_f1_report": 0.07916032498880407,
+              "n": 4670,
+              "n_classes_present": 115,
+              "seed": 7
+            }
+          ]
+        },
+        "rf_d0_acc_covered": 0.2552045944005743,
+        "rf_d0_acc_covered_ge3": 0.23279195668986852,
+        "rf_d0_acc_uncovered": 0.34623217922606925,
+        "rf_d0_plus_prior": {
+          "acc_covered": 0.24443646805455851,
+          "acc_uncovered": 0.29633401221995925,
+          "delta_vs_d0": {
+            "accuracy": -0.014882226980728053,
+            "balanced_accuracy": -0.03961536978126781,
+            "macro_f1": -0.02377736617450789
+          },
+          "mean": {
+            "accuracy": 0.24989293361884368,
+            "balanced_accuracy": 0.06760422779882264,
+            "macro_f1": 0.06917964800026438
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.22826552462526767,
+              "balanced_accuracy": 0.06174843451457858,
+              "macro_f1": 0.06313461704338519,
+              "macro_f1_report": 0.05902830048771786,
+              "n": 4670,
+              "n_classes_present": 115,
+              "seed": 3
+            },
+            {
+              "accuracy": 0.2715203426124197,
+              "balanced_accuracy": 0.07346002108306669,
+              "macro_f1": 0.07522467895714358,
+              "macro_f1_report": 0.07209031733392926,
+              "n": 4670,
+              "n_classes_present": 115,
+              "seed": 7
+            }
+          ]
+        },
+        "rf_prior_block_only": {
+          "mean": {
+            "accuracy": 0.3708779443254818,
+            "balanced_accuracy": 0.01785792051647425,
+            "macro_f1": 0.017369322097989345
+          },
+          "per_seed": [
+            {
+              "accuracy": 0.3708779443254818,
+              "balanced_accuracy": 0.01785792051647425,
+              "macro_f1": 0.017369322097989345,
+              "macro_f1_report": 0.016372721649744057,
+              "n": 4670,
+              "n_classes_present": 115,
+              "seed": 3
+            }
+          ]
+        },
+        "test_classes_unseen_in_train_rows": 92,
+        "test_osdas": 149,
+        "test_rows": 4670,
+        "train_rows": 17302
+      }
+    },
+    "n_estimators": 60,
+    "seeds": [
+      3,
+      7
+    ],
+    "summary": {
+      "global_modal_accuracy": {
+        "mean": 0.2470338270482837,
+        "recipe_weighted_mean": 0.24223313517704834
+      },
+      "nn1_osda_desc30_accuracy": {
+        "mean": 0.14100495907883265,
+        "recipe_weighted_mean": 0.13440165417420522
+      },
+      "nn1_osda_desc_full_accuracy": {
+        "mean": 0.15469593989150873,
+        "recipe_weighted_mean": 0.14572240889118634
+      },
+      "oracle_coverage": {
+        "mean": 0.8406912110046434,
+        "recipe_weighted_mean": 0.8511760144740242
+      },
+      "oracle_coverage_ge3": {
+        "mean": 0.7966374386676494,
+        "recipe_weighted_mean": 0.8064099250452313
+      },
+      "oracle_knn5_gel_acc_covered": {
+        "mean": 0.44603980029119245,
+        "recipe_weighted_mean": 0.45725320158709143
+      },
+      "oracle_knn5_gel_acc_covered_ge3": {
+        "mean": 0.4536038950783768,
+        "recipe_weighted_mean": 0.46644243900082244
+      },
+      "oracle_modal_acc_covered": {
+        "mean": 0.3850545079705104,
+        "recipe_weighted_mean": 0.39245256503052345
+      },
+      "oracle_modal_acc_covered_ge3": {
+        "mean": 0.3895851325456904,
+        "recipe_weighted_mean": 0.3983509382545725
+      },
+      "oracle_nn1_gel_acc_covered": {
+        "mean": 0.45170165489429104,
+        "recipe_weighted_mean": 0.46328574282109447
+      },
+      "oracle_nn1_gel_acc_covered_ge3": {
+        "mean": 0.45943185897391403,
+        "recipe_weighted_mean": 0.4726510772707495
+      },
+      "oracle_nn1_gelcond_acc_covered": {
+        "mean": 0.4616162851685566,
+        "recipe_weighted_mean": 0.47122265175352424
+      },
+      "overall_knn5_gel_else_d0": {
+        "mean": 0.4399230353722329,
+        "recipe_weighted_mean": 0.44959937968467306
+      },
+      "overall_modal_else_d0": {
+        "mean": 0.38839777446369494,
+        "recipe_weighted_mean": 0.39423623675368313
+      },
+      "overall_nn1_gel_else_d0": {
+        "mean": 0.44438067653240515,
+        "recipe_weighted_mean": 0.45451020935642283
+      },
+      "overall_nn1_gelcond_else_d0": {
+        "mean": 0.4525169316487451,
+        "recipe_weighted_mean": 0.4610752132333936
+      },
+      "product_distribution_prior_eps0.01_acc_covered": {
+        "mean": 0.4004900114668827,
+        "recipe_weighted_mean": 0.4037513151061561
+      },
+      "product_distribution_prior_eps0.01_accuracy": {
+        "mean": 0.4011002163031564,
+        "recipe_weighted_mean": 0.403799431377617
+      },
+      "product_distribution_prior_eps0.05_acc_covered": {
+        "mean": 0.3935356677007216,
+        "recipe_weighted_mean": 0.39657433566251515
+      },
+      "product_distribution_prior_eps0.05_accuracy": {
+        "mean": 0.39515538754605517,
+        "recipe_weighted_mean": 0.39762212457999485
+      },
+      "product_distribution_prior_eps0.2_acc_covered": {
+        "mean": 0.36053028088667477,
+        "recipe_weighted_mean": 0.3611990900619063
+      },
+      "product_distribution_prior_eps0.2_accuracy": {
+        "mean": 0.36681797278957573,
+        "recipe_weighted_mean": 0.3669682088394934
+      },
+      "product_distribution_prior_eps1.0_acc_covered": {
+        "mean": 0.3039871561707508,
+        "recipe_weighted_mean": 0.3021500545465886
+      },
+      "product_distribution_prior_eps1.0_accuracy": {
+        "mean": 0.3183290097059977,
+        "recipe_weighted_mean": 0.31576634789351254
+      },
+      "product_knn5_gel_prior_eps0.01_acc_covered": {
+        "mean": 0.4316334630457891,
+        "recipe_weighted_mean": 0.4396715704235453
+      },
+      "product_knn5_gel_prior_eps0.01_accuracy": {
+        "mean": 0.42770091525674686,
+        "recipe_weighted_mean": 0.4346342724218144
+      },
+      "product_knn5_gel_prior_eps0.05_acc_covered": {
+        "mean": 0.4306140552589671,
+        "recipe_weighted_mean": 0.43755862156143754
+      },
+      "product_knn5_gel_prior_eps0.05_accuracy": {
+        "mean": 0.426769261709164,
+        "recipe_weighted_mean": 0.4327733264409408
+      },
+      "product_knn5_gel_prior_eps0.2_acc_covered": {
+        "mean": 0.3895130774588278,
+        "recipe_weighted_mean": 0.39042459253192263
+      },
+      "product_knn5_gel_prior_eps0.2_accuracy": {
+        "mean": 0.39128989456688823,
+        "recipe_weighted_mean": 0.39185836133367796
+      },
+      "product_knn5_gel_prior_eps1.0_acc_covered": {
+        "mean": 0.3158071790748996,
+        "recipe_weighted_mean": 0.3134421144140795
+      },
+      "product_knn5_gel_prior_eps1.0_accuracy": {
+        "mean": 0.328254342735403,
+        "recipe_weighted_mean": 0.32535538898940297
+      },
+      "rf_d0_acc_covered": {
+        "mean": 0.2712405648759965,
+        "recipe_weighted_mean": 0.2659627890963611
+      },
+      "rf_d0_acc_uncovered": {
+        "mean": 0.3893915094847353,
+        "recipe_weighted_mean": 0.3885095412452981
+      },
+      "rf_d0_accuracy": {
+        "mean": 0.2899235305830995,
+        "recipe_weighted_mean": 0.2841044197467046
+      },
+      "rf_d0_balanced_accuracy": {
+        "mean": 0.10655092695409611,
+        "recipe_weighted_mean": 0.1052631092894615
+      },
+      "rf_d0_macro_f1": {
+        "mean": 0.10496109727736483,
+        "recipe_weighted_mean": 0.10297478330733936
+      },
+      "rf_d0_plus_prior_acc_covered": {
+        "mean": 0.27761227544339134,
+        "recipe_weighted_mean": 0.26864018537573087
+      },
+      "rf_d0_plus_prior_acc_uncovered": {
+        "mean": 0.38328768842285027,
+        "recipe_weighted_mean": 0.38035846372414067
+      },
+      "rf_d0_plus_prior_accuracy": {
+        "mean": 0.2943297352543645,
+        "recipe_weighted_mean": 0.285241664512794
+      },
+      "rf_d0_plus_prior_balanced_accuracy": {
+        "mean": 0.08451651508269725,
+        "recipe_weighted_mean": 0.08189002936037276
+      },
+      "rf_d0_plus_prior_macro_f1": {
+        "mean": 0.08842812211525938,
+        "recipe_weighted_mean": 0.08541174228681811
+      },
+      "rf_prior_only_accuracy": {
+        "mean": 0.26117123942606535,
+        "recipe_weighted_mean": 0.2599638149392608
+      },
+      "true_class_in_support_covered": {
+        "mean": 0.839100351208961,
+        "recipe_weighted_mean": 0.8459887790259106
+      }
+    },
+    "top_k_prior_classes": 10
+  },
+  "C": {
+    "folds": {
+      "0": {
+        "exclude_fold_test_papers": {
+          "agreement_kg_vs_oracle_modal_on_both": 0.023529411764705882,
+          "coverage": 0.2718408736349454,
+          "covered_osdas": 11,
+          "covered_rows": 697,
+          "kg_modal_acc_covered": 0.058823529411764705,
+          "kg_modal_acc_on_both": 0.058823529411764705,
+          "kg_records_per_covered_recipe_median": 2.0,
+          "oracle_modal_acc_on_both": 0.3029411764705882,
+          "oracle_modal_acc_on_kg_uncovered_but_oracle_covered": 0.3402317880794702,
+          "oracle_nn1_gel_acc_on_both": 0.38382352941176473,
+          "rows_covered_by_both_kg_and_oracle": 680,
+          "rows_kg_covered_but_oracle_uncovered": 17,
+          "rows_kg_uncovered_but_oracle_covered": 1208,
+          "true_class_in_kg_support_share_covered": 0.25251076040172166
+        },
+        "exclude_own_paper_only": {
+          "agreement_kg_vs_oracle_modal_on_both": 0.2681091251175917,
+          "coverage": 0.42121684867394693,
+          "covered_osdas": 19,
+          "covered_rows": 1080,
+          "kg_modal_acc_covered": 0.21666666666666667,
+          "kg_modal_acc_on_both": 0.21919096895578552,
+          "kg_records_per_covered_recipe_median": 2.0,
+          "oracle_modal_acc_on_both": 0.27657572906867356,
+          "oracle_modal_acc_on_kg_uncovered_but_oracle_covered": 0.39151515151515154,
+          "oracle_nn1_gel_acc_on_both": 0.34995296331138287,
+          "rows_covered_by_both_kg_and_oracle": 1063,
+          "rows_kg_covered_but_oracle_uncovered": 17,
+          "rows_kg_uncovered_but_oracle_covered": 825,
+          "true_class_in_kg_support_share_covered": 0.32592592592592595
+        },
+        "oracle_own_paper_excluded_coverage": 0.7363494539781591,
+        "oracle_own_paper_excluded_modal_acc_covered": 0.3268008474576271,
+        "per_osda_top20_exclude_fold_test_papers": [
+          {
+            "agreement": false,
+            "display": "1,6-diaminohexane",
+            "kg_modal_accuracy_on_these_recipes": 0.06220095693779904,
+            "kg_modal_framework": "-CLO",
+            "kg_records": 2,
+            "n_test_recipes": 209,
+            "oracle_modal_acc_on_these_recipes": 0.11483253588516747,
+            "osda_key": "NAQMVNRVTILPCV-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "TON",
+            "true_modal_share": 0.2583732057416268
+          },
+          {
+            "agreement": false,
+            "display": "tetrabutylammonium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "FAU",
+            "kg_records": 17,
+            "n_test_recipes": 157,
+            "oracle_modal_acc_on_these_recipes": 0.5286624203821656,
+            "osda_key": "DZLFLBLQUQXARW-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MEL",
+            "true_modal_share": 0.5286624203821656
+          },
+          {
+            "agreement": false,
+            "display": "pyrrolidine",
+            "kg_modal_accuracy_on_these_recipes": 0.04316546762589928,
+            "kg_modal_framework": "SOD",
+            "kg_records": 2,
+            "n_test_recipes": 139,
+            "oracle_modal_acc_on_these_recipes": 0.2158273381294964,
+            "osda_key": "RWRDLPDLKQPQOW-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "FER",
+            "true_modal_share": 0.3669064748201439
+          },
+          {
+            "agreement": false,
+            "display": "isopropyl amine",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "CHA",
+            "kg_records": 2,
+            "n_test_recipes": 102,
+            "oracle_modal_acc_on_these_recipes": 0.39215686274509803,
+            "osda_key": "JJWLVOIRVHMVIS-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MTT",
+            "true_modal_share": 0.39215686274509803
+          },
+          {
+            "agreement": false,
+            "display": "tetra(n-butyl) phosphonium",
+            "kg_modal_accuracy_on_these_recipes": 0.3181818181818182,
+            "kg_modal_framework": "MFI",
+            "kg_records": 1,
+            "n_test_recipes": 22,
+            "oracle_modal_acc_on_these_recipes": 0.45454545454545453,
+            "osda_key": "BJQWBACJIAKDTJ-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.45454545454545453
+          },
+          {
+            "agreement": false,
+            "display": "dibenzyldimethylammonium",
+            "kg_modal_accuracy_on_these_recipes": 0.2631578947368421,
+            "kg_modal_framework": "*BEA",
+            "kg_records": 1,
+            "n_test_recipes": 19,
+            "oracle_modal_acc_on_these_recipes": 0.21052631578947367,
+            "osda_key": "LNIYNESXCOYFPW-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "EUO",
+            "true_modal_share": 0.42105263157894735
+          },
+          {
+            "agreement": false,
+            "display": "octyltrimethylammonium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "MTT",
+            "kg_records": 3,
+            "n_test_recipes": 16,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "HTKPDYSCAPSXIR-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MWW",
+            "true_modal_share": 0.6875
+          },
+          {
+            "agreement": false,
+            "display": "N-methylpyrrolidine",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "IMF",
+            "kg_records": 1,
+            "n_test_recipes": 14,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "AVFZOVWCLRSYKC-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "FER",
+            "true_modal_share": 0.5714285714285714
+          },
+          {
+            "agreement": true,
+            "display": "methyltropinium",
+            "kg_modal_accuracy_on_these_recipes": 0.75,
+            "kg_modal_framework": "DDR",
+            "kg_records": 1,
+            "n_test_recipes": 12,
+            "oracle_modal_acc_on_these_recipes": 0.75,
+            "osda_key": "RRDNENJAOYUEAK-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "DDR",
+            "true_modal_share": 0.75
+          },
+          {
+            "agreement": false,
+            "display": "1-ethyl-1,2,6-trimethylpiperidin-1-ium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "SFF",
+            "kg_records": 1,
+            "n_test_recipes": 6,
+            "oracle_modal_acc_on_these_recipes": 1.0,
+            "osda_key": "QOURMEHOWGLDIZ-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "STF",
+            "true_modal_share": 1.0
+          },
+          {
+            "agreement": true,
+            "display": "134TMI+",
+            "kg_modal_accuracy_on_these_recipes": 1.0,
+            "kg_modal_framework": "ITW",
+            "kg_records": 6,
+            "n_test_recipes": 1,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "CDIWYWUGTVLWJM-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "ITW",
+            "true_modal_share": 1.0
+          }
+        ],
+        "test_osdas": 150,
+        "test_rows": 2564
+      },
+      "1": {
+        "exclude_fold_test_papers": {
+          "agreement_kg_vs_oracle_modal_on_both": 0.9187365838699786,
+          "coverage": 0.6630347054075868,
+          "covered_osdas": 13,
+          "covered_rows": 3286,
+          "kg_modal_acc_covered": 0.30736457699330494,
+          "kg_modal_acc_on_both": 0.3097209444955535,
+          "kg_records_per_covered_recipe_median": 88.0,
+          "oracle_modal_acc_on_both": 0.3376264949402024,
+          "oracle_modal_acc_on_kg_uncovered_but_oracle_covered": 0.4595910418695229,
+          "oracle_nn1_gel_acc_on_both": 0.4707145047531432,
+          "rows_covered_by_both_kg_and_oracle": 3261,
+          "rows_kg_covered_but_oracle_uncovered": 25,
+          "rows_kg_uncovered_but_oracle_covered": 1027,
+          "true_class_in_kg_support_share_covered": 0.4936092513694461
+        },
+        "exclude_own_paper_only": {
+          "agreement_kg_vs_oracle_modal_on_both": 0.9407986595922927,
+          "coverage": 0.7276029055690073,
+          "covered_osdas": 23,
+          "covered_rows": 3606,
+          "kg_modal_acc_covered": 0.34331669439822515,
+          "kg_modal_acc_on_both": 0.3457134878525552,
+          "kg_records_per_covered_recipe_median": 165.0,
+          "oracle_modal_acc_on_both": 0.36470259703993296,
+          "oracle_modal_acc_on_kg_uncovered_but_oracle_covered": 0.37765205091937765,
+          "oracle_nn1_gel_acc_on_both": 0.48282602624965093,
+          "rows_covered_by_both_kg_and_oracle": 3581,
+          "rows_kg_covered_but_oracle_uncovered": 25,
+          "rows_kg_uncovered_but_oracle_covered": 707,
+          "true_class_in_kg_support_share_covered": 0.620077648363838
+        },
+        "oracle_own_paper_excluded_coverage": 0.8652138821630347,
+        "oracle_own_paper_excluded_modal_acc_covered": 0.3668376865671642,
+        "per_osda_top20_exclude_fold_test_papers": [
+          {
+            "agreement": true,
+            "display": "tetraethylammonium",
+            "kg_modal_accuracy_on_these_recipes": 0.24866023579849947,
+            "kg_modal_framework": "*BEA",
+            "kg_records": 88,
+            "n_test_recipes": 1866,
+            "oracle_modal_acc_on_these_recipes": 0.24866023579849947,
+            "osda_key": "CBXCPBUEXACCNR-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "*BEA",
+            "true_modal_share": 0.24866023579849947
+          },
+          {
+            "agreement": true,
+            "display": "Hexamethyleneimine",
+            "kg_modal_accuracy_on_these_recipes": 0.44871794871794873,
+            "kg_modal_framework": "MWW",
+            "kg_records": 21,
+            "n_test_recipes": 546,
+            "oracle_modal_acc_on_these_recipes": 0.44871794871794873,
+            "osda_key": "ZSIQJIWKELUFRJ-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MWW",
+            "true_modal_share": 0.44871794871794873
+          },
+          {
+            "agreement": true,
+            "display": "di-n-propylamine",
+            "kg_modal_accuracy_on_these_recipes": 0.4692622950819672,
+            "kg_modal_framework": "AEL",
+            "kg_records": 6,
+            "n_test_recipes": 488,
+            "oracle_modal_acc_on_these_recipes": 0.4692622950819672,
+            "osda_key": "WEHWNAOGRSTTBQ-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "AEL",
+            "true_modal_share": 0.4692622950819672
+          },
+          {
+            "agreement": true,
+            "display": "1-(phenylmethyl)-1-azoniabicyclo[2.2.2]octane",
+            "kg_modal_accuracy_on_these_recipes": 0.647887323943662,
+            "kg_modal_framework": "IFR",
+            "kg_records": 1,
+            "n_test_recipes": 71,
+            "oracle_modal_acc_on_these_recipes": 0.647887323943662,
+            "osda_key": "RDPBRXDVEIYBBL-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "IFR",
+            "true_modal_share": 0.647887323943662
+          },
+          {
+            "agreement": false,
+            "display": "tetraethylenepentamine",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "FER",
+            "kg_records": 2,
+            "n_test_recipes": 69,
+            "oracle_modal_acc_on_these_recipes": 0.5652173913043478,
+            "osda_key": "FAGUFWYHJQFNRV-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "CHA",
+            "true_modal_share": 0.5652173913043478
+          },
+          {
+            "agreement": false,
+            "display": "cyclohexylamine",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "MWW",
+            "kg_records": 2,
+            "n_test_recipes": 67,
+            "oracle_modal_acc_on_these_recipes": 0.373134328358209,
+            "osda_key": "PAFZNILMFXTMIY-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "CHA",
+            "true_modal_share": 0.373134328358209
+          },
+          {
+            "agreement": false,
+            "display": "1-methyl-3-ethylimidazolium ",
+            "kg_modal_accuracy_on_these_recipes": 0.015384615384615385,
+            "kg_modal_framework": "TON",
+            "kg_records": 4,
+            "n_test_recipes": 65,
+            "oracle_modal_acc_on_these_recipes": 0.07692307692307693,
+            "osda_key": "NJMWOUFKYKNWDW-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.23076923076923078
+          },
+          {
+            "agreement": false,
+            "display": "N,N-dimethylpiperidinium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "JBW",
+            "kg_records": 1,
+            "n_test_recipes": 52,
+            "oracle_modal_acc_on_these_recipes": 0.4423076923076923,
+            "osda_key": "NNCAWEWCFVZOGF-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "LEV",
+            "true_modal_share": 0.4423076923076923
+          },
+          {
+            "agreement": true,
+            "display": "C22-6-6",
+            "kg_modal_accuracy_on_these_recipes": 1.0,
+            "kg_modal_framework": "MFI",
+            "kg_records": 2,
+            "n_test_recipes": 25,
+            "oracle_modal_acc_on_these_recipes": 1.0,
+            "osda_key": "OQSMNBLOCXTRQC-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MFI",
+            "true_modal_share": 1.0
+          },
+          {
+            "agreement": false,
+            "display": "3BDMI",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "*UOE",
+            "kg_records": 3,
+            "n_test_recipes": 24,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "CYWPTQCQTBNBAP-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.9166666666666666
+          },
+          {
+            "agreement": false,
+            "display": "copper 1,4,8,11-tetraazacyclotetradecane",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "RHO",
+            "kg_records": 1,
+            "n_test_recipes": 9,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "MDAXKAUIABOHTD-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.4444444444444444
+          },
+          {
+            "agreement": false,
+            "display": "N,N,N',N'-tetramethylbutane-1,4-diamine",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "ESV",
+            "kg_records": 3,
+            "n_test_recipes": 3,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "VEAZEPMQWHPHAG-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.6666666666666666
+          },
+          {
+            "agreement": false,
+            "display": "2-methyl imidazole",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "MOR",
+            "kg_records": 3,
+            "n_test_recipes": 1,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "LXBGSDVWAMZHDD-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "CHA",
+            "true_modal_share": 1.0
+          }
+        ],
+        "test_osdas": 149,
+        "test_rows": 4956
+      },
+      "2": {
+        "exclude_fold_test_papers": {
+          "agreement_kg_vs_oracle_modal_on_both": 0.1310580204778157,
+          "coverage": 0.4664988990248506,
+          "covered_osdas": 18,
+          "covered_rows": 1483,
+          "kg_modal_acc_covered": 0.1827376938637896,
+          "kg_modal_acc_on_both": 0.18361774744027304,
+          "kg_records_per_covered_recipe_median": 5.0,
+          "oracle_modal_acc_on_both": 0.41706484641638225,
+          "oracle_modal_acc_on_kg_uncovered_but_oracle_covered": 0.3327922077922078,
+          "oracle_nn1_gel_acc_on_both": 0.36928327645051195,
+          "rows_covered_by_both_kg_and_oracle": 1465,
+          "rows_kg_covered_but_oracle_uncovered": 18,
+          "rows_kg_uncovered_but_oracle_covered": 1232,
+          "true_class_in_kg_support_share_covered": 0.24140256237356708
+        },
+        "exclude_own_paper_only": {
+          "agreement_kg_vs_oracle_modal_on_both": 0.4053475935828877,
+          "coverage": 0.5957848379993709,
+          "covered_osdas": 28,
+          "covered_rows": 1894,
+          "kg_modal_acc_covered": 0.23600844772967264,
+          "kg_modal_acc_on_both": 0.23796791443850268,
+          "kg_records_per_covered_recipe_median": 10.0,
+          "oracle_modal_acc_on_both": 0.3786096256684492,
+          "oracle_modal_acc_on_kg_uncovered_but_oracle_covered": 0.3784764207980653,
+          "oracle_nn1_gel_acc_on_both": 0.3582887700534759,
+          "rows_covered_by_both_kg_and_oracle": 1870,
+          "rows_kg_covered_but_oracle_uncovered": 24,
+          "rows_kg_uncovered_but_oracle_covered": 827,
+          "true_class_in_kg_support_share_covered": 0.4044350580781415
+        },
+        "oracle_own_paper_excluded_coverage": 0.8483799937087134,
+        "oracle_own_paper_excluded_modal_acc_covered": 0.378568780126066,
+        "per_osda_top20_exclude_fold_test_papers": [
+          {
+            "agreement": false,
+            "display": "triethylamine",
+            "kg_modal_accuracy_on_these_recipes": 0.24766355140186916,
+            "kg_modal_framework": "CHA",
+            "kg_records": 2,
+            "n_test_recipes": 428,
+            "oracle_modal_acc_on_these_recipes": 0.5373831775700935,
+            "osda_key": "ZMANZCXQSJIPKH-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "AFI",
+            "true_modal_share": 0.5373831775700935
+          },
+          {
+            "agreement": false,
+            "display": "choline",
+            "kg_modal_accuracy_on_these_recipes": 0.002544529262086514,
+            "kg_modal_framework": "FAU",
+            "kg_records": 5,
+            "n_test_recipes": 393,
+            "oracle_modal_acc_on_these_recipes": 0.37404580152671757,
+            "osda_key": "OEYIOHPDSNJKLS-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.37404580152671757
+          },
+          {
+            "agreement": false,
+            "display": "ethylenediamine",
+            "kg_modal_accuracy_on_these_recipes": 0.1111111111111111,
+            "kg_modal_framework": "MFI",
+            "kg_records": 9,
+            "n_test_recipes": 216,
+            "oracle_modal_acc_on_these_recipes": 0.3148148148148148,
+            "osda_key": "PIICEJLVQHRZGT-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.3148148148148148
+          },
+          {
+            "agreement": true,
+            "display": "1-adamantaneamine",
+            "kg_modal_accuracy_on_these_recipes": 0.6185567010309279,
+            "kg_modal_framework": "DDR",
+            "kg_records": 5,
+            "n_test_recipes": 97,
+            "oracle_modal_acc_on_these_recipes": 0.6185567010309279,
+            "osda_key": "DKNWSYNQZKUICI-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "DDR",
+            "true_modal_share": 0.6185567010309279
+          },
+          {
+            "agreement": false,
+            "display": "triethylenediamine",
+            "kg_modal_accuracy_on_these_recipes": 0.045454545454545456,
+            "kg_modal_framework": "*BEA",
+            "kg_records": 2,
+            "n_test_recipes": 66,
+            "oracle_modal_acc_on_these_recipes": 0.42424242424242425,
+            "osda_key": "IMNIMPAHZVJRPE-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.42424242424242425
+          },
+          {
+            "agreement": false,
+            "display": "ethylamine",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "ANA",
+            "kg_records": 2,
+            "n_test_recipes": 66,
+            "oracle_modal_acc_on_these_recipes": 0.10606060606060606,
+            "osda_key": "QUSNBJAOOMFDIB-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.25757575757575757
+          },
+          {
+            "agreement": true,
+            "display": "N,N-diisopropylethylamine",
+            "kg_modal_accuracy_on_these_recipes": 0.8548387096774194,
+            "kg_modal_framework": "AEI",
+            "kg_records": 2,
+            "n_test_recipes": 62,
+            "oracle_modal_acc_on_these_recipes": 0.8548387096774194,
+            "osda_key": "JGFZNNIVVJXRND-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "AEI",
+            "true_modal_share": 0.8548387096774194
+          },
+          {
+            "agreement": false,
+            "display": "dimethyldipropylammonium",
+            "kg_modal_accuracy_on_these_recipes": 0.0425531914893617,
+            "kg_modal_framework": "RRO",
+            "kg_records": 1,
+            "n_test_recipes": 47,
+            "oracle_modal_acc_on_these_recipes": 0.02127659574468085,
+            "osda_key": "WQHRRUZRGXLCGL-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.3404255319148936
+          },
+          {
+            "agreement": true,
+            "display": "hexamethonium",
+            "kg_modal_accuracy_on_these_recipes": 0.275,
+            "kg_modal_framework": "EUO",
+            "kg_records": 9,
+            "n_test_recipes": 40,
+            "oracle_modal_acc_on_these_recipes": 0.025,
+            "osda_key": "VZJFGSRCJCXDSG-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "EUO",
+            "true_modal_share": 0.275
+          },
+          {
+            "agreement": false,
+            "display": "N,N-diethyl-cis-2,6-dimethyylpieridinium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "FER",
+            "kg_records": 2,
+            "n_test_recipes": 20,
+            "oracle_modal_acc_on_these_recipes": 0.1,
+            "osda_key": "YWZGBJRUJMCHLS-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.6
+          },
+          {
+            "agreement": false,
+            "display": "1,2,3-triethylimidazolium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "*STO",
+            "kg_records": 1,
+            "n_test_recipes": 12,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "SBFXJIZCJIYABX-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MFI",
+            "true_modal_share": 0.6666666666666666
+          },
+          {
+            "agreement": false,
+            "display": "ethanolamine",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "MFI",
+            "kg_records": 1,
+            "n_test_recipes": 12,
+            "oracle_modal_acc_on_these_recipes": 0.16666666666666666,
+            "osda_key": "HZAXFHJVJLSVMW-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "APD",
+            "true_modal_share": 0.6666666666666666
+          },
+          {
+            "agreement": true,
+            "display": "N,N,N-dimethylethylcyclohexylammonium",
+            "kg_modal_accuracy_on_these_recipes": 0.8181818181818182,
+            "kg_modal_framework": "CHA",
+            "kg_records": 2,
+            "n_test_recipes": 11,
+            "oracle_modal_acc_on_these_recipes": 0.8181818181818182,
+            "osda_key": "XURMURYJWMFWER-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "CHA",
+            "true_modal_share": 0.8181818181818182
+          },
+          {
+            "agreement": false,
+            "display": "tris(2-aminoethyl)amine",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "MOR",
+            "kg_records": 1,
+            "n_test_recipes": 7,
+            "oracle_modal_acc_on_these_recipes": 0.42857142857142855,
+            "osda_key": "MBYLVOKEDDQJDY-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "RWY",
+            "true_modal_share": 0.42857142857142855
+          },
+          {
+            "agreement": true,
+            "display": "1,4-dibromobutane",
+            "kg_modal_accuracy_on_these_recipes": 1.0,
+            "kg_modal_framework": "TUN",
+            "kg_records": 1,
+            "n_test_recipes": 2,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "ULTHEAFYOOPTTB-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "TUN",
+            "true_modal_share": 1.0
+          },
+          {
+            "agreement": false,
+            "display": "ethylmethylpyrrolidinium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "CHA",
+            "kg_records": 1,
+            "n_test_recipes": 2,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "NIHOUJYFWMURBG-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 1.0
+          },
+          {
+            "agreement": false,
+            "display": "hexadecyl-dimethyl-(3-trimethoxysilylpropyl)azanium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "MFI",
+            "kg_records": 4,
+            "n_test_recipes": 1,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "HNDYOPZJDXVPSS-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "*BEA",
+            "true_modal_share": 1.0
+          },
+          {
+            "agreement": false,
+            "display": "ethylene glycol",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "CHA",
+            "kg_records": 3,
+            "n_test_recipes": 1,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "LYCAIKOWRPUZTN-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "SOD",
+            "true_modal_share": 1.0
+          }
+        ],
+        "test_osdas": 149,
+        "test_rows": 3179
+      },
+      "3": {
+        "exclude_fold_test_papers": {
+          "agreement_kg_vs_oracle_modal_on_both": 0.48278622898318657,
+          "coverage": 0.3191649899396378,
+          "covered_osdas": 17,
+          "covered_rows": 1269,
+          "kg_modal_acc_covered": 0.27501970055161545,
+          "kg_modal_acc_on_both": 0.27942353883106485,
+          "kg_records_per_covered_recipe_median": 7.0,
+          "oracle_modal_acc_on_both": 0.3875100080064051,
+          "oracle_modal_acc_on_kg_uncovered_but_oracle_covered": 0.34734411085450345,
+          "oracle_nn1_gel_acc_on_both": 0.49959967974379504,
+          "rows_covered_by_both_kg_and_oracle": 1249,
+          "rows_kg_covered_but_oracle_uncovered": 20,
+          "rows_kg_uncovered_but_oracle_covered": 2165,
+          "true_class_in_kg_support_share_covered": 0.541371158392435
+        },
+        "exclude_own_paper_only": {
+          "agreement_kg_vs_oracle_modal_on_both": 0.42756016989145823,
+          "coverage": 0.5379778672032193,
+          "covered_osdas": 29,
+          "covered_rows": 2139,
+          "kg_modal_acc_covered": 0.2926601215521272,
+          "kg_modal_acc_on_both": 0.2954223690420009,
+          "kg_records_per_covered_recipe_median": 3.0,
+          "oracle_modal_acc_on_both": 0.39735724398301087,
+          "oracle_modal_acc_on_kg_uncovered_but_oracle_covered": 0.30424710424710427,
+          "oracle_nn1_gel_acc_on_both": 0.4974044360547428,
+          "rows_covered_by_both_kg_and_oracle": 2119,
+          "rows_kg_covered_but_oracle_uncovered": 20,
+          "rows_kg_uncovered_but_oracle_covered": 1295,
+          "true_class_in_kg_support_share_covered": 0.4670406732117812
+        },
+        "oracle_own_paper_excluded_coverage": 0.8586519114688129,
+        "oracle_own_paper_excluded_modal_acc_covered": 0.36203866432337434,
+        "per_osda_top20_exclude_fold_test_papers": [
+          {
+            "agreement": true,
+            "display": "N,N,N-trimethyl-L-adamantammonium",
+            "kg_modal_accuracy_on_these_recipes": 0.5374732334047109,
+            "kg_modal_framework": "CHA",
+            "kg_records": 54,
+            "n_test_recipes": 467,
+            "oracle_modal_acc_on_these_recipes": 0.5374732334047109,
+            "osda_key": "KKXBPUAYFJQMLN-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "CHA",
+            "true_modal_share": 0.5374732334047109
+          },
+          {
+            "agreement": false,
+            "display": "diethylamine",
+            "kg_modal_accuracy_on_these_recipes": 0.10989010989010989,
+            "kg_modal_framework": "RHO",
+            "kg_records": 6,
+            "n_test_recipes": 182,
+            "oracle_modal_acc_on_these_recipes": 0.027472527472527472,
+            "osda_key": "HPNMFZURTQLUMO-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "TON",
+            "true_modal_share": 0.23076923076923078
+          },
+          {
+            "agreement": true,
+            "display": "18-crown-6",
+            "kg_modal_accuracy_on_these_recipes": 0.376,
+            "kg_modal_framework": "EMT",
+            "kg_records": 12,
+            "n_test_recipes": 125,
+            "oracle_modal_acc_on_these_recipes": 0.376,
+            "osda_key": "XEZNGIUYQVAUSS-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "EMT",
+            "true_modal_share": 0.376
+          },
+          {
+            "agreement": false,
+            "display": "piperidine",
+            "kg_modal_accuracy_on_these_recipes": 0.017241379310344827,
+            "kg_modal_framework": "MFI",
+            "kg_records": 4,
+            "n_test_recipes": 116,
+            "oracle_modal_acc_on_these_recipes": 0.47413793103448276,
+            "osda_key": "NQRYJNQNLNOLGT-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MWW",
+            "true_modal_share": 0.47413793103448276
+          },
+          {
+            "agreement": false,
+            "display": "1,5-bis(methylpyrrolidinium)pentane",
+            "kg_modal_accuracy_on_these_recipes": 0.10091743119266056,
+            "kg_modal_framework": "IWW",
+            "kg_records": 2,
+            "n_test_recipes": 109,
+            "oracle_modal_acc_on_these_recipes": 0.4954128440366973,
+            "osda_key": "XSBSKEQEUFOSDD-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "IMF",
+            "true_modal_share": 0.4954128440366973
+          },
+          {
+            "agreement": false,
+            "display": "propylamine",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "CHA",
+            "kg_records": 3,
+            "n_test_recipes": 79,
+            "oracle_modal_acc_on_these_recipes": 0.5316455696202531,
+            "osda_key": "WGYKZJWCGVVSQN-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MFI",
+            "true_modal_share": 0.5316455696202531
+          },
+          {
+            "agreement": false,
+            "display": "diquinuclidinium",
+            "kg_modal_accuracy_on_these_recipes": 0.10204081632653061,
+            "kg_modal_framework": "*BEA",
+            "kg_records": 1,
+            "n_test_recipes": 49,
+            "oracle_modal_acc_on_these_recipes": 0.46938775510204084,
+            "osda_key": "MCTACNBQTATYOV-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.46938775510204084
+          },
+          {
+            "agreement": false,
+            "display": "triethanolamine",
+            "kg_modal_accuracy_on_these_recipes": 0.10416666666666667,
+            "kg_modal_framework": "LTA",
+            "kg_records": 7,
+            "n_test_recipes": 48,
+            "oracle_modal_acc_on_these_recipes": 0.041666666666666664,
+            "osda_key": "GSEJCLTVZPLZKY-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "EMT",
+            "true_modal_share": 0.3125
+          },
+          {
+            "agreement": false,
+            "display": "spiro-pip6,5",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "IWW",
+            "kg_records": 1,
+            "n_test_recipes": 27,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "XEYHFNNNWRPOHF-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MTW",
+            "true_modal_share": 0.25925925925925924
+          },
+          {
+            "agreement": false,
+            "display": "benzene-1,2-diol",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "MFI",
+            "kg_records": 3,
+            "n_test_recipes": 20,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "YCIMNLLNPGFGHC-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "SOD",
+            "true_modal_share": 0.45
+          },
+          {
+            "agreement": false,
+            "display": "CCc1n(C)cc(C)[n+]1C",
+            "kg_modal_accuracy_on_these_recipes": 0.3157894736842105,
+            "kg_modal_framework": "STW",
+            "kg_records": 7,
+            "n_test_recipes": 19,
+            "oracle_modal_acc_on_these_recipes": 0.2631578947368421,
+            "osda_key": "DFLRGRAIPLYIIM-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.47368421052631576
+          },
+          {
+            "agreement": false,
+            "display": "1,8-diazabicyclo[5.4.0]undec-7-ene",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "UTL",
+            "kg_records": 1,
+            "n_test_recipes": 12,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "GQHTUMJGOHRCHB-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "IWR",
+            "true_modal_share": 1.0
+          },
+          {
+            "agreement": false,
+            "display": "N-methylpiperidine",
+            "kg_modal_accuracy_on_these_recipes": 0.16666666666666666,
+            "kg_modal_framework": "LEV",
+            "kg_records": 1,
+            "n_test_recipes": 6,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "PAMIQIKDUOTOBW-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "RTH",
+            "true_modal_share": 0.5
+          },
+          {
+            "agreement": false,
+            "display": "1,1-dimethyl-2,6-dimethylpiperidin-1-ium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "LEV",
+            "kg_records": 3,
+            "n_test_recipes": 4,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "ZYOMXQGIWAKIBK-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "AEI",
+            "true_modal_share": 0.75
+          },
+          {
+            "agreement": false,
+            "display": "1-hexyl-2,3-dimethylimidazolium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "MWW",
+            "kg_records": 1,
+            "n_test_recipes": 2,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "SWWLEHMBKPSRSI-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "AEL",
+            "true_modal_share": 0.5
+          },
+          {
+            "agreement": true,
+            "display": "cis-trans-3,5-dimethylpiperidinium",
+            "kg_modal_accuracy_on_these_recipes": 0.5,
+            "kg_modal_framework": "AEI",
+            "kg_records": 1,
+            "n_test_recipes": 2,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "IDWRJRPUIXRFRX-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "AEI",
+            "true_modal_share": 0.5
+          },
+          {
+            "agreement": false,
+            "display": "N-butyl-N-methylhexamethyleneiminium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "MWW",
+            "kg_records": 1,
+            "n_test_recipes": 2,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "IAJAXMLFMGGDTG-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "*BEA",
+            "true_modal_share": 1.0
+          }
+        ],
+        "test_osdas": 149,
+        "test_rows": 3976
+      },
+      "4": {
+        "exclude_fold_test_papers": {
+          "agreement_kg_vs_oracle_modal_on_both": 0.6090331686661962,
+          "coverage": 0.6077087794432549,
+          "covered_osdas": 22,
+          "covered_rows": 2838,
+          "kg_modal_acc_covered": 0.5426356589147286,
+          "kg_modal_acc_on_both": 0.5434015525758645,
+          "kg_records_per_covered_recipe_median": 324.0,
+          "oracle_modal_acc_on_both": 0.6012702893436839,
+          "oracle_modal_acc_on_kg_uncovered_but_oracle_covered": 0.2587360594795539,
+          "oracle_nn1_gel_acc_on_both": 0.6122088920254057,
+          "rows_covered_by_both_kg_and_oracle": 2834,
+          "rows_kg_covered_but_oracle_uncovered": 4,
+          "rows_kg_uncovered_but_oracle_covered": 1345,
+          "true_class_in_kg_support_share_covered": 0.664200140944327
+        },
+        "exclude_own_paper_only": {
+          "agreement_kg_vs_oracle_modal_on_both": 0.6393391521197007,
+          "coverage": 0.6877944325481798,
+          "covered_osdas": 29,
+          "covered_rows": 3212,
+          "kg_modal_acc_covered": 0.524906600249066,
+          "kg_modal_acc_on_both": 0.5255610972568578,
+          "kg_records_per_covered_recipe_median": 50.0,
+          "oracle_modal_acc_on_both": 0.5692019950124688,
+          "oracle_modal_acc_on_kg_uncovered_but_oracle_covered": 0.23274974253347064,
+          "oracle_nn1_gel_acc_on_both": 0.6006857855361596,
+          "rows_covered_by_both_kg_and_oracle": 3208,
+          "rows_kg_covered_but_oracle_uncovered": 4,
+          "rows_kg_uncovered_but_oracle_covered": 971,
+          "true_class_in_kg_support_share_covered": 0.661892901618929
+        },
+        "oracle_own_paper_excluded_coverage": 0.8948608137044968,
+        "oracle_own_paper_excluded_modal_acc_covered": 0.4910265613783202,
+        "per_osda_top20_exclude_fold_test_papers": [
+          {
+            "agreement": true,
+            "display": "tetrapropylammonium",
+            "kg_modal_accuracy_on_these_recipes": 0.8579272477693891,
+            "kg_modal_framework": "MFI",
+            "kg_records": 324,
+            "n_test_recipes": 1457,
+            "oracle_modal_acc_on_these_recipes": 0.8579272477693891,
+            "osda_key": "OSBSFAARYOCBHB-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MFI",
+            "true_modal_share": 0.8579272477693891
+          },
+          {
+            "agreement": false,
+            "display": "tetramethylammonium",
+            "kg_modal_accuracy_on_these_recipes": 0.1488673139158576,
+            "kg_modal_framework": "LTA",
+            "kg_records": 25,
+            "n_test_recipes": 618,
+            "oracle_modal_acc_on_these_recipes": 0.23462783171521034,
+            "osda_key": "QEMXHQIAXOOASZ-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.23462783171521034
+          },
+          {
+            "agreement": false,
+            "display": "N,N-dimethyl-3,5- dimethylpiperidinium",
+            "kg_modal_accuracy_on_these_recipes": 0.075,
+            "kg_modal_framework": "FAU",
+            "kg_records": 10,
+            "n_test_recipes": 160,
+            "oracle_modal_acc_on_these_recipes": 0.46875,
+            "osda_key": "HGACHMQVWWZPCX-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "AEI",
+            "true_modal_share": 0.46875
+          },
+          {
+            "agreement": true,
+            "display": "morpholine",
+            "kg_modal_accuracy_on_these_recipes": 0.7735849056603774,
+            "kg_modal_framework": "CHA",
+            "kg_records": 3,
+            "n_test_recipes": 106,
+            "oracle_modal_acc_on_these_recipes": 0.7735849056603774,
+            "osda_key": "YNAVUWVOSKDBBP-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "CHA",
+            "true_modal_share": 0.7735849056603774
+          },
+          {
+            "agreement": false,
+            "display": "3-butyl-1-methylimidazolium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "MFI",
+            "kg_records": 3,
+            "n_test_recipes": 86,
+            "oracle_modal_acc_on_these_recipes": 0.4883720930232558,
+            "osda_key": "IQQRAVYLUAZUGX-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "LTA",
+            "true_modal_share": 0.4883720930232558
+          },
+          {
+            "agreement": true,
+            "display": "n-butylamine",
+            "kg_modal_accuracy_on_these_recipes": 0.4878048780487805,
+            "kg_modal_framework": "MFI",
+            "kg_records": 6,
+            "n_test_recipes": 82,
+            "oracle_modal_acc_on_these_recipes": 0.4878048780487805,
+            "osda_key": "HQABUPZFAYXKJW-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MFI",
+            "true_modal_share": 0.4878048780487805
+          },
+          {
+            "agreement": false,
+            "display": "benzyltrimethylammonium",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "MOR",
+            "kg_records": 1,
+            "n_test_recipes": 64,
+            "oracle_modal_acc_on_these_recipes": 0.1875,
+            "osda_key": "YOUGRGFIHBUKRS-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.3125
+          },
+          {
+            "agreement": false,
+            "display": "pyridine",
+            "kg_modal_accuracy_on_these_recipes": 0.20454545454545456,
+            "kg_modal_framework": "CHA",
+            "kg_records": 3,
+            "n_test_recipes": 44,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "JUJWROOIHBZHMG-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "AST",
+            "true_modal_share": 0.3181818181818182
+          },
+          {
+            "agreement": false,
+            "display": "trimethylamine",
+            "kg_modal_accuracy_on_these_recipes": 0.02564102564102564,
+            "kg_modal_framework": "CHA",
+            "kg_records": 1,
+            "n_test_recipes": 39,
+            "oracle_modal_acc_on_these_recipes": 0.02564102564102564,
+            "osda_key": "GETQZCLCWQTVFV-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "AFI",
+            "true_modal_share": 0.5384615384615384
+          },
+          {
+            "agreement": false,
+            "display": "diethylenetriamine",
+            "kg_modal_accuracy_on_these_recipes": 0.13333333333333333,
+            "kg_modal_framework": "CHA",
+            "kg_records": 2,
+            "n_test_recipes": 30,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "RPNUMPOLZDHAAY-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "TON",
+            "true_modal_share": 0.3
+          },
+          {
+            "agreement": true,
+            "display": "diquat-7",
+            "kg_modal_accuracy_on_these_recipes": 0.4827586206896552,
+            "kg_modal_framework": "MTT",
+            "kg_records": 1,
+            "n_test_recipes": 29,
+            "oracle_modal_acc_on_these_recipes": 0.4827586206896552,
+            "osda_key": "FSXAETDSARHBGO-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MTT",
+            "true_modal_share": 0.4827586206896552
+          },
+          {
+            "agreement": true,
+            "display": "tetraethylphosphonium",
+            "kg_modal_accuracy_on_these_recipes": 0.7142857142857143,
+            "kg_modal_framework": "AEI",
+            "kg_records": 2,
+            "n_test_recipes": 28,
+            "oracle_modal_acc_on_these_recipes": 0.14285714285714285,
+            "osda_key": "SZWHXXNVLACKBV-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "AEI",
+            "true_modal_share": 0.7142857142857143
+          },
+          {
+            "agreement": false,
+            "display": "hexadecyltrimethylammonium",
+            "kg_modal_accuracy_on_these_recipes": 0.037037037037037035,
+            "kg_modal_framework": "MFI",
+            "kg_records": 59,
+            "n_test_recipes": 27,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "RLGQACBPNDBWTB-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MOR",
+            "true_modal_share": 0.37037037037037035
+          },
+          {
+            "agreement": false,
+            "display": "4,4'-bipyridine",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "FAU",
+            "kg_records": 1,
+            "n_test_recipes": 22,
+            "oracle_modal_acc_on_these_recipes": 0.8636363636363636,
+            "osda_key": "MWVTWFVJZLCBMC-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "NSI",
+            "true_modal_share": 0.8636363636363636
+          },
+          {
+            "agreement": true,
+            "display": "Bis-1,6-(tripropylammonium)hexamethylene",
+            "kg_modal_accuracy_on_these_recipes": 0.5714285714285714,
+            "kg_modal_framework": "MFI",
+            "kg_records": 1,
+            "n_test_recipes": 21,
+            "oracle_modal_acc_on_these_recipes": 0.5714285714285714,
+            "osda_key": "YYJKMWYRQKQONI-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MFI",
+            "true_modal_share": 0.5714285714285714
+          },
+          {
+            "agreement": false,
+            "display": "1-ethyl-3-methylimidazolate",
+            "kg_modal_accuracy_on_these_recipes": 0.375,
+            "kg_modal_framework": "AEL",
+            "kg_records": 9,
+            "n_test_recipes": 8,
+            "oracle_modal_acc_on_these_recipes": 0.375,
+            "osda_key": "PBZHISVDZCPMPG-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 0.5
+          },
+          {
+            "agreement": false,
+            "display": "hexamethylenetetramine",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "MFI",
+            "kg_records": 4,
+            "n_test_recipes": 5,
+            "oracle_modal_acc_on_these_recipes": 0.2,
+            "osda_key": "VKYKSIONXSXAKP-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "AWW",
+            "true_modal_share": 0.4
+          },
+          {
+            "agreement": false,
+            "display": "tetrahydrofuran",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "FAU",
+            "kg_records": 1,
+            "n_test_recipes": 5,
+            "oracle_modal_acc_on_these_recipes": 0.8,
+            "osda_key": "WYURNTSHIVDZCO-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "FER",
+            "true_modal_share": 0.8
+          },
+          {
+            "agreement": false,
+            "display": "1-butanol",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "LTL",
+            "kg_records": 1,
+            "n_test_recipes": 3,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "LRHPLDYGYMQRHN-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "MFI",
+            "true_modal_share": 0.6666666666666666
+          },
+          {
+            "agreement": false,
+            "display": "polyethyleneimine",
+            "kg_modal_accuracy_on_these_recipes": 0.0,
+            "kg_modal_framework": "CHA",
+            "kg_records": 3,
+            "n_test_recipes": 2,
+            "oracle_modal_acc_on_these_recipes": 0.0,
+            "osda_key": "NOWKCMXCCJGMRR-UHFFFAOYSA-N",
+            "true_modal_framework_in_test": "Failed",
+            "true_modal_share": 1.0
+          }
+        ],
+        "test_osdas": 149,
+        "test_rows": 4670
+      }
+    },
+    "linked_records_share_doi_not_in_zeosyn": 0.5332252836304701,
+    "linked_records_share_without_doi": 0.03241491085899514,
+    "n_distinct_zeosyn_osda1_keys_in_benchmark": 746,
+    "n_distinct_zeosyn_osdas_linked": 161,
+    "n_linked_osdas_that_are_osda1_in_benchmark": 147,
+    "n_papers": 3074,
+    "n_papers_with_doi": 2904,
+    "n_papers_with_doi_in_zeosyn": 762,
+    "n_records": 4656,
+    "n_records_linked_to_more_than_one_osda": 128,
+    "n_records_linked_to_zeosyn_osda": 1234,
+    "n_records_multi_product": 368,
+    "n_records_with_doi": 4444,
+    "n_records_with_product_code": 4656,
+    "n_zeosyn_papers_total": 3036,
+    "note_conditions": "records carry no gel composition at all; fluoride/heteroatom are regex flags on free text, product_si_al is a product-side attribute, temperature/time parsed from conditions",
+    "records_per_linked_osda": {
+      "mean": 8.571428571428571,
+      "median": 2.0,
+      "n_eq1": 56,
+      "n_ge20": 8,
+      "n_ge5": 35,
+      "n_osdas": 161
+    },
+    "records_per_linked_osda_top20": [
+      {
+        "display": "tetrapropylammonium",
+        "kg_modal_framework": "MFI",
+        "kg_modal_share": 0.9506726457399103,
+        "kg_n_frameworks": 16,
+        "kg_papers": 322,
+        "kg_records": 437,
+        "osda_key": "OSBSFAARYOCBHB-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 1457
+      },
+      {
+        "display": "tetraethylammonium",
+        "kg_modal_framework": "*BEA",
+        "kg_modal_share": 0.5,
+        "kg_n_frameworks": 25,
+        "kg_papers": 137,
+        "kg_records": 167,
+        "osda_key": "CBXCPBUEXACCNR-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 1866
+      },
+      {
+        "display": "N,N,N-trimethyl-L-adamantammonium",
+        "kg_modal_framework": "CHA",
+        "kg_modal_share": 0.8181818181818182,
+        "kg_n_frameworks": 8,
+        "kg_papers": 60,
+        "kg_records": 82,
+        "osda_key": "KKXBPUAYFJQMLN-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 467
+      },
+      {
+        "display": "hexadecyltrimethylammonium",
+        "kg_modal_framework": "MFI",
+        "kg_modal_share": 0.4,
+        "kg_n_frameworks": 13,
+        "kg_papers": 52,
+        "kg_records": 68,
+        "osda_key": "RLGQACBPNDBWTB-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 27
+      },
+      {
+        "display": "tetramethylammonium",
+        "kg_modal_framework": "LTA",
+        "kg_modal_share": 0.2641509433962264,
+        "kg_n_frameworks": 17,
+        "kg_papers": 41,
+        "kg_records": 50,
+        "osda_key": "QEMXHQIAXOOASZ-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 618
+      },
+      {
+        "display": "Hexamethyleneimine",
+        "kg_modal_framework": "MWW",
+        "kg_modal_share": 0.71875,
+        "kg_n_frameworks": 5,
+        "kg_papers": 26,
+        "kg_records": 32,
+        "osda_key": "ZSIQJIWKELUFRJ-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 546
+      },
+      {
+        "display": "tetrabutylammonium",
+        "kg_modal_framework": "MEL",
+        "kg_modal_share": 0.3793103448275862,
+        "kg_n_frameworks": 6,
+        "kg_papers": 22,
+        "kg_records": 26,
+        "osda_key": "DZLFLBLQUQXARW-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 157
+      },
+      {
+        "display": "triethylamine",
+        "kg_modal_framework": "AFI",
+        "kg_modal_share": 0.5,
+        "kg_n_frameworks": 5,
+        "kg_papers": 19,
+        "kg_records": 24,
+        "osda_key": "ZMANZCXQSJIPKH-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 428
+      },
+      {
+        "display": "di-n-propylamine",
+        "kg_modal_framework": "AEL",
+        "kg_modal_share": 0.4230769230769231,
+        "kg_n_frameworks": 10,
+        "kg_papers": 14,
+        "kg_records": 18,
+        "osda_key": "WEHWNAOGRSTTBQ-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 488
+      },
+      {
+        "display": "morpholine",
+        "kg_modal_framework": "CHA",
+        "kg_modal_share": 0.6842105263157895,
+        "kg_n_frameworks": 4,
+        "kg_papers": 13,
+        "kg_records": 17,
+        "osda_key": "YNAVUWVOSKDBBP-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 106
+      },
+      {
+        "display": "18-crown-6",
+        "kg_modal_framework": "EMT",
+        "kg_modal_share": 0.3333333333333333,
+        "kg_n_frameworks": 4,
+        "kg_papers": 13,
+        "kg_records": 16,
+        "osda_key": "XEZNGIUYQVAUSS-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 125
+      },
+      {
+        "display": "N,N-dimethyl-3,5- dimethylpiperidinium",
+        "kg_modal_framework": "AEI",
+        "kg_modal_share": 0.5882352941176471,
+        "kg_n_frameworks": 3,
+        "kg_papers": 8,
+        "kg_records": 15,
+        "osda_key": "HGACHMQVWWZPCX-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 160
+      },
+      {
+        "display": "ethylenediamine",
+        "kg_modal_framework": "MFI",
+        "kg_modal_share": 0.5333333333333333,
+        "kg_n_frameworks": 6,
+        "kg_papers": 12,
+        "kg_records": 15,
+        "osda_key": "PIICEJLVQHRZGT-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 216
+      },
+      {
+        "display": "1-ethyl-3-methylimidazolate",
+        "kg_modal_framework": "AEL",
+        "kg_modal_share": 0.3333333333333333,
+        "kg_n_frameworks": 8,
+        "kg_papers": 7,
+        "kg_records": 14,
+        "osda_key": "PBZHISVDZCPMPG-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 8
+      },
+      {
+        "display": "[(CH3O)3SiC3H6N(CH3)2C16H37]Cl",
+        "kg_modal_framework": "MFI",
+        "kg_modal_share": 0.46153846153846156,
+        "kg_n_frameworks": 5,
+        "kg_papers": 10,
+        "kg_records": 13,
+        "osda_key": "XTAKDLWEWPRLGB-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 0
+      },
+      {
+        "display": "triethanolamine",
+        "kg_modal_framework": "LTA",
+        "kg_modal_share": 0.3076923076923077,
+        "kg_n_frameworks": 6,
+        "kg_papers": 11,
+        "kg_records": 12,
+        "osda_key": "GSEJCLTVZPLZKY-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 48
+      },
+      {
+        "display": "3-butyl-1-methylimidazolium",
+        "kg_modal_framework": "AEL",
+        "kg_modal_share": 0.3,
+        "kg_n_frameworks": 7,
+        "kg_papers": 9,
+        "kg_records": 12,
+        "osda_key": "IQQRAVYLUAZUGX-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 86
+      },
+      {
+        "display": "hexamethonium",
+        "kg_modal_framework": "EUO",
+        "kg_modal_share": 0.3076923076923077,
+        "kg_n_frameworks": 7,
+        "kg_papers": 8,
+        "kg_records": 11,
+        "osda_key": "VZJFGSRCJCXDSG-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 40
+      },
+      {
+        "display": "urea",
+        "kg_modal_framework": "MFI",
+        "kg_modal_share": 0.7272727272727273,
+        "kg_n_frameworks": 3,
+        "kg_papers": 8,
+        "kg_records": 11,
+        "osda_key": "XSQUKJJJFZCRTK-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 0
+      },
+      {
+        "display": "diethylamine",
+        "kg_modal_framework": "RHO",
+        "kg_modal_share": 0.46153846153846156,
+        "kg_n_frameworks": 4,
+        "kg_papers": 8,
+        "kg_records": 11,
+        "osda_key": "HPNMFZURTQLUMO-UHFFFAOYSA-N",
+        "zeosyn_osda1_recipes": 182
+      }
+    ],
+    "share_linked_records_with": {
+      "fluoride_flag_true": 0.13614262560777957,
+      "heteroatoms_nonempty": 0.13695299837925445,
+      "product_si_al": 0.1385737439222042,
+      "temperature_c": 0.7803889789303079,
+      "time_h": 0.5850891410048622
+    },
+    "share_records_doi_in_zeosyn": 0.265893470790378,
+    "share_records_doi_not_in_zeosyn": 0.688573883161512,
+    "share_records_with": {
+      "any_of_si_al_temp_time": 0.8122852233676976,
+      "fluoride_flag_true": 0.08247422680412371,
+      "gel_composition": 0.0,
+      "heteroatoms_nonempty": 0.11941580756013746,
+      "product_si_al": 0.19437285223367698,
+      "temperature_c": 0.6166237113402062,
+      "time_h": 0.5562714776632303
+    },
+    "share_records_without_doi": 0.04553264604810996,
+    "share_zeosyn_recipes_osda1_linked_any": 0.5642180957582378,
+    "share_zeosyn_recipes_with_osda_whose_osda1_linked_any": 0.6408374256913931,
+    "summary": {
+      "exclude_fold_test_papers__coverage": {
+        "mean": 0.46564964949005516,
+        "recipe_weighted_mean": 0.494856552080641
+      },
+      "exclude_fold_test_papers__covered_osdas": [
+        11,
+        13,
+        18,
+        17,
+        22
+      ],
+      "exclude_fold_test_papers__kg_modal_acc_covered": {
+        "mean": 0.2733162319470407,
+        "recipe_weighted_mean": 0.30409058455976107
+      },
+      "exclude_fold_test_papers__kg_modal_acc_on_both": {
+        "mean": 0.27499746255090407,
+        "recipe_weighted_mean": 0.30592890102692977
+      },
+      "exclude_fold_test_papers__oracle_modal_acc_on_both": {
+        "mean": 0.40928256303545235,
+        "recipe_weighted_mean": 0.41998135307419904
+      },
+      "exclude_fold_test_papers__oracle_modal_acc_on_kg_uncovered_but_oracle_covered": {
+        "mean": 0.34773904161505165,
+        "recipe_weighted_mean": 0.351376144700934
+      },
+      "exclude_fold_test_papers__oracle_nn1_gel_acc_on_both": {
+        "mean": 0.46712597647692417,
+        "recipe_weighted_mean": 0.48262393399971537
+      },
+      "exclude_fold_test_papers__true_class_in_kg_support_share_covered": {
+        "mean": 0.43861877469629934,
+        "recipe_weighted_mean": 0.4712065220584589
+      },
+      "exclude_own_paper_only__coverage": {
+        "mean": 0.5940753783987448,
+        "recipe_weighted_mean": 0.6167485138278624
+      },
+      "exclude_own_paper_only__covered_osdas": [
+        19,
+        23,
+        28,
+        29,
+        29
+      ],
+      "exclude_own_paper_only__kg_modal_acc_covered": {
+        "mean": 0.32271170611915156,
+        "recipe_weighted_mean": 0.3423216434509156
+      },
+      "exclude_own_paper_only__kg_modal_acc_on_both": {
+        "mean": 0.32477116750914037,
+        "recipe_weighted_mean": 0.34431798158182575
+      },
+      "exclude_own_paper_only__oracle_modal_acc_on_both": {
+        "mean": 0.3972894381545071,
+        "recipe_weighted_mean": 0.41138650602464033
+      },
+      "exclude_own_paper_only__oracle_modal_acc_on_kg_uncovered_but_oracle_covered": {
+        "mean": 0.33692809400263385,
+        "recipe_weighted_mean": 0.3295576499703349
+      },
+      "exclude_own_paper_only__oracle_nn1_gel_acc_on_both": {
+        "mean": 0.4578315962410825,
+        "recipe_weighted_mean": 0.4761978723303788
+      },
+      "exclude_own_paper_only__true_class_in_kg_support_share_covered": {
+        "mean": 0.49587444143972326,
+        "recipe_weighted_mean": 0.5242942112300908
+      }
+    }
+  },
+  "D": {
+    "cap_for_zero_denominator": 1000.0,
+    "delta_mean": {
+      "accuracy": 0.005221339387060153,
+      "balanced_accuracy": -0.0002765660407775261,
+      "macro_f1": 0.0027007696389420577
+    },
+    "delta_per_seed_accuracy": [
+      0.008399545970488087,
+      0.002043132803632275
+    ],
+    "ratio_names": [
+      "Si/Al",
+      "Al/(Si+Al)",
+      "Si/(Al+P)",
+      "P/Al",
+      "H2O/Si",
+      "H2O/T",
+      "OH/Si",
+      "OH/T",
+      "F/Si",
+      "F/(F+OH)",
+      "sda1/Si",
+      "sda1/T",
+      "OH/sda1",
+      "Na/Si",
+      "K/Si",
+      "alkali/Si",
+      "Na/(Na+K)",
+      "alkaline_earth/Si",
+      "hetero/Si",
+      "(Si+Al)/T"
+    ],
+    "rf_d0": {
+      "mean": {
+        "accuracy": 0.436322360953462,
+        "balanced_accuracy": 0.35483879649152383,
+        "macro_f1": 0.3101405089036864
+      },
+      "per_seed": [
+        {
+          "accuracy": 0.4345062429057889,
+          "balanced_accuracy": 0.3530807550032357,
+          "macro_f1": 0.3092377092503951,
+          "macro_f1_report": 0.28215119457152843,
+          "n": 4405,
+          "n_classes_present": 125,
+          "seed": 3
+        },
+        {
+          "accuracy": 0.43813847900113506,
+          "balanced_accuracy": 0.3565968379798119,
+          "macro_f1": 0.3110433085569776,
+          "macro_f1_report": 0.2858853938942809,
+          "n": 4405,
+          "n_classes_present": 125,
+          "seed": 7
+        }
+      ]
+    },
+    "rf_d0_plus_ratios": {
+      "mean": {
+        "accuracy": 0.44154370034052215,
+        "balanced_accuracy": 0.3545622304507463,
+        "macro_f1": 0.31284127854262844
+      },
+      "per_seed": [
+        {
+          "accuracy": 0.44290578887627696,
+          "balanced_accuracy": 0.3565285535868752,
+          "macro_f1": 0.31145585936863246,
+          "macro_f1_report": 0.28008620446819465,
+          "n": 4405,
+          "n_classes_present": 125,
+          "seed": 3
+        },
+        {
+          "accuracy": 0.44018161180476734,
+          "balanced_accuracy": 0.3525959073146175,
+          "macro_f1": 0.31422669771662437,
+          "macro_f1_report": 0.2825779655725039,
+          "n": 4405,
+          "n_classes_present": 125,
+          "seed": 7
+        }
+      ]
+    }
+  }
+}

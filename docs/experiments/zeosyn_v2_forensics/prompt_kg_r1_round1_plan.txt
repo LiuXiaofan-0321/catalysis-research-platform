@@ -1,0 +1,122 @@
+Task: a fixed RandomForest classifier predicts the main product of a zeolite hydrothermal synthesis (the IZA framework code, or "Failed" for amorphous/dense products) from the synthesis record. Evaluation uses held-out publications, so descriptors must transfer to recipes from unseen papers.
+
+The classifier already receives D0: every gel mole fraction listed below, crystallization time and temperature, and 14 OSDA1 conformer descriptors (asphericity, two principal axes, formal charge, SASA, molecular weight, NPR1, NPR2, rotatable bonds, PMI1-3, sphericity, volume). Tree ensembles split on one column at a time, so quantities that only emerge from combining inputs are not directly available to the model.
+
+Most frequent training outcomes (labels only, no statistics by feature): Failed, MFI, CHA, *BEA, AFI, MTW, MWW, MOR, FAU, LTA, AEL, TON, AEI, ISV/BEC, LEV, AEN, BEC, FER, UTL, MEL.
+
+Round 1 of 3. One descriptor will be appended per round without any intermediate scoring; you will not see any results.
+
+Allowed raw inputs (use these exact names; no other names exist):
+
+- Gel composition (normalized mole fractions; all gel species sum to 1):
+  Si (mole fraction of the normalized gel (all gel species sum to 1))
+  Al (mole fraction of the normalized gel (all gel species sum to 1))
+  P (mole fraction of the normalized gel (all gel species sum to 1))
+  Na (mole fraction of the normalized gel (all gel species sum to 1))
+  K (mole fraction of the normalized gel (all gel species sum to 1))
+  Li (mole fraction of the normalized gel (all gel species sum to 1))
+  Sr (mole fraction of the normalized gel (all gel species sum to 1))
+  Rb (mole fraction of the normalized gel (all gel species sum to 1))
+  Cs (mole fraction of the normalized gel (all gel species sum to 1))
+  Ba (mole fraction of the normalized gel (all gel species sum to 1))
+  Ca (mole fraction of the normalized gel (all gel species sum to 1))
+  F (fluoride; mole fraction of the normalized gel (all gel species sum to 1))
+  Ge (mole fraction of the normalized gel (all gel species sum to 1))
+  Ti (mole fraction of the normalized gel (all gel species sum to 1))
+  B (mole fraction of the normalized gel (all gel species sum to 1))
+  Mg (mole fraction of the normalized gel (all gel species sum to 1))
+  Ga (mole fraction of the normalized gel (all gel species sum to 1))
+  Zn (mole fraction of the normalized gel (all gel species sum to 1))
+  Be (mole fraction of the normalized gel (all gel species sum to 1))
+  W (mole fraction of the normalized gel (all gel species sum to 1))
+  Cu (mole fraction of the normalized gel (all gel species sum to 1))
+  Sn (mole fraction of the normalized gel (all gel species sum to 1))
+  Zr (mole fraction of the normalized gel (all gel species sum to 1))
+  V (mole fraction of the normalized gel (all gel species sum to 1))
+  H2O (water; mole fraction of the normalized gel (all gel species sum to 1))
+  sda1 (OSDA1 amount; mole fraction of OSDA1 in the normalized gel)
+  OH (hydroxide; mole fraction of the normalized gel (all gel species sum to 1))
+- Reaction conditions:
+  cryst_time (hours)
+  cryst_temp (degrees Celsius)
+- OSDA1 conformer descriptors from the dataset authors (0 when no OSDA):
+  osda_asphericity
+  osda_axis1 (angstrom)
+  osda_axis2 (angstrom)
+  osda_bertz_ct
+  osda_eccentricity
+  osda_charge (formal charge (e))
+  osda_sasa (angstrom^2)
+  osda_gyration_radius (angstrom)
+  osda_inertial_shape_factor
+  osda_mol_weight (g/mol)
+  osda_npr1
+  osda_npr2
+  osda_num_bonds
+  osda_rot_bonds
+  osda_pmi1 (amu*angstrom^2)
+  osda_pmi2 (amu*angstrom^2)
+  osda_pmi3 (amu*angstrom^2)
+  osda_sphericity
+  osda_volume (angstrom^3)
+- OSDA1 composition from its SMILES (0 when no OSDA):
+  osda_nC
+  osda_nN
+  osda_nN_quaternary (number of quaternary ammonium/phosphonium centres)
+  osda_nO
+  osda_nP
+  osda_nHeavy
+  osda_nRings
+  osda_nAromaticRings
+  osda_fraction_sp3 (fraction of sp3 carbons)
+  osda_logP (Crippen logP)
+  osda_tpsa (angstrom^2)
+- Other:
+  n_osda (number of distinct OSDAs recorded (0-3))
+
+Literature-prior inputs from the knowledge graph. For each recipe they summarise the synthesis experiments that OTHER publications report with the same OSDA1 (aggregated from thousands of experiments), so they carry information that D0 does not contain, such as which frameworks this OSDA has produced elsewhere. Values are 0 or -1 when the OSDA is absent from the graph. They are allowed inputs too:
+  kg_osda_known (OSDA1 appears in at least one KG synthesis experiment from another paper (1/0))
+  kg_osda_n_experiments (number of KG synthesis experiments using this OSDA)
+  kg_osda_n_papers (number of distinct papers reporting syntheses with this OSDA)
+  kg_osda_top_framework (framework most often obtained with this OSDA, as an index into kg_framework_vocabulary (-1 if none))
+  kg_osda_top_share (fraction of this OSDA's reported products that are its most frequent framework)
+  kg_osda_entropy (Shannon entropy (bits) of the frameworks reported with this OSDA; high = promiscuous OSDA)
+  kg_osda_n_frameworks (number of distinct frameworks reported with this OSDA)
+  kg_osda_share_small_pore (fraction of this OSDA's reported products that are small-pore frameworks)
+  kg_osda_share_medium_pore (fraction of this OSDA's reported products that are medium-pore frameworks)
+  kg_osda_share_large_pore (fraction of this OSDA's reported products that are large-pore frameworks)
+  kg_osda_share_xlarge_pore (fraction of this OSDA's reported products that are xlarge-pore frameworks)
+  kg_osda_share_MFI (fraction of this OSDA's reported products that are MFI)
+  kg_osda_share_FAU (fraction of this OSDA's reported products that are FAU)
+  kg_osda_share_CHA (fraction of this OSDA's reported products that are CHA)
+  kg_osda_share_BEA (fraction of this OSDA's reported products that are *BEA)
+  kg_osda_share_LTA (fraction of this OSDA's reported products that are LTA)
+  kg_osda_share_MOR (fraction of this OSDA's reported products that are MOR)
+  kg_osda_share_MWW (fraction of this OSDA's reported products that are MWW)
+  kg_osda_share_AFI (fraction of this OSDA's reported products that are AFI)
+  kg_osda_share_LTL (fraction of this OSDA's reported products that are LTL)
+  kg_osda_share_AEI (fraction of this OSDA's reported products that are AEI)
+  kg_osda_share_FER (fraction of this OSDA's reported products that are FER)
+  kg_osda_share_SOD (fraction of this OSDA's reported products that are SOD)
+  kg_osda_fluoride_share (fraction of this OSDA's KG syntheses that use a fluoride medium)
+  kg_osda_median_temperature_c (median crystallization temperature (C) reported with this OSDA (-1 if none))
+  kg_osda_median_product_si_al (median product Si/Al reported with this OSDA (-1 if none))
+
+Formula rules: one Python-style arithmetic expression over the allowed inputs and numeric constants. Operators + - * / ** and functions log, log10, log2, exp, sqrt, abs, floor, ceil, minimum(a,b), maximum(a,b). Add a small constant where a denominator can be zero. Do not reproduce a D0 column or a monotone transform of a single D0 column; other allowed inputs may be used directly.
+
+No descriptor has been appended yet.
+
+Step 1 of 2: choose the ONE synthesis factor you consider most informative to encode next. Choose freely among all aspects of the synthesis.
+
+Before proposing the descriptor you may consult a knowledge graph of zeolite synthesis experiments from 6,691 papers. It answers questions about named OSDAs, frameworks (IZA codes or material names such as SSZ-13, ZSM-5) and gel conditions (fluoride medium; Ge, B, Ti, Sn, Ga, Zn or P in the gel): which frameworks were obtained, with which OSDAs, how often and in how many papers. It does not contain gel ratios such as OH/Si or H2O/Si. Write up to 2 short, specific search queries about what you want to check (for example an OSDA, a framework, or a gel condition). Write [] if you do not need it.
+
+Return JSON exactly in this shape (values are instructions):
+{
+ "plan": {
+  "factor": "the synthesis factor you will encode this round",
+  "why": "why it should carry information the classifier lacks",
+  "queries": [
+   "up to 2 short search queries for the knowledge source, or []"
+  ]
+ }
+}

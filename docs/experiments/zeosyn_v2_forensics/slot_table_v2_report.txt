@@ -1,0 +1,225 @@
+wrote 120 rows to slots_v2.csv
+
+=== CONDENSED SLOT TABLE (group traj round | status | family | formula | cites | kg_feat | traj d-acc pp) ===
+agent       r1  R1 | accepted | SI_AL_P_composition            | Si / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + Sn + Zr + V + W + 1e- | ev=0 cite=-    | kg=- | -0.01
+agent       r1  R2 | accepted | CHARGE_organic_vs_inorganic    | (Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (Na + K + Li + Rb + Cs + Ca + | ev=0 cite=-    | kg=- | -0.01
+agent       r1  R3 | repaired | FLUORIDE_vs_OH                 | log((F + 1e-6) / (OH + 1e-6))                                          | ev=0 cite=-    | kg=- | -0.01
+agent       r10 R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + 0.001)                                    | ev=0 cite=-    | kg=- | +0.26
+agent       r10 R2 | accepted | OSDA_loading_per_T             | sda1 / (Si + Al + P + Ge + B + 0.001)                                  | ev=0 cite=-    | kg=- | +0.26
+agent       r10 R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + 0.001)                                   | ev=0 cite=-    | kg=- | +0.26
+agent       r2  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ga + 1e-6)                                | ev=0 cite=-    | kg=- | -0.17
+agent       r2  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + Ga + 1e-6)                               | ev=0 cite=-    | kg=- | -0.17
+agent       r2  R3 | repaired | FLUORIDE_vs_OH                 | (F - OH) / (F + OH + Na + K + Li + Rb + Cs + Ca + Sr + Ba + 1e-6)      | ev=0 cite=-    | kg=- | -0.17
+agent       r3  R1 | accepted | ALKALINITY_OH_per_T            | (OH + F) / (Si + Al + P + Ge + B + Ga + 1e-6)                          | ev=0 cite=-    | kg=- | +0.04
+agent       r3  R2 | accepted | SI_AL_P_composition            | Si / (Al + 1e-6)                                                       | ev=0 cite=-    | kg=- | +0.04
+agent       r3  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + Ga + 1e-6)                               | ev=0 cite=-    | kg=- | +0.04
+agent       r4  R1 | accepted | ALKALINITY_OH_per_T            | (OH + 0.5*F) / (Si + Al + P + Ge + B + 0.001)                          | ev=0 cite=-    | kg=- | +0.41
+agent       r4  R2 | accepted | INORGANIC_cation_per_Al_or_T   | (Li + Na + K + Rb + Cs + 2*(Mg + Ca + Sr + Ba)) / (Al + P + 0.001)     | ev=0 cite=-    | kg=- | +0.41
+agent       r4  R3 | accepted | CHARGE_organic_vs_inorganic    | (sda1 * maximum(osda_charge, 0)) / (sda1 * maximum(osda_charge, 0) + L | ev=0 cite=-    | kg=- | +0.41
+agent       r5  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + 1e-6)                                                       | ev=0 cite=-    | kg=- | +0.43
+agent       r5  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Ge + Al + P + 1e-6)                                        | ev=0 cite=-    | kg=- | +0.43
+agent       r5  R3 | accepted | OSDA_loading_per_T             | sda1 / (Si + Ge + Al + P + 1e-6)                                       | ev=0 cite=-    | kg=- | +0.43
+agent       r6  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + 1e-6)                                              | ev=0 cite=-    | kg=- | +0.40
+agent       r6  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + 1e-6)                                             | ev=0 cite=-    | kg=- | +0.40
+agent       r6  R3 | repaired | FLUORIDE_vs_OH                 | (F - OH) / (Si + Al + P + 1e-6)                                        | ev=0 cite=-    | kg=- | +0.40
+agent       r7  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ga + 0.005) + OH / (H2O + 0.005)          | ev=0 cite=-    | kg=- | +0.62
+agent       r7  R2 | accepted | FLUORIDE_per_T                 | F / (Si + Al + P + Ge + B + Ga + 0.005)                                | ev=0 cite=-    | kg=- | +0.62
+agent       r7  R3 | accepted | INORGANIC_cation_per_Al_or_T   | (Na + K + Li + Cs + Rb + Sr + Ba + Ca) / (Si + Al + P + Ge + B + Ga +  | ev=0 cite=-    | kg=- | +0.62
+agent       r8  R1 | accepted | SI_AL_P_composition            | Si / (Al + P + Ga + B + Ge + 1e-6)                                     | ev=0 cite=-    | kg=- | +0.42
+agent       r8  R2 | accepted | ALKALINITY_OH_per_T            | (OH + Na + K + Li + 1e-6) / (H2O + 1e-6)                               | ev=0 cite=-    | kg=- | +0.42
+agent       r8  R3 | accepted | ALPO_P_Al_balance              | P / (Al + P + 1e-6)                                                    | ev=0 cite=-    | kg=- | +0.42
+agent       r9  R1 | accepted | SI_AL_P_composition            | (Si + Ge) / (Al + B + Ga + 0.01)                                       | ev=0 cite=-    | kg=- | -0.49
+agent       r9  R2 | accepted | ALKALINITY_OH_per_T            | (OH + 10*F) / (Si + 0.01)                                              | ev=0 cite=-    | kg=- | -0.49
+agent       r9  R3 | accepted | OSDA_charge_per_T              | (Na + K + Li + Cs + Rb + osda_charge * sda1) / (Al + B + Ga + 0.01)    | ev=0 cite=-    | kg=- | -0.49
+kg          r1  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + 1e-6)                                                       | ev=2 cite=1    | kg=- | -0.06
+kg          r1  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + 1e-6)                                             | ev=1 cite=-    | kg=- | -0.06
+kg          r1  R3 | accepted | OSDA_charge_per_T              | (osda_charge * sda1) / (Si + Al + P + 1e-6)                            | ev=1 cite=1    | kg=- | -0.06
+kg          r10 R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + 0.01)                                                       | ev=6 cite=1 2 3 4 5 6 | kg=- | -0.28
+kg          r10 R2 | accepted | DILUTION_H2O_per_T             | log((H2O + 0.01) / (Si + Al + P + Ge + B + Ti + Ga + Zn + Be + Sn + Zr | ev=0 cite=-    | kg=- | -0.28
+kg          r10 R3 | accepted | SI_AL_P_composition            | log((Si + 0.0001) / (Al + 0.01))                                       | ev=8 cite=1 2 3 4 5 6 7 8 | kg=- | -0.28
+kg          r2  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + 1e-6)                                     | ev=6 cite=1 4 6 | kg=- | +0.23
+kg          r2  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + 1e-6)                                    | ev=0 cite=-    | kg=- | +0.23
+kg          r2  R3 | accepted | HETEROATOM_fraction            | Ge / (Si + Ge + 1e-6)                                                  | ev=9 cite=1 3 4 5 9 | kg=- | +0.23
+kg          r3  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Ge + 1e-6)                                                  | ev=2 cite=1 2  | kg=- | -0.28
+kg          r3  R2 | accepted | INORGANIC_cation_per_Al_or_T   | (Na + K + Li + Rb + Cs + Sr + Ba + Ca) / (Si + Ge + Al + P + 1e-6)     | ev=0 cite=-    | kg=- | -0.28
+kg          r3  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Ge + Al + P + 1e-6)                                        | ev=0 cite=-    | kg=- | -0.28
+kg          r4  R1 | accepted | SI_AL_P_composition            | Si / (Al + 0.001)                                                      | ev=4 cite=1 2 3 4 | kg=- | +0.38
+kg          r4  R2 | accepted | ALKALINITY_OH_per_T            | OH / (Si + 0.001)                                                      | ev=6 cite=2 3 4 5 6 | kg=- | +0.38
+kg          r4  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + 0.001)                                            | ev=3 cite=1 2 3 | kg=- | +0.38
+kg          r5  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ga + 1e-6)                                | ev=0 cite=-    | kg=- | -0.12
+kg          r5  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + Ga + 1e-6)                               | ev=2 cite=-    | kg=- | -0.12
+kg          r5  R3 | accepted | FLUORIDE_per_T                 | F / (Si + Al + P + Ge + B + Ga + 1e-6)                                 | ev=2 cite=1 2  | kg=- | -0.12
+kg          r6  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Ge + Al + P + Ti + B + Ga + Zn + Sn + Zr + V + Be + W + Cu  | ev=7 cite=1 3 4 5 7 | kg=- | +0.67
+kg          r6  R2 | accepted | SI_AL_P_composition            | Si / (Si + Al + P + Ge + Ti + B + Ga + Zn + Sn + Zr + V + Be + W + Cu  | ev=2 cite=1 2  | kg=- | +0.67
+kg          r6  R3 | accepted | FLUORIDE_per_T                 | F / (Si + Ge + Al + P + Ti + B + Ga + Zn + Sn + Zr + V + Be + W + Cu + | ev=9 cite=1 3 5 6 7 8 9 | kg=- | +0.67
+kg          r7  R1 | accepted | SI_AL_P_composition            | Si / (Al + P + 1e-6)                                                   | ev=7 cite=1 2 3 4 5 6 7 | kg=- | -0.35
+kg          r7  R2 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + 1e-6)                                              | ev=0 cite=-    | kg=- | -0.35
+kg          r7  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + 1e-6)                                             | ev=0 cite=-    | kg=- | -0.35
+kg          r8  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ti + Sn + Ga + Zn + Be + V + W + Cu + Zr  | ev=3 cite=1 2 3 | kg=- | -0.34
+kg          r8  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + Ti + Sn + Ga + Zn + Be + V + W + Cu + Zr | ev=0 cite=-    | kg=- | -0.34
+kg          r8  R3 | accepted | SI_AL_P_composition            | Si / (Al + P + B + Ga + Ge + Zn + Ti + Sn + 1e-6)                      | ev=2 cite=1 2  | kg=- | -0.34
+kg          r9  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + 1e-6)                                                       | ev=1 cite=1    | kg=- | +0.17
+kg          r9  R2 | accepted | OSDA_charge_per_T              | (Na + K + Li + Rb + Cs + sda1 * abs(osda_charge)) / (Al + 1e-6)        | ev=0 cite=-    | kg=- | +0.17
+kg          r9  R3 | accepted | FLUORIDE_per_T                 | F / (Si + 1e-6)                                                        | ev=6 cite=1 2 5 6 | kg=- | +0.17
+kg_shuffled r1  R1 | accepted | ALKALINITY_OH_per_T            | (OH - F) / (Si + Al + P + Ge + B + 1e-6)                               | ev=4 cite=2 4  | kg=- | +0.62
+kg_shuffled r1  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + 1e-6)                                    | ev=4 cite=1 2 3 4 | kg=- | +0.62
+kg_shuffled r1  R3 | accepted | SI_AL_P_composition            | (Al + P + Ge + B + Ga + Ti + Sn + Zn + Zr + V + Be + W + Cu + Mg + 1e- | ev=9 cite=2 3 4 5 6 7 8 9 | kg=- | +0.62
+kg_shuffled r10 R1 | accepted | SI_AL_P_composition            | Si / (Al + 1e-6)                                                       | ev=3 cite=-    | kg=- | +0.14
+kg_shuffled r10 R2 | accepted | ALKALINITY_OH_per_T            | OH / (Si + 1e-6)                                                       | ev=7 cite=1 2 4 6 7 | kg=- | +0.14
+kg_shuffled r10 R3 | accepted | OSDA_molecular_property_combo  | osda_charge / (osda_volume + 1e-6)                                     | ev=9 cite=1 3 4 5 6 7 8 9 | kg=- | +0.14
+kg_shuffled r2  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ga + 0.001)                               | ev=0 cite=-    | kg=- | -0.12
+kg_shuffled r2  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + Ga + 0.001)                              | ev=2 cite=1 2  | kg=- | -0.12
+kg_shuffled r2  R3 | accepted | SI_AL_P_composition            | (Si + Ge + 0.001) / (Al + P + B + Ga + 0.001)                          | ev=2 cite=1 2  | kg=- | -0.12
+kg_shuffled r3  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + 1e-6)                                     | ev=2 cite=1 2  | kg=- | -0.02
+kg_shuffled r3  R2 | accepted | OSDA_molecular_property_combo  | osda_charge / (osda_volume + 1e-6)                                     | ev=6 cite=1 2 4 5 6 | kg=- | -0.02
+kg_shuffled r3  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + 1e-6)                                        | ev=3 cite=-    | kg=- | -0.02
+kg_shuffled r4  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + 1e-6)                                                       | ev=6 cite=1 2 4 5 6 | kg=- | -0.03
+kg_shuffled r4  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + 1e-6)                                                      | ev=0 cite=-    | kg=- | -0.03
+kg_shuffled r4  R3 | accepted | SI_AL_P_composition            | Si / (Al + 1e-6)                                                       | ev=4 cite=1 2 3 4 | kg=- | -0.03
+kg_shuffled r5  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + 0.001)                                                      | ev=4 cite=1 2 3 4 | kg=- | +0.06
+kg_shuffled r5  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + 0.001)                                                     | ev=8 cite=6 7 8 | kg=- | +0.06
+kg_shuffled r5  R3 | accepted | ALPO_P_Al_balance              | P / (Si + Al + P + 0.001)                                              | ev=3 cite=1 2 3 | kg=- | +0.06
+kg_shuffled r6  R1 | accepted | ALKALINITY_OH_per_T            | (OH + F) / (Si + Al + P + Ge + 0.001)                                  | ev=5 cite=2 3 5 | kg=- | +0.16
+kg_shuffled r6  R2 | accepted | OSDA_loading_per_T             | sda1 / (Si + Al + P + Ge + 0.001)                                      | ev=7 cite=1 3 5 7 | kg=- | +0.16
+kg_shuffled r6  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + 0.001)                                       | ev=0 cite=-    | kg=- | +0.16
+kg_shuffled r7  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ga + Ti + 0.001)                          | ev=5 cite=1 3 5 | kg=- | +0.04
+kg_shuffled r7  R2 | accepted | OSDA_loading_per_T             | sda1 / (Si + Al + P + Ge + B + Ga + Ti + 0.001)                        | ev=2 cite=1 2  | kg=- | +0.04
+kg_shuffled r7  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + Ga + Ti + 0.001)                         | ev=0 cite=-    | kg=- | +0.04
+kg_shuffled r8  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + 1e-6)                                                       | ev=6 cite=1 3 5 | kg=- | +0.26
+kg_shuffled r8  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + 1e-6)                                        | ev=0 cite=-    | kg=- | +0.26
+kg_shuffled r8  R3 | accepted | INORGANIC_cation_per_Al_or_T   | (Na + K + Li + Cs + Rb + Ca + Sr + Ba) / (Si + Al + P + Ge + 1e-6)     | ev=6 cite=1 2 3 5 6 | kg=- | +0.26
+kg_shuffled r9  R1 | accepted | SI_AL_P_composition            | Si / (Al + 0.005)                                                      | ev=1 cite=1    | kg=- | -0.41
+kg_shuffled r9  R2 | accepted | ALKALINITY_OH_per_T            | OH / (Si + 0.005)                                                      | ev=1 cite=1    | kg=- | -0.41
+kg_shuffled r9  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + 0.005)                                                     | ev=3 cite=1 2 3 | kg=- | -0.41
+rag         r1  R1 | accepted | SI_AL_P_composition            | Si / (Al + P + 0.001)                                                  | ev=7 cite=2 4 6 | kg=- | -0.21
+rag         r1  R2 | accepted | ALKALINITY_OH_per_T            | OH / ((Si + Al + P) * (1.0 + H2O) + 0.001)                             | ev=7 cite=1 2 7 | kg=- | -0.21
+rag         r1  R3 | repaired | FLUORIDE_vs_OH                 | (F - OH) / (F + OH + 0.001)                                            | ev=7 cite=1 2 4 | kg=- | -0.21
+rag         r10 R1 | accepted | SI_AL_P_composition            | (Si + Ge) / (Al + P + B + 0.001)                                       | ev=8 cite=3 5 6 | kg=- | +0.48
+rag         r10 R2 | accepted | ALKALINITY_OH_per_T            | (OH + F) / (Si + Al + P + Ge + 0.001)                                  | ev=7 cite=2 4 5 | kg=- | +0.48
+rag         r10 R3 | accepted | OSDA_loading_per_T             | sda1 / (Si + Al + P + Ge + 0.001)                                      | ev=7 cite=1 3  | kg=- | +0.48
+rag         r2  R1 | accepted | DILUTION_H2O_per_T             | H2O / (Si + 1e-6)                                                      | ev=7 cite=1 2 3 4 5 6 | kg=- | +0.13
+rag         r2  R2 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + 1e-6)                                         | ev=6 cite=1 2 5 | kg=- | +0.13
+rag         r2  R3 | accepted | SI_AL_P_composition            | Si / (Si + Al + P + Ge + B + Ga + 1e-6)                                | ev=7 cite=2 3 4 5 | kg=- | +0.13
+rag         r3  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ga + 1e-6)                                | ev=8 cite=1 3 4 | kg=- | +0.49
+rag         r3  R2 | accepted | INORGANIC_cation_per_Al_or_T   | (Na + K + Li + Rb + Cs) / (Al + 1e-6)                                  | ev=8 cite=2 6 7 | kg=- | +0.49
+rag         r3  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + Ga + 1e-6)                               | ev=8 cite=2 4 6 8 | kg=- | +0.49
+rag         r4  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ti + 0.01)                                | ev=7 cite=2 4 6 | kg=- | +0.03
+rag         r4  R2 | accepted | OSDA_loading_per_T             | sda1 / (Si + Al + P + Ge + B + Ti + 0.01)                              | ev=7 cite=3 5  | kg=- | +0.03
+rag         r4  R3 | accepted | SI_AL_P_composition            | (Si + Ge) / (Al + 0.01)                                                | ev=9 cite=6 7  | kg=- | +0.03
+rag         r5  R1 | accepted | SI_AL_P_composition            | Si / (Al + P + 1e-6)                                                   | ev=6 cite=1 2 3 6 | kg=- | -0.35
+rag         r5  R2 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + 1e-6)                                              | ev=8 cite=1 2 3 7 | kg=- | -0.35
+rag         r5  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + 1e-6)                                             | ev=8 cite=2 4 7 | kg=- | -0.35
+rag         r6  R1 | accepted | SI_AL_P_composition            | Si / (Al + P + 0.001)                                                  | ev=8 cite=1 4 5 6 | kg=- | +0.25
+rag         r6  R2 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + 0.001)                                             | ev=8 cite=2 8  | kg=- | +0.25
+rag         r6  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + 0.001)                                            | ev=9 cite=2 4 5 7 | kg=- | +0.25
+rag         r7  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + 0.001)                | ev=8 cite=3 4 5 6 8 | kg=- | +0.01
+rag         r7  R2 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + Ga + Ti + Zn + Be + 0.001)               | ev=9 cite=2 4 6 9 | kg=- | +0.01
+rag         r7  R3 | accepted | SI_AL_P_composition            | Si / (Al + P + 0.001)                                                  | ev=7 cite=3 5 7 | kg=- | +0.01
+rag         r8  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ga + Ti + Sn + Zr + V + Zn + Be + W + Mg  | ev=9 cite=3 5 7 9 | kg=- | +1.02
+rag         r8  R2 | accepted | INORGANIC_cation_per_Al_or_T   | (Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / (Al + Ga + 1e-6)          | ev=8 cite=1 2 6 7 | kg=- | +1.02
+rag         r8  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + Ga + Ti + Sn + Zr + V + Zn + Be + W + Mg | ev=7 cite=1 2 3 4 | kg=- | +1.02
+rag         r9  R1 | accepted | ALKALINITY_OH_per_T            | OH / (Si + Al + P + Ge + B + Ga + Be + Ti + Zn + Sn + Zr + V + Mg + W  | ev=6 cite=3 5  | kg=- | -0.07
+rag         r9  R2 | accepted | SI_AL_P_composition            | (Si + Ge) / (Al + P + B + Ga + Zn + Be + 1e-6)                         | ev=8 cite=2 3 4 7 | kg=- | -0.07
+rag         r9  R3 | accepted | DILUTION_H2O_per_T             | H2O / (Si + Al + P + Ge + B + Ga + Be + Ti + Zn + Sn + Zr + V + Mg + W | ev=7 cite=1 2 4 5 7 | kg=- | -0.07
+
+=== FAMILY COUNTS BY GROUP ===
+family                                  agent           kg  kg_shuffled          rag   total
+ALKALINITY_OH_per_T                         9           10           10           10      39
+ALPO_P_Al_balance                           1            0            1            0       2
+CHARGE_organic_vs_inorganic                 2            0            0            0       2
+DILUTION_H2O_per_T                          5            8            9            7      29
+FLUORIDE_per_T                              1            3            0            0       4
+FLUORIDE_vs_OH                              3            0            0            1       4
+HETEROATOM_fraction                         0            1            0            0       1
+INORGANIC_cation_per_Al_or_T                2            1            1            2       6
+OSDA_charge_per_T                           1            2            0            0       3
+OSDA_loading_per_T                          2            0            2            2       6
+OSDA_molecular_property_combo               0            0            2            0       2
+SI_AL_P_composition                         4            5            5            8      22
+distinct families overall: 12
+
+=== FAMILY BY ROUND (all groups) ===
+1 {'ALKALINITY_OH_per_T': 28, 'SI_AL_P_composition': 11, 'DILUTION_H2O_per_T': 1}
+2 {'DILUTION_H2O_per_T': 14, 'ALKALINITY_OH_per_T': 11, 'OSDA_loading_per_T': 4, 'INORGANIC_cation_per_Al_or_T': 4, 'SI_AL_P_composition': 3, 'CHARGE_organic_vs_inorganic': 1, 'FLUORIDE_per_T': 1, 'OSDA_charge_per_T': 1, 'OSDA_molecular_property_combo': 1}
+3 {'DILUTION_H2O_per_T': 14, 'SI_AL_P_composition': 8, 'FLUORIDE_vs_OH': 4, 'FLUORIDE_per_T': 3, 'OSDA_loading_per_T': 2, 'INORGANIC_cation_per_Al_or_T': 2, 'ALPO_P_Al_balance': 2, 'OSDA_charge_per_T': 2, 'CHARGE_organic_vs_inorganic': 1, 'HETEROATOM_fraction': 1, 'OSDA_molecular_property_combo': 1}
+
+=== OVERLAP BETWEEN GROUPS ===
+agent       vs kg         : families Jaccard=0.55 (6/11); exact-formula overlap 6 of 51 distinct
+agent       vs kg_shuffled: families Jaccard=0.55 (6/11); exact-formula overlap 2 of 52 distinct
+agent       vs rag        : families Jaccard=0.60 (6/10); exact-formula overlap 4 of 53 distinct
+kg          vs kg_shuffled: families Jaccard=0.40 (4/10); exact-formula overlap 4 of 49 distinct
+kg          vs rag        : families Jaccard=0.44 (4/9); exact-formula overlap 6 of 50 distinct
+kg_shuffled vs rag        : families Jaccard=0.62 (5/8); exact-formula overlap 3 of 50 distinct
+
+=== PER-TRAJECTORY DELTAS (pp) ===
+agent
+  r1  acc -0.011  bacc +0.147  f1 +0.146 | covered -0.38 notcov +0.39 noOSDA +0.09 common +0.21 rare -0.61 | seeds +0.31 -0.23 +1.71 -1.42 -0.43 | SI_AL_P_compos, CHARGE_organic, FLUORIDE_vs_OH
+  r2  acc -0.171  bacc -1.489  f1 -1.175 | covered -0.11 notcov -0.24 noOSDA -1.12 common +0.20 rare -0.58 | seeds +0.37 +0.40 -0.91 -1.17 +0.45 | ALKALINITY_OH_, DILUTION_H2O_p, FLUORIDE_vs_OH
+  r3  acc +0.045  bacc -0.530  f1 -0.708 | covered -0.64 notcov +0.80 noOSDA +3.61 common -0.23 rare -1.15 | seeds -0.63 +0.26 +0.68 -0.60 +0.51 | ALKALINITY_OH_, SI_AL_P_compos, DILUTION_H2O_p
+  r4  acc +0.409  bacc -0.341  f1 -0.249 | covered +0.08 notcov +0.78 noOSDA +1.25 common +0.27 rare +0.31 | seeds +0.26 -0.11 +1.76 -0.71 +0.85 | ALKALINITY_OH_, INORGANIC_cati, CHARGE_organic
+  r5  acc +0.432  bacc -1.336  f1 -1.135 | covered +0.61 notcov +0.24 noOSDA +0.22 common +0.37 rare +0.70 | seeds +0.57 -0.11 +0.68 -0.14 +1.17 | ALKALINITY_OH_, DILUTION_H2O_p, OSDA_loading_p
+  r6  acc +0.398  bacc -0.797  f1 -1.054 | covered -0.14 notcov +0.99 noOSDA +2.15 common +0.13 rare +0.13 | seeds -0.09 +0.45 +0.31 -0.31 +1.62 | ALKALINITY_OH_, DILUTION_H2O_p, FLUORIDE_vs_OH
+  r7  acc +0.620  bacc -0.198  f1 -0.074 | covered +0.50 notcov +0.75 noOSDA +1.33 common +0.73 rare -0.02 | seeds +0.63 +1.00 +1.85 -0.20 -0.17 | ALKALINITY_OH_, FLUORIDE_per_T, INORGANIC_cati
+  r8  acc +0.421  bacc +0.429  f1 -0.101 | covered -0.13 notcov +1.03 noOSDA +2.41 common +0.13 rare +0.09 | seeds +0.20 +1.25 +1.59 -0.91 -0.03 | SI_AL_P_compos, ALKALINITY_OH_, ALPO_P_Al_bala
+  r9  acc -0.489  bacc -0.683  f1 -0.842 | covered -0.92 notcov -0.01 noOSDA +3.78 common -0.34 rare -3.08 | seeds -0.77 -0.57 +0.03 -1.85 +0.71 | SI_AL_P_compos, ALKALINITY_OH_, OSDA_charge_pe
+  r10 acc +0.262  bacc -1.308  f1 -1.131 | covered +0.15 notcov +0.38 noOSDA +1.72 common -0.28 rare +0.81 | seeds +0.03 +0.28 +0.82 -0.97 +1.14 | ALKALINITY_OH_, OSDA_loading_p, DILUTION_H2O_p
+  mean +0.192 sd 0.341 min -0.489 max +0.620
+kg
+  r1  acc -0.057  bacc -0.868  f1 -1.085 | covered -0.82 notcov +0.78 noOSDA +1.33 common -0.38 rare +0.00 | seeds +0.85 -0.63 +0.40 -0.91 +0.00 | ALKALINITY_OH_, DILUTION_H2O_p, OSDA_charge_pe
+  r2  acc +0.233  bacc -0.478  f1 -0.404 | covered -0.42 notcov +0.95 noOSDA +1.33 common -0.15 rare +0.58 | seeds -0.11 +0.80 +0.23 -0.23 +0.48 | ALKALINITY_OH_, DILUTION_H2O_p, HETEROATOM_fra
+  r3  acc -0.284  bacc -1.409  f1 -0.984 | covered -0.73 notcov +0.20 noOSDA +0.22 common -0.48 rare -0.07 | seeds -0.31 -0.37 +0.40 -1.42 +0.28 | ALKALINITY_OH_, INORGANIC_cati, DILUTION_H2O_p
+  r4  acc +0.381  bacc -0.746  f1 -0.933 | covered -0.18 notcov +1.00 noOSDA +2.84 common +0.17 rare -0.38 | seeds +0.26 +0.60 +0.82 -1.25 +1.48 | SI_AL_P_compos, ALKALINITY_OH_, DILUTION_H2O_p
+  r5  acc -0.119  bacc -1.095  f1 -1.051 | covered -0.29 notcov +0.07 noOSDA +1.12 common -0.28 rare -0.38 | seeds -0.45 +0.51 +0.60 -1.31 +0.06 | ALKALINITY_OH_, DILUTION_H2O_p, FLUORIDE_per_T
+  r6  acc +0.671  bacc -0.366  f1 -0.331 | covered -0.43 notcov +1.88 noOSDA +4.60 common +0.31 rare -0.49 | seeds +0.37 +0.68 +1.56 +0.14 +0.60 | ALKALINITY_OH_, SI_AL_P_compos, FLUORIDE_per_T
+  r7  acc -0.353  bacc -0.925  f1 -0.709 | covered -1.48 notcov +0.88 noOSDA +3.44 common -1.39 rare +0.18 | seeds -0.48 -0.54 +0.51 -1.28 +0.03 | SI_AL_P_compos, ALKALINITY_OH_, DILUTION_H2O_p
+  r8  acc -0.341  bacc +0.071  f1 +0.045 | covered -0.96 notcov +0.33 noOSDA +2.84 common -0.91 rare -0.63 | seeds -0.09 -0.34 +0.00 -0.74 -0.54 | ALKALINITY_OH_, DILUTION_H2O_p, SI_AL_P_compos
+  r9  acc +0.165  bacc -0.852  f1 -0.581 | covered -0.13 notcov +0.49 noOSDA +2.19 common +0.19 rare -0.94 | seeds +0.54 -0.31 +0.80 -0.43 +0.23 | ALKALINITY_OH_, OSDA_charge_pe, FLUORIDE_per_T
+  r10 acc -0.284  bacc -0.805  f1 -0.842 | covered -1.05 notcov +0.56 noOSDA +3.05 common -0.84 rare -0.67 | seeds -0.77 -0.60 +0.60 -1.42 +0.77 | ALKALINITY_OH_, DILUTION_H2O_p, SI_AL_P_compos
+  mean +0.001 sd 0.349 min -0.353 max +0.671
+kg_shuffled
+  r1  acc +0.620  bacc +0.061  f1 +0.203 | covered -0.26 notcov +1.59 noOSDA +3.53 common +0.34 rare -0.22 | seeds +0.57 +0.68 +1.17 -0.03 +0.71 | ALKALINITY_OH_, DILUTION_H2O_p, SI_AL_P_compos
+  r2  acc -0.125  bacc -0.376  f1 -0.494 | covered -0.51 notcov +0.30 noOSDA +2.58 common -0.36 rare -0.97 | seeds -0.43 +0.03 +1.19 -1.02 -0.40 | ALKALINITY_OH_, DILUTION_H2O_p, SI_AL_P_compos
+  r3  acc -0.023  bacc -1.080  f1 -0.925 | covered -0.72 notcov +0.74 noOSDA +0.90 common -0.52 rare +0.70 | seeds -0.74 -0.28 +0.77 -0.51 +0.65 | ALKALINITY_OH_, OSDA_molecular, DILUTION_H2O_p
+  r4  acc -0.034  bacc -0.314  f1 -0.117 | covered -1.14 notcov +1.18 noOSDA +2.84 common -0.69 rare +0.07 | seeds +0.40 -0.57 +0.74 -1.08 +0.34 | ALKALINITY_OH_, DILUTION_H2O_p, SI_AL_P_compos
+  r5  acc +0.063  bacc -0.433  f1 -0.622 | covered +0.00 notcov +0.13 noOSDA -0.90 common +0.05 rare +0.61 | seeds -0.03 +0.14 -0.06 -0.14 +0.40 | ALKALINITY_OH_, DILUTION_H2O_p, ALPO_P_Al_bala
+  r6  acc +0.159  bacc -1.191  f1 -1.093 | covered -0.14 notcov +0.49 noOSDA +2.24 common -0.14 rare -0.20 | seeds -0.48 -0.20 +1.25 -0.40 +0.63 | ALKALINITY_OH_, OSDA_loading_p, DILUTION_H2O_p
+  r7  acc +0.040  bacc -1.412  f1 -1.329 | covered +0.00 notcov +0.08 noOSDA +0.90 common -0.39 rare +0.63 | seeds -0.14 -0.31 +0.80 -1.00 +0.85 | ALKALINITY_OH_, OSDA_loading_p, DILUTION_H2O_p
+  r8  acc +0.256  bacc -0.965  f1 -0.948 | covered +0.50 notcov -0.01 noOSDA +0.34 common +0.52 rare -0.43 | seeds -0.17 +0.63 +1.19 -0.45 +0.09 | ALKALINITY_OH_, DILUTION_H2O_p, INORGANIC_cati
+  r9  acc -0.415  bacc -1.305  f1 -1.217 | covered -1.58 notcov +0.86 noOSDA +4.17 common -1.21 rare -0.88 | seeds -0.11 +0.28 -0.23 -1.99 -0.03 | SI_AL_P_compos, ALKALINITY_OH_, DILUTION_H2O_p
+  r10 acc +0.136  bacc -0.018  f1 +0.040 | covered -0.50 notcov +0.83 noOSDA +3.23 common -0.17 rare -0.74 | seeds -0.54 +0.82 +0.74 -0.71 +0.37 | SI_AL_P_compos, ALKALINITY_OH_, OSDA_molecular
+  mean +0.068 sd 0.267 min -0.415 max +0.620
+rag
+  r1  acc -0.210  bacc -1.203  f1 -0.784 | covered -1.12 notcov +0.79 noOSDA +2.58 common -0.49 rare -0.99 | seeds -0.20 -0.85 +0.74 -0.77 +0.03 | SI_AL_P_compos, ALKALINITY_OH_, FLUORIDE_vs_OH
+  r2  acc +0.131  bacc -0.906  f1 -1.005 | covered -0.89 notcov +1.25 noOSDA +3.01 common -0.19 rare -0.58 | seeds -0.48 +0.68 +0.51 -0.31 +0.26 | DILUTION_H2O_p, ALKALINITY_OH_, SI_AL_P_compos
+  r3  acc +0.495  bacc -0.593  f1 -0.495 | covered +0.40 notcov +0.60 noOSDA +1.72 common +0.31 rare +0.31 | seeds +0.28 +0.23 +1.31 +0.06 +0.60 | ALKALINITY_OH_, INORGANIC_cati, DILUTION_H2O_p
+  r4  acc +0.028  bacc -0.993  f1 -0.926 | covered +0.22 notcov -0.18 noOSDA +3.74 common -0.19 rare -1.39 | seeds +0.09 +0.26 +0.34 -1.02 +0.48 | ALKALINITY_OH_, OSDA_loading_p, SI_AL_P_compos
+  r5  acc -0.353  bacc -0.925  f1 -0.709 | covered -1.48 notcov +0.88 noOSDA +3.44 common -1.39 rare +0.18 | seeds -0.48 -0.54 +0.51 -1.28 +0.03 | SI_AL_P_compos, ALKALINITY_OH_, DILUTION_H2O_p
+  r6  acc +0.250  bacc -0.510  f1 -0.326 | covered -0.46 notcov +1.03 noOSDA +2.97 common -0.28 rare +0.11 | seeds +0.26 +0.23 +0.97 -0.74 +0.54 | SI_AL_P_compos, ALKALINITY_OH_, DILUTION_H2O_p
+  r7  acc +0.011  bacc -0.738  f1 -0.770 | covered -0.50 notcov +0.57 noOSDA +3.18 common -0.32 rare -0.83 | seeds -0.57 -0.34 +2.13 -1.11 -0.06 | ALKALINITY_OH_, DILUTION_H2O_p, SI_AL_P_compos
+  r8  acc +1.018  bacc -0.598  f1 -0.350 | covered +0.70 notcov +1.37 noOSDA +2.24 common +0.93 rare +0.58 | seeds +0.51 +0.68 +1.68 +1.02 +1.19 | ALKALINITY_OH_, INORGANIC_cati, DILUTION_H2O_p
+  r9  acc -0.074  bacc -0.256  f1 -0.355 | covered -0.52 notcov +0.42 noOSDA +3.05 common -0.67 rare -0.27 | seeds -0.06 +0.20 +0.57 -0.68 -0.40 | ALKALINITY_OH_, SI_AL_P_compos, DILUTION_H2O_p
+  r10 acc +0.483  bacc -0.540  f1 -0.756 | covered +0.35 notcov +0.63 noOSDA +3.83 common +0.49 rare -1.28 | seeds +1.42 +0.77 +1.08 -0.48 -0.37 | SI_AL_P_compos, ALKALINITY_OH_, OSDA_loading_p
+  mean +0.178 sd 0.402 min -0.353 max +1.018
+
+=== EVIDENCE USE / SOURCE / NOVELTY BY GROUP ===
+agent slots 30 repaired 3 with evidence items 0 mean items 0 citing 0 uses kg feature 0 knowledge_source {'prior_knowledge': 30} novelty {'known_relation': 16, 'new_combination': 14} queries/slot 0 tokens/slot prompt 4054 completion 1924 reasoning 650
+kg slots 30 repaired 0 with evidence items 21 mean items 2.97 citing 19 uses kg feature 0 knowledge_source {'both': 19, 'prior_knowledge': 11} novelty {'new_combination': 14, 'known_relation': 16} queries/slot 1.47 tokens/slot prompt 5582 completion 1687 reasoning 466
+kg_shuffled slots 30 repaired 0 with evidence items 25 mean items 3.73 citing 23 uses kg feature 0 knowledge_source {'both': 23, 'prior_knowledge': 7} novelty {'known_relation': 19, 'new_combination': 11} queries/slot 1.67 tokens/slot prompt 5658 completion 1663 reasoning 483
+rag slots 30 repaired 1 with evidence items 30 mean items 7.53 citing 30 uses kg feature 0 knowledge_source {'both': 30} novelty {'known_relation': 28, 'new_combination': 2} queries/slot 2 tokens/slot prompt 7853 completion 1774 reasoning 497
+
+=== KG LINKING: what the model queries resolved to (kg + kg_shuffled) ===
+kg slots with 0 evidence items: 9 | linked osdas total 14 frameworks 58 conditions 27
+   evidence item types {'osda': 14, 'condition': 22, 'framework': 53} | cited item types {'osda': 6, 'condition': 21, 'framework': 44}
+   most common evidence keys [('condition:fluoride medium', 13), ('framework:MFI', 10), ('framework:*BEA', 8), ('framework:FAU', 7), ('framework:LTA', 5), ('framework:UTL', 5), ('osda:CBXCPBUEXACCNR-UHFFFAOYSA-N', 4), ('framework:MTW', 4), ('framework:BEC', 4), ('condition:germanium in the gel', 4), ('framework:CHA', 3), ('osda:GSEJCLTVZPLZKY-UHFFFAOYSA-N', 3)]
+kg_shuffled slots with 0 evidence items: 5 | linked osdas total 31 frameworks 63 conditions 21
+   evidence item types {'framework': 63, 'condition': 18, 'osda': 31} | cited item types {'framework': 46, 'condition': 18, 'osda': 18}
+   most common evidence keys [('framework:CHA', 12), ('framework:FAU', 11), ('condition:fluoride medium', 11), ('framework:MFI', 8), ('framework:LTA', 8), ('osda:OSBSFAARYOCBHB-UHFFFAOYSA-N', 8), ('osda:CBXCPBUEXACCNR-UHFFFAOYSA-N', 7), ('framework:*BEA', 6), ('osda:GSEJCLTVZPLZKY-UHFFFAOYSA-N', 6), ('osda:ZMANZCXQSJIPKH-UHFFFAOYSA-N', 6), ('condition:germanium in the gel', 4), ('framework:SOD', 3)]
+
+=== INPUT COLUMN USAGE (all 120 formulas) ===
+[('Si', 106), ('Al', 94), ('P', 82), ('Ge', 65), ('B', 50), ('OH', 43), ('Ga', 39), ('H2O', 32), ('Ti', 20), ('Zn', 16), ('Be', 15), ('F', 15), ('Sn', 13), ('V', 12), ('Zr', 12), ('K', 12), ('Li', 12), ('Na', 12), ('W', 11), ('Cs', 11), ('Rb', 11), ('sda1', 11), ('Ba', 8), ('Ca', 8), ('Sr', 8), ('Mg', 7), ('osda_charge', 6), ('Cu', 6), ('osda_volume', 2)]
+
+=== ALL DISTINCT QUERIES BY GROUP ===
+agent 0 queries, 0 distinct
+kg 44 queries, 44 distinct
+kg_shuffled 50 queries, 50 distinct
+rag 60 queries, 60 distinct

@@ -1,0 +1,54 @@
+=== trajectory-level correlations with accuracy delta (all 40 trajectories) ===
+descriptors added: all = {3} -> correlation undefined (constant)
+corr(delta, evidence items shown) = +0.208; corr(delta, evidence ids cited) = +0.152; corr(delta, queries written) = +0.000; corr(delta, repaired slots) = -0.108; corr(delta, reasoning tokens) = -0.101
+   kg: corr(delta, cited ids) = +0.498  cited per traj [2, 8, 2, 12, 2, 14, 7, 5, 5, 14]
+   kg_shuffled: corr(delta, cited ids) = +0.723  cited per traj [14, 4, 7, 9, 10, 7, 5, 8, 5, 13]
+   rag: corr(delta, cited ids) = +0.095  cited per traj [9, 13, 10, 7, 11, 10, 12, 12, 11, 8]
+
+=== mean trajectory delta by family presence (pp; n trajectories containing the family) ===
+ALKALINITY_OH_per_T              with: n=39 mean +0.113 | without: n= 1 mean -0.011
+ALPO_P_Al_balance                with: n= 2 mean +0.242 | without: n=38 mean +0.103
+CHARGE_organic_vs_inorganic      with: n= 2 mean +0.199 | without: n=38 mean +0.105
+DILUTION_H2O_per_T               with: n=29 mean +0.075 | without: n=11 mean +0.202
+FLUORIDE_per_T                   with: n= 4 mean +0.334 | without: n=36 mean +0.085
+FLUORIDE_vs_OH                   with: n= 4 mean +0.002 | without: n=36 mean +0.122
+HETEROATOM_fraction              with: n= 1 mean +0.233 | without: n=39 mean +0.106
+INORGANIC_cation_per_Al_or_T     with: n= 6 mean +0.419 | without: n=34 mean +0.055
+OSDA_charge_per_T                with: n= 3 mean -0.127 | without: n=37 mean +0.129
+OSDA_loading_per_T               with: n= 6 mean +0.234 | without: n=34 mean +0.088
+OSDA_molecular_property_combo    with: n= 2 mean +0.057 | without: n=38 mean +0.112
+SI_AL_P_composition              with: n=22 mean +0.022 | without: n=18 mean +0.216
+
+best 5 trajectories:
+   ('rag', 8) 1.018 ['OH / (Si + Al + P + Ge + B + Ga + Ti + Sn + Z', '(Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / ', 'H2O / (Si + Al + P + Ge + B + Ga + Ti + Sn + ']
+   ('kg', 6) 0.671 ['OH / (Si + Ge + Al + P + Ti + B + Ga + Zn + S', 'Si / (Si + Al + P + Ge + Ti + B + Ga + Zn + S', 'F / (Si + Ge + Al + P + Ti + B + Ga + Zn + Sn']
+   ('agent', 7) 0.62 ['OH / (Si + Al + P + Ge + B + Ga + 0.005) + OH', 'F / (Si + Al + P + Ge + B + Ga + 0.005)', '(Na + K + Li + Cs + Rb + Sr + Ba + Ca) / (Si ']
+   ('kg_shuffled', 1) 0.62 ['(OH - F) / (Si + Al + P + Ge + B + 1e-6)', 'H2O / (Si + Al + P + Ge + B + 1e-6)', '(Al + P + Ge + B + Ga + Ti + Sn + Zn + Zr + V']
+   ('rag', 3) 0.495 ['OH / (Si + Al + P + Ge + B + Ga + 1e-6)', '(Na + K + Li + Rb + Cs) / (Al + 1e-6)', 'H2O / (Si + Al + P + Ge + B + Ga + 1e-6)']
+worst 5 trajectories:
+   ('kg', 8) -0.341 ['OH / (Si + Al + P + Ge + B + Ti + Sn + Ga + Z', 'H2O / (Si + Al + P + Ge + B + Ti + Sn + Ga + ', 'Si / (Al + P + B + Ga + Ge + Zn + Ti + Sn + 1']
+   ('kg', 7) -0.353 ['Si / (Al + P + 1e-6)', 'OH / (Si + Al + P + 1e-6)', 'H2O / (Si + Al + P + 1e-6)']
+   ('rag', 5) -0.353 ['Si / (Al + P + 1e-6)', 'OH / (Si + Al + P + 1e-6)', 'H2O / (Si + Al + P + 1e-6)']
+   ('kg_shuffled', 9) -0.415 ['Si / (Al + 0.005)', 'OH / (Si + 0.005)', 'H2O / (Si + 0.005)']
+   ('agent', 9) -0.489 ['(Si + Ge) / (Al + B + Ga + 0.01)', '(OH + 10*F) / (Si + 0.01)', '(Na + K + Li + Cs + Rb + osda_charge * sda1) ']
+
+=== F / OH on training rows: F>0 0.255, OH>0 0.480, both>0 0.0000, neither 0.265 ===
+Si==0 on train rows (AlPO-type): 0.162 | Al==0: 0.344 | sda1==0: 0.120 | H2O==0: 0.044
+eval label distribution top 6 (share): [(np.str_('Failed'), 0.235), (np.str_('MFI'), 0.089), (np.str_('CHA'), 0.061), (np.str_('*BEA'), 0.042), (np.str_('AFI'), 0.037), (np.str_('MTW'), 0.033)] | majority share 0.2351 | classes in eval 135 | classes in train 198
+D0 per-seed accuracy sd (pp): 0.601
+
+=== V1 vs V2: share of slots in the three dominant V2 families (OH/T, H2O/T, Si/Al-P) ===
+V1 agent                 17/30 core | families present: ['ALKALINITY_OH_per_T', 'DILUTION_H2O_per_T', 'FLUORIDE_per_T', 'FLUORIDE_vs_OH', 'HETEROATOM_fraction', 'KINETIC_time_temp', 'OSDA_molecular_property_combo', 'SI_AL_P_composition']
+V1 rag_agent              5/30 core | families present: ['CHARGE_organic_vs_inorganic', 'DILUTION_H2O_per_T', 'FLUORIDE_per_OSDA', 'FLUORIDE_per_T', 'INORGANIC_cation_per_Al_or_T', 'KINETIC_time_temp', 'OSDA_charge_per_T', 'OSDA_molecular_property_combo', 'SI_AL_P_composition']
+V1 small_kg_rag_agent     2/30 core | families present: ['ALKALINITY_OH_per_T', 'CHARGE_organic_vs_inorganic', 'DILUTION_H2O_per_T', 'FLUORIDE_per_OSDA', 'KINETIC_time_temp', 'OSDA_charge_per_T']
+V2 agent                 18/30 core | families present: ['ALKALINITY_OH_per_T', 'ALPO_P_Al_balance', 'CHARGE_organic_vs_inorganic', 'DILUTION_H2O_per_T', 'FLUORIDE_per_T', 'FLUORIDE_vs_OH', 'INORGANIC_cation_per_Al_or_T', 'OSDA_charge_per_T', 'OSDA_loading_per_T', 'SI_AL_P_composition']
+V2 rag                   25/30 core | families present: ['ALKALINITY_OH_per_T', 'DILUTION_H2O_per_T', 'FLUORIDE_vs_OH', 'INORGANIC_cation_per_Al_or_T', 'OSDA_loading_per_T', 'SI_AL_P_composition']
+V2 kg                    23/30 core | families present: ['ALKALINITY_OH_per_T', 'DILUTION_H2O_per_T', 'FLUORIDE_per_T', 'HETEROATOM_fraction', 'INORGANIC_cation_per_Al_or_T', 'OSDA_charge_per_T', 'SI_AL_P_composition']
+V2 kg_shuffled           24/30 core | families present: ['ALKALINITY_OH_per_T', 'ALPO_P_Al_balance', 'DILUTION_H2O_per_T', 'INORGANIC_cation_per_Al_or_T', 'OSDA_loading_per_T', 'OSDA_molecular_property_combo', 'SI_AL_P_composition']
+families only in V1: ['FLUORIDE_per_OSDA', 'KINETIC_time_temp'] | only in V2: ['ALPO_P_Al_balance', 'OSDA_loading_per_T'] | shared: ['ALKALINITY_OH_per_T', 'CHARGE_organic_vs_inorganic', 'DILUTION_H2O_per_T', 'FLUORIDE_per_T', 'FLUORIDE_vs_OH', 'HETEROATOM_fraction', 'INORGANIC_cation_per_Al_or_T', 'OSDA_charge_per_T', 'OSDA_molecular_property_combo', 'SI_AL_P_composition']
+
+=== plan "why"/queries: does the KG-group model say the KG cannot answer? ===
+kg plan texts mentioning KG scope limits: 0 / 30; example: None
+kg_shuffled plan texts mentioning KG scope limits: 3 / 30; example: ('kg_shuffled-replicate-10.json', 3, 'gel ratios', 'be expressed by any single-column split. It is also robust across unseen papers because it is an intrinsic OSDA property, independent of the specific gel ratios of the training publications, so it should transfer well under the held-out-publication evaluation.')
+
+train_nonfinite_fraction over accepted formulas: max 0.0 n>0: 0

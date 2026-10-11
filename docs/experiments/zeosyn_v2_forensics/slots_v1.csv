@@ -1,0 +1,91 @@
+group,traj,round,name,formula,family,evidence_items,evidence_ids,knowledge_source,novelty,status,repair_error,traj_delta_acc_pp,traj_delta_bacc_pp,traj_delta_f1_pp
+agent,1,1,oh_per_tetrahedral_ratio,OH / (Si + Al + P + Ge + B + Ga + 1e-6),ALKALINITY_OH_per_T,0,-,prior_knowledge,known_relation,accepted,,0.649,0.269,0.07
+agent,1,2,h2o_per_tetrahedral_ratio,H2O / (Si + Al + P + Ge + B + Ga + 1e-6),DILUTION_H2O_per_T,0,-,prior_knowledge,known_relation,accepted,,0.649,0.269,0.07
+agent,1,3,osda_charge_density,osda_charge / (osda_volume + 1e-6),OSDA_molecular_property_combo,0,-,prior_knowledge,known_relation,accepted,,0.649,0.269,0.07
+agent,10,1,mineralizer_per_t_atom,(OH + F) / (Si + Al + Ge + 0.001),ALKALINITY_OH_per_T,0,-,prior_knowledge,known_relation,accepted,,1.058,0.23,0.177
+agent,10,2,thermal_severity_arrhenius,cryst_time * exp(-7500.0 / (cryst_temp + 273.15)),KINETIC_time_temp,0,-,prior_knowledge,new_combination,accepted,,1.058,0.23,0.177
+agent,10,3,osda_charge_density,abs(osda_charge) / (osda_volume + 1.0),OSDA_molecular_property_combo,0,-,prior_knowledge,known_relation,accepted,,1.058,0.23,0.177
+agent,2,1,alkalinity_oh_per_water,OH / (H2O + 0.001),ALKALINITY_OH_per_T,0,-,prior_knowledge,known_relation,accepted,,0.418,1.339,0.946
+agent,2,2,si_al_ratio,Si / (Al + 0.001),SI_AL_P_composition,0,-,prior_knowledge,known_relation,accepted,,0.418,1.339,0.946
+agent,2,3,germanium_tatom_fraction,Ge / (Si + Al + P + Ge + 0.001),HETEROATOM_fraction,0,-,prior_knowledge,known_relation,repaired,redundant: rank-equivalent to existing column F (|rho|=1.00000),0.418,1.339,0.946
+agent,3,1,hydroxide_per_t_atom,OH / (Si + Al + P + Ge + 0.001),ALKALINITY_OH_per_T,0,-,prior_knowledge,known_relation,accepted,,0.436,0.345,-0.283
+agent,3,2,water_per_t_atom,H2O / (Si + Al + P + Ge + 0.001),DILUTION_H2O_per_T,0,-,prior_knowledge,known_relation,accepted,,0.436,0.345,-0.283
+agent,3,3,osda_charge_density,osda_charge / (osda_volume + 0.001),OSDA_molecular_property_combo,0,-,prior_knowledge,new_combination,accepted,,0.436,0.345,-0.283
+agent,4,1,alkalinity_oh_per_water,OH / (H2O + 0.005),ALKALINITY_OH_per_T,0,-,prior_knowledge,new_combination,accepted,,0.872,0.764,0.686
+agent,4,2,si_over_al_p_ratio,log10((Si + 0.001) / (Al + P + 0.001)),SI_AL_P_composition,0,-,prior_knowledge,known_relation,accepted,,0.872,0.764,0.686
+agent,4,3,osda_charge_density,osda_charge / (osda_volume + 1.0),OSDA_molecular_property_combo,0,-,prior_knowledge,known_relation,accepted,,0.872,0.764,0.686
+agent,5,1,mineralizer_cation_balance,(F - OH) / (F + OH + Na + K + 1e-6),FLUORIDE_vs_OH,0,-,prior_knowledge,new_combination,repaired,redundant: rank-equivalent to existing column F (|rho|=1.00000),0.204,0.976,0.683
+agent,5,2,si_t_atom_fraction,Si / (Si + Al + P + 1e-6),SI_AL_P_composition,0,-,prior_knowledge,new_combination,accepted,,0.204,0.976,0.683
+agent,5,3,heteroatom_t_fraction,(Ge + Ti + B + Zn + Sn + Ga) / (Si + Al + P + Ge + Ti + B + Zn + Sn + Ga + 1e-6),HETEROATOM_fraction,0,-,prior_knowledge,new_combination,accepted,,0.204,0.976,0.683
+agent,6,1,alkalinity_per_tatom,OH / (Si + Al + P + Ge + B + Ga + 0.005),ALKALINITY_OH_per_T,0,-,prior_knowledge,known_relation,accepted,,0.15,-0.311,-0.34
+agent,6,2,water_to_tatom,H2O / (Si + Al + P + Ge + B + Ga + 0.005),DILUTION_H2O_per_T,0,-,prior_knowledge,known_relation,accepted,,0.15,-0.311,-0.34
+agent,6,3,fluoride_per_tatom,F / (Si + Al + P + Ge + B + Ga + 0.005),FLUORIDE_per_T,0,-,prior_knowledge,known_relation,accepted,,0.15,-0.311,-0.34
+agent,7,1,osda_charge_density,osda_charge / (osda_volume + 1.0),OSDA_molecular_property_combo,0,-,prior_knowledge,known_relation,accepted,,0.622,-0.538,-0.589
+agent,7,2,fluoride_aqueous_concentration,F / (H2O + F + 0.001),FLUORIDE_per_T,0,-,prior_knowledge,known_relation,repaired,redundant: rank-equivalent to existing column F (|rho|=1.00000),0.622,-0.538,-0.589
+agent,7,3,gel_alkalinity_per_t,OH / (Si + Al + P + 0.001),ALKALINITY_OH_per_T,0,-,prior_knowledge,new_combination,accepted,,0.622,-0.538,-0.589
+agent,8,1,hydroxide_per_tetrahedral_si,OH / (Si + 1e-6),ALKALINITY_OH_per_T,0,-,prior_knowledge,known_relation,accepted,,0.604,0.918,0.388
+agent,8,2,osda_charge_density,osda_charge / (osda_volume + 1e-6),OSDA_molecular_property_combo,0,-,prior_knowledge,new_combination,accepted,,0.604,0.918,0.388
+agent,8,3,framework_species_water_ratio,(Si + Al + P + Ge + Ga + B + 1e-6) / (H2O + 1e-6),DILUTION_H2O_per_T,0,-,prior_knowledge,known_relation,accepted,,0.604,0.918,0.388
+agent,9,1,alkalinity_per_water,OH / (H2O + 0.001),ALKALINITY_OH_per_T,0,-,prior_knowledge,known_relation,accepted,,0.39,-0.343,-0.915
+agent,9,2,osda_charge_density,(osda_charge + 0.0) / (osda_volume + 0.001),OSDA_molecular_property_combo,0,-,prior_knowledge,known_relation,accepted,,0.39,-0.343,-0.915
+agent,9,3,mineralizer_per_tatom,(OH + F) / (Si + Ge + 0.001),ALKALINITY_OH_per_T,0,-,prior_knowledge,new_combination,accepted,,0.39,-0.343,-0.915
+rag_agent,1,1,log_gel_sial_ratio,log10(Si / (Al + 1e-6)),SI_AL_P_composition,9,1 2 3 4,both,known_relation,accepted,,0.163,0.492,-0.327
+rag_agent,1,2,log_f_to_osda_ratio,log10((F + 1e-6) / (sda1 + 1e-6)),FLUORIDE_per_OSDA,8,2 3,both,new_combination,accepted,,0.163,0.492,-0.327
+rag_agent,1,3,log_h2o_to_tatom_ratio,log10((H2O + 1e-6) / (Si + Ge + Al + P + 1e-6)),DILUTION_H2O_per_T,10,7 8 10,both,known_relation,accepted,,0.163,0.492,-0.327
+rag_agent,10,1,osda_charge_to_al_ratio,(sda1 * (osda_charge + 0.0)) / (Al + 0.005),OSDA_charge_per_T,9,1 3 4 6,both,known_relation,accepted,,0.041,-0.945,-1.242
+rag_agent,10,2,fluoride_to_osda_ratio,(F + 0.0) / (sda1 + 0.001),FLUORIDE_per_OSDA,8,2 3,both,new_combination,accepted,,0.041,-0.945,-1.242
+rag_agent,10,3,gel_dilution_h2o_per_tgo,H2O / (Si + Ge + Al + P + 0.01),DILUTION_H2O_per_T,10,2 6 10,both,known_relation,accepted,,0.041,-0.945,-1.242
+rag_agent,2,1,osda_charge_per_al,(osda_charge * sda1) / (Al + 0.001),OSDA_charge_per_T,9,1 3 4 6,both,known_relation,accepted,,0.132,-0.883,-0.771
+rag_agent,2,2,fluoride_per_osda,F / (sda1 + 0.001),FLUORIDE_per_OSDA,8,2 3,both,new_combination,accepted,,0.132,-0.883,-0.771
+rag_agent,2,3,thermal_severity_dose,cryst_time * exp(-9000.0 * (1.0/(cryst_temp + 273.15) - 1.0/423.15)),KINETIC_time_temp,10,4 7 8 10,both,new_combination,accepted,,0.132,-0.883,-0.771
+rag_agent,3,1,cation_charge_per_al,"(Na + K + Li + Rb + Cs + 2*Ca + 2*Sr + 2*Ba + sda1*maximum(osda_charge, 0)) / (Al + 0.001)",OSDA_charge_per_T,9,1 3 4 5 6,both,new_combination,accepted,,-0.4,-1.08,-0.918
+rag_agent,3,2,f_per_osda_charge,"F / (sda1 * maximum(osda_charge, 0) + 0.001)",FLUORIDE_per_OSDA,8,2 3,both,known_relation,accepted,,-0.4,-1.08,-0.918
+rag_agent,3,3,h2o_per_framework_tatom,H2O / (Si + Al + P + Ge + 0.001),DILUTION_H2O_per_T,10,10,both,known_relation,accepted,,-0.4,-1.08,-0.918
+rag_agent,4,1,inorganic_cation_charge_per_al,(Na + K + Li + Rb + Cs + 2*Ca + 2*Sr + 2*Ba) / (Al + 0.001),INORGANIC_cation_per_Al_or_T,9,2 4 5 8,both,new_combination,accepted,,0.064,-0.473,-1.155
+rag_agent,4,2,fluoride_to_osda_ratio,F / (sda1 + 0.001),FLUORIDE_per_OSDA,8,2 3,both,new_combination,accepted,,0.064,-0.473,-1.155
+rag_agent,4,3,thermal_severity_logtime_over_t,log10(cryst_time + 0.1) - 4000 / (cryst_temp + 273.15),KINETIC_time_temp,10,3 4 6 7 8 10,both,new_combination,accepted,,0.064,-0.473,-1.155
+rag_agent,5,1,osda_charge_to_al_ratio,(sda1 * osda_charge) / (Al + 0.0001),OSDA_charge_per_T,9,1 3 4 6,both,new_combination,accepted,,-0.073,-0.664,-1.357
+rag_agent,5,2,fluoride_to_osda_ratio,(F + 0.0001) / (sda1 + 0.0001),FLUORIDE_per_OSDA,8,2 3 7,both,new_combination,accepted,,-0.073,-0.664,-1.357
+rag_agent,5,3,dilution_thermal_ripening_index,(H2O / (Si + 0.0001)) * (cryst_temp / 373.0) * log10(cryst_time + 1.0),KINETIC_time_temp,10,3 7 8 9 10,both,new_combination,accepted,,-0.073,-0.664,-1.357
+rag_agent,6,1,osda_charge_density,osda_charge / (osda_volume + 1e-6),OSDA_molecular_property_combo,9,1 3 6,both,known_relation,accepted,,0.663,-0.291,0.139
+rag_agent,6,2,fluoride_to_osda_ratio,F / (sda1 + 1e-6),FLUORIDE_per_OSDA,8,2 3,both,new_combination,accepted,,0.663,-0.291,0.139
+rag_agent,6,3,thermal_dose_arrhenius,cryst_time * exp(-8314.0 / (1.987 * (cryst_temp + 273.15))),KINETIC_time_temp,10,3 6 7 8 9 10,both,new_combination,accepted,,0.663,-0.291,0.139
+rag_agent,7,1,alkali_to_osda_charge_ratio,(Na + K + Li + Rb + Cs) / (sda1 * abs(osda_charge) + 0.01),CHARGE_organic_vs_inorganic,9,2 3 4 5 6,both,new_combination,accepted,,0.064,0.359,0.521
+rag_agent,7,2,fluoride_to_framework_charge_ratio,F / (Al + B + Ga + Zn + 0.01),FLUORIDE_per_T,8,2 3 7,both,new_combination,accepted,,0.064,0.359,0.521
+rag_agent,7,3,water_to_framework_tatom_ratio,H2O / (Si + Al + P + B + Ge + Ga + 0.01),DILUTION_H2O_per_T,10,10,both,known_relation,accepted,,0.064,0.359,0.521
+rag_agent,8,1,total_cation_charge_per_trivalent,(Na + K + Li + Rb + Cs + 2 * (Ca + Sr + Ba) + sda1 * abs(osda_charge) + 1e-6) / (Al + Ga + B + 1e-6),OSDA_charge_per_T,9,1 2 3 4 5 6,both,known_relation,accepted,,0.114,-0.411,0.011
+rag_agent,8,2,fluoride_per_positive_charge,(F + 1e-6) / (sda1 * abs(osda_charge) + Na + K + Li + Rb + Cs + 1e-6),FLUORIDE_per_OSDA,8,2 3 7,both,new_combination,accepted,,0.114,-0.411,0.011
+rag_agent,8,3,thermal_dose_arrhenius,cryst_time * exp(-60000.0 / (8.314 * (cryst_temp + 273.15))),KINETIC_time_temp,10,3 7 8 10,both,new_combination,accepted,,0.114,-0.411,0.011
+rag_agent,9,1,inorganic_cation_to_al_charge_ratio,(Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / (Al + 0.0001),INORGANIC_cation_per_Al_or_T,9,2 3 4 5 6 8,both,known_relation,accepted,,0.281,-0.77,-1.184
+rag_agent,9,2,fluoride_to_osda_ratio,F / (sda1 + 0.0001),FLUORIDE_per_OSDA,8,2 3 7,both,known_relation,accepted,,0.281,-0.77,-1.184
+rag_agent,9,3,thermal_dose_cryst_time_x_arrhenius,cryst_time * exp(-9000.0 / (cryst_temp + 273.15) + 9000.0 / 423.15),KINETIC_time_temp,10,4 6 7 8 10,both,new_combination,accepted,,0.281,-0.77,-1.184
+small_kg_rag_agent,1,1,inorganic_to_osda_cation_ratio,(Na + K + Li + Rb + Cs) / (sda1 + 0.001),CHARGE_organic_vs_inorganic,10,2 3 5 6 7,both,new_combination,accepted,,0.277,0.3,0.065
+small_kg_rag_agent,1,2,fluoride_to_osda_ratio,F / (sda1 + 0.001),FLUORIDE_per_OSDA,10,3 5 7,both,known_relation,accepted,,0.277,0.3,0.065
+small_kg_rag_agent,1,3,arrhenius_crystallization_dose,cryst_time * exp(-80000/(8.314*(cryst_temp + 273.15))),KINETIC_time_temp,10,1 5 7,both,new_combination,accepted,,0.277,0.3,0.065
+small_kg_rag_agent,10,1,inorganic_to_osda_charge_ratio,(Na + K + Li + Rb + Cs + 2*Ca + 2*Sr + 2*Ba) / (abs(osda_charge) * sda1 + 0.01),CHARGE_organic_vs_inorganic,10,1 2 3 5 6 7,both,new_combination,accepted,,0.345,0.334,-0.012
+small_kg_rag_agent,10,2,fluoride_to_osda_ratio,F / (sda1 + 0.01),FLUORIDE_per_OSDA,10,3 4 5,both,known_relation,accepted,,0.345,0.334,-0.012
+small_kg_rag_agent,10,3,arrhenius_thermal_dose,cryst_time * exp(-80000.0 / (8.314 * (cryst_temp + 273.15))),KINETIC_time_temp,10,1 5 7 10,both,new_combination,accepted,,0.345,0.334,-0.012
+small_kg_rag_agent,2,1,inorganic_to_organic_cation_charge_ratio,(Na + K + Li + Rb + Cs + Ca + Sr + Ba) / (abs(osda_charge) * sda1 + 0.001),CHARGE_organic_vs_inorganic,10,1 5 6 7 9,both,new_combination,accepted,,-0.295,-0.374,-0.951
+small_kg_rag_agent,2,2,fluoride_to_osda_charge_ratio,F / (abs(osda_charge) * sda1 + 0.001),FLUORIDE_per_OSDA,10,3 4 5,both,known_relation,accepted,,-0.295,-0.374,-0.951
+small_kg_rag_agent,2,3,hydroxide_to_framework_tatom_ratio,OH / (Si + Al + P + Ge + 0.001),ALKALINITY_OH_per_T,10,5 7 8 10,both,known_relation,accepted,,-0.295,-0.374,-0.951
+small_kg_rag_agent,3,1,inorganic_to_osda_charge_ratio,(Na + K + Li + Rb + Cs + 2*Ba + 2*Ca + 2*Sr + 2*Mg) / (abs(osda_charge) * sda1 + 0.002),CHARGE_organic_vs_inorganic,10,1 2 5 6 7 9,both,new_combination,accepted,,0.377,0.062,-0.068
+small_kg_rag_agent,3,2,fluoride_per_directing_charge,F / (sda1 + Al + B + Ga + 0.002),FLUORIDE_per_OSDA,10,3 5,both,new_combination,accepted,,0.377,0.062,-0.068
+small_kg_rag_agent,3,3,thermal_dose,cryst_temp * log10(cryst_time + 1.0),KINETIC_time_temp,10,1 5 7,both,new_combination,accepted,,0.377,0.062,-0.068
+small_kg_rag_agent,4,1,osda_charge_to_al_ratio,(osda_charge * sda1) / (Al + 0.005),OSDA_charge_per_T,10,1 5 6 7,both,known_relation,accepted,,0.522,-0.652,-0.496
+small_kg_rag_agent,4,2,fluoride_to_osda_ratio,F / (sda1 + 0.005),FLUORIDE_per_OSDA,10,3 5,both,known_relation,accepted,,0.522,-0.652,-0.496
+small_kg_rag_agent,4,3,hydrothermal_dose_arrhenius,cryst_time * exp(12000/373.15 - 12000/(cryst_temp + 273.15)),KINETIC_time_temp,10,2 5 7,both,new_combination,accepted,,0.522,-0.652,-0.496
+small_kg_rag_agent,5,1,inorg_cation_per_osda_charge_ratio,(Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / (abs(osda_charge) * sda1 + 0.001),CHARGE_organic_vs_inorganic,10,1 2 5 6 7,both,new_combination,accepted,,-0.15,0.196,0.152
+small_kg_rag_agent,5,2,fluoride_per_osda_charge_ratio,F / (abs(osda_charge) * sda1 + 0.001),FLUORIDE_per_OSDA,10,3 4 5,both,known_relation,accepted,,-0.15,0.196,0.152
+small_kg_rag_agent,5,3,thermal_severity_index,cryst_time * exp(-15000.0 / (1.987 * (cryst_temp + 273.15))),KINETIC_time_temp,10,1 5 7 10,both,new_combination,accepted,,-0.15,0.196,0.152
+small_kg_rag_agent,6,1,inorganic_to_osda_charge_ratio,log10((Na + K + Li + Rb + Cs + 2*(Ca + Sr + Ba)) / (sda1 * abs(osda_charge) + 0.01) + 1.0),CHARGE_organic_vs_inorganic,10,1 2 3 5 6 7,both,new_combination,accepted,,-0.114,0.219,-0.454
+small_kg_rag_agent,6,2,fluoride_to_osda_ratio,log10((F + 0.001) / (sda1 + 0.001) + 1.0),FLUORIDE_per_OSDA,10,3 5,both,new_combination,accepted,,-0.114,0.219,-0.454
+small_kg_rag_agent,6,3,water_to_tetrahedral_ratio,log10((H2O + 0.001) / (Si + Al + P + Ge + B + Ga + Ti + Sn + Zr + Zn + Be + Mg + V + W + Cu + 0.001) + 1.0),DILUTION_H2O_per_T,10,3 5 7,both,known_relation,accepted,,-0.114,0.219,-0.454
+small_kg_rag_agent,7,1,osda_charge_per_al,sda1 * abs(osda_charge) / (Al + 0.001),OSDA_charge_per_T,10,1 5 6 7,both,new_combination,accepted,,0.422,-0.86,-0.6
+small_kg_rag_agent,7,2,f_per_osda_charge,F / (sda1 * abs(osda_charge) + 0.001),FLUORIDE_per_OSDA,10,3 5 7,both,known_relation,accepted,,0.422,-0.86,-0.6
+small_kg_rag_agent,7,3,thermal_dose_arrhenius,(cryst_time + 0.01) * exp(-6000.0 / (cryst_temp + 273.15 + 1.0)),KINETIC_time_temp,10,1 5 7,both,new_combination,accepted,,0.422,-0.86,-0.6
+small_kg_rag_agent,8,1,inorganic_to_organic_cation_charge_ratio,(Na + K + Li + Rb + Cs) / (abs(osda_charge) * sda1 + 0.01),CHARGE_organic_vs_inorganic,10,2 3 5 6 7 9,both,new_combination,accepted,,0.422,-0.174,-0.245
+small_kg_rag_agent,8,2,fluoride_to_osda_ratio,F / (sda1 + 0.01),FLUORIDE_per_OSDA,10,3 5,both,known_relation,accepted,,0.422,-0.174,-0.245
+small_kg_rag_agent,8,3,arrhenius_thermal_dose,cryst_time * exp(-6000.0 / (cryst_temp + 273.15)),KINETIC_time_temp,10,1 2 5 7 10,both,new_combination,accepted,,0.422,-0.174,-0.245
+small_kg_rag_agent,9,1,inorganic_to_osda_charge_ratio,(Na + K + Li + Rb + Cs + 2*Ca + 2*Sr + 2*Ba) / (abs(osda_charge) * sda1 + 0.01),CHARGE_organic_vs_inorganic,10,2 5 6 7,both,new_combination,accepted,,-0.123,-0.087,-0.595
+small_kg_rag_agent,9,2,fluoride_to_osda_charge_ratio,F / (abs(osda_charge) * sda1 + 0.01),FLUORIDE_per_OSDA,10,3 5,both,new_combination,accepted,,-0.123,-0.087,-0.595
+small_kg_rag_agent,9,3,arrhenius_thermal_dose,cryst_time * exp(-90000 / (8.314 * (cryst_temp + 273.15) + 0.001)),KINETIC_time_temp,10,2 5 7 10,both,new_combination,accepted,,-0.123,-0.087,-0.595
